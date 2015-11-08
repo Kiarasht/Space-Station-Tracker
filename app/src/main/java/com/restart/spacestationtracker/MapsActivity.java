@@ -1,8 +1,11 @@
 package com.restart.spacestationtracker;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,7 +24,9 @@ import java.util.TimerTask;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private int refreshrate = 500;
+    private String TAG = "com.restart.spacestationtracker";
+    private static int refreshrate = 2500;
+    private boolean start = false;
     private GoogleMap mMap;
 
     @Override
@@ -31,6 +36,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    protected void onResume() {
+        super.onResume();
+        if (start) {
+            refreshrate = Settings.getRefreshrate();
+            Log.i(TAG, "MapsActivity Restart 1 " + refreshrate);
+        } else {
+            start = true;
+            Log.i(TAG, "MapsActivity Restart 2 " + refreshrate);
+        }
+    }
+
+    static public int getRefreshrate() {
+        return refreshrate;
     }
 
     /**
@@ -90,20 +110,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 try {
                     JSONObject results = new JSONObject(strContent).getJSONObject("iss_position");
 
-                        final double latParameter = Double.parseDouble(results.getString("latitude"));
-                        final double lngParameter = Double.parseDouble(results.getString("longitude"));
+                    final double latParameter = Double.parseDouble(results.getString("latitude"));
+                    final double lngParameter = Double.parseDouble(results.getString("longitude"));
 
-                        MapsActivity.this.runOnUiThread(new Runnable() {
-                            public void run() {
-                                LatLng ISS = new LatLng(latParameter, lngParameter);
-                                mMap.moveCamera(CameraUpdateFactory.newLatLng(ISS));
+                    MapsActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            LatLng ISS = new LatLng(latParameter, lngParameter);
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(ISS));
 
-                            }
-                        });
+                        }
+                    });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        menu.add("Settings").setIntent(new Intent(this, Settings.class));
+        return true;
     }
 }

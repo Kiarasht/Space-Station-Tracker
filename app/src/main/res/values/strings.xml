@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ISS Tracker</string>
     <string name="title_activity_maps">ISS Tracker</string>
+    <string name="seekBar">Refresh Rate</string>
 </resources>
