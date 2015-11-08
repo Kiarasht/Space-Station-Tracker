@@ -28,6 +28,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static int refreshrate = 2500;
     private boolean start = false;
     private GoogleMap mMap;
+    Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +43,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onResume();
         if (start) {
             refreshrate = Settings.getRefreshrate();
+            timer.cancel();
+            timer.purge();
+            timer = null;
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    trackISS();
+                }
+            }, 0, refreshrate);
             Log.i(TAG, "MapsActivity Restart 1 " + refreshrate);
         } else {
             start = true;
+            timer = new Timer();
             Log.i(TAG, "MapsActivity Restart 2 " + refreshrate);
         }
     }
@@ -63,7 +75,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         mMap.getUiSettings().setScrollGesturesEnabled(false);
-        new Timer().scheduleAtFixedRate(new TimerTask() {
+
+        timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 trackISS();
