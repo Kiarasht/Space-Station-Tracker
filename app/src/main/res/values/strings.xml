@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Space Station Tracker</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="app_name">ISS Tracker</string>
+    <string name="title_activity_maps">ISS Tracker</string>
 </resources>
