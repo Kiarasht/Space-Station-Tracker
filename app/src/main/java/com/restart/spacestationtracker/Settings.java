@@ -5,12 +5,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.DecimalFormat;
 
 public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeListener {
 
     private String TAG = "com.restart.spacestationtracker";
     private SeekBar seekBar;
+    private TextView textView;
     private static int refreshrate;
     private static boolean warning;
 
@@ -20,6 +24,7 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         setContentView(R.layout.layout_settings);
         seekBar = ((SeekBar) findViewById(R.id.seekBar));
         seekBar.setOnSeekBarChangeListener(this);
+        textView = ((TextView) findViewById(R.id.textView));
     }
 
     protected void onResume() {
@@ -32,6 +37,15 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        DecimalFormat df = new DecimalFormat("0.00");
+        String calculate = df.format((float) progress / 1000);
+
+        if (calculate.equals("0.00")) {
+            calculate = "0.01";
+        }
+
+        String result = "Refresh Rate (" + calculate + " sec/refresh)";
+        textView.setText(result);
         if (progress < 1000 && warning) {
             Toast.makeText(getApplicationContext(), "Reducing the refresh rate doesn't guarantee" +
                     " a smoother result since your phone may not be able to handle it."
@@ -47,7 +61,6 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-        sharedPref = getPreferences(Context.MODE_PRIVATE);
         editor = sharedPref.edit();
         if (seekBar.getProgress() == 0) {
             refreshrate = 1;

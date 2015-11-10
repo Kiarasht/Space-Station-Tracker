@@ -32,7 +32,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static int refreshrate;
     private boolean start = false;
     private GoogleMap mMap;
-    Timer timer;
+    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
