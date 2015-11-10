@@ -1,13 +1,13 @@
 package com.restart.spacestationtracker;
 
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-public class Settings extends Activity implements SeekBar.OnSeekBarChangeListener {
+public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeListener {
 
     private String TAG = "com.restart.spacestationtracker";
     private SeekBar seekBar;
@@ -24,14 +24,10 @@ public class Settings extends Activity implements SeekBar.OnSeekBarChangeListene
 
     protected void onResume() {
         super.onResume();
-        refreshrate = MapsActivity.getRefreshrate();
+        refreshrate = sharedPref.getInt(getString(R.string.freshsave), 2500);
         seekBar.setProgress(refreshrate);
         warning = true;
         Log.i(TAG, "Settings Restart " + refreshrate);
-    }
-
-    static public int getRefreshrate() {
-        return refreshrate;
     }
 
     @Override
@@ -51,10 +47,15 @@ public class Settings extends Activity implements SeekBar.OnSeekBarChangeListene
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
+        sharedPref = getPreferences(Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
         if (seekBar.getProgress() == 0) {
             refreshrate = 1;
+            editor.putInt(getString(R.string.freshsave), 1);
         } else {
             refreshrate = seekBar.getProgress();
+            editor.putInt(getString(R.string.freshsave), refreshrate);
         }
+        editor.apply();
     }
 }

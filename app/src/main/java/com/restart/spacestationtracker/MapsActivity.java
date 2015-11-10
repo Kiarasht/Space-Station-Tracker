@@ -1,6 +1,8 @@
 package com.restart.spacestationtracker;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -24,8 +26,10 @@ import java.util.TimerTask;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    protected SharedPreferences sharedPref;
+    protected SharedPreferences.Editor editor;
     private String TAG = "com.restart.spacestationtracker";
-    private static int refreshrate = 2500;
+    private static int refreshrate;
     private boolean start = false;
     private GoogleMap mMap;
     Timer timer;
@@ -34,6 +38,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        sharedPref = getPreferences(Context.MODE_PRIVATE);
+        refreshrate = sharedPref.getInt(getString(R.string.freshsave), 2500);
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -42,7 +50,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onResume() {
         super.onResume();
         if (start) {
-            refreshrate = Settings.getRefreshrate();
+            refreshrate = sharedPref.getInt(getString(R.string.freshsave), 2500);
             timer.cancel();
             timer.purge();
             timer = null;
@@ -59,10 +67,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             timer = new Timer();
             Log.i(TAG, "MapsActivity Restart 2 " + refreshrate);
         }
-    }
-
-    static public int getRefreshrate() {
-        return refreshrate;
     }
 
     /**
