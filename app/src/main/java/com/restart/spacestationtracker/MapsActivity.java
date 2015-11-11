@@ -1,6 +1,5 @@
 package com.restart.spacestationtracker;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -26,20 +25,20 @@ import java.util.TimerTask;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    protected SharedPreferences sharedPref;
-    protected SharedPreferences.Editor editor;
     private String TAG = "com.restart.spacestationtracker";
     private static int refreshrate;
     private boolean start = false;
     private GoogleMap mMap;
     private Timer timer;
+    protected SharedPreferences sharedPref;
+    protected SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        sharedPref = getPreferences(Context.MODE_PRIVATE);
+        sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
         refreshrate = sharedPref.getInt(getString(R.string.freshsave), 2500);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
