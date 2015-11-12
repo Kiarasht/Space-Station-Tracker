@@ -1,5 +1,5 @@
-# Space-Station-Tracker
-An android application that keeps track of the International Space Station.
+# Space Station Tracker
+An android application that keeps track of the International Space Station and notify you if it happens to pass by your location. It's also said that you should be able to see the station with a naked eye from earth. So keep an eye for it :)
 
 This library is using the following:
 - MaterialIntroTutorial https://github.com/spongebobrf/MaterialIntroTutorial
