@@ -39,6 +39,9 @@
         </activity>
 
         <activity android:name=".Settings" />
+
+        <activity android:name="za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>

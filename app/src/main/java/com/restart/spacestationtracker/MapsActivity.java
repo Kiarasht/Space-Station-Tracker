@@ -1,5 +1,6 @@
 package com.restart.spacestationtracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -7,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -20,12 +22,17 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import za.co.riggaroo.materialhelptutorial.TutorialItem;
+import za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private String TAG = "com.restart.spacestationtracker";
+    private static final int REQUEST_CODE = 1234;
     private static int refreshrate;
     private boolean start = false;
     private GoogleMap mMap;
@@ -44,6 +51,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        loadTutorial();
     }
 
     protected void onResume() {
@@ -148,5 +156,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreateOptionsMenu(menu);
         menu.add("Settings").setIntent(new Intent(this, Settings.class));
         return true;
+    }
+
+    public void loadTutorial() {
+        Intent mainAct = new Intent(this, MaterialTutorialActivity.class);
+        mainAct.putParcelableArrayListExtra(MaterialTutorialActivity.MATERIAL_TUTORIAL_ARG_TUTORIAL_ITEMS, getTutorialItems(this));
+        startActivityForResult(mainAct, REQUEST_CODE);
+    }
+
+    private ArrayList<TutorialItem> getTutorialItems(Context context) {
+        TutorialItem tutorialItem1 = new TutorialItem(context.getString(R.string.title_activity_maps), context.getString(R.string.seekBar),
+                R.color.colorAccent, R.drawable.ic_media_pause);
+
+        TutorialItem tutorialItem2 = new TutorialItem(context.getString(R.string.title_activity_maps), context.getString(R.string.seekBar),
+                R.color.colorAccent, R.drawable.ic_media_pause);
+
+        TutorialItem tutorialItem3 = new TutorialItem(context.getString(R.string.title_activity_maps), context.getString(R.string.seekBar),
+                R.color.colorAccent, R.drawable.ic_media_pause);
+
+        TutorialItem tutorialItem4 = new TutorialItem(context.getString(R.string.title_activity_maps), context.getString(R.string.seekBar),
+                R.color.colorAccent, R.drawable.ic_media_pause);
+
+        ArrayList<TutorialItem> tutorialItems = new ArrayList<>();
+        tutorialItems.add(tutorialItem1);
+        tutorialItems.add(tutorialItem2);
+        tutorialItems.add(tutorialItem3);
+        tutorialItems.add(tutorialItem4);
+
+
+        return tutorialItems;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+            Toast.makeText(this, "Tutorial finished", Toast.LENGTH_LONG).show();
+        }
     }
 }
