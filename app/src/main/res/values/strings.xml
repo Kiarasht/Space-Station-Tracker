@@ -3,6 +3,7 @@
     <string name="title_activity_maps">ISS Tracker</string>
     <string name="seekBar">Refresh Rate</string>
     <string name="freshsave">freshsave</string>
+    <string name="firsttime">firsttime</string>
 
     <string name="tutorial_title1">Track ISS</string>
     <string name="tutorial_descr1">Always know the exact position the International Space Station

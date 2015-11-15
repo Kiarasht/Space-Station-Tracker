@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -47,11 +46,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
         refreshrate = sharedPref.getInt(getString(R.string.freshsave), 2500);
+        boolean firsttime = sharedPref.getBoolean(getString(R.string.firsttime), true);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        loadTutorial();
+        if (firsttime) {
+            editor = sharedPref.edit();
+            editor.putBoolean(getString(R.string.firsttime), false);
+            editor.apply();
+            loadTutorial();
+        }
     }
 
     protected void onResume() {
@@ -68,7 +73,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     trackISS();
                 }
             }, 0, refreshrate);
-            Log.d(TAG, "MapsActivity Restart 1 " + refreshrate);
+            Log.i(TAG, "MapsActivity Restart 1 " + refreshrate);
         } else {
             start = true;
             timer = new Timer();
@@ -189,7 +194,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-            Toast.makeText(this, "Tutorial finished", Toast.LENGTH_LONG).show();
+            Log.i(TAG, "Tutorial finished successfully.");
         }
     }
 }
