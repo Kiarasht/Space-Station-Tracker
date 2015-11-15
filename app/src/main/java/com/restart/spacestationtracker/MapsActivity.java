@@ -68,7 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     trackISS();
                 }
             }, 0, refreshrate);
-            Log.i(TAG, "MapsActivity Restart 1 " + refreshrate);
+            Log.d(TAG, "MapsActivity Restart 1 " + refreshrate);
         } else {
             start = true;
             timer = new Timer();
@@ -165,24 +165,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private ArrayList<TutorialItem> getTutorialItems(Context context) {
-        TutorialItem tutorialItem1 = new TutorialItem(context.getString(R.string.title_activity_maps), context.getString(R.string.seekBar),
-                R.color.colorAccent, R.drawable.ic_media_pause);
+        TutorialItem tutorialItem1 = new TutorialItem(context.getString(R.string.tutorial_title1), context.getString(R.string.tutorial_descr1),
+                R.color.tutorial_color1, R.drawable.tutorial_picture1);
 
-        TutorialItem tutorialItem2 = new TutorialItem(context.getString(R.string.title_activity_maps), context.getString(R.string.seekBar),
-                R.color.colorAccent, R.drawable.ic_media_pause);
+        TutorialItem tutorialItem2 = new TutorialItem(context.getString(R.string.tutorial_title2), context.getString(R.string.tutorial_descr2),
+                R.color.tutorial_color2, R.drawable.tutorial_picture2);
 
-        TutorialItem tutorialItem3 = new TutorialItem(context.getString(R.string.title_activity_maps), context.getString(R.string.seekBar),
-                R.color.colorAccent, R.drawable.ic_media_pause);
+        TutorialItem tutorialItem3 = new TutorialItem(context.getString(R.string.tutorial_title3), context.getString(R.string.tutorial_descr3),
+                R.color.tutorial_color3, R.drawable.tutorial_picture3);
 
-        TutorialItem tutorialItem4 = new TutorialItem(context.getString(R.string.title_activity_maps), context.getString(R.string.seekBar),
-                R.color.colorAccent, R.drawable.ic_media_pause);
+        TutorialItem tutorialItem4 = new TutorialItem(context.getString(R.string.tutorial_title4), context.getString(R.string.tutorial_descr4),
+                R.color.tutorial_color4, R.drawable.tutorial_picture4);
 
         ArrayList<TutorialItem> tutorialItems = new ArrayList<>();
         tutorialItems.add(tutorialItem1);
         tutorialItems.add(tutorialItem2);
         tutorialItems.add(tutorialItem3);
         tutorialItems.add(tutorialItem4);
-
 
         return tutorialItems;
     }

@@ -3,4 +3,20 @@
     <string name="title_activity_maps">ISS Tracker</string>
     <string name="seekBar">Refresh Rate</string>
     <string name="freshsave">freshsave</string>
+
+    <string name="tutorial_title1">Track ISS</string>
+    <string name="tutorial_descr1">Always know the exact position the International Space Station
+        is at.</string>
+
+    <string name="tutorial_title2">Be Notified</string>
+    <string name="tutorial_descr2">Turn on notifications to know when ISS is expected to pass by
+        your location.</string>
+
+    <string name="tutorial_title3">Be in Control</string>
+    <string name="tutorial_descr3">Modify settings such as refresh rate to modify the application
+        to your likings.</string>
+
+    <string name="tutorial_title4">Keep an Open Eye</string>
+    <string name="tutorial_descr4">The International Space Station can be looked at from earth
+        with a naked eye. So keep an eye for it. :)</string>
 </resources>
