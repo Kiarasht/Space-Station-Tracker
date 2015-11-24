@@ -1,11 +1,17 @@
 package com.restart.spacestationtracker;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.Menu;
 
@@ -36,6 +42,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private boolean start = false;
     private GoogleMap mMap;
     private Timer timer;
+    private Context context;
+    private final int mId = 1234;
     protected SharedPreferences sharedPref;
     protected SharedPreferences.Editor editor;
 
@@ -47,6 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
         refreshrate = sharedPref.getInt(getString(R.string.freshsave), 2500);
         boolean firsttime = sharedPref.getBoolean(getString(R.string.firsttime), true);
+        context = getApplicationContext();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -57,6 +66,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             editor.apply();
             loadTutorial();
         }
+        notification();
     }
 
     protected void onResume() {
@@ -196,5 +206,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             Log.i(TAG, "Tutorial finished successfully.");
         }
+    }
+
+    private void notification() {
+        Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
+                R.drawable.iss_2011);
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setAutoCancel(true)
+                        .setContentTitle("ISS Tracker")
+                        .setContentText("ISS will pass by your location today!")
+                        .setSmallIcon(R.drawable.iss_2011)
+                        .setLargeIcon(icon);
+
+        Intent resultIntent = new Intent(context, MapsActivity.class);
+
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+
+        stackBuilder.addParentStack(MapsActivity.class);
+
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        mNotificationManager.notify(mId, mBuilder.build());
     }
 }
