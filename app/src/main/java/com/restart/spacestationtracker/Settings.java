@@ -11,7 +11,7 @@ import java.text.DecimalFormat;
 
 public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeListener {
 
-    private String TAG = "com.restart.spacestationtracker";
+    private static final String TAG = "com.restart.Settings";
     private SeekBar seekBar;
     private TextView textView;
     private static int refreshrate;

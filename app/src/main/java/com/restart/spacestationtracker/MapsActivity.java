@@ -36,7 +36,7 @@ import za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private String TAG = "com.restart.spacestationtracker";
+    private static final String TAG = "com.restart.MapsActivity";
     private static final int REQUEST_CODE = 1234;
     private static int refreshrate;
     private boolean start = false;
@@ -170,6 +170,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         menu.add("Settings").setIntent(new Intent(this, Settings.class));
+        menu.add("Location").setIntent(new Intent(this, Locations.class));
         return true;
     }
 
