@@ -36,14 +36,14 @@ import za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private static final String TAG = "com.restart.MapsActivity";
+    private static final String TAG = ".MapsActivity";
     private static final int REQUEST_CODE = 1234;
     private static int refreshrate;
+    private final int mId = 1234;
     private boolean start = false;
     private GoogleMap mMap;
     private Timer timer;
     private Context context;
-    private final int mId = 1234;
     protected SharedPreferences sharedPref;
     protected SharedPreferences.Editor editor;
 
@@ -132,7 +132,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             } else if (intRead == -1) {
                                 break;
-
                             }
 
                             strContent += new String(byteBuffer, 0, intRead, "UTF-8");
@@ -156,7 +155,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         public void run() {
                             LatLng ISS = new LatLng(latParameter, lngParameter);
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(ISS));
-
                         }
                     });
                 } catch (JSONException e) {
