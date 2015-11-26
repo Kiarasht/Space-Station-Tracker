@@ -19,7 +19,6 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -181,8 +180,8 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
 
                 try {
                     JSONArray aresults = new JSONObject(strContent).getJSONArray("response");
-                    int [] duration = new int[aresults.length()];
-                    Date [] date = new Date[aresults.length()];
+                    int[] duration = new int[aresults.length()];
+                    Date[] date = new Date[aresults.length()];
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault());
                     final StringBuilder stringBuilder = new StringBuilder();
 
@@ -190,7 +189,7 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
                         JSONObject apass = aresults.getJSONObject(i);
                         date[i] = new Date(Long.parseLong(apass.getString("risetime")) * 1000L);
                         duration[i] = apass.getInt("duration") / 60;
-                        stringBuilder.append(i+1).append(".  ")
+                        stringBuilder.append(i + 1).append(".  ")
                                 .append(simpleDateFormat.format(date[i]))
                                 .append(" for ").append(duration[i])
                                 .append(" m\n\n");

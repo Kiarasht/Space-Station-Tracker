@@ -67,7 +67,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             editor.apply();
             loadTutorial();
         }
-        notification();
     }
 
     protected void onResume() {
