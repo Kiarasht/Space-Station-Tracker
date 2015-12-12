@@ -23,7 +23,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Locations extends MapsActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+/**
+ * Contains solely based on Json parsing to read the expected time and dates the ISS
+ * will pass by the user's location. This class will require to read user's location
+ * to function properly.
+ */
+public class Locations extends MapsActivity implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = ".Locations";
     private TextView countrycity;
@@ -33,6 +39,10 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
     protected GoogleApiClient mGoogleApiClient;
     protected Location mLastLocation;
 
+    /**
+     * Assign simple widgets while also use the Google API to get user's location.
+     * @param savedInstanceState on create method
+     */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_locations);
@@ -41,6 +51,11 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
         buildGoogleApiClient();
     }
 
+    /**
+     * The method for building our Google API. On method of this class
+     * are includes only because of this API. We will later try and find
+     * user's location.
+     */
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -63,6 +78,10 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
         }
     }
 
+    /**
+     * API was successful in getting the location. Parse them into strings.
+     * @param connectionHint Bundle connectionHint
+     */
     @Override
     public void onConnected(Bundle connectionHint) {
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
@@ -84,16 +103,22 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + connectionResult.getErrorCode());
+        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " +
+                connectionResult.getErrorCode());
     }
 
+    /**
+     * After successfully getting a Latitude and Longitude from the API, search a database to see
+     * what city and country do these correspond to.
+     */
     private void displayresults() {
         AsyncTask.execute(new Runnable() {
             public void run() {
                 String strContent = "";
 
                 try {
-                    URL urlHandle = new URL("http://scatter-otl.rhcloud.com/location?lat=" + mLatitude + "&long=" + mLontitude);
+                    URL urlHandle = new URL("http://scatter-otl.rhcloud.com/location?lat=" +
+                            mLatitude + "&long=" + mLontitude);
                     URLConnection urlconnectionHandle = urlHandle.openConnection();
                     InputStream inputstreamHandle = urlconnectionHandle.getInputStream();
 
@@ -143,13 +168,18 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
         });
     }
 
+    /**
+     * After successfully getting a city and country from the last JSON parsing, search a database
+     * to see when ISS will pass by this city, country.
+     */
     private void displaypasses() {
         AsyncTask.execute(new Runnable() {
             public void run() {
                 String strContent = "";
 
                 try {
-                    URL urlHandle = new URL("http://api.open-notify.org/iss-pass.json?lat=" + mLatitude + "&lon=" + mLontitude);
+                    URL urlHandle = new URL("http://api.open-notify.org/iss-pass.json?lat=" +
+                            mLatitude + "&lon=" + mLontitude);
                     URLConnection urlconnectionHandle = urlHandle.openConnection();
                     InputStream inputstreamHandle = urlconnectionHandle.getInputStream();
 

@@ -35,6 +35,10 @@ import java.util.TimerTask;
 import za.co.riggaroo.materialhelptutorial.TutorialItem;
 import za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity;
 
+/**
+ * Contains the google map and uses various API and JSON objects to display
+ * the position of the ISS picture on the map and update it occasionally.
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final String TAG = ".MapsActivity";
@@ -48,6 +52,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected SharedPreferences sharedPref;
     protected SharedPreferences.Editor editor;
 
+    /**
+     * When the application begins try to read from SharedPreferences
+     *
+     * @param savedInstanceState on create method
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +78,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    /**
+     * On resume, the user might have visited the setting activity. Reread the
+     * refreshrate.
+     * onResume gets called right after onCreate for example when the application
+     * gets opened for the first time, or might get called solely if user switches to this
+     * activity. If/else for both situations
+     * http://i.stack.imgur.com/1byIg.png
+     */
     protected void onResume() {
         super.onResume();
         if (start) {
@@ -164,6 +181,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
+    /**
+     * Create more activity option accessible in the top right corner of the screen. The
+     * activities will also need to be declared in the AndroidManifest
+     *
+     * @param menu Object we need to manipulate to add our activities.
+     * @return Return results
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -172,23 +196,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return true;
     }
 
+    /**
+     * Tutorial for first time users opening the applications
+     */
     public void loadTutorial() {
         Intent mainAct = new Intent(this, MaterialTutorialActivity.class);
-        mainAct.putParcelableArrayListExtra(MaterialTutorialActivity.MATERIAL_TUTORIAL_ARG_TUTORIAL_ITEMS, getTutorialItems(this));
+        mainAct.putParcelableArrayListExtra(
+                MaterialTutorialActivity.MATERIAL_TUTORIAL_ARG_TUTORIAL_ITEMS, getTutorialItems(this));
         startActivityForResult(mainAct, REQUEST_CODE);
     }
 
+    /**
+     * 4 TutorialItems each representing a page with their own text and picture.
+     *
+     * @param context getApplicationContext();
+     * @return The array list of tutorial pages
+     */
     private ArrayList<TutorialItem> getTutorialItems(Context context) {
-        TutorialItem tutorialItem1 = new TutorialItem(context.getString(R.string.tutorial_title1), context.getString(R.string.tutorial_descr1),
+        TutorialItem tutorialItem1 = new TutorialItem(context.getString(R.string.tutorial_title1),
+                context.getString(R.string.tutorial_descr1),
                 R.color.tutorial_color1, R.drawable.tutorial_picture1);
 
-        TutorialItem tutorialItem2 = new TutorialItem(context.getString(R.string.tutorial_title2), context.getString(R.string.tutorial_descr2),
+        TutorialItem tutorialItem2 = new TutorialItem(context.getString(R.string.tutorial_title2),
+                context.getString(R.string.tutorial_descr2),
                 R.color.tutorial_color2, R.drawable.tutorial_picture2);
 
-        TutorialItem tutorialItem3 = new TutorialItem(context.getString(R.string.tutorial_title3), context.getString(R.string.tutorial_descr3),
+        TutorialItem tutorialItem3 = new TutorialItem(context.getString(R.string.tutorial_title3),
+                context.getString(R.string.tutorial_descr3),
                 R.color.tutorial_color3, R.drawable.tutorial_picture3);
 
-        TutorialItem tutorialItem4 = new TutorialItem(context.getString(R.string.tutorial_title4), context.getString(R.string.tutorial_descr4),
+        TutorialItem tutorialItem4 = new TutorialItem(context.getString(R.string.tutorial_title4),
+                context.getString(R.string.tutorial_descr4),
                 R.color.tutorial_color4, R.drawable.tutorial_picture4);
 
         ArrayList<TutorialItem> tutorialItems = new ArrayList<>();
@@ -200,6 +238,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return tutorialItems;
     }
 
+    /**
+     * Results received from the tutorial actions
+     *
+     * @param requestCode Should be 1234
+     * @param resultCode  Should be -1
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
@@ -207,6 +251,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    /**
+     * Notification system that is used for this app. All we need to do is call this function
+     * when we need to trigger a notification.
+     */
     private void notification() {
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
                 R.drawable.iss_2011);
@@ -218,11 +266,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .setSmallIcon(R.drawable.iss_2011)
                         .setLargeIcon(icon);
 
-        Intent resultIntent = new Intent(context, MapsActivity.class);
+        Intent resultIntent = new Intent(context, Locations.class);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 
-        stackBuilder.addParentStack(MapsActivity.class);
+        stackBuilder.addParentStack(Locations.class);
 
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =
