@@ -70,6 +70,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
         if (firsttime) {
             editor = sharedPref.edit();
             editor.putBoolean(getString(R.string.firsttime), false);
@@ -100,11 +101,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     trackISS();
                 }
             }, 0, refreshrate);
-            Log.i(TAG, "MapsActivity Restart 1 " + refreshrate);
+            Log.i(TAG, "MapsActivity onResume 1 " + refreshrate);
         } else {
             start = true;
             timer = new Timer();
-            Log.i(TAG, "MapsActivity Restart 2 " + refreshrate);
+            Log.i(TAG, "MapsActivity onResume 2 " + refreshrate);
         }
     }
 
@@ -125,6 +126,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 trackISS();
             }
         }, 0, refreshrate);
+        Log.i(TAG, "MapsActivity onMapReady 1 " + refreshrate);
     }
 
     private void trackISS() {

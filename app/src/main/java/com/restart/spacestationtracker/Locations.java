@@ -5,6 +5,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,6 +89,7 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
         if (mLastLocation != null) {
             mLatitude = String.valueOf(mLastLocation.getLatitude());
             mLontitude = String.valueOf(mLastLocation.getLongitude());
+            Log.d(TAG, "LON = " + mLontitude + " LAT = " + mLatitude);
             displayresults();
             displaypasses();
         } else {
@@ -222,13 +224,22 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
                         stringBuilder.append(i + 1).append(".  ")
                                 .append(simpleDateFormat.format(date[i]))
                                 .append(" for ").append(duration[i])
-                                .append(" m\n\n");
+                                .append(" minutes\n\n");
                     }
 
                     Locations.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             isspasses.setText(stringBuilder);
+
+                            if (countrycity.getText().toString().trim().length() == 0) {
+                                final StringBuilder nocountrycity = new StringBuilder();
+                                        nocountrycity.append("LAT: ")
+                                                .append(mLatitude)
+                                                .append(" LON: ")
+                                                .append(mLontitude);
+                                countrycity.setText(nocountrycity);
+                            }
                         }
                     });
 
@@ -237,5 +248,10 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 }

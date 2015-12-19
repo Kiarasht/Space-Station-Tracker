@@ -3,6 +3,7 @@ package com.restart.spacestationtracker;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -95,5 +96,10 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
             editor.putInt(getString(R.string.freshsave), refreshrate);
         }
         editor.apply();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 }
