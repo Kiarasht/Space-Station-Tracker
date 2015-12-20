@@ -119,8 +119,13 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
                 String strContent = "";
 
                 try {
-                    URL urlHandle = new URL("http://scatter-otl.rhcloud.com/location?lat=" +
-                            mLatitude + "&long=" + mLontitude);
+/*                    URL urlHandle = new URL("http://scatter-otl.rhcloud.com/location?lat=" +
+                            mLatitude + "&long=" + mLontitude);*/
+                    URL urlHandle = new URL("http://maps.googleapis.com/maps/api/geocode/json?latlng=" +
+                            mLatitude +
+                            "," +
+                            mLontitude +
+                            "&sensor=false");
                     URLConnection urlconnectionHandle = urlHandle.openConnection();
                     InputStream inputstreamHandle = urlconnectionHandle.getInputStream();
 
@@ -150,11 +155,8 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
                 }
 
                 try {
-                    JSONObject results = new JSONObject(strContent);
-
-                    final String mCountry = results.getString("countrycode");
-                    final String mCity = results.getString("city");
-                    final String mLocation = mCountry + ", " + mCity;
+                    JSONObject results = new JSONObject(strContent).getJSONArray("results").getJSONObject(1);
+                    final String mLocation = results.getString("formatted_address");
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -224,7 +226,7 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
                         stringBuilder.append(i + 1).append(".  ")
                                 .append(simpleDateFormat.format(date[i]))
                                 .append(" for ").append(duration[i])
-                                .append(" minutes\n\n");
+                                .append(" minutes.\n\n");
                     }
 
                     Locations.this.runOnUiThread(new Runnable() {
