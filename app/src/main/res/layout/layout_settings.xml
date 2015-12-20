@@ -25,6 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.05"
-        android:max="5000"
-        android:maxHeight="1000dp"/>
+        android:max="4000"
+        android:maxHeight="1000dp" />
 </LinearLayout>

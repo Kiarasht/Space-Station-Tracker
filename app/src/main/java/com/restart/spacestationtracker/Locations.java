@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,11 +43,13 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
 
     /**
      * Assign simple widgets while also use the Google API to get user's location.
+     *
      * @param savedInstanceState on create method
      */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_locations);
+        startAnimation();
         countrycity = (TextView) findViewById(R.id.textView2);
         isspasses = (TextView) findViewById(R.id.textView3);
         buildGoogleApiClient();
@@ -81,6 +84,7 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
 
     /**
      * API was successful in getting the location. Parse them into strings.
+     *
      * @param connectionHint Bundle connectionHint
      */
     @Override
@@ -119,8 +123,6 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
                 String strContent = "";
 
                 try {
-/*                    URL urlHandle = new URL("http://scatter-otl.rhcloud.com/location?lat=" +
-                            mLatitude + "&long=" + mLontitude);*/
                     URL urlHandle = new URL("http://maps.googleapis.com/maps/api/geocode/json?latlng=" +
                             mLatitude +
                             "," +
@@ -232,14 +234,16 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
                     Locations.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            endAnimation();
+                            isspasses.setVisibility(View.VISIBLE);
                             isspasses.setText(stringBuilder);
 
                             if (countrycity.getText().toString().trim().length() == 0) {
                                 final StringBuilder nocountrycity = new StringBuilder();
-                                        nocountrycity.append("LAT: ")
-                                                .append(mLatitude)
-                                                .append(" LON: ")
-                                                .append(mLontitude);
+                                nocountrycity.append("LAT: ")
+                                        .append(mLatitude)
+                                        .append(" LON: ")
+                                        .append(mLontitude);
                                 countrycity.setText(nocountrycity);
                             }
                         }
@@ -255,5 +259,13 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
+    }
+
+    void startAnimation() {
+        findViewById(R.id.avloadingIndicatorView).setVisibility(View.VISIBLE);
+    }
+
+    void endAnimation() {
+        findViewById(R.id.avloadingIndicatorView).setVisibility(View.GONE);
     }
 }

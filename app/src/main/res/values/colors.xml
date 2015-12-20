@@ -8,4 +8,6 @@
     <color name="tutorial_color2">#fb9c25</color>
     <color name="tutorial_color3">#5ab55d</color>
     <color name="tutorial_color4">#ea2d6d</color>
+
+    <color name="white">#FFFFFF</color>
 </resources>

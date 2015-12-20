@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
@@ -20,10 +19,10 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
     private SeekBar seekBar;
     private TextView textView;
     private static int refreshrate;
-    private static boolean warning;
 
     /**
      * Create and assign widgets to ones in the layout
+     *
      * @param savedInstanceState on create method
      */
     @Override
@@ -42,8 +41,11 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
     protected void onResume() {
         super.onResume();
         refreshrate = sharedPref.getInt(getString(R.string.freshsave), 2500);
-        seekBar.setProgress(refreshrate);
-        warning = true;
+        if (refreshrate == 1000) {
+            String result = "Refresh Rate (1.00 sec/refresh)";
+            textView.setText(result);
+        }
+        seekBar.setProgress(refreshrate - 1000);
         Log.i(TAG, "Settings Restart " + refreshrate);
     }
 
@@ -52,49 +54,35 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
      * correctly to only two digits. If we can also warn them, put up a Toast.
      * This is very similar to increasing phone's volume with headphones.
      * "High volume for long periods may damage your hearing."
-     * @param seekBar The only seekbar in the layout
+     *
+     * @param seekBar  The only seekbar in the layout
      * @param progress An int representing progress of seekbar
      * @param fromUser Is the change from the user?
      */
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         DecimalFormat df = new DecimalFormat("0.00");
-        String calculate = df.format((float) progress / 1000);
-
-        if (calculate.equals("0.00")) {
-            calculate = "0.01";
-        }
+        String calculate = df.format((float) (progress + 1000) / 1000);
 
         String result = "Refresh Rate (" + calculate + " sec/refresh)";
         textView.setText(result);
-        if (progress < 1000 && warning) {
-            Toast.makeText(getApplicationContext(), "Reducing the refresh rate doesn't guarantee" +
-                    " a smoother result since your phone may not be able to handle it."
-                    , Toast.LENGTH_LONG).show();
-            warning = false;
-        }
     }
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-
     }
 
     /**
      * We can't accept a seekbar result of zero. We will, so we will give it a 1 otherwise
      * put what ever it was set to.
+     *
      * @param seekBar The seekbar widget that was stopped changing
      */
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         editor = sharedPref.edit();
-        if (seekBar.getProgress() == 0) {
-            refreshrate = 1;
-            editor.putInt(getString(R.string.freshsave), 1);
-        } else {
-            refreshrate = seekBar.getProgress();
-            editor.putInt(getString(R.string.freshsave), refreshrate);
-        }
+        refreshrate = seekBar.getProgress() + 1000;
+        editor.putInt(getString(R.string.freshsave), refreshrate);
         editor.apply();
     }
 
