@@ -240,6 +240,7 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
                                 .append(" minutes.\n\n");
                     }
 
+                    if (mLatitudepar == null && mLontitudepar == null)
                     Locations.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
