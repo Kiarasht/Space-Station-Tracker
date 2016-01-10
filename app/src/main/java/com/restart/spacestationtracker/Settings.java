@@ -1,11 +1,15 @@
 package com.restart.spacestationtracker;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
@@ -18,7 +22,9 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
     private static final String TAG = ".Settings";
     private SeekBar seekBar;
     private TextView textView;
-    private static int refreshrate;
+    private CheckBox checkBox;
+    private Boolean notification;
+    private int refreshrate;
 
     /**
      * Create and assign widgets to ones in the layout
@@ -32,6 +38,7 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         seekBar = ((SeekBar) findViewById(R.id.seekBar));
         seekBar.setOnSeekBarChangeListener(this);
         textView = ((TextView) findViewById(R.id.textView));
+        checkBox = ((CheckBox) findViewById(R.id.checkBox));
     }
 
     /**
@@ -41,6 +48,8 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
     protected void onResume() {
         super.onResume();
         refreshrate = sharedPref.getInt(getString(R.string.freshsave), 2500);
+        notification = sharedPref.getBoolean(getString(R.string.notificationcheck), true);
+        checkBox.setChecked(notification);
         if (refreshrate == 1000) {
             String result = "Refresh Rate (1.00 sec/refresh)";
             textView.setText(result);
@@ -89,5 +98,18 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
+    }
+
+    public void onCheckboxClicked(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+        sharedPref.edit().putBoolean(getString(R.string.notificationcheck), checked).apply();
+
+        if (checked) {
+            Toast.makeText(this, "I'll notify you when ISS is close by.", Toast.LENGTH_SHORT).show();
+            startService(new Intent(this, Alert.class));
+        } else {
+            Toast.makeText(this, "I'll make sure not annoy you anymore :(", Toast.LENGTH_SHORT).show();
+            stopService(new Intent(this, Alert.class));
+        }
     }
 }

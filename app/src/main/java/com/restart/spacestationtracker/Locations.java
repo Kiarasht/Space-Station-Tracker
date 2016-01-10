@@ -95,7 +95,7 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
             mLontitude = String.valueOf(mLastLocation.getLongitude());
             Log.d(TAG, "LON = " + mLontitude + " LAT = " + mLatitude);
             displayresults();
-            displaypasses();
+            displaypasses(null, null);
         } else {
             Toast.makeText(this, "Unable to find your location.", Toast.LENGTH_LONG).show();
         }
@@ -178,14 +178,22 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
      * After successfully getting a city and country from the last JSON parsing, search a database
      * to see when ISS will pass by this city, country.
      */
-    private void displaypasses() {
+    public Date [] displaypasses(final String mLatitudepar, final String mLontitudepar) {
+        final Date [] passes = new Date[10];
+
         AsyncTask.execute(new Runnable() {
             public void run() {
                 String strContent = "";
 
                 try {
-                    URL urlHandle = new URL("http://api.open-notify.org/iss-pass.json?lat=" +
-                            mLatitude + "&lon=" + mLontitude);
+                    URL urlHandle;
+                    if (mLatitudepar == null && mLontitudepar == null) {
+                        urlHandle = new URL("http://api.open-notify.org/iss-pass.json?lat=" +
+                                mLatitude + "&lon=" + mLontitude);
+                    } else {
+                        urlHandle = new URL("http://api.open-notify.org/iss-pass.json?lat=" +
+                                mLatitudepar + "&lon=" + mLontitudepar);
+                    }
                     URLConnection urlconnectionHandle = urlHandle.openConnection();
                     InputStream inputstreamHandle = urlconnectionHandle.getInputStream();
 
@@ -224,6 +232,7 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
                     for (int i = 0; i < aresults.length(); ++i) {
                         JSONObject apass = aresults.getJSONObject(i);
                         date[i] = new Date(Long.parseLong(apass.getString("risetime")) * 1000L);
+                        passes[i] = new Date(Long.parseLong(apass.getString("risetime")) * 1000L);
                         duration[i] = apass.getInt("duration") / 60;
                         stringBuilder.append(i + 1).append(".  ")
                                 .append(simpleDateFormat.format(date[i]))
@@ -254,6 +263,7 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
                 }
             }
         });
+        return passes;
     }
 
     @Override

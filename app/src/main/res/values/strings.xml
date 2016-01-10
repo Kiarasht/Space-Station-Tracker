@@ -21,4 +21,6 @@
     <string name="tutorial_descr4">The International Space Station can be looked at from earth
         with a naked eye. So keep an eye for it. :)</string>
     <string name="picdescription">Crosshair</string>
+    <string name="notification">Notification</string>
+    <string name="notificationcheck">notification</string>
 </resources>
