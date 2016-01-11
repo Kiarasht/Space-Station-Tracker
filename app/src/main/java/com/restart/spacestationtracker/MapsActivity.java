@@ -1,18 +1,12 @@
 package com.restart.spacestationtracker;
 
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.Menu;
 
@@ -44,7 +38,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final String TAG = ".MapsActivity";
     private static final int REQUEST_CODE = 1234;
     private static int refreshrate;
-    private final int mId = 1234;
     private boolean start = false;
     private GoogleMap mMap;
     private Timer timer;
@@ -251,39 +244,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             Log.i(TAG, "Tutorial finished successfully.");
         }
-    }
-
-    /**
-     * Notification system that is used for this app. All we need to do is call this function
-     * when we need to trigger a notification.
-     */
-    private void notification() {
-        Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
-                R.drawable.iss_2011);
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setAutoCancel(true)
-                        .setContentTitle("ISS Tracker")
-                        .setContentText("ISS will pass by your location today!")
-                        .setSmallIcon(R.drawable.iss_2011)
-                        .setLargeIcon(icon);
-
-        Intent resultIntent = new Intent(context, Locations.class);
-
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-
-        stackBuilder.addParentStack(Locations.class);
-
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(
-                        0,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
-        mBuilder.setContentIntent(resultPendingIntent);
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        mNotificationManager.notify(mId, mBuilder.build());
     }
 }

@@ -35,6 +35,7 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_settings);
+
         seekBar = ((SeekBar) findViewById(R.id.seekBar));
         seekBar.setOnSeekBarChangeListener(this);
         textView = ((TextView) findViewById(R.id.textView));
@@ -100,12 +101,17 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         return true;
     }
 
+    /**
+     * Onclick method for the check box. Either starts or stops an android service.
+     *
+     * @param view A view of the check box
+     */
     public void onCheckboxClicked(View view) {
         boolean checked = ((CheckBox) view).isChecked();
         sharedPref.edit().putBoolean(getString(R.string.notificationcheck), checked).apply();
 
         if (checked) {
-            Toast.makeText(this, "I'll notify you when ISS is close by.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "I'll notify you when ISS is close by :)", Toast.LENGTH_SHORT).show();
             startService(new Intent(this, Alert.class));
         } else {
             Toast.makeText(this, "I'll make sure not annoy you anymore :(", Toast.LENGTH_SHORT).show();
