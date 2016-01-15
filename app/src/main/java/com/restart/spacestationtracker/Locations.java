@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -56,6 +58,10 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
         countrycity = (TextView) findViewById(R.id.textView2);
         isspasses = (TextView) findViewById(R.id.textView3);
         buildGoogleApiClient();
+
+        AdView adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 
     /**

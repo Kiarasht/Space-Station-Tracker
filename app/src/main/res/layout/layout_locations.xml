@@ -1,34 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:baselineAligned="false"
+    android:configChanges="orientation"
+    android:screenOrientation="portrait"
     android:weightSum="1">
 
     <Space
+        android:id="@+id/space2"
         android:layout_width="match_parent"
         android:layout_height="15dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_gravity="center_horizontal" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/space2"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Space
+        android:id="@+id/space"
         android:layout_width="match_parent"
         android:layout_height="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
         android:layout_gravity="center_horizontal" />
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/avloadingIndicatorView"
         android:layout_width="92dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/space"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.13"
+        android:layout_marginStart="292dp"
         android:visibility="visible"
         app:indicator="BallClipRotateMultiple"
         app:indicator_color="@color/white" />
@@ -37,8 +50,18 @@
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/space"
         android:padding="10dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:visibility="gone" />
 
-</LinearLayout>
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id" />
+</RelativeLayout>

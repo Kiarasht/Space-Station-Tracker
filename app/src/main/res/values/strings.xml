@@ -23,4 +23,11 @@
     <string name="picdescription">Crosshair</string>
     <string name="notification">Notification</string>
     <string name="notificationcheck">notification</string>
+    <string name="title_activity_ad">AdActivity</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="banner_ad_unit_id">ca-app-pub-1850763013639682/8514340237</string>
 </resources>

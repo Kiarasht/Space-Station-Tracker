@@ -11,6 +11,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.text.DecimalFormat;
 
 /**
@@ -39,6 +42,10 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         seekBar.setOnSeekBarChangeListener(this);
         textView = ((TextView) findViewById(R.id.textView));
         checkBox = ((CheckBox) findViewById(R.id.checkBox));
+
+        AdView adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 
     /**

@@ -25,7 +25,7 @@ import java.util.TimerTask;
 
 public class Alert extends Service {
     private static final String TAG = ".Alert";
-    private static final int LOCATION_TIME = 3400000; // 56.67 minutes
+    private static final int LOCATION_TIME = 50000; // 8.3 minutes
     private static final int LOCATION_DISTANCE = 500; // 500 meters
     private LocationManager locationManager;
     private Context context;
@@ -108,7 +108,7 @@ public class Alert extends Service {
                     }
                 }
             }
-        }, 0, 3600000);
+        }, 0, 600000);
     }
 
     @Override
