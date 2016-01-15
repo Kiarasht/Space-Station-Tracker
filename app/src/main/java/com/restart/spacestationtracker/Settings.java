@@ -43,9 +43,9 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         textView = ((TextView) findViewById(R.id.textView));
         checkBox = ((CheckBox) findViewById(R.id.checkBox));
 
-        AdView adView = (AdView) findViewById(R.id.adView);
+/*        AdView adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
+        adView.loadAd(adRequest);*/
     }
 
     /**
