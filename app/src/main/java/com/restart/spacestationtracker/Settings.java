@@ -23,7 +23,6 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
     private SeekBar seekBar;
     private TextView textView;
     private CheckBox checkBox;
-    private Boolean notification;
     private int refreshrate;
 
     /**
@@ -49,7 +48,7 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
     protected void onResume() {
         super.onResume();
         refreshrate = sharedPref.getInt(getString(R.string.freshsave), 2500);
-        notification = sharedPref.getBoolean(getString(R.string.notificationcheck), true);
+        Boolean notification = sharedPref.getBoolean(getString(R.string.notificationcheck), true);
         checkBox.setChecked(notification);
         if (refreshrate == 1000) {
             String result = "Refresh Rate (1.00 sec/refresh)";
@@ -114,7 +113,7 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
             Toast.makeText(this, "I'll notify you when ISS is close by :)", Toast.LENGTH_SHORT).show();
             startService(new Intent(this, Alert.class));
         } else {
-            Toast.makeText(this, "I'll make sure not annoy you anymore :(", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "I'll make sure not to annoy you anymore :(", Toast.LENGTH_SHORT).show();
             stopService(new Intent(this, Alert.class));
         }
     }

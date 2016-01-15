@@ -25,6 +25,8 @@ import java.util.TimerTask;
 
 public class Alert extends Service {
     private static final String TAG = ".Alert";
+    private static final int LOCATION_TIME = 3400000; // 56.67 minutes
+    private static final int LOCATION_DISTANCE = 500; // 500 meters
     private LocationManager locationManager;
     private Context context;
     private Locations locations;
@@ -69,7 +71,8 @@ public class Alert extends Service {
                 != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                LOCATION_TIME, LOCATION_DISTANCE, locationListener);
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -127,7 +130,7 @@ public class Alert extends Service {
                 new NotificationCompat.Builder(this)
                         .setAutoCancel(true)
                         .setContentTitle("ISS Tracker")
-                        .setContentText("ISS is an hour away from your location!")
+                        .setContentText("ISS is about an hour away!")
                         .setSmallIcon(R.drawable.iss_2011)
                         .setLargeIcon(icon);
 

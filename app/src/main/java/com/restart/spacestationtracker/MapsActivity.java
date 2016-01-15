@@ -41,7 +41,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private boolean start = false;
     private GoogleMap mMap;
     private Timer timer;
-    private Context context;
     protected SharedPreferences sharedPref;
     protected SharedPreferences.Editor editor;
 
@@ -58,7 +57,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
         refreshrate = sharedPref.getInt(getString(R.string.freshsave), 2500);
         boolean firsttime = sharedPref.getBoolean(getString(R.string.firsttime), true);
-        context = getApplicationContext();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
