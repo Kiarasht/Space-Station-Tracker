@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -68,6 +70,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             editor.apply();
             loadTutorial();
         }
+
+        AdView adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 
     /**
@@ -120,6 +126,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.i(TAG, "MapsActivity onMapReady 1 " + refreshrate);
     }
 
+    /**
+     * Get the Lat and Lon of ISS and move the map to that position when called.
+     */
     private void trackISS() {
         AsyncTask.execute(new Runnable() {
             public void run() {

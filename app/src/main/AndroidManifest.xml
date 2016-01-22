@@ -40,8 +40,7 @@
 
         <service
             android:name=".Alert"
-            android:enabled="true">
-        </service>
+            android:enabled="true" />
         <!-- This meta-data tag is required to use Google Play Services. -->
         <meta-data
             android:name="com.google.android.gms.version"

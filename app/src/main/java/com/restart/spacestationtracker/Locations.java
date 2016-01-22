@@ -193,8 +193,8 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
      * After successfully getting a city and country from the last JSON parsing, search a database
      * to see when ISS will pass by this city, country.
      */
-    public Date [] displaypasses(final String mLatitudepar, final String mLontitudepar) {
-        final Date [] passes = new Date[10];
+    public Date[] displaypasses(final String mLatitudepar, final String mLontitudepar) {
+        final Date[] passes = new Date[10];
 
         AsyncTask.execute(new Runnable() {
             public void run() {
@@ -256,23 +256,23 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
                     }
 
                     if (mLatitudepar == null && mLontitudepar == null)
-                    Locations.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            endAnimation();
-                            isspasses.setVisibility(View.VISIBLE);
-                            isspasses.setText(stringBuilder);
+                        Locations.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                endAnimation();
+                                isspasses.setVisibility(View.VISIBLE);
+                                isspasses.setText(stringBuilder);
 
-                            if (countrycity.getText().toString().trim().length() == 0) {
-                                final StringBuilder nocountrycity = new StringBuilder();
-                                nocountrycity.append("LAT: ")
-                                        .append(mLatitude)
-                                        .append(" LON: ")
-                                        .append(mLontitude);
-                                countrycity.setText(nocountrycity);
+                                if (countrycity.getText().toString().trim().length() == 0) {
+                                    final StringBuilder nocountrycity = new StringBuilder();
+                                    nocountrycity.append("LAT: ")
+                                            .append(mLatitude)
+                                            .append(" LON: ")
+                                            .append(mLontitude);
+                                    countrycity.setText(nocountrycity);
+                                }
                             }
-                        }
-                    });
+                        });
 
                 } catch (JSONException e) {
                     e.printStackTrace();
