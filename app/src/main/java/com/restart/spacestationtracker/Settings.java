@@ -26,6 +26,7 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
     private SeekBar seekBar;
     private TextView textView;
     private CheckBox checkBox;
+    private CheckBox checkBox2;
     private int refreshrate;
 
     /**
@@ -42,6 +43,7 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         seekBar.setOnSeekBarChangeListener(this);
         textView = ((TextView) findViewById(R.id.textView));
         checkBox = ((CheckBox) findViewById(R.id.checkBox));
+        checkBox2 = ((CheckBox) findViewById(R.id.checkBox2));
 
         AdView adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
@@ -57,6 +59,8 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         refreshrate = sharedPref.getInt(getString(R.string.freshsave), 2500);
         Boolean notification = sharedPref.getBoolean(getString(R.string.notificationcheck), false);
         checkBox.setChecked(notification);
+        notification = sharedPref.getBoolean(getString(R.string.notificationcheck2), false);
+        checkBox2.setChecked(notification);
         if (refreshrate == 1000) {
             String result = "Refresh Rate (1.00 sec/refresh)";
             textView.setText(result);
@@ -117,10 +121,23 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         sharedPref.edit().putBoolean(getString(R.string.notificationcheck), checked).apply();
 
         if (checked) {
-            Toast.makeText(this, "I'll notify you when ISS is close by :)", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Notify when ISS is close by", Toast.LENGTH_SHORT).show();
             startService(new Intent(this, Alert.class));
         } else {
-            Toast.makeText(this, "I'll make sure not to annoy you anymore :(", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Stop notify when ISS is close by", Toast.LENGTH_SHORT).show();
+            stopService(new Intent(this, Alert.class));
+        }
+    }
+
+    public void onCheckboxClicked2(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+        sharedPref.edit().putBoolean(getString(R.string.notificationcheck2), checked).apply();
+
+        if (checked) {
+            Toast.makeText(this, "Notify when people in space change", Toast.LENGTH_SHORT).show();
+            startService(new Intent(this, Alert.class));
+        } else {
+            Toast.makeText(this, "Stop notify when people in space change", Toast.LENGTH_SHORT).show();
             stopService(new Intent(this, Alert.class));
         }
     }
