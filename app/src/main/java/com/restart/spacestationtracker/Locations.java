@@ -60,7 +60,7 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
         buildGoogleApiClient();
 
         AdView adView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
         adView.loadAd(adRequest);
     }
 

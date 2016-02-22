@@ -44,7 +44,7 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         checkBox = ((CheckBox) findViewById(R.id.checkBox));
 
         AdView adView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
         adView.loadAd(adRequest);
     }
 
@@ -55,7 +55,7 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
     protected void onResume() {
         super.onResume();
         refreshrate = sharedPref.getInt(getString(R.string.freshsave), 2500);
-        Boolean notification = sharedPref.getBoolean(getString(R.string.notificationcheck), true);
+        Boolean notification = sharedPref.getBoolean(getString(R.string.notificationcheck), false);
         checkBox.setChecked(notification);
         if (refreshrate == 1000) {
             String result = "Refresh Rate (1.00 sec/refresh)";

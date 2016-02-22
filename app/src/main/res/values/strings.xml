@@ -5,21 +5,6 @@
     <string name="freshsave">freshsave</string>
     <string name="firsttime">firsttime</string>
 
-    <string name="tutorial_title1">Track ISS</string>
-    <string name="tutorial_descr1">Always know the exact position the International Space Station
-        is at.</string>
-
-    <string name="tutorial_title2">Be Notified</string>
-    <string name="tutorial_descr2">Turn on notifications to know when ISS is expected to pass by
-        your location.</string>
-
-    <string name="tutorial_title3">Be in Control</string>
-    <string name="tutorial_descr3">Modify settings such as refresh rate to modify the application
-        to your likings.</string>
-
-    <string name="tutorial_title4">Keep an Open Eye</string>
-    <string name="tutorial_descr4">The International Space Station can be looked at from earth
-        with a naked eye. So keep an eye for it. :)</string>
     <string name="picdescription">Crosshair</string>
     <string name="notification">Notification</string>
     <string name="notificationcheck">notification</string>
@@ -27,8 +12,7 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="hello_world">Hello world!</string>
-
     <string name="banner_ad_unit_id">ca-app-pub-1850763013639682/8514340237</string>
     <string name="banner_ad_unit_id2">ca-app-pub-1850763013639682/1416549031</string>
+    <string name="deviceid">998B51E0DA18B35E1A4C4E6D78084ABB</string>
 </resources>

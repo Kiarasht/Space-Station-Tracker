@@ -1,7 +1,6 @@
 package com.restart.spacestationtracker;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -24,12 +23,9 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import za.co.riggaroo.materialhelptutorial.TutorialItem;
-import za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity;
 
 /**
  * Contains the google map and uses various API and JSON objects to display
@@ -38,7 +34,6 @@ import za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final String TAG = ".MapsActivity";
-    private static final int REQUEST_CODE = 1234;
     private static int refreshrate;
     private boolean start = false;
     private GoogleMap mMap;
@@ -58,21 +53,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
         refreshrate = sharedPref.getInt(getString(R.string.freshsave), 2500);
-        boolean firsttime = sharedPref.getBoolean(getString(R.string.firsttime), true);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        if (firsttime) {
-            editor = sharedPref.edit();
-            editor.putBoolean(getString(R.string.firsttime), false);
-            editor.apply();
-            loadTutorial();
-        }
-
         AdView adView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
         adView.loadAd(adRequest);
     }
 
@@ -193,63 +180,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
+        menu.add("Flybys").setIntent(new Intent(this, Locations.class));
+        menu.add("Who's in space?").setIntent(new Intent(this, PeopleinSpace.class));
         menu.add("Settings").setIntent(new Intent(this, Settings.class));
-        menu.add("Location").setIntent(new Intent(this, Locations.class));
         return true;
-    }
-
-    /**
-     * Tutorial for first time users opening the applications
-     */
-    public void loadTutorial() {
-        Intent mainAct = new Intent(this, MaterialTutorialActivity.class);
-        mainAct.putParcelableArrayListExtra(
-                MaterialTutorialActivity.MATERIAL_TUTORIAL_ARG_TUTORIAL_ITEMS, getTutorialItems(this));
-        startActivityForResult(mainAct, REQUEST_CODE);
-    }
-
-    /**
-     * 4 TutorialItems each representing a page with their own text and picture.
-     *
-     * @param context getApplicationContext();
-     * @return The array list of tutorial pages
-     */
-    private ArrayList<TutorialItem> getTutorialItems(Context context) {
-        TutorialItem tutorialItem1 = new TutorialItem(context.getString(R.string.tutorial_title1),
-                context.getString(R.string.tutorial_descr1),
-                R.color.tutorial_color1, R.drawable.tutorial_picture1);
-
-        TutorialItem tutorialItem2 = new TutorialItem(context.getString(R.string.tutorial_title2),
-                context.getString(R.string.tutorial_descr2),
-                R.color.tutorial_color2, R.drawable.tutorial_picture2);
-
-        TutorialItem tutorialItem3 = new TutorialItem(context.getString(R.string.tutorial_title3),
-                context.getString(R.string.tutorial_descr3),
-                R.color.tutorial_color3, R.drawable.tutorial_picture3);
-
-        TutorialItem tutorialItem4 = new TutorialItem(context.getString(R.string.tutorial_title4),
-                context.getString(R.string.tutorial_descr4),
-                R.color.tutorial_color4, R.drawable.tutorial_picture4);
-
-        ArrayList<TutorialItem> tutorialItems = new ArrayList<>();
-        tutorialItems.add(tutorialItem1);
-        tutorialItems.add(tutorialItem2);
-        tutorialItems.add(tutorialItem3);
-        tutorialItems.add(tutorialItem4);
-
-        return tutorialItems;
-    }
-
-    /**
-     * Results received from the tutorial actions
-     *
-     * @param requestCode Should be 1234
-     * @param resultCode  Should be -1
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-            Log.i(TAG, "Tutorial finished successfully.");
-        }
     }
 }
