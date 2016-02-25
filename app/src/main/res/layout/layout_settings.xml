@@ -69,6 +69,17 @@
         android:onClick="onCheckboxClicked2"
         android:text="@string/notification2"
         android:textSize="20sp"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/checkBox3" />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:onClick="onCheckboxClicked3"
+        android:text="@string/notification3"
+        android:textSize="20sp"
         android:layout_below="@+id/space3"
         android:layout_alignStart="@+id/checkBox" />
 </RelativeLayout>

@@ -7,6 +7,7 @@ import android.app.Service;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,7 +18,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import java.util.Date;
 import java.util.Timer;
@@ -25,14 +25,22 @@ import java.util.TimerTask;
 
 public class Alert extends Service {
     private static final String TAG = ".Alert";
-    private static final int LOCATION_TIME = 50000; // 8.3 minutes
-    private static final int LOCATION_DISTANCE = 500; // 500 meters
+    private static final int LOCATION_TIME = 900000; // 15 minutes
+    private static final int LOCATION_DISTANCE = 500; // 1500 meters
+    private static final int TIMER_REPEAT = 850000; // 14 minutes
+    private NotificationManager mNotificationManagerupdate;
+    private NotificationCompat.Builder mBuilderupdate;
     private LocationManager locationManager;
-    private Context context;
+    private SharedPreferences sharedPref;
+    private Boolean continuesupdate;
     private Locations locations;
     private Location location;
+    private Timer timerupdate;
+    private Context context;
     private Date[] dates;
     private Timer timer;
+    private int loop;
+
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -41,15 +49,15 @@ public class Alert extends Service {
 
     @Override
     public void onCreate() {
-        Log.d(TAG, "onCreate");
+        loop = 0;
         locations = new Locations();
         context = getApplicationContext();
+        sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
     }
 
     LocationListener locationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
-            Log.d(TAG, "Location changed: " + location.getLongitude() + " " + location.getLatitude());
         }
 
         public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -64,7 +72,6 @@ public class Alert extends Service {
 
     @Override
     public void onStart(Intent intent, int startid) {
-        Log.d(TAG, "onStart");
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -86,7 +93,6 @@ public class Alert extends Service {
                 location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 dates = locations.displaypasses(String.valueOf(location.getLatitude()),
                         String.valueOf(location.getLongitude()));
-                Log.d(TAG, "Location run: " + location.getLongitude() + " " + location.getLatitude());
                 try {
                     Thread.sleep(10000);
                 } catch (InterruptedException e) {
@@ -98,25 +104,32 @@ public class Alert extends Service {
                 for (Date date1 : dates) {
                     if (date1 != null) {
                         boolean withinhour = Math.abs(date.getTime() - date1.getTime()) < 3600000L;
-                        Log.d(TAG, "Date Only: " + date);
-                        Log.d(TAG, "Dates: " + date1);
-                        Log.d(TAG, "Boolean: " + withinhour);
                         if (withinhour) {
+                            continuesupdate = sharedPref.getBoolean(getString(R.string.notificationcheck), false);
                             notification();
+                            if (continuesupdate) {
+                                updatemanager(Math.abs(date.getTime() - date1.getTime()));
+                            }
                             break;
                         }
                     }
                 }
             }
-        }, 0, 600000);
+        }, 0, TIMER_REPEAT);
     }
 
     @Override
     public void onDestroy() {
-        Log.d(TAG, "onDestroy");
+        loop = 0;
         timer.cancel();
         timer.purge();
         timer = null;
+        continuesupdate = sharedPref.getBoolean(getString(R.string.notificationcheck), false);
+        if (continuesupdate) {
+            timerupdate.cancel();
+            timerupdate.purge();
+            timerupdate = null;
+        }
     }
 
     /**
@@ -129,6 +142,7 @@ public class Alert extends Service {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setAutoCancel(true)
+                        .setOnlyAlertOnce(true)
                         .setContentTitle("ISS Tracker")
                         .setContentText("ISS is about an hour away!")
                         .setSmallIcon(R.drawable.iss_2011)
@@ -150,7 +164,24 @@ public class Alert extends Service {
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        int mId = 1234;
-        mNotificationManager.notify(mId, mBuilder.build());
+        mNotificationManager.notify(1234, mBuilder.build());
+        mBuilderupdate = mBuilder;
+        mNotificationManagerupdate = mNotificationManager;
+    }
+
+    private void updatemanager(final long time) {
+        timerupdate = new Timer();
+        timerupdate.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                notificationupdate(time);
+            }
+        }, 0, 1000);
+    }
+
+    private  void notificationupdate(long time) {
+        long finalseconds = (time / 100) - loop++;
+        mBuilderupdate.setContentText("Iss is " + finalseconds + " seconds away!");
+        mNotificationManagerupdate.notify(1234, mBuilderupdate.build());
     }
 }

@@ -8,8 +8,10 @@
     <string name="picdescription">Crosshair</string>
     <string name="notification">Notify ISS nearby</string>
     <string name="notification2">Notify people change</string>
+    <string name="notification3">Dynamic notification</string>
     <string name="notificationcheck">notification</string>
     <string name="notificationcheck2">notification2</string>
+    <string name="notificationcheck3">notificationcheck3</string>
     <string name="title_activity_ad">AdActivity</string>
 
     <string name="action_settings">Settings</string>
@@ -17,4 +19,5 @@
     <string name="banner_ad_unit_id">ca-app-pub-1850763013639682/8514340237</string>
     <string name="banner_ad_unit_id2">ca-app-pub-1850763013639682/1416549031</string>
     <string name="deviceid">998B51E0DA18B35E1A4C4E6D78084ABB</string>
+    <string name="astro_detail">astro_detail</string>
 </resources>

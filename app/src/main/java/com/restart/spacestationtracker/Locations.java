@@ -7,7 +7,6 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -39,12 +38,12 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
         GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = ".Locations";
-    private TextView countrycity;
-    private TextView isspasses;
-    private String mLatitude;
-    private String mLontitude;
     protected GoogleApiClient mGoogleApiClient;
     protected Location mLastLocation;
+    private TextView countrycity;
+    private TextView isspasses;
+    private String mLontitude;
+    private String mLatitude;
 
     /**
      * Assign simple widgets while also use the Google API to get user's location.
@@ -108,7 +107,6 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
         if (mLastLocation != null) {
             mLatitude = String.valueOf(mLastLocation.getLatitude());
             mLontitude = String.valueOf(mLastLocation.getLongitude());
-            Log.d(TAG, "LON = " + mLontitude + " LAT = " + mLatitude);
             displayresults();
             displaypasses(null, null);
         } else {
@@ -118,14 +116,12 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
 
     @Override
     public void onConnectionSuspended(int i) {
-        Log.i(TAG, "Connection suspended");
         mGoogleApiClient.connect();
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " +
-                connectionResult.getErrorCode());
+        Toast.makeText(this, "Unable to find your location.", Toast.LENGTH_LONG).show();
     }
 
     /**

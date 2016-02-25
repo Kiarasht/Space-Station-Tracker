@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 
 import com.google.android.gms.ads.AdRequest;
@@ -34,12 +33,12 @@ import java.util.TimerTask;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final String TAG = ".MapsActivity";
+    protected SharedPreferences.Editor editor;
+    protected SharedPreferences sharedPref;
     private static int refreshrate;
     private boolean start = false;
     private GoogleMap mMap;
     private Timer timer;
-    protected SharedPreferences sharedPref;
-    protected SharedPreferences.Editor editor;
 
     /**
      * When the application begins try to read from SharedPreferences
@@ -85,11 +84,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     trackISS();
                 }
             }, 0, refreshrate);
-            Log.i(TAG, "MapsActivity onResume 1 " + refreshrate);
         } else {
             start = true;
             timer = new Timer();
-            Log.i(TAG, "MapsActivity onResume 2 " + refreshrate);
         }
     }
 
@@ -110,7 +107,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 trackISS();
             }
         }, 0, refreshrate);
-        Log.i(TAG, "MapsActivity onMapReady 1 " + refreshrate);
     }
 
     /**

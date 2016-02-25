@@ -37,7 +37,9 @@ public class PeopleinSpace extends MapsActivity {
         adView.loadAd(adRequest);
     }
 
-    private void display_people() {
+    public String display_people() {
+        final StringBuilder astro_detail = new StringBuilder();
+
         AsyncTask.execute(new Runnable() {
             public void run() {
                 String strContent = "";
@@ -76,7 +78,6 @@ public class PeopleinSpace extends MapsActivity {
                     JSONArray results = new JSONObject(strContent).getJSONArray("people");
                     int numbers = new JSONObject(strContent).getInt("number");
                     final String astro_number = "Currently " + numbers + " People In Space";
-                    final StringBuilder astro_detail = new StringBuilder();
 
                     for (int i = 0; i < results.length(); i += 1) {
                         JSONObject result = results.getJSONObject(i);
@@ -102,6 +103,8 @@ public class PeopleinSpace extends MapsActivity {
                 }
             }
         });
+        sharedPref.edit().putString(getString(R.string.astro_detail), astro_detail.toString()).apply();
+        return astro_detail.toString();
     }
 
     void startAnimation() {

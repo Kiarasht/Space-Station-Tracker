@@ -3,7 +3,6 @@ package com.restart.spacestationtracker;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.CheckBox;
@@ -23,10 +22,11 @@ import java.text.DecimalFormat;
 public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeListener {
 
     private static final String TAG = ".Settings";
-    private SeekBar seekBar;
+    private CheckBox checkBox2;
+    private CheckBox checkBox3;
     private TextView textView;
     private CheckBox checkBox;
-    private CheckBox checkBox2;
+    private SeekBar seekBar;
     private int refreshrate;
 
     /**
@@ -44,6 +44,7 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         textView = ((TextView) findViewById(R.id.textView));
         checkBox = ((CheckBox) findViewById(R.id.checkBox));
         checkBox2 = ((CheckBox) findViewById(R.id.checkBox2));
+        checkBox3 = ((CheckBox) findViewById(R.id.checkBox3));
 
         AdView adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
@@ -61,12 +62,13 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         checkBox.setChecked(notification);
         notification = sharedPref.getBoolean(getString(R.string.notificationcheck2), false);
         checkBox2.setChecked(notification);
+        notification = sharedPref.getBoolean(getString(R.string.notificationcheck3), false);
+        checkBox3.setChecked(notification);
         if (refreshrate == 1000) {
             String result = "Refresh Rate (1.00 sec/refresh)";
             textView.setText(result);
         }
         seekBar.setProgress(refreshrate - 1000);
-        Log.i(TAG, "Settings Restart " + refreshrate);
     }
 
     /**
@@ -135,10 +137,21 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
 
         if (checked) {
             Toast.makeText(this, "Notify when people in space change", Toast.LENGTH_SHORT).show();
-            startService(new Intent(this, Alert.class));
+            startService(new Intent(this, AlertPeople.class));
         } else {
             Toast.makeText(this, "Stop notify when people in space change", Toast.LENGTH_SHORT).show();
-            stopService(new Intent(this, Alert.class));
+            stopService(new Intent(this, AlertPeople.class));
+        }
+    }
+
+    public void onCheckboxClicked3(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+        sharedPref.edit().putBoolean(getString(R.string.notificationcheck3), checked).apply();
+
+        if (checked) {
+            Toast.makeText(this, "Update notifications with real time data", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Stop update notifications with real time data", Toast.LENGTH_SHORT).show();
         }
     }
 }
