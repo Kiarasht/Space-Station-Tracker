@@ -1,4 +1,4 @@
-package com.restart.spacestationtracker;
+package com.restart.spacestationtracker.services;
 
 
 import android.app.NotificationManager;
@@ -12,6 +12,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
+
+import com.restart.spacestationtracker.PeopleinSpace;
+import com.restart.spacestationtracker.R;
 
 import java.util.Timer;
 import java.util.TimerTask;

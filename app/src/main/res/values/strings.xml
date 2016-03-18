@@ -8,10 +8,8 @@
     <string name="picdescription">Crosshair</string>
     <string name="notification">Notify ISS nearby</string>
     <string name="notification2">Notify people change</string>
-    <string name="notification3">Dynamic notification</string>
     <string name="notificationcheck">notification</string>
     <string name="notificationcheck2">notification2</string>
-    <string name="notificationcheck3">notificationcheck3</string>
     <string name="title_activity_ad">AdActivity</string>
 
     <string name="action_settings">Settings</string>

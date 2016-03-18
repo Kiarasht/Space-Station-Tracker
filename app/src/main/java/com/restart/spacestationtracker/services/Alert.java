@@ -1,4 +1,4 @@
-package com.restart.spacestationtracker;
+package com.restart.spacestationtracker.services;
 
 import android.Manifest;
 import android.app.NotificationManager;
@@ -19,6 +19,9 @@ import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 
+import com.restart.spacestationtracker.Locations;
+import com.restart.spacestationtracker.R;
+
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -32,7 +35,6 @@ public class Alert extends Service {
     private NotificationCompat.Builder mBuilderupdate;
     private LocationManager locationManager;
     private SharedPreferences sharedPref;
-    private Boolean continuesupdate;
     private Locations locations;
     private Location location;
     private Timer timerupdate;
@@ -105,11 +107,8 @@ public class Alert extends Service {
                     if (date1 != null) {
                         boolean withinhour = Math.abs(date.getTime() - date1.getTime()) < 3600000L;
                         if (withinhour) {
-                            continuesupdate = sharedPref.getBoolean(getString(R.string.notificationcheck), false);
                             notification();
-                            if (continuesupdate) {
-                                updatemanager(Math.abs(date.getTime() - date1.getTime()));
-                            }
+                            updatemanager(Math.abs(date.getTime() - date1.getTime()));
                             break;
                         }
                     }
@@ -124,12 +123,10 @@ public class Alert extends Service {
         timer.cancel();
         timer.purge();
         timer = null;
-        continuesupdate = sharedPref.getBoolean(getString(R.string.notificationcheck), false);
-        if (continuesupdate) {
-            timerupdate.cancel();
-            timerupdate.purge();
-            timerupdate = null;
-        }
+        timerupdate.cancel();
+        timerupdate.purge();
+        timerupdate = null;
+
     }
 
     /**
@@ -180,8 +177,16 @@ public class Alert extends Service {
     }
 
     private  void notificationupdate(long time) {
-        long finalseconds = (time / 100) - loop++;
-        mBuilderupdate.setContentText("Iss is " + finalseconds + " seconds away!");
+        long finalseconds = (time / 1000) - loop++;
+
+        if (finalseconds > 0) {
+            mBuilderupdate.setContentText("ISS is " + finalseconds + " seconds away!");
+        } else {
+            mBuilderupdate.setContentText("ISS passed by your location!");
+            timerupdate.cancel();
+            timerupdate.purge();
+            timerupdate = null;
+        }
         mNotificationManagerupdate.notify(1234, mBuilderupdate.build());
     }
 }

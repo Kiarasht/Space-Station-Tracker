@@ -37,7 +37,11 @@
             android:screenOrientation="portrait" />
 
         <service
-            android:name=".Alert"
+            android:name=".services.Alert"
+            android:enabled="true" />
+
+        <service
+            android:name=".services.AlertPeople"
             android:enabled="true" />
         <!-- This meta-data tag is required to use Google Play Services. -->
         <meta-data
