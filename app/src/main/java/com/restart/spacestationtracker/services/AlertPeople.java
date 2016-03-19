@@ -39,13 +39,18 @@ public class AlertPeople extends Service {
         context = getApplicationContext();
     }
 
+    /**
+     * Start the finding astronauts service. It checks for updates everyday.
+     * @param intent N/A
+     * @param startid N/A
+     */
     @Override
     public void onStart(Intent intent, int startid) {
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                String astro_detail = peopleinSpace.display_people();
+                String astro_detail = peopleinSpace.display_people(true);
                 String astro_onfile = sharedPref.getString(getString(R.string.astro_detail), "");
 
                 if (!astro_detail.equals(astro_onfile)) {
@@ -56,10 +61,18 @@ public class AlertPeople extends Service {
         }, 0, TIMER_REPEAT);
     }
 
+    /**
+     * Destroy all timers and objects if the service ever gets destroyed.
+     */
     @Override
     public void onDestroy() {
-        timer.cancel();
-        timer.purge();
+        if (timer != null) {
+            timer.cancel();
+            timer.purge();
+            String ns = Context.NOTIFICATION_SERVICE;
+            NotificationManager nMgr = (NotificationManager) context.getSystemService(ns);
+            nMgr.cancel(4321);
+        }
         timer = null;
     }
 

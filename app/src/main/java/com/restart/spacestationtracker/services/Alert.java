@@ -34,7 +34,6 @@ public class Alert extends Service {
     private NotificationManager mNotificationManagerupdate;
     private NotificationCompat.Builder mBuilderupdate;
     private LocationManager locationManager;
-    private SharedPreferences sharedPref;
     private Locations locations;
     private Location location;
     private Timer timerupdate;
@@ -54,7 +53,6 @@ public class Alert extends Service {
         loop = 0;
         locations = new Locations();
         context = getApplicationContext();
-        sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
     }
 
@@ -72,6 +70,12 @@ public class Alert extends Service {
         }
     };
 
+    /**
+     * Starting a service for ISS location updater.
+     *
+     * @param intent  N/A
+     * @param startid N/A
+     */
     @Override
     public void onStart(Intent intent, int startid) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -117,16 +121,26 @@ public class Alert extends Service {
         }, 0, TIMER_REPEAT);
     }
 
+    /**
+     * When destroying the service make sure to get ride of any timers and notifications since
+     * the user no longer wants them.
+     */
     @Override
     public void onDestroy() {
         loop = 0;
-        timer.cancel();
-        timer.purge();
+        if (timer != null) {
+            timer.cancel();
+            timer.purge();
+        }
+        if (timerupdate != null) {
+            timerupdate.cancel();
+            timerupdate.purge();
+            String ns = Context.NOTIFICATION_SERVICE;
+            NotificationManager nMgr = (NotificationManager) context.getSystemService(ns);
+            nMgr.cancel(1234);
+        }
         timer = null;
-        timerupdate.cancel();
-        timerupdate.purge();
         timerupdate = null;
-
     }
 
     /**
@@ -138,8 +152,9 @@ public class Alert extends Service {
                 R.drawable.iss_2011);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setAutoCancel(true)
+                        .setAutoCancel(false)
                         .setOnlyAlertOnce(true)
+                        .setOngoing(true)
                         .setContentTitle("ISS Tracker")
                         .setContentText("ISS is about an hour away!")
                         .setSmallIcon(R.drawable.iss_2011)
@@ -158,6 +173,7 @@ public class Alert extends Service {
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
         mBuilder.setContentIntent(resultPendingIntent);
+
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -166,6 +182,11 @@ public class Alert extends Service {
         mNotificationManagerupdate = mNotificationManager;
     }
 
+    /**
+     * Continuously updates a notification that will display live results.
+     *
+     * @param time The difference between ISS' location to user's location
+     */
     private void updatemanager(final long time) {
         timerupdate = new Timer();
         timerupdate.scheduleAtFixedRate(new TimerTask() {
@@ -176,7 +197,12 @@ public class Alert extends Service {
         }, 0, 1000);
     }
 
-    private  void notificationupdate(long time) {
+    /**
+     * Updates the manager and finishes off when time reaches zreo.
+     *
+     * @param time The difference between ISS' location to user's location
+     */
+    private void notificationupdate(long time) {
         long finalseconds = (time / 1000) - loop++;
 
         if (finalseconds > 0) {

@@ -30,14 +30,21 @@ public class PeopleinSpace extends MapsActivity {
         startAnimation();
         people_number = (TextView) findViewById(R.id.textView2);
         people_detail = (TextView) findViewById(R.id.textView3);
-        display_people();
+        display_people(false);
 
         AdView adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
         adView.loadAd(adRequest);
     }
 
-    public String display_people() {
+    /**
+     * Finds a string that holds the values of people in space.
+     *
+     * @param intent Is the function getting called from a service or from the activity? If its an
+     *               intent then we don't to update objects such as textboxes.
+     * @return Return a string variable holding the astro people.
+     */
+    public String display_people(final Boolean intent) {
         final StringBuilder astro_detail = new StringBuilder();
 
         AsyncTask.execute(new Runnable() {
@@ -89,21 +96,25 @@ public class PeopleinSpace extends MapsActivity {
                                 .append(".\n\n");
                     }
 
-                    PeopleinSpace.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            people_number.setText(astro_number);
-                            people_detail.setVisibility(View.VISIBLE);
-                            people_detail.setText(astro_detail);
-                            endAnimation();
-                        }
-                    });
+                    if (!intent) {
+                        PeopleinSpace.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                people_number.setText(astro_number);
+                                people_detail.setVisibility(View.VISIBLE);
+                                people_detail.setText(astro_detail);
+                                endAnimation();
+                            }
+                        });
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
-        sharedPref.edit().putString(getString(R.string.astro_detail), astro_detail.toString()).apply();
+        if (!intent) {
+            sharedPref.edit().putString(getString(R.string.astro_detail), astro_detail.toString()).apply();
+        }
         return astro_detail.toString();
     }
 

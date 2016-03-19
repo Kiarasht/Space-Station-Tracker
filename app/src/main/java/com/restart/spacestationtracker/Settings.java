@@ -130,6 +130,11 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         }
     }
 
+    /**
+     * Onclick method for the check box. Either starts or stops an android service.
+     *
+     * @param view A view of the check box
+     */
     public void onCheckboxClicked2(View view) {
         boolean checked = ((CheckBox) view).isChecked();
         sharedPref.edit().putBoolean(getString(R.string.notificationcheck2), checked).apply();
