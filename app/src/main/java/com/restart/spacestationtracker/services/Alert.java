@@ -7,7 +7,6 @@ import android.app.Service;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,6 +33,7 @@ public class Alert extends Service {
     private NotificationManager mNotificationManagerupdate;
     private NotificationCompat.Builder mBuilderupdate;
     private LocationManager locationManager;
+    private boolean endnotification;
     private Locations locations;
     private Location location;
     private Timer timerupdate;
@@ -203,16 +203,24 @@ public class Alert extends Service {
      * @param time The difference between ISS' location to user's location
      */
     private void notificationupdate(long time) {
-        long finalseconds = (time / 1000) - loop++;
+        int finalseconds = (int) (time / 1000) - loop++;
 
         if (finalseconds > 0) {
-            mBuilderupdate.setContentText("ISS is " + finalseconds + " seconds away!");
+            mBuilderupdate.setContentText("ISS is about " + finalseconds + " seconds away!");
+        } else if (finalseconds > -10) {
+            mBuilderupdate.setContentText("ISS is flying over your location!" + Math.abs(finalseconds));
         } else {
-            mBuilderupdate.setContentText("ISS passed by your location!");
             timerupdate.cancel();
             timerupdate.purge();
             timerupdate = null;
+            loop = 0;
+            endnotification = true;
         }
         mNotificationManagerupdate.notify(1234, mBuilderupdate.build());
+        if (endnotification) {
+            String ns = Context.NOTIFICATION_SERVICE;
+            NotificationManager nMgr = (NotificationManager) context.getSystemService(ns);
+            nMgr.cancel(1234);
+        }
     }
 }
