@@ -207,8 +207,8 @@ public class Alert extends Service {
 
         if (finalseconds > 0) {
             mBuilderupdate.setContentText("ISS is about " + finalseconds + " seconds away!");
-        } else if (finalseconds > -10) {
-            mBuilderupdate.setContentText("ISS is flying over your location!" + Math.abs(finalseconds));
+        } else if (finalseconds > -11) {
+            mBuilderupdate.setContentText("ISS is over your location! Ending in (" + (10 - Math.abs(finalseconds)) + ")");
         } else {
             timerupdate.cancel();
             timerupdate.purge();
