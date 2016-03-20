@@ -179,6 +179,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         menu.add("Flybys").setIntent(new Intent(this, Locations.class));
         menu.add("Who's in space?").setIntent(new Intent(this, PeopleinSpace.class));
         menu.add("Settings").setIntent(new Intent(this, Settings.class));
+        menu.add("Help").setIntent(new Intent(this, Help.class));
         return true;
     }
 }

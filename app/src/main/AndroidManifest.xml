@@ -35,6 +35,9 @@
         <activity
             android:name=".PeopleinSpace"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".Help"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".services.Alert"
