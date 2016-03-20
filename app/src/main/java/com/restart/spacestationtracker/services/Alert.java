@@ -13,6 +13,8 @@ import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
@@ -111,9 +113,13 @@ public class Alert extends Service {
                     if (date1 != null) {
                         boolean withinhour = Math.abs(date.getTime() - date1.getTime()) < 3600000L;
                         if (withinhour) {
-                            notification();
-                            updatemanager(Math.abs(date.getTime() - date1.getTime()));
-                            break;
+                            if (timerupdate == null) {
+                                notification();
+                                updatemanager(Math.abs(date.getTime() - date1.getTime()));
+                                break;
+                            } else {
+                                break;
+                            }
                         }
                     }
                 }
@@ -148,6 +154,7 @@ public class Alert extends Service {
      * when we need to trigger a notification.
      */
     private void notification() {
+        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
                 R.drawable.iss_2011);
         NotificationCompat.Builder mBuilder =
@@ -158,7 +165,8 @@ public class Alert extends Service {
                         .setContentTitle("ISS Tracker")
                         .setContentText("ISS is about an hour away!")
                         .setSmallIcon(R.drawable.iss_2011)
-                        .setLargeIcon(icon);
+                        .setLargeIcon(icon)
+                        .setSound(soundUri);
 
         Intent resultIntent = new Intent(context, Locations.class);
 
@@ -208,7 +216,7 @@ public class Alert extends Service {
         if (finalseconds > 0) {
             mBuilderupdate.setContentText("ISS is about " + finalseconds + " seconds away!");
         } else if (finalseconds > -11) {
-            mBuilderupdate.setContentText("ISS is over your location! Ending in (" + (10 - Math.abs(finalseconds)) + ")");
+            mBuilderupdate.setContentText("ISS is at your location! Ending in (" + (10 - Math.abs(finalseconds)) + ")");
         } else {
             timerupdate.cancel();
             timerupdate.purge();
