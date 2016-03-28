@@ -5,7 +5,7 @@ This library is using the following:
 - MaterialIntroTutorial https://github.com/spongebobrf/MaterialIntroTutorial
 - AVLoadingIndicatorView https://github.com/81813780/AVLoadingIndicatorView
 
-<a href="url"><img src="app.gif" align="center" height="450" width="300" ></a>
+<img src="app.gif" align="center" height="450" width="300" >
 
 <img src="1.png" align="left" height="530" width="270" >
 <img src="2.png" align="left" height="530" width="270" >
