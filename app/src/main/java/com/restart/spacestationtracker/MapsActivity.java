@@ -4,8 +4,8 @@ package com.restart.spacestationtracker;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 
 import com.google.android.gms.ads.AdRequest;
@@ -30,7 +30,7 @@ import java.util.TimerTask;
  * Contains the google map and uses various API and JSON objects to display
  * the position of the ISS picture on the map and update it occasionally.
  */
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String TAG = ".MapsActivity";
     protected SharedPreferences.Editor editor;

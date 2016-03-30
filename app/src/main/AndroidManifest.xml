@@ -28,16 +28,20 @@
         </activity>
         <activity
             android:name=".Settings"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:label="@string/label_setting"/>
         <activity
             android:name=".Locations"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:label="@string/label_location"/>
         <activity
             android:name=".PeopleinSpace"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:label="@string/label_peopleinspace"/>
         <activity
             android:name=".Help"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:label="@string/label_help"/>
 
         <service
             android:name=".services.Alert"

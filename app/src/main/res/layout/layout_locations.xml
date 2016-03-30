@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false"
+    android:background="@color/colorlight"
     android:weightSum="1">
 
     <Space
@@ -42,7 +43,7 @@
         android:layout_marginStart="292dp"
         android:visibility="visible"
         app:indicator="BallClipRotateMultiple"
-        app:indicator_color="@color/white" />
+        app:indicator_color="@color/White" />
 
     <TextView
         android:id="@+id/textView3"

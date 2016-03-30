@@ -18,4 +18,9 @@
     <string name="banner_ad_unit_id2">ca-app-pub-1850763013639682/1416549031</string>
     <string name="deviceid">998B51E0DA18B35E1A4C4E6D78084ABB</string>
     <string name="astro_detail">astro_detail</string>
+
+    <string name="label_setting">Settings</string>
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">Who\'s in Space?</string>
+    <string name="label_help">Help</string>
 </resources>
