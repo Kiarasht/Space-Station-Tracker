@@ -17,7 +17,11 @@
         android:gravity="center"
         android:text="@string/seekBar"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:shadowColor="@color/Black"
+        android:shadowDx="0.0"
+        android:shadowDy="0.0"
+        android:shadowRadius="2.0"/>
 
     <SeekBar
         android:id="@+id/seekBar"
@@ -27,7 +31,7 @@
         android:layout_below="@+id/textView"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:max="4000"
+        android:max="29000"
         android:maxHeight="1000dp"
         android:paddingEnd="25dp"
         android:paddingStart="25dp" />
@@ -50,7 +54,11 @@
         android:text="@string/notification"
         android:textSize="20sp"
         android:layout_below="@+id/seekBar"
-        android:layout_alignStart="@+id/adView" />
+        android:layout_alignStart="@+id/adView"
+        android:shadowColor="@color/Black"
+        android:shadowDx="0.0"
+        android:shadowDy="0.0"
+        android:shadowRadius="2.0"/>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
@@ -71,5 +79,9 @@
         android:text="@string/notification2"
         android:textSize="20sp"
         android:layout_alignTop="@+id/space3"
-        android:layout_alignStart="@+id/checkBox" />
+        android:layout_alignStart="@+id/checkBox"
+        android:shadowColor="@color/Black"
+        android:shadowDx="0.0"
+        android:shadowDy="0.0"
+        android:shadowRadius="2.0"/>
 </RelativeLayout>

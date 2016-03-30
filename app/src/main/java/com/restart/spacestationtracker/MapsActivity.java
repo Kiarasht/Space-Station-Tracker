@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -22,6 +23,7 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -37,6 +39,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected SharedPreferences sharedPref;
     private static int refreshrate;
     private boolean start = false;
+    private TextView lanlog;
     private GoogleMap mMap;
     private Timer timer;
 
@@ -50,6 +53,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        lanlog = ((TextView) findViewById(R.id.textView));
         sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
         refreshrate = sharedPref.getInt(getString(R.string.freshsave), 2500);
 
@@ -153,10 +157,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     final double latParameter = Double.parseDouble(results.getString("latitude"));
                     final double lngParameter = Double.parseDouble(results.getString("longitude"));
 
+                    DecimalFormat decimalFormat = new DecimalFormat("0.000");
+                    String LAT = decimalFormat.format(latParameter);
+                    String LNG = decimalFormat.format(lngParameter);
+
+                    final String position = LAT + "° N, " + LNG + "° E";
+
                     MapsActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
                             LatLng ISS = new LatLng(latParameter, lngParameter);
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(ISS));
+                            lanlog.setText(position);
                         }
                     });
                 } catch (JSONException e) {

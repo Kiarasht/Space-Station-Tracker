@@ -1,6 +1,7 @@
 package com.restart.spacestationtracker;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,7 +29,9 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
     private TextView textView;
     private CheckBox checkBox;
     private SeekBar seekBar;
+    private Context context;
     private int refreshrate;
+    private boolean reference;
 
     /**
      * Create and assign widgets to ones in the layout
@@ -40,6 +43,8 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_settings);
 
+        reference = false;
+        context = getApplicationContext();
         seekBar = ((SeekBar) findViewById(R.id.seekBar));
         seekBar.setOnSeekBarChangeListener(this);
         textView = ((TextView) findViewById(R.id.textView));
@@ -57,7 +62,7 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
      */
     protected void onResume() {
         super.onResume();
-        refreshrate = sharedPref.getInt(getString(R.string.freshsave), 2500);
+        refreshrate = sharedPref.getInt(getString(R.string.freshsave), 15000);
         Boolean notification = sharedPref.getBoolean(getString(R.string.notificationcheck), false);
         checkBox.setChecked(notification);
         notification = sharedPref.getBoolean(getString(R.string.notificationcheck2), false);
@@ -101,8 +106,14 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
      */
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
+        int progress = seekBar.getProgress() + 1000;
+        if (progress < 5000 && !reference) {
+            Toast.makeText(context, "A Low refresh rate could lead to performance issues!",
+                    Toast.LENGTH_SHORT).show();
+            reference = true;
+        }
         editor = sharedPref.edit();
-        refreshrate = seekBar.getProgress() + 1000;
+        refreshrate = progress;
         editor.putInt(getString(R.string.freshsave), refreshrate);
         editor.apply();
     }
