@@ -1,6 +1,7 @@
 package com.restart.spacestationtracker;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -11,10 +12,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -31,6 +34,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -62,6 +66,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private View mCustomView;
     private BoomMenuButton boomMenuButton;
     private BoomMenuButton boomMenuButtonInActionBar;
+    private Context context;
 
     /**
      * When the application begins try to read from SharedPreferences
@@ -78,6 +83,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mActionBar.setDisplayShowTitleEnabled(false);
         LayoutInflater mInflater = LayoutInflater.from(this);
 
+        context = getApplicationContext();
         mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
         TextView mTitleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
         mTitleTextView.setText(R.string.app_name);
@@ -216,23 +222,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
-     /**
-     * Create more activity option accessible in the top right corner of the screen. The
-     * activities will also need to be declared in the AndroidManifest
-     *
-     * @param menu Object we need to manipulate to add our activities.
-     * @return Return results
-     */
-/*    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        menu.add("Flybys").setIntent(new Intent(this, Locations.class));
-        menu.add("Who's in space?").setIntent(new Intent(this, PeopleinSpace.class));
-        menu.add("Settings").setIntent(new Intent(this, Settings.class));
-        menu.add("Help").setIntent(new Intent(this, Help.class));
-        return true;
-    }*/
-
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -251,17 +240,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             drawables[i] = ContextCompat.getDrawable(this, drawablesResource[i]);
 
         String[] STRINGS = new String[]{
-                "Mark",
-                "Refresh",
-                "Copy",
-                "Heart",
+                "Flybys",
+                "Who's in Space?",
+                "Settings",
+                "Help",
         };
         String[] strings = new String[number];
         System.arraycopy(STRINGS, 0, strings, 0, number);
 
         int[][] colors = new int[number][2];
         for (int i = 0; i < number; i++) {
-            colors[i][1] = GetRandomColor();
+            colors[i][1] = GetColor(i);
             colors[i][0] = Util.getInstance().getPressedColor(colors[i][1]);
         }
 
@@ -282,12 +271,73 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         );
     }
 
-    public int GetRandomColor() {
-        Random random = new Random();
-        int r = random.nextInt(255);
-        int g = random.nextInt(255);
-        int b = random.nextInt(255);
-        return Color.rgb(r,g,b);
+    public int GetColor(int iteration) {
+        int colors;
+        switch (iteration) {
+            case 0:
+                colors = Color.parseColor("#807E57C2");
+                break;
+            case 1:
+                colors = Color.parseColor("#80EF5350");
+                break;
+            case 2:
+                colors = Color.parseColor("#8066BB6A");
+                break;
+            case 3:
+                colors = Color.parseColor("#8029B6F6");
+                break;
+            default:
+                colors = Color.parseColor("#805C6BC0");
+                break;
+        }
+        return colors;
+    }
+
+    @Override
+    public void onClick(int buttonIndex) {
+        Log.d(TAG, "onClick");
+        switch (buttonIndex) {
+            case 0:
+                if (this.getClass().getSimpleName().equals("Locations")) {
+                    Toast.makeText(context, "Already at \"Flybys\"", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(context, Locations.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+                break;
+            case 1:
+                if (this.getClass().getSimpleName().equals("PeopleinSpace")) {
+                    Toast.makeText(context, "Already at \"Who's in Space?\"", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(context, PeopleinSpace.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+                break;
+            case 2:
+                if (this.getClass().getSimpleName().equals("Settings")) {
+                    Toast.makeText(context, "Already at \"Settings\"", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(context, Settings.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+                break;
+            case 3:
+                if (this.getClass().getSimpleName().equals("Help")) {
+                    Toast.makeText(context, "Already at \"Help\"", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(context, Help.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+                break;
+        }
     }
 
     @Override
@@ -323,23 +373,5 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onClick(View v) {
 
-    }
-
-    @Override
-    public void onClick(int buttonIndex) {
-        switch (buttonIndex) {
-            case 1:
-                setIntent(new Intent(this, Locations.class));
-                break;
-            case 2:
-                setIntent(new Intent(this, PeopleinSpace.class));
-                break;
-            case 3:
-                setIntent(new Intent(this, Settings.class));
-                break;
-            case 4:
-                setIntent(new Intent(this, Help.class));
-                break;
-        }
     }
 }
