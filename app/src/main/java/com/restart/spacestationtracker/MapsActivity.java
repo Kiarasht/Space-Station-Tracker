@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,8 +33,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
-import java.util.Objects;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -63,8 +60,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private TextView lanlog;
     private GoogleMap mMap;
     private Timer timer;
-    private View mCustomView;
-    private BoomMenuButton boomMenuButton;
     private BoomMenuButton boomMenuButtonInActionBar;
     private Context context;
 
@@ -84,10 +79,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         LayoutInflater mInflater = LayoutInflater.from(this);
 
         context = getApplicationContext();
-        mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
+        View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
         TextView mTitleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
-        mTitleTextView.setText(R.string.app_name);
-
+        String classname = this.getClass().getSimpleName();
+        switch (classname) {
+            case "MapsActivity":
+                mTitleTextView.setText(R.string.label_map);
+                break;
+            case "Locations":
+                mTitleTextView.setText(R.string.label_location);
+                break;
+            case "PeopleinSpace":
+                mTitleTextView.setText(R.string.label_peopleinspace);
+                break;
+            case "Settings":
+                mTitleTextView.setText(R.string.label_setting);
+                break;
+            case "Help":
+                mTitleTextView.setText(R.string.label_help);
+                break;
+        }
 
         boomMenuButtonInActionBar = (BoomMenuButton) mCustomView.findViewById(R.id.boom);
         boomMenuButtonInActionBar.setOnSubButtonClickListener(this);
@@ -230,10 +241,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         Drawable[] drawables = new Drawable[number];
         int[] drawablesResource = new int[]{
-                R.drawable.ic_media_pause,
-                R.drawable.ic_media_pause,
-                R.drawable.ic_media_pause,
-                R.drawable.ic_media_pause,
+                R.drawable.iss,
+                R.drawable.astronaut,
+                R.drawable.ic_settings,
+                R.drawable.ic_help_outline,
         };
 
         for (int i = 0; i < number; i++)
@@ -255,11 +266,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         boomMenuButtonInActionBar.init(
-                drawables, // The drawables of images of sub buttons. Can not be null.
-                strings,     // The texts of sub buttons, ok to be null.
-                colors,    // The colors of sub buttons, including pressed-state and normal-state.
+                drawables,          // The drawables of images of sub buttons. Can not be null.
+                strings,            // The texts of sub buttons, ok to be null.
+                colors,             // The colors of sub buttons, including pressed-state and normal-state.
                 ButtonType.HAM,     // The button type.
-                BoomType.LINE,  // The boom type.
+                BoomType.LINE,      // The boom type.
                 PlaceType.HAM_4_1,  // The place type.
                 null,               // Ease type to move the sub buttons when showing.
                 null,               // Ease type to scale the sub buttons when showing.

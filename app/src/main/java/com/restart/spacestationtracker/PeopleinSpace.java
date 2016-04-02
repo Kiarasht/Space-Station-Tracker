@@ -3,7 +3,6 @@ package com.restart.spacestationtracker;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
@@ -125,10 +124,5 @@ public class PeopleinSpace extends MapsActivity {
 
     void endAnimation() {
         findViewById(R.id.avloadingIndicatorView).setVisibility(View.GONE);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return true;
     }
 }
