@@ -7,7 +7,8 @@ An android application that keeps track of the International Space Station and n
 <img src="4.png" align="left" height="530" width="270" >
 <img src="5.png" align="left" height="530" width="270" >
 <img src="6.png" align="left" height="530" width="270" >
-
+<br> 
+<br> 
 
 <a href="https://play.google.com/store/apps/details?id=com.restart.spacestationtracker"><img src="https://raw.githubusercontent.com/evgenyneu/aes-crypto-android/master/Graphics/github/google_play_badge.png" align="center" height="70" width="200"></a>
 
