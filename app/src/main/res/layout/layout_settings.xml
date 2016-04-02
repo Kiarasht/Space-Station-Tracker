@@ -78,10 +78,34 @@
         android:onClick="onCheckboxClicked2"
         android:text="@string/notification2"
         android:textSize="20sp"
-        android:layout_alignTop="@+id/space3"
-        android:layout_alignStart="@+id/checkBox"
         android:shadowColor="@color/Black"
         android:shadowDx="0.0"
         android:shadowDy="0.0"
-        android:shadowRadius="2.0"/>
+        android:shadowRadius="2.0"
+        android:layout_alignTop="@+id/space3"
+        android:layout_alignStart="@+id/checkBox" />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:onClick="onCheckboxClicked3"
+        android:text="@string/notification3"
+        android:textSize="20sp"
+        android:shadowColor="@color/Black"
+        android:shadowDx="0.0"
+        android:shadowDy="0.0"
+        android:shadowRadius="2.0"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/space4"
+        android:layout_alignStart="@+id/checkBox2" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/space4"
+        android:layout_below="@+id/checkBox2"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

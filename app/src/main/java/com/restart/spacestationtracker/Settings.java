@@ -24,6 +24,7 @@ import java.text.DecimalFormat;
 public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeListener {
 
     private static final String TAG = ".Settings";
+    private CheckBox checkBox3;
     private CheckBox checkBox2;
     private TextView textView;
     private CheckBox checkBox;
@@ -49,10 +50,13 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         textView = ((TextView) findViewById(R.id.textView));
         checkBox = ((CheckBox) findViewById(R.id.checkBox));
         checkBox2 = ((CheckBox) findViewById(R.id.checkBox2));
+        checkBox3 = ((CheckBox) findViewById(R.id.checkBox3));
 
-        AdView adView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
-        adView.loadAd(adRequest);
+        if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
+            AdView adView = (AdView) findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
+            adView.loadAd(adRequest);
+        }
     }
 
     /**
@@ -66,6 +70,8 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         checkBox.setChecked(notification);
         notification = sharedPref.getBoolean(getString(R.string.notificationcheck2), false);
         checkBox2.setChecked(notification);
+        notification = sharedPref.getBoolean(getString(R.string.notificationcheck3), false);
+        checkBox3.setChecked(notification);
 
         if (refreshrate == 1000) {
             String result = "Refresh Rate (1.00 sec/refresh)";
@@ -150,6 +156,23 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         } else {
             Toast.makeText(this, "Stop notify when people in space change", Toast.LENGTH_SHORT).show();
             stopService(new Intent(this, AlertPeople.class));
+        }
+    }
+
+    /**
+     * Onclick method for the check box. Either allows or stops ads.
+     *
+     * @param view A view of the check box
+     */
+    public void onCheckboxClicked3(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+        sharedPref.edit().putBoolean(getString(R.string.notificationcheck3), checked).apply();
+
+        if (checked) {
+            Toast.makeText(this, "Ads disabled. Consider enabling them when non-intrusive", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "May need to close and restart the application to fully work", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Ads enable", Toast.LENGTH_SHORT).show();
         }
     }
 }

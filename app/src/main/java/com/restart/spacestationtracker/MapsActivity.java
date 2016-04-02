@@ -117,9 +117,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        AdView adView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
-        adView.loadAd(adRequest);
+        if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
+            AdView adView = (AdView) findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
+            adView.loadAd(adRequest);
+        }
     }
 
     /**

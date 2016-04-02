@@ -57,9 +57,11 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
         isspasses = (TextView) findViewById(R.id.textView3);
         buildGoogleApiClient();
 
-        AdView adView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
-        adView.loadAd(adRequest);
+        if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
+            AdView adView = (AdView) findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
+            adView.loadAd(adRequest);
+        }
     }
 
     /**
