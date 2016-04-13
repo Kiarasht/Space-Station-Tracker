@@ -1,17 +1,16 @@
 # Space Station Tracker
 An android application that keeps track of the International Space Station and notify you if it happens to pass by your location. It's also said that you should be able to see the station with a naked eye from earth. So keep an eye for it :)
 
-This library is using the following:
-- MaterialIntroTutorial https://github.com/spongebobrf/MaterialIntroTutorial
-- AVLoadingIndicatorView https://github.com/81813780/AVLoadingIndicatorView
-
-<img src="app.gif" align="center" height="450" width="300" >
-
 <img src="1.png" align="left" height="530" width="270" >
 <img src="2.png" align="left" height="530" width="270" >
 <img src="3.png" align="left" height="530" width="270" >
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<a href="https://play.google.com/store/apps/details?id=com.restart.spacestationtracker"><img src="https://raw.githubusercontent.com/evgenyneu/aes-crypto-android/master/Graphics/github/google_play_badge.png" align="center" height="70" width="200"></a>
+<img src="4.png" align="left" height="530" width="270" >
+<img src="5.png" align="left" height="530" width="270" >
+<img src="6.png" align="left" height="530" width="270" >
+<br> 
+<br> 
+
+<a href="https://play.google.com/store/apps/details?id=com.restart.spacestationtracker"><img src="https://raw.githubusercontent.com/evgenyneu/aes-crypto-android/master/Graphics/github/google_play_badge.png" height="70" width="200"></a>
 
 # License 
 
