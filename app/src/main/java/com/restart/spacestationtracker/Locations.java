@@ -102,6 +102,8 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(getApplicationContext(), "I don't have the permission to access your location"
+            , Toast.LENGTH_LONG).show();
             return;
         }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);

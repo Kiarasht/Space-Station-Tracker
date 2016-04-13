@@ -62,6 +62,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Timer timer;
     private BoomMenuButton boomMenuButtonInActionBar;
     private Context context;
+    private AdView adView;
 
     /**
      * When the application begins try to read from SharedPreferences
@@ -78,6 +79,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mActionBar.setDisplayShowTitleEnabled(false);
         LayoutInflater mInflater = LayoutInflater.from(this);
 
+        adView = null;
         context = getApplicationContext();
         View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
         TextView mTitleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
@@ -118,7 +120,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
         if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
-            AdView adView = (AdView) findViewById(R.id.adView);
+            adView = (AdView) findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
             adView.loadAd(adRequest);
         }
@@ -149,6 +151,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         } else {
             start = true;
             timer = new Timer();
+        }
+
+        if (sharedPref.getBoolean(getString(R.string.notificationcheck3), false) && adView != null) {
+            adView.setVisibility(View.INVISIBLE);
+        } else if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
+            if (adView == null) {
+                adView = (AdView) findViewById(R.id.adView);
+                AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
+                adView.loadAd(adRequest);
+            } else {
+                adView.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -315,8 +329,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Toast.makeText(context, "Already at \"Flybys\"", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(context, Locations.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(intent);
                 }
                 break;
@@ -325,8 +338,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Toast.makeText(context, "Already at \"Who's in Space?\"", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(context, PeopleinSpace.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(intent);
                 }
                 break;
@@ -335,8 +347,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Toast.makeText(context, "Already at \"Settings\"", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(context, Settings.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(intent);
                 }
                 break;
@@ -345,8 +356,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Toast.makeText(context, "Already at \"Help\"", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(context, Help.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(intent);
                 }
                 break;

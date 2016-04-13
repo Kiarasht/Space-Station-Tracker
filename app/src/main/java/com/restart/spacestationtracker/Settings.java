@@ -32,6 +32,7 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
     private Context context;
     private int refreshrate;
     private boolean reference;
+    private AdView adView;
 
     /**
      * Create and assign widgets to ones in the layout
@@ -43,6 +44,7 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_settings);
 
+        adView = null;
         reference = false;
         context = getApplicationContext();
         seekBar = ((SeekBar) findViewById(R.id.seekBar));
@@ -53,7 +55,7 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         checkBox3 = ((CheckBox) findViewById(R.id.checkBox3));
 
         if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
-            AdView adView = (AdView) findViewById(R.id.adView);
+            adView = (AdView) findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
             adView.loadAd(adRequest);
         }
@@ -169,10 +171,21 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         sharedPref.edit().putBoolean(getString(R.string.notificationcheck3), checked).apply();
 
         if (checked) {
-            Toast.makeText(this, "Ads disabled. Consider enabling them when non-intrusive", Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "May need to close and restart the application to fully work", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ads disabled. Consider enabling them when non-intrusive", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, "Ads enable", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ads enabled", Toast.LENGTH_SHORT).show();
+        }
+
+        if (sharedPref.getBoolean(getString(R.string.notificationcheck3), false) && adView != null) {
+            adView.setVisibility(View.INVISIBLE);
+        } else if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
+            if (adView == null) {
+                adView = (AdView) findViewById(R.id.adView);
+                AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
+                adView.loadAd(adRequest);
+            } else {
+                adView.setVisibility(View.VISIBLE);
+            }
         }
     }
 }

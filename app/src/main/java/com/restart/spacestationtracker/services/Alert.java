@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.restart.spacestationtracker.Locations;
 import com.restart.spacestationtracker.R;
@@ -35,6 +36,7 @@ public class Alert extends Service {
     private NotificationManager mNotificationManagerupdate;
     private NotificationCompat.Builder mBuilderupdate;
     private LocationManager locationManager;
+    private long times;
     private boolean endnotification;
     private Locations locations;
     private Location location;
@@ -154,6 +156,8 @@ public class Alert extends Service {
      * when we need to trigger a notification.
      */
     private void notification() {
+        times = System.currentTimeMillis();
+
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
                 R.drawable.iss_2011);
@@ -166,7 +170,8 @@ public class Alert extends Service {
                         .setContentText("ISS is about an hour away!")
                         .setSmallIcon(R.drawable.iss_2011)
                         .setLargeIcon(icon)
-                        .setSound(soundUri);
+                        .setSound(soundUri)
+                        .setWhen(times);
 
         Intent resultIntent = new Intent(context, Locations.class);
 
@@ -206,7 +211,7 @@ public class Alert extends Service {
     }
 
     /**
-     * Updates the manager and finishes off when time reaches zreo.
+     * Updates the manager and finishes off when time reaches zero.
      *
      * @param time The difference between ISS' location to user's location
      */
@@ -224,6 +229,8 @@ public class Alert extends Service {
             loop = 0;
             endnotification = true;
         }
+        mBuilderupdate.setWhen(times);
+        Log.d(TAG, "When = " + times);
         mNotificationManagerupdate.notify(1234, mBuilderupdate.build());
         if (endnotification) {
             String ns = Context.NOTIFICATION_SERVICE;
