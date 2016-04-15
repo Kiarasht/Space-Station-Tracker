@@ -117,7 +117,7 @@ public class Alert extends Service {
                         if (withinhour) {
                             if (timerupdate == null) {
                                 notification();
-                                updatemanager(Math.abs(date.getTime() - date1.getTime()));
+                                //updatemanager(Math.abs(date.getTime() - date1.getTime()));
                                 break;
                             } else {
                                 break;
@@ -163,9 +163,9 @@ public class Alert extends Service {
                 R.drawable.iss_2011);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setAutoCancel(false)
+                        .setAutoCancel(true)
                         .setOnlyAlertOnce(true)
-                        .setOngoing(true)
+                        .setOngoing(false)
                         .setContentTitle("ISS Tracker")
                         .setContentText("ISS is about an hour away!")
                         .setSmallIcon(R.drawable.iss_2011)
@@ -229,7 +229,7 @@ public class Alert extends Service {
             loop = 0;
             endnotification = true;
         }
-        mBuilderupdate.setWhen(times);
+        mBuilderupdate.setWhen(finalseconds);
         Log.d(TAG, "When = " + times);
         mNotificationManagerupdate.notify(1234, mBuilderupdate.build());
         if (endnotification) {

@@ -121,7 +121,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
             adView = (AdView) findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
+            AdRequest adRequest = new AdRequest.Builder().build();
             adView.loadAd(adRequest);
         }
     }
@@ -158,7 +158,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         } else if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
             if (adView == null) {
                 adView = (AdView) findViewById(R.id.adView);
-                AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
+                AdRequest adRequest = new AdRequest.Builder().build();
                 adView.loadAd(adRequest);
             } else {
                 adView.setVisibility(View.VISIBLE);

@@ -56,7 +56,7 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
 
         if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
             adView = (AdView) findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
+            AdRequest adRequest = new AdRequest.Builder().build();
             adView.loadAd(adRequest);
         }
     }
@@ -181,7 +181,7 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         } else if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
             if (adView == null) {
                 adView = (AdView) findViewById(R.id.adView);
-                AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
+                AdRequest adRequest = new AdRequest.Builder().build();
                 adView.loadAd(adRequest);
             } else {
                 adView.setVisibility(View.VISIBLE);

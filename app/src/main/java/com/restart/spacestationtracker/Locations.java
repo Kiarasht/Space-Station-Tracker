@@ -5,8 +5,10 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +54,7 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_locations);
+        isStoragePermissionGranted();
         startAnimation();
         countrycity = (TextView) findViewById(R.id.textView2);
         isspasses = (TextView) findViewById(R.id.textView3);
@@ -59,7 +62,7 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
 
         if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
             AdView adView = (AdView) findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.deviceid)).build();
+            AdRequest adRequest = new AdRequest.Builder().build();
             adView.loadAd(adRequest);
         }
     }
@@ -287,5 +290,33 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
 
     void endAnimation() {
         findViewById(R.id.avloadingIndicatorView).setVisibility(View.GONE);
+    }
+
+    public  boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED &&
+                    checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED &&
+                    checkSelfPermission(android.Manifest.permission.INTERNET)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.v(TAG,"Permission is granted");
+                return true;
+            } else {
+
+                Log.v(TAG,"Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.INTERNET}, 1);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            Log.v(TAG,"Permission is granted");
+            return true;
+        }
+
+
     }
 }
