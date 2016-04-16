@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import com.restart.spacestationtracker.Locations;
 import com.restart.spacestationtracker.R;
@@ -36,15 +35,11 @@ public class Alert extends Service {
     private NotificationManager mNotificationManagerupdate;
     private NotificationCompat.Builder mBuilderupdate;
     private LocationManager locationManager;
-    private long times;
-    private boolean endnotification;
     private Locations locations;
     private Location location;
-    private Timer timerupdate;
     private Context context;
     private Date[] dates;
     private Timer timer;
-    private int loop;
 
 
     @Override
@@ -54,7 +49,6 @@ public class Alert extends Service {
 
     @Override
     public void onCreate() {
-        loop = 0;
         locations = new Locations();
         context = getApplicationContext();
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -115,13 +109,9 @@ public class Alert extends Service {
                     if (date1 != null) {
                         boolean withinhour = Math.abs(date.getTime() - date1.getTime()) < 3600000L;
                         if (withinhour) {
-                            if (timerupdate == null) {
-                                notification();
-                                //updatemanager(Math.abs(date.getTime() - date1.getTime()));
-                                break;
-                            } else {
-                                break;
-                            }
+                            notification();
+                            notificationupdate(Math.abs(date.getTime() - date1.getTime()));
+                            break;
                         }
                     }
                 }
@@ -135,20 +125,15 @@ public class Alert extends Service {
      */
     @Override
     public void onDestroy() {
-        loop = 0;
         if (timer != null) {
             timer.cancel();
             timer.purge();
         }
-        if (timerupdate != null) {
-            timerupdate.cancel();
-            timerupdate.purge();
-            String ns = Context.NOTIFICATION_SERVICE;
-            NotificationManager nMgr = (NotificationManager) context.getSystemService(ns);
-            nMgr.cancel(1234);
-        }
         timer = null;
-        timerupdate = null;
+
+        String ns = Context.NOTIFICATION_SERVICE;
+        NotificationManager nMgr = (NotificationManager) context.getSystemService(ns);
+        nMgr.cancel(1234);
     }
 
     /**
@@ -156,7 +141,6 @@ public class Alert extends Service {
      * when we need to trigger a notification.
      */
     private void notification() {
-        times = System.currentTimeMillis();
 
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
@@ -167,11 +151,11 @@ public class Alert extends Service {
                         .setOnlyAlertOnce(true)
                         .setOngoing(false)
                         .setContentTitle("ISS Tracker")
-                        .setContentText("ISS is about an hour away!")
+                        .setContentText("Checking how far ISS is from you...")
                         .setSmallIcon(R.drawable.iss_2011)
                         .setLargeIcon(icon)
                         .setSound(soundUri)
-                        .setWhen(times);
+                        .setWhen(System.currentTimeMillis());
 
         Intent resultIntent = new Intent(context, Locations.class);
 
@@ -196,46 +180,13 @@ public class Alert extends Service {
     }
 
     /**
-     * Continuously updates a notification that will display live results.
-     *
-     * @param time The difference between ISS' location to user's location
-     */
-    private void updatemanager(final long time) {
-        timerupdate = new Timer();
-        timerupdate.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                notificationupdate(time);
-            }
-        }, 0, 1000);
-    }
-
-    /**
-     * Updates the manager and finishes off when time reaches zero.
+     * Updates the manager and finishes with the time difference.
      *
      * @param time The difference between ISS' location to user's location
      */
     private void notificationupdate(long time) {
-        int finalseconds = (int) (time / 1000) - loop++;
-
-        if (finalseconds > 0) {
-            mBuilderupdate.setContentText("ISS is about " + finalseconds + " seconds away!");
-        } else if (finalseconds > -11) {
-            mBuilderupdate.setContentText("ISS is at your location! Ending in (" + (10 - Math.abs(finalseconds)) + ")");
-        } else {
-            timerupdate.cancel();
-            timerupdate.purge();
-            timerupdate = null;
-            loop = 0;
-            endnotification = true;
-        }
-        mBuilderupdate.setWhen(finalseconds);
-        Log.d(TAG, "When = " + times);
+        int finalseconds = (int) (time / 1000 / 60);
+        mBuilderupdate.setContentText("ISS is about " + finalseconds + " minutes away!");
         mNotificationManagerupdate.notify(1234, mBuilderupdate.build());
-        if (endnotification) {
-            String ns = Context.NOTIFICATION_SERVICE;
-            NotificationManager nMgr = (NotificationManager) context.getSystemService(ns);
-            nMgr.cancel(1234);
-        }
     }
 }

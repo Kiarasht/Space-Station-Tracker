@@ -36,39 +36,31 @@
         android:paddingEnd="25dp"
         android:paddingStart="25dp" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="188dp"
-        android:id="@+id/space3" />
-
     <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="31dp"
+        android:layout_marginTop="25dp"
         android:onClick="onCheckboxClicked"
         android:text="@string/notification"
         android:textSize="20sp"
-        android:layout_below="@+id/seekBar"
-        android:layout_alignStart="@+id/adView"
         android:shadowColor="@color/Black"
         android:shadowDx="0.0"
         android:shadowDy="0.0"
-        android:shadowRadius="2.0"/>
+        android:shadowRadius="2.0"
+        android:layout_below="@+id/seekBar"
+        android:layout_centerHorizontal="true" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         ads:adSize="SMART_BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id" />
+        ads:adUnitId="@string/banner_ad_unit_id"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
     <CheckBox
         android:id="@+id/checkBox2"
@@ -82,8 +74,9 @@
         android:shadowDx="0.0"
         android:shadowDy="0.0"
         android:shadowRadius="2.0"
-        android:layout_alignTop="@+id/space3"
-        android:layout_alignStart="@+id/checkBox" />
+        android:layout_marginTop="23dp"
+        android:layout_below="@+id/checkBox"
+        android:layout_centerHorizontal="true" />
 
     <CheckBox
         android:id="@+id/checkBox3"
@@ -97,15 +90,8 @@
         android:shadowDx="0.0"
         android:shadowDy="0.0"
         android:shadowRadius="2.0"
-        android:layout_marginTop="35dp"
-        android:layout_below="@+id/space4"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/checkBox2"
         android:layout_alignStart="@+id/checkBox2" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/space4"
-        android:layout_below="@+id/checkBox2"
-        android:layout_alignParentStart="true" />
 </RelativeLayout>

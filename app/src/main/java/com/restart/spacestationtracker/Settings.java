@@ -173,7 +173,7 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         if (checked) {
             Toast.makeText(this, "Ads disabled. Consider enabling them when non-intrusive", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, "Ads enabled", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ads enabled. Thanks for the support ;)", Toast.LENGTH_SHORT).show();
         }
 
         if (sharedPref.getBoolean(getString(R.string.notificationcheck3), false) && adView != null) {
