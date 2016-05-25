@@ -1,8 +1,10 @@
 package com.restart.spacestationtracker;
 
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,9 +19,10 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class PeopleinSpace extends MapsActivity {
+public class PeopleinSpace extends AppCompatActivity {
 
-    private static final String TAG = ".Locations";
+    private final String TAG = ".Locations";
+    private SharedPreferences sharedPref;
     private TextView people_number;
     private TextView people_detail;
 
@@ -28,6 +31,7 @@ public class PeopleinSpace extends MapsActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_locations);
         startAnimation();
+        sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
         people_number = (TextView) findViewById(R.id.textView2);
         people_detail = (TextView) findViewById(R.id.textView3);
         display_people(false);

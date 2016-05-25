@@ -28,10 +28,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Alert extends Service {
-    private static final String TAG = ".Alert";
-    private static final int LOCATION_TIME = 900000; // 15 minutes
-    private static final int LOCATION_DISTANCE = 500; // 1500 meters
-    private static final int TIMER_REPEAT = 850000; // 14 minutes
+    private final String TAG = ".Alert";
+    private final int LOCATION_TIME = 900000; // 15 minutes
+    private final int LOCATION_DISTANCE = 500; // 1500 meters
+    private final int TIMER_REPEAT = 850000; // 14 minutes
     private NotificationManager mNotificationManagerupdate;
     private NotificationCompat.Builder mBuilderupdate;
     private LocationManager locationManager;

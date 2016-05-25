@@ -3,7 +3,9 @@ package com.restart.spacestationtracker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
@@ -21,9 +23,10 @@ import java.text.DecimalFormat;
  * Contains various widgets that the user can change to change the behaviour the
  * map activity class.
  */
-public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeListener {
+public class Settings extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
 
-    private static final String TAG = ".Settings";
+    private final String TAG = ".Settings";
+    private SharedPreferences sharedPref;
     private CheckBox checkBox3;
     private CheckBox checkBox2;
     private TextView textView;
@@ -53,6 +56,7 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
         checkBox = ((CheckBox) findViewById(R.id.checkBox));
         checkBox2 = ((CheckBox) findViewById(R.id.checkBox2));
         checkBox3 = ((CheckBox) findViewById(R.id.checkBox3));
+        sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
 
         if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
             adView = (AdView) findViewById(R.id.adView);
@@ -119,10 +123,9 @@ public class Settings extends MapsActivity implements SeekBar.OnSeekBarChangeLis
                     Toast.LENGTH_SHORT).show();
             reference = true;
         }
-        editor = sharedPref.edit();
         refreshrate = progress;
-        editor.putInt(getString(R.string.freshsave), refreshrate);
-        editor.apply();
+        sharedPref.edit().putInt(getString(R.string.freshsave), refreshrate);
+        sharedPref.edit().apply();
     }
 
     /**

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -18,6 +17,12 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,9 +34,6 @@ import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -41,6 +43,7 @@ import com.nightonke.boommenu.Types.BoomType;
 import com.nightonke.boommenu.Types.ButtonType;
 import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
+import com.squareup.leakcanary.LeakCanary;
 
 
 /**
@@ -52,10 +55,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         BoomMenuButton.AnimatorListener,
         View.OnClickListener {
 
-    private static final String TAG = ".MapsActivity";
-    protected SharedPreferences.Editor editor;
-    protected SharedPreferences sharedPref;
-    private static int refreshrate;
+    private final String TAG = ".MapsActivity";
+    private SharedPreferences sharedPref;
+    private RequestQueue requestQueue;
+    private int refreshrate;
     private boolean start = false;
     private TextView lanlog;
     private GoogleMap mMap;
@@ -73,6 +76,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        LeakCanary.install(getApplication());
 
         ActionBar mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
@@ -81,6 +85,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         adView = null;
         context = getApplicationContext();
+        requestQueue = Volley.newRequestQueue(this);
         View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
         TextView mTitleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
         String classname = this.getClass().getSimpleName();
@@ -109,7 +114,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
 
-        ((Toolbar) mCustomView.getParent()).setContentInsetsAbsolute(0,0);
+        ((Toolbar) mCustomView.getParent()).setContentInsetsAbsolute(0, 0);
 
         lanlog = ((TextView) findViewById(R.id.textView));
         sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
@@ -189,42 +194,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      * Get the Lat and Lon of ISS and move the map to that position when called.
      */
     private void trackISS() {
-        AsyncTask.execute(new Runnable() {
-            public void run() {
-                String strContent = "";
+        String url = "http://api.open-notify.org/iss-now.json";
 
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
+                null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
                 try {
-                    URL urlHandle = new URL("http://api.open-notify.org/iss-now.json");
-                    URLConnection urlconnectionHandle = urlHandle.openConnection();
-                    InputStream inputstreamHandle = urlconnectionHandle.getInputStream();
-
-                    try {
-                        int intRead;
-                        byte[] byteBuffer = new byte[1024];
-
-                        do {
-                            intRead = inputstreamHandle.read(byteBuffer);
-
-                            if (intRead == 0) {
-                                break;
-
-                            } else if (intRead == -1) {
-                                break;
-                            }
-
-                            strContent += new String(byteBuffer, 0, intRead, "UTF-8");
-                        } while (true);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    inputstreamHandle.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    JSONObject results = new JSONObject(strContent).getJSONObject("iss_position");
+                    JSONObject results = response.getJSONObject("iss_position");
 
                     final double latParameter = Double.parseDouble(results.getString("latitude"));
                     final double lngParameter = Double.parseDouble(results.getString("longitude"));
@@ -246,7 +223,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     e.printStackTrace();
                 }
             }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError e) {
+                e.printStackTrace();
+                int networkResponse = e.networkResponse.statusCode;
+                String message = e.getMessage();
+
+                String reason = message + " Error: " + networkResponse;
+
+                Toast.makeText(MapsActivity.this, reason + ".", Toast.LENGTH_LONG).show();
+            }
         });
+        requestQueue.add(jsonObjectRequest);
     }
 
     @Override

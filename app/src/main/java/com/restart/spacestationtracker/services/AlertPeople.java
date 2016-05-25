@@ -20,8 +20,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class AlertPeople extends Service {
-    private static final String TAG = ".AlertPeople";
-    private static final int TIMER_REPEAT = 86400000; // 1 day
+    private final String TAG = ".AlertPeople";
+    private final int TIMER_REPEAT = 86400000; // 1 day
     private SharedPreferences sharedPref;
     private PeopleinSpace peopleinSpace;
     private Context context;

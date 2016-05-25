@@ -2,12 +2,14 @@ package com.restart.spacestationtracker;
 
 
 import android.Manifest;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -35,10 +37,10 @@ import java.util.Locale;
  * will pass by the user's location. This class will require to read user's location
  * to function properly.
  */
-public class Locations extends MapsActivity implements GoogleApiClient.ConnectionCallbacks,
+public class Locations extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-    private static final String TAG = ".Locations";
+    private final String TAG = ".Locations";
     protected GoogleApiClient mGoogleApiClient;
     protected Location mLastLocation;
     private TextView countrycity;
@@ -55,6 +57,7 @@ public class Locations extends MapsActivity implements GoogleApiClient.Connectio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_locations);
         isStoragePermissionGranted();
+        SharedPreferences sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
         startAnimation();
         countrycity = (TextView) findViewById(R.id.textView2);
         isspasses = (TextView) findViewById(R.id.textView3);
