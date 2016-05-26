@@ -26,4 +26,5 @@
     <string name="label_peopleinspace">Who\'s in Space?</string>
     <string name="label_setting">Settings</string>
     <string name="label_help">Help</string>
+    <string name="first_time">first_time</string>
 </resources>

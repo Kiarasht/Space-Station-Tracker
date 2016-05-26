@@ -116,8 +116,6 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(getApplicationContext(), "I don't have the permission to access your location"
-                    , Toast.LENGTH_LONG).show();
             return;
         }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
@@ -298,19 +296,13 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                             == PackageManager.PERMISSION_GRANTED &&
                     checkSelfPermission(android.Manifest.permission.INTERNET)
                             == PackageManager.PERMISSION_GRANTED) {
-                //Toast.makeText(getApplicationContext(), "Cool beans! I got the permission, try that again", Toast.LENGTH_LONG).show();
                 return true;
-            }/* else {
-
-                Log.v(TAG,"Permission is revoked");
+            } else {
                 ActivityCompat.requestPermissions(this, new String[]{
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.INTERNET}, 1);
                 return false;
-            }*/
-            Toast.makeText(getApplicationContext(), "Can't find flybys without your location!", Toast.LENGTH_LONG).show();
-            return false;
+            }
         } else { // Permission is automatically granted on sdk<23 upon installation
             return true;
         }

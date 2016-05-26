@@ -9,10 +9,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,6 +67,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private BoomMenuButton boomMenuButtonInActionBar;
     private Context context;
     private AdView adView;
+    private boolean first_time;
 
     /**
      * When the application begins try to read from SharedPreferences
@@ -120,6 +123,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         lanlog = ((TextView) findViewById(R.id.textView));
         sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
         refreshrate = sharedPref.getInt(getString(R.string.freshsave), 2500);
+        first_time = sharedPref.getBoolean(getString(R.string.first_time), true);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -321,9 +325,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (this.getClass().getSimpleName().equals("Locations")) {
                     Toast.makeText(context, "Already at \"Flybys\"", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(context, Locations.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                    startActivity(intent);
+                    if (first_time) {
+                        askPermission();
+                    } else {
+                        Intent intent = new Intent(context, Locations.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        startActivity(intent);
+                    }
                 }
                 break;
             case 1:
@@ -354,6 +362,44 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
                 break;
         }
+    }
+
+    private void askPermission() {
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(MapsActivity.this);
+        alertDialog.setTitle("Location Permission");
+        alertDialog.setMessage("I need your location to find your ISS flybys. Do make sure your " +
+                "location is turned on and that you can find your location on an app such as " +
+                "Google maps. I do not store any information from you.");
+        alertDialog.setIcon(R.drawable.ic_report_problem);
+        alertDialog.setCancelable(true);
+        alertDialog.setPositiveButton("Ok", null);
+        alertDialog.setNegativeButton("Cancel", null);
+
+        LinearLayout layout = new LinearLayout(MapsActivity.this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        alertDialog.setView(layout);
+
+        final AlertDialog final_dialog = alertDialog.create();
+        final_dialog.show();
+
+        final_dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                first_time = false;
+                sharedPref.edit().putBoolean(getString(R.string.first_time), false).apply();
+                final_dialog.dismiss();
+                Intent intent = new Intent(context, Locations.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(intent);
+            }
+        });
+
+        final_dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final_dialog.dismiss();
+            }
+        });
     }
 
     @Override
