@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,20 +31,20 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.DecimalFormat;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.Types.BoomType;
 import com.nightonke.boommenu.Types.ButtonType;
 import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
 import com.squareup.leakcanary.LeakCanary;
+
+import org.apache.http.HttpStatus;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DecimalFormat;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -88,6 +89,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         requestQueue = Volley.newRequestQueue(this);
         View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
         TextView mTitleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
+        mTitleTextView.setText(this.getClass().getSimpleName());
+
         String classname = this.getClass().getSimpleName();
         switch (classname) {
             case "MapsActivity":
@@ -194,17 +197,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      * Get the Lat and Lon of ISS and move the map to that position when called.
      */
     private void trackISS() {
-        String url = "http://api.open-notify.org/iss-now.json";
+        String url = "https://api.wheretheiss.at/v1/satellites/25544";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
                 null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    JSONObject results = response.getJSONObject("iss_position");
-
-                    final double latParameter = Double.parseDouble(results.getString("latitude"));
-                    final double lngParameter = Double.parseDouble(results.getString("longitude"));
+                    final double latParameter = Double.parseDouble(response.getString("latitude"));
+                    final double lngParameter = Double.parseDouble(response.getString("longitude"));
 
                     DecimalFormat decimalFormat = new DecimalFormat("0.000");
                     String LAT = decimalFormat.format(latParameter);
@@ -227,12 +228,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onErrorResponse(VolleyError e) {
                 e.printStackTrace();
-                int networkResponse = e.networkResponse.statusCode;
-                String message = e.getMessage();
+                NetworkResponse networkResponse = e.networkResponse;
 
-                String reason = message + " Error: " + networkResponse;
+                if (networkResponse != null && networkResponse.statusCode == HttpStatus.SC_UNAUTHORIZED) {
+                    int error = networkResponse.statusCode;
+                    String message = e.getMessage();
+                    String reason = message + " Error: " + error;
+                    Toast.makeText(MapsActivity.this, reason + ".", Toast.LENGTH_LONG).show();
 
-                Toast.makeText(MapsActivity.this, reason + ".", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                Toast.makeText(MapsActivity.this, "An unknown error has occurred. Error: 401", Toast.LENGTH_LONG).show();
             }
         });
         requestQueue.add(jsonObjectRequest);

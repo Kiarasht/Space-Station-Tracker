@@ -8,6 +8,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -129,7 +130,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Toast.makeText(this, "Unable to find your location.", Toast.LENGTH_LONG).show();
     }
 
@@ -288,11 +289,19 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
     }
 
     void startAnimation() {
-        findViewById(R.id.avloadingIndicatorView).setVisibility(View.VISIBLE);
+        View view = findViewById(R.id.avloadingIndicatorView);
+
+        if (view != null) {
+            view.setVisibility(View.VISIBLE);
+        }
     }
 
     void endAnimation() {
-        findViewById(R.id.avloadingIndicatorView).setVisibility(View.GONE);
+        View view = findViewById(R.id.avloadingIndicatorView);
+
+        if (view != null) {
+            view.setVisibility(View.GONE);
+        }
     }
 
     public  boolean isStoragePermissionGranted() {
@@ -303,9 +312,10 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                     == PackageManager.PERMISSION_GRANTED &&
                     checkSelfPermission(android.Manifest.permission.INTERNET)
                     == PackageManager.PERMISSION_GRANTED) {
+                //Toast.makeText(getApplicationContext(), "Cool beans! I got the permission, try that again", Toast.LENGTH_LONG).show();
                 Log.v(TAG,"Permission is granted");
                 return true;
-            } else {
+            }/* else {
 
                 Log.v(TAG,"Permission is revoked");
                 ActivityCompat.requestPermissions(this, new String[]{
@@ -313,13 +323,13 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.INTERNET}, 1);
                 return false;
-            }
+            }*/
+            Toast.makeText(getApplicationContext(), "Can't find flybys without your location!", Toast.LENGTH_LONG).show();
+            return false;
         }
-        else { //permission is automatically granted on sdk<23 upon installation
+        else { // Permission is automatically granted on sdk<23 upon installation
             Log.v(TAG,"Permission is granted");
             return true;
         }
-
-
     }
 }
