@@ -5,7 +5,6 @@ import android.Manifest;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,19 +15,24 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
+import org.apache.http.HttpStatus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -43,6 +47,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
 
     private final String TAG = ".Locations";
     protected GoogleApiClient mGoogleApiClient;
+    private RequestQueue requestQueue;
     protected Location mLastLocation;
     private TextView countrycity;
     private TextView isspasses;
@@ -60,6 +65,8 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
         isStoragePermissionGranted();
         SharedPreferences sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
         startAnimation();
+
+        requestQueue = Volley.newRequestQueue(this);
         countrycity = (TextView) findViewById(R.id.textView2);
         isspasses = (TextView) findViewById(R.id.textView3);
         buildGoogleApiClient();
@@ -110,7 +117,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(getApplicationContext(), "I don't have the permission to access your location"
-            , Toast.LENGTH_LONG).show();
+                    , Toast.LENGTH_LONG).show();
             return;
         }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
@@ -139,46 +146,18 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
      * what city and country do these correspond to.
      */
     private void displayresults() {
-        AsyncTask.execute(new Runnable() {
-            public void run() {
-                String strContent = "";
+        String url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" +
+                mLatitude +
+                "," +
+                mLontitude +
+                "&sensor=false";
 
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
+                null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
                 try {
-                    URL urlHandle = new URL("http://maps.googleapis.com/maps/api/geocode/json?latlng=" +
-                            mLatitude +
-                            "," +
-                            mLontitude +
-                            "&sensor=false");
-                    URLConnection urlconnectionHandle = urlHandle.openConnection();
-                    InputStream inputstreamHandle = urlconnectionHandle.getInputStream();
-
-                    try {
-                        int intRead;
-                        byte[] byteBuffer = new byte[1024];
-
-                        do {
-                            intRead = inputstreamHandle.read(byteBuffer);
-
-                            if (intRead == 0) {
-                                break;
-
-                            } else if (intRead == -1) {
-                                break;
-                            }
-
-                            strContent += new String(byteBuffer, 0, intRead, "UTF-8");
-                        } while (true);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    inputstreamHandle.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    JSONObject results = new JSONObject(strContent).getJSONArray("results").getJSONObject(1);
+                    JSONObject results = response.getJSONArray("results").getJSONObject(1);
                     final String mLocation = results.getString("formatted_address");
 
                     runOnUiThread(new Runnable() {
@@ -187,12 +166,29 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                             countrycity.setText(mLocation);
                         }
                     });
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError e) {
+                e.printStackTrace();
+                NetworkResponse networkResponse = e.networkResponse;
+
+                if (networkResponse != null && networkResponse.statusCode == HttpStatus.SC_UNAUTHORIZED) {
+                    int error = networkResponse.statusCode;
+                    String message = e.getMessage();
+                    String reason = message + " Error: " + error;
+                    Toast.makeText(Locations.this, reason + ".", Toast.LENGTH_LONG).show();
+
+                    return;
+                }
+
+                Toast.makeText(Locations.this, "An unknown error has occurred. Error: 401", Toast.LENGTH_LONG).show();
+            }
         });
+        requestQueue.add(jsonObjectRequest);
     }
 
     /**
@@ -202,49 +198,21 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
     public Date[] displaypasses(final String mLatitudepar, final String mLontitudepar) {
         final Date[] passes = new Date[10];
 
-        AsyncTask.execute(new Runnable() {
-            public void run() {
-                String strContent = "";
+        String url;
+        if (mLatitudepar == null && mLontitudepar == null) {
+            url = "http://api.open-notify.org/iss-pass.json?lat=" +
+                    mLatitude + "&lon=" + mLontitude;
+        } else {
+            url = "http://api.open-notify.org/iss-pass.json?lat=" +
+                    mLatitudepar + "&lon=" + mLontitudepar;
+        }
 
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
+                null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
                 try {
-                    URL urlHandle;
-                    if (mLatitudepar == null && mLontitudepar == null) {
-                        urlHandle = new URL("http://api.open-notify.org/iss-pass.json?lat=" +
-                                mLatitude + "&lon=" + mLontitude);
-                    } else {
-                        urlHandle = new URL("http://api.open-notify.org/iss-pass.json?lat=" +
-                                mLatitudepar + "&lon=" + mLontitudepar);
-                    }
-                    URLConnection urlconnectionHandle = urlHandle.openConnection();
-                    InputStream inputstreamHandle = urlconnectionHandle.getInputStream();
-
-                    try {
-                        int intRead;
-                        byte[] byteBuffer = new byte[1024];
-
-                        do {
-                            intRead = inputstreamHandle.read(byteBuffer);
-
-                            if (intRead == 0) {
-                                break;
-
-                            } else if (intRead == -1) {
-                                break;
-                            }
-
-                            strContent += new String(byteBuffer, 0, intRead, "UTF-8");
-                        } while (true);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    inputstreamHandle.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    JSONArray aresults = new JSONObject(strContent).getJSONArray("response");
+                    JSONArray aresults = response.getJSONArray("response");
                     int[] duration = new int[aresults.length()];
                     Date[] date = new Date[aresults.length()];
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault());
@@ -284,7 +252,25 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                     e.printStackTrace();
                 }
             }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError e) {
+                e.printStackTrace();
+                NetworkResponse networkResponse = e.networkResponse;
+
+                if (networkResponse != null && networkResponse.statusCode == HttpStatus.SC_UNAUTHORIZED) {
+                    int error = networkResponse.statusCode;
+                    String message = e.getMessage();
+                    String reason = message + " Error: " + error;
+                    Toast.makeText(Locations.this, reason + ".", Toast.LENGTH_LONG).show();
+
+                    return;
+                }
+
+                Toast.makeText(Locations.this, "An unknown error has occurred. Error: 401", Toast.LENGTH_LONG).show();
+            }
         });
+        requestQueue.add(jsonObjectRequest);
         return passes;
     }
 
@@ -304,16 +290,16 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
         }
     }
 
-    public  boolean isStoragePermissionGranted() {
+    public boolean isStoragePermissionGranted() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED &&
                     checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED &&
+                            == PackageManager.PERMISSION_GRANTED &&
                     checkSelfPermission(android.Manifest.permission.INTERNET)
-                    == PackageManager.PERMISSION_GRANTED) {
+                            == PackageManager.PERMISSION_GRANTED) {
                 //Toast.makeText(getApplicationContext(), "Cool beans! I got the permission, try that again", Toast.LENGTH_LONG).show();
-                Log.v(TAG,"Permission is granted");
+                Log.v(TAG, "Permission is granted");
                 return true;
             }/* else {
 
@@ -326,9 +312,8 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
             }*/
             Toast.makeText(getApplicationContext(), "Can't find flybys without your location!", Toast.LENGTH_LONG).show();
             return false;
-        }
-        else { // Permission is automatically granted on sdk<23 upon installation
-            Log.v(TAG,"Permission is granted");
+        } else { // Permission is automatically granted on sdk<23 upon installation
+            Log.v(TAG, "Permission is granted");
             return true;
         }
     }

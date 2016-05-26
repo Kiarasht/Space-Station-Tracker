@@ -27,7 +27,9 @@
         android:shadowColor="@color/Black"
         android:shadowDx="0.0"
         android:shadowDy="0.0"
-        android:shadowRadius="2.0"/>
+        android:shadowRadius="2.0"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"/>
 
     <Space
         android:id="@+id/space"
