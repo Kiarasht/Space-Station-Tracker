@@ -25,7 +25,6 @@ import org.json.JSONObject;
 
 public class PeopleinSpace extends AppCompatActivity {
 
-    private final String TAG = ".Locations";
     private RequestQueue requestQueue;
     private SharedPreferences sharedPref;
     private TextView people_number;
@@ -45,7 +44,9 @@ public class PeopleinSpace extends AppCompatActivity {
         if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
             AdView adView = (AdView) findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().build();
-            adView.loadAd(adRequest);
+            if (adView != null) {
+                adView.loadAd(adRequest);
+            }
         }
     }
 

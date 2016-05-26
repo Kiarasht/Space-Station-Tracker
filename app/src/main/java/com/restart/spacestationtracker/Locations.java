@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +44,6 @@ import java.util.Locale;
 public class Locations extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-    private final String TAG = ".Locations";
     protected GoogleApiClient mGoogleApiClient;
     private RequestQueue requestQueue;
     protected Location mLastLocation;
@@ -74,7 +72,9 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
         if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
             AdView adView = (AdView) findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().build();
-            adView.loadAd(adRequest);
+            if (adView != null) {
+                adView.loadAd(adRequest);
+            }
         }
     }
 
@@ -299,7 +299,6 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                     checkSelfPermission(android.Manifest.permission.INTERNET)
                             == PackageManager.PERMISSION_GRANTED) {
                 //Toast.makeText(getApplicationContext(), "Cool beans! I got the permission, try that again", Toast.LENGTH_LONG).show();
-                Log.v(TAG, "Permission is granted");
                 return true;
             }/* else {
 
@@ -313,7 +312,6 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
             Toast.makeText(getApplicationContext(), "Can't find flybys without your location!", Toast.LENGTH_LONG).show();
             return false;
         } else { // Permission is automatically granted on sdk<23 upon installation
-            Log.v(TAG, "Permission is granted");
             return true;
         }
     }

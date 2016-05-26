@@ -28,10 +28,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Alert extends Service {
-    private final String TAG = ".Alert";
-    private final int LOCATION_TIME = 900000; // 15 minutes
-    private final int LOCATION_DISTANCE = 500; // 1500 meters
-    private final int TIMER_REPEAT = 850000; // 14 minutes
     private NotificationManager mNotificationManagerupdate;
     private NotificationCompat.Builder mBuilderupdate;
     private LocationManager locationManager;
@@ -72,16 +68,19 @@ public class Alert extends Service {
      * Starting a service for ISS location updater.
      *
      * @param intent  N/A
-     * @param startid N/A
+     * @param startId N/A
      */
     @Override
-    public void onStart(Intent intent, int startid) {
+    public int onStartCommand(Intent intent, int flags, int startId) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            return;
+            return START_NOT_STICKY;
         }
+        int LOCATION_TIME = 900000; // 15 minutes
+        int LOCATION_DISTANCE = 500; // 1500 meters
+        int TIMER_REPEAT = 850000;  // 14 minutes
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
                 LOCATION_TIME, LOCATION_DISTANCE, locationListener);
         timer = new Timer();
@@ -117,6 +116,8 @@ public class Alert extends Service {
                 }
             }
         }, 0, TIMER_REPEAT);
+
+        return START_NOT_STICKY;
     }
 
     /**

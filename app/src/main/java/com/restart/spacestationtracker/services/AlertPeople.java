@@ -20,8 +20,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class AlertPeople extends Service {
-    private final String TAG = ".AlertPeople";
-    private final int TIMER_REPEAT = 86400000; // 1 day
     private SharedPreferences sharedPref;
     private PeopleinSpace peopleinSpace;
     private Context context;
@@ -42,11 +40,12 @@ public class AlertPeople extends Service {
     /**
      * Start the finding astronauts service. It checks for updates everyday.
      * @param intent N/A
-     * @param startid N/A
+     * @param startId N/A
      */
     @Override
-    public void onStart(Intent intent, int startid) {
+    public int onStartCommand(Intent intent, int flags, int startId) {
         timer = new Timer();
+        int TIMER_REPEAT = 86400000; // 1 day
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -59,6 +58,8 @@ public class AlertPeople extends Service {
                 }
             }
         }, 0, TIMER_REPEAT);
+
+        return START_NOT_STICKY;
     }
 
     /**

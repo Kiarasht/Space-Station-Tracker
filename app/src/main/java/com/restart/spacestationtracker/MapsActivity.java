@@ -11,7 +11,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -56,7 +55,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         BoomMenuButton.AnimatorListener,
         View.OnClickListener {
 
-    private final String TAG = ".MapsActivity";
     private SharedPreferences sharedPref;
     private RequestQueue requestQueue;
     private int refreshrate;
@@ -318,7 +316,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onClick(int buttonIndex) {
-        Log.d(TAG, "onClick");
         switch (buttonIndex) {
             case 0:
                 if (this.getClass().getSimpleName().equals("Locations")) {

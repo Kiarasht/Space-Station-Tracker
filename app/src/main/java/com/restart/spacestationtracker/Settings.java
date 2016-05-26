@@ -25,7 +25,6 @@ import java.text.DecimalFormat;
  */
 public class Settings extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
 
-    private final String TAG = ".Settings";
     private SharedPreferences sharedPref;
     private CheckBox checkBox3;
     private CheckBox checkBox2;
@@ -110,7 +109,7 @@ public class Settings extends AppCompatActivity implements SeekBar.OnSeekBarChan
     }
 
     /**
-     * We can't accept a seekbar result of zero. We will, so we will give it a 1 otherwise
+     * We can't accept a seekbar result of zero. So we will give it a 1 otherwise
      * put what ever it was set to.
      *
      * @param seekBar The seekbar widget that was stopped changing

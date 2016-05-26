@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 
 public class Help extends AppCompatActivity {
@@ -17,10 +18,14 @@ public class Help extends AppCompatActivity {
 
         mWebView = (WebView) findViewById(R.id.webView2);
 
-        mWebView.loadUrl("file:///android_asset/help.html");
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.setVerticalScrollBarEnabled(false);
-        mWebView.setWebViewClient(new MyWebViewClient());
+        if (mWebView != null) {
+            mWebView.loadUrl("file:///android_asset/help.html");
+            mWebView.getSettings().setJavaScriptEnabled(true);
+            mWebView.setVerticalScrollBarEnabled(false);
+            mWebView.setWebViewClient(new MyWebViewClient());
+        }
+
+        Toast.makeText(getApplicationContext(), "Unable to load page", Toast.LENGTH_SHORT).show();
     }
 
     private class MyWebViewClient extends WebViewClient {
