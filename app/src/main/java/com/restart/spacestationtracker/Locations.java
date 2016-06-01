@@ -37,20 +37,19 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Contains solely based on Json parsing to read the expected time and dates the ISS
- * will pass by the user's location. This class will require to read user's location
- * to function properly.
+ * Json parsing to read the expected time and dates the ISS will pass by the user's location.
+ * This class will require to read user's location.
  */
 public class Locations extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-    protected GoogleApiClient mGoogleApiClient;
     private RequestQueue requestQueue;
-    protected Location mLastLocation;
     private TextView countrycity;
     private TextView isspasses;
     private String mLontitude;
     private String mLatitude;
+    protected Location mLastLocation;
+    protected GoogleApiClient mGoogleApiClient;
 
     /**
      * Assign simple widgets while also use the Google API to get user's location.
@@ -144,7 +143,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
      * what city and country do these correspond to.
      */
     private void displayresults() {
-        String url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" +
+        final String url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" +
                 mLatitude +
                 "," +
                 mLontitude +
@@ -199,10 +198,10 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
         final Date[] passes = new Date[10];
 
         String url;
-        if (mLatitudepar == null && mLontitudepar == null) {
+        if (mLatitudepar == null && mLontitudepar == null) { // Location.java is calling this method
             url = "http://api.open-notify.org/iss-pass.json?lat=" +
                     mLatitude + "&lon=" + mLontitude;
-        } else {
+        } else {                                            // Alert service is calling this method
             url = "http://api.open-notify.org/iss-pass.json?lat=" +
                     mLatitudepar + "&lon=" + mLontitudepar;
         }
@@ -237,6 +236,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                                 isspasses.setVisibility(View.VISIBLE);
                                 isspasses.setText(stringBuilder);
 
+                                // If no city, country came back we still got our LAT and LONG
                                 if (countrycity.getText().toString().trim().length() == 0) {
                                     final StringBuilder nocountrycity = new StringBuilder();
                                     nocountrycity.append("LAT: ")
@@ -268,6 +268,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                 }
 
                 Toast.makeText(Locations.this, "An unknown error has occurred. Error: 401", Toast.LENGTH_LONG).show();
+                endAnimation();
             }
         });
         requestQueue.add(jsonObjectRequest);
@@ -305,7 +306,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                         Manifest.permission.INTERNET}, 1);
                 return false;
             }
-        } else { // Permission is automatically granted on sdk<23 upon installation
+        } else { // Permission is automatically granted on sdk < 23 upon installation
             return true;
         }
     }

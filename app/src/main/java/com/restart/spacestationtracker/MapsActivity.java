@@ -49,7 +49,7 @@ import java.util.TimerTask;
 
 
 /**
- * Contains the google map and uses various API and JSON objects to display
+ * Contains the google map and uses volley to grab JSON objects and display
  * the position of the ISS picture on the map and update it occasionally.
  */
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,
@@ -57,29 +57,30 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         BoomMenuButton.AnimatorListener,
         View.OnClickListener {
 
-    private String TAG = ".MapsActivity";
+    private final String TAG = ".MapsActivity";
+    private BoomMenuButton boomMenuButtonInActionBar;
     private SharedPreferences sharedPref;
     private RequestQueue requestQueue;
-    private int refreshrate;
-    private boolean start = false;
-    private TextView lanlog;
     private GoogleMap mMap;
-    private Timer timer;
-    private BoomMenuButton boomMenuButtonInActionBar;
+    private Timer timer;                                // Updates map based on refreshrate
     private Context context;
     private AdView adView;
-    private boolean first_time;
-    private int success;
+    private TextView latlong;                           // latlong of ISS
+    private int refreshrate;                            // Millisecond between each timer repeat
+    private int success;                                // Tracks # times server failed to respond
+    private boolean first_time;                         // Ask your for location permission once
+    private boolean start = false;                      // Opened app or returned to activity?
+
 
     /**
-     * When the application begins try to read from SharedPreferences
-     *
-     * @param savedInstanceState on create method
+     * When the application begins try to read from SharedPreferences to get ready
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        // TODO Remove this after checking for more leak
         LeakCanary.install(getApplication());
 
         ActionBar mActionBar = getSupportActionBar();
@@ -123,7 +124,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         ((Toolbar) mCustomView.getParent()).setContentInsetsAbsolute(0, 0);
 
-        lanlog = ((TextView) findViewById(R.id.textView));
+        latlong = ((TextView) findViewById(R.id.textView));
         sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
         refreshrate = sharedPref.getInt(getString(R.string.freshsave), 15000);
         first_time = sharedPref.getBoolean(getString(R.string.first_time), true);
@@ -140,8 +141,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     /**
-     * On resume, the user might have visited the setting activity. Reread the
-     * refreshrate.
+     * On resume, for when the user might have visited the setting activity and came back.
+     * Reread the refreshrate.
      * onResume gets called right after onCreate for example when the application
      * gets opened for the first time, or might get called solely if user switches to this
      * activity. If/else for both situations
@@ -149,40 +150,43 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     protected void onResume() {
         super.onResume();
-        if (start) {
+        if (start) {                            // When activity was just paused
             refreshrate = sharedPref.getInt(getString(R.string.freshsave), 15000);
             if (timer != null) {
                 timer.cancel();
                 timer.purge();
                 timer = null;
             }
-            timer = new Timer();
+            timer = new Timer();                // Track ISS based on refreshrate
             timer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
                     trackISS();
                 }
             }, 0, refreshrate);
-        } else {
+        } else {                                // When activity is killed or created for first time
             start = true;
             timer = new Timer();
         }
 
+        // Provide optional advertisements that is visible/hidden by a checkbox in Settings.java
         if (sharedPref.getBoolean(getString(R.string.notificationcheck3), false) && adView != null) {
-            adView.setVisibility(View.INVISIBLE);
+            adView.setVisibility(View.INVISIBLE);       // User disabled ads
         } else if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
-            if (adView == null) {
+            if (adView == null) {                       // User wants ads but instance is null
                 adView = (AdView) findViewById(R.id.adView);
                 AdRequest adRequest = new AdRequest.Builder().build();
                 adView.loadAd(adRequest);
-            } else {
+            } else {                                    // User wants ads, instance already got one
                 adView.setVisibility(View.VISIBLE);
             }
         }
-
         success = 0;
     }
 
+    /**
+     * Cancel any request on Volley after user goes to another activity.
+     */
     protected void onPause() {
         super.onPause();
         if (requestQueue != null) {
@@ -213,14 +217,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      * Get the Lat and Lon of ISS and move the map to that position when called.
      */
     private void trackISS() {
-        String url = "https://api.wheretheiss.at/v1/satellites/25544";
+        final String url = "https://api.wheretheiss.at/v1/satellites/25544";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
                 null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    success = 0;
+                    success = 0;        // Server responded successfully
                     final double latParameter = Double.parseDouble(response.getString("latitude"));
                     final double lngParameter = Double.parseDouble(response.getString("longitude"));
 
@@ -234,7 +238,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         public void run() {
                             LatLng ISS = new LatLng(latParameter, lngParameter);
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(ISS));
-                            lanlog.setText(position);
+                            latlong.setText(position);
                         }
                     });
                 } catch (JSONException e) {
@@ -249,13 +253,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 if (networkResponse != null && networkResponse.statusCode == HttpStatus.SC_UNAUTHORIZED) {
                     int error = networkResponse.statusCode;
-                    String message = e.getMessage();
-                    String reason = message + " Error: " + error;
+                    final String message = e.getMessage();
+                    final String reason = message + " Error: " + error;
                     Toast.makeText(MapsActivity.this, reason + ".", Toast.LENGTH_LONG).show();
 
                     return;
                 }
 
+                // Server did not respond. Got 5 chances before stop trying.
                 if (++success <= 4) {
                     Toast.makeText(MapsActivity.this,
                             "Request to server failed. " + success + " out of 5. Trying in " +
@@ -274,6 +279,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         requestQueue.add(jsonObjectRequest);
     }
 
+    /**
+     * Method responsible of creating and designing the popup drawer. (BoomMenuButton)
+     */
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -323,6 +331,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         );
     }
 
+    /**
+     * Manually picked colors that best matched the over theme of the application.
+     *
+     * @param iteration The i iteration of previous method.
+     * @return Returns a color hex which also includes some transparency.
+     */
     public int GetColor(int iteration) {
         int colors;
         switch (iteration) {
@@ -345,52 +359,44 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         return colors;
     }
 
+    /**
+     * onClick method for each drawer popup. Most just start another activity but location
+     * needs to make sure Location permission is allowed by the user.
+     *
+     * @param buttonIndex Index representing which button was clicked.
+     */
     @Override
     public void onClick(int buttonIndex) {
+        Intent intent;
+
         switch (buttonIndex) {
             case 0:
-                if (this.getClass().getSimpleName().equals("Locations")) {
-                    Toast.makeText(context, "Already at \"Flybys\"", Toast.LENGTH_SHORT).show();
+                if (first_time) {
+                    askPermission();
                 } else {
-                    if (first_time) {
-                        askPermission();
-                    } else {
-                        Intent intent = new Intent(context, Locations.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                        startActivity(intent);
-                    }
+                    intent = new Intent(context, Locations.class);
+                    startActivity(intent);
                 }
                 break;
             case 1:
-                if (this.getClass().getSimpleName().equals("PeopleinSpace")) {
-                    Toast.makeText(context, "Already at \"Who's in Space?\"", Toast.LENGTH_SHORT).show();
-                } else {
-                    Intent intent = new Intent(context, PeopleinSpace.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                    startActivity(intent);
-                }
+                intent = new Intent(context, PeopleinSpace.class);
+                startActivity(intent);
                 break;
             case 2:
-                if (this.getClass().getSimpleName().equals("Settings")) {
-                    Toast.makeText(context, "Already at \"Settings\"", Toast.LENGTH_SHORT).show();
-                } else {
-                    Intent intent = new Intent(context, Settings.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                    startActivity(intent);
-                }
+                intent = new Intent(context, Settings.class);
+                startActivity(intent);
                 break;
             case 3:
-                if (this.getClass().getSimpleName().equals("Help")) {
-                    Toast.makeText(context, "Already at \"Help\"", Toast.LENGTH_SHORT).show();
-                } else {
-                    Intent intent = new Intent(context, Help.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                    startActivity(intent);
-                }
+                intent = new Intent(context, Help.class);
+                startActivity(intent);
                 break;
         }
     }
 
+    /**
+     * Make sure the user knows why we need access to their location, specially for Marshmallow
+     * users.
+     */
     private void askPermission() {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(MapsActivity.this);
         alertDialog.setTitle("Location Permission");

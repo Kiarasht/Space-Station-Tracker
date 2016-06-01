@@ -28,6 +28,9 @@ public class Help extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Unable to load page", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Loads WebView inside the app instead of starting phone's default browser
+     */
     private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -36,6 +39,9 @@ public class Help extends AppCompatActivity {
         }
     }
 
+    /**
+     * Navigates back through the WebView history
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {

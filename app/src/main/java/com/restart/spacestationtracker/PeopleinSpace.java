@@ -53,8 +53,8 @@ public class PeopleinSpace extends AppCompatActivity {
     /**
      * Finds a string that holds the values of people in space.
      *
-     * @param intent Is the function getting called from a service or from the activity? If its an
-     *               intent then we don't to update objects such as textboxes.
+     * @param intent Is the function getting called from a service or from the activity? If its a
+     *               service then we don't to update objects such as textboxes.
      * @return Return a string variable holding the astro people.
      */
     public String display_people(final Boolean intent) {
@@ -112,7 +112,6 @@ public class PeopleinSpace extends AppCompatActivity {
 
                 Toast.makeText(PeopleinSpace.this, "An unknown error has occurred. Error: 401", Toast.LENGTH_LONG).show();
                 endAnimation();
-                people_detail.setText("Awkward!!!");
             }
         });
         requestQueue.add(jsonObjectRequest);

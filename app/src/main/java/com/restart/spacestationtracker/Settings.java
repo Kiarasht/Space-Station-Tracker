@@ -32,9 +32,9 @@ public class Settings extends AppCompatActivity implements SeekBar.OnSeekBarChan
     private CheckBox checkBox;
     private SeekBar seekBar;
     private Context context;
+    private AdView adView;
     private int refreshrate;
     private boolean reference;
-    private AdView adView;
 
     /**
      * Create and assign widgets to ones in the layout
@@ -66,7 +66,7 @@ public class Settings extends AppCompatActivity implements SeekBar.OnSeekBarChan
 
     /**
      * Make sure the seekbar is at the right value and we will warn
-     * the user again if they put the value to low
+     * the user again if they put the value to low.
      */
     protected void onResume() {
         super.onResume();
@@ -87,9 +87,7 @@ public class Settings extends AppCompatActivity implements SeekBar.OnSeekBarChan
 
     /**
      * When the progress of the seekbar is changed we make sure that we format it
-     * correctly to only two digits. If we can also warn them, put up a Toast.
-     * This is very similar to increasing phone's volume with headphones.
-     * "High volume for long periods may damage your hearing."
+     * correctly to only two digits.
      *
      * @param seekBar  The only seekbar in the layout
      * @param progress An int representing progress of seekbar
@@ -110,7 +108,9 @@ public class Settings extends AppCompatActivity implements SeekBar.OnSeekBarChan
 
     /**
      * We can't accept a seekbar result of zero. So we will give it a 1 otherwise
-     * put what ever it was set to.
+     * put what ever it was set to. We can also warn them when they go low.
+     * This is very similar to increasing phone's volume with headphones on.
+     * "High volume for long periods may damage your hearing."
      *
      * @param seekBar The seekbar widget that was stopped changing
      */
@@ -127,7 +127,7 @@ public class Settings extends AppCompatActivity implements SeekBar.OnSeekBarChan
     }
 
     /**
-     * Onclick method for the check box. Either starts or stops an android service.
+     * Onclick method for the Alert service. Either starts or stops an android service.
      *
      * @param view A view of the check box
      */
@@ -145,7 +145,7 @@ public class Settings extends AppCompatActivity implements SeekBar.OnSeekBarChan
     }
 
     /**
-     * Onclick method for the check box. Either starts or stops an android service.
+     * Onclick method for the AlertPeople service. Either starts or stops an android service.
      *
      * @param view A view of the check box
      */
@@ -163,7 +163,7 @@ public class Settings extends AppCompatActivity implements SeekBar.OnSeekBarChan
     }
 
     /**
-     * Onclick method for the check box. Either allows or stops ads.
+     * Onclick method for the ad check box. Either allows or stops ads.
      *
      * @param view A view of the check box
      */
