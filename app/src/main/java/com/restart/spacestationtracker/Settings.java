@@ -123,8 +123,7 @@ public class Settings extends AppCompatActivity implements SeekBar.OnSeekBarChan
             reference = true;
         }
         refreshrate = progress;
-        sharedPref.edit().putInt(getString(R.string.freshsave), refreshrate);
-        sharedPref.edit().apply();
+        sharedPref.edit().putInt(getString(R.string.freshsave), refreshrate).apply();
     }
 
     /**

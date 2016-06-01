@@ -111,6 +111,8 @@ public class PeopleinSpace extends AppCompatActivity {
                 }
 
                 Toast.makeText(PeopleinSpace.this, "An unknown error has occurred. Error: 401", Toast.LENGTH_LONG).show();
+                endAnimation();
+                people_detail.setText("Awkward!!!");
             }
         });
         requestQueue.add(jsonObjectRequest);

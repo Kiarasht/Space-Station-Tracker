@@ -57,6 +57,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         BoomMenuButton.AnimatorListener,
         View.OnClickListener {
 
+    private String TAG = ".MapsActivity";
     private SharedPreferences sharedPref;
     private RequestQueue requestQueue;
     private int refreshrate;
@@ -68,6 +69,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Context context;
     private AdView adView;
     private boolean first_time;
+    private int success;
 
     /**
      * When the application begins try to read from SharedPreferences
@@ -88,6 +90,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         adView = null;
         context = getApplicationContext();
         requestQueue = Volley.newRequestQueue(this);
+
         View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
         TextView mTitleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
         mTitleTextView.setText(this.getClass().getSimpleName());
@@ -122,7 +125,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         lanlog = ((TextView) findViewById(R.id.textView));
         sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
-        refreshrate = sharedPref.getInt(getString(R.string.freshsave), 2500);
+        refreshrate = sharedPref.getInt(getString(R.string.freshsave), 15000);
         first_time = sharedPref.getBoolean(getString(R.string.first_time), true);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -147,10 +150,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onResume() {
         super.onResume();
         if (start) {
-            refreshrate = sharedPref.getInt(getString(R.string.freshsave), 2500);
-            timer.cancel();
-            timer.purge();
-            timer = null;
+            refreshrate = sharedPref.getInt(getString(R.string.freshsave), 15000);
+            if (timer != null) {
+                timer.cancel();
+                timer.purge();
+                timer = null;
+            }
             timer = new Timer();
             timer.scheduleAtFixedRate(new TimerTask() {
                 @Override
@@ -173,6 +178,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             } else {
                 adView.setVisibility(View.VISIBLE);
             }
+        }
+
+        success = 0;
+    }
+
+    protected void onPause() {
+        super.onPause();
+        if (requestQueue != null) {
+            requestQueue.cancelAll(TAG);
         }
     }
 
@@ -206,6 +220,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onResponse(JSONObject response) {
                 try {
+                    success = 0;
                     final double latParameter = Double.parseDouble(response.getString("latitude"));
                     final double lngParameter = Double.parseDouble(response.getString("longitude"));
 
@@ -241,9 +256,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     return;
                 }
 
-                Toast.makeText(MapsActivity.this, "An unknown error has occurred. Error: 401", Toast.LENGTH_LONG).show();
+                if (++success <= 4) {
+                    Toast.makeText(MapsActivity.this,
+                            "Request to server failed. " + success + " out of 5. Trying in " +
+                                    refreshrate / 1000 + " seconds.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MapsActivity.this,
+                            "Failed all 5 times. Either you have no connection or server is overloaded.",
+                            Toast.LENGTH_LONG).show();
+                    timer.cancel();
+                    timer.purge();
+                    timer = null;
+                }
             }
         });
+        jsonObjectRequest.setTag(TAG);
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -369,7 +396,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         alertDialog.setTitle("Location Permission");
         alertDialog.setMessage("I need your location to find your ISS flybys. Do make sure your " +
                 "location is turned on and that you can find your location on an app such as " +
-                "Google maps. I do not store any information from you.");
+                "Google maps. If you are on Marshmallow 6.0 or above \"Allow\" the permission and " +
+                "click on the \"Flybys\" options again.  I do not store any information from you.");
         alertDialog.setIcon(R.drawable.ic_report_problem);
         alertDialog.setCancelable(true);
         alertDialog.setPositiveButton("Ok", null);

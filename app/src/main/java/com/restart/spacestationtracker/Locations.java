@@ -184,6 +184,8 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                 }
 
                 Toast.makeText(Locations.this, "An unknown error has occurred. Error: 401", Toast.LENGTH_LONG).show();
+                endAnimation();
+                countrycity.setText("Awkward!!!");
             }
         });
         requestQueue.add(jsonObjectRequest);
