@@ -23,9 +23,9 @@ public class Help extends AppCompatActivity {
             mWebView.getSettings().setJavaScriptEnabled(true);
             mWebView.setVerticalScrollBarEnabled(false);
             mWebView.setWebViewClient(new MyWebViewClient());
+        } else {
+            Toast.makeText(getApplicationContext(), "Unable to load page", Toast.LENGTH_SHORT).show();
         }
-
-        Toast.makeText(getApplicationContext(), "Unable to load page", Toast.LENGTH_SHORT).show();
     }
 
     /**

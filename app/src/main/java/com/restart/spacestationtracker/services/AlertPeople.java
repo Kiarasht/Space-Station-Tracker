@@ -49,7 +49,7 @@ public class AlertPeople extends Service {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                String astro_detail = peopleinSpace.display_people(true);
+                String astro_detail = peopleinSpace.display_people(true, getApplicationContext());
                 String astro_onfile = sharedPref.getString(getString(R.string.astro_detail), "");
 
                 if (!astro_detail.equals(astro_onfile)) {

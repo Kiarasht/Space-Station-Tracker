@@ -95,7 +95,7 @@ public class Alert extends Service {
                 }
                 location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 dates = locations.displaypasses(String.valueOf(location.getLatitude()),
-                        String.valueOf(location.getLongitude()));
+                        String.valueOf(location.getLongitude()), getApplicationContext());
                 try {
                     Thread.sleep(10000);
                 } catch (InterruptedException e) {

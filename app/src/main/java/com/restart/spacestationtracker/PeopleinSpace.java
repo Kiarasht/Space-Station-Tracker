@@ -1,6 +1,7 @@
 package com.restart.spacestationtracker;
 
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -39,7 +40,7 @@ public class PeopleinSpace extends AppCompatActivity {
         people_number = (TextView) findViewById(R.id.textView2);
         people_detail = (TextView) findViewById(R.id.textView3);
         requestQueue = Volley.newRequestQueue(this);
-        display_people(false);
+        display_people(false, getApplicationContext());
 
         if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
             AdView adView = (AdView) findViewById(R.id.adView);
@@ -55,9 +56,10 @@ public class PeopleinSpace extends AppCompatActivity {
      *
      * @param intent Is the function getting called from a service or from the activity? If its a
      *               service then we don't to update objects such as textboxes.
+     * @param applicationContext
      * @return Return a string variable holding the astro people.
      */
-    public String display_people(final Boolean intent) {
+    public String display_people(final Boolean intent, Context applicationContext) {
         String url = "http://api.open-notify.org/astros.json";
         final StringBuilder astro_detail = new StringBuilder();
 
@@ -110,11 +112,17 @@ public class PeopleinSpace extends AppCompatActivity {
                     return;
                 }
 
-                Toast.makeText(PeopleinSpace.this, "An unknown error has occurred. Error: 401", Toast.LENGTH_LONG).show();
+                Toast.makeText(PeopleinSpace.this, "Either you have no connection or server is overloaded.", Toast.LENGTH_LONG).show();
                 endAnimation();
             }
         });
-        requestQueue.add(jsonObjectRequest);
+
+        if (requestQueue == null) {
+            RequestQueue requestQueue = Volley.newRequestQueue(applicationContext);
+            requestQueue.add(jsonObjectRequest);
+        } else {
+            requestQueue.add(jsonObjectRequest);
+        }
 
         if (!intent) {
             sharedPref.edit().putString(getString(R.string.astro_detail), astro_detail.toString()).apply();

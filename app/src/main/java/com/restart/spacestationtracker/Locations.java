@@ -2,6 +2,7 @@ package com.restart.spacestationtracker;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -122,7 +123,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
             mLatitude = String.valueOf(mLastLocation.getLatitude());
             mLontitude = String.valueOf(mLastLocation.getLongitude());
             displayresults();
-            displaypasses(null, null);
+            displaypasses(null, null, getApplicationContext());
         } else {
             Toast.makeText(this, "Unable to find your location.", Toast.LENGTH_LONG).show();
         }
@@ -194,7 +195,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
      * After successfully getting a city and country from the last JSON parsing, search a database
      * to see when ISS will pass by this city, country.
      */
-    public Date[] displaypasses(final String mLatitudepar, final String mLontitudepar) {
+    public Date[] displaypasses(final String mLatitudepar, final String mLontitudepar, Context applicationContext) {
         final Date[] passes = new Date[10];
 
         String url;
@@ -267,11 +268,17 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                     return;
                 }
 
-                Toast.makeText(Locations.this, "An unknown error has occurred. Error: 401", Toast.LENGTH_LONG).show();
+                Toast.makeText(Locations.this, "Either you have no connection or server is overloaded.", Toast.LENGTH_LONG).show();
                 endAnimation();
             }
         });
-        requestQueue.add(jsonObjectRequest);
+
+        if (requestQueue == null) {
+            RequestQueue requestQueue = Volley.newRequestQueue(applicationContext);
+            requestQueue.add(jsonObjectRequest);
+        } else {
+            requestQueue.add(jsonObjectRequest);
+        }
         return passes;
     }
 
