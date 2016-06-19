@@ -34,7 +34,7 @@ public class AlertPeople extends Service {
     public void onCreate() {
         peopleinSpace = new PeopleinSpace();
         sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
-        context = getApplicationContext();
+        context = getBaseContext();
     }
 
     /**
@@ -49,7 +49,7 @@ public class AlertPeople extends Service {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                String astro_detail = peopleinSpace.display_people(true, getApplicationContext());
+                String astro_detail = peopleinSpace.display_people(true, context);
                 String astro_onfile = sharedPref.getString(getString(R.string.astro_detail), "");
 
                 if (!astro_detail.equals(astro_onfile)) {
@@ -59,7 +59,7 @@ public class AlertPeople extends Service {
             }
         }, 0, TIMER_REPEAT);
 
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     /**

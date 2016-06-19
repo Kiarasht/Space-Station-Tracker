@@ -46,7 +46,7 @@ public class Alert extends Service {
     @Override
     public void onCreate() {
         locations = new Locations();
-        context = getApplicationContext();
+        context = getBaseContext();
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
     }
 
@@ -76,7 +76,7 @@ public class Alert extends Service {
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            return START_NOT_STICKY;
+            return START_STICKY;
         }
         int LOCATION_TIME = 900000; // 15 minutes
         int LOCATION_DISTANCE = 500; // 1500 meters
@@ -95,7 +95,7 @@ public class Alert extends Service {
                 }
                 location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 dates = locations.displaypasses(String.valueOf(location.getLatitude()),
-                        String.valueOf(location.getLongitude()), getApplicationContext());
+                        String.valueOf(location.getLongitude()), context);
                 try {
                     Thread.sleep(10000);
                 } catch (InterruptedException e) {
@@ -117,7 +117,7 @@ public class Alert extends Service {
             }
         }, 0, TIMER_REPEAT);
 
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     /**

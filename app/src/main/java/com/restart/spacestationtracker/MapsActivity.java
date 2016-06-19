@@ -402,7 +402,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         alertDialog.setMessage("I need your location to find your ISS flybys. Do make sure your " +
                 "location is turned on and that you can find your location on an app such as " +
                 "Google maps. If you are on Marshmallow 6.0 or above \"Allow\" the permission and " +
-                "click on the \"Flybys\" options again.  I do not store any information from you.");
+                "click on the \"Flybys\" options again. \nI do not store any information from you.");
         alertDialog.setIcon(R.drawable.ic_report_problem);
         alertDialog.setCancelable(true);
         alertDialog.setPositiveButton("Ok", null);
