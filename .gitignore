@@ -1,3 +1,5 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Android template
 # Built application files
 *.apk
 *.ap_
@@ -34,7 +36,20 @@ captures/
 
 # Intellij
 *.iml
-.idea/workspace.xml
 
 # Keystore files
 *.jks
+
+.idea/
+7.png
+8.png
+app/build.gradle
+app/src/main/ic_launcher-web.png
+app/src/main/res/FrameLayout/
+app/src/release/ic_launcher-web.png
+app/src/release/res/mipmap-hdpi/
+app/src/release/res/mipmap-mdpi/
+app/src/release/res/mipmap-xhdpi/
+app/src/release/res/mipmap-xxhdpi/
+app/src/release/res/mipmap-xxxhdpi/
+materialhelptutorial/
