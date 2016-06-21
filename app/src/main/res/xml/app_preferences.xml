@@ -16,7 +16,8 @@
             sample:msbp_minValue="1" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Notification">
+    <PreferenceCategory android:title="Notification"
+        android:key="Notification">
 
         <CheckBoxPreference
             android:defaultValue="false"
@@ -32,14 +33,18 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Advertisement">
+    <PreferenceCategory android:title="Advertisement"
+        android:key="Advertisement">
 
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="advertisement"
-            android:summary="Enable or disable all ads on the app"
+            android:summary="Disable all ads on the app"
             android:title="Advertisement" />
 
+        <com.restart.spacestationtracker.AdPreference
+            android:key="ad_Preference"
+            android:layout="@layout/layout_general" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Theme">

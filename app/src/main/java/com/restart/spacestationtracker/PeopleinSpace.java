@@ -44,7 +44,7 @@ public class PeopleinSpace extends AppCompatActivity {
 
         if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
             AdView adView = (AdView) findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().build();
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
             if (adView != null) {
                 adView.loadAd(adRequest);
             }

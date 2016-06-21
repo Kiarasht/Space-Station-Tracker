@@ -6,17 +6,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-
 public class Preferences extends AppCompatActivity {
-    private static AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +20,6 @@ public class Preferences extends AppCompatActivity {
         setContentView(R.layout.layout_general);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        adView = (AdView) findViewById(R.id.adView);
 
         SettingsFragment settingsFragment = new SettingsFragment();
         fragmentTransaction.add(android.R.id.content, settingsFragment, "SETTINGS_FRAGMENT");
@@ -48,19 +43,11 @@ public class Preferences extends AppCompatActivity {
 
                     if (checked) {
                         Toast.makeText(context, "Ads disabled. Consider enabling them when non-intrusive", Toast.LENGTH_LONG).show();
+                        com.restart.spacestationtracker.AdPreference mCheckBoxPref = (com.restart.spacestationtracker.AdPreference) findPreference("ad_Preference");
+                        PreferenceCategory mCategory = (PreferenceCategory) findPreference("Advertisement");
+                        mCategory.removePreference(mCheckBoxPref);
                     } else {
                         Toast.makeText(context, "Ads enabled. Thanks for the support ;)", Toast.LENGTH_SHORT).show();
-                    }
-
-                    if (checked && adView != null) {
-                        adView.setVisibility(View.INVISIBLE);
-                    } else if (!checked) {
-                        if (adView == null) {
-                            AdRequest adRequest = new AdRequest.Builder().build();
-                            adView.loadAd(adRequest);
-                        } else {
-                            adView.setVisibility(View.VISIBLE);
-                        }
                     }
 
                     return true;
