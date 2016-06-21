@@ -10,10 +10,10 @@
             android:title="Refresh Rate"
 
             sample:msbp_dialogEnabled="false"
-            sample:msbp_interval="500"
-            sample:msbp_maxValue="30000"
+            sample:msbp_interval="1"
+            sample:msbp_maxValue="30"
             sample:msbp_measurementUnit="sec/refresh"
-            sample:msbp_minValue="1000" />
+            sample:msbp_minValue="1" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Notification">
@@ -26,7 +26,7 @@
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="notification_People"
+            android:key="notification_Astro"
             android:summary="Notify when astronauts on duty in ISS change"
             android:title="Astronaut Notification" />
 
@@ -40,5 +40,14 @@
             android:summary="Enable or disable all ads on the app"
             android:title="Advertisement" />
 
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Theme">
+
+        <Preference
+            android:defaultValue="#E1BEE7"
+            android:key="background_Color"
+            android:summary="Change the background color of pages"
+            android:title="Background" />
     </PreferenceCategory>
 </PreferenceScreen>
