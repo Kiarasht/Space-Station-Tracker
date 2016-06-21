@@ -56,7 +56,7 @@ public class PeopleinSpace extends AppCompatActivity {
      *
      * @param intent Is the function getting called from a service or from the activity? If its a
      *               service then we don't to update objects such as textboxes.
-     * @param applicationContext
+     * @param applicationContext Used if coming from a service
      * @return Return a string variable holding the astro people.
      */
     public String display_people(final Boolean intent, Context applicationContext) {

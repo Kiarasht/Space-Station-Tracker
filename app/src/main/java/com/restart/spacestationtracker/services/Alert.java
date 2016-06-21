@@ -4,7 +4,7 @@ import android.Manifest;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.app.TaskStackBuilder;
+import android.support.v4.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -78,9 +78,9 @@ public class Alert extends Service {
                 != PackageManager.PERMISSION_GRANTED) {
             return START_STICKY;
         }
-        int LOCATION_TIME = 900000; // 15 minutes
+        int LOCATION_TIME = 1800000; // 30 minutes
         int LOCATION_DISTANCE = 500; // 1500 meters
-        int TIMER_REPEAT = 850000;  // 14 minutes
+        int TIMER_REPEAT = 3540000;  // 59 minutes
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
                 LOCATION_TIME, LOCATION_DISTANCE, locationListener);
         timer = new Timer();

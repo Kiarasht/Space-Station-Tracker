@@ -19,8 +19,8 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"
-            android:configChanges="orientation|screenSize">
+            android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_maps">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,20 +29,36 @@
         </activity>
         <activity
             android:name=".Settings"
-            android:screenOrientation="portrait"
-            android:label="@string/label_setting"/>
+            android:label="@string/label_setting"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.restart.spacestationtracker.MapsActivity" />
+        </activity>
         <activity
             android:name=".Locations"
-            android:screenOrientation="portrait"
-            android:label="@string/label_location"/>
+            android:label="@string/label_location"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.restart.spacestationtracker.MapsActivity" />
+        </activity>
         <activity
             android:name=".PeopleinSpace"
-            android:screenOrientation="portrait"
-            android:label="@string/label_peopleinspace"/>
+            android:label="@string/label_peopleinspace"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.restart.spacestationtracker.MapsActivity" />
+        </activity>
         <activity
             android:name=".Help"
-            android:screenOrientation="portrait"
-            android:label="@string/label_help"/>
+            android:label="@string/label_help"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.restart.spacestationtracker.MapsActivity" />
+        </activity>
 
         <service
             android:name=".services.Alert"

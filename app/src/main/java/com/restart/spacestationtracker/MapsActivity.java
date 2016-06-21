@@ -37,6 +37,7 @@ import com.nightonke.boommenu.Types.BoomType;
 import com.nightonke.boommenu.Types.ButtonType;
 import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
+import com.squareup.leakcanary.LeakCanary;
 
 import org.apache.http.HttpStatus;
 import org.json.JSONException;
@@ -80,7 +81,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
 
         // TODO Remove this after checking for more leak
-        // LeakCanary.install(getApplication());
+        LeakCanary.install(getApplication());
 
         ActionBar mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
@@ -191,6 +192,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (requestQueue != null) {
             requestQueue.cancelAll(TAG);
         }
+
+        if (timer != null) {
+            timer.cancel();
+            timer.purge();
+        }
+        timer = null;
     }
 
     /**
