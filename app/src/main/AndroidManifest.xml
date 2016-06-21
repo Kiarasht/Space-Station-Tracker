@@ -63,7 +63,6 @@
         <service
             android:name=".services.Alert"
             android:enabled="true" />
-
         <service
             android:name=".services.AlertPeople"
             android:enabled="true" />
@@ -77,6 +76,14 @@
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name=".Preferences"
+            android:label="@string/label_setting"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.restart.spacestationtracker.MapsActivity" />
+        </activity>
     </application>
 
 </manifest>
