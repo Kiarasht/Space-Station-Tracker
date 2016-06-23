@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -61,7 +62,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_locations);
         isStoragePermissionGranted();
-        SharedPreferences sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         startAnimation();
 
         requestQueue = Volley.newRequestQueue(this);
@@ -69,7 +70,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
         isspasses = (TextView) findViewById(R.id.textView3);
         buildGoogleApiClient();
 
-        if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
+        if (!sharedPreferences.getBoolean("advertisement", false)) {
             AdView adView = (AdView) findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
             if (adView != null) {
@@ -126,6 +127,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
             displaypasses(null, null, getApplicationContext());
         } else {
             Toast.makeText(this, "Unable to find your location.", Toast.LENGTH_LONG).show();
+            endAnimation();
         }
     }
 
@@ -137,6 +139,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Toast.makeText(this, "Unable to find your location.", Toast.LENGTH_LONG).show();
+        endAnimation();
     }
 
     /**

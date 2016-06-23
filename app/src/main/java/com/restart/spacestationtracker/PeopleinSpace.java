@@ -4,6 +4,7 @@ package com.restart.spacestationtracker;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -37,12 +38,13 @@ public class PeopleinSpace extends AppCompatActivity {
         setContentView(R.layout.layout_locations);
         startAnimation();
         sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         people_number = (TextView) findViewById(R.id.textView2);
         people_detail = (TextView) findViewById(R.id.textView3);
         requestQueue = Volley.newRequestQueue(this);
         display_people(false, getApplicationContext());
 
-        if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
+        if (!sharedPreferences.getBoolean("advertisement", false)) {
             AdView adView = (AdView) findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
             if (adView != null) {
@@ -54,8 +56,8 @@ public class PeopleinSpace extends AppCompatActivity {
     /**
      * Finds a string that holds the values of people in space.
      *
-     * @param intent Is the function getting called from a service or from the activity? If its a
-     *               service then we don't to update objects such as textboxes.
+     * @param intent             Is the function getting called from a service or from the activity? If its a
+     *                           service then we don't to update objects such as textboxes.
      * @param applicationContext Used if coming from a service
      * @return Return a string variable holding the astro people.
      */

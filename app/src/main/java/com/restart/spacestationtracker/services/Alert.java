@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
+import android.widget.Toast;
 
 import com.restart.spacestationtracker.Locations;
 import com.restart.spacestationtracker.R;
@@ -94,6 +95,10 @@ public class Alert extends Service {
                     return;
                 }
                 location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                if (location == null) {
+                    Toast.makeText(getApplicationContext(), "Hello", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 dates = locations.displaypasses(String.valueOf(location.getLatitude()),
                         String.valueOf(location.getLongitude()), context);
                 try {

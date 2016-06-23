@@ -3,6 +3,7 @@ package com.restart.spacestationtracker;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -12,7 +13,11 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.restart.spacestationtracker.services.Alert;
+import com.restart.spacestationtracker.services.AlertPeople;
+
 public class Preferences extends AppCompatActivity {
+    private static AdPreference adPreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +29,6 @@ public class Preferences extends AppCompatActivity {
         SettingsFragment settingsFragment = new SettingsFragment();
         fragmentTransaction.add(android.R.id.content, settingsFragment, "SETTINGS_FRAGMENT");
         fragmentTransaction.commit();
-        loadPreferences();
     }
 
     public static class SettingsFragment extends PreferenceFragment {
@@ -35,6 +39,16 @@ public class Preferences extends AppCompatActivity {
             addPreferencesFromResource(R.xml.app_preferences);
             getPreferenceScreen().findPreference("refresh_Rate").setEnabled(true);
 
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+            boolean advertisement = sharedPreferences.getBoolean("advertisement", false);
+
+            if (advertisement) {
+                AdPreference myPref = (AdPreference) findPreference("ad_Preference");
+                PreferenceCategory mCategory = (PreferenceCategory) findPreference("Advertisement");
+                adPreference = myPref;
+                mCategory.removePreference(myPref);
+            }
+
             getPreferenceScreen().findPreference("advertisement").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -43,11 +57,14 @@ public class Preferences extends AppCompatActivity {
 
                     if (checked) {
                         Toast.makeText(context, "Ads disabled. Consider enabling them when non-intrusive", Toast.LENGTH_LONG).show();
-                        com.restart.spacestationtracker.AdPreference mCheckBoxPref = (com.restart.spacestationtracker.AdPreference) findPreference("ad_Preference");
+                        AdPreference myPref = (AdPreference) findPreference("ad_Preference");
                         PreferenceCategory mCategory = (PreferenceCategory) findPreference("Advertisement");
-                        mCategory.removePreference(mCheckBoxPref);
+                        adPreference = myPref;
+                        mCategory.removePreference(myPref);
                     } else {
                         Toast.makeText(context, "Ads enabled. Thanks for the support ;)", Toast.LENGTH_SHORT).show();
+                        PreferenceCategory mCategory = (PreferenceCategory) findPreference("Advertisement");
+                        mCategory.addPreference(adPreference);
                     }
 
                     return true;
@@ -57,7 +74,10 @@ public class Preferences extends AppCompatActivity {
             getPreferenceScreen().findPreference("notification_ISS").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    Toast.makeText(getActivity().getApplicationContext(), preference.getSharedPreferences().getBoolean("notification_ISS", false) + "", Toast.LENGTH_SHORT).show();
+                    boolean checked = preference.getSharedPreferences().getBoolean("notification_ISS", false);
+                    Context context = getActivity().getApplicationContext();
+                    iss_Service(checked, context);
+
                     return true;
                 }
             });
@@ -65,20 +85,32 @@ public class Preferences extends AppCompatActivity {
             getPreferenceScreen().findPreference("notification_Astro").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    Toast.makeText(getActivity().getApplicationContext(), preference.getSharedPreferences().getBoolean("notification_Astro", false) + "", Toast.LENGTH_SHORT).show();
+                    boolean checked = preference.getSharedPreferences().getBoolean("notification_Astro", false);
+                    Context context = getActivity().getApplicationContext();
+                    astro_Service(checked, context);
                     return true;
                 }
             });
         }
     }
 
-    private void loadPreferences() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+    public static void iss_Service(boolean checked, Context context) {
+        if (checked) {
+            Toast.makeText(context, "Notify when ISS is close by", Toast.LENGTH_SHORT).show();
+            context.startService(new Intent(context, Alert.class));
+        } else {
+            Toast.makeText(context, "Stop notify when ISS is close by", Toast.LENGTH_SHORT).show();
+            context.stopService(new Intent(context, Alert.class));
+        }
+    }
 
-        boolean advertisement = sharedPreferences.getBoolean("advertisement", false);
-
-        boolean notification_ISS = sharedPreferences.getBoolean("notification_ISS", false);
-        boolean notification_Astro = sharedPreferences.getBoolean("notification_Astro", false);
-        int refresh_Rate = sharedPreferences.getInt("refresh_Rate", 15);
+    public static void astro_Service(boolean checked, Context context) {
+        if (checked) {
+            Toast.makeText(context, "Notify when people in space change", Toast.LENGTH_SHORT).show();
+            context.startService(new Intent(context, AlertPeople.class));
+        } else {
+            Toast.makeText(context, "Stop notify when people in space change", Toast.LENGTH_SHORT).show();
+            context.stopService(new Intent(context, AlertPeople.class));
+        }
     }
 }

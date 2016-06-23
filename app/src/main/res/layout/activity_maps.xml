@@ -19,7 +19,8 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center_vertical"
         android:contentDescription="@string/picdescription"
-        android:src="@drawable/iss_2011" />
+        android:src="@drawable/iss_2011"
+        android:onClick="onISS"/>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"

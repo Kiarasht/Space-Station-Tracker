@@ -1,17 +1,20 @@
 package com.restart.spacestationtracker;
 
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -37,6 +40,8 @@ import com.nightonke.boommenu.Types.BoomType;
 import com.nightonke.boommenu.Types.ButtonType;
 import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
+import com.restart.spacestationtracker.services.Alert;
+import com.restart.spacestationtracker.services.AlertPeople;
 import com.squareup.leakcanary.LeakCanary;
 
 import org.apache.http.HttpStatus;
@@ -59,7 +64,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private final String TAG = ".MapsActivity";
     private BoomMenuButton boomMenuButtonInActionBar;
-    private SharedPreferences sharedPref;
+    private SharedPreferences sharedPref;               // Managing app's control flow
+    private SharedPreferences sharedPreferences;        // Managing options from Settings
     private RequestQueue requestQueue;
     private GoogleMap mMap;
     private Timer timer;                                // Updates map based on refreshrate
@@ -88,32 +94,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mActionBar.setDisplayShowTitleEnabled(false);
         LayoutInflater mInflater = LayoutInflater.from(this);
 
-        adView = null;
-        context = getApplicationContext();
-        requestQueue = Volley.newRequestQueue(this);
-
         View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
         TextView mTitleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
-        mTitleTextView.setText(this.getClass().getSimpleName());
-
-        String classname = this.getClass().getSimpleName();
-        switch (classname) {
-            case "MapsActivity":
-                mTitleTextView.setText(R.string.label_map);
-                break;
-            case "Locations":
-                mTitleTextView.setText(R.string.label_location);
-                break;
-            case "PeopleinSpace":
-                mTitleTextView.setText(R.string.label_peopleinspace);
-                break;
-            case "Settings":
-                mTitleTextView.setText(R.string.label_setting);
-                break;
-            case "Help":
-                mTitleTextView.setText(R.string.label_help);
-                break;
-        }
+        mTitleTextView.setText("Map");
 
         boomMenuButtonInActionBar = (BoomMenuButton) mCustomView.findViewById(R.id.boom);
         boomMenuButtonInActionBar.setOnSubButtonClickListener(this);
@@ -124,16 +107,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         ((Toolbar) mCustomView.getParent()).setContentInsetsAbsolute(0, 0);
 
+        adView = null;
+        context = getApplicationContext();
+        requestQueue = Volley.newRequestQueue(this);
         latlong = ((TextView) findViewById(R.id.textView));
         sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
-        refreshrate = sharedPref.getInt(getString(R.string.freshsave), 15000);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        refreshrate =  1000 * sharedPreferences.getInt("refresh_Rate", 15);
+        Log.d(TAG, "Refreshrate = " + refreshrate);
         first_time = sharedPref.getBoolean(getString(R.string.first_time), true);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
+        if (!sharedPreferences.getBoolean("advertisement", false)) {
             adView = (AdView) findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
             adView.loadAd(adRequest);
@@ -151,7 +139,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onResume() {
         super.onResume();
         if (start) {                            // When activity was just paused
-            refreshrate = sharedPref.getInt(getString(R.string.freshsave), 15000);
+            refreshrate = 1000 * sharedPreferences.getInt("refresh_Rate", 15);
+            Log.d(TAG, "Refreshrate = " + refreshrate);
             if (timer != null) {
                 timer.cancel();
                 timer.purge();
@@ -169,10 +158,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             timer = new Timer();
         }
 
-        // Provide optional advertisements that is visible/hidden by a checkbox in Settings.java
-        if (sharedPref.getBoolean(getString(R.string.notificationcheck3), false) && adView != null) {
+        // Provide optional advertisements that is visible/hidden by a checkbox in Preferences
+        if (sharedPreferences.getBoolean("advertisement", false) && adView != null) {
             adView.setVisibility(View.INVISIBLE);       // User disabled ads
-        } else if (!sharedPref.getBoolean(getString(R.string.notificationcheck3), false)) {
+        } else if (!sharedPreferences.getBoolean("advertisement", false)) {
             if (adView == null) {                       // User wants ads but instance is null
                 adView = (AdView) findViewById(R.id.adView);
                 AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
@@ -389,7 +378,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(intent);
                 break;
             case 2:
-                //intent = new Intent(context, Settings.class);
+                sharedPreferences.edit().putBoolean("notification_ISS", isMyServiceRunning(Alert.class)).apply();
+                sharedPreferences.edit().putBoolean("notification_Astro", isMyServiceRunning(AlertPeople.class)).apply();
                 intent = new Intent(context, Preferences.class);
                 startActivity(intent);
                 break;
@@ -398,6 +388,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(intent);
                 break;
         }
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -441,6 +441,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 final_dialog.dismiss();
             }
         });
+    }
+
+    public void onISS(View view) {
+        Intent intent = new Intent(context, LiveStream.class);
+        startActivity(intent);
     }
 
     @Override
