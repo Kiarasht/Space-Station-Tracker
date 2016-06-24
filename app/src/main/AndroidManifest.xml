@@ -17,6 +17,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <!-- Maps Activity -->
         <activity
             android:name=".MapsActivity"
             android:configChanges="orientation|screenSize"
@@ -26,14 +27,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Preferences -->
         <activity
-            android:name=".Settings"
+            android:name=".Preferences"
             android:label="@string/label_setting"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.restart.spacestationtracker.MapsActivity" />
         </activity>
+
+        <!-- Locations -->
         <activity
             android:name=".Locations"
             android:label="@string/label_location"
@@ -42,6 +47,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.restart.spacestationtracker.MapsActivity" />
         </activity>
+
+        <!-- People in Space -->
         <activity
             android:name=".PeopleinSpace"
             android:label="@string/label_peopleinspace"
@@ -50,6 +57,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.restart.spacestationtracker.MapsActivity" />
         </activity>
+
+        <!-- Help -->
         <activity
             android:name=".Help"
             android:label="@string/label_help"
@@ -58,22 +67,27 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.restart.spacestationtracker.MapsActivity" />
         </activity>
+
+        <!-- Live Stream -->
         <activity
             android:name=".LiveStream"
             android:label="@string/label_stream"
-            android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.restart.spacestationtracker.MapsActivity" />
         </activity>
 
+        <!-- Alert Service -->
         <service
             android:name=".services.Alert"
             android:enabled="true" />
+
+        <!-- AlertPeople Service -->
         <service
             android:name=".services.AlertPeople"
             android:enabled="true" />
+
         <!-- This meta-data tag is required to use Google Play Services. -->
         <meta-data
             android:name="com.google.android.gms.version"
@@ -84,14 +98,6 @@
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
-        <activity
-            android:name=".Preferences"
-            android:label="@string/label_setting"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.restart.spacestationtracker.MapsActivity" />
-        </activity>
-    </application>
 
+    </application>
 </manifest>

@@ -7,4 +7,5 @@
     android:background="@color/colorlight"
     android:orientation="vertical"
     tools:context="com.restart.spacestationtracker.Preferences">
+
 </LinearLayout>

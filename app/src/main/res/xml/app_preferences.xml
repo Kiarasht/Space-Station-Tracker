@@ -16,8 +16,9 @@
             sample:msbp_minValue="1" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Notification"
-        android:key="Notification">
+    <PreferenceCategory
+        android:key="Notification"
+        android:title="Notification">
 
         <CheckBoxPreference
             android:defaultValue="false"
@@ -33,8 +34,9 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Advertisement"
-        android:key="Advertisement">
+    <PreferenceCategory
+        android:key="Advertisement"
+        android:title="Advertisement">
 
         <CheckBoxPreference
             android:defaultValue="false"

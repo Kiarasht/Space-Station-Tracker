@@ -2,78 +2,39 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_locations"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:baselineAligned="false"
     android:background="@color/colorlight"
+    android:baselineAligned="false"
     android:weightSum="1">
-
-    <Space
-        android:id="@+id/space2"
-        android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentLeft="true" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/space2"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:shadowColor="@color/Black"
-        android:shadowDx="0.0"
-        android:shadowDy="0.0"
-        android:shadowRadius="2.0"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"/>
-
-    <Space
-        android:id="@+id/space"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView2"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentLeft="true" />
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/avloadingIndicatorView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/space"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:layout_marginStart="292dp"
+        android:layout_marginTop="70dp"
         android:visibility="visible"
         app:indicator="BallClipRotateMultiple"
-        app:indicator_color="@color/White"
-        android:layout_marginLeft="292dp" />
+        app:indicator_color="@color/White" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/space"
-        android:padding="10dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:visibility="gone"
-        android:shadowColor="@color/Black"
-        android:shadowDx="0.0"
-        android:shadowDy="0.0"
-        android:shadowRadius="2.0"/>
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/adView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
+        android:layout_alignWithParentIfMissing="true"
         ads:adSize="SMART_BANNER"
         ads:adUnitId="@string/banner_ad_unit_id" />
+
 </RelativeLayout>

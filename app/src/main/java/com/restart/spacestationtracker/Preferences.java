@@ -37,11 +37,13 @@ public class Preferences extends AppCompatActivity {
             super.onCreate(savedInstanceState);
 
             addPreferencesFromResource(R.xml.app_preferences);
+            // Enable the seekbar
             getPreferenceScreen().findPreference("refresh_Rate").setEnabled(true);
 
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
             boolean advertisement = sharedPreferences.getBoolean("advertisement", false);
 
+            // Advertisement management
             if (advertisement) {
                 AdPreference myPref = (AdPreference) findPreference("ad_Preference");
                 PreferenceCategory mCategory = (PreferenceCategory) findPreference("Advertisement");
@@ -49,6 +51,7 @@ public class Preferences extends AppCompatActivity {
                 mCategory.removePreference(myPref);
             }
 
+            // Onclick methods for each of the check boxes
             getPreferenceScreen().findPreference("advertisement").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -94,6 +97,12 @@ public class Preferences extends AppCompatActivity {
         }
     }
 
+    /**
+     * Start or stop the Alert.java service.
+     *
+     * @param checked Are we starting or destroying the service?
+     * @param context Application's context
+     */
     public static void iss_Service(boolean checked, Context context) {
         if (checked) {
             Toast.makeText(context, "Notify when ISS is close by", Toast.LENGTH_SHORT).show();
@@ -104,6 +113,12 @@ public class Preferences extends AppCompatActivity {
         }
     }
 
+    /**
+     * Start or stop the AlertPeople.java service.
+     *
+     * @param checked Are we starting or destroying the service?
+     * @param context Application's context
+     */
     public static void astro_Service(boolean checked, Context context) {
         if (checked) {
             Toast.makeText(context, "Notify when people in space change", Toast.LENGTH_SHORT).show();

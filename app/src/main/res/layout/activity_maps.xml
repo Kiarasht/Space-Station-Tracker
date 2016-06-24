@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -19,8 +19,8 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center_vertical"
         android:contentDescription="@string/picdescription"
-        android:src="@drawable/iss_2011"
-        android:onClick="onISS"/>
+        android:onClick="onISS"
+        android:src="@drawable/iss_2011" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
@@ -36,12 +36,12 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/White"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:shadowColor="@color/Black"
         android:shadowDx="0.0"
         android:shadowDy="0.0"
         android:shadowRadius="20.0"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/White" />
 </RelativeLayout>

@@ -1,6 +1,5 @@
 package com.restart.spacestationtracker.services;
 
-
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -39,13 +38,14 @@ public class AlertPeople extends Service {
 
     /**
      * Start the finding astronauts service. It checks for updates everyday.
-     * @param intent N/A
+     *
+     * @param intent  N/A
      * @param startId N/A
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         timer = new Timer();
-        int TIMER_REPEAT = 86400000; // 1 day
+        int TIMER_REPEAT = 86400000; // (1 day) Time between each check for this service
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -88,7 +88,7 @@ public class AlertPeople extends Service {
                 new NotificationCompat.Builder(this)
                         .setAutoCancel(true)
                         .setContentTitle("ISS Tracker")
-                        .setContentText("People in space changed!")
+                        .setContentText("People in on the ISS changed!")
                         .setSmallIcon(R.drawable.iss_2011)
                         .setLargeIcon(icon);
 

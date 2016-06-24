@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
@@ -29,8 +31,6 @@ public class PeopleinSpace extends AppCompatActivity {
 
     private RequestQueue requestQueue;
     private SharedPreferences sharedPref;
-    private TextView people_number;
-    private TextView people_detail;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,17 +39,18 @@ public class PeopleinSpace extends AppCompatActivity {
         startAnimation();
         sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        people_number = (TextView) findViewById(R.id.textView2);
-        people_detail = (TextView) findViewById(R.id.textView3);
         requestQueue = Volley.newRequestQueue(this);
         display_people(false, getApplicationContext());
 
+        // Show an ad, or hide it if its disabled
         if (!sharedPreferences.getBoolean("advertisement", false)) {
             AdView adView = (AdView) findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
             if (adView != null) {
                 adView.loadAd(adRequest);
             }
+        } else {
+            findViewById(R.id.adView).setVisibility(View.GONE);
         }
     }
 
@@ -73,23 +74,26 @@ public class PeopleinSpace extends AppCompatActivity {
                     JSONArray results = response.getJSONArray("people");
                     int numbers = response.getInt("number");
                     final String astro_number = "Currently " + numbers + " People In Space";
+                    String[] astro = new String[numbers + 1];
+                    astro[0] = astro_number;
 
                     for (int i = 0; i < results.length(); i += 1) {
                         JSONObject result = results.getJSONObject(i);
+                        astro[i + 1] = i + 1 + ". " + String.valueOf(result.getString("name")) + " " + String.valueOf(result.getString("craft"));
                         astro_detail.append(i + 1)
                                 .append(". ")
                                 .append(String.valueOf(result.getString("name")))
                                 .append(" at ")
-                                .append(String.valueOf(result.getString("craft")))
-                                .append(".\n\n");
+                                .append(String.valueOf(result.getString("craft")));
                     }
 
+                    // If false, then PeopleinSpace.java called. So we will call UiThread
                     if (!intent) {
+                        final ListAdapter astroAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.text_layout, astro);
+                        final ListView astroListView = (ListView) findViewById(R.id.listView);
                         PeopleinSpace.this.runOnUiThread(new Runnable() {
                             public void run() {
-                                people_number.setText(astro_number);
-                                people_detail.setVisibility(View.VISIBLE);
-                                people_detail.setText(astro_detail);
+                                astroListView.setAdapter(astroAdapter);
                                 endAnimation();
                             }
                         });
@@ -119,6 +123,7 @@ public class PeopleinSpace extends AppCompatActivity {
             }
         });
 
+        // If AlertPeople.java called us
         if (requestQueue == null) {
             RequestQueue requestQueue = Volley.newRequestQueue(applicationContext);
             requestQueue.add(jsonObjectRequest);
@@ -126,6 +131,7 @@ public class PeopleinSpace extends AppCompatActivity {
             requestQueue.add(jsonObjectRequest);
         }
 
+        // Save the most recent grab of astro's on duty.
         if (!intent) {
             sharedPref.edit().putString(getString(R.string.astro_detail), astro_detail.toString()).apply();
         }

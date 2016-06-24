@@ -1,6 +1,5 @@
 package com.restart.spacestationtracker;
 
-
 import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,7 +12,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
@@ -46,10 +47,9 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
         GoogleApiClient.OnConnectionFailedListener {
 
     private RequestQueue requestQueue;
-    private TextView countrycity;
-    private TextView isspasses;
     private String mLontitude;
     private String mLatitude;
+    private String mLocation;
     protected Location mLastLocation;
     protected GoogleApiClient mGoogleApiClient;
 
@@ -62,20 +62,22 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_locations);
         isStoragePermissionGranted();
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         startAnimation();
 
         requestQueue = Volley.newRequestQueue(this);
-        countrycity = (TextView) findViewById(R.id.textView2);
-        isspasses = (TextView) findViewById(R.id.textView3);
         buildGoogleApiClient();
 
+        // Show an ad, or hide it if its disabled
         if (!sharedPreferences.getBoolean("advertisement", false)) {
             AdView adView = (AdView) findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
             if (adView != null) {
                 adView.loadAd(adRequest);
             }
+        } else {
+            findViewById(R.id.adView).setVisibility(View.GONE);
         }
     }
 
@@ -107,19 +109,24 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
     }
 
     /**
-     * API was successful in getting the location. Parse them into strings.
+     * API was successful in Connecting. Lets find user's location.
      *
      * @param connectionHint Bundle connectionHint
      */
     @Override
     public void onConnected(Bundle connectionHint) {
+        // Check if we have the right permissions
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             return;
         }
+
+        // Call the api to get user's last known location
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+        // If we got something back start parsing
         if (mLastLocation != null) {
             mLatitude = String.valueOf(mLastLocation.getLatitude());
             mLontitude = String.valueOf(mLastLocation.getLongitude());
@@ -147,6 +154,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
      * what city and country do these correspond to.
      */
     private void displayresults() {
+        // Returns a JSONObject
         final String url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" +
                 mLatitude +
                 "," +
@@ -158,15 +166,10 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
             @Override
             public void onResponse(JSONObject response) {
                 try {
+                    // Save the formatted address, we will use it later
                     JSONObject results = response.getJSONArray("results").getJSONObject(1);
-                    final String mLocation = results.getString("formatted_address");
+                    mLocation = results.getString("formatted_address");
 
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            countrycity.setText(mLocation);
-                        }
-                    });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -188,7 +191,6 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
 
                 Toast.makeText(Locations.this, "An unknown error has occurred. Error: 401", Toast.LENGTH_LONG).show();
                 endAnimation();
-                countrycity.setText("Awkward!!!");
             }
         });
         requestQueue.add(jsonObjectRequest);
@@ -199,13 +201,14 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
      * to see when ISS will pass by this city, country.
      */
     public Date[] displaypasses(final String mLatitudepar, final String mLontitudepar, Context applicationContext) {
+        // Usually we get 4 to 6 dates. So 10 just to be a bit safe
         final Date[] passes = new Date[10];
 
         String url;
         if (mLatitudepar == null && mLontitudepar == null) { // Location.java is calling this method
             url = "http://api.open-notify.org/iss-pass.json?lat=" +
                     mLatitude + "&lon=" + mLontitude;
-        } else {                                            // Alert service is calling this method
+        } else {                                            // Alert.java is calling this method
             url = "http://api.open-notify.org/iss-pass.json?lat=" +
                     mLatitudepar + "&lon=" + mLontitudepar;
         }
@@ -216,41 +219,47 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
             public void onResponse(JSONObject response) {
                 try {
                     JSONArray aresults = response.getJSONArray("response");
-                    int[] duration = new int[aresults.length()];
-                    Date[] date = new Date[aresults.length()];
+                    int[] duration = new int[aresults.length()]; // An array of ISS flyby durations
+                    Date[] date = new Date[aresults.length()]; // An array of ISS flyby dates
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault());
-                    final StringBuilder stringBuilder = new StringBuilder();
+                    StringBuilder stringBuilder;
+                    final String[] dates = new String[aresults.length() + 1]; // This is what we print for user
+                    dates[0] = "Location: " + mLocation; // The first index is User's location. That's why we did +1
 
+                    // Go through all the JSON Arrays parsing through each JSON Object.
                     for (int i = 0; i < aresults.length(); ++i) {
                         JSONObject apass = aresults.getJSONObject(i);
-                        date[i] = new Date(Long.parseLong(apass.getString("risetime")) * 1000L);
-                        passes[i] = new Date(Long.parseLong(apass.getString("risetime")) * 1000L);
-                        duration[i] = apass.getInt("duration") / 60;
-                        stringBuilder.append(i + 1).append(".  ")
-                                .append(simpleDateFormat.format(date[i]))
-                                .append(" for ").append(duration[i])
-                                .append(" minutes.\n\n");
+                        date[i] = new Date(Long.parseLong(apass.getString("risetime")) * 1000L); // Turn into milliseconds
+                        passes[i] = new Date(Long.parseLong(apass.getString("risetime")) * 1000L); // Same thing
+                        duration[i] = apass.getInt("duration") / 60; // Turn each duration to minutes.
+                        stringBuilder = new StringBuilder();
+                        stringBuilder.append("Date: ").append(simpleDateFormat.format(date[i]).replace(" ", "\nTime: ")).append("\n")
+                                .append("Duration: ").append(duration[i])
+                                .append(" minutes");
+                        dates[i + 1] = stringBuilder.toString(); // Save the parsed message
                     }
 
-                    if (mLatitudepar == null && mLontitudepar == null)
+                    // If Locations.java called us lets create a ListView and run it on a UiThread
+                    if (mLatitudepar == null && mLontitudepar == null) {
+                        final ListAdapter datesAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.text_layout, dates);
+                        final ListView datesListView = (ListView) findViewById(R.id.listView);
                         Locations.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 endAnimation();
-                                isspasses.setVisibility(View.VISIBLE);
-                                isspasses.setText(stringBuilder);
+                                datesListView.setAdapter(datesAdapter);
 
-                                // If no city, country came back we still got our LAT and LONG
-                                if (countrycity.getText().toString().trim().length() == 0) {
-                                    final StringBuilder nocountrycity = new StringBuilder();
-                                    nocountrycity.append("LAT: ")
-                                            .append(mLatitude)
-                                            .append(" LON: ")
-                                            .append(mLontitude);
-                                    countrycity.setText(nocountrycity);
+                                // If no city, country came back we still got our LAT and LON. Oh well! ¯\_(ツ)_/¯
+                                if (dates[0].length() == 0) {
+                                    String nocountrycity = "LAT: " +
+                                            mLatitude +
+                                            " LON: " +
+                                            mLontitude;
+                                    dates[0] = nocountrycity;
                                 }
                             }
                         });
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -276,13 +285,14 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
             }
         });
 
+        // If Alert.java called us
         if (requestQueue == null) {
             RequestQueue requestQueue = Volley.newRequestQueue(applicationContext);
             requestQueue.add(jsonObjectRequest);
-        } else {
+        } else { // If Locations.java called us
             requestQueue.add(jsonObjectRequest);
         }
-        return passes;
+        return passes; // Only Alert.java benefits from this return
     }
 
     void startAnimation() {

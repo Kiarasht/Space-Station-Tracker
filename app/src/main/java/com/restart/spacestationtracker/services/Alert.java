@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.support.v4.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -19,7 +18,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
-import android.widget.Toast;
+import android.support.v4.app.TaskStackBuilder;
 
 import com.restart.spacestationtracker.Locations;
 import com.restart.spacestationtracker.R;
@@ -79,40 +78,52 @@ public class Alert extends Service {
                 != PackageManager.PERMISSION_GRANTED) {
             return START_STICKY;
         }
-        int LOCATION_TIME = 1800000; // 30 minutes
-        int LOCATION_DISTANCE = 500; // 1500 meters
-        int TIMER_REPEAT = 3540000;  // 59 minutes
+
+        int LOCATION_TIME = 1800000; // (30 minutes) minimum time interval between location updates, in milliseconds
+        int LOCATION_DISTANCE = 500; // (1500 meters) minimum distance between location updates, in meters
+        int TIMER_REPEAT = 3540000;  // (59 minutes) Time to repeat a compare between ISS and user's location
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
                 LOCATION_TIME, LOCATION_DISTANCE, locationListener);
         timer = new Timer();
+
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
-            public void run() {
+            public void run() { // Check if permission are granted
                 if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
+
+                // Find user's last known location
                 location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
                 if (location == null) {
-                    Toast.makeText(getApplicationContext(), "Hello", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                // Get ISSs passes, saving them in an array of dates
                 dates = locations.displaypasses(String.valueOf(location.getLatitude()),
                         String.valueOf(location.getLongitude()), context);
+
+                // Wait a tiny bit for displaypasses to fully respond or reject.
                 try {
                     Thread.sleep(10000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
+                // Get user's current date
                 Date date = new Date();
 
+                // Compare dates from displaypasses to user's current date
                 for (Date date1 : dates) {
                     if (date1 != null) {
+                        // Check if they are within an hour
                         boolean withinhour = Math.abs(date.getTime() - date1.getTime()) < 3600000L;
                         if (withinhour) {
+                            // push a notification
                             notification();
                             notificationupdate(Math.abs(date.getTime() - date1.getTime()));
                             break;
@@ -147,7 +158,6 @@ public class Alert extends Service {
      * when we need to trigger a notification.
      */
     private void notification() {
-
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
                 R.drawable.iss_2011);
@@ -191,7 +201,7 @@ public class Alert extends Service {
      * @param time The difference between ISS' location to user's location
      */
     private void notificationupdate(long time) {
-        int finalseconds = (int) (time / 1000 / 60);
+        int finalseconds = (int) Math.ceil(time / 1000 / 60);
         mBuilderupdate.setContentText("ISS is about " + finalseconds + " minutes away!");
         mNotificationManagerupdate.notify(1234, mBuilderupdate.build());
     }

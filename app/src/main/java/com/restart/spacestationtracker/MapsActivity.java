@@ -124,6 +124,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         final View view = findViewById(R.id.imageView1);
         final Activity activity = this;
 
+        //  When view is shown start our animated animations for first time users
         view.post(new Runnable() {
             @Override
             public void run() {
@@ -143,6 +144,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+    /**
+     * Starts a three step animation process. One gets executed after another.
+     *
+     * @param view     A view to ISS icon
+     * @param view2    A view to the top text widget
+     * @param activity MapsActivity.java
+     */
     public void startAnimation(final View view, final View view2, final Activity activity) {
         if (first_time2) {
             new SpotlightView.Builder(activity)
@@ -155,13 +163,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .headingTvText("Hi There!")
                     .subHeadingTvColor(Color.parseColor("#ffffff"))
                     .subHeadingTvSize(16)
-                    .subHeadingTvText("Let's quickly go over some of the features. This page is a map showing ISSs current location.")
+                    .subHeadingTvText("Let's quickly go over some of the features. This page is a map showing ISS's current location.")
                     .maskColor(Color.parseColor("#dc000000"))
                     .target(view2)
                     .lineAnimDuration(400)
                     .lineAndArcColor(Color.parseColor("#6441A5"))
                     .dismissOnTouch(true)
-                    .usageId("Someid1")
+                    .usageId("1")
                     .setListener(new SpotlightListener() {
                         @Override
                         public void onUserClicked(String s) {
@@ -181,7 +189,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     .lineAnimDuration(400)
                                     .lineAndArcColor(Color.parseColor("#6441A5"))
                                     .dismissOnTouch(true)
-                                    .usageId("Someid2")
+                                    .usageId("2")
                                     .setListener(new SpotlightListener() {
                                         @Override
                                         public void onUserClicked(String s) {
@@ -202,7 +210,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                                     .lineAnimDuration(400)
                                                     .lineAndArcColor(Color.parseColor("#6441A5"))
                                                     .dismissOnTouch(true)
-                                                    .usageId("Someid3")
+                                                    .usageId("3")
                                                     .show();
                                         }
                                     })
@@ -463,6 +471,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(intent);
                 break;
             case 2:
+                /* Update the check boxes representing the app's services. If for example the service
+                 exited not by the app, it shouldn't be checked. */
                 sharedPreferences.edit().putBoolean("notification_ISS", isMyServiceRunning(Alert.class)).apply();
                 sharedPreferences.edit().putBoolean("notification_Astro", isMyServiceRunning(AlertPeople.class)).apply();
                 intent = new Intent(context, Preferences.class);
