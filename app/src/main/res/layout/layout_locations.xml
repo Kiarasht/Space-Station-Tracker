@@ -14,7 +14,8 @@
         android:layout_height="15dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:id="@+id/textView2"
@@ -37,7 +38,8 @@
         android:layout_height="20dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView2"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentLeft="true" />
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/avloadingIndicatorView"
@@ -49,7 +51,8 @@
         android:layout_marginStart="292dp"
         android:visibility="visible"
         app:indicator="BallClipRotateMultiple"
-        app:indicator_color="@color/White" />
+        app:indicator_color="@color/White"
+        android:layout_marginLeft="292dp" />
 
     <TextView
         android:id="@+id/textView3"

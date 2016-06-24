@@ -1,6 +1,7 @@
 package com.restart.spacestationtracker;
 
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -43,6 +44,8 @@ import com.nightonke.boommenu.Util;
 import com.restart.spacestationtracker.services.Alert;
 import com.restart.spacestationtracker.services.AlertPeople;
 import com.squareup.leakcanary.LeakCanary;
+import com.wooplr.spotlight.SpotlightView;
+import com.wooplr.spotlight.utils.SpotlightListener;
 
 import org.apache.http.HttpStatus;
 import org.json.JSONException;
@@ -75,6 +78,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private int refreshrate;                            // Millisecond between each timer repeat
     private int success;                                // Tracks # times server failed to respond
     private boolean first_time;                         // Ask your for location permission once
+    private boolean first_time2;                        // Menu Tutorial
     private boolean start = false;                      // Opened app or returned to activity?
 
 
@@ -113,9 +117,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         latlong = ((TextView) findViewById(R.id.textView));
         sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        refreshrate =  1000 * sharedPreferences.getInt("refresh_Rate", 15);
+        refreshrate = 1000 * sharedPreferences.getInt("refresh_Rate", 15);
         Log.d(TAG, "Refreshrate = " + refreshrate);
         first_time = sharedPref.getBoolean(getString(R.string.first_time), true);
+        first_time2 = sharedPref.getBoolean(getString(R.string.first_time2), true);
+        final View view = findViewById(R.id.imageView1);
+        final Activity activity = this;
+
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                startAnimation(view, findViewById(R.id.textView), activity);
+            }
+        });
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -125,6 +139,77 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             adView = (AdView) findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
             adView.loadAd(adRequest);
+        }
+
+    }
+
+    public void startAnimation(final View view, final View view2, final Activity activity) {
+        if (first_time2) {
+            new SpotlightView.Builder(activity)
+                    .introAnimationDuration(400)
+                    .enableRevalAnimation(true)
+                    .performClick(true)
+                    .fadeinTextDuration(400)
+                    .headingTvColor(Color.parseColor("#6441A5"))
+                    .headingTvSize(32)
+                    .headingTvText("Hi There!")
+                    .subHeadingTvColor(Color.parseColor("#ffffff"))
+                    .subHeadingTvSize(16)
+                    .subHeadingTvText("Let's quickly go over some of the features. This page is a map showing ISSs current location.")
+                    .maskColor(Color.parseColor("#dc000000"))
+                    .target(view2)
+                    .lineAnimDuration(400)
+                    .lineAndArcColor(Color.parseColor("#6441A5"))
+                    .dismissOnTouch(true)
+                    .usageId("Someid1")
+                    .setListener(new SpotlightListener() {
+                        @Override
+                        public void onUserClicked(String s) {
+                            new SpotlightView.Builder(activity)
+                                    .introAnimationDuration(400)
+                                    .enableRevalAnimation(true)
+                                    .performClick(true)
+                                    .fadeinTextDuration(400)
+                                    .headingTvColor(Color.parseColor("#6441A5"))
+                                    .headingTvSize(32)
+                                    .headingTvText("Main Features")
+                                    .subHeadingTvColor(Color.parseColor("#ffffff"))
+                                    .subHeadingTvSize(16)
+                                    .subHeadingTvText("Clicking this icon takes you to features such as flybys, settings, etc...")
+                                    .maskColor(Color.parseColor("#dc000000"))
+                                    .target(boomMenuButtonInActionBar)
+                                    .lineAnimDuration(400)
+                                    .lineAndArcColor(Color.parseColor("#6441A5"))
+                                    .dismissOnTouch(true)
+                                    .usageId("Someid2")
+                                    .setListener(new SpotlightListener() {
+                                        @Override
+                                        public void onUserClicked(String s) {
+                                            new SpotlightView.Builder(activity)
+                                                    .introAnimationDuration(400)
+                                                    .enableRevalAnimation(true)
+                                                    .performClick(true)
+                                                    .fadeinTextDuration(400)
+                                                    .headingTvColor(Color.parseColor("#6441A5"))
+                                                    .headingTvSize(32)
+                                                    .headingTvText("Live Stream")
+                                                    .subHeadingTvColor(Color.parseColor("#ffffff"))
+                                                    .subHeadingTvSize(16)
+                                                    .subHeadingTvText("Clicking this ISS icon will take you to a live stream." +
+                                                            " Basically what astronauts see right now.")
+                                                    .maskColor(Color.parseColor("#dc000000"))
+                                                    .target(view)
+                                                    .lineAnimDuration(400)
+                                                    .lineAndArcColor(Color.parseColor("#6441A5"))
+                                                    .dismissOnTouch(true)
+                                                    .usageId("Someid3")
+                                                    .show();
+                                        }
+                                    })
+                                    .show();
+                        }
+                    })
+                    .show();
         }
     }
 
