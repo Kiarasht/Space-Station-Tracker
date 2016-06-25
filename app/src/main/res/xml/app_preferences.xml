@@ -49,12 +49,4 @@
             android:layout="@layout/layout_general" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Theme">
-
-        <Preference
-            android:defaultValue="#E1BEE7"
-            android:key="background_Color"
-            android:summary="Change the background color of pages"
-            android:title="Background" />
-    </PreferenceCategory>
 </PreferenceScreen>

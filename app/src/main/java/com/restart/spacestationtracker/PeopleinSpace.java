@@ -45,7 +45,7 @@ public class PeopleinSpace extends AppCompatActivity {
         // Show an ad, or hide it if its disabled
         if (!sharedPreferences.getBoolean("advertisement", false)) {
             AdView adView = (AdView) findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
+            AdRequest adRequest = new AdRequest.Builder().build();
             if (adView != null) {
                 adView.loadAd(adRequest);
             }

@@ -43,7 +43,6 @@ import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
 import com.restart.spacestationtracker.services.Alert;
 import com.restart.spacestationtracker.services.AlertPeople;
-import com.squareup.leakcanary.LeakCanary;
 import com.wooplr.spotlight.SpotlightView;
 import com.wooplr.spotlight.utils.SpotlightListener;
 
@@ -91,7 +90,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
 
         // TODO Remove this after checking for more leak
-        LeakCanary.install(getApplication());
+        //LeakCanary.install(getApplication());
 
         ActionBar mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
@@ -99,7 +98,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         LayoutInflater mInflater = LayoutInflater.from(this);
 
         View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
-        TextView mTitleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
+        final TextView mTitleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
         mTitleTextView.setText("Map");
 
         boomMenuButtonInActionBar = (BoomMenuButton) mCustomView.findViewById(R.id.boom);
@@ -128,7 +127,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         view.post(new Runnable() {
             @Override
             public void run() {
-                startAnimation(view, findViewById(R.id.textView), activity);
+                startAnimation(view, mTitleTextView, activity);
             }
         });
 
@@ -138,7 +137,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if (!sharedPreferences.getBoolean("advertisement", false)) {
             adView = (AdView) findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
+            AdRequest adRequest = new AdRequest.Builder().build();
             adView.loadAd(adRequest);
         }
 
@@ -163,7 +162,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .headingTvText("Hi There!")
                     .subHeadingTvColor(Color.parseColor("#ffffff"))
                     .subHeadingTvSize(16)
-                    .subHeadingTvText("Let's quickly go over some of the features. This page is a map showing ISS's current location.")
+                    .subHeadingTvText("Let's look at some of the features of this app. This page is a map showing ISS's current location.")
                     .maskColor(Color.parseColor("#dc000000"))
                     .target(view2)
                     .lineAnimDuration(400)
@@ -183,7 +182,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     .headingTvText("Main Features")
                                     .subHeadingTvColor(Color.parseColor("#ffffff"))
                                     .subHeadingTvSize(16)
-                                    .subHeadingTvText("Clicking this icon takes you to features such as flybys, settings, etc...")
+                                    .subHeadingTvText("Clicking the drawer icon takes you to other features such as flybys, settings, etc...")
                                     .maskColor(Color.parseColor("#dc000000"))
                                     .target(boomMenuButtonInActionBar)
                                     .lineAnimDuration(400)
@@ -203,7 +202,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                                     .headingTvText("Live Stream")
                                                     .subHeadingTvColor(Color.parseColor("#ffffff"))
                                                     .subHeadingTvSize(16)
-                                                    .subHeadingTvText("Clicking this ISS icon will take you to a live stream." +
+                                                    .subHeadingTvText("Clicking the ISS icon will take you to a live stream." +
                                                             " Basically what astronauts see right now.")
                                                     .maskColor(Color.parseColor("#dc000000"))
                                                     .target(view)
@@ -213,11 +212,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                                     .usageId("3")
                                                     .show();
                                         }
-                                    })
-                                    .show();
+                                    }).show();
                         }
-                    })
-                    .show();
+                    }).show();
         }
     }
 
@@ -257,7 +254,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         } else if (!sharedPreferences.getBoolean("advertisement", false)) {
             if (adView == null) {                       // User wants ads but instance is null
                 adView = (AdView) findViewById(R.id.adView);
-                AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
+                AdRequest adRequest = new AdRequest.Builder().build();
                 adView.loadAd(adRequest);
             } else {                                    // User wants ads, instance already got one
                 adView.setVisibility(View.VISIBLE);

@@ -72,7 +72,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
         // Show an ad, or hide it if its disabled
         if (!sharedPreferences.getBoolean("advertisement", false)) {
             AdView adView = (AdView) findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
+            AdRequest adRequest = new AdRequest.Builder().build();
             if (adView != null) {
                 adView.loadAd(adRequest);
             }
@@ -250,7 +250,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                                 datesListView.setAdapter(datesAdapter);
 
                                 // If no city, country came back we still got our LAT and LON. Oh well! ¯\_(ツ)_/¯
-                                if (dates[0].length() == 0) {
+                                if (dates[0].length() == 0 || dates[0] == null) {
                                     String nocountrycity = "LAT: " +
                                             mLatitude +
                                             " LON: " +
