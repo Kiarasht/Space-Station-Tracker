@@ -140,7 +140,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             AdRequest adRequest = new AdRequest.Builder().build();
             adView.loadAd(adRequest);
         }
-
     }
 
     /**
@@ -152,6 +151,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     public void startAnimation(final View view, final View view2, final Activity activity) {
         if (first_time2) {
+            sharedPref.edit().putBoolean(getString(R.string.first_time2), false).apply();
+            first_time2 = false;
             new SpotlightView.Builder(activity)
                     .introAnimationDuration(400)
                     .enableRevalAnimation(true)
