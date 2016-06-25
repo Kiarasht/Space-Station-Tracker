@@ -41,8 +41,6 @@ captures/
 *.jks
 
 .idea/
-7.png
-8.png
 app/build.gradle
 app/src/main/ic_launcher-web.png
 app/src/main/res/FrameLayout/
