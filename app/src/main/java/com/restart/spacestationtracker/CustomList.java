@@ -26,9 +26,11 @@ public class CustomList extends ArrayAdapter<String> {
     public View getView(final int position, View view, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.layout_listview, null, true);
-        final TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
+        final TextView name = (TextView) rowView.findViewById(R.id.name);
+        final TextView role = (TextView) rowView.findViewById(R.id.role);
         final CircleImageView imageView = (CircleImageView) rowView.findViewById(R.id.img);
-        txtTitle.setText(astronauts[position].getName());
+        name.setText(astronauts[position].getName());
+        role.setText(astronauts[position].getRole());
         UrlImageViewHelper.setUrlDrawable(imageView, astronauts[position].getImage());
 
         return rowView;

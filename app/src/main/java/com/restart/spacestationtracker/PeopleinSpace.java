@@ -2,6 +2,7 @@ package com.restart.spacestationtracker;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -101,6 +102,7 @@ public class PeopleinSpace extends AppCompatActivity {
                                     astronauts[i++] = postSnapshot.getValue(Astronaut.class);
                                     Log.d("PeopleinSpace..", astronauts[i - 1].getName() + " - " + astronauts[i - 1].getWiki() + " - " + astronauts[i - 1].getImage());
                                 }
+                                Astronaut.commanderFirst(astronauts);
                                 final CustomList astroAdapter = new CustomList(PeopleinSpace.this, astro, astronauts);
                                 final ListView astroListView = (ListView) findViewById(R.id.listView);
                                 PeopleinSpace.this.runOnUiThread(new Runnable() {
@@ -110,8 +112,10 @@ public class PeopleinSpace extends AppCompatActivity {
 
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view,
-                                                                    int position, long id) {
-                                                Toast.makeText(PeopleinSpace.this, "You Clicked at " + astro[+position], Toast.LENGTH_SHORT).show();
+                                                                    final int position, long id) {
+                                                startActivity(new Intent(getApplicationContext(), Help.class)
+                                                        .putExtra("url", astronauts[position].getWiki())
+                                                        .putExtra("astro", astronauts[position].getName()));
                                             }
                                         });
                                         endAnimation();

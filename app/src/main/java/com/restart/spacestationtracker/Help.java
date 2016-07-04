@@ -1,11 +1,18 @@
 package com.restart.spacestationtracker;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 public class Help extends AppCompatActivity {
     private WebView mWebView;
@@ -18,12 +25,28 @@ public class Help extends AppCompatActivity {
         mWebView = (WebView) findViewById(R.id.webView2);
 
         if (mWebView != null) {
-            mWebView.loadUrl("file:///android_asset/help.html");
+            Intent intent = getIntent();
+            if (intent.getStringExtra("astro") != null) {
+                setTitle(intent.getStringExtra("astro"));
+            }
+            mWebView.loadUrl(intent.getStringExtra("url"));
             mWebView.getSettings().setJavaScriptEnabled(true);
             mWebView.setVerticalScrollBarEnabled(false);
             mWebView.setWebViewClient(new MyWebViewClient());
         } else {
             Toast.makeText(getApplicationContext(), "Unable to load page", Toast.LENGTH_SHORT).show();
+        }
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        // Show an ad, or hide it if its disabled
+        if (!sharedPreferences.getBoolean("advertisement", false)) {
+            AdView adView = (AdView) findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
+            if (adView != null) {
+                adView.loadAd(adRequest);
+            }
+        } else {
+            findViewById(R.id.adView).setVisibility(View.GONE);
         }
     }
 
