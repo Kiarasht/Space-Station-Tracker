@@ -137,7 +137,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if (!sharedPreferences.getBoolean("advertisement", false)) {
             adView = (AdView) findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().build();
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
             adView.loadAd(adRequest);
         }
     }
@@ -160,10 +160,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .fadeinTextDuration(400)
                     .headingTvColor(Color.parseColor("#6441A5"))
                     .headingTvSize(32)
-                    .headingTvText("Hi There!")
+                    .headingTvText("Hey There :)")
                     .subHeadingTvColor(Color.parseColor("#ffffff"))
                     .subHeadingTvSize(16)
-                    .subHeadingTvText("Let's look at some of the features of this app. This page is a map showing ISS's current location.")
+                    .subHeadingTvText("Map shows ISS's current location. You can only zoom in and out. Otherwise it follows ISS by itself.")
                     .maskColor(Color.parseColor("#dc000000"))
                     .target(view2)
                     .lineAnimDuration(400)
@@ -183,7 +183,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     .headingTvText("Main Features")
                                     .subHeadingTvColor(Color.parseColor("#ffffff"))
                                     .subHeadingTvSize(16)
-                                    .subHeadingTvText("Clicking the drawer icon takes you to other features such as flybys, settings, etc...")
+                                    .subHeadingTvText("Drawer takes you to other features such as flybys, settings, etc...")
                                     .maskColor(Color.parseColor("#dc000000"))
                                     .target(boomMenuButtonInActionBar)
                                     .lineAnimDuration(400)
@@ -255,7 +255,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         } else if (!sharedPreferences.getBoolean("advertisement", false)) {
             if (adView == null) {                       // User wants ads but instance is null
                 adView = (AdView) findViewById(R.id.adView);
-                AdRequest adRequest = new AdRequest.Builder().build();
+                AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
                 adView.loadAd(adRequest);
             } else {                                    // User wants ads, instance already got one
                 adView.setVisibility(View.VISIBLE);

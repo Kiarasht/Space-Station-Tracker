@@ -44,7 +44,7 @@ public class AdPreference extends Preference {
         boolean advertisement = sharedPreferences.getBoolean("advertisement", false);
 
         if (!advertisement) {
-            AdRequest adRequest = new AdRequest.Builder().build();
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
             adView.loadAd(adRequest);
         }
 

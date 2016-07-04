@@ -6,9 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -19,6 +19,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -31,10 +35,13 @@ public class PeopleinSpace extends AppCompatActivity {
 
     private RequestQueue requestQueue;
     private SharedPreferences sharedPref;
+    private Firebase myFirebaseRef;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
+        myFirebaseRef = new Firebase("https://project-5182046725513325760.firebaseio.com/");
         setContentView(R.layout.layout_locations);
         startAnimation();
         sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
@@ -45,7 +52,7 @@ public class PeopleinSpace extends AppCompatActivity {
         // Show an ad, or hide it if its disabled
         if (!sharedPreferences.getBoolean("advertisement", false)) {
             AdView adView = (AdView) findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().build();
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
             if (adView != null) {
                 adView.loadAd(adRequest);
             }
@@ -73,27 +80,48 @@ public class PeopleinSpace extends AppCompatActivity {
                 try {
                     JSONArray results = response.getJSONArray("people");
                     int numbers = response.getInt("number");
-                    final String astro_number = "Currently " + numbers + " People In Space";
-                    String[] astro = new String[numbers + 1];
-                    astro[0] = astro_number;
+                    final String[] astro = new String[numbers];
+                    final Astronaut[] astronauts = new Astronaut[numbers];
 
                     for (int i = 0; i < results.length(); i += 1) {
                         JSONObject result = results.getJSONObject(i);
-                        astro[i + 1] = i + 1 + ". " + String.valueOf(result.getString("name")) + " " + String.valueOf(result.getString("craft"));
-                        astro_detail.append(i + 1)
-                                .append(". ")
+                        astro[i] = String.valueOf(result.getString("name"));
+                        astro_detail.append(i)
                                 .append(String.valueOf(result.getString("name")))
-                                .append(" at ")
                                 .append(String.valueOf(result.getString("craft")));
                     }
 
                     // If false, then PeopleinSpace.java called. So we will call UiThread
                     if (!intent) {
-                        final ListAdapter astroAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.text_layout, astro);
-                        final ListView astroListView = (ListView) findViewById(R.id.listView);
-                        PeopleinSpace.this.runOnUiThread(new Runnable() {
-                            public void run() {
-                                astroListView.setAdapter(astroAdapter);
+                        myFirebaseRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot snapshot) {
+                                int i = 0;
+                                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                                    astronauts[i++] = postSnapshot.getValue(Astronaut.class);
+                                    Log.d("PeopleinSpace..", astronauts[i - 1].getName() + " - " + astronauts[i - 1].getWiki() + " - " + astronauts[i - 1].getImage());
+                                }
+                                final CustomList astroAdapter = new CustomList(PeopleinSpace.this, astro, astronauts);
+                                final ListView astroListView = (ListView) findViewById(R.id.listView);
+                                PeopleinSpace.this.runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        astroListView.setAdapter(astroAdapter);
+                                        astroListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                                            @Override
+                                            public void onItemClick(AdapterView<?> parent, View view,
+                                                                    int position, long id) {
+                                                Toast.makeText(PeopleinSpace.this, "You Clicked at " + astro[+position], Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                        endAnimation();
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onCancelled(FirebaseError error) {
+                                Toast.makeText(getApplicationContext(), "Unable to connect to databse", Toast.LENGTH_SHORT).show();
                                 endAnimation();
                             }
                         });
