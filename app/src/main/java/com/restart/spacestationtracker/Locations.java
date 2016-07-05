@@ -247,8 +247,6 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                             @Override
                             public void run() {
                                 endAnimation();
-                                datesListView.setAdapter(datesAdapter);
-
                                 // If no city, country came back we still got our LAT and LON. Oh well! ¯\_(ツ)_/¯
                                 if (dates[0].length() == 0 || dates[0] == null) {
                                     String nocountrycity = "LAT: " +
@@ -257,6 +255,8 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                                             mLontitude;
                                     dates[0] = nocountrycity;
                                 }
+
+                                datesListView.setAdapter(datesAdapter);
                             }
                         });
                     }
