@@ -125,7 +125,7 @@ public class PeopleinSpace extends AppCompatActivity {
 
                             @Override
                             public void onCancelled(FirebaseError error) {
-                                Toast.makeText(getApplicationContext(), "Unable to connect to databse", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Unable to connect to database", Toast.LENGTH_SHORT).show();
                                 endAnimation();
                             }
                         });
