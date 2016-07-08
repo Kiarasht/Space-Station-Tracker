@@ -46,6 +46,7 @@ import java.util.Locale;
 public class Locations extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
+    private final String TAG = ".Locations";
     private RequestQueue requestQueue;
     private String mLontitude;
     private String mLatitude;
@@ -98,6 +99,16 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
     protected void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
+    }
+
+    /**
+     * Cancel any request on Volley after user goes to another activity.
+     */
+    protected void onPause() {
+        super.onPause();
+        if (requestQueue != null) {
+            requestQueue.cancelAll(TAG);
+        }
     }
 
     @Override
@@ -193,6 +204,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                 endAnimation();
             }
         });
+        jsonObjectRequest.setTag(TAG);
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -248,12 +260,9 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                             public void run() {
                                 endAnimation();
                                 // If no city, country came back we still got our LAT and LON. Oh well! ¯\_(ツ)_/¯
-                                if (dates[0].length() == 0 || dates[0] == null) {
-                                    String nocountrycity = "LAT: " +
-                                            mLatitude +
-                                            " LON: " +
-                                            mLontitude;
-                                    dates[0] = nocountrycity;
+                                // TODO: check why its sometimes null.
+                                if (dates[0].length() == 0 || dates[0] == null || dates[0].equals("null")) {
+                                    dates[0] = "LAT: " + mLatitude + " LON: " + mLontitude;
                                 }
 
                                 datesListView.setAdapter(datesAdapter);
@@ -268,20 +277,24 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError e) {
-                e.printStackTrace();
-                NetworkResponse networkResponse = e.networkResponse;
+                if (e != null) {
+                    e.printStackTrace();
+                    NetworkResponse networkResponse = e.networkResponse;
 
-                if (networkResponse != null && networkResponse.statusCode == HttpStatus.SC_UNAUTHORIZED) {
-                    int error = networkResponse.statusCode;
-                    String message = e.getMessage();
-                    String reason = message + " Error: " + error;
-                    Toast.makeText(Locations.this, reason + ".", Toast.LENGTH_LONG).show();
+                    if (networkResponse != null && networkResponse.statusCode == HttpStatus.SC_UNAUTHORIZED) {
+                        int error = networkResponse.statusCode;
+                        String message = e.getMessage();
+                        String reason = message + " Error: " + error;
+                        Toast.makeText(Locations.this, reason + ".", Toast.LENGTH_LONG).show();
 
-                    return;
+                        return;
+                    }
                 }
 
-                Toast.makeText(Locations.this, "Either you have no connection or server is overloaded.", Toast.LENGTH_LONG).show();
-                endAnimation();
+                if (mLatitudepar == null && mLontitudepar == null) {
+                    Toast.makeText(Locations.this, "Either you have no connection or server is overloaded.", Toast.LENGTH_LONG).show();
+                    endAnimation();
+                }
             }
         });
 
@@ -290,6 +303,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
             RequestQueue requestQueue = Volley.newRequestQueue(applicationContext);
             requestQueue.add(jsonObjectRequest);
         } else { // If Locations.java called us
+            jsonObjectRequest.setTag(TAG);
             requestQueue.add(jsonObjectRequest);
         }
         return passes; // Only Alert.java benefits from this return

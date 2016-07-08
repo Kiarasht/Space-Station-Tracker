@@ -68,6 +68,15 @@
                 android:value="com.restart.spacestationtracker.MapsActivity" />
         </activity>
 
+        <!-- Info -->
+        <activity
+            android:name=".Info"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.restart.spacestationtracker.PeopleinSpace" />
+        </activity>
+
         <!-- Live Stream -->
         <activity
             android:name=".LiveStream"

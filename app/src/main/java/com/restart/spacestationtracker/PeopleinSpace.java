@@ -34,6 +34,7 @@ import org.json.JSONObject;
 
 public class PeopleinSpace extends AppCompatActivity {
 
+    private final String TAG = ".PeopleinSpace";
     private RequestQueue requestQueue;
     private SharedPreferences sharedPref;
     private Firebase myFirebaseRef;
@@ -59,6 +60,16 @@ public class PeopleinSpace extends AppCompatActivity {
             }
         } else {
             findViewById(R.id.adView).setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * Cancel any request on Volley after user goes to another activity.
+     */
+    protected void onPause() {
+        super.onPause();
+        if (requestQueue != null) {
+            requestQueue.cancelAll(TAG);
         }
     }
 
@@ -113,9 +124,15 @@ public class PeopleinSpace extends AppCompatActivity {
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view,
                                                                     final int position, long id) {
-                                                startActivity(new Intent(getApplicationContext(), Help.class)
-                                                        .putExtra("url", astronauts[position].getWiki())
-                                                        .putExtra("astro", astronauts[position].getName()));
+                                                if (astronauts[position] != null) {
+                                                    startActivity(new Intent(getApplicationContext(), Info.class)
+                                                            .putExtra("url", astronauts[position].getWiki())
+                                                            .putExtra("astro", astronauts[position].getName()));
+                                                } else {
+                                                    startActivity(new Intent(getApplicationContext(), Info.class)
+                                                            .putExtra("url", "https://www.bing.com/search?q=" + astro[position])
+                                                            .putExtra("astro", astro[position]));
+                                                }
                                             }
                                         });
                                         endAnimation();
@@ -138,20 +155,24 @@ public class PeopleinSpace extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError e) {
-                e.printStackTrace();
-                NetworkResponse networkResponse = e.networkResponse;
+                if (e != null) {
+                    e.printStackTrace();
+                    NetworkResponse networkResponse = e.networkResponse;
 
-                if (networkResponse != null && networkResponse.statusCode == HttpStatus.SC_UNAUTHORIZED) {
-                    int error = networkResponse.statusCode;
-                    String message = e.getMessage();
-                    String reason = message + " Error: " + error;
-                    Toast.makeText(PeopleinSpace.this, reason + ".", Toast.LENGTH_LONG).show();
+                    if (networkResponse != null && networkResponse.statusCode == HttpStatus.SC_UNAUTHORIZED) {
+                        int error = networkResponse.statusCode;
+                        String message = e.getMessage();
+                        String reason = message + " Error: " + error;
+                        Toast.makeText(PeopleinSpace.this, reason + ".", Toast.LENGTH_LONG).show();
 
-                    return;
+                        return;
+                    }
                 }
 
-                Toast.makeText(PeopleinSpace.this, "Either you have no connection or server is overloaded.", Toast.LENGTH_LONG).show();
-                endAnimation();
+                if (!intent) {
+                    Toast.makeText(PeopleinSpace.this, "Either you have no connection or server is overloaded.", Toast.LENGTH_LONG).show();
+                    endAnimation();
+                }
             }
         });
 
@@ -160,6 +181,7 @@ public class PeopleinSpace extends AppCompatActivity {
             RequestQueue requestQueue = Volley.newRequestQueue(applicationContext);
             requestQueue.add(jsonObjectRequest);
         } else {
+            jsonObjectRequest.setTag(TAG);
             requestQueue.add(jsonObjectRequest);
         }
 

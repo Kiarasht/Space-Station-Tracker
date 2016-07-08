@@ -1,15 +1,20 @@
 package com.restart.spacestationtracker;
 
-import android.app.Activity;
-import android.os.Build;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-public class LiveStream extends Activity {
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
+public class Info extends AppCompatActivity {
     private WebView mWebView;
 
     @Override
@@ -17,19 +22,31 @@ public class LiveStream extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.help_layout);
 
-        findViewById(R.id.adView).setVisibility(View.GONE);
         mWebView = (WebView) findViewById(R.id.webView2);
 
         if (mWebView != null) {
-            mWebView.loadUrl("http://www.ustream.tv/channel/iss-hdev-payload/pop-out");
+            Intent intent = getIntent();
+            if (intent.getStringExtra("astro") != null) {
+                setTitle(intent.getStringExtra("astro"));
+            }
+            mWebView.loadUrl(intent.getStringExtra("url"));
             mWebView.getSettings().setJavaScriptEnabled(true);
             mWebView.setVerticalScrollBarEnabled(false);
             mWebView.setWebViewClient(new MyWebViewClient());
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
-            }
         } else {
             Toast.makeText(getApplicationContext(), "Unable to load page", Toast.LENGTH_SHORT).show();
+        }
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        // Show an ad, or hide it if its disabled
+        if (!sharedPreferences.getBoolean("advertisement", false)) {
+            AdView adView = (AdView) findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
+            if (adView != null) {
+                adView.loadAd(adRequest);
+            }
+        } else {
+            findViewById(R.id.adView).setVisibility(View.GONE);
         }
     }
 
@@ -63,4 +80,3 @@ public class LiveStream extends Activity {
         return super.onKeyDown(keyCode, event);
     }
 }
-

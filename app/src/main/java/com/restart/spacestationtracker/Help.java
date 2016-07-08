@@ -1,6 +1,5 @@
 package com.restart.spacestationtracker;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -25,11 +24,7 @@ public class Help extends AppCompatActivity {
         mWebView = (WebView) findViewById(R.id.webView2);
 
         if (mWebView != null) {
-            Intent intent = getIntent();
-            if (intent.getStringExtra("astro") != null) {
-                setTitle(intent.getStringExtra("astro"));
-            }
-            mWebView.loadUrl(intent.getStringExtra("url"));
+            mWebView.loadUrl("file:///android_asset/help.html");
             mWebView.getSettings().setJavaScriptEnabled(true);
             mWebView.setVerticalScrollBarEnabled(false);
             mWebView.setWebViewClient(new MyWebViewClient());
