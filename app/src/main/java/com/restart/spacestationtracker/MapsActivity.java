@@ -22,7 +22,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -46,7 +45,6 @@ import com.restart.spacestationtracker.services.AlertPeople;
 import com.wooplr.spotlight.SpotlightView;
 import com.wooplr.spotlight.utils.SpotlightListener;
 
-import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -334,18 +332,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError e) {
-                e.printStackTrace();
-                NetworkResponse networkResponse = e.networkResponse;
-
-                if (networkResponse != null && networkResponse.statusCode == HttpStatus.SC_UNAUTHORIZED) {
-                    int error = networkResponse.statusCode;
-                    final String message = e.getMessage();
-                    final String reason = message + " Error: " + error;
-                    Toast.makeText(MapsActivity.this, reason + ".", Toast.LENGTH_LONG).show();
-
-                    return;
-                }
-
                 // Server did not respond. Got 5 chances before stop trying.
                 if (++success <= 4) {
                     Toast.makeText(MapsActivity.this,

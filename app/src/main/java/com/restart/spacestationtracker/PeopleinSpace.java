@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,7 +26,6 @@ import com.firebase.client.ValueEventListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-import org.apache.http.HttpStatus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -155,20 +153,6 @@ public class PeopleinSpace extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError e) {
-                if (e != null) {
-                    e.printStackTrace();
-                    NetworkResponse networkResponse = e.networkResponse;
-
-                    if (networkResponse != null && networkResponse.statusCode == HttpStatus.SC_UNAUTHORIZED) {
-                        int error = networkResponse.statusCode;
-                        String message = e.getMessage();
-                        String reason = message + " Error: " + error;
-                        Toast.makeText(PeopleinSpace.this, reason + ".", Toast.LENGTH_LONG).show();
-
-                        return;
-                    }
-                }
-
                 if (!intent) {
                     Toast.makeText(PeopleinSpace.this, "Either you have no connection or server is overloaded.", Toast.LENGTH_LONG).show();
                     endAnimation();
