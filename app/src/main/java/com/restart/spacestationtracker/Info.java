@@ -20,7 +20,7 @@ public class Info extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.help_layout);
+        setContentView(R.layout.web_layout);
 
         mWebView = (WebView) findViewById(R.id.webView2);
 

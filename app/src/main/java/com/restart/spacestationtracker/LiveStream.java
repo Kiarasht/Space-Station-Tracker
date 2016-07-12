@@ -15,7 +15,7 @@ public class LiveStream extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.help_layout);
+        setContentView(R.layout.web_layout);
 
         findViewById(R.id.adView).setVisibility(View.GONE);
         mWebView = (WebView) findViewById(R.id.webView2);

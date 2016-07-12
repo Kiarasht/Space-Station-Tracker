@@ -6,20 +6,12 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-<!--    <WebView
+    <WebView
         android:id="@+id/webView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="1" />-->
-
-    <ExpandableListView
-        android:id="@+id/expandableListView"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:groupIndicator="@drawable/settings_selector"
-        android:divider="@color/colorPrimary"
-        android:dividerHeight="0.5dp" />
+        android:layout_weight="1" />
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"

@@ -464,7 +464,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 break;
             case 3:
                 intent = new Intent(context, Help.class);
-                intent.putExtra("url", "file:///android_asset/help.html");
                 startActivity(intent);
                 break;
         }
