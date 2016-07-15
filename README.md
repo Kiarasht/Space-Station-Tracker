@@ -1,4 +1,7 @@
-# Space Station Tracker
+Space Station Tracker
+===================
+
+## Introduction
 An android application that keeps track of the International Space Station and notify you if it happens to pass by your location. It's also said that you should be able to see the station with a naked eye from earth. So keep an eye for it :)
 
 <img src="1.png" align="left" height="458" width="230" >
