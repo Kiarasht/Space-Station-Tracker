@@ -1,5 +1,6 @@
 package com.restart.spacestationtracker;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -35,9 +37,7 @@ public class Help extends AppCompatActivity {
 
             @Override
             public void onGroupExpand(int groupPosition) {
-/*                Toast.makeText(getApplicationContext(),
-                        expandableListTitle.get(groupPosition) + " List Expanded.",
-                        Toast.LENGTH_SHORT).show();*/
+
             }
         });
 
@@ -45,10 +45,6 @@ public class Help extends AppCompatActivity {
 
             @Override
             public void onGroupCollapse(int groupPosition) {
-/*                Toast.makeText(getApplicationContext(),
-                        expandableListTitle.get(groupPosition) + " List Collapsed.",
-                        Toast.LENGTH_SHORT).show();*/
-
             }
         });
 
@@ -56,14 +52,23 @@ public class Help extends AppCompatActivity {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-/*                Toast.makeText(
-                        getApplicationContext(),
-                        expandableListTitle.get(groupPosition)
-                                + " -> "
-                                + expandableListDetail.get(
-                                expandableListTitle.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT
-                ).show();*/
+                String onClick = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition);
+
+                if (onClick.contains("\n")) {
+                    String[] onClicks = onClick.split("\n");
+                    String[] author = onClicks[1].split(":");
+                    String[] link = onClicks[2].split(" ");
+                    author[1] = author[1].substring(1, author[1].length());
+
+                    Intent intent = new Intent(getApplicationContext(), Info.class);
+                    intent.putExtra("url", link[1]);
+                    intent.putExtra("astro", author[1]);
+                    startActivity(intent);
+                } else if (onClick.contains("Version:") || onClick.contains("Build on:")) {
+                    Toast.makeText(getApplicationContext(), onClick, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "You are looking quite dashing today!", Toast.LENGTH_SHORT).show();
+                }
                 return false;
             }
         });

@@ -16,6 +16,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -102,6 +103,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         boomMenuButtonInActionBar = (BoomMenuButton) mCustomView.findViewById(R.id.boom);
         boomMenuButtonInActionBar.setOnSubButtonClickListener(this);
         boomMenuButtonInActionBar.setAnimatorListener(this);
+        boomMenuButtonInActionBar.setDuration(700);
+        boomMenuButtonInActionBar.setDelay(100);
 
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
@@ -401,6 +404,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 null,               // Ease type to rotate the sub buttons when dismissing.
                 null                // Rotation degree.
         );
+    }
+
+    /**
+     * Navigate out of boom menu first on back button
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_BACK:
+                    if (boomMenuButtonInActionBar.isOpen()) {
+                        boomMenuButtonInActionBar.dismiss();
+                    } else {
+                        finish();
+                    }
+
+                    return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     /**
