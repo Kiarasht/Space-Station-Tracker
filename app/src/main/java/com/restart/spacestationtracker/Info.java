@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -12,22 +11,18 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
-import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
-import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-public class Info extends AppCompatActivity implements ObservableScrollViewCallbacks {
-    private ObservableWebView mWebView;
+public class Info extends AppCompatActivity {
+    private WebView mWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.web_layout);
 
-        mWebView = (ObservableWebView) findViewById(R.id.webView2);
-        mWebView.setScrollViewCallbacks(this);
+        mWebView = (WebView) findViewById(R.id.webView2);
 
         if (mWebView != null) {
             Intent intent = getIntent();
@@ -83,32 +78,5 @@ public class Info extends AppCompatActivity implements ObservableScrollViewCallb
             }
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
-
-    }
-
-    @Override
-    public void onDownMotionEvent() {
-
-    }
-
-    @Override
-    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-        ActionBar ab = getSupportActionBar();
-        if (ab == null) {
-            return;
-        }
-        if (scrollState == ScrollState.UP) {
-            if (ab.isShowing()) {
-                ab.hide();
-            }
-        } else if (scrollState == ScrollState.DOWN) {
-            if (!ab.isShowing()) {
-                ab.show();
-            }
-        }
     }
 }

@@ -23,12 +23,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_gravity="center"
-        android:layout_toEndOf="@+id/frameLayout"
         android:layout_toRightOf="@+id/frameLayout"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:paddingTop="28dp"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:id="@+id/role"
@@ -36,10 +37,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
         android:layout_gravity="center"
-        android:layout_toEndOf="@+id/frameLayout"
         android:layout_toRightOf="@+id/frameLayout"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

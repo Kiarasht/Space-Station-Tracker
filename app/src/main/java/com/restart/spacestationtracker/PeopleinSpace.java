@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -109,7 +108,6 @@ public class PeopleinSpace extends AppCompatActivity {
                                 int i = 0;
                                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                                     astronauts[i++] = postSnapshot.getValue(Astronaut.class);
-                                    Log.d("PeopleinSpace..", astronauts[i - 1].getName() + " - " + astronauts[i - 1].getWiki() + " - " + astronauts[i - 1].getImage());
                                 }
                                 Astronaut.commanderFirst(astronauts);
                                 final CustomList astroAdapter = new CustomList(PeopleinSpace.this, astro, astronauts);

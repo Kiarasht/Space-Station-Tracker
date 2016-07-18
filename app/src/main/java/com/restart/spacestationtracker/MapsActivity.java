@@ -140,6 +140,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             adView = (AdView) findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
             adView.loadAd(adRequest);
+        } else if (adView == null) {
+            adView = (AdView) findViewById(R.id.adView);
+            adView.setVisibility(View.GONE);
+            adView = null;
         }
     }
 
@@ -252,7 +256,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // Provide optional advertisements that is visible/hidden by a checkbox in Preferences
         if (sharedPreferences.getBoolean("advertisement", false) && adView != null) {
-            adView.setVisibility(View.INVISIBLE);       // User disabled ads
+            adView.setVisibility(View.GONE);       // User disabled ads
         } else if (!sharedPreferences.getBoolean("advertisement", false)) {
             if (adView == null) {                       // User wants ads but instance is null
                 adView = (AdView) findViewById(R.id.adView);
