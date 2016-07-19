@@ -68,8 +68,8 @@ public class ExpandableListDataPump {
                 "Link: https://thenounproject.com/Luis/");
 
         List<String> about = new ArrayList<>();
-        about.add("Version: 2.11");
-        about.add("Build on: 07/17/2016");
+        about.add("Version: 2.12");
+        about.add("Build on: 07/18/2016");
 
         expandableListDetail.put("ISS Tracker", general);
         expandableListDetail.put("Contribute", contribute);
