@@ -79,9 +79,10 @@ public class Alert extends Service {
             return START_STICKY;
         }
 
-        int LOCATION_TIME = 1800000; // (30 minutes) minimum time interval between location updates, in milliseconds
-        int LOCATION_DISTANCE = 500; // (1500 meters) minimum distance between location updates, in meters
-        int TIMER_REPEAT = 3540000;  // (59 minutes) Time to repeat a compare between ISS and user's location
+        final int LOCATION_TIME = 1800000; // (30 minutes) minimum time interval between location updates, in milliseconds
+        final int LOCATION_DISTANCE = 500; // (1500 meters) minimum distance between location updates, in meters
+        final int TIMER_REPEAT = 3540000;  // (59 minutes) Time to repeat a compare between ISS and user's location
+
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
                 LOCATION_TIME, LOCATION_DISTANCE, locationListener);
         timer = new Timer();

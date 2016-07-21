@@ -140,7 +140,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
             mLatitude = String.valueOf(mLastLocation.getLatitude());
             mLontitude = String.valueOf(mLastLocation.getLongitude());
             displayresults();
-            displaypasses(null, null, getApplicationContext());
+            displaypasses(null, null, null);
         } else {
             Toast.makeText(this, "Unable to find your location.", Toast.LENGTH_LONG).show();
             endAnimation();
@@ -179,6 +179,8 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                     JSONObject results = response.getJSONArray("results").getJSONObject(1);
                     mLocation = results.getString("formatted_address");
 
+                    //TODO Check if mLocation is null
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -200,9 +202,9 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
      */
     public Date[] displaypasses(final String mLatitudepar, final String mLontitudepar, Context applicationContext) {
         // Usually we get 4 to 6 dates. So 10 just to be a bit safe
-        final Date[] passes = new Date[10];
+        final Date[] passes = new Date[10]; // Used for Alert service
 
-        String url;
+        final String url;
         if (mLatitudepar == null && mLontitudepar == null) { // Location.java is calling this method
             url = "http://api.open-notify.org/iss-pass.json?lat=" +
                     mLatitude + "&lon=" + mLontitude;

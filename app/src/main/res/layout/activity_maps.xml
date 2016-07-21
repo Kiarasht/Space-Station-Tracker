@@ -45,7 +45,7 @@
         android:textColor="@color/White" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/issPicture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

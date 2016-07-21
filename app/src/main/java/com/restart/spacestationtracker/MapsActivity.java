@@ -15,7 +15,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,21 +66,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private BoomMenuButton boomMenuButtonInActionBar;
     private SharedPreferences sharedPref;               // Managing app's control flow
     private SharedPreferences sharedPreferences;        // Managing options from Settings
-    private RequestQueue requestQueue;
+    private RequestQueue requestQueue;                  // Volley
     private GoogleMap mMap;
     private Timer timer;                                // Updates map based on refreshrate
     private Context context;
     private AdView adView;
-    private TextView latlong;                           // latlong of ISS
+    private TextView latLong;                           // latLong of ISS
     private int refreshrate;                            // Millisecond between each timer repeat
     private int success;                                // Tracks # times server failed to respond
-    private boolean first_time;                         // Ask your for location permission once
-    private boolean first_time2;                        // Menu Tutorial
+    private boolean askPermission;                      // Ask your for location permission once
+    private boolean firstTime;                          // Menu Tutorial
     private boolean start = false;                      // Opened app or returned to activity?
 
-
     /**
-     * When the application begins try to read from SharedPreferences to get ready
+     * When the application begins try to read from SharedPreferences to get ready. Run first
+     * time setups if needed.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +88,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
 
         // TODO Remove this after checking for more leak
-        //LeakCanary.install(getApplication());
+        // LeakCanary.install(getApplication());
 
         ActionBar mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
@@ -114,21 +113,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         adView = null;
         context = getApplicationContext();
         requestQueue = Volley.newRequestQueue(this);
-        latlong = ((TextView) findViewById(R.id.textView));
+        latLong = ((TextView) findViewById(R.id.textView));
         sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         refreshrate = 1000 * sharedPreferences.getInt("refresh_Rate", 15);
-        Log.d(TAG, "Refreshrate = " + refreshrate);
-        first_time = sharedPref.getBoolean(getString(R.string.first_time), true);
-        first_time2 = sharedPref.getBoolean(getString(R.string.first_time2), true);
-        final View view = findViewById(R.id.imageView1);
+        askPermission = sharedPref.getBoolean(getString(R.string.askPermission), true);
+        firstTime = sharedPref.getBoolean(getString(R.string.firstTime), true);
+        final View issPicture = findViewById(R.id.issPicture);
         final Activity activity = this;
 
         //  When view is shown start our animated animations for first time users
-        view.post(new Runnable() {
+        issPicture.post(new Runnable() {
             @Override
             public void run() {
-                startAnimation(view, mTitleTextView, activity);
+                if (firstTime) {
+                    startAnimation(issPicture, mTitleTextView, activity);
+                }
             }
         });
 
@@ -148,95 +148,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     /**
-     * Starts a three step animation process. One gets executed after another.
-     *
-     * @param view     A view to ISS icon
-     * @param view2    A view to the top text widget
-     * @param activity MapsActivity.java
-     */
-    public void startAnimation(final View view, final View view2, final Activity activity) {
-        if (first_time2) {
-            sharedPref.edit().putBoolean(getString(R.string.first_time2), false).apply();
-            first_time2 = false;
-            new SpotlightView.Builder(activity)
-                    .introAnimationDuration(400)
-                    .enableRevalAnimation(true)
-                    .performClick(true)
-                    .fadeinTextDuration(400)
-                    .headingTvColor(Color.parseColor("#6441A5"))
-                    .headingTvSize(32)
-                    .headingTvText("Hey There :)")
-                    .subHeadingTvColor(Color.parseColor("#ffffff"))
-                    .subHeadingTvSize(16)
-                    .subHeadingTvText("Map shows ISS's current location. You can only zoom in and out. Otherwise it follows ISS by itself.")
-                    .maskColor(Color.parseColor("#dc000000"))
-                    .target(view2)
-                    .lineAnimDuration(400)
-                    .lineAndArcColor(Color.parseColor("#6441A5"))
-                    .dismissOnTouch(true)
-                    .usageId("1")
-                    .setListener(new SpotlightListener() {
-                        @Override
-                        public void onUserClicked(String s) {
-                            new SpotlightView.Builder(activity)
-                                    .introAnimationDuration(400)
-                                    .enableRevalAnimation(true)
-                                    .performClick(true)
-                                    .fadeinTextDuration(400)
-                                    .headingTvColor(Color.parseColor("#6441A5"))
-                                    .headingTvSize(32)
-                                    .headingTvText("Main Features")
-                                    .subHeadingTvColor(Color.parseColor("#ffffff"))
-                                    .subHeadingTvSize(16)
-                                    .subHeadingTvText("Drawer takes you to other features such as flybys, settings, etc...")
-                                    .maskColor(Color.parseColor("#dc000000"))
-                                    .target(boomMenuButtonInActionBar)
-                                    .lineAnimDuration(400)
-                                    .lineAndArcColor(Color.parseColor("#6441A5"))
-                                    .dismissOnTouch(true)
-                                    .usageId("2")
-                                    .setListener(new SpotlightListener() {
-                                        @Override
-                                        public void onUserClicked(String s) {
-                                            new SpotlightView.Builder(activity)
-                                                    .introAnimationDuration(400)
-                                                    .enableRevalAnimation(true)
-                                                    .performClick(true)
-                                                    .fadeinTextDuration(400)
-                                                    .headingTvColor(Color.parseColor("#6441A5"))
-                                                    .headingTvSize(32)
-                                                    .headingTvText("Live Stream")
-                                                    .subHeadingTvColor(Color.parseColor("#ffffff"))
-                                                    .subHeadingTvSize(16)
-                                                    .subHeadingTvText("Clicking the ISS icon will take you to a live stream." +
-                                                            " Basically what astronauts see right now.")
-                                                    .maskColor(Color.parseColor("#dc000000"))
-                                                    .target(view)
-                                                    .lineAnimDuration(400)
-                                                    .lineAndArcColor(Color.parseColor("#6441A5"))
-                                                    .dismissOnTouch(true)
-                                                    .usageId("3")
-                                                    .show();
-                                        }
-                                    }).show();
-                        }
-                    }).show();
-        }
-    }
-
-    /**
-     * On resume, for when the user might have visited the setting activity and came back.
-     * Reread the refreshrate.
-     * onResume gets called right after onCreate for example when the application
-     * gets opened for the first time, or might get called solely if user switches to this
-     * activity. If/else for both situations
-     * http://i.stack.imgur.com/1byIg.png
+     * Reread the refreshrate and update layout if needed.
      */
     protected void onResume() {
         super.onResume();
         if (start) {                            // When activity was just paused
             refreshrate = 1000 * sharedPreferences.getInt("refresh_Rate", 15);
-            Log.d(TAG, "Refreshrate = " + refreshrate);
             if (timer != null) {
                 timer.cancel();
                 timer.purge();
@@ -305,6 +222,81 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     /**
+     * Starts a three step animation process. One gets executed after another.
+     *
+     * @param issPicture     A view to ISS icon
+     * @param mTitleTextView A view to the top text widget
+     * @param activity       MapsActivity.java
+     */
+    public void startAnimation(final View issPicture, final View mTitleTextView, final Activity activity) {
+        sharedPref.edit().putBoolean(getString(R.string.firstTime), false).apply();
+        firstTime = false;
+        new SpotlightView.Builder(activity)
+                .introAnimationDuration(400)
+                .enableRevalAnimation(true)
+                .performClick(true)
+                .fadeinTextDuration(400)
+                .headingTvColor(Color.parseColor("#6441A5"))
+                .headingTvSize(32)
+                .headingTvText("Hey There :)")
+                .subHeadingTvColor(Color.parseColor("#ffffff"))
+                .subHeadingTvSize(16)
+                .subHeadingTvText("Map shows ISS's current location. You can only zoom in and out. Otherwise it follows ISS by itself.")
+                .maskColor(Color.parseColor("#dc000000"))
+                .target(mTitleTextView)
+                .lineAnimDuration(400)
+                .lineAndArcColor(Color.parseColor("#6441A5"))
+                .dismissOnTouch(true)
+                .usageId("1")
+                .setListener(new SpotlightListener() {
+                    @Override
+                    public void onUserClicked(String s) {
+                        new SpotlightView.Builder(activity)
+                                .introAnimationDuration(400)
+                                .enableRevalAnimation(true)
+                                .performClick(true)
+                                .fadeinTextDuration(400)
+                                .headingTvColor(Color.parseColor("#6441A5"))
+                                .headingTvSize(32)
+                                .headingTvText("Main Features")
+                                .subHeadingTvColor(Color.parseColor("#ffffff"))
+                                .subHeadingTvSize(16)
+                                .subHeadingTvText("Drawer takes you to other features such as flybys, settings, etc...")
+                                .maskColor(Color.parseColor("#dc000000"))
+                                .target(boomMenuButtonInActionBar)
+                                .lineAnimDuration(400)
+                                .lineAndArcColor(Color.parseColor("#6441A5"))
+                                .dismissOnTouch(true)
+                                .usageId("2")
+                                .setListener(new SpotlightListener() {
+                                    @Override
+                                    public void onUserClicked(String s) {
+                                        new SpotlightView.Builder(activity)
+                                                .introAnimationDuration(400)
+                                                .enableRevalAnimation(true)
+                                                .performClick(true)
+                                                .fadeinTextDuration(400)
+                                                .headingTvColor(Color.parseColor("#6441A5"))
+                                                .headingTvSize(32)
+                                                .headingTvText("Live Stream")
+                                                .subHeadingTvColor(Color.parseColor("#ffffff"))
+                                                .subHeadingTvSize(16)
+                                                .subHeadingTvText("Clicking the ISS icon will take you to a live stream." +
+                                                        " Basically what astronauts see right now.")
+                                                .maskColor(Color.parseColor("#dc000000"))
+                                                .target(issPicture)
+                                                .lineAnimDuration(400)
+                                                .lineAndArcColor(Color.parseColor("#6441A5"))
+                                                .dismissOnTouch(true)
+                                                .usageId("3")
+                                                .show();
+                                    }
+                                }).show();
+                    }
+                }).show();
+    }
+
+    /**
      * Get the Lat and Lon of ISS and move the map to that position when called.
      */
     private void trackISS() {
@@ -318,18 +310,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     success = 0;        // Server responded successfully
                     final double latParameter = Double.parseDouble(response.getString("latitude"));
                     final double lngParameter = Double.parseDouble(response.getString("longitude"));
-
-                    DecimalFormat decimalFormat = new DecimalFormat("0.000");
-                    String LAT = decimalFormat.format(latParameter);
-                    String LNG = decimalFormat.format(lngParameter);
+                    final LatLng ISS = new LatLng(latParameter, lngParameter);
+                    final DecimalFormat decimalFormat = new DecimalFormat("0.000");
+                    final String LAT = decimalFormat.format(latParameter);
+                    final String LNG = decimalFormat.format(lngParameter);
 
                     final String position = LAT + "° N, " + LNG + "° E";
 
                     MapsActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
-                            LatLng ISS = new LatLng(latParameter, lngParameter);
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(ISS));
-                            latlong.setText(position);
+                            latLong.setText(position);
                         }
                     });
                 } catch (JSONException e) {
@@ -365,7 +356,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
-        int number = 4;
+        final int number = 4;
 
         Drawable[] drawables = new Drawable[number];
         int[] drawablesResource = new int[]{
@@ -384,6 +375,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 "Settings",
                 "Help",
         };
+
         String[] strings = new String[number];
         System.arraycopy(STRINGS, 0, strings, 0, number);
 
@@ -470,7 +462,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         switch (buttonIndex) {
             case 0:
-                if (first_time) {
+                if (askPermission) {
                     askPermission();
                 } else {
                     intent = new Intent(context, Locations.class);
@@ -496,6 +488,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    /**
+     * Checks to see if a service is running on the phone and to update the check points
+     * on Settings based on its return.
+     *
+     * @param serviceClass Class service searching for
+     * @return Returns if user's phone is running the given service.
+     */
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
@@ -532,8 +531,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         final_dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                first_time = false;
-                sharedPref.edit().putBoolean(getString(R.string.first_time), false).apply();
+                askPermission = false;
+                sharedPref.edit().putBoolean(getString(R.string.askPermission), false).apply();
                 final_dialog.dismiss();
                 Intent intent = new Intent(context, Locations.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);

@@ -40,7 +40,7 @@ public class AdPreference extends Preference {
 
         ((LinearLayout) view).addView(adView);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
         boolean advertisement = sharedPreferences.getBoolean("advertisement", false);
 
         if (!advertisement) {

@@ -42,7 +42,6 @@ public class CustomList extends ArrayAdapter<String> {
             imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.astronaut));
         }
 
-
         return rowView;
     }
 }

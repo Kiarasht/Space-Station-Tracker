@@ -1,17 +1,20 @@
 <resources>
     <string name="app_name">ISS Tracker</string>
     <string name="title_activity_maps">ISS Tracker</string>
-
     <string name="picdescription">Crosshair</string>
-
     <string name="banner_ad_unit_id">ca-app-pub-1850763013639682/8514340237</string>
+
+    <!-- Astro Tracker -->
     <string name="astro_detail">astro_detail</string>
 
+    <!-- Activities -->
     <string name="label_location">Flybys</string>
     <string name="label_peopleinspace">Who\'s in Space?</string>
     <string name="label_setting">Settings</string>
     <string name="label_help">Help</string>
     <string name="label_stream">Live Stream</string>
-    <string name="first_time">first_time</string>
-    <string name="first_time2">first_time2</string>
+
+    <!-- Shared Pref -->
+    <string name="askPermission">askPermission</string>
+    <string name="firstTime">firstTime</string>
 </resources>

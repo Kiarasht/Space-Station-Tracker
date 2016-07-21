@@ -43,7 +43,7 @@ public class Preferences extends AppCompatActivity {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
             boolean advertisement = sharedPreferences.getBoolean("advertisement", false);
 
-            // Advertisement management
+            // Advertisement management, if true remove it
             if (advertisement) {
                 AdPreference myPref = (AdPreference) findPreference("ad_Preference");
                 PreferenceCategory mCategory = (PreferenceCategory) findPreference("Advertisement");

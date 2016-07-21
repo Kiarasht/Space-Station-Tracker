@@ -33,6 +33,7 @@ public class Help extends AppCompatActivity {
         expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
         expandableListAdapter = new CustomExpandableListAdapter(this, expandableListTitle, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);
+
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
             @Override
@@ -45,6 +46,7 @@ public class Help extends AppCompatActivity {
 
             @Override
             public void onGroupCollapse(int groupPosition) {
+
             }
         });
 

@@ -25,7 +25,7 @@ public class LiveStream extends Activity {
             mWebView.getSettings().setJavaScriptEnabled(true);
             mWebView.setVerticalScrollBarEnabled(false);
             mWebView.setWebViewClient(new MyWebViewClient());
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) { // Auto play if above Jelly
                 mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
             }
         } else {

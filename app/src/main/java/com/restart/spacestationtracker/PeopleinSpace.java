@@ -46,7 +46,7 @@ public class PeopleinSpace extends AppCompatActivity {
         sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         requestQueue = Volley.newRequestQueue(this);
-        display_people(false, getApplicationContext());
+        display_people(false, null);
 
         // Show an ad, or hide it if its disabled
         if (!sharedPreferences.getBoolean("advertisement", false)) {
@@ -79,8 +79,8 @@ public class PeopleinSpace extends AppCompatActivity {
      * @return Return a string variable holding the astro people.
      */
     public String display_people(final Boolean intent, Context applicationContext) {
-        String url = "http://api.open-notify.org/astros.json";
-        final StringBuilder astro_detail = new StringBuilder();
+        final String url = "http://api.open-notify.org/astros.json";
+        final StringBuilder astro_detail = new StringBuilder();     // For Alert service
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
                 null, new Response.Listener<JSONObject>() {
@@ -92,12 +92,10 @@ public class PeopleinSpace extends AppCompatActivity {
                     final String[] astro = new String[numbers];
                     final Astronaut[] astronauts = new Astronaut[numbers];
 
-                    for (int i = 0; i < results.length(); i += 1) {
+                    for (int i = 0; i < numbers; i += 1) {
                         JSONObject result = results.getJSONObject(i);
                         astro[i] = String.valueOf(result.getString("name"));
-                        astro_detail.append(i)
-                                .append(String.valueOf(result.getString("name")))
-                                .append(String.valueOf(result.getString("craft")));
+                        astro_detail.append(String.valueOf(result.getString("name")));
                     }
 
                     // If false, then PeopleinSpace.java called. So we will call UiThread

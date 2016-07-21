@@ -70,11 +70,12 @@ public class AlertPeople extends Service {
         if (timer != null) {
             timer.cancel();
             timer.purge();
-            String ns = Context.NOTIFICATION_SERVICE;
-            NotificationManager nMgr = (NotificationManager) context.getSystemService(ns);
-            nMgr.cancel(4321);
         }
         timer = null;
+
+        String ns = Context.NOTIFICATION_SERVICE;
+        NotificationManager nMgr = (NotificationManager) context.getSystemService(ns);
+        nMgr.cancel(4321);
     }
 
     /**

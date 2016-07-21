@@ -32,6 +32,7 @@ public class Astronaut {
         for (int i = 0; i < astronauts.length; ++i) {
             if (astronauts[i] != null && astronauts[i].getRole().equals("Commander")) {
                 index = i;
+                break;
             }
         }
 
