@@ -5,11 +5,14 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -77,8 +80,26 @@ public class Preferences extends AppCompatActivity {
             getPreferenceScreen().findPreference("notification_ISS").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    boolean checked = preference.getSharedPreferences().getBoolean("notification_ISS", false);
                     Context context = getActivity().getApplicationContext();
+
+                    // Starting Flyby service? Check location permission
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        if (context.checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                                == PackageManager.PERMISSION_GRANTED &&
+                                context.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                                        == PackageManager.PERMISSION_GRANTED &&
+                                context.checkSelfPermission(android.Manifest.permission.INTERNET)
+                                        == PackageManager.PERMISSION_GRANTED) {
+                            return true;
+                        } else {
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{
+                                    android.Manifest.permission.ACCESS_FINE_LOCATION,
+                                    android.Manifest.permission.INTERNET}, 1);
+                            return false;
+                        }
+                    }
+
+                    boolean checked = preference.getSharedPreferences().getBoolean("notification_ISS", false);
                     iss_Service(checked, context);
 
                     return true;

@@ -19,6 +19,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class AlertPeople extends Service {
+    private final int NOTIFICATION_ID = 4321;
     private SharedPreferences sharedPref;
     private PeopleinSpace peopleinSpace;
     private Context context;
@@ -75,7 +76,7 @@ public class AlertPeople extends Service {
 
         String ns = Context.NOTIFICATION_SERVICE;
         NotificationManager nMgr = (NotificationManager) context.getSystemService(ns);
-        nMgr.cancel(4321);
+        nMgr.cancel(NOTIFICATION_ID);
     }
 
     /**
@@ -109,7 +110,6 @@ public class AlertPeople extends Service {
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        int mId = 4321;
-        mNotificationManager.notify(mId, mBuilder.build());
+        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 }

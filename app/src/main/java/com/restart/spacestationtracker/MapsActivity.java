@@ -15,6 +15,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +52,9 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import hotchemi.android.rate.AppRate;
+import hotchemi.android.rate.OnClickButtonListener;
 
 
 /**
@@ -107,8 +111,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
-
         ((Toolbar) mCustomView.getParent()).setContentInsetsAbsolute(0, 0);
+
+        AppRate.with(this)
+                .setInstallDays(10)
+                .setLaunchTimes(10)
+                .setRemindInterval(3)
+                .setShowLaterButton(true)
+                .setDebug(false)
+                .setOnClickButtonListener(new OnClickButtonListener() {
+                    @Override
+                    public void onClickButton(int which) {
+                        Log.d(MapsActivity.class.getName(), Integer.toString(which));
+                    }
+                })
+                .monitor();
+
+        AppRate.showRateDialogIfMeetsConditions(this);
 
         adView = null;
         context = getApplicationContext();

@@ -28,8 +28,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Alert extends Service {
-    private NotificationManager mNotificationManagerupdate;
-    private NotificationCompat.Builder mBuilderupdate;
+    final int LOCATION_TIME = 1800000; // (30 minutes) minimum time interval between location updates, in milliseconds
+    final int LOCATION_DISTANCE = 500; // (1500 meters) minimum distance between location updates, in meters
+    final int TIMER_REPEAT = 3540000;  // (59 minutes) Time to repeat a compare between ISS and user's location
+    private final int NOTIFICATION_ID = 1234;
     private LocationManager locationManager;
     private Locations locations;
     private Location location;
@@ -79,10 +81,6 @@ public class Alert extends Service {
             return START_STICKY;
         }
 
-        final int LOCATION_TIME = 1800000; // (30 minutes) minimum time interval between location updates, in milliseconds
-        final int LOCATION_DISTANCE = 500; // (1500 meters) minimum distance between location updates, in meters
-        final int TIMER_REPEAT = 3540000;  // (59 minutes) Time to repeat a compare between ISS and user's location
-
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
                 LOCATION_TIME, LOCATION_DISTANCE, locationListener);
         timer = new Timer();
@@ -104,15 +102,19 @@ public class Alert extends Service {
                     return;
                 }
 
-                // Get ISSs passes, saving them in an array of dates
-                dates = locations.displaypasses(String.valueOf(location.getLatitude()),
-                        String.valueOf(location.getLongitude()), context);
+                dates = null;
 
-                // Wait a tiny bit for displaypasses to fully respond or reject.
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                while (dates == null) {
+                    // Get ISSs passes, saving them in an array of dates
+                    dates = locations.displaypasses(String.valueOf(location.getLatitude()),
+                            String.valueOf(location.getLongitude()), context);
+
+                    // Wait a tiny bit for displaypasses to fully respond or reject.
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 // Get user's current date
@@ -125,8 +127,7 @@ public class Alert extends Service {
                         boolean withinhour = Math.abs(date.getTime() - date1.getTime()) < 3600000L;
                         if (withinhour) {
                             // push a notification
-                            notification();
-                            notificationupdate(Math.abs(date.getTime() - date1.getTime()));
+                            notification(Math.abs(date.getTime() - date1.getTime()));
                             break;
                         }
                     }
@@ -151,14 +152,17 @@ public class Alert extends Service {
 
         String ns = Context.NOTIFICATION_SERVICE;
         NotificationManager nMgr = (NotificationManager) context.getSystemService(ns);
-        nMgr.cancel(1234);
+        nMgr.cancel(NOTIFICATION_ID);
     }
 
     /**
      * Notification system that is used for this app. All we need to do is call this function
      * when we need to trigger a notification.
      */
-    private void notification() {
+    private void notification(long time) {
+        int finalseconds = (int) Math.ceil(time / 1000 / 60);
+        final String contentText = "ISS is about " + finalseconds + " minutes away!";
+
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
                 R.drawable.iss_2011);
@@ -168,7 +172,7 @@ public class Alert extends Service {
                         .setOnlyAlertOnce(true)
                         .setOngoing(false)
                         .setContentTitle("ISS Tracker")
-                        .setContentText("Checking how far ISS is from you...")
+                        .setContentText(contentText)
                         .setSmallIcon(R.drawable.iss_2011)
                         .setLargeIcon(icon)
                         .setSound(soundUri)
@@ -191,19 +195,6 @@ public class Alert extends Service {
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        mNotificationManager.notify(1234, mBuilder.build());
-        mBuilderupdate = mBuilder;
-        mNotificationManagerupdate = mNotificationManager;
-    }
-
-    /**
-     * Updates the manager and finishes with the time difference.
-     *
-     * @param time The difference between ISS' location to user's location
-     */
-    private void notificationupdate(long time) {
-        int finalseconds = (int) Math.ceil(time / 1000 / 60);
-        mBuilderupdate.setContentText("ISS is about " + finalseconds + " minutes away!");
-        mNotificationManagerupdate.notify(1234, mBuilderupdate.build());
+        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 }

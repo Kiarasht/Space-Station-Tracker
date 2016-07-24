@@ -60,7 +60,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_locations);
-        isStoragePermissionGranted();
+        isLocationPermissionGranted();
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         startAnimation();
@@ -299,7 +299,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
         }
     }
 
-    public boolean isStoragePermissionGranted() {
+    public boolean isLocationPermissionGranted() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED &&

@@ -17,4 +17,11 @@
     <!-- Shared Pref -->
     <string name="askPermission">askPermission</string>
     <string name="firstTime">firstTime</string>
+
+    <!-- Rate App -->
+    <string name="rate_dialog_title">Rate this app</string>
+    <string name="rate_dialog_message">Positive or negative, I genuinely want to hear your feedback if you got one as a new developer.</string>
+    <string name="rate_dialog_ok">Rate It Now</string>
+    <string name="rate_dialog_cancel">Remind Me Later</string>
+    <string name="rate_dialog_no">No, Thanks</string>
 </resources>
