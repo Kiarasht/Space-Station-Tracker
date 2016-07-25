@@ -12,14 +12,12 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,7 +76,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private TextView latLong;                           // latLong of ISS
     private int refreshrate;                            // Millisecond between each timer repeat
     private int success;                                // Tracks # times server failed to respond
-    private boolean askPermission;                      // Ask your for location permission once
     private boolean firstTime;                          // Menu Tutorial
     private boolean start = false;                      // Opened app or returned to activity?
 
@@ -92,6 +89,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
 
         // TODO Remove this after checking for more leak
+        // TODO permissions regarding the iss notification - Implemented check.
         // LeakCanary.install(getApplication());
 
         ActionBar mActionBar = getSupportActionBar();
@@ -136,7 +134,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         refreshrate = 1000 * sharedPreferences.getInt("refresh_Rate", 15);
-        askPermission = sharedPref.getBoolean(getString(R.string.askPermission), true);
         firstTime = sharedPref.getBoolean(getString(R.string.firstTime), true);
         final View issPicture = findViewById(R.id.issPicture);
         final Activity activity = this;
@@ -358,8 +355,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Toast.makeText(MapsActivity.this,
                             "Failed all 5 times. Either you have no connection or server is overloaded.",
                             Toast.LENGTH_LONG).show();
-                    timer.cancel();
-                    timer.purge();
+                    if (timer != null) {
+                        timer.cancel();
+                        timer.purge();
+                    }
                     timer = null;
                 }
             }
@@ -478,11 +477,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onClick(int buttonIndex) {
         Intent intent;
-
         switch (buttonIndex) {
             case 0:
-                if (askPermission) {
-                    askPermission();
+                if (sharedPref.getBoolean(getString(R.string.askPermission), true)) {
+                    ViewDialog alert = new ViewDialog(MapsActivity.this, "To show your flybys, " +
+                            "I first need access to your location.", sharedPref);
+                    alert.showDialog();
                 } else {
                     intent = new Intent(context, Locations.class);
                     startActivity(intent);
@@ -522,49 +522,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
         return false;
-    }
-
-    /**
-     * Make sure the user knows why we need access to their location, specially for Marshmallow
-     * users.
-     */
-    private void askPermission() {
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(MapsActivity.this);
-        alertDialog.setTitle("Location Permission");
-        alertDialog.setMessage("I need your location to find your ISS flybys. Do make sure your " +
-                "location is turned on and that you can find your location on an app such as " +
-                "Google maps. If you are on Marshmallow 6.0 or above \"Allow\" the permission and " +
-                "click on the \"Flybys\" options again. \nI do not store any information from you.");
-        alertDialog.setIcon(R.drawable.ic_report_problem);
-        alertDialog.setCancelable(true);
-        alertDialog.setPositiveButton("Ok", null);
-        alertDialog.setNegativeButton("Cancel", null);
-
-        LinearLayout layout = new LinearLayout(MapsActivity.this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        alertDialog.setView(layout);
-
-        final AlertDialog final_dialog = alertDialog.create();
-        final_dialog.show();
-
-        final_dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                askPermission = false;
-                sharedPref.edit().putBoolean(getString(R.string.askPermission), false).apply();
-                final_dialog.dismiss();
-                Intent intent = new Intent(context, Locations.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                startActivity(intent);
-            }
-        });
-
-        final_dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final_dialog.dismiss();
-            }
-        });
     }
 
     public void onISS(View view) {

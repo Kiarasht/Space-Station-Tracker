@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -17,7 +16,6 @@ public class LiveStream extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.web_layout);
 
-        findViewById(R.id.adView).setVisibility(View.GONE);
         mWebView = (WebView) findViewById(R.id.webView2);
 
         if (mWebView != null) {

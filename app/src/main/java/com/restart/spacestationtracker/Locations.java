@@ -280,7 +280,8 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
             jsonObjectRequest.setTag(TAG);
             requestQueue.add(jsonObjectRequest);
         }
-        return passes; // Only Alert.java benefits from this return
+
+        return passes[0] == null ? null : passes; // Only Alert.java benefits from this return
     }
 
     void startAnimation() {

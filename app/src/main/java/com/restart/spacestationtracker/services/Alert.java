@@ -104,7 +104,7 @@ public class Alert extends Service {
 
                 dates = null;
 
-                while (dates == null) {
+                while (dates == null) { // Loop till we finally get a response.
                     // Get ISSs passes, saving them in an array of dates
                     dates = locations.displaypasses(String.valueOf(location.getLatitude()),
                             String.valueOf(location.getLongitude()), context);

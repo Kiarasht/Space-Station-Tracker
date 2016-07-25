@@ -5,14 +5,12 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -81,28 +79,20 @@ public class Preferences extends AppCompatActivity {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     Context context = getActivity().getApplicationContext();
+                    SharedPreferences sharedPref = context.getSharedPreferences("savefile", MODE_PRIVATE);
 
-                    // Starting Flyby service? Check location permission
-                    if (Build.VERSION.SDK_INT >= 23) {
-                        if (context.checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                                == PackageManager.PERMISSION_GRANTED &&
-                                context.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
-                                        == PackageManager.PERMISSION_GRANTED &&
-                                context.checkSelfPermission(android.Manifest.permission.INTERNET)
-                                        == PackageManager.PERMISSION_GRANTED) {
-                            return true;
-                        } else {
-                            ActivityCompat.requestPermissions(getActivity(), new String[]{
-                                    android.Manifest.permission.ACCESS_FINE_LOCATION,
-                                    android.Manifest.permission.INTERNET}, 1);
-                            return false;
+                    if (Build.VERSION.SDK_INT >= 23 && sharedPref.getBoolean(getString(R.string.askPermission), true)) {
+                        if (sharedPref.getBoolean(getString(R.string.askPermission), true)) {
+                            ViewDialog alert = new ViewDialog(null, "To start a notification process, " +
+                                    "I first need access to your location.", getActivity().getApplicationContext(), preference, getActivity(), getPreferenceScreen(), sharedPref);
+                            alert.showDialog();
                         }
+                        return true;
+                    } else {
+                        boolean checked = preference.getSharedPreferences().getBoolean("notification_ISS", false);
+                        iss_Service(checked, context);
+                        return true;
                     }
-
-                    boolean checked = preference.getSharedPreferences().getBoolean("notification_ISS", false);
-                    iss_Service(checked, context);
-
-                    return true;
                 }
             });
 
