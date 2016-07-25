@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
@@ -178,7 +179,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                     // Save the formatted address, we will use it later
                     JSONObject results = response.getJSONArray("results").getJSONObject(1);
                     mLocation = results.getString("formatted_address");
-
+                    Log.wtf(TAG, mLocation);
                     //TODO Check if mLocation is null
 
                 } catch (JSONException e) {
@@ -281,7 +282,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
             requestQueue.add(jsonObjectRequest);
         }
 
-        return passes[0] == null ? null : passes; // Only Alert.java benefits from this return
+        return passes; // Only Alert.java benefits from this return
     }
 
     void startAnimation() {

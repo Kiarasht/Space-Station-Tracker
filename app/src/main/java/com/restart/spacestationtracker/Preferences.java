@@ -36,13 +36,11 @@ public class Preferences extends AppCompatActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+            boolean advertisement = sharedPreferences.getBoolean("advertisement", false);
             addPreferencesFromResource(R.xml.app_preferences);
             // Enable the seekbar
             getPreferenceScreen().findPreference("refresh_Rate").setEnabled(true);
-
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-            boolean advertisement = sharedPreferences.getBoolean("advertisement", false);
 
             // Advertisement management, if true remove it
             if (advertisement) {

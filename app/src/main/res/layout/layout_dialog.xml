@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#D1C4E9"
+    android:background="@color/lightPrimary"
     android:orientation="vertical">
 
     <ImageView
@@ -32,7 +32,7 @@
         android:id="@+id/btn_dialog"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/text_dialog"
@@ -44,7 +44,7 @@
         android:id="@+id/btn_cancel"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_alignTop="@+id/btn_dialog"
         android:layout_toLeftOf="@+id/btn_dialog"
         android:layout_toStartOf="@+id/btn_dialog"

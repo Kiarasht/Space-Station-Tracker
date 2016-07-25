@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,9 +17,11 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.util.Log;
 
 import com.restart.spacestationtracker.Locations;
 import com.restart.spacestationtracker.R;
@@ -31,6 +34,7 @@ public class Alert extends Service {
     final int LOCATION_TIME = 1800000; // (30 minutes) minimum time interval between location updates, in milliseconds
     final int LOCATION_DISTANCE = 500; // (1500 meters) minimum distance between location updates, in meters
     final int TIMER_REPEAT = 3540000;  // (59 minutes) Time to repeat a compare between ISS and user's location
+    private SharedPreferences sharedPreferences;
     private final int NOTIFICATION_ID = 1234;
     private LocationManager locationManager;
     private Locations locations;
@@ -50,6 +54,7 @@ public class Alert extends Service {
         locations = new Locations();
         context = getBaseContext();
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 
     LocationListener locationListener = new LocationListener() {
@@ -104,11 +109,12 @@ public class Alert extends Service {
 
                 dates = null;
 
-                while (dates == null) { // Loop till we finally get a response.
+                for (int i = 0; i < 10 && sharedPreferences.getBoolean("notification_ISS", false)
+                        && (dates == null || dates[0] == null); ++i) {
                     // Get ISSs passes, saving them in an array of dates
                     dates = locations.displaypasses(String.valueOf(location.getLatitude()),
                             String.valueOf(location.getLongitude()), context);
-
+                    Log.wtf(".Alert", "dates is null?");
                     // Wait a tiny bit for displaypasses to fully respond or reject.
                     try {
                         Thread.sleep(10000);
@@ -160,8 +166,14 @@ public class Alert extends Service {
      * when we need to trigger a notification.
      */
     private void notification(long time) {
-        int finalseconds = (int) Math.ceil(time / 1000 / 60);
-        final String contentText = "ISS is about " + finalseconds + " minutes away!";
+        final int finalseconds = (int) Math.ceil(time / 1000 / 60);
+        final String contentText;
+
+        if (finalseconds > 0) {
+            contentText = "ISS is about " + finalseconds + " minutes away!";
+        } else {
+            contentText = "ISS is about " + finalseconds + " minutes away!";
+        }
 
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
