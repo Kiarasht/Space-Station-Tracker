@@ -35,6 +35,7 @@ public class PeopleinSpace extends AppCompatActivity {
     private RequestQueue requestQueue;
     private SharedPreferences sharedPref;
     private Firebase myFirebaseRef;
+    AdView adView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class PeopleinSpace extends AppCompatActivity {
 
         // Show an ad, or hide it if its disabled
         if (!sharedPreferences.getBoolean("advertisement", false)) {
-            AdView adView = (AdView) findViewById(R.id.adView);
+            adView = (AdView) findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
             if (adView != null) {
                 adView.loadAd(adRequest);
@@ -68,6 +69,26 @@ public class PeopleinSpace extends AppCompatActivity {
         if (requestQueue != null) {
             requestQueue.cancelAll(TAG);
         }
+
+        if (adView != null) {
+            adView.pause();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adView != null) {
+            adView.resume();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+        super.onDestroy();
     }
 
     /**

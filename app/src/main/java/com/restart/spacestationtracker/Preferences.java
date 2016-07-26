@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -79,12 +80,10 @@ public class Preferences extends AppCompatActivity {
                     Context context = getActivity().getApplicationContext();
                     SharedPreferences sharedPref = context.getSharedPreferences("savefile", MODE_PRIVATE);
 
-                    if (Build.VERSION.SDK_INT >= 23 && sharedPref.getBoolean(getString(R.string.askPermission), true)) {
-                        if (sharedPref.getBoolean(getString(R.string.askPermission), true)) {
-                            ViewDialog alert = new ViewDialog(null, "To start a notification process, " +
-                                    "I first need access to your location.", getActivity().getApplicationContext(), preference, getActivity(), getPreferenceScreen(), sharedPref);
-                            alert.showDialog();
-                        }
+                    if (Build.VERSION.SDK_INT >= 23 && (sharedPref.getBoolean(getString(R.string.askPermission), true) || !isLocationPermissionGranted(context))) {
+                        ViewDialog alert = new ViewDialog(null, "To start this notification process, " +
+                                "I first need access to your location.", getActivity().getApplicationContext(), preference, getActivity(), getPreferenceScreen(), sharedPref);
+                        alert.showDialog();
                         return true;
                     } else {
                         boolean checked = preference.getSharedPreferences().getBoolean("notification_ISS", false);
@@ -135,6 +134,19 @@ public class Preferences extends AppCompatActivity {
         } else {
             Toast.makeText(context, "Stop notify when people in space change", Toast.LENGTH_SHORT).show();
             context.stopService(new Intent(context, AlertPeople.class));
+        }
+    }
+
+    public static boolean isLocationPermissionGranted(Context context) {
+        if (Build.VERSION.SDK_INT >= 23) {
+            return context.checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED &&
+                    context.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED &&
+                    context.checkSelfPermission(android.Manifest.permission.INTERNET)
+                            == PackageManager.PERMISSION_GRANTED;
+        } else { // Permission is automatically granted on sdk < 23 upon installation
+            return true;
         }
     }
 }

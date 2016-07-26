@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -52,6 +51,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
     private String mLocation;
     protected Location mLastLocation;
     protected GoogleApiClient mGoogleApiClient;
+    AdView adView;
 
     /**
      * Assign simple widgets while also use the Google API to get user's location.
@@ -61,7 +61,6 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_locations);
-        isLocationPermissionGranted();
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         startAnimation();
@@ -71,7 +70,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
 
         // Show an ad, or hide it if its disabled
         if (!sharedPreferences.getBoolean("advertisement", false)) {
-            AdView adView = (AdView) findViewById(R.id.adView);
+            adView = (AdView) findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
             if (adView != null) {
                 adView.loadAd(adRequest);
@@ -108,6 +107,10 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
         if (requestQueue != null) {
             requestQueue.cancelAll(TAG);
         }
+
+        if (adView != null) {
+            adView.pause();
+        }
     }
 
     @Override
@@ -116,6 +119,22 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adView != null) {
+            adView.resume();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+        super.onDestroy();
     }
 
     /**
@@ -298,26 +317,6 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
 
         if (view != null) {
             view.setVisibility(View.GONE);
-        }
-    }
-
-    public boolean isLocationPermissionGranted() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED &&
-                    checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED &&
-                    checkSelfPermission(android.Manifest.permission.INTERNET)
-                            == PackageManager.PERMISSION_GRANTED) {
-                return true;
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.INTERNET}, 1);
-                return false;
-            }
-        } else { // Permission is automatically granted on sdk < 23 upon installation
-            return true;
         }
     }
 }

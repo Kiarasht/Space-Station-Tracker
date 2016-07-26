@@ -6,8 +6,10 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
@@ -199,6 +201,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 adView.setVisibility(View.VISIBLE);
             }
         }
+
+        if (adView != null) {
+            adView.resume();
+        }
         success = 0;
     }
 
@@ -215,7 +221,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             timer.cancel();
             timer.purge();
         }
+
+        if (adView != null) {
+            adView.pause();
+        }
         timer = null;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (adView != null) {
+            adView.destroy();
+        }
     }
 
     /**
@@ -479,9 +497,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Intent intent;
         switch (buttonIndex) {
             case 0:
-                if (sharedPref.getBoolean(getString(R.string.askPermission), true)) {
+                if (sharedPref.getBoolean(getString(R.string.askPermission), true) || !isLocationPermissionGranted()) {
                     ViewDialog alert = new ViewDialog(MapsActivity.this, "To show your flybys, " +
-                            "I first need access to your location.", sharedPref);
+                            "I first need access to your location.", sharedPref, this);
                     alert.showDialog();
                 } else {
                     intent = new Intent(context, Locations.class);
@@ -527,6 +545,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onISS(View view) {
         Intent intent = new Intent(context, LiveStream.class);
         startActivity(intent);
+    }
+
+    public boolean isLocationPermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            return context.checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED &&
+                    context.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED &&
+                    context.checkSelfPermission(android.Manifest.permission.INTERNET)
+                            == PackageManager.PERMISSION_GRANTED;
+        } else { // Permission is automatically granted on sdk < 23 upon installation
+            return true;
+        }
     }
 
     @Override

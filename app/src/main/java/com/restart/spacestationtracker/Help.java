@@ -22,6 +22,7 @@ public class Help extends AppCompatActivity {
     ExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
     HashMap<String, List<String>> expandableListDetail;
+    AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,7 @@ public class Help extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         // Show an ad, or hide it if its disabled
         if (!sharedPreferences.getBoolean("advertisement", false)) {
-            AdView adView = (AdView) findViewById(R.id.adView);
+            adView = (AdView) findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
             if (adView != null) {
                 adView.loadAd(adRequest);
@@ -86,5 +87,29 @@ public class Help extends AppCompatActivity {
         } else {
             findViewById(R.id.adView).setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adView != null) {
+            adView.resume();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        if (adView != null) {
+            adView.pause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+        super.onDestroy();
     }
 }

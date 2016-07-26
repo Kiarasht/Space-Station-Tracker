@@ -3,10 +3,7 @@ package com.restart.spacestationtracker;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
@@ -24,14 +21,17 @@ public class ViewDialog {
     private Activity activity;
     private PreferenceScreen preferenceScreen;
     private SharedPreferences sharedPref;
+    private Activity mapsActivity;
 
-    public ViewDialog(Context context, String message, SharedPreferences sharedPref) {
+    public ViewDialog(Context context, String message, SharedPreferences sharedPref, MapsActivity mapsActivity) {
         this.context = context;
         this.message = message;
         this.sharedPref = sharedPref;
+        this.mapsActivity = mapsActivity;
     }
 
-    public ViewDialog(Context context, String message, Context applicationContext, Preference preference, Activity activity, PreferenceScreen preferenceScreen, SharedPreferences sharedPref) {
+    public ViewDialog(Context context, String message, Context applicationContext, Preference preference,
+                      Activity activity, PreferenceScreen preferenceScreen, SharedPreferences sharedPref) {
         this.context = context;
         this.message = message;
         this.applicationContext = applicationContext;
@@ -66,24 +66,10 @@ public class ViewDialog {
                 @Override
                 public void onClick(View v) {
                     sharedPref.edit().putBoolean(applicationContext.getString(R.string.askPermission), false).apply();
-                    // Starting Flyby service? Check location permission
-                    if (Build.VERSION.SDK_INT >= 23) {
-                        if (applicationContext.checkSelfPermission(android.Manifest.permission.INTERNET)
-                                == PackageManager.PERMISSION_GRANTED &&
-                                applicationContext.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
-                                        == PackageManager.PERMISSION_GRANTED &&
-                                applicationContext.checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                                        == PackageManager.PERMISSION_GRANTED) {
-                            boolean checked = preference.getSharedPreferences().getBoolean("notification_ISS", false);
-                            sharedPref.edit().putBoolean(applicationContext.getString(R.string.askPermission), false).apply();
-                            Preferences.iss_Service(checked, applicationContext);
-                        } else {
-                            ActivityCompat.requestPermissions(activity, new String[]{
-                                    android.Manifest.permission.INTERNET,
-                                    android.Manifest.permission.ACCESS_FINE_LOCATION,
-                                    android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-                        }
-                    }
+                    ActivityCompat.requestPermissions(activity, new String[]{
+                            android.Manifest.permission.INTERNET,
+                            android.Manifest.permission.ACCESS_FINE_LOCATION,
+                            android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
                     dialog.dismiss();
                 }
             });
@@ -101,8 +87,7 @@ public class ViewDialog {
             dialogOK.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    sharedPref.edit().putBoolean(context.getString(R.string.askPermission), false).apply();
-                    context.startActivity(new Intent(context, Locations.class));
+                    isLocationPermissionGranted();
                     dialog.dismiss();
                 }
             });
@@ -117,4 +102,14 @@ public class ViewDialog {
         dialog.show();
 
     }
+
+    public boolean isLocationPermissionGranted() {
+        sharedPref.edit().putBoolean(context.getString(R.string.askPermission), false).apply();
+        ActivityCompat.requestPermissions(mapsActivity, new String[]{
+                android.Manifest.permission.INTERNET,
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+        return false;
+    }
 }
+
