@@ -9,22 +9,26 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.restart.spacestationtracker.services.Alert;
 import com.restart.spacestationtracker.services.AlertPeople;
 
 public class Preferences extends AppCompatActivity {
-    private static AdPreference adPreference;
+    private static AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_general);
+
+        checkAd();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -33,23 +37,27 @@ public class Preferences extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    private void checkAd() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        // Show an ad, or hide it if its disabled
+        if (!sharedPreferences.getBoolean("advertisement", false)) {
+            findViewById(R.id.adView).setVisibility(View.VISIBLE);
+            adView = (AdView) findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
+            adView.loadAd(adRequest);
+        } else {
+            findViewById(R.id.adView).setVisibility(View.INVISIBLE);
+        }
+    }
+
     public static class SettingsFragment extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-            boolean advertisement = sharedPreferences.getBoolean("advertisement", false);
             addPreferencesFromResource(R.xml.app_preferences);
+
             // Enable the seekbar
             getPreferenceScreen().findPreference("refresh_Rate").setEnabled(true);
-
-            // Advertisement management, if true remove it
-            if (advertisement) {
-                AdPreference myPref = (AdPreference) findPreference("ad_Preference");
-                PreferenceCategory mCategory = (PreferenceCategory) findPreference("Advertisement");
-                adPreference = myPref;
-                mCategory.removePreference(myPref);
-            }
 
             // Onclick methods for each of the check boxes
             getPreferenceScreen().findPreference("advertisement").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -60,16 +68,17 @@ public class Preferences extends AppCompatActivity {
 
                     if (checked) {
                         Toast.makeText(context, "Ads disabled. Consider enabling them when non-intrusive", Toast.LENGTH_LONG).show();
-                        AdPreference myPref = (AdPreference) findPreference("ad_Preference");
-                        PreferenceCategory mCategory = (PreferenceCategory) findPreference("Advertisement");
-                        adPreference = myPref;
-                        mCategory.removePreference(myPref);
-                    } else {
+                        getActivity().findViewById(R.id.adView).setVisibility(View.INVISIBLE);
+                    } else if (adView != null) {
+                        getActivity().findViewById(R.id.adView).setVisibility(View.VISIBLE);
                         Toast.makeText(context, "Ads enabled. Thanks for the support ;)", Toast.LENGTH_SHORT).show();
-                        PreferenceCategory mCategory = (PreferenceCategory) findPreference("Advertisement");
-                        mCategory.addPreference(adPreference);
+                    } else {
+                        getActivity().findViewById(R.id.adView).setVisibility(View.VISIBLE);
+                        adView = (AdView) getActivity().findViewById(R.id.adView);
+                        Toast.makeText(context, "Ads enabled. Thanks for the support ;)", Toast.LENGTH_SHORT).show();
+                        AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
+                        adView.loadAd(adRequest);
                     }
-
                     return true;
                 }
             });

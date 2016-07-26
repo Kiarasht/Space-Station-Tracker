@@ -43,10 +43,6 @@
             android:key="advertisement"
             android:summary="Disable all ads on the app"
             android:title="Advertisement" />
-
-        <com.restart.spacestationtracker.AdPreference
-            android:key="ad_Preference"
-            android:layout="@layout/layout_general" />
     </PreferenceCategory>
 
 </PreferenceScreen>

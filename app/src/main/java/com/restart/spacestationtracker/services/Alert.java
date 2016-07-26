@@ -109,15 +109,15 @@ public class Alert extends Service {
 
                 dates = null;
 
-                for (int i = 0; i < 10 && sharedPreferences.getBoolean("notification_ISS", false)
+                for (int i = 0; i < 20 && sharedPreferences.getBoolean("notification_ISS", false)
                         && (dates == null || dates[0] == null); ++i) {
                     // Get ISSs passes, saving them in an array of dates
                     dates = locations.displaypasses(String.valueOf(location.getLatitude()),
                             String.valueOf(location.getLongitude()), context);
-                    Log.wtf(".Alert", "dates is null?");
+                    Log.wtf(".Alert", "Dates are null? Try: " + i);
                     // Wait a tiny bit for displaypasses to fully respond or reject.
                     try {
-                        Thread.sleep(10000);
+                        Thread.sleep(20000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -125,6 +125,7 @@ public class Alert extends Service {
 
                 // Get user's current date
                 Date date = new Date();
+                Log.wtf(".Alert", "Dates are not null");
 
                 // Compare dates from displaypasses to user's current date
                 for (Date date1 : dates) {
