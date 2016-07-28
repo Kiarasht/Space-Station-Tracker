@@ -10,44 +10,25 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.restart.spacestationtracker.services.Alert;
 import com.restart.spacestationtracker.services.AlertPeople;
 
 public class Preferences extends AppCompatActivity {
-    private static AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_general);
 
-        checkAd();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         SettingsFragment settingsFragment = new SettingsFragment();
         fragmentTransaction.add(android.R.id.content, settingsFragment, "SETTINGS_FRAGMENT");
         fragmentTransaction.commit();
-    }
-
-    private void checkAd() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        // Show an ad, or hide it if its disabled
-        if (!sharedPreferences.getBoolean("advertisement", false)) {
-            findViewById(R.id.adView).setVisibility(View.VISIBLE);
-            adView = (AdView) findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
-            adView.loadAd(adRequest);
-        } else {
-            findViewById(R.id.adView).setVisibility(View.INVISIBLE);
-        }
     }
 
     public static class SettingsFragment extends PreferenceFragment {
@@ -68,17 +49,10 @@ public class Preferences extends AppCompatActivity {
 
                     if (checked) {
                         Toast.makeText(context, "Ads disabled. Consider enabling them when non-intrusive", Toast.LENGTH_LONG).show();
-                        getActivity().findViewById(R.id.adView).setVisibility(View.INVISIBLE);
-                    } else if (adView != null) {
-                        getActivity().findViewById(R.id.adView).setVisibility(View.VISIBLE);
-                        Toast.makeText(context, "Ads enabled. Thanks for the support ;)", Toast.LENGTH_SHORT).show();
                     } else {
-                        getActivity().findViewById(R.id.adView).setVisibility(View.VISIBLE);
-                        adView = (AdView) getActivity().findViewById(R.id.adView);
                         Toast.makeText(context, "Ads enabled. Thanks for the support ;)", Toast.LENGTH_SHORT).show();
-                        AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
-                        adView.loadAd(adRequest);
                     }
+
                     return true;
                 }
             });
@@ -89,7 +63,7 @@ public class Preferences extends AppCompatActivity {
                     Context context = getActivity().getApplicationContext();
                     SharedPreferences sharedPref = context.getSharedPreferences("savefile", MODE_PRIVATE);
 
-                    if (Build.VERSION.SDK_INT >= 23 && (sharedPref.getBoolean(getString(R.string.askPermission), true) || !isLocationPermissionGranted(context))) {
+                    if (!isLocationPermissionGranted(context)) {
                         ViewDialog alert = new ViewDialog(null, "To start this notification process, " +
                                 "I first need access to your location.", getActivity().getApplicationContext(), preference, getActivity(), getPreferenceScreen(), sharedPref);
                         alert.showDialog();

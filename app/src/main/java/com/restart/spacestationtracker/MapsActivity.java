@@ -497,7 +497,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Intent intent;
         switch (buttonIndex) {
             case 0:
-                if (Build.VERSION.SDK_INT >= 23 && (sharedPref.getBoolean(getString(R.string.askPermission), true) || !isLocationPermissionGranted())) {
+                if (!isLocationPermissionGranted()) {
                     ViewDialog alert = new ViewDialog(MapsActivity.this, "To show your flybys, " +
                             "I first need access to your location.", sharedPref, this);
                     alert.showDialog();

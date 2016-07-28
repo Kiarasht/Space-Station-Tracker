@@ -198,7 +198,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                     // Save the formatted address, we will use it later
                     JSONObject results = response.getJSONArray("results").getJSONObject(1);
                     mLocation = results.getString("formatted_address");
-                    Log.wtf(TAG, mLocation);
+                    Log.wtf(TAG, "Itself: " + mLocation);
                     //TODO Check if mLocation is null
 
                 } catch (JSONException e) {
@@ -244,8 +244,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault());
                     StringBuilder stringBuilder;
                     final String[] dates = new String[aresults.length() + 1]; // This is what we print for user
-                    dates[0] = "Location: " + mLocation; // The first index is User's location. That's why we did +1
-
+                    
                     // Go through all the JSON Arrays parsing through each JSON Object.
                     for (int i = 0; i < aresults.length(); ++i) {
                         JSONObject apass = aresults.getJSONObject(i);
@@ -261,6 +260,8 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
 
                     // If Locations.java called us lets create a ListView and run it on a UiThread
                     if (mLatitudepar == null && mLontitudepar == null) {
+                        dates[0] = "Location: " + mLocation; // The first index is User's location. That's why we did +1
+                        Log.wtf(TAG, "Someone else: " + mLocation);
                         final ListAdapter datesAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.text_layout, dates);
                         final ListView datesListView = (ListView) findViewById(R.id.listView);
                         Locations.this.runOnUiThread(new Runnable() {
