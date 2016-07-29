@@ -109,13 +109,14 @@ public class Alert extends Service {
 
                 dates = null;
 
-                for (int i = 0; i < 20 && sharedPreferences.getBoolean("notification_ISS", false)
+                for (int i = 0; i < 30 && sharedPreferences.getBoolean("notification_ISS", false)
                         && (dates == null || dates[0] == null); ++i) {
                     // Get ISSs passes, saving them in an array of dates
                     dates = locations.displaypasses(String.valueOf(location.getLatitude()),
                             String.valueOf(location.getLongitude()), context);
                     Log.wtf(".Alert", "Dates are null? Try: " + i);
-                    // Wait a tiny bit for displaypasses to fully respond or reject.
+                    // Wait a tiny bit for displaypasses to fully respond or reject. Also gives
+                    // api service a breathing room before calling again. Try 30 times for 10 minutes.
                     try {
                         Thread.sleep(20000);
                     } catch (InterruptedException e) {
@@ -173,7 +174,7 @@ public class Alert extends Service {
         if (finalseconds > 0) {
             contentText = "ISS is about " + finalseconds + " minutes away!";
         } else {
-            contentText = "ISS is about " + finalseconds + " minutes away!";
+            contentText = "ISS is right above you!";
         }
 
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);

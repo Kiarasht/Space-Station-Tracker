@@ -7,7 +7,6 @@ public class Astronaut {
     private String wiki;
 
     public Astronaut() {
-
     }
 
     public String getName() {
@@ -26,6 +25,11 @@ public class Astronaut {
         return role;
     }
 
+    /**
+     * Moves the commander Astronaut to the first on the list
+     *
+     * @param astronauts List of astronauts so be modified
+     */
     public static void commanderFirst(Astronaut[] astronauts) {
         int index = 0;
 

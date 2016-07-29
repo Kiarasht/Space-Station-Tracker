@@ -70,6 +70,8 @@ public class ViewDialog {
                             android.Manifest.permission.INTERNET,
                             android.Manifest.permission.ACCESS_FINE_LOCATION,
                             android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+                    CheckBoxPreference iss_Tracker = (CheckBoxPreference) preferenceScreen.findPreference("notification_ISS");
+                    iss_Tracker.setChecked(false);
                     dialog.dismiss();
                 }
             });

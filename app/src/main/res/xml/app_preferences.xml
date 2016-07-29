@@ -30,7 +30,7 @@
             android:defaultValue="false"
             android:key="notification_Astro"
             android:summary="Notify when astronauts on duty in ISS change"
-            android:title="Astronaut Notification" />
+            android:title="Astronaut Notification (Beta)" />
 
     </PreferenceCategory>
 

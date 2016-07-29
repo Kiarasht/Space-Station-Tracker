@@ -32,11 +32,12 @@ public class CustomList extends ArrayAdapter<String> {
         final TextView role = (TextView) rowView.findViewById(R.id.role);
         final CircleImageView imageView = (CircleImageView) rowView.findViewById(R.id.img);
 
+        // Everything as usual, our data base is updated
         if (astronauts[position] != null) {
             name.setText(astronauts[position].getName());
             role.setText(astronauts[position].getRole());
             UrlImageViewHelper.setUrlDrawable(imageView, astronauts[position].getImage());
-        } else {
+        } else { // Something is off, maybe database is wrong. Just place a placeholder.
             name.setText(astro[position]);
             role.setText("New astronaut, data are not updated yet.");
             imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.astronaut));

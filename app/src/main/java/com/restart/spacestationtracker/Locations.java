@@ -33,6 +33,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -244,7 +245,8 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault());
                     StringBuilder stringBuilder;
                     final String[] dates = new String[aresults.length() + 1]; // This is what we print for user
-                    
+
+
                     // Go through all the JSON Arrays parsing through each JSON Object.
                     for (int i = 0; i < aresults.length(); ++i) {
                         JSONObject apass = aresults.getJSONObject(i);
@@ -260,20 +262,25 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
 
                     // If Locations.java called us lets create a ListView and run it on a UiThread
                     if (mLatitudepar == null && mLontitudepar == null) {
+                        Log.wtf(TAG, "Someone else 1: " + mLocation);
                         dates[0] = "Location: " + mLocation; // The first index is User's location. That's why we did +1
-                        Log.wtf(TAG, "Someone else: " + mLocation);
+                        Log.wtf(TAG, "Someone else 2: " + mLocation);
+
+                        // Fail safe. Sometimes, mLocation isn't found by the previous JSON call.
+                        if (mLocation == null) {
+                            final DecimalFormat decimalFormat = new DecimalFormat("0.000");
+                            final String LAT = decimalFormat.format(Double.parseDouble(mLatitude));
+                            final String LNG = decimalFormat.format(Double.parseDouble(mLontitude));
+                            Log.e(TAG, "mlocation is null: " + mLocation);
+                            dates[0] = "Location: " + LAT + "° N, " + LNG + "° E";
+                        }
+
                         final ListAdapter datesAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.text_layout, dates);
                         final ListView datesListView = (ListView) findViewById(R.id.listView);
                         Locations.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 endAnimation();
-                                // If no city, country came back we still got our LAT and LON. Oh well! ¯\_(ツ)_/¯
-                                // TODO: check why its sometimes null.
-                                if (dates[0].length() == 0 || dates[0] == null || dates[0].equals("null")) {
-                                    dates[0] = "LAT: " + mLatitude + " LON: " + mLontitude;
-                                }
-
                                 datesListView.setAdapter(datesAdapter);
                             }
                         });
