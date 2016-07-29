@@ -247,6 +247,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         mMap.getUiSettings().setScrollGesturesEnabled(false);
 
+        if (timer == null) {
+            timer = new Timer();
+        }
+
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -497,7 +501,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Intent intent;
         switch (buttonIndex) {
             case 0:
-                if (!isLocationPermissionGranted()) {
+                if (Build.VERSION.SDK_INT >= 23 && (sharedPref.getBoolean(getString(R.string.askPermission), true) || !isLocationPermissionGranted())) {
                     ViewDialog alert = new ViewDialog(MapsActivity.this, "To show your flybys, " +
                             "I first need access to your location.", sharedPref, this);
                     alert.showDialog();
