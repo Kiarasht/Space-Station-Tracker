@@ -14,6 +14,7 @@ import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 
 public class Info extends AppCompatActivity implements ObservableScrollViewCallbacks {
+
     private ObservableWebView mWebView;
 
     @Override

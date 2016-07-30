@@ -1,6 +1,7 @@
 package com.restart.spacestationtracker;
 
 public class Astronaut {
+
     private String name;
     private String role;
     private String image;
@@ -45,5 +46,21 @@ public class Astronaut {
             astronauts[0] = astronauts[index];
             astronauts[index] = temp;
         }
+    }
+
+    /**
+     * Gets back a string array containing only astronaut names;
+     *
+     * @param astronauts Get the names from the Astronaut array
+     * @return A string array holding the names
+     */
+    public static String[] getNames(Astronaut[] astronauts) {
+        String[] names = new String[astronauts.length];
+
+        for (int i = 0; i < astronauts.length; ++i) {
+            names[i] = astronauts[i].getName();
+        }
+
+        return names;
     }
 }

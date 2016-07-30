@@ -31,9 +31,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Alert extends Service {
-    final int LOCATION_TIME = 1800000; // (30 minutes) minimum time interval between location updates, in milliseconds
-    final int LOCATION_DISTANCE = 500; // (1500 meters) minimum distance between location updates, in meters
-    final int TIMER_REPEAT = 3540000;  // (59 minutes) Time to repeat a compare between ISS and user's location
+
+    private final int LOCATION_TIME = 1800000; // (30 minutes) minimum time interval between location updates, in milliseconds
+    private final int LOCATION_DISTANCE = 500; // (1500 meters) minimum distance between location updates, in meters
+    private final int TIMER_REPEAT = 3540000;  // (59 minutes) Time to repeat a compare between ISS and user's location
     private SharedPreferences sharedPreferences;
     private final int NOTIFICATION_ID = 1234;
     private LocationManager locationManager;
@@ -41,6 +42,7 @@ public class Alert extends Service {
     private Location location;
     private Context context;
     private Date[] dates;
+    private Date accept;
     private Timer timer;
 
 
@@ -48,6 +50,7 @@ public class Alert extends Service {
     public IBinder onBind(Intent intent) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
+
 
     @Override
     public void onCreate() {
@@ -71,6 +74,7 @@ public class Alert extends Service {
         }
     };
 
+
     /**
      * Starting a service for ISS location updater.
      *
@@ -83,6 +87,7 @@ public class Alert extends Service {
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
+            Log.e(".Alert", "Permission");
             return START_STICKY;
         }
 
@@ -97,6 +102,7 @@ public class Alert extends Service {
                         != PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
+                    Log.wtf(".Alert", "Permission");
                     return;
                 }
 
@@ -104,6 +110,7 @@ public class Alert extends Service {
                 location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
                 if (location == null) {
+                    Log.wtf(".Alert", "No location");
                     return;
                 }
 
@@ -116,7 +123,8 @@ public class Alert extends Service {
                             String.valueOf(location.getLongitude()), context);
                     Log.wtf(".Alert", "Dates are null? Try: " + i);
                     // Wait a tiny bit for displaypasses to fully respond or reject. Also gives
-                    // api service a breathing room before calling again. Try 30 times for 10 minutes.
+                    // api service a breathing room before calling again if it failed.
+                    // Try 30 times for 10 minutes.
                     try {
                         Thread.sleep(20000);
                     } catch (InterruptedException e) {
@@ -126,15 +134,25 @@ public class Alert extends Service {
 
                 // Get user's current date
                 Date date = new Date();
-                Log.wtf(".Alert", "Dates are not null");
+                Log.e(".Alert", "Dates are not null");
+
+                long last = sharedPreferences.getLong("time", 0);
+
+                if (last == 0) {
+                    Log.e(".Alert", "First time accept");
+                    accept = new Date(System.currentTimeMillis() - 3600 * 1000);
+                } else {
+                    Log.e(".Alert", "Previous accept");
+                    accept = new Date(last);
+                }
 
                 // Compare dates from displaypasses to user's current date
                 for (Date date1 : dates) {
                     if (date1 != null) {
-                        // Check if they are within an hour
                         boolean withinhour = Math.abs(date.getTime() - date1.getTime()) < 3600000L;
-                        if (withinhour) {
-                            // push a notification
+                        boolean duplicate = Math.abs(accept.getTime() - date.getTime()) < 3540000L;
+                        if (withinhour && !duplicate) {
+                            sharedPreferences.edit().putLong("time", date.getTime()).apply();
                             notification(Math.abs(date.getTime() - date1.getTime()));
                             break;
                         }
@@ -145,6 +163,7 @@ public class Alert extends Service {
 
         return START_STICKY;
     }
+
 
     /**
      * When destroying the service make sure to get ride of any timers and notifications since
@@ -162,6 +181,7 @@ public class Alert extends Service {
         NotificationManager nMgr = (NotificationManager) context.getSystemService(ns);
         nMgr.cancel(NOTIFICATION_ID);
     }
+
 
     /**
      * Notification system that is used for this app. All we need to do is call this function

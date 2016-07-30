@@ -1,6 +1,5 @@
 package com.restart.spacestationtracker;
 
-
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -42,7 +41,6 @@ import com.nightonke.boommenu.Types.ButtonType;
 import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
 import com.restart.spacestationtracker.services.Alert;
-import com.restart.spacestationtracker.services.AlertPeople;
 import com.wooplr.spotlight.SpotlightView;
 import com.wooplr.spotlight.utils.SpotlightListener;
 
@@ -56,7 +54,6 @@ import java.util.TimerTask;
 import hotchemi.android.rate.AppRate;
 import hotchemi.android.rate.OnClickButtonListener;
 
-
 /**
  * Contains the google map and uses volley to grab JSON objects and display
  * the position of the ISS picture on the map and update it occasionally.
@@ -68,14 +65,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private final String TAG = ".MapsActivity";
     private BoomMenuButton boomMenuButtonInActionBar;
-    private SharedPreferences sharedPref;               // Managing app's control flow
     private SharedPreferences sharedPreferences;        // Managing options from Settings
     private RequestQueue requestQueue;                  // Volley
-    private GoogleMap mMap;
-    private Timer timer;                                // Updates map based on refreshrate
-    private Context context;
-    private AdView adView;
     private TextView latLong;                           // latLong of ISS
+    private Context context;
+    private GoogleMap mMap;
+    private AdView adView;
+    private Timer timer;                                // Updates map based on refreshrate
     private int refreshrate;                            // Millisecond between each timer repeat
     private int success;                                // Tracks # times server failed to respond
     private boolean firstTime;                          // Menu Tutorial
@@ -133,14 +129,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         context = getApplicationContext();
         requestQueue = Volley.newRequestQueue(this);
         latLong = ((TextView) findViewById(R.id.textView));
-        sharedPref = getSharedPreferences("savefile", MODE_PRIVATE);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         refreshrate = 1000 * sharedPreferences.getInt("refresh_Rate", 15);
-        firstTime = sharedPref.getBoolean(getString(R.string.firstTime), true);
-        final View issPicture = findViewById(R.id.issPicture);
-        final Activity activity = this;
+        firstTime = sharedPreferences.getBoolean(getString(R.string.firstTime), true);
 
-        //  When view is shown start our animated animations for first time users
+        final Activity activity = this;
+        final View issPicture = findViewById(R.id.issPicture);
+
+        //  When view is shown, start our animations for first time users
         issPicture.post(new Runnable() {
             @Override
             public void run() {
@@ -159,9 +155,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
             adView.loadAd(adRequest);
         } else if (adView == null) {
-            adView = (AdView) findViewById(R.id.adView);
-            adView.setVisibility(View.GONE);
-            adView = null;
+            findViewById(R.id.adView).setVisibility(View.GONE);
         }
     }
 
@@ -267,7 +261,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      * @param activity       MapsActivity.java
      */
     public void startAnimation(final View issPicture, final View mTitleTextView, final Activity activity) {
-        sharedPref.edit().putBoolean(getString(R.string.firstTime), false).apply();
+        sharedPreferences.edit().putBoolean(getString(R.string.firstTime), false).apply();
         firstTime = false;
         new SpotlightView.Builder(activity)
                 .introAnimationDuration(400)
@@ -492,7 +486,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     /**
      * onClick method for each drawer popup. Most just start another activity but location
-     * needs to make sure Location permission is allowed by the user.
+     * needs to make sure Location permission is allowed by the user. Settings needs to compare
+     * service state with the boolean on hand to see if they ever got shutdown.
      *
      * @param buttonIndex Index representing which button was clicked.
      */
@@ -501,9 +496,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Intent intent;
         switch (buttonIndex) {
             case 0:
-                if (Build.VERSION.SDK_INT >= 23 && (sharedPref.getBoolean(getString(R.string.askPermission), true) || !isLocationPermissionGranted())) {
+                if (Build.VERSION.SDK_INT >= 23 && (sharedPreferences.getBoolean(getString(R.string.askPermission), true) || !isLocationPermissionGranted())) {
                     ViewDialog alert = new ViewDialog(MapsActivity.this, "To show your flybys, " +
-                            "I first need access to your location.", sharedPref, this);
+                            "I first need access to your location.", sharedPreferences, this);
                     alert.showDialog();
                 } else {
                     intent = new Intent(context, Locations.class);
@@ -517,8 +512,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             case 2:
                 /* Update the check boxes representing the app's services. If for example the service
                  exited not by the app, it shouldn't be checked. */
-                sharedPreferences.edit().putBoolean("notification_ISS", isMyServiceRunning(Alert.class)).apply();
-                sharedPreferences.edit().putBoolean("notification_Astro", isMyServiceRunning(AlertPeople.class)).apply();
+                boolean Alert = isMyServiceRunning(Alert.class);
+
+                if (Alert != sharedPreferences.getBoolean("notification_ISS", false)) {
+                    Toast.makeText(MapsActivity.this, "ISS Notification wasn't stopped through the app.", Toast.LENGTH_LONG).show();
+                    sharedPreferences.edit().putBoolean("notification_ISS", Alert).apply();
+                }
+
                 intent = new Intent(context, Preferences.class);
                 startActivity(intent);
                 break;
@@ -546,13 +546,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         return false;
     }
 
+    /**
+     * Start the LiveStream activity
+     *
+     * @param view N/A
+     */
     public void onISS(View view) {
         Intent intent = new Intent(context, LiveStream.class);
         startActivity(intent);
     }
 
+    /**
+     * Check to see if user has given us the permission to access their location.
+     *
+     * @return True or false
+     */
     public boolean isLocationPermissionGranted() {
-        if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= 23) { // Marshmallow or above
             return context.checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED &&
                     context.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -566,36 +576,29 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void toShow() {
-
     }
 
     @Override
     public void showing(float fraction) {
-
     }
 
     @Override
     public void showed() {
-
     }
 
     @Override
     public void toHide() {
-
     }
 
     @Override
     public void hiding(float fraction) {
-
     }
 
     @Override
     public void hided() {
-
     }
 
     @Override
     public void onClick(View v) {
-
     }
 }

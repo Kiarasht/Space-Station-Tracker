@@ -9,6 +9,7 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 public class LiveStream extends Activity {
+
     private WebView mWebView;
 
     @Override

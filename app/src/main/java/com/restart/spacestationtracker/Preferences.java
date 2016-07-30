@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.restart.spacestationtracker.services.Alert;
-import com.restart.spacestationtracker.services.AlertPeople;
 
 public class Preferences extends AppCompatActivity {
 
@@ -65,7 +64,7 @@ public class Preferences extends AppCompatActivity {
 
                     if (!isLocationPermissionGranted(context)) {
                         ViewDialog alert = new ViewDialog(null, "To start this notification process, " +
-                                "I first need access to your location.", getActivity().getApplicationContext(), preference, getActivity(), getPreferenceScreen(), sharedPref);
+                                "I first need access to your location.", getActivity().getApplicationContext(), getActivity(), getPreferenceScreen(), sharedPref);
                         alert.showDialog();
                         return true;
                     } else {
@@ -73,16 +72,6 @@ public class Preferences extends AppCompatActivity {
                         iss_Service(checked, context);
                         return true;
                     }
-                }
-            });
-
-            getPreferenceScreen().findPreference("notification_Astro").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    boolean checked = preference.getSharedPreferences().getBoolean("notification_Astro", false);
-                    Context context = getActivity().getApplicationContext();
-                    astro_Service(checked, context);
-                    return true;
                 }
             });
         }
@@ -101,22 +90,6 @@ public class Preferences extends AppCompatActivity {
         } else {
             Toast.makeText(context, "Stop notify when ISS is close by", Toast.LENGTH_SHORT).show();
             context.stopService(new Intent(context, Alert.class));
-        }
-    }
-
-    /**
-     * Start or stop the AlertPeople.java service.
-     *
-     * @param checked Are we starting or destroying the service?
-     * @param context Application's context
-     */
-    public static void astro_Service(boolean checked, Context context) {
-        if (checked) {
-            Toast.makeText(context, "Notify when people in space change", Toast.LENGTH_SHORT).show();
-            context.startService(new Intent(context, AlertPeople.class));
-        } else {
-            Toast.makeText(context, "Stop notify when people in space change", Toast.LENGTH_SHORT).show();
-            context.stopService(new Intent(context, AlertPeople.class));
         }
     }
 

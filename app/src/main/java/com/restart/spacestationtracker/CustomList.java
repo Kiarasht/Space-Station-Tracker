@@ -13,15 +13,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CustomList extends ArrayAdapter<String> {
 
-    private final Activity context;
     private final Astronaut[] astronauts;
-    private final String[] astro;
+    private final Activity context;
 
-    public CustomList(Activity context, String[] astro, Astronaut[] astronauts) {
-        super(context, R.layout.layout_listview, astro);
+    public CustomList(Activity context, Astronaut[] astronauts, String[] names) {
+        super(context, R.layout.layout_listview, names);
         this.context = context;
         this.astronauts = astronauts;
-        this.astro = astro;
     }
 
     @Override
@@ -37,10 +35,6 @@ public class CustomList extends ArrayAdapter<String> {
             name.setText(astronauts[position].getName());
             role.setText(astronauts[position].getRole());
             UrlImageViewHelper.setUrlDrawable(imageView, astronauts[position].getImage());
-        } else { // Something is off, maybe database is wrong. Just place a placeholder.
-            name.setText(astro[position]);
-            role.setText("New astronaut, data are not updated yet.");
-            imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.astronaut));
         }
 
         return rowView;

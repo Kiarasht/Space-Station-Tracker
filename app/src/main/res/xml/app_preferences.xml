@@ -26,12 +26,6 @@
             android:summary="Notify when ISS is expected to fly over my location"
             android:title="ISS Notification" />
 
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="notification_Astro"
-            android:summary="Notify when astronauts on duty in ISS change"
-            android:title="Astronaut Notification (Beta)" />
-
     </PreferenceCategory>
 
     <PreferenceCategory

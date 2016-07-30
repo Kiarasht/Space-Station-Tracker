@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.CheckBoxPreference;
-import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
@@ -14,14 +13,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class ViewDialog {
-    private Context context;
-    private Context applicationContext;
-    private String message;
-    private Preference preference;
-    private Activity activity;
+
     private PreferenceScreen preferenceScreen;
     private SharedPreferences sharedPref;
+    private Context applicationContext;
     private Activity mapsActivity;
+    private Activity activity;
+    private Context context;
+    private String message;
 
     public ViewDialog(Context context, String message, SharedPreferences sharedPref, MapsActivity mapsActivity) {
         this.context = context;
@@ -30,12 +29,11 @@ public class ViewDialog {
         this.mapsActivity = mapsActivity;
     }
 
-    public ViewDialog(Context context, String message, Context applicationContext, Preference preference,
-                      Activity activity, PreferenceScreen preferenceScreen, SharedPreferences sharedPref) {
+    public ViewDialog(Context context, String message, Context applicationContext, Activity activity,
+                      PreferenceScreen preferenceScreen, SharedPreferences sharedPref) {
         this.context = context;
         this.message = message;
         this.applicationContext = applicationContext;
-        this.preference = preference;
         this.activity = activity;
         this.preferenceScreen = preferenceScreen;
         this.sharedPref = sharedPref;

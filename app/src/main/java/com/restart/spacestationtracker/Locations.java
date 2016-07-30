@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,9 +25,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,23 +33,21 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
  * Json parsing to read the expected time and dates the ISS will pass by the user's location.
  * This class will require to read user's location.
  */
-public class Locations extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
+public class Locations extends AppCompatActivity {
 
     private final String TAG = ".Locations";
     private RequestQueue requestQueue;
     private String mLontitude;
     private String mLatitude;
     private String mLocation;
-    protected Location mLastLocation;
-    protected GoogleApiClient mGoogleApiClient;
-    AdView adView;
+    private AdView adView;
 
     /**
      * Assign simple widgets while also use the Google API to get user's location.
@@ -67,7 +62,7 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
         startAnimation();
 
         requestQueue = Volley.newRequestQueue(this);
-        buildGoogleApiClient();
+        Connected();
 
         // Show an ad, or hide it if its disabled
         if (!sharedPreferences.getBoolean("advertisement", false)) {
@@ -81,23 +76,9 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
         }
     }
 
-    /**
-     * The method for building our Google API. On method of this class
-     * are includes only because of this API. We will later try and find
-     * user's location.
-     */
-    protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
-        mGoogleApiClient.connect();
     }
 
     /**
@@ -111,14 +92,6 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
 
         if (adView != null) {
             adView.pause();
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mGoogleApiClient.isConnected()) {
-            mGoogleApiClient.disconnect();
         }
     }
 
@@ -139,12 +112,9 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
     }
 
     /**
-     * API was successful in Connecting. Lets find user's location.
-     *
-     * @param connectionHint Bundle connectionHint
+     * Lets find user's location.
      */
-    @Override
-    public void onConnected(Bundle connectionHint) {
+    public void Connected() {
         // Check if we have the right permissions
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
@@ -153,30 +123,25 @@ public class Locations extends AppCompatActivity implements GoogleApiClient.Conn
             return;
         }
 
-        // Call the api to get user's last known location
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        List<String> providers = locationManager.getProviders(true);
+        Location location = null;
+
+        for (int i = providers.size() - 1; i >= 0; i--) {
+            location = locationManager.getLastKnownLocation(providers.get(i));
+            if (location != null) break;
+        }
 
         // If we got something back start parsing
-        if (mLastLocation != null) {
-            mLatitude = String.valueOf(mLastLocation.getLatitude());
-            mLontitude = String.valueOf(mLastLocation.getLongitude());
+        if (location != null) {
+            mLatitude = String.valueOf(location.getLatitude());
+            mLontitude = String.valueOf(location.getLongitude());
             displayresults();
             displaypasses(null, null, null);
         } else {
             Toast.makeText(this, "Unable to find your location.", Toast.LENGTH_LONG).show();
             endAnimation();
         }
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(this, "Unable to find your location.", Toast.LENGTH_LONG).show();
-        endAnimation();
     }
 
     /**

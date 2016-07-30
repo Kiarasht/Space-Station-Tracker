@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 public class ExpandableListDataPump {
+
     public static HashMap<String, List<String>> getData() {
         LinkedHashMap<String, List<String>> expandableListDetail = new LinkedHashMap<>();
 
@@ -13,9 +14,8 @@ public class ExpandableListDataPump {
         general.add("ISS Tracker is an android application that allows you to track the position" +
                 " of the International Space Station (ISS) and find out what astronauts are currently in space." +
                 " The application comes with a notification system that can alert you whenever ISS" +
-                " approaches your location and/or the astronauts in space change. The system will also try to" +
-                " give you a heads up before ISS approaches your location by bringing live data right into" +
-                " your notification bar.");
+                " approaches your location. The system will also try to give you a heads up before" +
+                " ISS approaches your location by bringing live data right into your notification bar.");
 
         List<String> contribute = new ArrayList<>();
         contribute.add("Issue? Crash? Please do tell." +

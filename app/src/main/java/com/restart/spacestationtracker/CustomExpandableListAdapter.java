@@ -13,9 +13,9 @@ import java.util.List;
 
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
-    private Context context;
-    private List<String> expandableListTitle;
     private HashMap<String, List<String>> expandableListDetail;
+    private List<String> expandableListTitle;
+    private Context context;
 
     public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
                                        HashMap<String, List<String>> expandableListDetail) {
