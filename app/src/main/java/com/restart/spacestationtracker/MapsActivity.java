@@ -40,7 +40,9 @@ import com.nightonke.boommenu.Types.BoomType;
 import com.nightonke.boommenu.Types.ButtonType;
 import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
+import com.restart.spacestationtracker.View.ViewDialog;
 import com.restart.spacestationtracker.services.Alert;
+import com.squareup.leakcanary.LeakCanary;
 import com.wooplr.spotlight.SpotlightView;
 import com.wooplr.spotlight.utils.SpotlightListener;
 
@@ -71,7 +73,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Context context;
     private GoogleMap mMap;
     private AdView adView;
-    private Timer timer;                                // Updates map based on refreshrate
+    private Timer timer;                                // Updates map based on refresh rate
     private int refreshrate;                            // Millisecond between each timer repeat
     private int success;                                // Tracks # times server failed to respond
     private boolean firstTime;                          // Menu Tutorial
@@ -87,8 +89,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
 
         // TODO Remove this after checking for more leak
-        // TODO permissions regarding the iss notification - Implemented check.
-        // LeakCanary.install(getApplication());
+        LeakCanary.install(getApplication());
 
         ActionBar mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);

@@ -1,4 +1,4 @@
-package com.restart.spacestationtracker;
+package com.restart.spacestationtracker.View;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.restart.spacestationtracker.MapsActivity;
+import com.restart.spacestationtracker.R;
 
 public class ViewDialog {
 

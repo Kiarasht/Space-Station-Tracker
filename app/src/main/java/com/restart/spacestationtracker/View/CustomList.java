@@ -1,4 +1,4 @@
-package com.restart.spacestationtracker;
+package com.restart.spacestationtracker.View;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
+import com.restart.spacestationtracker.Data.Astronaut;
+import com.restart.spacestationtracker.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

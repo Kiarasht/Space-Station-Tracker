@@ -10,9 +10,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.restart.spacestationtracker.View.ViewDialog;
 import com.restart.spacestationtracker.services.Alert;
 
 public class Preferences extends AppCompatActivity {
@@ -84,10 +86,13 @@ public class Preferences extends AppCompatActivity {
      * @param context Application's context
      */
     public static void iss_Service(boolean checked, Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         if (checked) {
+            sharedPreferences.edit().putLong("time", 0).apply();
             Toast.makeText(context, "Notify when ISS is close by", Toast.LENGTH_SHORT).show();
             context.startService(new Intent(context, Alert.class));
         } else {
+            sharedPreferences.edit().putLong("time", 0).apply();
             Toast.makeText(context, "Stop notify when ISS is close by", Toast.LENGTH_SHORT).show();
             context.stopService(new Intent(context, Alert.class));
         }

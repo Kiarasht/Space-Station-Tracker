@@ -1,4 +1,4 @@
-package com.restart.spacestationtracker;
+package com.restart.spacestationtracker.Data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
