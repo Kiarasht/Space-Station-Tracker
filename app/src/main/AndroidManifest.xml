@@ -21,6 +21,7 @@
         <!-- Maps Activity (Launcher) -->
         <activity
             android:name=".MapsActivity"
+            android:launchMode="singleTop"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_maps">
             <intent-filter>

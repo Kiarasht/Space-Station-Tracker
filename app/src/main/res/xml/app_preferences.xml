@@ -14,6 +14,14 @@
             sample:msbp_maxValue="30"
             sample:msbp_measurementUnit="sec/refresh"
             sample:msbp_minValue="1" />
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/entry"
+            android:entryValues="@array/entryValues"
+            android:key="mapType"
+            android:title="@string/mapType"
+            android:summary="Change the map type from the previous page"/>
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 import com.restart.spacestationtracker.Data.Astronaut;
 import com.restart.spacestationtracker.R;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -36,7 +36,7 @@ public class CustomList extends ArrayAdapter<String> {
         if (astronauts[position] != null) {
             name.setText(astronauts[position].getName());
             role.setText(astronauts[position].getRole());
-            UrlImageViewHelper.setUrlDrawable(imageView, astronauts[position].getImage());
+            Picasso.with(context).load(astronauts[position].getImage()).into(imageView);
         }
 
         return rowView;

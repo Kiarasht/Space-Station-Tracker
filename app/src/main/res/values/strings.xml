@@ -28,4 +28,22 @@
     <!-- Dialog -->
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+
+    <!-- Preferences -->
+    <string name="mapType">Map type</string>
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>None</item>
+        <item>Normal</item>
+        <item>Satellite</item>
+        <item>Terrain</item>
+        <item>Hybrid</item>
+    </string-array>
 </resources>

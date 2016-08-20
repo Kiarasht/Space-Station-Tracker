@@ -42,7 +42,6 @@ import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
 import com.restart.spacestationtracker.View.ViewDialog;
 import com.restart.spacestationtracker.services.Alert;
-import com.squareup.leakcanary.LeakCanary;
 import com.wooplr.spotlight.SpotlightView;
 import com.wooplr.spotlight.utils.SpotlightListener;
 
@@ -89,7 +88,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
 
         // TODO Remove this after checking for more leak
-        LeakCanary.install(getApplication());
+        //LeakCanary.install(getApplication());
+
+        Log.e(TAG, "onCreate");
 
         ActionBar mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
@@ -165,6 +166,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     protected void onResume() {
         super.onResume();
+
+        Log.e(TAG, "onResume");
+
         if (start) {                            // When activity was just paused
             refreshrate = 1000 * sharedPreferences.getInt("refresh_Rate", 15);
             if (timer != null) {
@@ -179,6 +183,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     trackISS();
                 }
             }, 0, refreshrate);
+
+            mMaptype();
         } else {                                // When activity is killed or created for first time
             start = true;
             timer = new Timer();
@@ -239,7 +245,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        mMaptype();
+
         mMap.getUiSettings().setScrollGesturesEnabled(false);
 
         if (timer == null) {
@@ -252,6 +259,31 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 trackISS();
             }
         }, 0, refreshrate);
+    }
+
+    private void mMaptype() {
+        int current = Integer.parseInt(sharedPreferences.getString("mapType", "2"));
+
+        if (mMap.getMapType() == current) {
+            return;
+        }
+
+        switch (current) {
+            case 0:
+                mMap.setMapType(GoogleMap.MAP_TYPE_NONE);
+            case 1:
+                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                break;
+            case 2:
+                mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                break;
+            case 3:
+                mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                break;
+            case 4:
+                mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                break;
+        }
     }
 
     /**
