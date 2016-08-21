@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.restart.spacestationtracker.Data.CustomExpandableListAdapter;
-import com.restart.spacestationtracker.Data.ExpandableListDataPump;
+import com.restart.spacestationtracker.data.CustomExpandableListAdapter;
+import com.restart.spacestationtracker.data.ExpandableListDataPump;
 
 import java.util.ArrayList;
 import java.util.HashMap;

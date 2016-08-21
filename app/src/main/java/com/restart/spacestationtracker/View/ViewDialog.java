@@ -1,4 +1,4 @@
-package com.restart.spacestationtracker.View;
+package com.restart.spacestationtracker.view;
 
 import android.app.Activity;
 import android.app.Dialog;

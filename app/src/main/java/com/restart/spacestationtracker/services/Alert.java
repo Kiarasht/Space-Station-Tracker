@@ -149,8 +149,8 @@ public class Alert extends Service {
                 // Compare dates from displaypasses to user's current date
                 for (Date date1 : dates) {
                     if (date1 != null) {
-                        boolean withinhour = Math.abs(date.getTime() - date1.getTime()) < 3600000L;
-                        boolean duplicate = Math.abs(accept.getTime() - date.getTime()) < 3540000L;
+                        boolean withinhour = Math.abs(date.getTime() - date1.getTime()) < 3600000L; // 1 hour
+                        boolean duplicate = Math.abs(accept.getTime() - date.getTime()) < 3540000L; // 59 minutes
                         if (withinhour && !duplicate) {
                             sharedPreferences.edit().putLong("time", date.getTime()).apply();
                             notification(Math.abs(date.getTime() - date1.getTime()));

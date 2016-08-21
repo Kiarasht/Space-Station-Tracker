@@ -1,4 +1,4 @@
-package com.restart.spacestationtracker.Data;
+package com.restart.spacestationtracker.data;
 
 public class Astronaut {
 

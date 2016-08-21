@@ -26,6 +26,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.ads.AdRequest;
@@ -35,20 +36,23 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.Types.BoomType;
 import com.nightonke.boommenu.Types.ButtonType;
 import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
-import com.restart.spacestationtracker.View.ViewDialog;
 import com.restart.spacestationtracker.services.Alert;
+import com.restart.spacestationtracker.view.ViewDialog;
 import com.wooplr.spotlight.SpotlightView;
 import com.wooplr.spotlight.utils.SpotlightListener;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -259,8 +263,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 trackISS();
             }
         }, 0, refreshrate);
+
+        updatePolyline();
     }
 
+    /**
+     * Changes the map type to match the one from settings. If it's the same just return.
+     */
     private void mMaptype() {
         int current = Integer.parseInt(sharedPreferences.getString("mapType", "2"));
 
@@ -271,6 +280,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         switch (current) {
             case 0:
                 mMap.setMapType(GoogleMap.MAP_TYPE_NONE);
+                break;
             case 1:
                 mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                 break;
@@ -414,6 +424,63 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
         jsonObjectRequest.setTag(TAG);
         requestQueue.add(jsonObjectRequest);
+    }
+
+    /**
+     * Update polyline sets the future predictions of ISS's position for up to 90 minutes.
+     */
+    private void updatePolyline() {
+        Date currentDate = new Date();
+        final long[] futureTen = new long[10];
+
+        for (int i = 0; i < futureTen.length; ++i) {
+            futureTen[i] = (currentDate.getTime() / 1000) + (552 * i);
+        }
+
+        final StringBuilder urlBuilder = new StringBuilder();
+        for (long aFutureTen : futureTen) {
+            urlBuilder.append(aFutureTen).append(",");
+        }
+        urlBuilder.setLength(urlBuilder.length() - 1);
+
+        final String units = "miles";
+        final String url = "https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=" +
+                urlBuilder.toString() +
+                "&units=" +
+                units; //TODO: maybe user decides on unit?
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    final LatLng[] latLngs = new LatLng[10];
+
+                    for (int i = 0; i < response.length(); ++i) {
+                        latLngs[i] = new LatLng(response.getJSONObject(i).getDouble("latitude"), response.getJSONObject(i).getDouble("longitude"));
+                    }
+
+                    MapsActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            for (int i = 0; i < futureTen.length - 1; ++i) {
+                                mMap.addPolyline(new PolylineOptions()
+                                        .add(latLngs[i], latLngs[i+1])
+                                        .width(5)
+                                        .color(Color.RED));
+                            }
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError e) {
+                Log.e(TAG, "Couldn't setup Poly");
+            }
+        });
+        jsonArrayRequest.setTag(TAG);
+        requestQueue.add(jsonArrayRequest);
     }
 
     /**

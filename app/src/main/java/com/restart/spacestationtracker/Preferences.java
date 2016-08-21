@@ -14,7 +14,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.restart.spacestationtracker.View.ViewDialog;
+import com.restart.spacestationtracker.view.ViewDialog;
 import com.restart.spacestationtracker.services.Alert;
 
 public class Preferences extends AppCompatActivity {

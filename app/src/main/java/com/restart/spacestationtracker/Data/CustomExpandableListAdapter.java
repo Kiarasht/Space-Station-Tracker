@@ -1,4 +1,4 @@
-package com.restart.spacestationtracker.Data;
+package com.restart.spacestationtracker.data;
 
 import android.content.Context;
 import android.graphics.Typeface;

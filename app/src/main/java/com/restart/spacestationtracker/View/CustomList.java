@@ -1,4 +1,4 @@
-package com.restart.spacestationtracker.View;
+package com.restart.spacestationtracker.view;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.restart.spacestationtracker.Data.Astronaut;
+import com.restart.spacestationtracker.data.Astronaut;
 import com.restart.spacestationtracker.R;
 import com.squareup.picasso.Picasso;
 

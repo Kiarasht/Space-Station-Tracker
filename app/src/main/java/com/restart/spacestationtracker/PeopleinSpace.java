@@ -17,8 +17,8 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.restart.spacestationtracker.Data.Astronaut;
-import com.restart.spacestationtracker.View.CustomList;
+import com.restart.spacestationtracker.data.Astronaut;
+import com.restart.spacestationtracker.view.CustomList;
 
 public class PeopleinSpace extends AppCompatActivity {
 

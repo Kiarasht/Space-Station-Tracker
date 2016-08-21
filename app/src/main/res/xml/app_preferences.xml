@@ -3,7 +3,7 @@
     <PreferenceCategory xmlns:sample="http://schemas.android.com/apk/res-auto"
         android:title="Map">
         <com.pavelsikun.seekbarpreference.SeekBarPreference
-            android:defaultValue="5000"
+            android:defaultValue="15"
             android:enabled="false"
             android:key="refresh_Rate"
             android:summary="Timespan between map relocating to ISS's new location"
