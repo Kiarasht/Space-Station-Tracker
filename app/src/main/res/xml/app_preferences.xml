@@ -16,12 +16,28 @@
             sample:msbp_minValue="1" />
 
         <ListPreference
-            android:defaultValue="1"
+            android:defaultValue="2"
             android:entries="@array/entry"
             android:entryValues="@array/entryValues"
             android:key="mapType"
             android:title="@string/mapType"
             android:summary="Change the map type from the previous page"/>
+
+        <ListPreference
+            android:defaultValue="5"
+            android:entries="@array/color"
+            android:entryValues="@array/colorValues"
+            android:key="colorType"
+            android:title="@string/colorType"
+            android:summary="Change the color of ISS's prediction line"/>
+
+        <ListPreference
+            android:defaultValue="5"
+            android:entries="@array/size"
+            android:entryValues="@array/size"
+            android:key="sizeType"
+            android:title="@string/sizeType"
+            android:summary="Change the size of ISS's prediction line"/>
     </PreferenceCategory>
 
     <PreferenceCategory

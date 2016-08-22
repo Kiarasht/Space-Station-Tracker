@@ -46,4 +46,40 @@
         <item>Terrain</item>
         <item>Hybrid</item>
     </string-array>
+
+    <string name="colorType">Prediction line color</string>
+    <string-array name="colorValues">
+        <item>-16777216</item>
+        <item>-1</item>
+        <item>-16776961</item>
+        <item>-12303292</item>
+        <item>-16711936</item>
+        <item>-65536</item>
+        <item>-256</item>
+    </string-array>
+
+    <string-array name="color">
+        <item>Black</item>
+        <item>White</item>
+        <item>Blue</item>
+        <item>Gray</item>
+        <item>Green</item>
+        <item>Red</item>
+        <item>Yellow</item>
+    </string-array>
+
+
+    <string name="sizeType">Prediction line size</string>
+    <string-array name="size">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
 </resources>

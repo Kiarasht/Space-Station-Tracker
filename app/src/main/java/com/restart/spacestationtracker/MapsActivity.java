@@ -40,6 +40,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.Types.BoomType;
@@ -79,7 +80,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private TextView latLong;                           // latLong of ISS
     private Context context;
     private GoogleMap mMap;
+    private Polyline polyLine;
     private MarkerOptions markerOptions;
+    private Polyline[] polyArray = new Polyline[200];
     private Marker marker;
     private LatLng last;
     private AdView adView;
@@ -90,6 +93,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private boolean firstTime;                          // Menu Tutorial
     private boolean start = false;                      // Opened app or returned to activity?
     private boolean once = true;
+    private int at = 0;
 
     /**
      * When the application begins try to read from SharedPreferences to get ready. Run first
@@ -217,6 +221,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
 
+        int currentColor = Integer.parseInt(sharedPreferences.getString("colorType", "-65536"));
+        int currentWidth = Integer.parseInt(sharedPreferences.getString("sizeType", "5"));
+
+        if (polyLine != null &&
+                (polyLine.getColor() != currentColor ||
+                        polyLine.getWidth() != currentWidth)) {
+            if (mMap != null) {
+                for (int i = 0; polyArray[i] != null && i < polyArray.length - 1; ++i) {
+                    polyArray[i].setColor(currentColor);
+                    polyArray[i].setWidth(currentWidth);
+                }
+            } else {
+                Log.d(TAG, "Can't reset the map");
+            }
+        }
+
         if (adView != null) {
             adView.resume();
         }
@@ -279,7 +299,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void run() {
                 try {
                     for (int i = 0; i < 20; ++i) {
-                        Log.e(TAG, "1");
+                        Log.e(TAG, String.valueOf(i));
                         updatePolyline();
                         Thread.sleep(1000);
                     }
@@ -300,23 +320,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             return;
         }
 
-        switch (current) {
-            case 0:
-                mMap.setMapType(GoogleMap.MAP_TYPE_NONE);
-                break;
-            case 1:
-                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                break;
-            case 2:
-                mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-                break;
-            case 3:
-                mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-                break;
-            case 4:
-                mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-                break;
-        }
+        mMap.setMapType(current);
     }
 
     /**
@@ -498,22 +502,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             if (finalStart == 10) {
                                 for (int i = 0; i < futureTen.length - 1; ++i) {
-                                    mMap.addPolyline(new PolylineOptions()
+                                    polyLine = mMap.addPolyline(new PolylineOptions()
                                             .add(latLngs[i], latLngs[i + 1])
-                                            .width(5)
-                                            .color(Color.RED));
+                                            .width(Integer.parseInt(sharedPreferences.getString("sizeType", "5")))
+                                            .color(Integer.parseInt(sharedPreferences.getString("colorType", "-65536"))));
+                                    polyArray[at++] = polyLine;
                                 }
                                 last = latLngs[latLngs.length - 1];
                             } else {
-                                mMap.addPolyline(new PolylineOptions()
+                                polyArray[at++] = mMap.addPolyline(new PolylineOptions()
                                         .add(last, latLngs[0])
-                                        .width(5)
-                                        .color(Color.RED));
+                                        .width(Integer.parseInt(sharedPreferences.getString("sizeType", "5")))
+                                        .color(Integer.parseInt(sharedPreferences.getString("colorType", "-65536"))));
                                 for (int i = 0; i < futureTen.length - 1; ++i) {
-                                    mMap.addPolyline(new PolylineOptions()
+                                    polyArray[at++] = mMap.addPolyline(new PolylineOptions()
                                             .add(latLngs[i], latLngs[i + 1])
-                                            .width(5)
-                                            .color(Color.RED));
+                                            .width(Integer.parseInt(sharedPreferences.getString("sizeType", "5")))
+                                            .color(Integer.parseInt(sharedPreferences.getString("colorType", "-65536"))));
                                 }
                                 last = latLngs[latLngs.length - 1];
                             }
