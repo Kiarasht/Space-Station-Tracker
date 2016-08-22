@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -35,7 +36,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.Types.BoomType;
@@ -75,12 +79,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private TextView latLong;                           // latLong of ISS
     private Context context;
     private GoogleMap mMap;
+    private MarkerOptions markerOptions;
+    private Marker marker;
+    private LatLng last;
     private AdView adView;
     private Timer timer;                                // Updates map based on refresh rate
     private int refreshrate;                            // Millisecond between each timer repeat
     private int success;                                // Tracks # times server failed to respond
+    private int poly = 0;
     private boolean firstTime;                          // Menu Tutorial
     private boolean start = false;                      // Opened app or returned to activity?
+    private boolean once = true;
 
     /**
      * When the application begins try to read from SharedPreferences to get ready. Run first
@@ -138,16 +147,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         refreshrate = 1000 * sharedPreferences.getInt("refresh_Rate", 15);
         firstTime = sharedPreferences.getBoolean(getString(R.string.firstTime), true);
+        markerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.iss_2011));
+        markerOptions.anchor(0.5f, 0.5f);
 
         final Activity activity = this;
-        final View issPicture = findViewById(R.id.issPicture);
 
         //  When view is shown, start our animations for first time users
-        issPicture.post(new Runnable() {
+        latLong.post(new Runnable() {
             @Override
             public void run() {
                 if (firstTime) {
-                    startAnimation(issPicture, mTitleTextView, activity);
+                    startAnimation(latLong, mTitleTextView, activity);
                 }
             }
         });
@@ -251,7 +261,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
         mMaptype();
 
-        mMap.getUiSettings().setScrollGesturesEnabled(false);
+        //mMap.getUiSettings().setScrollGesturesEnabled(false);
 
         if (timer == null) {
             timer = new Timer();
@@ -264,7 +274,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }, 0, refreshrate);
 
-        updatePolyline();
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    for (int i = 0; i < 20; ++i) {
+                        Log.e(TAG, "1");
+                        updatePolyline();
+                        Thread.sleep(1000);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     /**
@@ -299,11 +322,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     /**
      * Starts a three step animation process. One gets executed after another.
      *
-     * @param issPicture     A view to ISS icon
+     * @param latlng         A view to ISS text position
      * @param mTitleTextView A view to the top text widget
      * @param activity       MapsActivity.java
      */
-    public void startAnimation(final View issPicture, final View mTitleTextView, final Activity activity) {
+    public void startAnimation(final View latlng, final View mTitleTextView, final Activity activity) {
         sharedPreferences.edit().putBoolean(getString(R.string.firstTime), false).apply();
         firstTime = false;
         new SpotlightView.Builder(activity)
@@ -359,7 +382,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                                 .subHeadingTvText("Clicking the ISS icon will take you to a live stream." +
                                                         " Basically what astronauts see right now.")
                                                 .maskColor(Color.parseColor("#dc000000"))
-                                                .target(issPicture)
+                                                .target(latlng)
                                                 .lineAnimDuration(400)
                                                 .lineAndArcColor(Color.parseColor("#6441A5"))
                                                 .dismissOnTouch(true)
@@ -394,7 +417,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     MapsActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(ISS));
+                            if (once) {
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(ISS));
+                                once = false;
+                            }
+                            if (marker != null) {
+                                marker.remove();
+                            }
+
+                            markerOptions.position(ISS);
+                            marker = mMap.addMarker(markerOptions);
                             latLong.setText(position);
                         }
                     });
@@ -431,10 +463,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     private void updatePolyline() {
         Date currentDate = new Date();
+        long currentLong = currentDate.getTime() / 1000;
         final long[] futureTen = new long[10];
 
         for (int i = 0; i < futureTen.length; ++i) {
-            futureTen[i] = (currentDate.getTime() / 1000) + (552 * i);
+            futureTen[i] = currentLong + (30 * poly++);
         }
 
         final StringBuilder urlBuilder = new StringBuilder();
@@ -449,6 +482,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 "&units=" +
                 units; //TODO: maybe user decides on unit?
 
+        final int finalStart = poly;
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -461,11 +495,27 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     MapsActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
-                            for (int i = 0; i < futureTen.length - 1; ++i) {
+
+                            if (finalStart == 10) {
+                                for (int i = 0; i < futureTen.length - 1; ++i) {
+                                    mMap.addPolyline(new PolylineOptions()
+                                            .add(latLngs[i], latLngs[i + 1])
+                                            .width(5)
+                                            .color(Color.RED));
+                                }
+                                last = latLngs[latLngs.length - 1];
+                            } else {
                                 mMap.addPolyline(new PolylineOptions()
-                                        .add(latLngs[i], latLngs[i+1])
+                                        .add(last, latLngs[0])
                                         .width(5)
                                         .color(Color.RED));
+                                for (int i = 0; i < futureTen.length - 1; ++i) {
+                                    mMap.addPolyline(new PolylineOptions()
+                                            .add(latLngs[i], latLngs[i + 1])
+                                            .width(5)
+                                            .color(Color.RED));
+                                }
+                                last = latLngs[latLngs.length - 1];
                             }
                         }
                     });
@@ -479,7 +529,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Log.e(TAG, "Couldn't setup Poly");
             }
         });
-        jsonArrayRequest.setTag(TAG);
         requestQueue.add(jsonArrayRequest);
     }
 

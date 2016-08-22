@@ -44,12 +44,12 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/White" />
 
-    <ImageView
+<!--    <ImageView
         android:id="@+id/issPicture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:contentDescription="@string/picdescription"
         android:onClick="onISS"
-        android:src="@drawable/iss_2011" />
+        android:src="@drawable/iss_2011" />-->
 </RelativeLayout>
