@@ -27,7 +27,7 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".MapsActivity"/>
+            tools:context=".MapsActivity" />
 
     </LinearLayout>
 
@@ -36,20 +36,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
+        android:onClick="onISS"
         android:shadowColor="@color/Black"
         android:shadowDx="0.0"
         android:shadowDy="0.0"
-        android:shadowRadius="20.0"
+        android:shadowRadius="5.0"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/White" />
+        android:textColor="@color/Red" />
 
-<!--    <ImageView
-        android:id="@+id/issPicture"
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:contentDescription="@string/picdescription"
-        android:onClick="onISS"
-        android:src="@drawable/iss_2011" />-->
+        android:layout_below="@id/textView"
+        android:padding="5dp"
+        android:shadowColor="@color/Black"
+        android:shadowDx="0.0"
+        android:shadowDy="0.0"
+        android:shadowRadius="5.0"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/Red" />
 </RelativeLayout>

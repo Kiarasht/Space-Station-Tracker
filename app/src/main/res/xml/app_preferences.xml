@@ -15,6 +15,18 @@
             sample:msbp_measurementUnit="sec/refresh"
             sample:msbp_minValue="1" />
 
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="lock_ISS"
+            android:summary="Lock onto ISS and follow it on the map"
+            android:title="Lock ISS" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="info_ISS"
+            android:summary="Provide additional information about ISS on the map"
+            android:title="Additional Info" />
+
         <ListPreference
             android:defaultValue="2"
             android:entries="@array/entry"

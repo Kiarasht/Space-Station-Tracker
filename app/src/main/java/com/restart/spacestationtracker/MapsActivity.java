@@ -49,6 +49,7 @@ import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
 import com.restart.spacestationtracker.services.Alert;
 import com.restart.spacestationtracker.view.ViewDialog;
+import com.squareup.leakcanary.LeakCanary;
 import com.wooplr.spotlight.SpotlightView;
 import com.wooplr.spotlight.utils.SpotlightListener;
 
@@ -78,6 +79,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private SharedPreferences sharedPreferences;        // Managing options from Settings
     private RequestQueue requestQueue;                  // Volley
     private TextView latLong;                           // latLong of ISS
+    private TextView description;
     private Context context;
     private GoogleMap mMap;
     private Polyline polyLine;
@@ -86,7 +88,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Marker marker;
     private LatLng last;
     private AdView adView;
+    private Date date;
     private Timer timer;                                // Updates map based on refresh rate
+    private Timer polyTimer;
     private int refreshrate;                            // Millisecond between each timer repeat
     private int success;                                // Tracks # times server failed to respond
     private int poly = 0;
@@ -104,8 +108,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        // TODO User should lock or unlock onto ISS
+        // TODO User should enable or disable additional info
         // TODO Remove this after checking for more leak
-        //LeakCanary.install(getApplication());
+        LeakCanary.install(getApplication());
 
         Log.e(TAG, "onCreate");
 
@@ -145,9 +151,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         AppRate.showRateDialogIfMeetsConditions(this);
 
         adView = null;
+        date = new Date();
         context = getApplicationContext();
         requestQueue = Volley.newRequestQueue(this);
         latLong = ((TextView) findViewById(R.id.textView));
+        description = (TextView) findViewById(R.id.textView2);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         refreshrate = 1000 * sharedPreferences.getInt("refresh_Rate", 15);
         firstTime = sharedPreferences.getBoolean(getString(R.string.firstTime), true);
@@ -281,8 +289,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
         mMaptype();
 
-        //mMap.getUiSettings().setScrollGesturesEnabled(false);
-
         if (timer == null) {
             timer = new Timer();
         }
@@ -294,6 +300,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }, 0, refreshrate);
 
+        polyTimer = new Timer();
+        TimerTask hourlyTask = new TimerTask() {
+            @Override
+            public void run() {
+                mMap.clear();
+                asyncTaskPolyline();
+            }
+        };
+        polyTimer.schedule(hourlyTask, 0L, 5400000);
+    }
+
+    /**
+     * Background call for updatepolyline
+     */
+    private void asyncTaskPolyline() {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -343,7 +364,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .headingTvText("Hey There :)")
                 .subHeadingTvColor(Color.parseColor("#ffffff"))
                 .subHeadingTvSize(16)
-                .subHeadingTvText("Map shows ISS's current location. You can only zoom in and out. Otherwise it follows ISS by itself.")
+                .subHeadingTvText("Map shows ISS's current location with a prediction line of where it will be.")
                 .maskColor(Color.parseColor("#dc000000"))
                 .target(mTitleTextView)
                 .lineAnimDuration(400)
@@ -383,8 +404,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                                 .headingTvText("Live Stream")
                                                 .subHeadingTvColor(Color.parseColor("#ffffff"))
                                                 .subHeadingTvSize(16)
-                                                .subHeadingTvText("Clicking the ISS icon will take you to a live stream." +
-                                                        " Basically what astronauts see right now.")
+                                                .subHeadingTvText("Clicking the ISS's latitude & longitude will take you to a live stream.")
                                                 .maskColor(Color.parseColor("#dc000000"))
                                                 .target(latlng)
                                                 .lineAnimDuration(400)
@@ -416,17 +436,41 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     final DecimalFormat decimalFormat = new DecimalFormat("0.000");
                     final String LAT = decimalFormat.format(latParameter);
                     final String LNG = decimalFormat.format(lngParameter);
-
                     final String position = LAT + "° N, " + LNG + "° E";
+
+                    final StringBuilder moreInfo = new StringBuilder();
+                    moreInfo.append("Altitude: ").append(decimalFormat.format(Double.parseDouble(response.getString("altitude")))).append("\n")
+                            .append("Velocity: ").append(decimalFormat.format(Double.parseDouble(response.getString("velocity")))).append("\n")
+                            .append("Footprint: ").append(decimalFormat.format(Double.parseDouble(response.getString("footprint")))).append("\n")
+                            .append("Day Number: ").append(decimalFormat.format(Double.parseDouble(response.getString("daynum")))).append("\n")
+                            .append("Solar LAT: ").append(decimalFormat.format(Double.parseDouble(response.getString("solar_lat")))).append("\n")
+                            .append("Solar LON: ").append(decimalFormat.format(Double.parseDouble(response.getString("solar_lon")))).append("\n")
+                            .append("Visibility: ").append(response.getString("visibility")).append("\n");
 
                     MapsActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
                             if (once) {
                                 mMap.moveCamera(CameraUpdateFactory.newLatLng(ISS));
                                 once = false;
+                            } else if (sharedPreferences.getBoolean("lock_ISS", false)) {
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(ISS));
+                                if (mMap.getUiSettings().isScrollGesturesEnabled()) {
+                                    mMap.getUiSettings().setScrollGesturesEnabled(false);
+                                }
+                            } else if (!sharedPreferences.getBoolean("lock_ISS", false)) {
+                                mMap.getUiSettings().setScrollGesturesEnabled(true);
                             }
                             if (marker != null) {
                                 marker.remove();
+                            }
+
+                            if (description.getVisibility() == View.VISIBLE && !sharedPreferences.getBoolean("info_ISS", false)) {
+                                description.setVisibility(View.GONE);
+                            } else if (description.getVisibility() == View.GONE && sharedPreferences.getBoolean("info_ISS", false)) {
+                                description.setVisibility(View.VISIBLE);
+                                description.setText(moreInfo.toString());
+                            } else if (description.getVisibility() == View.VISIBLE) {
+                                description.setText(moreInfo.toString());
                             }
 
                             markerOptions.position(ISS);
