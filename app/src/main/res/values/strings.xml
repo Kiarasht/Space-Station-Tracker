@@ -47,6 +47,25 @@
         <item>Hybrid</item>
     </string-array>
 
+    <string name="decimalType">Decimal Places</string>
+    <string-array name="decimalEntry">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="decimalValues">
+        <item>0</item>
+        <item>0.0</item>
+        <item>0.00</item>
+        <item>0.000</item>
+        <item>0.0000</item>
+        <item>0.00000</item>
+    </string-array>
+
     <string name="colorType">Prediction line color</string>
     <string-array name="colorValues">
         <item>-16777216</item>
@@ -70,6 +89,8 @@
 
 
     <string name="sizeType">Prediction line size</string>
+    <string name="reset">Refresh prediction lines</string>
+    <string name="stream">ISS\'s live stream</string>
     <string-array name="size">
         <item>1</item>
         <item>2</item>

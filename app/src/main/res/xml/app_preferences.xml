@@ -3,7 +3,7 @@
     <PreferenceCategory xmlns:sample="http://schemas.android.com/apk/res-auto"
         android:title="Map">
         <com.pavelsikun.seekbarpreference.SeekBarPreference
-            android:defaultValue="15"
+            android:defaultValue="1"
             android:enabled="false"
             android:key="refresh_Rate"
             android:summary="Timespan between map relocating to ISS's new location"
@@ -11,7 +11,7 @@
 
             sample:msbp_dialogEnabled="false"
             sample:msbp_interval="1"
-            sample:msbp_maxValue="30"
+            sample:msbp_maxValue="60"
             sample:msbp_measurementUnit="sec/refresh"
             sample:msbp_minValue="1" />
 
@@ -22,7 +22,7 @@
             android:title="Lock ISS" />
 
         <CheckBoxPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="info_ISS"
             android:summary="Provide additional information about ISS on the map"
             android:title="Additional Info" />
@@ -36,7 +36,14 @@
             android:summary="Change the map type from the previous page"/>
 
         <ListPreference
-            android:defaultValue="5"
+            android:entries="@array/decimalEntry"
+            android:entryValues="@array/decimalValues"
+            android:key="decimalType"
+            android:title="@string/decimalType"
+            android:summary="Change the accuracy of all numerical values"/>
+
+        <ListPreference
+            android:defaultValue="-256"
             android:entries="@array/color"
             android:entryValues="@array/colorValues"
             android:key="colorType"

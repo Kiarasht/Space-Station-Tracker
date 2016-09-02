@@ -36,13 +36,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:onClick="onISS"
         android:shadowColor="@color/Black"
         android:shadowDx="0.0"
         android:shadowDy="0.0"
-        android:shadowRadius="5.0"
+        android:shadowRadius="6.0"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/Red" />
+        android:textColor="@color/Yellow" />
 
     <TextView
         android:id="@+id/textView2"
@@ -53,7 +52,7 @@
         android:shadowColor="@color/Black"
         android:shadowDx="0.0"
         android:shadowDy="0.0"
-        android:shadowRadius="5.0"
+        android:shadowRadius="6.0"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/Red" />
+        android:textColor="@color/Yellow" />
 </RelativeLayout>
