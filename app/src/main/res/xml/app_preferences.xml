@@ -34,7 +34,10 @@
             android:key="mapType"
             android:title="@string/mapType"
             android:summary="Change the map type from the previous page"/>
+    </PreferenceCategory>
 
+    <PreferenceCategory xmlns:sample="http://schemas.android.com/apk/res-auto"
+        android:title="Customization">
         <ListPreference
             android:entries="@array/decimalEntry"
             android:entryValues="@array/decimalValues"
@@ -57,6 +60,14 @@
             android:key="sizeType"
             android:title="@string/sizeType"
             android:summary="Change the size of ISS's prediction line"/>
+
+        <ListPreference
+            android:defaultValue="-256"
+            android:entries="@array/color"
+            android:entryValues="@array/colorValues"
+            android:key="colorText"
+            android:title="@string/textType"
+            android:summary="Change the color of texts"/>
     </PreferenceCategory>
 
     <PreferenceCategory

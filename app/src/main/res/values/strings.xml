@@ -67,6 +67,7 @@
     </string-array>
 
     <string name="colorType">Prediction line color</string>
+    <string name="textType">Text color</string>
     <string-array name="colorValues">
         <item>-16777216</item>
         <item>-1</item>

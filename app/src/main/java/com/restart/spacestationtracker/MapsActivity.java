@@ -52,7 +52,6 @@ import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
 import com.restart.spacestationtracker.services.Alert;
 import com.restart.spacestationtracker.view.ViewDialog;
-import com.squareup.leakcanary.LeakCanary;
 import com.wooplr.spotlight.SpotlightView;
 import com.wooplr.spotlight.utils.SpotlightListener;
 
@@ -89,6 +88,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Polyline polyLine;                          // A single poly to help compare any changes from settings
     private TextView latLong;                           // lat lon of ISS
     private Context context;                            // Application context
+    private Timer polyTimer;                            // Updates the poly lines
     private GoogleMap mMap;                             // Google maps
     private Marker marker;                              // Marker representing ISS that moves alone the prediction line
     private AdView adView;                              // Optional ads
@@ -113,9 +113,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
-        // TODO Remove this after checking for more leak
-        LeakCanary.install(getApplication());
 
         ActionBar mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
@@ -164,7 +161,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         description = (TextView) findViewById(R.id.textView2);
         PreferenceManager.setDefaultValues(this, R.xml.app_preferences, false);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        refreshrate = 1000 * sharedPreferences.getInt("refresh_Rate", 15);
+        refreshrate = 1000 * sharedPreferences.getInt("refresh_Rate", 1);
         firstTime = sharedPreferences.getBoolean(getString(R.string.firstTime), true);
         markerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.iss_2011));
         markerOptions.anchor(0.5f, 0.5f);
@@ -237,8 +234,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
 
-        Log.d(TAG, sharedPreferences.getString("colorType", "-256"));
-        Log.d(TAG, sharedPreferences.getString("sizeType", "5"));
         int currentColor = Integer.parseInt(sharedPreferences.getString("colorType", "-256"));
         int currentWidth = Integer.parseInt(sharedPreferences.getString("sizeType", "5"));
 
@@ -253,6 +248,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             } else {
                 Log.e(TAG, "Can't reset the map");
             }
+        }
+
+        if (polyTimer == null) {
+            polyTimer = new Timer();
+            TimerTask hourlyTask = new TimerTask() {
+                @Override
+                public void run() {
+                    asyncTaskPolyline();
+                }
+            };
+            polyTimer.schedule(hourlyTask, 0L, 5400000); // 90 minutes
+
         }
 
         if (adView != null) {
@@ -279,6 +286,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             adView.pause();
         }
         timer = null;
+
     }
 
     @Override
@@ -287,6 +295,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (adView != null) {
             adView.destroy();
         }
+
+        if (polyTimer != null) {
+            polyTimer.cancel();
+            polyTimer.purge();
+        }
+        polyTimer = null;
     }
 
     /**
@@ -309,15 +323,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 trackISS();
             }
         }, 0, refreshrate);
-
-        Timer polyTimer = new Timer();
-        TimerTask hourlyTask = new TimerTask() {
-            @Override
-            public void run() {
-                asyncTaskPolyline();
-            }
-        };
-        polyTimer.schedule(hourlyTask, 0L, 5400000); // 90 minutes
     }
 
     /**
@@ -405,7 +410,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             .append("Footprint: ").append(decimalFormat.format(Double.parseDouble(response.getString("footprint")))).append(" km").append("\n")
                             .append("Solar LAT: ").append(decimalFormat.format(Double.parseDouble(response.getString("solar_lat")))).append("°").append("\n")
                             .append("Solar LON: ").append(decimalFormat.format(Double.parseDouble(response.getString("solar_lon")))).append("°").append("\n")
-                            .append("Visibility: ").append(visibility.substring(0,1).toUpperCase()).append(visibility.substring(1)).append("\n");
+                            .append("Visibility: ").append(visibility.substring(0, 1).toUpperCase()).append(visibility.substring(1)).append("\n");
 
                     MapsActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
@@ -430,14 +435,28 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             if (description.getVisibility() == View.VISIBLE && !sharedPreferences.getBoolean("info_ISS", false)) {
                                 description.setVisibility(View.GONE);
                             } else if (description.getVisibility() == View.GONE && sharedPreferences.getBoolean("info_ISS", false)) {
+                                if (!String.valueOf(description.getCurrentTextColor()).equals(sharedPreferences.getString("colorText", "-256"))) {
+                                    description.setTextColor(Integer.parseInt(sharedPreferences.getString("colorText", "-256")));
+                                }
                                 description.setVisibility(View.VISIBLE);
                                 description.setText(moreInfo.toString());
                             } else if (description.getVisibility() == View.VISIBLE) {
+                                if (!String.valueOf(description.getCurrentTextColor()).equals(sharedPreferences.getString("colorText", "-256"))) {
+                                    description.setTextColor(Integer.parseInt(sharedPreferences.getString("colorText", "-256")));
+                                }
                                 description.setText(moreInfo.toString());
                             }
 
                             markerOptions.position(ISS);
                             marker = mMap.addMarker(markerOptions);
+
+                            if (!String.valueOf(latLong.getCurrentTextColor()).equals(sharedPreferences.getString("colorText", "-256"))) {
+                                latLong.setTextColor(Integer.parseInt(sharedPreferences.getString("colorText", "-256")));
+                            }
+
+                            Log.d(TAG, "shared: " + sharedPreferences.getString("colorText", "-256"));
+                            Log.d(TAG, "latLong: " + String.valueOf(latLong.getCurrentTextColor()));
+                            Log.d(TAG, "description: " + String.valueOf(description.getCurrentTextColor()));
                             latLong.setText(position);
                         }
                     });
@@ -505,7 +524,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     MapsActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
-                            Log.d(TAG, sharedPreferences.getString("colorType", "-65536"));
+                            Log.d(TAG, sharedPreferences.getString("colorType", "-256"));
                             Log.d(TAG, sharedPreferences.getString("sizeType", "5"));
 
                             if (finalStart == 10) {
