@@ -1,6 +1,7 @@
 package com.restart.spacestationtracker;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -43,6 +44,8 @@ import java.util.Locale;
 public class Locations extends AppCompatActivity {
 
     private final String TAG = ".Locations";
+
+    private ProgressDialog mProgressDialog;
     private RequestQueue requestQueue;
     private String mLontitude;
     private String mLatitude;
@@ -164,9 +167,6 @@ public class Locations extends AppCompatActivity {
                     // Save the formatted address, we will use it later
                     JSONObject results = response.getJSONArray("results").getJSONObject(1);
                     mLocation = results.getString("formatted_address");
-                    Log.wtf(TAG, "Itself: " + mLocation);
-                    //TODO Check if mLocation is null
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -278,18 +278,12 @@ public class Locations extends AppCompatActivity {
     }
 
     void startAnimation() {
-        View view = findViewById(R.id.avloadingIndicatorView);
-
-        if (view != null) {
-            view.setVisibility(View.VISIBLE);
-        }
+        mProgressDialog = new ProgressDialog(Locations.this);
+        mProgressDialog.setTitle("Just a moment...");
+        mProgressDialog.setMessage("Getting your flybys");
     }
 
     void endAnimation() {
-        View view = findViewById(R.id.avloadingIndicatorView);
-
-        if (view != null) {
-            view.setVisibility(View.GONE);
-        }
+        mProgressDialog.hide();
     }
 }

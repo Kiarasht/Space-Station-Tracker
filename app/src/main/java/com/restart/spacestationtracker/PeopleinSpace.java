@@ -1,6 +1,7 @@
 package com.restart.spacestationtracker;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.restart.spacestationtracker.view.CustomList;
 
 public class PeopleinSpace extends AppCompatActivity {
 
+    private ProgressDialog mProgressDialog;
     private AdView adView;
 
     @Override
@@ -119,18 +121,12 @@ public class PeopleinSpace extends AppCompatActivity {
     }
 
     void startAnimation() {
-        View view = findViewById(R.id.avloadingIndicatorView);
-
-        if (view != null) {
-            view.setVisibility(View.VISIBLE);
-        }
+        mProgressDialog = new ProgressDialog(PeopleinSpace.this);
+        mProgressDialog.setTitle("Just a moment...");
+        mProgressDialog.setMessage("Getting astronauts on duty");
     }
 
     void endAnimation() {
-        View view = findViewById(R.id.avloadingIndicatorView);
-
-        if (view != null) {
-            view.setVisibility(View.GONE);
-        }
+        mProgressDialog.hide();
     }
 }

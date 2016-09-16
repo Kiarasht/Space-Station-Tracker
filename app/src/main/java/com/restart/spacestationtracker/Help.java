@@ -1,7 +1,9 @@
 package com.restart.spacestationtracker;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -40,7 +42,6 @@ public class Help extends AppCompatActivity {
 
             @Override
             public void onGroupExpand(int groupPosition) {
-
             }
         });
 
@@ -71,7 +72,7 @@ public class Help extends AppCompatActivity {
                 } else if (onClick.contains("Version:") || onClick.contains("Build on:")) {
                     Toast.makeText(getApplicationContext(), onClick, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "You are looking quite dashing today!", Toast.LENGTH_SHORT).show();
+                    launchMarket();
                 }
                 return false;
             }
@@ -112,5 +113,18 @@ public class Help extends AppCompatActivity {
             adView.destroy();
         }
         super.onDestroy();
+    }
+
+    /**
+     * Opens up Google Play of app's page
+     */
+    private void launchMarket() {
+        Uri uri = Uri.parse("market://details?id=" + getPackageName());
+        Intent myAppLinkToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        try {
+            startActivity(myAppLinkToMarket);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, " unable to find market app", Toast.LENGTH_LONG).show();
+        }
     }
 }
