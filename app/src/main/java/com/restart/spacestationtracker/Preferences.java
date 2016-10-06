@@ -12,11 +12,13 @@ public class Preferences extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_general);
 
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (savedInstanceState == null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        SettingsFragment settingsFragment = new SettingsFragment();
-        fragmentTransaction.add(android.R.id.content, settingsFragment, "SETTINGS_FRAGMENT");
-        fragmentTransaction.commit();
+            SettingsFragment settingsFragment = new SettingsFragment();
+            fragmentTransaction.add(android.R.id.content, settingsFragment, "SETTINGS_FRAGMENT");
+            fragmentTransaction.commit();
+        }
     }
 }

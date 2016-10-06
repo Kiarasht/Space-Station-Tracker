@@ -1,18 +1,23 @@
 package com.restart.spacestationtracker;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.restart.spacestationtracker.data.CustomExpandableListAdapter;
 import com.restart.spacestationtracker.data.ExpandableListDataPump;
@@ -25,12 +30,14 @@ public class Help extends AppCompatActivity {
 
     private HashMap<String, List<String>> expandableListDetail;
     private List<String> expandableListTitle;
+    private Context mContext;
     private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.help_layout);
+        mContext = getApplicationContext();
 
         ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
         expandableListDetail = ExpandableListDataPump.getData();
@@ -113,6 +120,24 @@ public class Help extends AppCompatActivity {
             adView.destroy();
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        AdView adView = (AdView) findViewById(R.id.adView);
+        RelativeLayout parent = (RelativeLayout) adView.getParent();
+        ViewGroup.LayoutParams adViewParams = adView.getLayoutParams();
+
+        parent.removeView(adView);
+        AdView newAdView = new AdView(mContext);
+        newAdView.setAdSize(AdSize.SMART_BANNER);
+        newAdView.setAdUnitId(getString(R.string.banner_ad_unit_id));
+        newAdView.setId(R.id.adView);
+
+        parent.addView(newAdView, adViewParams);
+        newAdView.loadAd(new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build());
     }
 
     /**

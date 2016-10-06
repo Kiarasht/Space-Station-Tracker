@@ -2,14 +2,18 @@ package com.restart.spacestationtracker;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
@@ -17,6 +21,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.restart.spacestationtracker.data.Astronaut;
 import com.restart.spacestationtracker.view.CustomList;
@@ -24,11 +29,13 @@ import com.restart.spacestationtracker.view.CustomList;
 public class PeopleinSpace extends AppCompatActivity {
 
     private ProgressDialog mProgressDialog;
+    private Context mContext;
     private AdView adView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = getApplicationContext();
         Firebase.setAndroidContext(this);
         setContentView(R.layout.layout_locations);
         startAnimation();
@@ -73,6 +80,24 @@ public class PeopleinSpace extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        AdView adView = (AdView) findViewById(R.id.adView);
+        RelativeLayout parent = (RelativeLayout) adView.getParent();
+        ViewGroup.LayoutParams adViewParams = adView.getLayoutParams();
+
+        parent.removeView(adView);
+        AdView newAdView = new AdView(mContext);
+        newAdView.setAdSize(AdSize.SMART_BANNER);
+        newAdView.setAdUnitId(getString(R.string.banner_ad_unit_id));
+        newAdView.setId(R.id.adView);
+
+        parent.addView(newAdView, adViewParams);
+        newAdView.loadAd(new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build());
+    }
+
     /**
      * Displays a list of astronauts in a ListView using Firebase.
      */
@@ -81,7 +106,7 @@ public class PeopleinSpace extends AppCompatActivity {
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                final Astronaut[] astronauts = new Astronaut[6];
+                Astronaut[] astronauts = new Astronaut[6];
                 final String[] names;
 
                 int i = 0;
@@ -90,8 +115,9 @@ public class PeopleinSpace extends AppCompatActivity {
                 }
 
                 Astronaut.commanderFirst(astronauts);
-                names = Astronaut.getNames(astronauts);
-                final CustomList astroAdapter = new CustomList(PeopleinSpace.this, astronauts, names);
+                final Astronaut[] onDutyAstronauts = Astronaut.offDuty(astronauts);
+                names = Astronaut.getNames(onDutyAstronauts);
+                final CustomList astroAdapter = new CustomList(PeopleinSpace.this, onDutyAstronauts, names);
                 final ListView astroListView = (ListView) findViewById(R.id.listView);
                 PeopleinSpace.this.runOnUiThread(new Runnable() {
                     public void run() {
@@ -102,8 +128,8 @@ public class PeopleinSpace extends AppCompatActivity {
                             public void onItemClick(AdapterView<?> parent, View view,
                                                     final int position, long id) {
                                 startActivity(new Intent(getApplicationContext(), Info.class)
-                                        .putExtra("url", astronauts[position].getWiki())
-                                        .putExtra("astro", astronauts[position].getName()));
+                                        .putExtra("url", onDutyAstronauts[position].getWiki())
+                                        .putExtra("astro", onDutyAstronauts[position].getName()));
                             }
                         });
                         endAnimation();

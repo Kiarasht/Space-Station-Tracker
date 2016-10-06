@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -13,9 +14,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -25,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
 import org.json.JSONArray;
@@ -47,6 +51,7 @@ public class Locations extends AppCompatActivity {
 
     private ProgressDialog mProgressDialog;
     private RequestQueue requestQueue;
+    private Context mContext;
     private String mLontitude;
     private String mLatitude;
     private String mLocation;
@@ -60,6 +65,7 @@ public class Locations extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_locations);
+        mContext = getApplicationContext();
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         startAnimation();
@@ -112,6 +118,24 @@ public class Locations extends AppCompatActivity {
             adView.destroy();
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        AdView adView = (AdView) findViewById(R.id.adView);
+        RelativeLayout parent = (RelativeLayout) adView.getParent();
+        ViewGroup.LayoutParams adViewParams = adView.getLayoutParams();
+
+        parent.removeView(adView);
+        AdView newAdView = new AdView(mContext);
+        newAdView.setAdSize(AdSize.SMART_BANNER);
+        newAdView.setAdUnitId(getString(R.string.banner_ad_unit_id));
+        newAdView.setId(R.id.adView);
+
+        parent.addView(newAdView, adViewParams);
+        newAdView.loadAd(new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build());
     }
 
     /**

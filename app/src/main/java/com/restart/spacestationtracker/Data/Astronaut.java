@@ -1,11 +1,11 @@
 package com.restart.spacestationtracker.data;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Astronaut {
 
-    private String name;
-    private String role;
-    private String image;
-    private String wiki;
+    private String name, role, image, wiki, status;
 
     public Astronaut() {
     }
@@ -24,6 +24,10 @@ public class Astronaut {
 
     public String getRole() {
         return role;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     /**
@@ -62,5 +66,23 @@ public class Astronaut {
         }
 
         return names;
+    }
+
+
+    public static Astronaut[] offDuty(Astronaut[] astronauts) {
+        if (astronauts == null || astronauts.length == 0) {
+            return astronauts;
+        }
+
+        List<Astronaut> result = new LinkedList<>();
+        for (Astronaut aAstronaut : astronauts) {
+            if (aAstronaut.getStatus().equals("true")) {
+                result.add(aAstronaut);
+            }
+        }
+
+        astronauts = new Astronaut[result.size()];
+        result.toArray(astronauts);
+        return astronauts;
     }
 }
