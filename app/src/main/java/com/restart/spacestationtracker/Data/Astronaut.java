@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Astronaut {
 
+    // Data needed to represent a single astronaut
     private String name, role, image, wiki, status;
 
     public Astronaut() {
@@ -68,7 +69,12 @@ public class Astronaut {
         return names;
     }
 
-
+    /**
+     * Remove any astronauts from the database which are not currently on duty.
+     *
+     * @param astronauts List of astronauts that need to be filtered
+     * @return A new Astronaut array that contains only on duty astronauts
+     */
     public static Astronaut[] offDuty(Astronaut[] astronauts) {
         if (astronauts == null || astronauts.length == 0) {
             return astronauts;

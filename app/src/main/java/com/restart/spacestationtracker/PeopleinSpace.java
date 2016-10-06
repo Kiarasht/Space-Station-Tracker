@@ -1,19 +1,15 @@
 package com.restart.spacestationtracker;
 
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
@@ -21,16 +17,15 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.restart.spacestationtracker.data.Astronaut;
 import com.restart.spacestationtracker.view.CustomList;
 
 public class PeopleinSpace extends AppCompatActivity {
 
-    private ProgressDialog mProgressDialog;
     private Context mContext;
     private AdView adView;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,8 +33,7 @@ public class PeopleinSpace extends AppCompatActivity {
         mContext = getApplicationContext();
         Firebase.setAndroidContext(this);
         setContentView(R.layout.layout_locations);
-        startAnimation();
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         display_people();
 
         // Show an ad, or hide it if its disabled
@@ -80,24 +74,6 @@ public class PeopleinSpace extends AppCompatActivity {
         super.onDestroy();
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        AdView adView = (AdView) findViewById(R.id.adView);
-        RelativeLayout parent = (RelativeLayout) adView.getParent();
-        ViewGroup.LayoutParams adViewParams = adView.getLayoutParams();
-
-        parent.removeView(adView);
-        AdView newAdView = new AdView(mContext);
-        newAdView.setAdSize(AdSize.SMART_BANNER);
-        newAdView.setAdUnitId(getString(R.string.banner_ad_unit_id));
-        newAdView.setId(R.id.adView);
-
-        parent.addView(newAdView, adViewParams);
-        newAdView.loadAd(new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build());
-    }
-
     /**
      * Displays a list of astronauts in a ListView using Firebase.
      */
@@ -132,7 +108,6 @@ public class PeopleinSpace extends AppCompatActivity {
                                         .putExtra("astro", onDutyAstronauts[position].getName()));
                             }
                         });
-                        endAnimation();
                     }
                 });
             }
@@ -140,19 +115,8 @@ public class PeopleinSpace extends AppCompatActivity {
             @Override
             public void onCancelled(FirebaseError error) {
                 Toast.makeText(getApplicationContext(), "Unable to connect to database", Toast.LENGTH_SHORT).show();
-                endAnimation();
             }
         };
         firebase.addValueEventListener(valueEventListener);
-    }
-
-    void startAnimation() {
-        mProgressDialog = new ProgressDialog(PeopleinSpace.this);
-        mProgressDialog.setTitle("Just a moment...");
-        mProgressDialog.setMessage("Getting astronauts on duty");
-    }
-
-    void endAnimation() {
-        mProgressDialog.hide();
     }
 }

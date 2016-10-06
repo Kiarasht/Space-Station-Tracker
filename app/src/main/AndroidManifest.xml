@@ -21,7 +21,6 @@
         <!-- Maps Activity (Launcher) -->
         <activity
             android:name=".MapsActivity"
-            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_maps"
             android:launchMode="singleTop">
             <intent-filter>
@@ -33,8 +32,8 @@
         <!-- Preferences -->
         <activity
             android:name=".Preferences"
-            android:label="@string/label_setting"
-            android:configChanges="orientation|screenSize">
+            android:configChanges="orientation|screenSize"
+            android:label="@string/label_setting">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.restart.spacestationtracker.MapsActivity" />
@@ -43,8 +42,7 @@
         <!-- Locations -->
         <activity
             android:name=".Locations"
-            android:label="@string/label_location"
-            android:configChanges="orientation|screenSize">
+            android:label="@string/label_location">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.restart.spacestationtracker.MapsActivity" />
@@ -53,8 +51,7 @@
         <!-- People in Space -->
         <activity
             android:name=".PeopleinSpace"
-            android:label="@string/label_peopleinspace"
-            android:configChanges="orientation|screenSize">
+            android:label="@string/label_peopleinspace">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.restart.spacestationtracker.MapsActivity" />
@@ -63,8 +60,7 @@
         <!-- Help -->
         <activity
             android:name=".Help"
-            android:label="@string/label_help"
-            android:configChanges="orientation|screenSize">
+            android:label="@string/label_help">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.restart.spacestationtracker.MapsActivity" />
@@ -82,6 +78,7 @@
         <!-- Live Stream -->
         <activity
             android:name=".LiveStream"
+            android:configChanges="orientation|screenSize"
             android:label="@string/label_stream"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <meta-data
