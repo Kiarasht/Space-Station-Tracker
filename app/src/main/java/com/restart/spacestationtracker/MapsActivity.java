@@ -672,7 +672,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 boolean Alert = isMyServiceRunning(Alert.class);
 
                 if (Alert != mSharedPreferences.getBoolean("notification_ISS", false)) {
-                    Toast.makeText(MapsActivity.this, "ISS Notification wasn't stopped through the app.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MapsActivity.this, "ISS Notification wasn't stopped by you.", Toast.LENGTH_LONG).show();
                     mSharedPreferences.edit().putBoolean("notification_ISS", Alert).apply();
                 }
 

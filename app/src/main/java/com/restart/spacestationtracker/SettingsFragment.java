@@ -105,7 +105,6 @@ public class SettingsFragment extends PreferenceFragment {
 
         if (grantResults.length > 0
                 && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-            startActivity(new Intent(getActivity().getApplicationContext(), Locations.class));
             iss_Tracker.setChecked(true);
         } else {
             iss_Tracker.setChecked(false);
