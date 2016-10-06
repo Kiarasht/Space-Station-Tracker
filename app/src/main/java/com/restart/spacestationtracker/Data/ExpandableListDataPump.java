@@ -14,7 +14,8 @@ public class ExpandableListDataPump {
         general.add("ISS Tracker is an android application that allows you to track the position" +
                 " of the International Space Station (ISS) and find out what astronauts are currently in space." +
                 " The application comes with a notification system that can alert you whenever ISS" +
-                " approaches your location.");
+                " approaches your location.\n\n" +
+                "Make sure to rate me! Click here.");
 
         List<String> contribute = new ArrayList<>();
         contribute.add("Issue? Crash? Please do tell." +
@@ -67,10 +68,10 @@ public class ExpandableListDataPump {
                 "Link: https://thenounproject.com/Luis/");
 
         List<String> about = new ArrayList<>();
-        about.add("Version: 3.0");
-        about.add("Build on: 09/1/2016");
+        about.add("Version: 3.1");
+        about.add("Build on: 10/05/2016");
 
-        expandableListDetail.put("ISS Tracker", general);
+        expandableListDetail.put("Rate me", general);
         expandableListDetail.put("Contribute", contribute);
         expandableListDetail.put("Special Thanks", thanks);
         expandableListDetail.put("About ISS Tracker", about);

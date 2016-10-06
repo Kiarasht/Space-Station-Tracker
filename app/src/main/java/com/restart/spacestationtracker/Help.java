@@ -62,7 +62,9 @@ public class Help extends AppCompatActivity {
                                         int groupPosition, int childPosition, long id) {
                 String onClick = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition);
 
-                if (onClick.contains("\n")) {
+                if (onClick.contains("\n\n")) {
+                    launchMarket();
+                } else if (onClick.contains("\n")) {
                     String[] onClicks = onClick.split("\n");
                     String[] author = onClicks[1].split(":");
                     String[] link = onClicks[2].split(" ");
@@ -74,9 +76,8 @@ public class Help extends AppCompatActivity {
                     startActivity(intent);
                 } else if (onClick.contains("Version:") || onClick.contains("Build on:")) {
                     Toast.makeText(getApplicationContext(), onClick, Toast.LENGTH_SHORT).show();
-                } else {
-                    launchMarket();
                 }
+
                 return false;
             }
         });
