@@ -45,8 +45,7 @@ public class Locations extends AppCompatActivity {
     private final String TAG = ".Locations";
 
     private RequestQueue requestQueue;
-    private Context mContext;
-    private String mLontitude;
+    private String mLongitude;
     private String mLatitude;
     private String mLocation;
     private AdView adView;
@@ -59,7 +58,6 @@ public class Locations extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_locations);
-        mContext = getApplicationContext();
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         requestQueue = Volley.newRequestQueue(this);
@@ -68,7 +66,7 @@ public class Locations extends AppCompatActivity {
         // Show an ad, or hide it if its disabled
         if (!sharedPreferences.getBoolean("advertisement", false)) {
             adView = (AdView) findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.test_device)).build();
             if (adView != null) {
                 adView.loadAd(adRequest);
             }
@@ -136,7 +134,7 @@ public class Locations extends AppCompatActivity {
         // If we got something back start parsing
         if (location != null) {
             mLatitude = String.valueOf(location.getLatitude());
-            mLontitude = String.valueOf(location.getLongitude());
+            mLongitude = String.valueOf(location.getLongitude());
             displayresults();
             displaypasses(null, null, null);
         } else {
@@ -153,7 +151,7 @@ public class Locations extends AppCompatActivity {
         final String url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" +
                 mLatitude +
                 "," +
-                mLontitude +
+                mLongitude +
                 "&sensor=false";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
@@ -189,7 +187,7 @@ public class Locations extends AppCompatActivity {
         final String url;
         if (mLatitudepar == null && mLontitudepar == null) { // Location.java is calling this method
             url = "http://api.open-notify.org/iss-pass.json?lat=" +
-                    mLatitude + "&lon=" + mLontitude;
+                    mLatitude + "&lon=" + mLongitude;
         } else {                                            // Alert.java is calling this method
             url = "http://api.open-notify.org/iss-pass.json?lat=" +
                     mLatitudepar + "&lon=" + mLontitudepar;
@@ -231,7 +229,7 @@ public class Locations extends AppCompatActivity {
                         if (mLocation == null) {
                             final DecimalFormat decimalFormat = new DecimalFormat("0.000");
                             final String LAT = decimalFormat.format(Double.parseDouble(mLatitude));
-                            final String LNG = decimalFormat.format(Double.parseDouble(mLontitude));
+                            final String LNG = decimalFormat.format(Double.parseDouble(mLongitude));
                             Log.e(TAG, "mlocation is null: " + mLocation);
                             dates[0] = "Location: " + LAT + "° N, " + LNG + "° E";
                         }

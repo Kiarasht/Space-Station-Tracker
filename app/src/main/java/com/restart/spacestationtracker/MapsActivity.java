@@ -35,8 +35,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -78,6 +80,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private BoomMenuButton mBoomMenuButtonInActionBar;   // Drawer manager
     private SharedPreferences mSharedPreferences;        // Managing options from Settings
+    private InterstitialAd mInterstitialAd;              // Managing interstitial ads with AdMob sdk
     private MarkerOptions mMarkerOptions;                // Marker options, uses ISS drawable
     private DecimalFormat mDecimalFormat;                // For number decimal places
     private RequestQueue mRequestQueue;                  // Volley for JSONObject/JSONArray requests
@@ -93,6 +96,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private LatLng mLast;                                // Used for connecting polyline.
     private Timer mTimer;                                // Updates map based on refresh rate
 
+    private int mInterstitialAdActivity;                 // Keeps tracks of what activity was requested to open but was paused for ad
     private int mPolyCounter;                            // Counts how many polyline there are
     private int mRefreshrate;                            // Millisecond between each timer repeat of updating ISS's location
     private int mSuccess;                                // Tracks # times server failed to respond
@@ -164,9 +168,27 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        // Initiate the interstitial ad and onAdClosed listener
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_unit_id));
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                requestNewInterstitial();
+                switch (mInterstitialAdActivity) {
+                    case 0:
+                        startActivity(new Intent(mContext, Locations.class));
+                        break;
+                    case 1:
+                        startActivity(new Intent(mContext, PeopleinSpace.class));
+                        break;
+                }
+            }
+        });
+
         if (!mSharedPreferences.getBoolean("advertisement", false)) {
             mAdView = (AdView) findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.test_device)).build();
             mAdView.loadAd(adRequest);
         } else if (mAdView == null) {
             findViewById(R.id.adView).setVisibility(View.GONE);
@@ -179,6 +201,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onResume() {
         super.onResume();
 
+        requestNewInterstitial();
         mDecimalFormat = new DecimalFormat(mSharedPreferences.getString("decimalType", "0.000"));
 
         if (mStart) {                            // When activity was just paused
@@ -208,7 +231,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         } else if (!mSharedPreferences.getBoolean("advertisement", false)) {
             if (mAdView == null) {                       // User wants ads but instance is null
                 mAdView = (AdView) findViewById(R.id.adView);
-                AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
+                AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.test_device)).build();
                 mAdView.loadAd(adRequest);
             } else {                                    // User wants ads, instance already got one
                 mAdView.setVisibility(View.VISIBLE);
@@ -655,16 +678,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Intent intent;
         switch (buttonIndex) {
             case 0:
-                if (Build.VERSION.SDK_INT >= 23 && (mSharedPreferences.getBoolean(getString(R.string.askPermission), true) || !isLocationPermissionGranted())) {
+                if (Build.VERSION.SDK_INT >= 23 && !isLocationPermissionGranted()) {
                     getLocationPermission();
                 } else {
-                    intent = new Intent(mContext, Locations.class);
-                    startActivity(intent);
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                        mInterstitialAdActivity = 0;
+                    } else {
+                        intent = new Intent(mContext, Locations.class);
+                        startActivity(intent);
+                    }
                 }
                 break;
             case 1:
-                intent = new Intent(mContext, PeopleinSpace.class);
-                startActivity(intent);
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                    mInterstitialAdActivity = 1;
+                } else {
+                    intent = new Intent(mContext, PeopleinSpace.class);
+                    startActivity(intent);
+                }
                 break;
             case 2:
                 /* Update the check box representing the app's service. If for example the service
@@ -706,7 +739,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         if (grantResults.length > 0
                 && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-            startActivity(new Intent(mContext, Locations.class));
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+                mInterstitialAdActivity = 1;
+            } else {
+                startActivity(new Intent(mContext, Locations.class));
+            }
         }
     }
 
@@ -830,6 +868,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onISS() {
         Intent intent = new Intent(mContext, LiveStream.class);
         startActivity(intent);
+    }
+
+    /**
+     * Request for a new interstitial
+     */
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(getString(R.string.test_device))
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
     }
 
     @Override

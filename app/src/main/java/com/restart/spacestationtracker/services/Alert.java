@@ -21,7 +21,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
-import android.util.Log;
 
 import com.restart.spacestationtracker.Locations;
 import com.restart.spacestationtracker.R;
@@ -87,7 +86,6 @@ public class Alert extends Service {
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            Log.e(".Alert", "Permission");
             return START_STICKY;
         }
 
@@ -102,7 +100,6 @@ public class Alert extends Service {
                         != PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
-                    Log.wtf(".Alert", "Permission");
                     return;
                 }
 
@@ -110,7 +107,6 @@ public class Alert extends Service {
                 location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
                 if (location == null) {
-                    Log.wtf(".Alert", "No location");
                     return;
                 }
 
@@ -121,7 +117,6 @@ public class Alert extends Service {
                     // Get ISSs passes, saving them in an array of dates
                     dates = locations.displaypasses(String.valueOf(location.getLatitude()),
                             String.valueOf(location.getLongitude()), context);
-                    Log.wtf(".Alert", "Dates are null? Try: " + i);
                     // Wait a tiny bit for displaypasses to fully respond or reject. Also gives
                     // api service a breathing room before calling again if it failed.
                     // Try 30 times for 10 minutes.
@@ -134,15 +129,12 @@ public class Alert extends Service {
 
                 // Get user's current date
                 Date date = new Date();
-                Log.e(".Alert", "Dates are not null");
 
                 long last = sharedPreferences.getLong("time", 0);
 
                 if (last == 0) {
-                    Log.e(".Alert", "First time accept");
                     accept = new Date(System.currentTimeMillis() - 3600 * 1000);
                 } else {
-                    Log.e(".Alert", "Previous accept");
                     accept = new Date(last);
                 }
 

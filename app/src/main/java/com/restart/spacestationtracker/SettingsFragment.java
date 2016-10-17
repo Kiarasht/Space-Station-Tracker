@@ -76,7 +76,7 @@ public class SettingsFragment extends PreferenceFragment {
             mContext.startService(new Intent(mContext, Alert.class));
         } else {
             sharedPreferences.edit().putLong("time", 0).apply();
-            Toast.makeText(mContext, "Stop notify when ISS is close by", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Stop notifying when ISS is close by", Toast.LENGTH_SHORT).show();
             mContext.stopService(new Intent(mContext, Alert.class));
         }
     }
@@ -105,7 +105,7 @@ public class SettingsFragment extends PreferenceFragment {
 
         if (grantResults.length > 0
                 && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-            iss_Tracker.setChecked(true);
+            iss_Tracker.setChecked(false);
         } else {
             iss_Tracker.setChecked(false);
         }
