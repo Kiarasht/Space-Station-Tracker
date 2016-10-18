@@ -1,6 +1,7 @@
 package com.restart.spacestationtracker.view;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +25,9 @@ public class CustomList extends ArrayAdapter<String> {
         this.astronauts = astronauts;
     }
 
+    @NonNull
     @Override
-    public View getView(final int position, View view, ViewGroup parent) {
+    public View getView(final int position, View view, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.layout_listview, null, true);
         final TextView name = (TextView) rowView.findViewById(R.id.name);

@@ -10,6 +10,8 @@
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
         android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:paddingStart="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:paddingEnd="?android:attr/expandableListPreferredItemPaddingLeft"
         android:paddingTop="10dp"
         android:shadowColor="@color/Black"
         android:shadowDx="0.0"

@@ -2,7 +2,6 @@
     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightPrimary"
     android:orientation="vertical">
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"

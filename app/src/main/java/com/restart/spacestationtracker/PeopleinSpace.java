@@ -1,7 +1,6 @@
 package com.restart.spacestationtracker;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,28 +11,25 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.restart.spacestationtracker.data.Astronaut;
 import com.restart.spacestationtracker.view.CustomList;
 
 public class PeopleinSpace extends AppCompatActivity {
 
-    private Context mContext;
     private AdView adView;
-    private SharedPreferences sharedPreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getApplicationContext();
-        Firebase.setAndroidContext(this);
         setContentView(R.layout.layout_locations);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         display_people();
 
         // Show an ad, or hide it if its disabled
@@ -78,7 +74,8 @@ public class PeopleinSpace extends AppCompatActivity {
      * Displays a list of astronauts in a ListView using Firebase.
      */
     public void display_people() {
-        Firebase firebase = new Firebase("https://project-5182046725513325760.firebaseio.com/");
+        DatabaseReference ref = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl("https://project-5182046725513325760.firebaseio.com/");
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -113,10 +110,11 @@ public class PeopleinSpace extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(FirebaseError error) {
+            public void onCancelled(DatabaseError error) {
                 Toast.makeText(getApplicationContext(), "Unable to connect to database", Toast.LENGTH_SHORT).show();
             }
         };
-        firebase.addValueEventListener(valueEventListener);
+
+        ref.addValueEventListener(valueEventListener);
     }
 }

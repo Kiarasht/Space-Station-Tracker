@@ -3,6 +3,7 @@ package com.restart.spacestationtracker.data;
 import java.util.LinkedList;
 import java.util.List;
 
+@SuppressWarnings("unused") // Firebase doesn't need a constructor. Get unused warnings.
 public class Astronaut {
 
     // Data needed to represent a single astronaut

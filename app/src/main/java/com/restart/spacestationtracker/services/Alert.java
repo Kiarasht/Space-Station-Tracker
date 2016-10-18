@@ -31,11 +31,9 @@ import java.util.TimerTask;
 
 public class Alert extends Service {
 
-    private final int LOCATION_TIME = 1800000; // (30 minutes) minimum time interval between location updates, in milliseconds
-    private final int LOCATION_DISTANCE = 500; // (1500 meters) minimum distance between location updates, in meters
-    private final int TIMER_REPEAT = 3540000;  // (59 minutes) Time to repeat a compare between ISS and user's location
+    private static final int NOTIFICATION_ID = 1234;
+
     private SharedPreferences sharedPreferences;
-    private final int NOTIFICATION_ID = 1234;
     private LocationManager locationManager;
     private Locations locations;
     private Location location;
@@ -59,7 +57,7 @@ public class Alert extends Service {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 
-    LocationListener locationListener = new LocationListener() {
+    final LocationListener locationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
         }
 
@@ -89,8 +87,11 @@ public class Alert extends Service {
             return START_STICKY;
         }
 
+        final int locationTime = 1800000; // (30 minutes) minimum time interval between location updates, in milliseconds
+        final int locationDistance = 500; // (1500 meters) minimum distance between location updates, in meters
+        final int timerRepeat = 3540000;  // (59 minutes) Time to repeat a compare between ISS and user's location
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                LOCATION_TIME, LOCATION_DISTANCE, locationListener);
+                locationTime, locationDistance, locationListener);
         timer = new Timer();
 
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -151,7 +152,7 @@ public class Alert extends Service {
                     }
                 }
             }
-        }, 0, TIMER_REPEAT);
+        }, 0, timerRepeat);
 
         return START_STICKY;
     }

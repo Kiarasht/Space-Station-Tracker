@@ -75,11 +75,6 @@ public class Locations extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
     /**
      * Cancel any request on Volley after user goes to another activity.
      */
@@ -230,7 +225,7 @@ public class Locations extends AppCompatActivity {
                             final DecimalFormat decimalFormat = new DecimalFormat("0.000");
                             final String LAT = decimalFormat.format(Double.parseDouble(mLatitude));
                             final String LNG = decimalFormat.format(Double.parseDouble(mLongitude));
-                            Log.e(TAG, "mlocation is null: " + mLocation);
+                            Log.e(TAG, "mLocation is null: " + mLocation);
                             dates[0] = "Location: " + LAT + "° N, " + LNG + "° E";
                         }
 

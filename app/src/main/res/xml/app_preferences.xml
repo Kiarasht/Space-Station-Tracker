@@ -11,7 +11,7 @@
 
             sample:msbp_dialogEnabled="false"
             sample:msbp_interval="1"
-            sample:msbp_maxValue="60"
+            sample:msbp_maxValue="30"
             sample:msbp_measurementUnit="sec/refresh"
             sample:msbp_minValue="1" />
 

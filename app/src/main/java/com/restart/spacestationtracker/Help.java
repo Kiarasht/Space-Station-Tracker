@@ -1,7 +1,6 @@
 package com.restart.spacestationtracker;
 
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -26,14 +25,12 @@ public class Help extends AppCompatActivity {
 
     private HashMap<String, List<String>> expandableListDetail;
     private List<String> expandableListTitle;
-    private Context mContext;
     private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.help_layout);
-        mContext = getApplicationContext();
 
         ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
         expandableListDetail = ExpandableListDataPump.getData();

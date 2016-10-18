@@ -1,15 +1,22 @@
 <resources>
+    <!-- App name -->
     <string name="app_name">ISS Tracker</string>
     <string name="title_activity_maps">ISS Tracker</string>
-    <string name="picdescription">Crosshair</string>
+
+    <!-- Extras... -->
+    <string name="reset">Refresh prediction lines</string>
+    <string name="stream">ISS\'s live stream</string>
+
+    <!-- Admob -->
+    <string name="app_ID_Main">ca-app-pub-1850763013639682~7037607031</string>
     <string name="banner_ad_unit_id">ca-app-pub-1850763013639682/8514340237</string>
     <string name="interstitial_ad_unit_id">ca-app-pub-1850763013639682/7680127834</string>
     <string name="test_device">998B51E0DA18B35E1A4C4E6D78084ABB</string>
 
     <!-- Astro Tracker -->
-    <string name="astro_detail">astro_detail</string>
 
     <!-- Activities -->
+    <string name="label_map">Map</string>
     <string name="label_location">Flybys</string>
     <string name="label_peopleinspace">Who\'s in Space?</string>
     <string name="label_setting">Settings</string>
@@ -17,19 +24,11 @@
     <string name="label_stream">Live Stream</string>
 
     <!-- Shared Pref -->
-    <string name="askPermission">askPermission</string>
     <string name="firstTime">firstTime</string>
 
     <!-- Rate App -->
-    <string name="rate_dialog_title">Rate this app</string>
-    <string name="rate_dialog_message">Positive or negative, I genuinely want to hear your feedback if you got one as a new developer.</string>
-    <string name="rate_dialog_ok">OK</string>
-    <string name="rate_dialog_cancel">Maybe Later</string>
-    <string name="rate_dialog_no">No, Thanks</string>
 
     <!-- Dialog -->
-    <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
 
     <!-- Preferences -->
     <string name="mapType">Map type</string>
@@ -90,10 +89,7 @@
         <item>Yellow</item>
     </string-array>
 
-
     <string name="sizeType">Prediction line size</string>
-    <string name="reset">Refresh prediction lines</string>
-    <string name="stream">ISS\'s live stream</string>
     <string-array name="size">
         <item>1</item>
         <item>2</item>

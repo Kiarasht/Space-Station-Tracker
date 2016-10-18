@@ -51,7 +51,7 @@ public class SettingsFragment extends PreferenceFragment {
         mPreferenceScreen.findPreference("notification_ISS").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                if (!isLocationPermissionGranted(mContext)) {
+                if (!isLocationPermissionGranted()) {
                     getLocationPermission();
                     return true;
                 } else {
@@ -116,14 +116,9 @@ public class SettingsFragment extends PreferenceFragment {
      *
      * @return True or false
      */
-    public boolean isLocationPermissionGranted(Context context) {
-        if (Build.VERSION.SDK_INT >= 23) {
-            return context.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED &&
-                    context.checkSelfPermission(android.Manifest.permission.INTERNET)
-                            == PackageManager.PERMISSION_GRANTED;
-        } else { // Permission is automatically granted on sdk < 23 upon installation
-            return true;
-        }
+    public boolean isLocationPermissionGranted() {
+        return Build.VERSION.SDK_INT < 23 || (Build.VERSION.SDK_INT >= 23 && // Need the second Build.Version or it freaks out. Chill java
+                mContext.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                mContext.checkSelfPermission(android.Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED);
     }
 }

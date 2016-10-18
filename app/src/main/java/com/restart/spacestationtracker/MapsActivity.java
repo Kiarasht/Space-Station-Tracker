@@ -39,6 +39,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -123,7 +124,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
         final TextView mTitleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
-        mTitleTextView.setText("Map");
+        mTitleTextView.setText(getString(R.string.label_map));
 
         mBoomMenuButtonInActionBar = (BoomMenuButton) mCustomView.findViewById(R.id.boom);
         mBoomMenuButtonInActionBar.setOnSubButtonClickListener(this);
@@ -168,6 +169,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        MobileAds.initialize(mContext, getString(R.string.app_ID_Main));
         // Initiate the interstitial ad and onAdClosed listener
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_unit_id));
@@ -754,14 +756,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      * @return True or false
      */
     public boolean isLocationPermissionGranted() {
-        if (Build.VERSION.SDK_INT >= 23) { // Marshmallow or above
-            return mContext.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED &&
-                    mContext.checkSelfPermission(android.Manifest.permission.INTERNET)
-                            == PackageManager.PERMISSION_GRANTED;
-        } else { // Permission is automatically granted on sdk < 23 upon installation
-            return true;
-        }
+        return Build.VERSION.SDK_INT < 23 || (Build.VERSION.SDK_INT >= 23 && // Need the second Build.Version or it freaks out. Chill java
+               mContext.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+               mContext.checkSelfPermission(android.Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED);
     }
 
 
