@@ -38,10 +38,22 @@ public class SettingsFragment extends PreferenceFragment {
             public boolean onPreferenceClick(Preference preference) {
                 boolean checked = preference.getSharedPreferences().getBoolean("advertisement", false);
 
-                if (checked) {
-                    Toast.makeText(mContext, "Ads disabled. Consider enabling them when non-intrusive", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(mContext, "Ads enabled. Thanks for the support ;)", Toast.LENGTH_SHORT).show();
+                if (!checked) {
+                    Toast.makeText(mContext, "Banner ads enabled. Thanks for the support ;)", Toast.LENGTH_SHORT).show();
+                }
+
+                return true;
+            }
+        });
+
+        // Onclick methods for each of the check boxes
+        mPreferenceScreen.findPreference("fullPage").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                boolean checked = preference.getSharedPreferences().getBoolean("fullPage", false);
+
+                if (!checked) {
+                    Toast.makeText(mContext, "Full page ads enabled. Thanks for the support ;)", Toast.LENGTH_SHORT).show();
                 }
 
                 return true;

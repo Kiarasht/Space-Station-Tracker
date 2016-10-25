@@ -1,35 +1,46 @@
 package com.restart.spacestationtracker;
 
 
-import android.content.Intent;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.restart.spacestationtracker.data.Astronaut;
 import com.restart.spacestationtracker.view.CustomList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class PeopleinSpace extends AppCompatActivity {
 
+    private RequestQueue requestQueue;
+    private Context mContext;
     private AdView adView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_locations);
+        mContext = getApplicationContext();
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        requestQueue = Volley.newRequestQueue(this);
         display_people();
 
         // Show an ad, or hide it if its disabled
@@ -74,47 +85,51 @@ public class PeopleinSpace extends AppCompatActivity {
      * Displays a list of astronauts in a ListView using Firebase.
      */
     public void display_people() {
-        DatabaseReference ref = FirebaseDatabase.getInstance()
-                .getReferenceFromUrl("https://project-5182046725513325760.firebaseio.com/");
-        ValueEventListener valueEventListener = new ValueEventListener() {
+        final String url = "http://www.howmanypeopleareinspacerightnow.com/peopleinspace.json";
+        final List<Astronaut> peopleInSpace = new ArrayList<>();
+        final List<String> astronautNames = new ArrayList<>();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
+                null, new Response.Listener<JSONObject>() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                Astronaut[] astronauts = new Astronaut[6];
-                final String[] names;
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray astronauts = response.getJSONArray("people");
 
-                int i = 0;
-                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                    astronauts[i++] = postSnapshot.getValue(Astronaut.class);
-                }
+                    for (int i = 0; i < astronauts.length(); ++i) {
+                        JSONObject anAstronaut = astronauts.getJSONObject(i);
 
-                Astronaut.commanderFirst(astronauts);
-                final Astronaut[] onDutyAstronauts = Astronaut.offDuty(astronauts);
-                names = Astronaut.getNames(onDutyAstronauts);
-                final CustomList astroAdapter = new CustomList(PeopleinSpace.this, onDutyAstronauts, names);
-                final ListView astroListView = (ListView) findViewById(R.id.listView);
-                PeopleinSpace.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        astroListView.setAdapter(astroAdapter);
-                        astroListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        final String name = anAstronaut.getString("name");
+                        final String image = anAstronaut.getString("biophoto");
+                        final String country = anAstronaut.getString("country");
+                        final String countryLink = anAstronaut.getString("countryflag");
+                        final String launchDate = anAstronaut.getString("launchdate");
+                        final String role = anAstronaut.getString("title");
+                        final String location = anAstronaut.getString("location");
+                        final String bio = anAstronaut.getString("bio");
+                        final String wiki = anAstronaut.getString("biolink");
+                        final String twitter = anAstronaut.getString("twitter");
+                        final int careerDays = anAstronaut.getInt("careerdays");
 
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view,
-                                                    final int position, long id) {
-                                startActivity(new Intent(getApplicationContext(), Info.class)
-                                        .putExtra("url", onDutyAstronauts[position].getWiki())
-                                        .putExtra("astro", onDutyAstronauts[position].getName()));
-                            }
-                        });
+                        astronautNames.add(name);
+                        Astronaut storeAnAstronaut = new Astronaut(name, image, country, countryLink, launchDate, role, location, bio, wiki, twitter, careerDays);
+                        peopleInSpace.add(storeAnAstronaut);
                     }
-                });
-            }
 
+                    Collections.sort(peopleInSpace);
+                    final CustomList astroAdapter = new CustomList(PeopleinSpace.this, peopleInSpace, astronautNames);
+                    final ListView astroListView = (ListView) findViewById(R.id.listView);
+                    astroListView.setAdapter(astroAdapter);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
             @Override
-            public void onCancelled(DatabaseError error) {
-                Toast.makeText(getApplicationContext(), "Unable to connect to database", Toast.LENGTH_SHORT).show();
+            public void onErrorResponse(VolleyError e) {
             }
-        };
+        });
 
-        ref.addValueEventListener(valueEventListener);
+        requestQueue.add(jsonObjectRequest);
     }
 }

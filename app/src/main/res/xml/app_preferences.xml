@@ -3,7 +3,7 @@
     <PreferenceCategory xmlns:sample="http://schemas.android.com/apk/res-auto"
         android:title="Map">
         <com.pavelsikun.seekbarpreference.SeekBarPreference
-            android:defaultValue="1"
+            android:defaultValue="5"
             android:enabled="false"
             android:key="refresh_Rate"
             android:summary="Timespan between map relocating to ISS's new location"
@@ -89,8 +89,14 @@
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="advertisement"
-            android:summary="Disable all ads on the app"
-            android:title="Advertisement" />
+            android:summary="Disable banner ads on the app"
+            android:title="Banner" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="fullPage"
+            android:summary="Disable full page ads on the app"
+            android:title="Full Page" />
     </PreferenceCategory>
 
 </PreferenceScreen>

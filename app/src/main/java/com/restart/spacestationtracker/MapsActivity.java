@@ -559,9 +559,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError e) {
-                Toast.makeText(MapsActivity.this,
-                        "Either you have no connection or server is overloaded.",
-                        Toast.LENGTH_LONG).show();
+
             }
         });
         mRequestQueue.add(jsonArrayRequest);
@@ -683,7 +681,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (Build.VERSION.SDK_INT >= 23 && !isLocationPermissionGranted()) {
                     getLocationPermission();
                 } else {
-                    if (mInterstitialAd.isLoaded()) {
+                    if (mInterstitialAd.isLoaded() && !mSharedPreferences.getBoolean("fullPage", false)) {
                         mInterstitialAd.show();
                         mInterstitialAdActivity = 0;
                     } else {
@@ -693,7 +691,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
                 break;
             case 1:
-                if (mInterstitialAd.isLoaded()) {
+                if (mInterstitialAd.isLoaded() && !mSharedPreferences.getBoolean("fullPage", false)) {
                     mInterstitialAd.show();
                     mInterstitialAdActivity = 1;
                 } else {
@@ -757,8 +755,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     public boolean isLocationPermissionGranted() {
         return Build.VERSION.SDK_INT < 23 || (Build.VERSION.SDK_INT >= 23 && // Need the second Build.Version or it freaks out. Chill java
-               mContext.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-               mContext.checkSelfPermission(android.Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED);
+                mContext.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                mContext.checkSelfPermission(android.Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED);
     }
 
 
@@ -871,11 +869,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      * Request for a new interstitial
      */
     private void requestNewInterstitial() {
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(getString(R.string.test_device))
-                .build();
+        if (!mSharedPreferences.getBoolean("fullPage", false)) {
+            AdRequest adRequest = new AdRequest.Builder()
+                    //.addTestDevice(getString(R.string.test_device))
+                    .build();
 
-        mInterstitialAd.loadAd(adRequest);
+            mInterstitialAd.loadAd(adRequest);
+        }
     }
 
     @Override

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <FrameLayout
         android:id="@+id/frameLayout"
@@ -17,33 +18,70 @@
             app:civ_border_width="2dp" />
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/name"
+    <RelativeLayout
+        android:id="@+id/nameImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_gravity="center"
-        android:layout_toRightOf="@+id/frameLayout"
         android:layout_toEndOf="@+id/frameLayout"
+        android:layout_toRightOf="@+id/frameLayout"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:paddingTop="28dp"
-        android:textSize="20sp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:paddingTop="28dp">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/countryFlag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/name"
+            android:layout_toRightOf="@+id/name"
+            android:contentDescription="Country flag this astronaut is from"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp" />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/role"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/name"
+        android:layout_below="@+id/nameImage"
         android:layout_gravity="center"
-        android:layout_toRightOf="@+id/frameLayout"
         android:layout_toEndOf="@+id/frameLayout"
+        android:layout_toRightOf="@+id/frameLayout"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:textSize="14sp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:paddingBottom="4dp"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/astronautTwitter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/role"
+        android:layout_toEndOf="@+id/frameLayout"
+        android:layout_toRightOf="@+id/frameLayout"
+        android:contentDescription="Icon to link to astronaut's twitter page"
+        android:src="@drawable/ic_action_twitter_grey" />
+
+    <ImageView
+        android:id="@+id/astronautWiki"
+        android:padding="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/astronautTwitter"
+        android:layout_alignTop="@+id/astronautTwitter"
+        android:layout_toRightOf="@+id/astronautTwitter"
+        android:adjustViewBounds="true"
+        android:contentDescription="Icon to link to astronaut's wiki page"
+        android:scaleType="fitStart"
+        android:src="@drawable/ic_wikipedia" />
 
 </RelativeLayout>
