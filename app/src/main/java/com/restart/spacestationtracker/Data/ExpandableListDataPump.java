@@ -18,63 +18,85 @@ public class ExpandableListDataPump {
                 "Make sure to rate me! Click here.");
 
         List<String> contribute = new ArrayList<>();
-        contribute.add("Issue? Crash? Please do tell." +
+        contribute.add("Space Station Tracker" +
                 "\n" +
-                "Author: Kiarash Torkian" +
+                "Kiarash Torkian" +
                 "\n" +
-                "Link: https://github.com/Kiarasht/Space-Station-Tracker");
+                "Mozilla Public License Version 2.0");
 
         List<String> thanks = new ArrayList<>();
-        thanks.add("Library: AVLoadingIndicatorView" +
+        thanks.add("Picasso" +
                 "\n" +
-                "Author: Jack Wang" +
+                "Copyright 2013 Square, Inc." +
                 "\n" +
-                "Link: https://github.com/81813780/AVLoadingIndicatorView");
+                "Apache License Version 2.0");
 
-        thanks.add("Library: MaterialSeekBarPreference" +
+        thanks.add("ObservableScrollView" +
                 "\n" +
-                "Author: Pavel Sikun" +
+                "Copyright 2014 Soichiro Kashima" +
                 "\n" +
-                "Link: https://github.com/MrBIMC/MaterialSeekBarPreference");
+                "Apache License Version 2.0");
 
-        thanks.add("Library: Spotlight" +
+        thanks.add("CircleImageView" +
                 "\n" +
-                "Author: Jitender Chaudhary" +
+                "Copyright 2014 - 2016 Henning Dodenhof" +
                 "\n" +
-                "Link: https://github.com/wooplr/Spotlight");
+                "Apache License Version 2.0");
 
-        thanks.add("Library: BoomMenu" +
+        thanks.add("MaterialSeekBarPreference" +
                 "\n" +
-                "Author: Weiping Huang" +
+                "Pavel Sikun" +
                 "\n" +
-                "Link: https://github.com/Nightonke/BoomMenu");
+                "Apache License Version 2.0");
 
-        thanks.add("Library: API service" +
+        thanks.add("Spotlight" +
                 "\n" +
-                "Author: Nathan Bergey" +
+                "Jitender Chaudhary" +
                 "\n" +
-                "Link: http://open-notify.org/");
+                "Apache License Version 2.0");
 
-        thanks.add("Library: Image" +
+        thanks.add("BoomMenu" +
                 "\n" +
-                "Author: Morning Train" +
+                "Weiping Huang" +
                 "\n" +
-                "Link: https://www.iconfinder.com/morningtrain");
+                "Apache License Version 2.0");
 
-        thanks.add("Library: Image" +
+        thanks.add("API service" +
                 "\n" +
-                "Author: Luis Prado" +
+                "Nathan Bergey");
+
+        thanks.add("Image" +
                 "\n" +
-                "Link: https://thenounproject.com/Luis/");
+                "Morning Train");
+
+        thanks.add("Image" +
+                "\n" +
+                "Luis Prado");
 
         List<String> about = new ArrayList<>();
-        about.add("Version: 3.1");
-        about.add("Build on: 10/05/2016");
+        about.add("Version: 3.2");
+        about.add("Build on: 10/24/2016");
 
         expandableListDetail.put("Rate me", general);
         expandableListDetail.put("Contribute", contribute);
         expandableListDetail.put("Special Thanks", thanks);
         expandableListDetail.put("About ISS Tracker", about);
         return expandableListDetail;
+    }
+
+    public static ArrayList<String> getUrlList() {
+        ArrayList<String> urlList = new ArrayList<>();
+
+        urlList.add("https://github.com/Kiarasht/Space-Station-Tracker");
+        urlList.add("https://github.com/square/picasso");
+        urlList.add("https://github.com/ksoichiro/Android-ObservableScrollView");
+        urlList.add("https://github.com/hdodenhof/CircleImageView");
+        urlList.add("https://github.com/MrBIMC/MaterialSeekBarPreference");
+        urlList.add("https://github.com/wooplr/Spotlight");
+        urlList.add("https://github.com/Nightonke/BoomMenu");
+        urlList.add("http://open-notify.org");
+        urlList.add("https://www.iconfinder.com/morningtrain");
+        urlList.add("https://thenounproject.com/Luis");
+        return urlList;
     }
 }

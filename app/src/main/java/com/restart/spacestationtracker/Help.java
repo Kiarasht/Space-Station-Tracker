@@ -25,12 +25,15 @@ public class Help extends AppCompatActivity {
 
     private HashMap<String, List<String>> expandableListDetail;
     private List<String> expandableListTitle;
+    private ArrayList<String> urlList;
     private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.help_layout);
+
+        urlList = ExpandableListDataPump.getUrlList();
 
         ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
         expandableListDetail = ExpandableListDataPump.getData();
@@ -39,17 +42,14 @@ public class Help extends AppCompatActivity {
         expandableListView.setAdapter(expandableListAdapter);
 
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-
             @Override
             public void onGroupExpand(int groupPosition) {
             }
         });
 
         expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
             @Override
             public void onGroupCollapse(int groupPosition) {
-
             }
         });
 
@@ -58,18 +58,15 @@ public class Help extends AppCompatActivity {
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 String onClick = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition);
-
                 if (onClick.contains("\n\n")) {
                     launchMarket();
                 } else if (onClick.contains("\n")) {
                     String[] onClicks = onClick.split("\n");
-                    String[] author = onClicks[1].split(":");
-                    String[] link = onClicks[2].split(" ");
-                    author[1] = author[1].substring(1, author[1].length());
+                    String author = onClicks[0];
 
                     Intent intent = new Intent(getApplicationContext(), Info.class);
-                    intent.putExtra("url", link[1]);
-                    intent.putExtra("astro", author[1]);
+                    intent.putExtra("url", urlList.get(childPosition));
+                    intent.putExtra("astro", author);
                     startActivity(intent);
                 } else if (onClick.contains("Version:") || onClick.contains("Build on:")) {
                     Toast.makeText(getApplicationContext(), onClick, Toast.LENGTH_SHORT).show();

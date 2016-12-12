@@ -42,6 +42,7 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -116,6 +117,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        MapsInitializer.initialize(getApplicationContext());
 
         ActionBar mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
@@ -733,15 +735,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      *
      * @param requestCode  For managing requests, in this case it's just 1
      * @param permissions  Would be nice to get internet and location
-     * @param grantResults The ACCESS_FINE_LOCATION must to be granted
+     * @param grantResults The ACCESS_FINE_LOCATION must be granted
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         if (grantResults.length > 0
                 && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-            if (mInterstitialAd.isLoaded()) {
+            if (mInterstitialAd.isLoaded() && !mSharedPreferences.getBoolean("fullPage", false)) {
                 mInterstitialAd.show();
-                mInterstitialAdActivity = 1;
+                mInterstitialAdActivity = 0;
             } else {
                 startActivity(new Intent(mContext, Locations.class));
             }
