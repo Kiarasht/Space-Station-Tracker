@@ -3,6 +3,17 @@
     <string name="app_name">ISS Tracker</string>
     <string name="title_activity_maps">ISS Tracker</string>
 
+    <!-- Main Drawer Strings -->
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">On Duty</string>
+    <string name="settings_title">Settings</string>
+    <string name="help_title">Help</string>
+
+    <string name="flybys_summary">Check ISS\'s passes by your location</string>
+    <string name="space_summary">See who is in space right now</string>
+    <string name="settings_summary">Manage general app settings</string>
+    <string name="help_summary">Rate or learn about the app</string>
+
     <!-- Extras... -->
     <string name="reset">Refresh prediction lines</string>
     <string name="stream">ISS\'s live stream</string>

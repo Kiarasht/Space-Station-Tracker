@@ -7,19 +7,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -51,12 +48,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
+import com.nightonke.boommenu.BoomButtons.HamButton;
+import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
-import com.nightonke.boommenu.Types.BoomType;
-import com.nightonke.boommenu.Types.ButtonType;
-import com.nightonke.boommenu.Types.PlaceType;
-import com.nightonke.boommenu.Util;
-import com.restart.spacestationtracker.services.Alert;
+import com.nightonke.boommenu.ButtonEnum;
+import com.nightonke.boommenu.Piece.PiecePlaceEnum;
 import com.wooplr.spotlight.SpotlightView;
 import com.wooplr.spotlight.utils.SpotlightListener;
 
@@ -73,19 +70,16 @@ import java.util.TimerTask;
  * Contains the google map and uses volley to grab JSON objects and display
  * the position of the ISS as a customized marker on the map and update it occasionally.
  */
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,
-        BoomMenuButton.OnSubButtonClickListener,
-        BoomMenuButton.AnimatorListener,
-        View.OnClickListener {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
 
     private static final String TAG = ".MapsActivity";   // Used for volley and occasional Log
 
-    private BoomMenuButton mBoomMenuButtonInActionBar;   // Drawer manager
     private SharedPreferences mSharedPreferences;        // Managing options from Settings
     private InterstitialAd mInterstitialAd;              // Managing interstitial ads with AdMob sdk
     private MarkerOptions mMarkerOptions;                // Marker options, uses ISS drawable
     private DecimalFormat mDecimalFormat;                // For number decimal places
     private RequestQueue mRequestQueue;                  // Volley for JSONObject/JSONArray requests
+    private BoomMenuButton mBoomMenu;                    // Manages the drawer pop menu
     private Polyline[] mPolyArray;                       // An array of polyline. Need 200 for a nice curve
     private TextView mDescription;                       // A description of additional ISS info. Optional
     private Polyline mPolyLine;                          // A single poly to help compare any changes from settings
@@ -120,23 +114,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         MapsInitializer.initialize(getApplicationContext());
 
         ActionBar mActionBar = getSupportActionBar();
+        assert mActionBar != null;
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
         LayoutInflater mInflater = LayoutInflater.from(this);
 
-        View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
-        final TextView mTitleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
-        mTitleTextView.setText(getString(R.string.label_map));
-
-        mBoomMenuButtonInActionBar = (BoomMenuButton) mCustomView.findViewById(R.id.boom);
-        mBoomMenuButtonInActionBar.setOnSubButtonClickListener(this);
-        mBoomMenuButtonInActionBar.setAnimatorListener(this);
-        mBoomMenuButtonInActionBar.setDuration(700);
-        mBoomMenuButtonInActionBar.setDelay(100);
-
-        mActionBar.setCustomView(mCustomView);
+        View actionBar = mInflater.inflate(R.layout.custom_actionbar, null);
+        final TextView mTitleTextView = (TextView) actionBar.findViewById(R.id.title_text);
+        mTitleTextView.setText(R.string.app_name);
+        mActionBar.setCustomView(actionBar);
         mActionBar.setDisplayShowCustomEnabled(true);
-        ((Toolbar) mCustomView.getParent()).setContentInsetsAbsolute(0, 0);
+        ((Toolbar) actionBar.getParent()).setContentInsetsAbsolute(0,0);
+
+        initiateBoomMenu();
 
         mPoly = 0;
         mOnce = true;
@@ -567,91 +557,122 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mRequestQueue.add(jsonArrayRequest);
     }
 
-    /**
-     * Method responsible of creating and designing the popup drawer. (BoomMenuButton)
-     */
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
+    private void initiateBoomMenu() {
+        mBoomMenu = (BoomMenuButton) findViewById(R.id.action_bar_right_bmb);
+        assert mBoomMenu != null;
+        mBoomMenu.setButtonEnum(ButtonEnum.Ham);
+        mBoomMenu.setPiecePlaceEnum(PiecePlaceEnum.HAM_4);
+        mBoomMenu.setButtonPlaceEnum(ButtonPlaceEnum.HAM_4);
 
-        final int number = 4;
+        for (int i = 0; i < mBoomMenu.getPiecePlaceEnum().pieceNumber(); i++) {
+            HamButton.Builder builder;
+            switch (i) {
+                case 0:
+                    builder = new HamButton.Builder()
+                            .listener(new OnBMClickListener() {
+                                @Override
+                                public void onBoomButtonClick(int index) {
+                                    Intent intent;
+                                    if (Build.VERSION.SDK_INT >= 23 && !isLocationPermissionGranted()) {
+                                        getLocationPermission();
+                                    } else {
+                                        if (mInterstitialAd.isLoaded() && !mSharedPreferences.getBoolean("fullPage", false)) {
+                                            mInterstitialAd.show();
+                                            mInterstitialAdActivity = 0;
+                                        } else {
+                                            intent = new Intent(mContext, Locations.class);
+                                            startActivity(intent);
+                                        }
+                                    }
+                                }
+                            })
+                            .normalImageRes(R.drawable.iss)
+                            .normalTextRes(R.string.flybys_title)
+                            .subNormalTextRes(R.string.flybys_summary)
+                            .normalColor(Color.parseColor("#807E57C2"))
+                            .highlightedColor(Color.parseColor("#807E57C2"))
+                            .unableColor(Color.parseColor("#807E57C2"))
+                            .rotateImage(false);
+                    break;
+                case 1:
+                    builder = new HamButton.Builder()
+                            .listener(new OnBMClickListener() {
+                                @Override
+                                public void onBoomButtonClick(int index) {
+                                    Intent intent;
+                                    if (mInterstitialAd.isLoaded() && !mSharedPreferences.getBoolean("fullPage", false)) {
+                                        mInterstitialAd.show();
+                                        mInterstitialAdActivity = 1;
+                                    } else {
+                                        intent = new Intent(mContext, PeopleinSpace.class);
+                                        startActivity(intent);
+                                    }
+                                }
+                            })
+                            .normalImageRes(R.drawable.astronaut)
+                            .normalTextRes(R.string.space_title)
+                            .subNormalTextRes(R.string.space_summary)
+                            .normalColor(Color.parseColor("#80EF5350"))
+                            .highlightedColor(Color.parseColor("#80EF5350"))
+                            .unableColor(Color.parseColor("#80EF5350"))
+                            .rotateImage(false);
+                    break;
+                case 2:
+                    builder = new HamButton.Builder()
+                            .listener(new OnBMClickListener() {
+                                @Override
+                                public void onBoomButtonClick(int index) {
+                                    Intent intent;
+                                    /* Update the check box representing the app's service. If for example the service
+                                     exited not by the app, it shouldn't be checked. */
+                                    boolean Alert = isMyServiceRunning(com.restart.spacestationtracker.services.Alert.class);
 
-        Drawable[] drawables = new Drawable[number];
-        int[] drawablesResource = new int[]{
-                R.drawable.iss,
-                R.drawable.astronaut,
-                R.drawable.ic_settings,
-                R.drawable.ic_help_outline,
-        };
+                                    if (Alert != mSharedPreferences.getBoolean("notification_ISS", false)) {
+                                        Toast.makeText(MapsActivity.this, "ISS Notification wasn't stopped by you.", Toast.LENGTH_LONG).show();
+                                        mSharedPreferences.edit().putBoolean("notification_ISS", Alert).apply();
+                                    }
 
-        for (int i = 0; i < number; i++)
-            drawables[i] = ContextCompat.getDrawable(this, drawablesResource[i]);
-
-        String[] STRINGS = new String[]{
-                "Flybys",
-                "Who's in Space?",
-                "Settings",
-                "Help",
-        };
-
-        String[] strings = new String[number];
-        System.arraycopy(STRINGS, 0, strings, 0, number);
-
-        int[][] colors = new int[number][2];
-        for (int i = 0; i < number; i++) {
-            colors[i][1] = GetColor(i);
-            colors[i][0] = Util.getInstance().getPressedColor(colors[i][1]);
+                                    intent = new Intent(mContext, Preferences.class);
+                                    startActivity(intent);
+                                }
+                            })
+                            .normalImageRes(R.drawable.ic_settings)
+                            .normalTextRes(R.string.settings_title)
+                            .subNormalTextRes(R.string.settings_summary)
+                            .normalColor(Color.parseColor("#8066BB6A"))
+                            .highlightedColor(Color.parseColor("#8066BB6A"))
+                            .unableColor(Color.parseColor("#8066BB6A"))
+                            .rotateImage(false);
+                    break;
+                case 3:
+                    builder = new HamButton.Builder()
+                            .listener(new OnBMClickListener() {
+                                @Override
+                                public void onBoomButtonClick(int index) {
+                                    Intent intent;
+                                    intent = new Intent(mContext, Help.class);
+                                    startActivity(intent);
+                                }
+                            })
+                            .normalImageRes(R.drawable.ic_help_outline)
+                            .normalTextRes(R.string.help_title)
+                            .subNormalTextRes(R.string.help_summary)
+                            .normalColor(Color.parseColor("#8029B6F6"))
+                            .highlightedColor(Color.parseColor("#8029B6F6"))
+                            .unableColor(Color.parseColor("#8029B6F6"))
+                            .rotateImage(false);
+                    break;
+                default:
+                    return;
+            }
+            mBoomMenu.addBuilder(builder);
         }
-
-        mBoomMenuButtonInActionBar.init(
-                drawables,          // The drawables of images of sub buttons. Can not be null.
-                strings,            // The texts of sub buttons, ok to be null.
-                colors,             // The colors of sub buttons, including pressed-state and normal-state.
-                ButtonType.HAM,     // The button type.
-                BoomType.LINE,      // The boom type.
-                PlaceType.HAM_4_1,  // The place type.
-                null,               // Ease type to move the sub buttons when showing.
-                null,               // Ease type to scale the sub buttons when showing.
-                null,               // Ease type to rotate the sub buttons when showing.
-                null,               // Ease type to move the sub buttons when dismissing.
-                null,               // Ease type to scale the sub buttons when dismissing.
-                null,               // Ease type to rotate the sub buttons when dismissing.
-                null                // Rotation degree.
-        );
     }
 
-    /**
-     * Manually picked colors that best matched the over theme of the application.
-     *
-     * @param iteration The i iteration of previous method.
-     * @return Returns a color hex which also includes some transparency.
-     */
-    public int GetColor(int iteration) {
-        int colors;
-        switch (iteration) {
-            case 0:
-                colors = Color.parseColor("#807E57C2");
-                break;
-            case 1:
-                colors = Color.parseColor("#80EF5350");
-                break;
-            case 2:
-                colors = Color.parseColor("#8066BB6A");
-                break;
-            case 3:
-                colors = Color.parseColor("#8029B6F6");
-                break;
-            default:
-                colors = Color.parseColor("#805C6BC0");
-                break;
-        }
-        return colors;
-    }
-
-    /**
+    /** //TODO find the equivalent of the new methods
      * Navigate out of boom menu first on back button
      */
-    @Override
+/*    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             switch (keyCode) {
@@ -666,60 +687,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    /**
-     * onClick method for each drawer popup. Most just start another activity but location
-     * needs to make sure Location permission is allowed by the user. Settings needs to compare
-     * service state with the boolean on hand to see if they ever got shutdown.
-     *
-     * @param buttonIndex Index representing which button was clicked.
-     */
-    @Override
-    public void onClick(int buttonIndex) {
-        Intent intent;
-        switch (buttonIndex) {
-            case 0:
-                if (Build.VERSION.SDK_INT >= 23 && !isLocationPermissionGranted()) {
-                    getLocationPermission();
-                } else {
-                    if (mInterstitialAd.isLoaded() && !mSharedPreferences.getBoolean("fullPage", false)) {
-                        mInterstitialAd.show();
-                        mInterstitialAdActivity = 0;
-                    } else {
-                        intent = new Intent(mContext, Locations.class);
-                        startActivity(intent);
-                    }
-                }
-                break;
-            case 1:
-                if (mInterstitialAd.isLoaded() && !mSharedPreferences.getBoolean("fullPage", false)) {
-                    mInterstitialAd.show();
-                    mInterstitialAdActivity = 1;
-                } else {
-                    intent = new Intent(mContext, PeopleinSpace.class);
-                    startActivity(intent);
-                }
-                break;
-            case 2:
-                /* Update the check box representing the app's service. If for example the service
-                 exited not by the app, it shouldn't be checked. */
-                boolean Alert = isMyServiceRunning(Alert.class);
-
-                if (Alert != mSharedPreferences.getBoolean("notification_ISS", false)) {
-                    Toast.makeText(MapsActivity.this, "ISS Notification wasn't stopped by you.", Toast.LENGTH_LONG).show();
-                    mSharedPreferences.edit().putBoolean("notification_ISS", Alert).apply();
-                }
-
-                intent = new Intent(mContext, Preferences.class);
-                startActivity(intent);
-                break;
-            case 3:
-                intent = new Intent(mContext, Help.class);
-                startActivity(intent);
-                break;
-        }
-    }
+    }*/
 
     /**
      * Get the permissions needed for the Locations.class
@@ -820,7 +788,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 .subHeadingTvSize(16)
                                 .subHeadingTvText("Drawer takes you to other features such as flybys, settings, etc...")
                                 .maskColor(Color.parseColor("#dc000000"))
-                                .target(mBoomMenuButtonInActionBar)
+                                .target(mBoomMenu)
                                 .lineAnimDuration(400)
                                 .lineAndArcColor(Color.parseColor("#6441A5"))
                                 .dismissOnTouch(true)
@@ -878,30 +846,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             mInterstitialAd.loadAd(adRequest);
         }
-    }
-
-    @Override
-    public void toShow() {
-    }
-
-    @Override
-    public void showing(float fraction) {
-    }
-
-    @Override
-    public void showed() {
-    }
-
-    @Override
-    public void toHide() {
-    }
-
-    @Override
-    public void hiding(float fraction) {
-    }
-
-    @Override
-    public void hided() {
     }
 
     @Override
