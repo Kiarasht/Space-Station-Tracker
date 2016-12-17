@@ -75,21 +75,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final String TAG = ".MapsActivity";   // Used for volley and occasional Log
 
     private SharedPreferences mSharedPreferences;        // Managing options from Settings
+    private BoomMenuButton mBoomMenu;                    // Manages the drawer pop menu
     private InterstitialAd mInterstitialAd;              // Managing interstitial ads with AdMob sdk
     private MarkerOptions mMarkerOptions;                // Marker options, uses ISS drawable
     private DecimalFormat mDecimalFormat;                // For number decimal places
     private RequestQueue mRequestQueue;                  // Volley for JSONObject/JSONArray requests
-    private BoomMenuButton mBoomMenu;                    // Manages the drawer pop menu
+    private GoogleMap mMap;                              // Google maps
     private Polyline[] mPolyArray;                       // An array of polyline. Need 200 for a nice curve
     private TextView mDescription;                       // A description of additional ISS info. Optional
-    private Polyline mPolyLine;                          // A single poly to help compare any changes from settings
     private TextView mLatLong;                           // Lat & Lon of ISS
+    private Polyline mPolyLine;                          // A single poly to help compare any changes from settings
     private Context mContext;                            // Application context
-    private Timer mPolyTimer;                            // Updates the poly lines
-    private GoogleMap mMap;                              // Google maps
     private Marker mMarker;                              // Marker representing ISS that moves alone the prediction line
     private AdView mAdView;                              // Optional ads
     private LatLng mLast;                                // Used for connecting polyline.
+    private Timer mPolyTimer;                            // Updates the poly lines
     private Timer mTimer;                                // Updates map based on refresh rate
 
     private int mInterstitialAdActivity;                 // Keeps tracks of what activity was requested to open but was paused for ad
@@ -140,7 +140,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mDescription = (TextView) findViewById(R.id.textView2);
         PreferenceManager.setDefaultValues(this, R.xml.app_preferences, false);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mRefreshrate = 1000 * mSharedPreferences.getInt("refresh_Rate", 1);
+        mRefreshrate = 1000 * mSharedPreferences.getInt("refresh_Rate", 10);
         mFirstTime = mSharedPreferences.getBoolean(getString(R.string.firstTime), true);
         mMarkerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.iss_2011));
         mMarkerOptions.anchor(0.5f, 0.5f);
@@ -199,7 +199,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mDecimalFormat = new DecimalFormat(mSharedPreferences.getString("decimalType", "0.000"));
 
         if (mStart) {                            // When activity was just paused
-            mRefreshrate = 1000 * mSharedPreferences.getInt("refresh_Rate", 25);
+            mRefreshrate = 1000 * mSharedPreferences.getInt("refresh_Rate", 10);
             if (mTimer != null) {
                 mTimer.cancel();
                 mTimer.purge();
@@ -669,26 +669,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    /** //TODO find the equivalent of the new methods
-     * Navigate out of boom menu first on back button
-     */
-/*    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            switch (keyCode) {
-                case KeyEvent.KEYCODE_BACK:
-                    if (mBoomMenuButtonInActionBar.isOpen()) {
-                        mBoomMenuButtonInActionBar.dismiss();
-                    } else {
-                        finish();
-                    }
-
-                    return true;
-            }
-        }
-        return super.onKeyDown(keyCode, event);
-    }*/
-
     /**
      * Get the permissions needed for the Locations.class
      */
@@ -836,7 +816,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     /**
-     * Request for a new interstitial
+     * Request for a new interstitial ad
      */
     private void requestNewInterstitial() {
         if (!mSharedPreferences.getBoolean("fullPage", false)) {

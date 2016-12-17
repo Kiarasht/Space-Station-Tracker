@@ -65,7 +65,11 @@ public class Help extends AppCompatActivity {
                     String author = onClicks[0];
 
                     Intent intent = new Intent(getApplicationContext(), Info.class);
-                    intent.putExtra("url", urlList.get(childPosition));
+                    if (groupPosition == 1) {
+                        intent.putExtra("url", urlList.get(childPosition));
+                    } else {
+                        intent.putExtra("url", urlList.get(childPosition + 1));
+                    }
                     intent.putExtra("astro", author);
                     startActivity(intent);
                 } else if (onClick.contains("Version:") || onClick.contains("Build on:")) {

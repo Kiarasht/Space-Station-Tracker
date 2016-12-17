@@ -63,19 +63,25 @@ public class ExpandableListDataPump {
 
         thanks.add("API service" +
                 "\n" +
-                "Nathan Bergey");
+                "Nathan Bergey" +
+                "\n" +
+                "Attribution 3.0 Unported");
 
         thanks.add("Image" +
                 "\n" +
-                "Morning Train");
+                "Morning Train" +
+                "\n" +
+                "Free for commercial use");
 
         thanks.add("Image" +
                 "\n" +
-                "Luis Prado");
+                "Luis Prado" +
+                "\n" +
+                "Attribution 3.0 United States");
 
         List<String> about = new ArrayList<>();
-        about.add("Version: 3.2");
-        about.add("Build on: 10/24/2016");
+        about.add("Version: 3.3");
+        about.add("Build on: 12/17/2016");
 
         expandableListDetail.put("Rate me", general);
         expandableListDetail.put("Contribute", contribute);
