@@ -36,7 +36,7 @@ public class Help extends AppCompatActivity {
         urlList = ExpandableListDataPump.getUrlList();
 
         ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
-        expandableListDetail = ExpandableListDataPump.getData();
+        expandableListDetail = ExpandableListDataPump.getData(getResources());
         expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
         ExpandableListAdapter expandableListAdapter = new CustomExpandableListAdapter(this, expandableListTitle, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);
@@ -126,7 +126,7 @@ public class Help extends AppCompatActivity {
         try {
             startActivity(myAppLinkToMarket);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(this, " unable to find market app", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.errorMarket, Toast.LENGTH_LONG).show();
         }
     }
 }

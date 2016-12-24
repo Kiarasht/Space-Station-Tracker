@@ -16,7 +16,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -244,7 +243,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     mPolyArray[i].setWidth(currentWidth);
                 }
             } else {
-                Log.e(TAG, "Can't reset the map");
+                Toast.makeText(mContext, R.string.errorMap, Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -464,13 +463,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onErrorResponse(VolleyError e) {
                 // Server did not respond. Got 5 chances before stop trying.
                 if (++mSuccess <= 4) {
-                    Toast.makeText(MapsActivity.this,
-                            "Request to server failed. " + mSuccess + " out of 5. Trying in " +
-                                    mRefreshrate / 1000 + " seconds.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MapsActivity.this, getResources().getString(R.string.errorLessFive, mSuccess, mRefreshrate), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(MapsActivity.this,
-                            "Failed all 5 times. Either you have no connection or server is overloaded.",
-                            Toast.LENGTH_LONG).show();
+                    Toast.makeText(MapsActivity.this, R.string.errorFiveTimes, Toast.LENGTH_LONG).show();
                     if (mTimer != null) {
                         mTimer.cancel();
                         mTimer.purge();
@@ -628,7 +623,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     boolean Alert = isMyServiceRunning(com.restart.spacestationtracker.services.Alert.class);
 
                                     if (Alert != mSharedPreferences.getBoolean("notification_ISS", false)) {
-                                        Toast.makeText(MapsActivity.this, "ISS Notification wasn't stopped by you.", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(MapsActivity.this, R.string.errorNotByMe, Toast.LENGTH_LONG).show();
                                         mSharedPreferences.edit().putBoolean("notification_ISS", Alert).apply();
                                     }
 
@@ -746,7 +741,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .headingTvText("Hey There :)")
                 .subHeadingTvColor(Color.parseColor("#ffffff"))
                 .subHeadingTvSize(16)
-                .subHeadingTvText("Map shows ISS's current location with a prediction line of where it will be.")
+                .subHeadingTvText(getString(R.string.tutorialOne))
                 .maskColor(Color.parseColor("#dc000000"))
                 .target(mTitleTextView)
                 .lineAnimDuration(400)
@@ -766,7 +761,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 .headingTvText("Main Features")
                                 .subHeadingTvColor(Color.parseColor("#ffffff"))
                                 .subHeadingTvSize(16)
-                                .subHeadingTvText("Drawer takes you to other features such as flybys, settings, etc...")
+                                .subHeadingTvText(getString(R.string.tutorialTwo))
                                 .maskColor(Color.parseColor("#dc000000"))
                                 .target(mBoomMenu)
                                 .lineAnimDuration(400)
@@ -787,7 +782,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (!mThreadManager) {
                     asyncTaskPolyline();
                 } else {
-                    Toast.makeText(mContext, "Already creating prediction lines", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, R.string.errorWaitPoly, Toast.LENGTH_SHORT).show();
                 }
                 return true;
             case R.id.stream:

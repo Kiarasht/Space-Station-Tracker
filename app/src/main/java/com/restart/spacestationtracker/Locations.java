@@ -4,13 +4,13 @@ import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
@@ -133,7 +133,7 @@ public class Locations extends AppCompatActivity {
             displayresults();
             displaypasses(null, null, null);
         } else {
-            Toast.makeText(this, "Unable to find your location.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.errorLocation, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -164,7 +164,7 @@ public class Locations extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError e) {
-                Toast.makeText(Locations.this, "An unknown error has occurred. Error: 401", Toast.LENGTH_LONG).show();
+                Toast.makeText(Locations.this, R.string.errorNetwork, Toast.LENGTH_LONG).show();
             }
         });
         jsonObjectRequest.setTag(TAG);
@@ -201,6 +201,7 @@ public class Locations extends AppCompatActivity {
                     final String[] dates = new String[aresults.length() + 1]; // This is what we print for user
 
 
+                    Resources resources = getResources();
                     // Go through all the JSON Arrays parsing through each JSON Object.
                     for (int i = 0; i < aresults.length(); ++i) {
                         JSONObject apass = aresults.getJSONObject(i);
@@ -208,25 +209,23 @@ public class Locations extends AppCompatActivity {
                         passes[i] = new Date(Long.parseLong(apass.getString("risetime")) * 1000L); // Same thing
                         duration[i] = apass.getInt("duration") / 60; // Turn each duration to minutes.
                         stringBuilder = new StringBuilder();
-                        stringBuilder.append("Date: ").append(simpleDateFormat.format(date[i]).replace(" ", "\nTime: ")).append("\n")
-                                .append("Duration: ").append(duration[i])
-                                .append(" minutes");
+                        stringBuilder.append(resources.getString(R.string.date)).append(": ").append(simpleDateFormat.format(date[i])
+                                .replace(" ", "\n" + resources.getString(R.string.time) + ": ")).append("\n")
+                                .append(resources.getString(R.string.duration)).append(": ").append(duration[i])
+                                .append(" ").append(resources.getString(R.string.minutes));
                         dates[i + 1] = stringBuilder.toString(); // Save the parsed message
                     }
 
                     // If Locations.java called us lets create a ListView and run it on a UiThread
                     if (mLatitudepar == null && mLontitudepar == null) {
-                        Log.wtf(TAG, "Someone else 1: " + mLocation);
-                        dates[0] = "Location: " + mLocation; // The first index is User's location. That's why we did +1
-                        Log.wtf(TAG, "Someone else 2: " + mLocation);
+                        dates[0] = resources.getString(R.string.location) + ": " + mLocation; // The first index is User's location. That's why we did +1
 
                         // Fail safe. Sometimes, mLocation isn't found by the previous JSON call.
                         if (mLocation == null) {
                             final DecimalFormat decimalFormat = new DecimalFormat("0.000");
                             final String LAT = decimalFormat.format(Double.parseDouble(mLatitude));
                             final String LNG = decimalFormat.format(Double.parseDouble(mLongitude));
-                            Log.e(TAG, "mLocation is null: " + mLocation);
-                            dates[0] = "Location: " + LAT + "° N, " + LNG + "° E";
+                            dates[0] = resources.getString(R.string.location) + ": " + LAT + "° N, " + LNG + "° E";
                         }
 
                         final ListAdapter datesAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.text_layout, dates);
@@ -247,7 +246,7 @@ public class Locations extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError e) {
                 if (mLatitudepar == null && mLontitudepar == null) {
-                    Toast.makeText(Locations.this, "Either you have no connection or server is overloaded.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Locations.this, R.string.errorConnection, Toast.LENGTH_LONG).show();
                 }
             }
         });

@@ -38,7 +38,7 @@ public class LiveStream extends Activity {
                 mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
             }
         } else {
-            Toast.makeText(getApplicationContext(), "Unable to load page", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.errorWebView, Toast.LENGTH_SHORT).show();
         }
     }
 

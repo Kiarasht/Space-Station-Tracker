@@ -9,6 +9,7 @@
     <string name="settings_title">Settings</string>
     <string name="help_title">Help</string>
 
+    <!-- Description of those drawers -->
     <string name="flybys_summary">Check ISS\'s passes by your location</string>
     <string name="space_summary">See who is in space right now</string>
     <string name="settings_summary">Manage general app settings</string>
@@ -24,8 +25,6 @@
     <string name="interstitial_ad_unit_id">ca-app-pub-1850763013639682/7680127834</string>
     <string name="test_device">998B51E0DA18B35E1A4C4E6D78084ABB</string>
 
-    <!-- Astro Tracker -->
-
     <!-- Activities -->
     <string name="label_map">Map</string>
     <string name="label_location">Flybys</string>
@@ -37,12 +36,13 @@
     <!-- Shared Pref -->
     <string name="firstTime">firstTime</string>
 
-    <!-- Rate App -->
-
-    <!-- Dialog -->
+    <!-- Preference Longer ones -->
+    <string name="startAlert">Notify when ISS is close by</string>
+    <string name="stopAlert">Stop notifying when ISS is close by</string>
+    <string name="startFullAds">Full page ads enabled. Thanks for the support ;)</string>
+    <string name="startBannerAds">Banner ads enabled. Thanks for the support ;)</string>
 
     <!-- Preferences -->
-    <string name="mapType">Map type</string>
     <string-array name="entryValues">
         <item>0</item>
         <item>1</item>
@@ -59,7 +59,6 @@
         <item>Hybrid</item>
     </string-array>
 
-    <string name="decimalType">Decimal Places</string>
     <string-array name="decimalEntry">
         <item>0</item>
         <item>1</item>
@@ -78,8 +77,6 @@
         <item>0.00000</item>
     </string-array>
 
-    <string name="colorType">Prediction line color</string>
-    <string name="textType">Text color</string>
     <string-array name="colorValues">
         <item>-16777216</item>
         <item>-1</item>
@@ -100,7 +97,6 @@
         <item>Yellow</item>
     </string-array>
 
-    <string name="sizeType">Prediction line size</string>
     <string-array name="size">
         <item>1</item>
         <item>2</item>
@@ -113,4 +109,80 @@
         <item>9</item>
         <item>10</item>
     </string-array>
+
+    <!-- Extra in app strings here and there -->
+    <string name="tutorialOne">Map shows ISS\'s current location with a prediction line of where it will be.</string>
+    <string name="tutorialTwo">Drawer takes you to other features such as flybys, settings, etc&#8230;</string>
+    <string name="location">Location</string>
+    <string name="date">Date</string>
+    <string name="duration">Duration</string>
+    <string name="time">Time</string>
+    <string name="minutes">minutes</string>
+
+    <!-- Setting strings in the preferences -->
+    <string name="refreshTitle">Refresh Rate</string>
+    <string name="refreshSummary">Timespan between map relocating to ISS\'s new location</string>
+
+    <string name="lockTitle">Lock ISS</string>
+    <string name="lockSummary">Lock onto ISS and follow it on the map</string>
+
+    <string name="infoTitle">Additional Info</string>
+    <string name="infoSummary">Provide additional information about ISS on the map</string>
+
+    <string name="mapTitle">Map type</string>
+    <string name="mapSummary">Change the map type from the previous page</string>
+
+    <string name="decimalTitle">Decimal Places</string>
+    <string name="decimalSummary">Change the accuracy of all numerical values</string>
+
+    <string name="colorTitle">Prediction line color</string>
+    <string name="colorSummary">Change the color of ISS\'s prediction line</string>
+
+    <string name="sizeTitle">Prediction line size</string>
+    <string name="sizeSummary">Change the size of ISS\'s prediction line</string>
+
+    <string name="textTitle">Text color</string>
+    <string name="textSummary">Change the color of texts</string>
+
+    <string name="notificationTitle">ISS Notification</string>
+    <string name="notificationSummary">Notify when ISS is expected to fly over my location</string>
+
+    <string name="advertisementTitle">Banner</string>
+    <string name="advertisementSummary">Disable banner ads on the app</string>
+
+    <string name="fullTitle">Full Page</string>
+    <string name="fullSummary">Disable full page ads on the app</string>
+
+    <!-- Help -->
+    <string name="rateHelp">ISS Tracker is an android application that allows you to track the position of the International Space Station (ISS) and find out what astronauts are currently in space. The application comes with a notification system that can alert you whenever ISS approaches your location.\n\n Make sure to rate me! Click here.</string>
+    <string name="contributeHelp">Space Station Tracker\nKiarash Torkian\nMozilla Public License Version 2.0</string>
+    <string name="thanksPicasso">Picasso\nCopyright 2013 Square, Inc.\nApache License Version 2.0</string>
+    <string name="thanksKashima">ObservableScrollView\nCopyright 2014 Soichiro Kashima\nApache License Version 2.0</string>
+    <string name="thanksDodenhof">CircleImageView\nCopyright 2016 Henning Dodenhof\nApache License Version 2.0</string>
+    <string name="thanksSikun">MaterialSeekBarPreference\nPavel Sikun\nApache License Version 2.0</string>
+    <string name="thanksChaudhary">Spotlight\nJitender Chaudhary\nApache License Version 2.0</string>
+    <string name="thanksHuang">BoomMenu\nWeiping Huang\nApache License Version 2.0</string>
+    <string name="thanksBergey">API service\nNathan Bergey\nAttribution 3.0 Unported</string>
+    <string name="thanksTrain">Image\nMorning Train\nFree for commercial use</string>
+    <string name="thanksPrado">Image\nLuis Prado\nAttribution 3.0 United States</string>
+    <string name="helpVersion">"Version: "</string>
+    <string name="helpBuild">"Build on: "</string>
+    <string name="rateMeHelp">Rate me</string>
+    <string name="helpContribute">Contribute</string>
+    <string name="helpThanks">Special Thanks</string>
+    <string name="helpAbout">About ISS Tracker</string>
+
+    <!-- Errors that are typically in toast messages -->
+    <string name="errorMarket">Unable to find market app</string>
+    <string name="errorWebView">Unable to load page</string>
+    <string name="errorLocation">Unable to find your location.</string>
+    <string name="errorConnection">Either you have no connection or server is overloaded.</string>
+    <string name="errorNetwork">An unknown error has occurred. Error: 401</string>
+    <string name="errorMap">Can\'t apply settings to map</string>
+    <string name="errorFiveTimes">Failed all 5 times. Either you have no connection or server is overloaded.</string>
+    <string name="errorLessFive">Request to server failed. %1$d out of 5. Trying in %2$d seconds.</string>
+    <string name="errorWaitPoly">Already creating prediction lines</string>
+    <string name="errorNotByMe">ISS Notification wasn\'t stopped by you.</string>
+
+
 </resources>

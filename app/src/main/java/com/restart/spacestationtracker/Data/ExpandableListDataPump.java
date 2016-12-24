@@ -1,5 +1,9 @@
 package com.restart.spacestationtracker.data;
 
+import android.content.res.Resources;
+
+import com.restart.spacestationtracker.R;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -7,86 +11,42 @@ import java.util.List;
 
 public class ExpandableListDataPump {
 
-    public static HashMap<String, List<String>> getData() {
+    public static HashMap<String, List<String>> getData(Resources resources) {
         LinkedHashMap<String, List<String>> expandableListDetail = new LinkedHashMap<>();
 
         List<String> general = new ArrayList<>();
-        general.add("ISS Tracker is an android application that allows you to track the position" +
-                " of the International Space Station (ISS) and find out what astronauts are currently in space." +
-                " The application comes with a notification system that can alert you whenever ISS" +
-                " approaches your location.\n\n" +
-                "Make sure to rate me! Click here.");
+        general.add(resources.getString(R.string.rateHelp));
 
         List<String> contribute = new ArrayList<>();
-        contribute.add("Space Station Tracker" +
-                "\n" +
-                "Kiarash Torkian" +
-                "\n" +
-                "Mozilla Public License Version 2.0");
+        contribute.add(resources.getString(R.string.contributeHelp));
 
         List<String> thanks = new ArrayList<>();
-        thanks.add("Picasso" +
-                "\n" +
-                "Copyright 2013 Square, Inc." +
-                "\n" +
-                "Apache License Version 2.0");
+        thanks.add(resources.getString(R.string.thanksPicasso));
 
-        thanks.add("ObservableScrollView" +
-                "\n" +
-                "Copyright 2014 Soichiro Kashima" +
-                "\n" +
-                "Apache License Version 2.0");
+        thanks.add(resources.getString(R.string.thanksKashima));
 
-        thanks.add("CircleImageView" +
-                "\n" +
-                "Copyright 2014 - 2016 Henning Dodenhof" +
-                "\n" +
-                "Apache License Version 2.0");
+        thanks.add(resources.getString(R.string.thanksDodenhof));
 
-        thanks.add("MaterialSeekBarPreference" +
-                "\n" +
-                "Pavel Sikun" +
-                "\n" +
-                "Apache License Version 2.0");
+        thanks.add(resources.getString(R.string.thanksSikun));
 
-        thanks.add("Spotlight" +
-                "\n" +
-                "Jitender Chaudhary" +
-                "\n" +
-                "Apache License Version 2.0");
+        thanks.add(resources.getString(R.string.thanksChaudhary));
 
-        thanks.add("BoomMenu" +
-                "\n" +
-                "Weiping Huang" +
-                "\n" +
-                "Apache License Version 2.0");
+        thanks.add(resources.getString(R.string.thanksHuang));
 
-        thanks.add("API service" +
-                "\n" +
-                "Nathan Bergey" +
-                "\n" +
-                "Attribution 3.0 Unported");
+        thanks.add(resources.getString(R.string.thanksBergey));
 
-        thanks.add("Image" +
-                "\n" +
-                "Morning Train" +
-                "\n" +
-                "Free for commercial use");
+        thanks.add(resources.getString(R.string.thanksTrain));
 
-        thanks.add("Image" +
-                "\n" +
-                "Luis Prado" +
-                "\n" +
-                "Attribution 3.0 United States");
+        thanks.add(resources.getString(R.string.thanksPrado));
 
         List<String> about = new ArrayList<>();
-        about.add("Version: 3.3");
-        about.add("Build on: 12/17/2016");
+        about.add(resources.getString(R.string.helpVersion) + "3.3");
+        about.add(resources.getString(R.string.helpBuild) + "12/17/2016");
 
-        expandableListDetail.put("Rate me", general);
-        expandableListDetail.put("Contribute", contribute);
-        expandableListDetail.put("Special Thanks", thanks);
-        expandableListDetail.put("About ISS Tracker", about);
+        expandableListDetail.put(resources.getString(R.string.rateMeHelp), general);
+        expandableListDetail.put(resources.getString(R.string.helpContribute), contribute);
+        expandableListDetail.put(resources.getString(R.string.helpThanks), thanks);
+        expandableListDetail.put(resources.getString(R.string.helpAbout), about);
         return expandableListDetail;
     }
 

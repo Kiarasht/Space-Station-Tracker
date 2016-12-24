@@ -1,73 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory xmlns:sample="http://schemas.android.com/apk/res-auto"
-        android:title="Map">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:sample="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="Map">
         <com.pavelsikun.seekbarpreference.SeekBarPreference
             android:defaultValue="10"
             android:enabled="false"
             android:key="refresh_Rate"
-            android:summary="Timespan between map relocating to ISS's new location"
-            android:title="Refresh Rate"
-
+            android:summary="@string/refreshSummary"
+            android:title="@string/refreshTitle"
             sample:msbp_dialogEnabled="false"
             sample:msbp_interval="1"
             sample:msbp_maxValue="30"
             sample:msbp_measurementUnit="sec/refresh"
-            sample:msbp_minValue="1" />
+            sample:msbp_minValue="1"/>
 
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="lock_ISS"
-            android:summary="Lock onto ISS and follow it on the map"
-            android:title="Lock ISS" />
+            android:summary="@string/lockSummary"
+            android:title="@string/lockTitle"/>
 
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="info_ISS"
-            android:summary="Provide additional information about ISS on the map"
-            android:title="Additional Info" />
+            android:summary="@string/infoSummary"
+            android:title="@string/infoTitle"/>
 
         <ListPreference
             android:defaultValue="2"
             android:entries="@array/entry"
             android:entryValues="@array/entryValues"
             android:key="mapType"
-            android:title="@string/mapType"
-            android:summary="Change the map type from the previous page"/>
+            android:summary="@string/mapSummary"
+            android:title="@string/mapTitle"/>
+
     </PreferenceCategory>
 
-    <PreferenceCategory xmlns:sample="http://schemas.android.com/apk/res-auto"
+    <PreferenceCategory
         android:title="Customization">
         <ListPreference
             android:entries="@array/decimalEntry"
             android:entryValues="@array/decimalValues"
             android:key="decimalType"
-            android:title="@string/decimalType"
-            android:summary="Change the accuracy of all numerical values"/>
+            android:summary="@string/decimalSummary"
+            android:title="@string/decimalTitle"/>
 
         <ListPreference
             android:defaultValue="-256"
             android:entries="@array/color"
             android:entryValues="@array/colorValues"
             android:key="colorType"
-            android:title="@string/colorType"
-            android:summary="Change the color of ISS's prediction line"/>
+            android:summary="@string/colorSummary"
+            android:title="@string/colorTitle"/>
 
         <ListPreference
             android:defaultValue="5"
             android:entries="@array/size"
             android:entryValues="@array/size"
             android:key="sizeType"
-            android:title="@string/sizeType"
-            android:summary="Change the size of ISS's prediction line"/>
+            android:summary="@string/sizeSummary"
+            android:title="@string/sizeTitle"/>
 
         <ListPreference
             android:defaultValue="-256"
             android:entries="@array/color"
             android:entryValues="@array/colorValues"
             android:key="colorText"
-            android:title="@string/textType"
-            android:summary="Change the color of texts"/>
+            android:summary="@string/textSummary"
+            android:title="@string/textTitle"/>
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -77,8 +78,8 @@
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="notification_ISS"
-            android:summary="Notify when ISS is expected to fly over my location"
-            android:title="ISS Notification" />
+            android:summary="@string/notificationSummary"
+            android:title="@string/notificationTitle"/>
 
     </PreferenceCategory>
 
@@ -89,14 +90,14 @@
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="advertisement"
-            android:summary="Disable banner ads on the app"
-            android:title="Banner" />
+            android:summary="@string/advertisementSummary"
+            android:title="@string/advertisementTitle"/>
 
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="fullPage"
-            android:summary="Disable full page ads on the app"
-            android:title="Full Page" />
+            android:summary="@string/fullSummary"
+            android:title="@string/fullTitle"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -46,7 +46,7 @@ public class Info extends AppCompatActivity implements ObservableScrollViewCallb
             }
 
         } else {
-            Toast.makeText(getApplicationContext(), "Unable to load page", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.errorWebView, Toast.LENGTH_SHORT).show();
         }
     }
 
