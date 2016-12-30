@@ -1,7 +1,6 @@
 package com.restart.spacestationtracker;
 
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -30,14 +29,12 @@ import java.util.List;
 public class PeopleinSpace extends AppCompatActivity {
 
     private RequestQueue requestQueue;
-    private Context mContext;
     private AdView adView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_locations);
-        mContext = getApplicationContext();
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         requestQueue = Volley.newRequestQueue(this);
@@ -84,7 +81,7 @@ public class PeopleinSpace extends AppCompatActivity {
     /**
      * Displays a list of astronauts in a ListView using Firebase.
      */
-    public void display_people() {
+    private void display_people() {
         final String url = "http://www.howmanypeopleareinspacerightnow.com/peopleinspace.json";
         final List<Astronaut> peopleInSpace = new ArrayList<>();
         final List<String> astronautNames = new ArrayList<>();

@@ -36,7 +36,7 @@ public class Alert extends Service {
     private SharedPreferences sharedPreferences;
     private LocationManager locationManager;
     private Locations locations;
-    private Location location;
+    private Location mLocation;
     private Context context;
     private Date[] dates;
     private Date accept;
@@ -57,8 +57,9 @@ public class Alert extends Service {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 
-    final LocationListener locationListener = new LocationListener() {
+    private final LocationListener locationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
+            mLocation = location;
         }
 
         public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -73,7 +74,7 @@ public class Alert extends Service {
 
 
     /**
-     * Starting a service for ISS location updater.
+     * Starting a service for ISS mLocation updater.
      *
      * @param intent  N/A
      * @param startId N/A
@@ -87,9 +88,9 @@ public class Alert extends Service {
             return START_STICKY;
         }
 
-        final int locationTime = 1800000; // (30 minutes) minimum time interval between location updates, in milliseconds
-        final int locationDistance = 500; // (1500 meters) minimum distance between location updates, in meters
-        final int timerRepeat = 3540000;  // (59 minutes) Time to repeat a compare between ISS and user's location
+        final int locationTime = 1800000; // (30 minutes) minimum time interval between mLocation updates, in milliseconds
+        final int locationDistance = 500; // (1500 meters) minimum distance between mLocation updates, in meters
+        final int timerRepeat = 3540000;  // (59 minutes) Time to repeat a compare between ISS and user's mLocation
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
                 locationTime, locationDistance, locationListener);
         timer = new Timer();
@@ -104,10 +105,10 @@ public class Alert extends Service {
                     return;
                 }
 
-                // Find user's last known location
-                location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                // Find user's last known mLocation
+                mLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-                if (location == null) {
+                if (mLocation == null) {
                     return;
                 }
 
@@ -116,9 +117,9 @@ public class Alert extends Service {
                 for (int i = 0; i < 30 && sharedPreferences.getBoolean("notification_ISS", false)
                         && (dates == null || dates[0] == null); ++i) {
                     // Get ISSs passes, saving them in an array of dates
-                    dates = locations.displaypasses(String.valueOf(location.getLatitude()),
-                            String.valueOf(location.getLongitude()), context);
-                    // Wait a tiny bit for displaypasses to fully respond or reject. Also gives
+                    dates = locations.displayPasses(String.valueOf(mLocation.getLatitude()),
+                            String.valueOf(mLocation.getLongitude()), context);
+                    // Wait a tiny bit for displayPasses to fully respond or reject. Also gives
                     // api service a breathing room before calling again if it failed.
                     // Try 30 times for 10 minutes.
                     try {
@@ -139,12 +140,12 @@ public class Alert extends Service {
                     accept = new Date(last);
                 }
 
-                // Compare dates from displaypasses to user's current date
+                // Compare dates from displayPasses to user's current date
                 for (Date date1 : dates) {
                     if (date1 != null) {
-                        boolean withinhour = Math.abs(date.getTime() - date1.getTime()) < 3600000L; // 1 hour
+                        boolean withinHour = Math.abs(date.getTime() - date1.getTime()) < 3600000L; // 1 hour
                         boolean duplicate = Math.abs(accept.getTime() - date.getTime()) < 3540000L; // 59 minutes
-                        if (withinhour && !duplicate) {
+                        if (withinHour && !duplicate) {
                             sharedPreferences.edit().putLong("time", date.getTime()).apply();
                             notification(Math.abs(date.getTime() - date1.getTime()));
                             break;
@@ -181,11 +182,11 @@ public class Alert extends Service {
      * when we need to trigger a notification.
      */
     private void notification(long time) {
-        final int finalseconds = (int) Math.ceil(time / 1000 / 60);
+        final int finalSeconds = (int) Math.ceil(time / 1000 / 60);
         final String contentText;
 
-        if (finalseconds > 0) {
-            contentText = "ISS is about " + finalseconds + " minutes away!";
+        if (finalSeconds > 0) {
+            contentText = "ISS is about " + finalSeconds + " minutes away!";
         } else {
             contentText = "ISS is right above you!";
         }

@@ -63,7 +63,7 @@ public class CustomList extends ArrayAdapter<String> {
                                 .putExtra("url", astronauts.get(position).getTwitter())
                                 .putExtra("astro", astronauts.get(position).getName()));
                     } else {
-                        Toast.makeText(context, astronauts.get(position).getName().split(" ")[0] + " does not have a twitter account", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, astronauts.get(position).getName().split(" ")[0] + getContext().getString(R.string.errorNoTwitter), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -76,13 +76,13 @@ public class CustomList extends ArrayAdapter<String> {
                                 .putExtra("url", astronauts.get(position).getWiki())
                                 .putExtra("astro", astronauts.get(position).getName()));
                     } else {
-                        Toast.makeText(context, astronauts.get(position).getName().split(" ")[0] + " does not have a wiki page", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, astronauts.get(position).getName().split(" ")[0] + getContext().getString(R.string.errorNoWiki), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
 
             name.setText(astronauts.get(position).getName());
-            role.setText(astronauts.get(position).getRole() + " at " + location);
+            role.setText(astronauts.get(position).getRole() + context.getString(R.string.midAt) + location);
             Picasso.with(context).load(astronauts.get(position).getImage()).into(imageView);
             Picasso.with(context).load(astronauts.get(position).getCountryLink()).into(countryFlag);
         }

@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/name"
             android:layout_toRightOf="@+id/name"
-            android:contentDescription="Country flag this astronaut is from"
+            android:contentDescription="@string/countryFlagContentDescription"
             android:paddingEnd="4dp"
             android:paddingStart="4dp" />
 
@@ -68,7 +68,7 @@
         android:layout_below="@+id/role"
         android:layout_toEndOf="@+id/frameLayout"
         android:layout_toRightOf="@+id/frameLayout"
-        android:contentDescription="Icon to link to astronaut's twitter page"
+        android:contentDescription="@string/astronautTwitterContentDescription"
         android:src="@drawable/ic_action_twitter_grey" />
 
     <ImageView
@@ -80,7 +80,7 @@
         android:layout_alignTop="@+id/astronautTwitter"
         android:layout_toRightOf="@+id/astronautTwitter"
         android:adjustViewBounds="true"
-        android:contentDescription="Icon to link to astronaut's wiki page"
+        android:contentDescription="@string/astronautWikiContentDescription"
         android:scaleType="fitStart"
         android:src="@drawable/ic_wikipedia" />
 

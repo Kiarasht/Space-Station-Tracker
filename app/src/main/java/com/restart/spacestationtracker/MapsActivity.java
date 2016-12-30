@@ -110,23 +110,31 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        initializeVariables();
+        initiateBoomMenu();
+        initializeAds();
+    }
+
+    /**
+     * Initiate all variables when the activity is started for the first time
+     */
+    private void initializeVariables() {
         MapsInitializer.initialize(getApplicationContext());
 
+        // Title on the action bar next to the BoomMenu drawer which we will initialize later
         ActionBar mActionBar = getSupportActionBar();
         assert mActionBar != null;
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
         LayoutInflater mInflater = LayoutInflater.from(this);
-
         View actionBar = mInflater.inflate(R.layout.custom_actionbar, null);
         final TextView mTitleTextView = (TextView) actionBar.findViewById(R.id.title_text);
         mTitleTextView.setText(R.string.app_name);
         mActionBar.setCustomView(actionBar);
         mActionBar.setDisplayShowCustomEnabled(true);
-        ((Toolbar) actionBar.getParent()).setContentInsetsAbsolute(0,0);
+        ((Toolbar) actionBar.getParent()).setContentInsetsAbsolute(0, 0);
 
-        initiateBoomMenu();
-
+        // Other variables to make the activity start and funciton
         mPoly = 0;
         mOnce = true;
         mAdView = null;
@@ -144,8 +152,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMarkerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.iss_2011));
         mMarkerOptions.anchor(0.5f, 0.5f);
 
+        // Animation process for first time users. Skip if not first time (mFirstTime)
         final Activity activity = this;
-
         //  When view is shown, start our animations for first time users
         mLatLong.post(new Runnable() {
             @Override
@@ -155,7 +163,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
         });
+    }
 
+    /**
+     * Initialize ads when the activity is started for the first time
+     */
+    private void initializeAds() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -189,15 +202,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     /**
-     * Reread the refreshrate and update layout if needed.
+     * Reread the refreshrate and update views if needed such as prediction line, texts and their
+     * properties (Color, size, etc.).
      */
     protected void onResume() {
         super.onResume();
 
+        // Asks for a interstitial ad now so next time user starts a new activity we have it ready
         requestNewInterstitial();
-        mDecimalFormat = new DecimalFormat(mSharedPreferences.getString("decimalType", "0.000"));
 
-        if (mStart) {                            // When activity was just paused
+        // Update decimal format
+        String format = "0";
+        for (int i = 0; i < mSharedPreferences.getInt("decimalType", 3); ++i) {
+            if (i == 0) format += ".";
+            format += "#";
+        }
+        mDecimalFormat = new DecimalFormat(format);
+
+        // When activity was just paused
+        if (mStart) {
             mRefreshrate = 1000 * mSharedPreferences.getInt("refresh_Rate", 10);
             if (mTimer != null) {
                 mTimer.cancel();
@@ -213,7 +236,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }, 0, mRefreshrate);
 
             mMaptype();
-        } else {                                // When activity is killed or created for first time
+            // When activity is killed or created for first time
+        } else {
             mStart = true;
             mTimer = new Timer();
         }
@@ -231,22 +255,30 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
 
-        int currentColor = Integer.parseInt(mSharedPreferences.getString("colorType", "-256"));
-        int currentWidth = Integer.parseInt(mSharedPreferences.getString("sizeType", "5"));
+        // Update the color and size of polylines if they are different in settings than what they are right now
+        int currentColor = mSharedPreferences.getInt("colorType", Color.YELLOW);
+        int currentWidth = mSharedPreferences.getInt("sizeType", 5);
 
-        if (mPolyLine != null &&
-                (mPolyLine.getColor() != currentColor ||
-                        mPolyLine.getWidth() != currentWidth)) {
+        if (mPolyLine != null){
             if (mMap != null) {
-                for (int i = 0; mPolyArray[i] != null && i < mPolyArray.length - 1; ++i) {
-                    mPolyArray[i].setColor(currentColor);
-                    mPolyArray[i].setWidth(currentWidth);
+                // Color needs updating?
+                if (mPolyLine.getColor() != currentColor) {
+                    for (int i = 0; mPolyArray[i] != null && i < mPolyArray.length - 1; ++i) {
+                        mPolyArray[i].setColor(currentColor);
+                    }
+                }
+                // What about their size?
+                if (mPolyLine.getWidth() != currentWidth) {
+                    for (int i = 0; mPolyArray[i] != null && i < mPolyArray.length - 1; ++i) {
+                        mPolyArray[i].setWidth(currentWidth);
+                    }
                 }
             } else {
                 Toast.makeText(mContext, R.string.errorMap, Toast.LENGTH_SHORT).show();
             }
         }
 
+        // Every 90 minutes, update the polylines automatically
         if (mPolyTimer == null) {
             mPolyTimer = new Timer();
             TimerTask hourlyTask = new TimerTask() {
@@ -256,6 +288,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             };
             mPolyTimer.schedule(hourlyTask, 0L, 5400000); // 90 minutes
+        }
+
+        // If user even wants the additional info, and their properties have been changed, update them
+        if (mDescription.getVisibility() == View.VISIBLE && !mSharedPreferences.getBoolean("info_ISS", true)) {
+            mDescription.setVisibility(View.GONE);
+        } else if (mDescription.getVisibility() == View.GONE && mSharedPreferences.getBoolean("info_ISS", true)) {
+            if (mDescription.getCurrentTextColor() != mSharedPreferences.getInt("colorText", Color.YELLOW)) {
+                mDescription.setTextColor(mSharedPreferences.getInt("colorText", Color.YELLOW));
+            }
+            mDescription.setVisibility(View.VISIBLE);
+        } else if (mDescription.getVisibility() == View.VISIBLE) {
+            if (mDescription.getCurrentTextColor() != mSharedPreferences.getInt("colorText", Color.YELLOW)) {
+                mDescription.setTextColor(mSharedPreferences.getInt("colorText", Color.YELLOW));
+            }
+
+        }
+
+        // Update text color if different than settings
+        if (mLatLong.getCurrentTextColor() != mSharedPreferences.getInt("colorText", Color.YELLOW)) {
+            mLatLong.setTextColor(mSharedPreferences.getInt("colorText", Color.YELLOW));
         }
 
         if (mAdView != null) {
@@ -429,29 +481,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 mMarker.remove();
                             }
 
-                            if (mDescription.getVisibility() == View.VISIBLE && !mSharedPreferences.getBoolean("info_ISS", true)) {
-                                mDescription.setVisibility(View.GONE);
-                            } else if (mDescription.getVisibility() == View.GONE && mSharedPreferences.getBoolean("info_ISS", true)) {
-                                if (!String.valueOf(mDescription.getCurrentTextColor()).equals(mSharedPreferences.getString("colorText", "-256"))) {
-                                    mDescription.setTextColor(Integer.parseInt(mSharedPreferences.getString("colorText", "-256")));
-                                }
-                                mDescription.setVisibility(View.VISIBLE);
-                                mDescription.setText(moreInfo.toString());
-                            } else if (mDescription.getVisibility() == View.VISIBLE) {
-                                if (!String.valueOf(mDescription.getCurrentTextColor()).equals(mSharedPreferences.getString("colorText", "-256"))) {
-                                    mDescription.setTextColor(Integer.parseInt(mSharedPreferences.getString("colorText", "-256")));
-                                }
-                                mDescription.setText(moreInfo.toString());
-                            }
-
+                            mDescription.setText(moreInfo.toString());
+                            mLatLong.setText(position);
                             mMarkerOptions.position(ISS);
                             mMarker = mMap.addMarker(mMarkerOptions);
-
-                            if (!String.valueOf(mLatLong.getCurrentTextColor()).equals(mSharedPreferences.getString("colorText", "-256"))) {
-                                mLatLong.setTextColor(Integer.parseInt(mSharedPreferences.getString("colorText", "-256")));
-                            }
-
-                            mLatLong.setText(position);
                         }
                     });
                 } catch (JSONException e) {
@@ -519,21 +552,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 for (int i = 0; i < futureTen.length - 1; ++i) {
                                     mPolyLine = mMap.addPolyline(new PolylineOptions()
                                             .add(latLngs[i], latLngs[i + 1])
-                                            .width(Integer.parseInt(mSharedPreferences.getString("sizeType", "5")))
-                                            .color(Integer.parseInt(mSharedPreferences.getString("colorType", "-256"))));
+                                            .width(mSharedPreferences.getInt("sizeType", 5))
+                                            .color(mSharedPreferences.getInt("colorType", Color.YELLOW)));
                                     mPolyArray[mPolyCounter++] = mPolyLine;
                                 }
                                 mLast = latLngs[latLngs.length - 1];
                             } else {
                                 mPolyArray[mPolyCounter++] = mMap.addPolyline(new PolylineOptions()
                                         .add(mLast, latLngs[0])
-                                        .width(Integer.parseInt(mSharedPreferences.getString("sizeType", "5")))
-                                        .color(Integer.parseInt(mSharedPreferences.getString("colorType", "-256"))));
+                                        .width(mSharedPreferences.getInt("sizeType", 5))
+                                        .color(mSharedPreferences.getInt("colorType", Color.YELLOW)));
                                 for (int i = 0; i < futureTen.length - 1; ++i) {
                                     mPolyArray[mPolyCounter++] = mMap.addPolyline(new PolylineOptions()
                                             .add(latLngs[i], latLngs[i + 1])
-                                            .width(Integer.parseInt(mSharedPreferences.getString("sizeType", "5")))
-                                            .color(Integer.parseInt(mSharedPreferences.getString("colorType", "-256"))));
+                                            .width(mSharedPreferences.getInt("sizeType", 5))
+                                            .color(mSharedPreferences.getInt("colorType", Color.YELLOW)));
                                 }
                                 mLast = latLngs[latLngs.length - 1];
                             }
@@ -552,6 +585,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mRequestQueue.add(jsonArrayRequest);
     }
 
+    /**
+     * Initiate the drawer library by giving each of them their properties such as color, texts, and
+     * onClickListeners
+     */
     private void initiateBoomMenu() {
         mBoomMenu = (BoomMenuButton) findViewById(R.id.action_bar_right_bmb);
         assert mBoomMenu != null;
@@ -568,7 +605,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 @Override
                                 public void onBoomButtonClick(int index) {
                                     Intent intent;
-                                    if (Build.VERSION.SDK_INT >= 23 && !isLocationPermissionGranted()) {
+                                    if (isLocationPermissionGranted()) {
                                         getLocationPermission();
                                     } else {
                                         if (mInterstitialAd.isLoaded() && !mSharedPreferences.getBoolean("fullPage", false)) {
@@ -667,7 +704,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     /**
      * Get the permissions needed for the Locations.class
      */
-    public void getLocationPermission() {
+    private void getLocationPermission() {
         ActivityCompat.requestPermissions(this, new String[]{
                 android.Manifest.permission.INTERNET,
                 android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
@@ -698,10 +735,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      *
      * @return True or false
      */
-    public boolean isLocationPermissionGranted() {
-        return Build.VERSION.SDK_INT < 23 || (Build.VERSION.SDK_INT >= 23 && // Need the second Build.Version or it freaks out. Chill java
-                mContext.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                mContext.checkSelfPermission(android.Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED);
+    private boolean isLocationPermissionGranted() {
+        return Build.VERSION.SDK_INT >= 23 &&
+                mContext.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                mContext.checkSelfPermission(android.Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED;
     }
 
 
@@ -728,7 +765,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      * @param mTitleTextView A view to the top text widget
      * @param activity       MapsActivity.java
      */
-    public void startAnimation(final View mTitleTextView, final Activity activity) {
+    private void startAnimation(final View mTitleTextView, final Activity activity) {
         mSharedPreferences.edit().putBoolean(getString(R.string.firstTime), false).apply();
         mFirstTime = false;
         new SpotlightView.Builder(activity)
@@ -805,7 +842,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     /**
      * Start the LiveStream activity
      */
-    public void onISS() {
+    private void onISS() {
         Intent intent = new Intent(mContext, LiveStream.class);
         startActivity(intent);
     }

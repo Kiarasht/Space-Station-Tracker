@@ -6,4 +6,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="Black">#000000</color>
     <color name="Yellow">#FFEB3B</color>
+    <color name="disabled_gray">#44888888</color>
+    <color name="gray600">#757575</color>
 </resources>

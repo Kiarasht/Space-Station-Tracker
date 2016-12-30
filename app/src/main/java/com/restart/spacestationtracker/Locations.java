@@ -130,8 +130,8 @@ public class Locations extends AppCompatActivity {
         if (location != null) {
             mLatitude = String.valueOf(location.getLatitude());
             mLongitude = String.valueOf(location.getLongitude());
-            displayresults();
-            displaypasses(null, null, null);
+            displayResults();
+            displayPasses(null, null, null);
         } else {
             Toast.makeText(this, R.string.errorLocation, Toast.LENGTH_LONG).show();
         }
@@ -141,7 +141,7 @@ public class Locations extends AppCompatActivity {
      * After successfully getting a Latitude and Longitude from the API, search a database to see
      * what city and country do these correspond to.
      */
-    private void displayresults() {
+    private void displayResults() {
         // Returns a JSONObject
         final String url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" +
                 mLatitude +
@@ -175,17 +175,17 @@ public class Locations extends AppCompatActivity {
      * After successfully getting a city and country from the last JSON parsing, search a database
      * to see when ISS will pass by this city, country.
      */
-    public Date[] displaypasses(final String mLatitudepar, final String mLontitudepar, Context applicationContext) {
+    public Date[] displayPasses(final String latitude, final String longitude, Context applicationContext) {
         // Usually we get 4 to 6 dates. So 10 just to be a bit safe
         final Date[] passes = new Date[10]; // Used for Alert service
 
         final String url;
-        if (mLatitudepar == null && mLontitudepar == null) { // Location.java is calling this method
+        if (latitude == null && longitude == null) { // Location.java is calling this method
             url = "http://api.open-notify.org/iss-pass.json?lat=" +
                     mLatitude + "&lon=" + mLongitude;
         } else {                                            // Alert.java is calling this method
             url = "http://api.open-notify.org/iss-pass.json?lat=" +
-                    mLatitudepar + "&lon=" + mLontitudepar;
+                    latitude + "&lon=" + longitude;
         }
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
@@ -193,21 +193,21 @@ public class Locations extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    JSONArray aresults = response.getJSONArray("response");
-                    int[] duration = new int[aresults.length()]; // An array of ISS flyby durations
-                    Date[] date = new Date[aresults.length()]; // An array of ISS flyby dates
+                    JSONArray results = response.getJSONArray("response");
+                    int[] duration = new int[results.length()]; // An array of ISS flyby durations
+                    Date[] date = new Date[results.length()]; // An array of ISS flyby dates
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault());
                     StringBuilder stringBuilder;
-                    final String[] dates = new String[aresults.length() + 1]; // This is what we print for user
+                    final String[] dates = new String[results.length() + 1]; // This is what we print for user
 
 
                     Resources resources = getResources();
                     // Go through all the JSON Arrays parsing through each JSON Object.
-                    for (int i = 0; i < aresults.length(); ++i) {
-                        JSONObject apass = aresults.getJSONObject(i);
-                        date[i] = new Date(Long.parseLong(apass.getString("risetime")) * 1000L); // Turn into milliseconds
-                        passes[i] = new Date(Long.parseLong(apass.getString("risetime")) * 1000L); // Same thing
-                        duration[i] = apass.getInt("duration") / 60; // Turn each duration to minutes.
+                    for (int i = 0; i < results.length(); ++i) {
+                        JSONObject aPass = results.getJSONObject(i);
+                        date[i] = new Date(Long.parseLong(aPass.getString("risetime")) * 1000L); // Turn into milliseconds
+                        passes[i] = new Date(Long.parseLong(aPass.getString("risetime")) * 1000L); // Same thing
+                        duration[i] = aPass.getInt("duration") / 60; // Turn each duration to minutes.
                         stringBuilder = new StringBuilder();
                         stringBuilder.append(resources.getString(R.string.date)).append(": ").append(simpleDateFormat.format(date[i])
                                 .replace(" ", "\n" + resources.getString(R.string.time) + ": ")).append("\n")
@@ -217,7 +217,7 @@ public class Locations extends AppCompatActivity {
                     }
 
                     // If Locations.java called us lets create a ListView and run it on a UiThread
-                    if (mLatitudepar == null && mLontitudepar == null) {
+                    if (latitude == null && longitude == null) {
                         dates[0] = resources.getString(R.string.location) + ": " + mLocation; // The first index is User's location. That's why we did +1
 
                         // Fail safe. Sometimes, mLocation isn't found by the previous JSON call.
@@ -245,7 +245,7 @@ public class Locations extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError e) {
-                if (mLatitudepar == null && mLontitudepar == null) {
+                if (latitude == null && longitude == null) {
                     Toast.makeText(Locations.this, R.string.errorConnection, Toast.LENGTH_LONG).show();
                 }
             }

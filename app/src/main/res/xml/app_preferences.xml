@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:sample="http://schemas.android.com/apk/res-auto">
+                  xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory android:title="Map">
-        <com.pavelsikun.seekbarpreference.SeekBarPreference
+        <com.restart.spacestationtracker.view.SeekBarPreference
             android:defaultValue="10"
-            android:enabled="false"
+            android:dialogMessage="@string/refreshDialogMessage"
             android:key="refresh_Rate"
+            android:max="30"
             android:summary="@string/refreshSummary"
-            android:title="@string/refreshTitle"
-            sample:msbp_dialogEnabled="false"
-            sample:msbp_interval="1"
-            sample:msbp_maxValue="30"
-            sample:msbp_measurementUnit="sec/refresh"
-            sample:msbp_minValue="1"/>
+            android:text="@string/declination_unit"
+            android:title="@string/refreshTitle"/>
 
         <CheckBoxPreference
             android:defaultValue="false"
@@ -39,36 +36,37 @@
 
     <PreferenceCategory
         android:title="Customization">
-        <ListPreference
-            android:entries="@array/decimalEntry"
-            android:entryValues="@array/decimalValues"
+        <com.restart.spacestationtracker.view.SeekBarPreference
+            android:defaultValue="5"
+            android:dialogMessage="@string/decimalDialogMessage"
             android:key="decimalType"
+            android:max="10"
             android:summary="@string/decimalSummary"
+            android:text="@string/decimalUnit"
             android:title="@string/decimalTitle"/>
 
-        <ListPreference
-            android:defaultValue="-256"
-            android:entries="@array/color"
-            android:entryValues="@array/colorValues"
-            android:key="colorType"
-            android:summary="@string/colorSummary"
-            android:title="@string/colorTitle"/>
-
-        <ListPreference
-            android:defaultValue="5"
-            android:entries="@array/size"
-            android:entryValues="@array/size"
+        <com.restart.spacestationtracker.view.SeekBarPreference
+            android:defaultValue="3"
+            android:dialogMessage="@string/sizeDialogMessage"
             android:key="sizeType"
+            android:max="30"
             android:summary="@string/sizeSummary"
+            android:text="@string/sizeUnit"
             android:title="@string/sizeTitle"/>
 
-        <ListPreference
-            android:defaultValue="-256"
-            android:entries="@array/color"
-            android:entryValues="@array/colorValues"
+        <com.restart.spacestationtracker.colorpicker.ColorPreference
+            android:defaultValue="#FFEA00"
+            android:key="colorType"
+            android:summary="@string/colorSummary"
+            android:title="@string/colorTitle"
+            app:colorpicker_showHex="false"/>
+
+        <com.restart.spacestationtracker.colorpicker.ColorPreference
+            android:defaultValue="#FFEA00"
             android:key="colorText"
             android:summary="@string/textSummary"
-            android:title="@string/textTitle"/>
+            android:title="@string/textTitle"
+            app:colorpicker_showHex="false"/>
     </PreferenceCategory>
 
     <PreferenceCategory
