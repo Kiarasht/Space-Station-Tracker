@@ -50,7 +50,6 @@
     <string name="hexEditDefault">00000000</string>
 
     <!-- Activities -->
-    <string name="label_map">Map</string>
     <string name="label_location">Flybys</string>
     <string name="label_peopleinspace">Who\'s in Space?</string>
     <string name="label_setting">Settings</string>
