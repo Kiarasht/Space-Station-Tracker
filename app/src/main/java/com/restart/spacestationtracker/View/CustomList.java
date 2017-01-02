@@ -63,7 +63,7 @@ public class CustomList extends ArrayAdapter<String> {
                                 .putExtra("url", astronauts.get(position).getTwitter())
                                 .putExtra("astro", astronauts.get(position).getName()));
                     } else {
-                        Toast.makeText(context, astronauts.get(position).getName().split(" ")[0] + getContext().getString(R.string.errorNoTwitter), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, astronauts.get(position).getName().split(" ")[0] + " " + getContext().getString(R.string.errorNoTwitter), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -76,7 +76,7 @@ public class CustomList extends ArrayAdapter<String> {
                                 .putExtra("url", astronauts.get(position).getWiki())
                                 .putExtra("astro", astronauts.get(position).getName()));
                     } else {
-                        Toast.makeText(context, astronauts.get(position).getName().split(" ")[0] + getContext().getString(R.string.errorNoWiki), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, astronauts.get(position).getName().split(" ")[0] + " " + getContext().getString(R.string.errorNoWiki), Toast.LENGTH_SHORT).show();
                     }
                 }
             });

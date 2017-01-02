@@ -29,13 +29,13 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
     // ------------------------------------------------------------------------------------------
     // Private attributes :
     private static final String androidns = "http://schemas.android.com/apk/res/android";
-
     private SeekBar mSeekBar;
-    private TextView mSplashText, mValueText;
+    private TextView mValueText;
     private Context mContext;
-
     private String mDialogMessage, mSuffix;
     private int mDefault, mMax, mValue = 0;
+    private boolean mDecimalType;
+
     // ------------------------------------------------------------------------------------------
 
 
@@ -60,6 +60,10 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
         // Get default and max seekbar values :
         mDefault = attrs.getAttributeIntValue(androidns, "defaultValue", 0);
         mMax = attrs.getAttributeIntValue(androidns, "max", 100);
+
+        if (mDefault == 9) {
+            mDecimalType = true;
+        }
     }
     // ------------------------------------------------------------------------------------------
 
@@ -68,13 +72,12 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
     // DialogPreference methods :
     @Override
     protected View onCreateDialogView() {
-
         LinearLayout.LayoutParams params;
         LinearLayout layout = new LinearLayout(mContext);
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setPadding(6, 6, 6, 6);
 
-        mSplashText = new TextView(mContext);
+        TextView mSplashText = new TextView(mContext);
         mSplashText.setPadding(65, 20, 65, 20);
         mSplashText.setGravity(Gravity.START);
         if (mDialogMessage != null)
@@ -125,6 +128,10 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
     // OnSeekBarChangeListener methods :
     @Override
     public void onProgressChanged(SeekBar seek, int value, boolean fromTouch) {
+        if (mDecimalType) {
+            value += 1;
+        }
+
         String t = String.valueOf(value);
         mValueText.setText(mSuffix == null ? t : t.concat(" " + mSuffix));
     }
@@ -166,6 +173,11 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
         if (shouldPersist()) {
 
             mValue = mSeekBar.getProgress();
+
+            if (mDecimalType) {
+                mValue += 1;
+            }
+
             persistInt(mSeekBar.getProgress());
             callChangeListener(mSeekBar.getProgress());
         }

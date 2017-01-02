@@ -1,5 +1,7 @@
 package com.restart.spacestationtracker;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -44,26 +46,35 @@ public class Preferences extends AppCompatActivity {
         private SeekBarPreference mRefreshRate;
         private SeekBarPreference mPredictionSize;
         private SeekBarPreference mDecimalPlaces;
+        private SeekBarPreference mTextSize;
         private Context mContext;
+        private Activity mActivity;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.app_preferences);
-            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            mPreferenceScreen = getPreferenceScreen();
-            mContext = getActivity().getApplicationContext();
 
-            // Enable the seekbar
+            mActivity = getActivity();
+            mContext = mActivity.getApplicationContext();
+            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
+            mPreferenceScreen = getPreferenceScreen();
+
+
+            // Enable seekbars
             mRefreshRate = (SeekBarPreference) mPreferenceScreen.findPreference("refresh_Rate");
-            mRefreshRate.setSummary(this.getString(R.string.refreshSummary).replace("$1", "" + mSharedPreferences.getInt("refresh_Rate", 10)));
+            mRefreshRate.setSummary(this.getString(R.string.refreshSummary).replace("$1", "" + (mSharedPreferences.getInt("refresh_Rate", 9) + 1)));
 
             mPredictionSize = (SeekBarPreference) mPreferenceScreen.findPreference("sizeType");
             mPredictionSize.setSummary(this.getString(R.string.sizeSummary).replace("$1", "" + mSharedPreferences.getInt("sizeType", 5)));
 
             mDecimalPlaces = (SeekBarPreference) mPreferenceScreen.findPreference("decimalType");
             mDecimalPlaces.setSummary(this.getString(R.string.decimalSummary).replace("$1", "" + mSharedPreferences.getInt("decimalType", 3)));
-            getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+
+            mTextSize = (SeekBarPreference) mPreferenceScreen.findPreference("textSizeType");
+            mTextSize.setSummary(this.getString(R.string.textSizeSummary).replace("$1", "" + mSharedPreferences.getInt("textSizeType", 12)));
+
+            mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
             // Onclick methods for each of the check boxes
             mPreferenceScreen.findPreference("advertisement").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -109,12 +120,21 @@ public class Preferences extends AppCompatActivity {
         }
 
         /**
+         * Unregister the listeners
+         */
+        @Override
+        public void onStop() {
+            super.onStop();
+            mSharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+        }
+
+        /**
          * Start or stop the Alert.java service.
          *
          * @param checked Are we starting or destroying the service?
          */
         public void iss_Service(boolean checked) {
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
             if (checked) {
                 sharedPreferences.edit().putLong("time", 0).apply();
                 Toast.makeText(mContext, R.string.startAlert, Toast.LENGTH_SHORT).show();
@@ -129,12 +149,9 @@ public class Preferences extends AppCompatActivity {
         /**
          * Get the permissions needed for the Alert.class
          */
+        @TargetApi(Build.VERSION_CODES.M)
         public void getLocationPermission() {
-            if (Build.VERSION.SDK_INT >= 23) {
-                requestPermissions(new String[]{
-                        android.Manifest.permission.INTERNET,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            }
+                requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
 
         /**
@@ -148,8 +165,7 @@ public class Preferences extends AppCompatActivity {
         public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
             CheckBoxPreference iss_Tracker = (CheckBoxPreference) mPreferenceScreen.findPreference("notification_ISS");
 
-            if (grantResults.length > 0
-                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 iss_Tracker.setChecked(false);
             } else {
                 iss_Tracker.setChecked(false);
@@ -162,22 +178,23 @@ public class Preferences extends AppCompatActivity {
          * @return True or false
          */
         public boolean isLocationPermissionGranted() {
-            return Build.VERSION.SDK_INT >= 23 &&
-                    mContext.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                    mContext.checkSelfPermission(android.Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED;
+            return Build.VERSION.SDK_INT >= 23 && mContext.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED;
         }
 
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             switch (key) {
                 case "refresh_Rate":
-                    mRefreshRate.setSummary(this.getString(R.string.refreshSummary).replace("$1", "" + mSharedPreferences.getInt("refresh_Rate", 10)));
+                    mRefreshRate.setSummary(this.getString(R.string.refreshSummary).replace("$1", "" + (mSharedPreferences.getInt("refresh_Rate", 9) + 1)));
                     break;
                 case "sizeType":
                     mPredictionSize.setSummary(this.getString(R.string.sizeSummary).replace("$1", "" + mSharedPreferences.getInt("sizeType", 5)));
                     break;
                 case "decimalType":
                     mDecimalPlaces.setSummary(this.getString(R.string.decimalSummary).replace("$1", "" + mSharedPreferences.getInt("decimalType", 3)));
+                    break;
+                case "textSizeType":
+                    mTextSize.setSummary(this.getString(R.string.textSizeSummary).replace("$1", "" + mSharedPreferences.getInt("textSizeType", 12)));
                 default:
                     break;
             }

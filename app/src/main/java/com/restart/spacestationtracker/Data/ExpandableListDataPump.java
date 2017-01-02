@@ -27,7 +27,7 @@ public class ExpandableListDataPump {
 
         thanks.add(resources.getString(R.string.thanksDodenhof));
 
-        thanks.add(resources.getString(R.string.thanksSikun));
+        thanks.add(resources.getString(R.string.thanksStone));
 
         thanks.add(resources.getString(R.string.thanksChaudhary));
 
@@ -40,8 +40,8 @@ public class ExpandableListDataPump {
         thanks.add(resources.getString(R.string.thanksPrado));
 
         List<String> about = new ArrayList<>();
-        about.add(resources.getString(R.string.helpVersion) + "3.3");
-        about.add(resources.getString(R.string.helpBuild) + "12/17/2016");
+        about.add(resources.getString(R.string.helpVersion) + " 3.3");
+        about.add(resources.getString(R.string.helpBuild) + " 1/1/2017");
 
         expandableListDetail.put(resources.getString(R.string.rateMeHelp), general);
         expandableListDetail.put(resources.getString(R.string.helpContribute), contribute);
@@ -57,7 +57,7 @@ public class ExpandableListDataPump {
         urlList.add("https://github.com/square/picasso");
         urlList.add("https://github.com/ksoichiro/Android-ObservableScrollView");
         urlList.add("https://github.com/hdodenhof/CircleImageView");
-        urlList.add("https://github.com/MrBIMC/MaterialSeekBarPreference");
+        urlList.add("https://github.com/martin-stone/hsv-alpha-color-picker-android");
         urlList.add("https://github.com/wooplr/Spotlight");
         urlList.add("https://github.com/Nightonke/BoomMenu");
         urlList.add("http://open-notify.org");

@@ -4,6 +4,7 @@
     <string name="title_activity_maps">ISS Tracker</string>
 
     <!-- Main Drawer Strings -->
+    <string name="map_activity">Map</string>
     <string name="flybys_title">Flybys</string>
     <string name="space_title">On Duty</string>
     <string name="settings_title">Settings</string>
@@ -101,11 +102,19 @@
 
     <string name="sizeTitle">Prediction line size</string>
     <string name="sizeDialogMessage">Change the size of ISS\'s prediction line</string>
-    <string name="sizeSummary">Current line size is $1 px</string>
-    <string name="sizeUnit"> px</string>
+    <string name="sizeSummary">Current line size is $1 dp</string>
+    <string name="sizeUnit"> dp</string>
+
+    <string name="textSizeTitle">Text size</string>
+    <string name="textSizeDialogMessage">Change the size of all text values</string>
+    <string name="textSizeSummary">Current text size is $1 sp</string>
+    <string name="textSizeUnit"> sp</string>
 
     <string name="textTitle">Text color</string>
     <string name="textSummary">Change the color of text values</string>
+
+    <string name="textHighlightTitle">Text Outline</string>
+    <string name="textHighlightSummary">Change the outline color of text values</string>
 
     <string name="notificationTitle">ISS Notification</string>
     <string name="notificationSummary">Notify when ISS is expected to fly over my location</string>
@@ -122,7 +131,7 @@
     <string name="thanksPicasso">Picasso\nCopyright 2013 Square, Inc.\nApache License Version 2.0</string>
     <string name="thanksKashima">ObservableScrollView\nCopyright 2014 Soichiro Kashima\nApache License Version 2.0</string>
     <string name="thanksDodenhof">CircleImageView\nCopyright 2016 Henning Dodenhof\nApache License Version 2.0</string>
-    <string name="thanksSikun">MaterialSeekBarPreference\nPavel Sikun\nApache License Version 2.0</string>
+    <string name="thanksStone">HSV-Alpha Color Picker\nMartin Stone\nApache License Version 2.0</string>
     <string name="thanksChaudhary">Spotlight\nJitender Chaudhary\nApache License Version 2.0</string>
     <string name="thanksHuang">BoomMenu\nWeiping Huang\nApache License Version 2.0</string>
     <string name="thanksBergey">API service\nNathan Bergey\nAttribution 3.0 Unported</string>
@@ -139,6 +148,7 @@
     <string name="errorMarket">Unable to find market app</string>
     <string name="errorWebView">Unable to load page</string>
     <string name="errorLocation">Unable to find your location.</string>
+    <string name="errorPermissionLocation">Denied access to your location</string>
     <string name="errorConnection">Either you have no connection or server is overloaded.</string>
     <string name="errorNetwork">An unknown error has occurred. Error: 401</string>
     <string name="errorMap">Can\'t apply settings to map</string>

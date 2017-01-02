@@ -129,12 +129,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         LayoutInflater mInflater = LayoutInflater.from(this);
         View actionBar = mInflater.inflate(R.layout.custom_actionbar, null);
         final TextView mTitleTextView = (TextView) actionBar.findViewById(R.id.title_text);
-        mTitleTextView.setText(R.string.app_name);
+        mTitleTextView.setText(R.string.map_activity);
         mActionBar.setCustomView(actionBar);
         mActionBar.setDisplayShowCustomEnabled(true);
         ((Toolbar) actionBar.getParent()).setContentInsetsAbsolute(0, 0);
 
-        // Other variables to make the activity start and funciton
+        // Other variables to make the activity start and function
         mPoly = 0;
         mOnce = true;
         mAdView = null;
@@ -221,7 +221,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // When activity was just paused
         if (mStart) {
-            mRefreshrate = 1000 * mSharedPreferences.getInt("refresh_Rate", 10);
+            mRefreshrate = 1000 * (mSharedPreferences.getInt("refresh_Rate", 9) + 1);
             if (mTimer != null) {
                 mTimer.cancel();
                 mTimer.purge();
@@ -259,7 +259,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         int currentColor = mSharedPreferences.getInt("colorType", Color.YELLOW);
         int currentWidth = mSharedPreferences.getInt("sizeType", 5);
 
-        if (mPolyLine != null){
+        if (mPolyLine != null) {
             if (mMap != null) {
                 // Color needs updating?
                 if (mPolyLine.getColor() != currentColor) {
@@ -294,20 +294,28 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (mDescription.getVisibility() == View.VISIBLE && !mSharedPreferences.getBoolean("info_ISS", true)) {
             mDescription.setVisibility(View.GONE);
         } else if (mDescription.getVisibility() == View.GONE && mSharedPreferences.getBoolean("info_ISS", true)) {
-            if (mDescription.getCurrentTextColor() != mSharedPreferences.getInt("colorText", Color.YELLOW)) {
-                mDescription.setTextColor(mSharedPreferences.getInt("colorText", Color.YELLOW));
-            }
             mDescription.setVisibility(View.VISIBLE);
-        } else if (mDescription.getVisibility() == View.VISIBLE) {
-            if (mDescription.getCurrentTextColor() != mSharedPreferences.getInt("colorText", Color.YELLOW)) {
-                mDescription.setTextColor(mSharedPreferences.getInt("colorText", Color.YELLOW));
-            }
-
         }
 
         // Update text color if different than settings
-        if (mLatLong.getCurrentTextColor() != mSharedPreferences.getInt("colorText", Color.YELLOW)) {
-            mLatLong.setTextColor(mSharedPreferences.getInt("colorText", Color.YELLOW));
+        int textColor = mSharedPreferences.getInt("colorText", Color.YELLOW);
+        if (mLatLong.getCurrentTextColor() != textColor) {
+            mLatLong.setTextColor(textColor);
+            mDescription.setTextColor(textColor);
+        }
+
+        // Update text outline color if different
+        int textOutlineColor = mSharedPreferences.getInt("colorHighlightText", Color.BLACK);
+        if (mLatLong.getShadowColor() != mSharedPreferences.getInt("colorHighlightText", Color.BLACK)) {
+            mLatLong.setShadowLayer(6, 0, 0, textOutlineColor);
+            mDescription.setShadowLayer(6, 0, 0, textOutlineColor);
+        }
+
+        // Update text size as well if different
+        int textSize = mSharedPreferences.getInt("textSizeType", 12);
+        if (mLatLong.getTextSize() != textSize) {
+            mLatLong.setTextSize(textSize);
+            mDescription.setTextSize(textSize);
         }
 
         if (mAdView != null) {
@@ -702,12 +710,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     /**
+     * Check to see if user has given us the permission to access their location.
+     *
+     * @return True or false
+     */
+    private boolean isLocationPermissionGranted() {
+        return Build.VERSION.SDK_INT >= 23 && mContext.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED;
+    }
+
+    /**
      * Get the permissions needed for the Locations.class
      */
     private void getLocationPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{
-                android.Manifest.permission.INTERNET,
-                android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
     }
 
     /**
@@ -719,8 +734,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
-        if (grantResults.length > 0
-                && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             if (mInterstitialAd.isLoaded() && !mSharedPreferences.getBoolean("fullPage", false)) {
                 mInterstitialAd.show();
                 mInterstitialAdActivity = 0;
@@ -729,18 +743,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
     }
-
-    /**
-     * Check to see if user has given us the permission to access their location.
-     *
-     * @return True or false
-     */
-    private boolean isLocationPermissionGranted() {
-        return Build.VERSION.SDK_INT >= 23 &&
-                mContext.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                mContext.checkSelfPermission(android.Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED;
-    }
-
 
     /**
      * Checks to see if a service is running on the phone and to update the check points

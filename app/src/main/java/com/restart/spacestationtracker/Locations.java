@@ -110,10 +110,8 @@ public class Locations extends AppCompatActivity {
      */
     public void Connected() {
         // Check if we have the right permissions
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, R.string.errorPermissionLocation, Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -175,7 +173,7 @@ public class Locations extends AppCompatActivity {
      * After successfully getting a city and country from the last JSON parsing, search a database
      * to see when ISS will pass by this city, country.
      */
-    public Date[] displayPasses(final String latitude, final String longitude, Context applicationContext) {
+    public Date[] displayPasses(final String latitude, final String longitude, final Context applicationContext) {
         // Usually we get 4 to 6 dates. So 10 just to be a bit safe
         final Date[] passes = new Date[10]; // Used for Alert service
 
@@ -200,8 +198,8 @@ public class Locations extends AppCompatActivity {
                     StringBuilder stringBuilder;
                     final String[] dates = new String[results.length() + 1]; // This is what we print for user
 
+                    Resources resources = applicationContext != null ? applicationContext.getResources() : getResources();
 
-                    Resources resources = getResources();
                     // Go through all the JSON Arrays parsing through each JSON Object.
                     for (int i = 0; i < results.length(); ++i) {
                         JSONObject aPass = results.getJSONObject(i);

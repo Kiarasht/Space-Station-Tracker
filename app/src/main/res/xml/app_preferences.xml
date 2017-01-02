@@ -4,10 +4,10 @@
 
     <PreferenceCategory android:title="Map">
         <com.restart.spacestationtracker.view.SeekBarPreference
-            android:defaultValue="10"
+            android:defaultValue="9"
             android:dialogMessage="@string/refreshDialogMessage"
             android:key="refresh_Rate"
-            android:max="30"
+            android:max="29"
             android:summary="@string/refreshSummary"
             android:text="@string/declination_unit"
             android:title="@string/refreshTitle"/>
@@ -37,7 +37,7 @@
     <PreferenceCategory
         android:title="Customization">
         <com.restart.spacestationtracker.view.SeekBarPreference
-            android:defaultValue="5"
+            android:defaultValue="3"
             android:dialogMessage="@string/decimalDialogMessage"
             android:key="decimalType"
             android:max="10"
@@ -46,7 +46,7 @@
             android:title="@string/decimalTitle"/>
 
         <com.restart.spacestationtracker.view.SeekBarPreference
-            android:defaultValue="3"
+            android:defaultValue="5"
             android:dialogMessage="@string/sizeDialogMessage"
             android:key="sizeType"
             android:max="30"
@@ -61,11 +61,27 @@
             android:title="@string/colorTitle"
             app:colorpicker_showHex="false"/>
 
+        <com.restart.spacestationtracker.view.SeekBarPreference
+            android:defaultValue="12"
+            android:dialogMessage="@string/textSizeDialogMessage"
+            android:key="textSizeType"
+            android:max="30"
+            android:summary="@string/textSizeSummary"
+            android:text="@string/textSizeUnit"
+            android:title="@string/textSizeTitle"/>
+
         <com.restart.spacestationtracker.colorpicker.ColorPreference
             android:defaultValue="#FFEA00"
             android:key="colorText"
             android:summary="@string/textSummary"
             android:title="@string/textTitle"
+            app:colorpicker_showHex="false"/>
+
+        <com.restart.spacestationtracker.colorpicker.ColorPreference
+            android:defaultValue="#000000"
+            android:key="colorHighlightText"
+            android:summary="@string/textHighlightSummary"
+            android:title="@string/textHighlightTitle"
             app:colorpicker_showHex="false"/>
     </PreferenceCategory>
 
