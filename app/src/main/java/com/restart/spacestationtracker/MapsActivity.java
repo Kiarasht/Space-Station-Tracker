@@ -149,8 +149,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mRefreshrate = 1000 * mSharedPreferences.getInt("refresh_Rate", 10);
         mFirstTime = mSharedPreferences.getBoolean(getString(R.string.firstTime), true);
-        mMarkerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.iss_2011));
-        mMarkerOptions.anchor(0.5f, 0.5f);
 
         // Animation process for first time users. Skip if not first time (mFirstTime)
         final Activity activity = this;
@@ -278,18 +276,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
 
-        // Every 90 minutes, update the polylines automatically
-        if (mPolyTimer == null) {
-            mPolyTimer = new Timer();
-            TimerTask hourlyTask = new TimerTask() {
-                @Override
-                public void run() {
-                    asyncTaskPolyline();
-                }
-            };
-            mPolyTimer.schedule(hourlyTask, 0L, 5400000); // 90 minutes
-        }
-
         // If user even wants the additional info, and their properties have been changed, update them
         if (mDescription.getVisibility() == View.VISIBLE && !mSharedPreferences.getBoolean("info_ISS", true)) {
             mDescription.setVisibility(View.GONE);
@@ -375,6 +361,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mTimer = new Timer();
         }
 
+        // Every 90 minutes, update the polylines automatically
+        if (mPolyTimer == null) {
+            mPolyTimer = new Timer();
+            TimerTask hourlyTask = new TimerTask() {
+                @Override
+                public void run() {
+                    asyncTaskPolyline();
+                }
+            };
+            mPolyTimer.schedule(hourlyTask, 0L, 5400000); // 90 minutes
+        }
+
+        mMarkerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.iss_2011));
+        mMarkerOptions.anchor(0.5f, 0.5f);
+
         mTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -421,11 +422,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void mMaptype() {
         int current = Integer.parseInt(mSharedPreferences.getString("mapType", "2"));
 
-        if (mMap.getMapType() == current) {
-            return;
-        }
+        if (mMap != null) {
+            if (mMap.getMapType() == current) {
+                return;
+            }
 
-        mMap.setMapType(current);
+            mMap.setMapType(current);
+        }
     }
 
     /**

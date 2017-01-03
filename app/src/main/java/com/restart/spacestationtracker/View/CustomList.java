@@ -82,7 +82,7 @@ public class CustomList extends ArrayAdapter<String> {
             });
 
             name.setText(astronauts.get(position).getName());
-            role.setText(astronauts.get(position).getRole() + context.getString(R.string.midAt) + location);
+            role.setText(astronauts.get(position).getRole() + " " + context.getString(R.string.midAt) + " " + location);
             Picasso.with(context).load(astronauts.get(position).getImage()).into(imageView);
             Picasso.with(context).load(astronauts.get(position).getCountryLink()).into(countryFlag);
         }

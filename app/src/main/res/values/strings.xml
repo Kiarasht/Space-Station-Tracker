@@ -71,7 +71,7 @@
     <string name="duration">Duration</string>
     <string name="time">Time</string>
     <string name="minutes">minutes</string>
-    <string name="midAt"> at </string>
+    <string name="midAt">at</string>
     <string name="checkerContentDescription">Icon represents that a transparent color is picked</string>
     <string name="countryFlagContentDescription">Country flag this astronaut is from</string>
     <string name="astronautTwitterContentDescription">Icon to link to astronaut\'s twitter page</string>
