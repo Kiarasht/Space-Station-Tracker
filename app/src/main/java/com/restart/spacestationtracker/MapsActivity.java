@@ -254,8 +254,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         // Update the color and size of polylines if they are different in settings than what they are right now
-        int currentColor = mSharedPreferences.getInt("colorType", Color.YELLOW);
-        int currentWidth = mSharedPreferences.getInt("sizeType", 5);
+        int currentColor = Color.YELLOW;
+        int currentWidth = 5;
+
+        try {
+            currentColor = mSharedPreferences.getInt("colorType", Color.YELLOW);
+            currentWidth = mSharedPreferences.getInt("sizeType", 5);
+        } catch (ClassCastException e) {
+            Toast.makeText(mContext, "App data is corrupted. Resetting...", Toast.LENGTH_LONG).show();
+            mSharedPreferences.edit().clear().apply();
+        }
 
         if (mPolyLine != null) {
             if (mMap != null) {
