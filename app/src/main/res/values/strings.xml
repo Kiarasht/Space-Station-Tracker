@@ -164,7 +164,7 @@
     <string name="versionSeventeen">Version: 3.2\n\n- Improved People in Space layout\n- Astronauts now have links to their Twitter and wiki\n- Full page ads (Can be disabled/enabled from settings w/o any purchase)\n- Couple of major bug fixes</string>
     <string name="versionEighteen">Version: 3.3\n\nHAPPY NEW YEAR FOLKS\n- Additional settings such as text size and a better support for color picking to support all colors and transparencies.\n- Layout improvements, mostly on settings\n- Fixed settings descriptions getting cut off on tablets/bigger screens\n- Updated libraries used by the app\n- General improvements and bug fixes</string>
     <string name="versionNineteen">Version: 3.31\n\n- Small bug fixes.\n\nNOTE: If you already had the app, this update may break your application. For the time being, uninstalling and reinstalling the app will fix the issue.</string>
-    <string name="versionTwenty">Version: 3.32\n\n- Hotfix\n- Crash on start for existing users</string>
+    <string name="versionTwenty">Version: 3.32\n\n- Crash on start for existing users\n- What\'s new on Help page</string>
 
     <!-- Errors that are typically in toast messages -->
     <string name="errorMarket">Unable to find market app</string>

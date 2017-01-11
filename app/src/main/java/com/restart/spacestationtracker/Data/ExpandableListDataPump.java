@@ -14,6 +14,27 @@ public class ExpandableListDataPump {
     public static HashMap<String, List<String>> getData(Resources resources) {
         LinkedHashMap<String, List<String>> expandableListDetail = new LinkedHashMap<>();
 
+        List<String> whatNew = new ArrayList<>();
+        whatNew.add(resources.getString(R.string.versionTwenty));
+        whatNew.add(resources.getString(R.string.versionNineteen));
+        whatNew.add(resources.getString(R.string.versionEighteen));
+        whatNew.add(resources.getString(R.string.versionSeventeen));
+        whatNew.add(resources.getString(R.string.versionSixteen));
+        whatNew.add(resources.getString(R.string.versionFifteen));
+        whatNew.add(resources.getString(R.string.versionFourteen));
+        whatNew.add(resources.getString(R.string.versionTwelve));
+        whatNew.add(resources.getString(R.string.versionEleven));
+        whatNew.add(resources.getString(R.string.versionTen));
+        whatNew.add(resources.getString(R.string.versionNine));
+        whatNew.add(resources.getString(R.string.versionEight));
+        whatNew.add(resources.getString(R.string.versionSeven));
+        whatNew.add(resources.getString(R.string.versionSix));
+        whatNew.add(resources.getString(R.string.versionFive));
+        whatNew.add(resources.getString(R.string.versionFour));
+        whatNew.add(resources.getString(R.string.versionThree));
+        whatNew.add(resources.getString(R.string.versionTwo));
+        whatNew.add(resources.getString(R.string.versionOne));
+
         List<String> general = new ArrayList<>();
         general.add(resources.getString(R.string.rateHelp));
 
@@ -40,9 +61,10 @@ public class ExpandableListDataPump {
         thanks.add(resources.getString(R.string.thanksPrado));
 
         List<String> about = new ArrayList<>();
-        about.add(resources.getString(R.string.helpVersion) + " 3.3");
-        about.add(resources.getString(R.string.helpBuild) + " 1/1/2017");
+        about.add(resources.getString(R.string.helpVersion) + " 3.32");
+        about.add(resources.getString(R.string.helpBuild) + " 1/10/2017");
 
+        expandableListDetail.put(resources.getString(R.string.whatNew), whatNew);
         expandableListDetail.put(resources.getString(R.string.rateMeHelp), general);
         expandableListDetail.put(resources.getString(R.string.helpContribute), contribute);
         expandableListDetail.put(resources.getString(R.string.helpThanks), thanks);
