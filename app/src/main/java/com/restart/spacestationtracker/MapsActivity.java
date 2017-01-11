@@ -261,7 +261,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             currentColor = mSharedPreferences.getInt("colorType", Color.YELLOW);
             currentWidth = mSharedPreferences.getInt("sizeType", 5);
         } catch (ClassCastException e) {
-            Toast.makeText(mContext, "App data is corrupted. Resetting...", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, R.string.data_corrupted, Toast.LENGTH_LONG).show();
             mSharedPreferences.edit().clear().apply();
         }
 

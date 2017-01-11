@@ -143,6 +143,28 @@
     <string name="helpContribute">Contribute</string>
     <string name="helpThanks">Special Thanks</string>
     <string name="helpAbout">About ISS Tracker</string>
+    <string name="whatNew">What\'s New?</string>
+
+    <!-- Description/Bullet points of each version -->
+    <string name="versionOne">Version: 1.0\n\n- Initial Product\n - Map view\n - ISS icon updating with a timer</string>
+    <string name="versionTwo">Version: 1.1\n\n- Fixed an icon issue</string>
+    <string name="versionThree">Version: 1.2\n\n- Fixed some layout issues on android devices of 4.4 &#8211; 4.0</string>
+    <string name="versionFour">Version: 1.3\n\n- Fixed the layout of loading icon.\n- Fixed a issue where the map would not have loaded on some instances.</string>
+    <string name="versionFive">Version: 1.4\n\n- Ads are now optional\n- Significantly reduced the app\'s size\n- Across app visual change\n- Added more features</string>
+    <string name="versionSix">Version: 1.5\n\n- App should respond much faster\n- Supports API 14 instead of 17\n- Removed two permissions\n- General bugs and library updates</string>
+    <string name="versionSeven">Version: 2.0\n\n- Can now access ISS\'s live feed\n- Improved layout through the app\n- A small guide for new users\n- Fixed an issue where services in settings weren\'t updating correctly\n- General bug fixes and improvements</string>
+    <string name="versionEight">Version: 2.01\n\n- Hotfix</string>
+    <string name="versionNine">Version: 2.1\n\n- Improved Who\'s in Space\n- Click Astros for more info\n- Fix service crashing when having connectivity problems\n- General improvements</string>
+    <string name="versionTen">Version: 2.11\n\n- Updated Help page\n- New Icon\n- Improved layout throughout the app\n- General improvements</string>
+    <string name="versionEleven">Version: 2.12\n\n- Hotfix</string>
+    <string name="versionTwelve">Version: 2.2\n\n- App much faster / responsive\n- Removed ads from some pages\n- Updated the Astro info page\n- Bug fixes &amp; general improvements</string>
+    <string name="versionFourteen">Version: 3.0\n\n- Much more customization\n- Implemented printing of additional info\n- Map type\n- ISS no longer force locked\n- General improvements</string>
+    <string name="versionFifteen">Version: 3.0\n\n- All activities can rotate\n- Less memory usage\n- Small improvements</string>
+    <string name="versionSixteen">Version: 3.1\n\n- Hotfix</string>
+    <string name="versionSeventeen">Version: 3.2\n\n- Improved People in Space layout\n- Astronauts now have links to their Twitter and wiki\n- Full page ads (Can be disabled/enabled from settings w/o any purchase)\n- Couple of major bug fixes</string>
+    <string name="versionEighteen">Version: 3.3\n\nHAPPY NEW YEAR FOLKS\n- Additional settings such as text size and a better support for color picking to support all colors and transparencies.\n- Layout improvements, mostly on settings\n- Fixed settings descriptions getting cut off on tablets/bigger screens\n- Updated libraries used by the app\n- General improvements and bug fixes</string>
+    <string name="versionNineteen">Version: 3.31\n\n- Small bug fixes.\n\nNOTE: If you already had the app, this update may break your application. For the time being, uninstalling and reinstalling the app will fix the issue.</string>
+    <string name="versionTwenty">Version: 3.32\n\n- Hotfix\n- Crash on start for existing users</string>
 
     <!-- Errors that are typically in toast messages -->
     <string name="errorMarket">Unable to find market app</string>
@@ -158,4 +180,5 @@
     <string name="errorNotByMe">ISS Notification wasn\'t stopped by you.</string>
     <string name="errorNoWiki"> does not have a wiki page</string>
     <string name="errorNoTwitter"> does not have a twitter account</string>
+    <string name="data_corrupted">App data is corrupted. Resetting!</string>
 </resources>
