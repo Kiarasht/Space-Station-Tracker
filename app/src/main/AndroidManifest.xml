@@ -21,7 +21,8 @@
         <!-- Maps Activity (Launcher) -->
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"
+            android:label="@string/map_activity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

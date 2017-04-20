@@ -47,6 +47,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.crash.FirebaseCrash;
 import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
@@ -57,7 +58,6 @@ import com.wooplr.spotlight.SpotlightView;
 import com.wooplr.spotlight.utils.SpotlightListener;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
@@ -71,36 +71,39 @@ import java.util.TimerTask;
  */
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
 
-    private static final String TAG = ".MapsActivity";   // Used for volley and occasional Log
+    private static final String TAG = ".MapsActivity";  // Used for volley and occasional Log
 
-    private SharedPreferences mSharedPreferences;        // Managing options from Settings
-    private BoomMenuButton mBoomMenu;                    // Manages the drawer pop menu
-    private InterstitialAd mInterstitialAd;              // Managing interstitial ads with AdMob sdk
-    private MarkerOptions mMarkerOptions;                // Marker options, uses ISS drawable
-    private DecimalFormat mDecimalFormat;                // For number decimal places
-    private RequestQueue mRequestQueue;                  // Volley for JSONObject/JSONArray requests
-    private GoogleMap mMap;                              // Google maps
-    private Polyline[] mPolyArray;                       // An array of polyline. Need 200 for a nice curve
-    private TextView mDescription;                       // A description of additional ISS info. Optional
-    private TextView mLatLong;                           // Lat & Lon of ISS
-    private Polyline mPolyLine;                          // A single poly to help compare any changes from settings
-    private Context mContext;                            // Application context
-    private Marker mMarker;                              // Marker representing ISS that moves alone the prediction line
-    private AdView mAdView;                              // Optional ads
-    private LatLng mLast;                                // Used for connecting polyline.
-    private Timer mPolyTimer;                            // Updates the poly lines
-    private Timer mTimer;                                // Updates map based on refresh rate
+    private SharedPreferences mSharedPreferences;       // Managing options from Settings
+    private BoomMenuButton mBoomMenu;                   // Manages the drawer pop menu
+    private InterstitialAd mInterstitialAd;             // Managing interstitial ads with AdMob sdk
+    private MarkerOptions mMarkerOptions;               // Marker options, uses ISS drawable
+    private DecimalFormat mDecimalFormat;               // For number decimal places
+    private RequestQueue mRequestQueue;                 // Volley for JSONObject/JSONArray requests
+    private GoogleMap mMap;                             // Google maps
+    private Polyline[] mPolyArray;                      // An array of polyline. Need 200 for a nice curve
+    private TextView mDescription;                      // A description of additional ISS info. Optional
+    private TextView mLatLong;                          // Lat & Lon of ISS
+    private Polyline mPolyLine;                         // A single poly to help compare any changes from settings
+    private Context mContext;                           // Application context
+    private Marker mMarker;                             // Marker representing ISS that moves alone the prediction line
+    private AdView mAdView;                             // Optional ads
+    private LatLng mLast;                               // Used for connecting polyline.
+    private Timer mPolyTimer;                           // Updates the poly lines
+    private Timer mTimer;                               // Updates map based on refresh rate
 
-    private int mInterstitialAdActivity;                 // Keeps tracks of what activity was requested to open but was paused for ad
-    private int mPolyCounter;                            // Counts how many polyline there are
-    private int mRefreshrate;                            // Millisecond between each timer repeat of updating ISS's location
-    private int mSuccess;                                // Tracks # times server failed to respond
-    private int mPoly;                                   // Used for adding on to a timestamp and getting future locations
+    private int mInterstitialAdActivity;                // Keeps tracks of what activity was requested to open but was paused for ad
+    private int mPolyCounter;                           // Counts how many polyline there are
+    private int mCurrentColor;                          // Holds the current colors of polylines
+    private int mCurrentWidth;                          // Holds the current width of polylines
+    private int mRefreshrate;                           // Millisecond between each timer repeat of updating ISS's location
+    private int mSuccess;                               // Tracks # times server failed to respond
+    private int mPoly;                                  // Used for adding on to a timestamp and getting future locations
+    private int mProgress;                              // Progress on polylines, make sure we finish one before moving on to next
 
-    private boolean mThreadManager;                      // Checks if polyLines are already being created.
-    private boolean mFirstTime;                          // Menu Tutorial
-    private boolean mStart;                              // Opened app or returned to activity?
-    private boolean mOnce;                               // Move map to ISS's location on start
+    private boolean mThreadManager;                     // Checks if polyLines are already being created.
+    private boolean mFirstTime;                         // Menu Tutorial
+    private boolean mStart;                             // Opened app or returned to activity?
+    private boolean mOnce;                              // Move map to ISS's location on start
 
     /**
      * When the application begins try to read from SharedPreferences to get ready. Run first
@@ -254,12 +257,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         // Update the color and size of polylines if they are different in settings than what they are right now
-        int currentColor = Color.YELLOW;
-        int currentWidth = 5;
+        mCurrentColor = Color.YELLOW;
+        mCurrentWidth = 5;
 
         try {
-            currentColor = mSharedPreferences.getInt("colorType", Color.YELLOW);
-            currentWidth = mSharedPreferences.getInt("sizeType", 5);
+            mCurrentColor = mSharedPreferences.getInt("colorType", Color.YELLOW);
+            mCurrentWidth = mSharedPreferences.getInt("sizeType", 5);
         } catch (ClassCastException e) {
             Toast.makeText(mContext, R.string.data_corrupted, Toast.LENGTH_LONG).show();
             mSharedPreferences.edit().clear().apply();
@@ -268,15 +271,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (mPolyLine != null) {
             if (mMap != null) {
                 // Color needs updating?
-                if (mPolyLine.getColor() != currentColor) {
+                if (mPolyLine.getColor() != mCurrentColor) {
                     for (int i = 0; mPolyArray[i] != null && i < mPolyArray.length - 1; ++i) {
-                        mPolyArray[i].setColor(currentColor);
+                        mPolyArray[i].setColor(mCurrentColor);
                     }
                 }
                 // What about their size?
-                if (mPolyLine.getWidth() != currentWidth) {
+                if (mPolyLine.getWidth() != mCurrentWidth) {
                     for (int i = 0; mPolyArray[i] != null && i < mPolyArray.length - 1; ++i) {
-                        mPolyArray[i].setWidth(currentWidth);
+                        mPolyArray[i].setWidth(mCurrentWidth);
                     }
                 }
             } else {
@@ -412,9 +415,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 try {
                     mThreadManager = true;
                     Date currentDate = new Date();
+                    mProgress = 0;
                     for (int i = 0; i < 20; ++i) {
+                        int mLastPatience = 0;
+                        while (i > 0 && mLastPatience < 10 && mProgress < i) {
+                            Thread.sleep(300);
+                            ++mLastPatience;
+                        }
+
+                        if (mLastPatience >= 10) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(mContext, R.string.polyError, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            break;
+                        }
+
                         updatePolyline(currentDate);
-                        Thread.sleep(1000);
+                        Thread.sleep(1500);
                     }
                     mThreadManager = false;
                 } catch (Exception e) {
@@ -506,7 +526,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             mMarker = mMap.addMarker(mMarkerOptions);
                         }
                     });
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -571,27 +591,32 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 for (int i = 0; i < futureTen.length - 1; ++i) {
                                     mPolyLine = mMap.addPolyline(new PolylineOptions()
                                             .add(latLngs[i], latLngs[i + 1])
-                                            .width(mSharedPreferences.getInt("sizeType", 5))
-                                            .color(mSharedPreferences.getInt("colorType", Color.YELLOW)));
+                                            .width(mCurrentWidth)
+                                            .color(mCurrentColor));
                                     mPolyArray[mPolyCounter++] = mPolyLine;
                                 }
                                 mLast = latLngs[latLngs.length - 1];
+                                ++mProgress;
                             } else {
                                 mPolyArray[mPolyCounter++] = mMap.addPolyline(new PolylineOptions()
                                         .add(mLast, latLngs[0])
-                                        .width(mSharedPreferences.getInt("sizeType", 5))
-                                        .color(mSharedPreferences.getInt("colorType", Color.YELLOW)));
+                                        .width(mCurrentWidth)
+                                        .color(mCurrentColor));
                                 for (int i = 0; i < futureTen.length - 1; ++i) {
                                     mPolyArray[mPolyCounter++] = mMap.addPolyline(new PolylineOptions()
                                             .add(latLngs[i], latLngs[i + 1])
-                                            .width(mSharedPreferences.getInt("sizeType", 5))
-                                            .color(mSharedPreferences.getInt("colorType", Color.YELLOW)));
+                                            .width(mCurrentWidth)
+                                            .color(mCurrentColor));
                                 }
                                 mLast = latLngs[latLngs.length - 1];
+                                ++mProgress;
                             }
                         }
                     });
-                } catch (JSONException e) {
+                } catch (Exception e) {
+                    if (mLast == null) {
+                        FirebaseCrash.report(new Exception("mLast was null"));
+                    }
                     e.printStackTrace();
                 }
             }
@@ -783,7 +808,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mFirstTime = false;
         new SpotlightView.Builder(activity)
                 .introAnimationDuration(400)
-                .enableRevalAnimation(true)
+                .enableRevealAnimation(true)
                 .performClick(true)
                 .fadeinTextDuration(400)
                 .headingTvColor(Color.parseColor("#6441A5"))
@@ -803,7 +828,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onUserClicked(String s) {
                         new SpotlightView.Builder(activity)
                                 .introAnimationDuration(400)
-                                .enableRevalAnimation(true)
+                                .enableRevealAnimation(true)
                                 .performClick(true)
                                 .fadeinTextDuration(400)
                                 .headingTvColor(Color.parseColor("#6441A5"))

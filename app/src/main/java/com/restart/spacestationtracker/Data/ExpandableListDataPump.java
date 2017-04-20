@@ -15,6 +15,7 @@ public class ExpandableListDataPump {
         LinkedHashMap<String, List<String>> expandableListDetail = new LinkedHashMap<>();
 
         List<String> whatNew = new ArrayList<>();
+        whatNew.add(resources.getString(R.string.versionTwentyOne));
         whatNew.add(resources.getString(R.string.versionTwenty));
         whatNew.add(resources.getString(R.string.versionNineteen));
         whatNew.add(resources.getString(R.string.versionEighteen));
@@ -61,8 +62,8 @@ public class ExpandableListDataPump {
         thanks.add(resources.getString(R.string.thanksPrado));
 
         List<String> about = new ArrayList<>();
-        about.add(resources.getString(R.string.helpVersion) + " 3.32");
-        about.add(resources.getString(R.string.helpBuild) + " 1/10/2017");
+        about.add(resources.getString(R.string.helpVersion) + " 3.4");
+        about.add(resources.getString(R.string.helpBuild) + " 1/13/2017");
 
         expandableListDetail.put(resources.getString(R.string.whatNew), whatNew);
         expandableListDetail.put(resources.getString(R.string.rateMeHelp), general);
