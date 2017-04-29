@@ -14,10 +14,16 @@ import android.widget.Toast;
 
 import com.restart.spacestationtracker.Info;
 import com.restart.spacestationtracker.R;
+import com.restart.spacestationtracker.Utils.DateUtils;
 import com.restart.spacestationtracker.data.Astronaut;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -39,6 +45,8 @@ public class CustomList extends ArrayAdapter<String> {
         View rowView = inflater.inflate(R.layout.layout_listview, null, true);
         final TextView name = (TextView) rowView.findViewById(R.id.name);
         final TextView role = (TextView) rowView.findViewById(R.id.role);
+        final TextView date = (TextView) rowView.findViewById(R.id.days_since_launch);
+        final TextView bio = (TextView) rowView.findViewById(R.id.bio);
         final CircleImageView imageView = (CircleImageView) rowView.findViewById(R.id.img);
         final ImageView countryFlag = (ImageView) rowView.findViewById(R.id.countryFlag);
         final ImageView astronautTwitter = (ImageView) rowView.findViewById(R.id.astronautTwitter);
@@ -81,8 +89,16 @@ public class CustomList extends ArrayAdapter<String> {
                 }
             });
 
+            DateFormat sinceLaunch = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
             name.setText(astronauts.get(position).getName());
             role.setText(astronauts.get(position).getRole() + " " + context.getString(R.string.midAt) + " " + location);
+            bio.setText(astronauts.get(position).getBio());
+            try {
+                date.setText(DateUtils.getDateDifference(sinceLaunch.parse(astronauts.get(position).getLaunchDate()).getTime(),new Date().getTime()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             Picasso.with(context).load(astronauts.get(position).getImage()).into(imageView);
             Picasso.with(context).load(astronauts.get(position).getCountryLink()).into(countryFlag);
         }

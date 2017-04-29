@@ -101,13 +101,14 @@ public class PeopleinSpace extends AppCompatActivity {
                         final String country = anAstronaut.getString("country");
                         final String countryLink = anAstronaut.getString("countryflag");
                         final String launchDate = anAstronaut.getString("launchdate");
-                        final String role = anAstronaut.getString("title");
+                        String role = anAstronaut.getString("title");
                         final String location = anAstronaut.getString("location");
                         final String bio = anAstronaut.getString("bio");
                         final String wiki = anAstronaut.getString("biolink");
                         final String twitter = anAstronaut.getString("twitter");
                         final int careerDays = anAstronaut.getInt("careerdays");
 
+                        if (role != null && !role.isEmpty()) role = role.substring(0, 1).toUpperCase() + role.substring(1);
                         astronautNames.add(name);
                         Astronaut storeAnAstronaut = new Astronaut(name, image, country, countryLink, launchDate, role, location, bio, wiki, twitter, careerDays);
                         peopleInSpace.add(storeAnAstronaut);
