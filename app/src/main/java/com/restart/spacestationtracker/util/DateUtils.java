@@ -1,4 +1,4 @@
-package com.restart.spacestationtracker.Utils;
+package com.restart.spacestationtracker.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
