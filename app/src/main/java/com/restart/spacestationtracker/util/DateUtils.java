@@ -65,12 +65,8 @@ public class DateUtils {
         int difference_months = (int) (difference_days / DAYS_TO_MONTHS);
         int difference_years = (int) (difference_months / MONTHS_TO_YEAR);
 
-        if (difference_minutes < 1) {
-            return "Just Now";
-        } else if (difference_minutes < 60) {
-            return String.valueOf(difference_minutes) + " minute" + isPlural(difference_minutes) + " in space";
-        } else if (difference_hours < 24) {
-            return String.valueOf(difference_hours) + " hour" + isPlural(difference_hours) + " in space";
+        if (difference_hours < 24) {
+            return "1 day in space";
         } else if (difference_days < 30) {
             return String.valueOf(difference_days) + " day" + isPlural(difference_days) + " in space";
         } else if (difference_months < 12) {

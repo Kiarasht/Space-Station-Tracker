@@ -1,6 +1,7 @@
 package com.restart.spacestationtracker;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -11,10 +12,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -32,6 +32,7 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -44,11 +45,14 @@ public class Locations extends AppCompatActivity {
 
     private final String TAG = ".Locations";
 
+    private LocationAdapter mAdapter;
+    private RecyclerView mRecyclerView;
     private RequestQueue requestQueue;
     private String mLongitude;
     private String mLatitude;
     private String mLocation;
     private AdView adView;
+    private Activity mActivity;
 
     /**
      * Assign simple widgets while also use the Google API to get user's location.
@@ -57,7 +61,8 @@ public class Locations extends AppCompatActivity {
      */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_locations);
+        setContentView(R.layout.recycler_layout);
+        mActivity = this;
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         requestQueue = Volley.newRequestQueue(this);
@@ -173,9 +178,9 @@ public class Locations extends AppCompatActivity {
      * After successfully getting a city and country from the last JSON parsing, search a database
      * to see when ISS will pass by this city, country.
      */
-    public Date[] displayPasses(final String latitude, final String longitude, final Context applicationContext) {
+    public List<Date> displayPasses(final String latitude, final String longitude, final Context applicationContext) {
         // Usually we get 4 to 6 dates. So 10 just to be a bit safe
-        final Date[] passes = new Date[10]; // Used for Alert service
+        final List<Date> passes = new ArrayList<>(); // Used for Alert service
 
         final String url;
         if (latitude == null && longitude == null) { // Location.java is calling this method
@@ -196,7 +201,7 @@ public class Locations extends AppCompatActivity {
                     Date[] date = new Date[results.length()]; // An array of ISS flyby dates
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault());
                     StringBuilder stringBuilder;
-                    final String[] dates = new String[results.length() + 1]; // This is what we print for user
+                    final List<String> dates = new ArrayList<>(); // This is what we print for user
 
                     Resources resources = applicationContext != null ? applicationContext.getResources() : getResources();
 
@@ -204,36 +209,36 @@ public class Locations extends AppCompatActivity {
                     for (int i = 0; i < results.length(); ++i) {
                         JSONObject aPass = results.getJSONObject(i);
                         date[i] = new Date(Long.parseLong(aPass.getString("risetime")) * 1000L); // Turn into milliseconds
-                        passes[i] = new Date(Long.parseLong(aPass.getString("risetime")) * 1000L); // Same thing
+                        passes.add(new Date(Long.parseLong(aPass.getString("risetime")) * 1000L)); // Same thing
                         duration[i] = aPass.getInt("duration") / 60; // Turn each duration to minutes.
                         stringBuilder = new StringBuilder();
                         stringBuilder.append(resources.getString(R.string.date)).append(": ").append(simpleDateFormat.format(date[i])
                                 .replace(" ", "\n" + resources.getString(R.string.time) + ": ")).append("\n")
                                 .append(resources.getString(R.string.duration)).append(": ").append(duration[i])
                                 .append(" ").append(resources.getString(R.string.minutes));
-                        dates[i + 1] = stringBuilder.toString(); // Save the parsed message
+                        dates.add(stringBuilder.toString()); // Save the parsed message
                     }
 
                     // If Locations.java called us lets create a ListView and run it on a UiThread
                     if (latitude == null && longitude == null) {
-                        dates[0] = resources.getString(R.string.location) + ": " + mLocation; // The first index is User's location. That's why we did +1
+                        dates.add(resources.getString(R.string.location) + ": " + mLocation);  // The first index is User's location. That's why we did +1
 
                         // Fail safe. Sometimes, mLocation isn't found by the previous JSON call.
                         if (mLocation == null) {
                             final DecimalFormat decimalFormat = new DecimalFormat("0.000");
                             final String LAT = decimalFormat.format(Double.parseDouble(mLatitude));
                             final String LNG = decimalFormat.format(Double.parseDouble(mLongitude));
-                            dates[0] = resources.getString(R.string.location) + ": " + LAT + "° N, " + LNG + "° E";
+                            dates.add(resources.getString(R.string.location) + ": " + LAT + "° N, " + LNG + "° E");
                         }
 
-                        final ListAdapter datesAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.text_layout, dates);
-                        final ListView datesListView = (ListView) findViewById(R.id.listView);
-                        Locations.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                datesListView.setAdapter(datesAdapter);
-                            }
-                        });
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
+                        mRecyclerView = (RecyclerView) findViewById(R.id.recycler);
+                        mRecyclerView.setLayoutManager(layoutManager);
+                        mAdapter = new LocationAdapter(mActivity, dates);
+                        mRecyclerView.setHasFixedSize(true);
+                        mRecyclerView.setNestedScrollingEnabled(true);
+                        mAdapter.setDataSet(dates);
+                        mRecyclerView.setAdapter(mAdapter);
                     }
 
                 } catch (JSONException e) {

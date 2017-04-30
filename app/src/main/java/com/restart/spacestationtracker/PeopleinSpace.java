@@ -36,20 +36,20 @@ import java.util.List;
 
 public class PeopleinSpace extends AppCompatActivity {
 
-    private RequestQueue requestQueue;
-    private AdView adView;
-    private RecyclerView mRecyclerView;
     private PeopleInSpaceAdapter mAdapter;
+    private RecyclerView mRecyclerView;
+    private RequestQueue mRequestQueue;
+    private AdView adView;
     private Activity mActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_locations);
+        setContentView(R.layout.recycler_layout);
 
         mActivity = this;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        requestQueue = Volley.newRequestQueue(this);
+        mRequestQueue = Volley.newRequestQueue(this);
         display_people();
 
         // Show an ad, or hide it if its disabled
@@ -91,7 +91,7 @@ public class PeopleinSpace extends AppCompatActivity {
     }
 
     /**
-     * Displays a list of astronauts in a ListView using Firebase.
+     * Displays a list of astronauts in a RecyclerView
      */
     private void display_people() {
         final String url = "http://www.howmanypeopleareinspacerightnow.com/peopleinspace.json";
@@ -103,7 +103,7 @@ public class PeopleinSpace extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
-                    mRecyclerView = (RecyclerView) findViewById(R.id.peopleRecycler);
+                    mRecyclerView = (RecyclerView) findViewById(R.id.recycler);
                     mRecyclerView.setLayoutManager(layoutManager);
                     mAdapter = new PeopleInSpaceAdapter(mActivity, peopleInSpace);
                     mRecyclerView.setHasFixedSize(true);
@@ -169,6 +169,6 @@ public class PeopleinSpace extends AppCompatActivity {
             }
         };
 
-        requestQueue.add(jsonObjectRequest);
+        mRequestQueue.add(jsonObjectRequest);
     }
 }

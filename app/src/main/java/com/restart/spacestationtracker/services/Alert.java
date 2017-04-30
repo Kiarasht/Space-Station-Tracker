@@ -26,6 +26,7 @@ import com.restart.spacestationtracker.Locations;
 import com.restart.spacestationtracker.R;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -38,7 +39,7 @@ public class Alert extends Service {
     private Locations locations;
     private Location mLocation;
     private Context context;
-    private Date[] dates;
+    private List<Date> dates;
     private Date accept;
     private Timer timer;
 
@@ -115,7 +116,7 @@ public class Alert extends Service {
                 dates = null;
 
                 for (int i = 0; i < 30 && sharedPreferences.getBoolean("notification_ISS", false)
-                        && (dates == null || dates[0] == null); ++i) {
+                        && (dates == null || dates.get(0) == null); ++i) {
                     // Get ISSs passes, saving them in an array of dates
                     dates = locations.displayPasses(String.valueOf(mLocation.getLatitude()),
                             String.valueOf(mLocation.getLongitude()), context);
@@ -171,8 +172,7 @@ public class Alert extends Service {
         }
         timer = null;
 
-        String ns = Context.NOTIFICATION_SERVICE;
-        NotificationManager nMgr = (NotificationManager) context.getSystemService(ns);
+        NotificationManager nMgr = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         nMgr.cancel(NOTIFICATION_ID);
     }
 
