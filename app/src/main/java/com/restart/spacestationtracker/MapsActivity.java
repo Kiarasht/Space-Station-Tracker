@@ -891,7 +891,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void requestNewInterstitial() {
         if (!mSharedPreferences.getBoolean("fullPage", false)) {
             AdRequest adRequest = new AdRequest.Builder()
-                    //.addTestDevice(getString(R.string.test_device))
+                    .addTestDevice(getString(R.string.test_device))
                     .build();
 
             mInterstitialAd.loadAd(adRequest);

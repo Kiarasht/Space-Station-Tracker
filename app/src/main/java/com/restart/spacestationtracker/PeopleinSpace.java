@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -23,7 +22,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.restart.spacestationtracker.data.Astronaut;
-import com.restart.spacestationtracker.view.PeopleInSpaceAdapter;
+import com.restart.spacestationtracker.adapter.PeopleInSpaceAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -108,11 +107,6 @@ public class PeopleinSpace extends AppCompatActivity {
                     mAdapter = new PeopleInSpaceAdapter(mActivity, peopleInSpace);
                     mRecyclerView.setHasFixedSize(true);
                     mRecyclerView.setNestedScrollingEnabled(true);
-
-                    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
-                            layoutManager.getOrientation());
-                    mRecyclerView.addItemDecoration(dividerItemDecoration);
-
                     mAdapter.setDataSet(peopleInSpace);
                     mRecyclerView.setAdapter(mAdapter);
                 } catch (Exception e) {

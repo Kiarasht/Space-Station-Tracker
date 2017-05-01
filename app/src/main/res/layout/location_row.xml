@@ -11,9 +11,9 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardUseCompatPadding="true"
+        card_view:cardCornerRadius="4dp"
         card_view:cardElevation="4dp"
-        card_view:cardCornerRadius="4dp">
+        card_view:cardUseCompatPadding="true">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -27,32 +27,48 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_margin="16dp"
+                android:drawableLeft="@drawable/ic_calendar"
+                android:drawablePadding="16dp"
+                android:drawableStart="@drawable/ic_calendar"
                 android:textSize="14sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
+            <TextView
+                android:id="@+id/duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:drawablePadding="16dp"
+                android:drawableLeft="@drawable/ic_timer"
+                android:drawableStart="@drawable/ic_timer"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/date"/>
+
             <Button
-                android:id="@+id/calendarText"
+                android:id="@+id/calendarButton"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="Calendar"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/date"
-                app:layout_constraintVertical_bias="1.0"/>
+                app:layout_constraintTop_toBottomOf="@+id/duration"/>
 
             <Button
-                android:id="@+id/shareText"
+                android:id="@+id/shareButton"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="Share"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/calendarText"
-                app:layout_constraintTop_toBottomOf="@+id/date"/>
+                app:layout_constraintLeft_toRightOf="@+id/calendarButton"
+                app:layout_constraintTop_toBottomOf="@+id/duration"/>
 
         </android.support.constraint.ConstraintLayout>
 

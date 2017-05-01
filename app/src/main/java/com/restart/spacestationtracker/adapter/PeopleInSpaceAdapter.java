@@ -1,4 +1,4 @@
-package com.restart.spacestationtracker.view;
+package com.restart.spacestationtracker.adapter;
 
 import android.app.Activity;
 import android.content.Intent;

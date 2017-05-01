@@ -1,20 +1,25 @@
 package com.restart.spacestationtracker;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
+import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -23,36 +28,57 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
+import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.nineoldandroids.view.ViewHelper;
+import com.restart.spacestationtracker.adapter.LocationAdapter;
+import com.restart.spacestationtracker.data.SightSee;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Json parsing to read the expected time and dates the ISS will pass by the user's location.
  * This class will require to read user's location.
  */
-public class Locations extends AppCompatActivity {
+public class Locations extends AppCompatActivity implements ObservableScrollViewCallbacks {
 
     private final String TAG = ".Locations";
+    private static final float MAX_TEXT_SCALE_DELTA = 0.3f;
 
+    private View mImageView;
+    private View mOverlayView;
+    private TextView mTitleView;
     private LocationAdapter mAdapter;
-    private RecyclerView mRecyclerView;
+    private ObservableRecyclerView mRecyclerView;
     private RequestQueue requestQueue;
     private String mLongitude;
     private String mLatitude;
     private String mLocation;
     private AdView adView;
+    private View mRecyclerViewBackground;
     private Activity mActivity;
+    private int mActionBarSize;
+    private int mFlexibleSpaceImageHeight;
+
+    protected int getActionBarSize() {
+        TypedValue typedValue = new TypedValue();
+        int[] textSizeAttr = new int[]{R.attr.actionBarSize};
+        int indexOfAttrTextSize = 0;
+        TypedArray a = obtainStyledAttributes(typedValue.data, textSizeAttr);
+        int actionBarSize = a.getDimensionPixelSize(indexOfAttrTextSize, -1);
+        a.recycle();
+        return actionBarSize;
+    }
 
     /**
      * Assign simple widgets while also use the Google API to get user's location.
@@ -63,6 +89,53 @@ public class Locations extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_layout);
         mActivity = this;
+
+        mFlexibleSpaceImageHeight = getResources().getDimensionPixelSize(R.dimen.flexible_space_image_height);
+        mActionBarSize = getActionBarSize();
+
+        mImageView = findViewById(R.id.image);
+        mOverlayView = findViewById(R.id.overlay);
+
+        mTitleView = (TextView) findViewById(R.id.title);
+        mTitleView.setText(getTitle());
+        setTitle(null);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
+        mRecyclerView = (ObservableRecyclerView) findViewById(R.id.recycler);
+        mRecyclerView.setScrollViewCallbacks(this);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setNestedScrollingEnabled(true);
+
+
+
+
+
+        // mRecyclerViewBackground makes RecyclerView's background except header view.
+        mRecyclerViewBackground = findViewById(R.id.list_background);
+
+        //since you cannot programmatically add a header view to a RecyclerView we added an empty view as the header
+        // in the adapter and then are shifting the views OnCreateView to compensate
+        final float scale = 1 + MAX_TEXT_SCALE_DELTA;
+        mRecyclerViewBackground.post(new Runnable() {
+            @Override
+            public void run() {
+                ViewHelper.setTranslationY(mRecyclerViewBackground, mFlexibleSpaceImageHeight);
+            }
+        });
+        ViewHelper.setTranslationY(mOverlayView, mFlexibleSpaceImageHeight);
+        mTitleView.post(new Runnable() {
+            @Override
+            public void run() {
+                ViewHelper.setTranslationY(mTitleView, (int) (mFlexibleSpaceImageHeight - mTitleView.getHeight() * scale));
+                ViewHelper.setPivotX(mTitleView, 0);
+                ViewHelper.setPivotY(mTitleView, 0);
+                ViewHelper.setScaleX(mTitleView, scale);
+                ViewHelper.setScaleY(mTitleView, scale);
+            }
+        });
+
+
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         requestQueue = Volley.newRequestQueue(this);
@@ -160,6 +233,7 @@ public class Locations extends AppCompatActivity {
                     // Save the formatted address, we will use it later
                     JSONObject results = response.getJSONArray("results").getJSONObject(1);
                     mLocation = results.getString("formatted_address");
+                    SightSee.setLocation(mLocation);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -179,14 +253,13 @@ public class Locations extends AppCompatActivity {
      * to see when ISS will pass by this city, country.
      */
     public List<Date> displayPasses(final String latitude, final String longitude, final Context applicationContext) {
-        // Usually we get 4 to 6 dates. So 10 just to be a bit safe
         final List<Date> passes = new ArrayList<>(); // Used for Alert service
-
         final String url;
+
         if (latitude == null && longitude == null) { // Location.java is calling this method
             url = "http://api.open-notify.org/iss-pass.json?lat=" +
-                    mLatitude + "&lon=" + mLongitude;
-        } else {                                            // Alert.java is calling this method
+                    mLatitude + "&lon=" + mLongitude + "&n=100";
+        } else {                                     // Alert.java is calling this method
             url = "http://api.open-notify.org/iss-pass.json?lat=" +
                     latitude + "&lon=" + longitude;
         }
@@ -196,51 +269,26 @@ public class Locations extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    JSONArray results = response.getJSONArray("response");
-                    int[] duration = new int[results.length()]; // An array of ISS flyby durations
-                    Date[] date = new Date[results.length()]; // An array of ISS flyby dates
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault());
-                    StringBuilder stringBuilder;
-                    final List<String> dates = new ArrayList<>(); // This is what we print for user
+                    final JSONArray results = response.getJSONArray("response");
+                    final List<SightSee> dates = new ArrayList<>();
 
-                    Resources resources = applicationContext != null ? applicationContext.getResources() : getResources();
-
-                    // Go through all the JSON Arrays parsing through each JSON Object.
                     for (int i = 0; i < results.length(); ++i) {
-                        JSONObject aPass = results.getJSONObject(i);
-                        date[i] = new Date(Long.parseLong(aPass.getString("risetime")) * 1000L); // Turn into milliseconds
-                        passes.add(new Date(Long.parseLong(aPass.getString("risetime")) * 1000L)); // Same thing
-                        duration[i] = aPass.getInt("duration") / 60; // Turn each duration to minutes.
-                        stringBuilder = new StringBuilder();
-                        stringBuilder.append(resources.getString(R.string.date)).append(": ").append(simpleDateFormat.format(date[i])
-                                .replace(" ", "\n" + resources.getString(R.string.time) + ": ")).append("\n")
-                                .append(resources.getString(R.string.duration)).append(": ").append(duration[i])
-                                .append(" ").append(resources.getString(R.string.minutes));
-                        dates.add(stringBuilder.toString()); // Save the parsed message
+                        final JSONObject aPass = results.getJSONObject(i);
+                        passes.add(new Date(Long.parseLong(aPass.getString("risetime")) * 1000L));
+                        final SightSee aSightSee = new SightSee(aPass.getInt("duration"), aPass.getInt("risetime"));
+                        dates.add(aSightSee);
                     }
 
-                    // If Locations.java called us lets create a ListView and run it on a UiThread
-                    if (latitude == null && longitude == null) {
-                        dates.add(resources.getString(R.string.location) + ": " + mLocation);  // The first index is User's location. That's why we did +1
-
-                        // Fail safe. Sometimes, mLocation isn't found by the previous JSON call.
-                        if (mLocation == null) {
-                            final DecimalFormat decimalFormat = new DecimalFormat("0.000");
-                            final String LAT = decimalFormat.format(Double.parseDouble(mLatitude));
-                            final String LNG = decimalFormat.format(Double.parseDouble(mLongitude));
-                            dates.add(resources.getString(R.string.location) + ": " + LAT + "° N, " + LNG + "° E");
+                    final View headerView = LayoutInflater.from(mActivity).inflate(R.layout.recycler_header, null);
+                    headerView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            headerView.getLayoutParams().height = mFlexibleSpaceImageHeight;
                         }
-
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
-                        mRecyclerView = (RecyclerView) findViewById(R.id.recycler);
-                        mRecyclerView.setLayoutManager(layoutManager);
-                        mAdapter = new LocationAdapter(mActivity, dates);
-                        mRecyclerView.setHasFixedSize(true);
-                        mRecyclerView.setNestedScrollingEnabled(true);
-                        mAdapter.setDataSet(dates);
-                        mRecyclerView.setAdapter(mAdapter);
-                    }
-
+                    });
+                    mAdapter = new LocationAdapter(mActivity, headerView);
+                    mAdapter.setDataSet(dates);
+                    mRecyclerView.setAdapter(mAdapter);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -264,5 +312,67 @@ public class Locations extends AppCompatActivity {
         }
 
         return passes; // Only Alert.java benefits from this return
+    }
+
+    /**
+     * Called when the scroll change events occurred.
+     * This won't be called just after the view is laid out, so if you'd like to
+     * initialize the position of your views with this method, you should call this manually
+     * or invoke scroll as appropriate.
+     *
+     * @param scrollY     scroll position in Y axis
+     * @param firstScroll true when this is called for the first time in the consecutive motion events
+     * @param dragging    true when the view is dragged and false when the view is scrolled in the inertia
+     */
+    @Override
+    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+// Translate overlay and image
+        float flexibleRange = mFlexibleSpaceImageHeight - mActionBarSize;
+        int minOverlayTransitionY = mActionBarSize - mOverlayView.getHeight();
+        ViewHelper.setTranslationY(mOverlayView, ScrollUtils.getFloat(-scrollY, minOverlayTransitionY, 0));
+        ViewHelper.setTranslationY(mImageView, ScrollUtils.getFloat(-scrollY / 2, minOverlayTransitionY, 0));
+
+        // Translate list background
+        ViewHelper.setTranslationY(mRecyclerViewBackground, Math.max(0, -scrollY + mFlexibleSpaceImageHeight));
+
+        // Change alpha of overlay
+        ViewHelper.setAlpha(mOverlayView, ScrollUtils.getFloat((float) scrollY / flexibleRange, 0, 1));
+
+        // Scale title text
+        float scale = 1 + ScrollUtils.getFloat((flexibleRange - scrollY) / flexibleRange, 0, MAX_TEXT_SCALE_DELTA);
+        setPivotXToTitle();
+        ViewHelper.setPivotY(mTitleView, 0);
+        ViewHelper.setScaleX(mTitleView, scale);
+        ViewHelper.setScaleY(mTitleView, scale);
+
+        // Translate title text
+        int maxTitleTranslationY = (int) (mFlexibleSpaceImageHeight - mTitleView.getHeight() * scale);
+        int titleTranslationY = maxTitleTranslationY - scrollY;
+        ViewHelper.setTranslationY(mTitleView, titleTranslationY);
+    }
+
+    /**
+     * Called when the down motion event occurred.
+     */
+    @Override
+    public void onDownMotionEvent() {}
+
+    /**
+     * Called when the dragging ended or canceled.
+     *
+     * @param scrollState state to indicate the scroll direction
+     */
+    @Override
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {}
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    private void setPivotXToTitle() {
+        Configuration config = getResources().getConfiguration();
+        if (Build.VERSION_CODES.JELLY_BEAN_MR1 <= Build.VERSION.SDK_INT
+                && config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+            ViewHelper.setPivotX(mTitleView, findViewById(android.R.id.content).getWidth());
+        } else {
+            ViewHelper.setPivotX(mTitleView, 0);
+        }
     }
 }
