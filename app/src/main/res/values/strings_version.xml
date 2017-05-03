@@ -1,0 +1,54 @@
+<resources>
+
+    <string name="version">Versions</string>
+    <string name="version_msg">List of previous changes, fixes, and updates:</string>
+
+    <string-array name="version_title_list" translatable="false">
+        <item>Version: 4.00</item>
+        <item>Version: 3.40</item>
+        <item>Version: 3.32</item>
+        <item>Version: 3.31</item>
+        <item>Version: 3.30</item>
+        <item>Version: 3.20</item>
+        <item>Version: 3.10</item>
+        <item>Version: 3.00</item>
+        <item>Version: 2.30</item>
+        <item>Version: 2.20</item>
+        <item>Version: 2.12</item>
+        <item>Version: 2.11</item>
+        <item>Version: 2.10</item>
+        <item>Version: 2.01</item>
+        <item>Version: 2.00</item>
+        <item>Version: 1.50</item>
+        <item>Version: 1.40</item>
+        <item>Version: 1.30</item>
+        <item>Version: 1.20</item>
+        <item>Version: 1.10</item>
+        <item>Version: 1.00</item>
+    </string-array>
+
+    <string-array name="version_list" translatable="false">
+        <item><![CDATA[- Big layout changes throughout the app<br>- Save future ISS flybys to your phone calendar<br>- Share the flybys with others]]></item>
+        <item><![CDATA[- Map won\'t reset on orientation change<br>- Fixed a crash caused by slow connections]]></item>
+        <item><![CDATA[- Crash on start for existing users<br>- What\'s new on Help page (You looking at it silly)]]></item>
+        <item><![CDATA[- Small bug fixes<br><br>NOTE: If you already had the app, this update may break your application. For the time being, uninstalling and reinstalling the app will fix the issue]]></item>
+        <item><![CDATA[HAPPY NEW YEAR FOLKS<br>- Additional settings such as text size and a better support for color picking to support all colors and transparencies<br>- Layout improvements, mostly on settings<br>- Fixed settings descriptions getting cut off on tablets/bigger screens<br>- Updated libraries used by the app<br>- General improvements and bug fixes]]></item>
+        <item><![CDATA[- Improved People in Space layout<br>- Astronauts now have links to their Twitter and wiki<br>- Full page ads (Can be disabled/enabled from settings w/o any purchase)<br>- Couple of major bug fixes]]></item>
+        <item><![CDATA[- General bug fixes and improvements]]></item>
+        <item><![CDATA[- All activities can rotate<br>- Less memory usage<br>- Small improvements]]></item>
+        <item><![CDATA[- Much more customization<br>- Implemented printing of additional info<br>- Map type<br>- ISS no longer force locked<br>- General improvements]]></item>
+        <item><![CDATA[- App much faster / responsive<br>- Removed ads from some pages<br>- Updated the Astro info page<br>- Bug fixes &amp; general improvements]]></item>
+        <item><![CDATA[- General bug fixes and improvements]]></item>
+        <item><![CDATA[- Updated Help page<br>- New Icon<br>- Improved layout throughout the app<br>- General improvements]]></item>
+        <item><![CDATA[- Improved Who\'s in Space<br>- Click Astros for more info<br>- Fix service crashing when having connectivity problems<br>- General improvements]]></item>
+        <item><![CDATA[- General bug fixes and improvements]]></item>
+        <item><![CDATA[- Can now access ISS\'s live feed<br>- Improved layout through the app<br>- A small guide for new users<br>- Fixed an issue where services in settings weren\'t updating correctly<br>- General bug fixes and improvements]]></item>
+        <item><![CDATA[- App should respond much faster<br>- Supports API 14 instead of 17<br>- Removed two permissions<br>- General bugs and library updates]]></item>
+        <item><![CDATA[- Ads are now optional<br>- Significantly reduced the app\'s size<br>- Across app visual change<br>- Added more features]]></item>
+        <item><![CDATA[- Fixed the layout of loading icon<br>- Fixed a issue where the map would not have loaded on some instances]]></item>
+        <item><![CDATA[- Fixed some layout issues on android devices of 4.4 to 4.0]]></item>
+        <item><![CDATA[- Fixed an icon issue]]></item>
+        <item><![CDATA[- Initial Product<br> - Map view<br> - ISS icon updating with a timer]]></item>
+    </string-array>
+
+</resources>

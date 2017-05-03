@@ -5,4 +5,5 @@
     <dimen name="preference_thumbnail_size">36dp</dimen>
     <dimen name="flexible_space_image_height">240dp</dimen>
     <dimen name="margin_standard">16dp</dimen>
+    <dimen name="margin_short">8dp</dimen>
 </resources>

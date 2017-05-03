@@ -46,6 +46,7 @@ public class PeopleinSpace extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_layout);
 
+        findViewById(R.id.actionLinear).setVisibility(View.GONE);
         mActivity = this;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mRequestQueue = Volley.newRequestQueue(this);

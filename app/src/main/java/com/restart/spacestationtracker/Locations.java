@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -16,9 +18,11 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,11 +41,13 @@ import com.google.android.gms.ads.AdView;
 import com.nineoldandroids.view.ViewHelper;
 import com.restart.spacestationtracker.adapter.LocationAdapter;
 import com.restart.spacestationtracker.data.SightSee;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -55,7 +61,7 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
     private final String TAG = ".Locations";
     private static final float MAX_TEXT_SCALE_DELTA = 0.3f;
 
-    private View mImageView;
+    private ImageView mImageView;
     private View mOverlayView;
     private TextView mTitleView;
     private LocationAdapter mAdapter;
@@ -93,7 +99,7 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
         mFlexibleSpaceImageHeight = getResources().getDimensionPixelSize(R.dimen.flexible_space_image_height);
         mActionBarSize = getActionBarSize();
 
-        mImageView = findViewById(R.id.image);
+        mImageView = (ImageView) findViewById(R.id.image);
         mOverlayView = findViewById(R.id.overlay);
 
         mTitleView = (TextView) findViewById(R.id.title);
@@ -106,10 +112,6 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setNestedScrollingEnabled(true);
-
-
-
-
 
         // mRecyclerViewBackground makes RecyclerView's background except header view.
         mRecyclerViewBackground = findViewById(R.id.list_background);
@@ -134,8 +136,6 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
                 ViewHelper.setScaleY(mTitleView, scale);
             }
         });
-
-
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         requestQueue = Volley.newRequestQueue(this);
@@ -204,8 +204,36 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
 
         // If we got something back start parsing
         if (location != null) {
+            String url = "https://maps.googleapis.com/maps/api/staticmap?" +
+                    "center=LAT,LNG&" +
+                    "zoom=13&" +
+                    "scale=1&" +
+                    "size=640x640&" +
+                    "markers=color:red%7CLAT,LNG&" +
+                    "key=AIzaSyAtpWPhzhbtqTgofnQhAHjiG12MmrY2AAE";
+
             mLatitude = String.valueOf(location.getLatitude());
             mLongitude = String.valueOf(location.getLongitude());
+            url = url.replace("LAT", mLatitude);
+            url = url.replace("LNG", mLongitude);
+
+            try {
+                List<Address> matches = new Geocoder(this).getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                final Address bestMatch = (matches.isEmpty() ? null : matches.get(0));
+                if (bestMatch != null) {
+                    findViewById(R.id.title).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Log.e(TAG, bestMatch.toString());
+                        }
+                    });
+                    mTitleView.setText(bestMatch.getLocality() + ", " + bestMatch.getAdminArea() + " " + bestMatch.getPostalCode() + " " + bestMatch.getCountryCode());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Picasso.with(mActivity).load(url).into(mImageView);
             displayResults();
             displayPasses(null, null, null);
         } else {

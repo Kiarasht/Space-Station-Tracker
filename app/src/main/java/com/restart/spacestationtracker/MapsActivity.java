@@ -726,7 +726,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 @Override
                                 public void onBoomButtonClick(int index) {
                                     Intent intent;
-                                    intent = new Intent(mContext, Help.class);
+                                    intent = new Intent(mContext, AboutActivity.class);
                                     startActivity(intent);
                                 }
                             })

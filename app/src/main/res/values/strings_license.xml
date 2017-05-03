@@ -1,0 +1,118 @@
+<resources>
+
+    <string name="license">Open source licenses</string>
+    <string name="msg_license">This application is constructed using following software:</string>
+
+    <string-array name="software_list" translatable="false">
+        <item>BoomMenu</item>
+        <item>CircleImageView</item>
+        <item>HSV-Alpha Color Picker</item>
+        <item>NineOldAndroids</item>
+        <item>ObservableScrollView</item>
+        <item>Picasso</item>
+        <item>Spotlight</item>
+
+    </string-array>
+
+    <string-array name="license_list" translatable="false">
+        <item><![CDATA[<p>Copyright 2017 Weiping Huang</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at<br>
+<br>
+   http://www.apache.org/licenses/LICENSE-2.0</p>
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.]]></item>
+
+        <item><![CDATA[<p>Copyright 2014 - 2017 Henning Dodenhof</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at<br>
+<br>
+   http://www.apache.org/licenses/LICENSE-2.0</p>
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.]]></item>
+
+        <item><![CDATA[<p>Copyright 2017 Martin Stone</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at<br>
+<br>
+   http://www.apache.org/licenses/LICENSE-2.0</p>
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.]]></item>
+
+        <item><![CDATA[<p>Copyright 2012 Jake Wharton</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at<br>
+<br>
+   http://www.apache.org/licenses/LICENSE-2.0</p>
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.]]></item>
+
+        <item><![CDATA[<p>Copyright 2014 Soichiro Kashima</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at<br>
+<br>
+   http://www.apache.org/licenses/LICENSE-2.0</p>
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.]]></item>
+
+        <item><![CDATA[<p>Copyright 2013 Square, Inc.</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0</p>
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.]]></item>
+
+        <item><![CDATA[<p>Copyright 2017 Wooplr</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at<br>
+<br>
+   http://www.apache.org/licenses/LICENSE-2.0</p>
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.]]></item>
+
+    </string-array>
+
+</resources>

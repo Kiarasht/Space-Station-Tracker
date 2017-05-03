@@ -62,7 +62,7 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                     mSightSees.get(getAdapterPosition()).getSetTimeDate().getTime())
                             .putExtra(Events.TITLE, "ISS Sighting")
                             .putExtra(Events.DESCRIPTION, "ISS will be visible here, going to check it out.")
-                            .putExtra(Events.EVENT_LOCATION, mSightSees.get(getAdapterPosition()).getLocation())
+                            .putExtra(Events.EVENT_LOCATION, SightSee.getLocation())
                             .putExtra(Events.AVAILABILITY, Events.AVAILABILITY_BUSY);
                     mActivity.startActivity(intent);
                     break;
@@ -70,7 +70,7 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     Intent sendIntent = new Intent();
                     sendIntent.setAction(Intent.ACTION_SEND);
                     sendIntent.putExtra(Intent.EXTRA_TEXT, "Check it out! ISS will be visible at " +
-                            mSightSees.get(getAdapterPosition()).getLocation() + " on " +
+                            SightSee.getLocation() + " on " +
                             mSightSees.get(getAdapterPosition()).getRiseTime() + ". ");
                     sendIntent.setType("text/plain");
                     mActivity.startActivity(sendIntent);
