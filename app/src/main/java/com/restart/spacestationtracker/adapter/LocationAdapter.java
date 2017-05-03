@@ -22,7 +22,7 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int VIEW_TYPE_ITEM = 1;
     private final Activity mActivity;
     private List<SightSee> mSightSees;
-    private View mHeaderView;
+    private final View mHeaderView;
 
     public LocationAdapter(Activity activity, View headerView) {
         this.mActivity = activity;
@@ -30,10 +30,10 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     class LocationAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView mDate;
-        private TextView mDuration;
-        private Button mCalendar;
-        private Button mShare;
+        private final TextView mDate;
+        private final TextView mDuration;
+        private final Button mCalendar;
+        private final Button mShare;
 
         LocationAdapterViewHolder(View view) {
             super(view);

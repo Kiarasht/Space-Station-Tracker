@@ -21,16 +21,16 @@ import android.graphics.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ObservableColor {
+class ObservableColor {
 
     // Store as HSV & A, otherwise round-trip to int causes color drift.
     private final float[] hsv = {0, 0, 0};
     private int alpha;
-    private final List<ColorObserver> observers = new ArrayList<ColorObserver>();
+    private final List<ColorObserver> observers = new ArrayList<>();
 
-    ObservableColor(int color) {
-        Color.colorToHSV(color, hsv);
-        alpha = Color.alpha(color);
+    ObservableColor() {
+        Color.colorToHSV(0, hsv);
+        alpha = Color.alpha(0);
     }
 
     public void getHsv(float hsvOut[]) {

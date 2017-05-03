@@ -23,6 +23,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,7 +77,7 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
     private int mActionBarSize;
     private int mFlexibleSpaceImageHeight;
 
-    protected int getActionBarSize() {
+    private int getActionBarSize() {
         TypedValue typedValue = new TypedValue();
         int[] textSizeAttr = new int[]{R.attr.actionBarSize};
         int indexOfAttrTextSize = 0;
@@ -108,6 +109,22 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
         mRecyclerView = (ObservableRecyclerView) findViewById(R.id.recycler);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mRecyclerView.getLayoutParams();
+        // Show an ad, or hide it if its disabled
+        if (!sharedPreferences.getBoolean("advertisement", false)) {
+            adView = (AdView) findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.test_device)).build();
+            params.addRule(RelativeLayout.ALIGN_TOP, R.id.adView);
+            if (adView != null) {
+                adView.loadAd(adRequest);
+            }
+        } else {
+            findViewById(R.id.adView).setVisibility(View.GONE);
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        }
+
+        mRecyclerView.setLayoutParams(params);
         mRecyclerView.setScrollViewCallbacks(this);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
@@ -137,20 +154,8 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
             }
         });
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         requestQueue = Volley.newRequestQueue(this);
         Connected();
-
-        // Show an ad, or hide it if its disabled
-        if (!sharedPreferences.getBoolean("advertisement", false)) {
-            adView = (AdView) findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.test_device)).build();
-            if (adView != null) {
-                adView.loadAd(adRequest);
-            }
-        } else {
-            findViewById(R.id.adView).setVisibility(View.GONE);
-        }
     }
 
     /**
@@ -186,7 +191,7 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
     /**
      * Lets find user's location.
      */
-    public void Connected() {
+    private void Connected() {
         // Check if we have the right permissions
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(this, R.string.errorPermissionLocation, Toast.LENGTH_LONG).show();

@@ -23,7 +23,7 @@ import android.util.AttributeSet;
 
 public class ValueView extends SliderViewBase implements ColorObserver {
 
-    private ObservableColor observableColor = new ObservableColor(0);
+    private ObservableColor observableColor = new ObservableColor();
 
     public ValueView(Context context) {
         this(context, null);

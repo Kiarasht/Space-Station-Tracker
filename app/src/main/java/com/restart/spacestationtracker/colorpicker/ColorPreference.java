@@ -165,7 +165,7 @@ public class ColorPreference extends DialogPreference {
         }
     }
 
-    public void setColor(Integer color) {
+    private void setColor(Integer color) {
         if (color == null) {
             removeSetting();
         } else {
@@ -174,7 +174,7 @@ public class ColorPreference extends DialogPreference {
         showColor(color);
     }
 
-    public Integer getColor() {
+    private Integer getColor() {
         return getPersistedIntDefaultOrNull();
     }
 }

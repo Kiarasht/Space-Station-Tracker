@@ -22,7 +22,7 @@ import android.util.AttributeSet;
 
 public class AlphaView extends SliderViewBase implements ColorObserver {
 
-    private ObservableColor observableColor = new ObservableColor(0);
+    private ObservableColor observableColor = new ObservableColor();
 
     public AlphaView(Context context) {
         this(context, null);

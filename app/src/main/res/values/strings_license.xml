@@ -2,6 +2,14 @@
 
     <string name="license">Open source licenses</string>
     <string name="msg_license">This application is constructed using following software:</string>
+    <string name="msg_app_version">App Version: %1$s</string>
+    <string name="msg_copyright">Copyright 2017 Kiarash Torkian MPL-2.0</string>
+    <string name="msg_about_fork_me_on_github">Fork it on GitHub</string>
+    <string name="msg_about_github_url">https://github.com/Kiarasht/Space-Station-Tracker</string>
+    <string name="msg_about_library_description">ISS Tracker is an android application that allows you to track the position of the International Space Station, find out what astronauts are currently in space, and alert you whenever ISS approaches your location.</string>
+    <string name="desc_about_app">About this app</string>
+    <string name="msg_get_it_on_play_store">Get it on Google Play</string>
+    <string name="msg_get_it_on_play_store_url">https://play.google.com/store/apps/details?id=com.restart.spacestationtracker</string>
 
     <string-array name="software_list" translatable="false">
         <item>BoomMenu</item>

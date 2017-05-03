@@ -1,10 +1,8 @@
 package com.restart.spacestationtracker;
 
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.util.Linkify;
@@ -15,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 public class AboutActivity extends AppCompatActivity {
@@ -27,45 +24,9 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_layout);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        // Show an ad, or hide it if its disabled
-        if (!sharedPreferences.getBoolean("advertisement", false)) {
-            adView = (AdView) findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice("998B51E0DA18B35E1A4C4E6D78084ABB").build();
-            if (adView != null) {
-                adView.loadAd(adRequest);
-            }
-        } else {
-            findViewById(R.id.adView).setVisibility(View.GONE);
-        }
-
         ((TextView) findViewById(R.id.app_version)).setText(getString(R.string.msg_app_version, getVersionName()));
         initLicenses();
         initVersions();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (adView != null) {
-            adView.resume();
-        }
-    }
-
-    @Override
-    public void onPause() {
-        if (adView != null) {
-            adView.pause();
-        }
-        super.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        if (adView != null) {
-            adView.destroy();
-        }
-        super.onDestroy();
     }
 
     private void initLicenses() {
@@ -95,10 +56,9 @@ public class AboutActivity extends AppCompatActivity {
         }
     }
 
-
     private TextView createHeader(final String name) {
         String s = "<big><b>" + name + "</b></big>";
-        return createHtmlText(s, 8);
+        return createHtmlText(s);
     }
 
     private TextView createItemsText(final String... names) {
@@ -110,22 +70,18 @@ public class AboutActivity extends AppCompatActivity {
             s.append("- ");
             s.append(name);
         }
-        return createHtmlText(s.toString(), 8);
+        return createHtmlText(s.toString());
     }
 
     private TextView createHtmlText(final String s) {
-        return createHtmlText(s, 8);
-    }
-
-    private TextView createHtmlText(final String s, final int margin) {
         TextView text = new TextView(this);
         text.setAutoLinkMask(Linkify.WEB_URLS | Linkify.EMAIL_ADDRESSES);
         text.setText(Html.fromHtml(s));
         LinearLayout.LayoutParams layoutParams =
                 new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT);
-        int marginPx = (0 < margin) ? (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, margin,
-                getResources().getDisplayMetrics()) : 0;
+        int marginPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8,
+                        getResources().getDisplayMetrics());
         layoutParams.setMargins(0, marginPx, 0, marginPx);
         text.setLayoutParams(layoutParams);
         return text;

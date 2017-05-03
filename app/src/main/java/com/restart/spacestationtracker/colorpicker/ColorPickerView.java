@@ -30,7 +30,7 @@ public class ColorPickerView extends FrameLayout {
 
     private final AlphaView alphaView;
     private final EditText hexEdit;
-    private final ObservableColor observableColor = new ObservableColor(0);
+    private final ObservableColor observableColor = new ObservableColor();
     private final SwatchView swatchView;
 
     public ColorPickerView(Context context) {
@@ -88,14 +88,14 @@ public class ColorPickerView extends FrameLayout {
     /**
      * Sets the original color swatch without changing the current color.
      */
-    public void setOriginalColor(int color) {
+    private void setOriginalColor(int color) {
         swatchView.setOriginalColor(color);
     }
 
     /**
      * Updates the current color without changing the original color swatch.
      */
-    public void setCurrentColor(int color) {
+    private void setCurrentColor(int color) {
         observableColor.updateColor(color, null);
     }
 

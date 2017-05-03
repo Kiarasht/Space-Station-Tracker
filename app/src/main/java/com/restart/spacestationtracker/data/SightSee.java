@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class SightSee {
-    private static SimpleDateFormat mSimpleDateFormat;
+    private static final SimpleDateFormat mSimpleDateFormat;
     private static String location;
     private int duration;
     private Date riseTimeDate, setTimeDate;

@@ -67,12 +67,12 @@ public abstract class SliderViewBase extends View {
         updateBitmap();
     }
 
-    protected void setPos(float pos) {
+    void setPos(float pos) {
         currentPos = pos;
         optimisePointerColor();
     }
 
-    protected void updateBitmap() {
+    void updateBitmap() {
         if (w > 0 && h > 0) {
             bitmap = makeBitmap(w, h);
             optimisePointerColor();

@@ -31,9 +31,12 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
     private static final String androidns = "http://schemas.android.com/apk/res/android";
     private SeekBar mSeekBar;
     private TextView mValueText;
-    private Context mContext;
-    private String mDialogMessage, mSuffix;
-    private int mDefault, mMax, mValue = 0;
+    private final Context mContext;
+    private final String mDialogMessage;
+    private final String mSuffix;
+    private final int mDefault;
+    private int mMax;
+    private int mValue = 0;
     private boolean mDecimalType;
 
     // ------------------------------------------------------------------------------------------

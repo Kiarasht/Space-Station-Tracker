@@ -24,8 +24,8 @@ import android.widget.EditText;
 
 class HexEdit {
 
-    private static InputFilter[] withoutAlphaDigits = {new ColorPasteLengthFilter()};
-    private static InputFilter[] withAlphaDigits = {new InputFilter.LengthFilter(8)};
+    private static final InputFilter[] withoutAlphaDigits = {new ColorPasteLengthFilter()};
+    private static final InputFilter[] withAlphaDigits = {new InputFilter.LengthFilter(8)};
 
     public static void setUpListeners(final EditText hexEdit, final ObservableColor observableColor) {
 
@@ -53,7 +53,7 @@ class HexEdit {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 try {
-                    int color = (int) (Long.parseLong(s.toString(), 16) & 0xffffffff);
+                    int color = (int) (Long.parseLong(s.toString(), 16));
                     if (shouldTrimAlphaDigits()) color = color | 0xff000000;
                     observableColor.updateColor(color, this);
                 } catch (NumberFormatException e) {

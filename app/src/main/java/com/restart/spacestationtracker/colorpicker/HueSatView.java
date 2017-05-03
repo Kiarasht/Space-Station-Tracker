@@ -41,7 +41,7 @@ public class HueSatView extends SquareView implements ColorObserver {
     private Bitmap bitmap;
 
     private final PointF pointer = new PointF();
-    private ObservableColor observableColor = new ObservableColor(0);
+    private ObservableColor observableColor = new ObservableColor();
 
     public HueSatView(Context context) {
         this(context, null);

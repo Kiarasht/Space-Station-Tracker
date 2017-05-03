@@ -16,6 +16,6 @@
 
 package com.restart.spacestationtracker.colorpicker;
 
-public interface ColorObserver {
+interface ColorObserver {
     void updateColor(ObservableColor observableColor);
 }

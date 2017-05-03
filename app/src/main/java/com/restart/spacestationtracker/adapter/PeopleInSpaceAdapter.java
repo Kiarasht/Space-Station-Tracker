@@ -37,9 +37,14 @@ public class PeopleInSpaceAdapter extends RecyclerView.Adapter<PeopleInSpaceAdap
     }
 
     class PeopleInSpaceAdapterViewHolder extends RecyclerView.ViewHolder {
-        private CircleImageView mProfileImage;
-        private ImageView mCountryFlag, mAstronautTwitter, mAstronautWiki;
-        private TextView mName, mRole, mDate, mBio;
+        private final CircleImageView mProfileImage;
+        private final ImageView mCountryFlag;
+        private final ImageView mAstronautTwitter;
+        private final ImageView mAstronautWiki;
+        private final TextView mName;
+        private final TextView mRole;
+        private final TextView mDate;
+        private final TextView mBio;
 
         PeopleInSpaceAdapterViewHolder(View view) {
             super(view);
