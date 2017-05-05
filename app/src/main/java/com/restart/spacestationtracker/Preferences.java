@@ -22,8 +22,18 @@ import android.widget.Toast;
 import com.restart.spacestationtracker.services.Alert;
 import com.restart.spacestationtracker.view.SeekBarPreference;
 
+/**
+ * Manages the settings page of the apps from to have the user controls the visual and flow of the
+ * application.
+ */
 public class Preferences extends AppCompatActivity {
 
+    /**
+     * Start the settings fragment and do it only if one already doesn't exists. The preference
+     * activity only hosts the standalone fragment.
+     *
+     * @param savedInstanceState if it's null, then we need to create the fragment
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +49,10 @@ public class Preferences extends AppCompatActivity {
         }
     }
 
-    public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
-
+    /**
+     * Settings fragment where all the management of a users preference occurs.
+     */
+    public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
         private SharedPreferences mSharedPreferences;
         private PreferenceScreen mPreferenceScreen;
         private SeekBarPreference mRefreshRate;
@@ -50,6 +62,11 @@ public class Preferences extends AppCompatActivity {
         private Context mContext;
         private Activity mActivity;
 
+        /**
+         * Setup variables and any click/change listeners to listen to user's new requests.
+         *
+         * @param savedInstanceState N/A
+         */
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -60,63 +77,21 @@ public class Preferences extends AppCompatActivity {
             mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
             mPreferenceScreen = getPreferenceScreen();
 
-
             // Enable seekbars
             mRefreshRate = (SeekBarPreference) mPreferenceScreen.findPreference("refresh_Rate");
             mRefreshRate.setSummary(this.getString(R.string.refreshSummary).replace("$1", "" + (mSharedPreferences.getInt("refresh_Rate", 9) + 1)));
-
             mPredictionSize = (SeekBarPreference) mPreferenceScreen.findPreference("sizeType");
             mPredictionSize.setSummary(this.getString(R.string.sizeSummary).replace("$1", "" + mSharedPreferences.getInt("sizeType", 5)));
-
             mDecimalPlaces = (SeekBarPreference) mPreferenceScreen.findPreference("decimalType");
             mDecimalPlaces.setSummary(this.getString(R.string.decimalSummary).replace("$1", "" + mSharedPreferences.getInt("decimalType", 3)));
-
             mTextSize = (SeekBarPreference) mPreferenceScreen.findPreference("textSizeType");
             mTextSize.setSummary(this.getString(R.string.textSizeSummary).replace("$1", "" + mSharedPreferences.getInt("textSizeType", 12)));
-
             mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
-            // Onclick methods for each of the check boxes
-            mPreferenceScreen.findPreference("advertisement").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    boolean checked = preference.getSharedPreferences().getBoolean("advertisement", false);
-
-                    if (!checked) {
-                        Toast.makeText(mContext, R.string.startBannerAds, Toast.LENGTH_SHORT).show();
-                    }
-
-                    return true;
-                }
-            });
-
-            // Onclick methods for each of the check boxes
-            mPreferenceScreen.findPreference("fullPage").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    boolean checked = preference.getSharedPreferences().getBoolean("fullPage", false);
-
-                    if (!checked) {
-                        Toast.makeText(mContext, R.string.startFullAds, Toast.LENGTH_SHORT).show();
-                    }
-
-                    return true;
-                }
-            });
-
-            mPreferenceScreen.findPreference("notification_ISS").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    if (isLocationPermissionGranted()) {
-                        getLocationPermission();
-                        return true;
-                    } else {
-                        boolean checked = preference.getSharedPreferences().getBoolean("notification_ISS", false);
-                        iss_Service(checked);
-                        return true;
-                    }
-                }
-            });
+            // OnClick methods for each of the check boxes
+            mPreferenceScreen.findPreference("advertisement").setOnPreferenceClickListener(this);
+            mPreferenceScreen.findPreference("fullPage").setOnPreferenceClickListener(this);
+            mPreferenceScreen.findPreference("notification_ISS").setOnPreferenceClickListener(this);
         }
 
         /**
@@ -151,11 +126,14 @@ public class Preferences extends AppCompatActivity {
          */
         @TargetApi(Build.VERSION_CODES.M)
         public void getLocationPermission() {
-                requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
 
         /**
-         * If permission was granted, send the user to the new activity.
+         * If permission was granted, check notification service box for the user so they don't have
+         * to accept the permission and then click on the preference again.
+         *
+         * If permission was denied, then uncheck it.
          *
          * @param requestCode  For managing requests, in this case it's just 1
          * @param permissions  Would be nice to get internet and location
@@ -175,12 +153,18 @@ public class Preferences extends AppCompatActivity {
         /**
          * Check to see if user has given us the permission to access their location.
          *
-         * @return True or false
+         * @return True if permission is granted. False if otherwise.
          */
         public boolean isLocationPermissionGranted() {
-            return Build.VERSION.SDK_INT >= 23 && mContext.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED;
+            return Build.VERSION.SDK_INT >= 23 && mContext.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
         }
 
+        /**
+         * Handle any preference changes. In this case we use this listener for our seekbars.
+         *
+         * @param sharedPreferences The incoming preference that was changed.
+         * @param key               The key corresponding to the preference that was changed.
+         */
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             switch (key) {
@@ -197,6 +181,81 @@ public class Preferences extends AppCompatActivity {
                     mTextSize.setSummary(this.getString(R.string.textSizeSummary).replace("$1", "" + mSharedPreferences.getInt("textSizeType", 12)));
                 default:
                     break;
+            }
+        }
+
+        /**
+         * Called when a Preference has been clicked.
+         *
+         * @param preference The Preference that was clicked.
+         * @return True if the click was handled.
+         */
+        @Override
+        public boolean onPreferenceClick(Preference preference) {
+            switch (preference.getKey()) {
+                case "advertisement":
+                    return onBannerAds(preference);
+                case "fullPage":
+                    return onFullPageAds(preference);
+                case "notification_ISS":
+                    return onISSNotification(preference);
+                default:
+                    return false;
+            }
+        }
+
+        /**
+         * When the preference corresponding with the banner ad was clicked.
+         * We just inform the user if they unchecked it. We will later use whether if this checkbox
+         * is checked or unchecked to display ads.
+         *
+         * @param preference The incoming preference that was clicked
+         * @return We handled the click, so pass it back
+         */
+        private boolean onBannerAds(Preference preference) {
+            boolean checked = preference.getSharedPreferences().getBoolean("advertisement", false);
+
+            if (!checked) {
+                Toast.makeText(mContext, R.string.startBannerAds, Toast.LENGTH_SHORT).show();
+            }
+
+            return true;
+        }
+
+        /**
+         * When the preference corresponding with the full page ad was clicked.
+         * We just inform the user if they unchecked it. We will later use whether if this checkbox
+         * is checked or unchecked to display ads.
+         *
+         * @param preference The incoming preference that was clicked.
+         * @return We handled the click, so pass it back.
+         */
+        private boolean onFullPageAds(Preference preference) {
+            boolean checked = preference.getSharedPreferences().getBoolean("fullPage", false);
+
+            if (!checked) {
+                Toast.makeText(mContext, R.string.startFullAds, Toast.LENGTH_SHORT).show();
+            }
+
+            return true;
+        }
+
+
+        /**
+         * Start or stop the notification service. But first also check if we location permission is
+         * something we need to worry about.
+         *
+         * @param preference The incoming preference that was clicked.
+         * @return We handled the click, so pass it back.
+         */
+        private boolean onISSNotification(Preference preference) {
+            if (isLocationPermissionGranted()) {
+                boolean checked = preference.getSharedPreferences().getBoolean("notification_ISS", false);
+                iss_Service(checked);
+                return true;
+            } else {
+                getLocationPermission();
+                return true;
             }
         }
     }
