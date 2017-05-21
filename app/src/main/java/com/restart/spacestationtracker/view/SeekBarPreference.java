@@ -5,14 +5,14 @@ package com.restart.spacestationtracker.view;
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Improvements :
- * - save the value on positive button click, not on seekbar change
+ * Improvements done:
+ * - Save the value on positive button click, not on seekbar change
  * - handle @string/... values in xml file
  */
 
-
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
@@ -26,6 +26,20 @@ import android.widget.TextView;
 
 
 public class SeekBarPreference extends DialogPreference implements SeekBar.OnSeekBarChangeListener, OnClickListener {
+    /**
+     * Padding for the dialogs. Gives a good amount of distance so the layout is not very close
+     * to the edges. We do this for all four sides.
+     */
+    private static final float mDPI = Resources.getSystem().getDisplayMetrics().density;
+    private static final int DIALOG_DPI_BOTTOM = 5;
+    private static final int DIALOG_DPI_RIGHT = 14;
+    private static final int DIALOG_DPI_LEFT = 19;
+    private static final int DIALOG_DPI_TOP = 5;
+    private static final int DIALOG_PADDING_BOTTOM = (int) (DIALOG_DPI_BOTTOM * mDPI);
+    private static final int DIALOG_PADDING_RIGHT = (int) (DIALOG_DPI_RIGHT * mDPI);
+    private static final int DIALOG_PADDING_LEFT = (int) (DIALOG_DPI_LEFT * mDPI);
+    private static final int DIALOG_PADDING_TOP = (int) (DIALOG_DPI_TOP * mDPI);
+
     // ------------------------------------------------------------------------------------------
     // Private attributes :
     private static final String androidns = "http://schemas.android.com/apk/res/android";
@@ -78,22 +92,21 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
         LinearLayout.LayoutParams params;
         LinearLayout layout = new LinearLayout(mContext);
         layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setPadding(6, 6, 6, 6);
+        layout.setPadding(DIALOG_PADDING_LEFT, DIALOG_PADDING_TOP, DIALOG_PADDING_RIGHT, DIALOG_PADDING_BOTTOM);
 
         TextView mSplashText = new TextView(mContext);
-        mSplashText.setPadding(65, 20, 65, 20);
         mSplashText.setGravity(Gravity.CENTER_HORIZONTAL);
-        if (mDialogMessage != null)
+        mSplashText.setPadding(DIALOG_PADDING_LEFT, DIALOG_PADDING_TOP, DIALOG_PADDING_RIGHT, DIALOG_PADDING_BOTTOM);
+        if (mDialogMessage != null) {
             mSplashText.setText(mDialogMessage);
+        }
         layout.addView(mSplashText);
 
         mValueText = new TextView(mContext);
         mValueText.setGravity(Gravity.CENTER_HORIZONTAL);
-        mValueText.setPadding(0, 0, 0, 30);
-        mValueText.setTextSize(32);
-        params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
+        mValueText.setPadding(DIALOG_PADDING_LEFT, DIALOG_PADDING_TOP, DIALOG_PADDING_RIGHT, DIALOG_PADDING_BOTTOM);
+        mValueText.setTextSize(24);
+        params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layout.addView(mValueText, params);
 
         mSeekBar = new SeekBar(mContext);

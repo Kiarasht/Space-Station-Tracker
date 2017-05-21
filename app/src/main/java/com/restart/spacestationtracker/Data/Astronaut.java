@@ -2,17 +2,30 @@ package com.restart.spacestationtracker.data;
 
 import android.support.annotation.NonNull;
 
-@SuppressWarnings("unused")
+/**
+ * Class of type Astronaut. Every single astronaut gets one.
+ */
 public class Astronaut implements Comparable<Astronaut> {
 
     // Data needed to represent a single astronaut
-    private String name, image, country, countryLink, launchDate, role, location, bio, wiki, twitter;
-    private int careerDays;
+    private String name, image, countryLink, launchDate, role, location, bio, wiki, twitter;
 
-    public Astronaut(String name, String image, String country, String countryLink, String launchDate, String role, String location, String bio, String wiki, String twitter, int careerDays) {
+    /**
+     * Instantiates a new Astronaut.
+     *
+     * @param name        The name of the astronaut
+     * @param image       The url to a profile image of the astronaut
+     * @param countryLink The url to a country flag the astronaut was born in
+     * @param launchDate  The date where the astronaut was launched
+     * @param role        The role the astronaut has on the aircraft
+     * @param location    The location astronaut is located at. (Often times it's ISS)
+     * @param bio         The bio associated with the astronaut
+     * @param wiki        The wiki url of the astronaut
+     * @param twitter     The twitter url of the astronaut
+     */
+    public Astronaut(String name, String image, String countryLink, String launchDate, String role, String location, String bio, String wiki, String twitter) {
         this.name = name;
         this.image = image;
-        this.country = country;
         this.countryLink = countryLink;
         this.launchDate = launchDate;
         this.role = role;
@@ -20,95 +33,87 @@ public class Astronaut implements Comparable<Astronaut> {
         this.bio = bio;
         this.wiki = wiki;
         this.twitter = twitter;
-        this.careerDays = careerDays;
     }
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    /**
+     * Gets image.
+     *
+     * @return the image
+     */
     public String getImage() {
         return image;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
+    /**
+     * Gets country link.
+     *
+     * @return the country link
+     */
     public String getCountryLink() {
         return countryLink;
     }
 
-    public void setCountryLink(String countryLink) {
-        this.countryLink = countryLink;
-    }
-
+    /**
+     * Gets launch date.
+     *
+     * @return the launch date
+     */
     public String getLaunchDate() {
         return launchDate;
     }
 
-    public void setLaunchDate(String launchDate) {
-        this.launchDate = launchDate;
-    }
-
+    /**
+     * Gets role.
+     *
+     * @return the role
+     */
     public String getRole() {
         return role;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
+    /**
+     * Gets location.
+     *
+     * @return the location
+     */
     public String getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
+    /**
+     * Gets bio.
+     *
+     * @return the bio
+     */
     public String getBio() {
         return bio;
     }
 
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
+    /**
+     * Gets wiki.
+     *
+     * @return the wiki
+     */
     public String getWiki() {
         return wiki;
     }
 
-    public void setWiki(String wiki) {
-        this.wiki = wiki;
-    }
-
+    /**
+     * Gets twitter.
+     *
+     * @return the twitter
+     */
     public String getTwitter() {
         return twitter;
-    }
-
-    public void setTwitter(String twitter) {
-        this.twitter = twitter;
-    }
-
-    public int getCareerDays() {
-        return careerDays;
-    }
-
-    public void setCareerDays(int careerDays) {
-        this.careerDays = careerDays;
     }
 
     /**

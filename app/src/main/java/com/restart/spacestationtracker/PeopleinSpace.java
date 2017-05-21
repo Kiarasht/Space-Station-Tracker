@@ -134,7 +134,6 @@ public class PeopleinSpace extends AppCompatActivity {
 
                             final String name = anAstronaut.getString("name");
                             final String image = anAstronaut.getString("biophoto");
-                            final String country = anAstronaut.getString("country");
                             final String countryLink = anAstronaut.getString("countryflag");
                             final String launchDate = anAstronaut.getString("launchdate");
                             String role = anAstronaut.getString("title");
@@ -142,11 +141,10 @@ public class PeopleinSpace extends AppCompatActivity {
                             final String bio = anAstronaut.getString("bio");
                             final String wiki = anAstronaut.getString("biolink");
                             final String twitter = anAstronaut.getString("twitter");
-                            final int careerDays = anAstronaut.getInt("careerdays");
 
                             if (role != null && !role.isEmpty())
                                 role = role.substring(0, 1).toUpperCase() + role.substring(1);
-                            Astronaut storeAnAstronaut = new Astronaut(name, image, country, countryLink, launchDate, role, location, bio, wiki, twitter, careerDays);
+                            Astronaut storeAnAstronaut = new Astronaut(name, image, countryLink, launchDate, role, location, bio, wiki, twitter);
                             peopleInSpace.add(storeAnAstronaut);
                         }
 

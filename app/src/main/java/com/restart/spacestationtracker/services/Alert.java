@@ -30,6 +30,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * The type Alert. Pushes a notification to the phone if ISS is flying expected to fly near by.
+ */
 public class Alert extends Service {
 
     private static final int NOTIFICATION_ID = 1234;
@@ -75,7 +78,7 @@ public class Alert extends Service {
 
 
     /**
-     * Starting a service for ISS mLocation updater.
+     * Starting a service for ISS Location updater.
      *
      * @param intent  N/A
      * @param startId N/A

@@ -7,7 +7,7 @@ import java.util.Locale;
 
 /**
  * Helper method to parse and format any date related values and compare them to a user's
- * current date to give context of when an earth quake occurred.
+ * current date to give context of when an event occurred.
  */
 public class DateUtils {
     private final static long MILLISECONDS_TO_MINUTES = 60000;
@@ -20,7 +20,7 @@ public class DateUtils {
     /**
      * Parse a date from the input string
      *
-     * @param dateTime A string representing the date of an earth quake from the API.
+     * @param dateTime A string representing the date of an event from the API.
      * @return A date parsed from the string.
      * @throws ParseException if the beginning of the specified string cannot be parsed.
      */

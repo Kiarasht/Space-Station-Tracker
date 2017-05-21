@@ -232,7 +232,26 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
                             Log.e(TAG, bestMatch.toString());
                         }
                     });
-                    mTitleView.setText(bestMatch.getLocality() + ", " + bestMatch.getAdminArea() + " " + bestMatch.getPostalCode() + " " + bestMatch.getCountryCode());
+
+                    String locationFormat = "";
+
+                    if (!"null".equals(bestMatch.getLocality())) {
+                        locationFormat += bestMatch.getLocality() + ", ";
+                    }
+
+                    if (!"null".equals(bestMatch.getAdminArea())) {
+                        locationFormat += bestMatch.getAdminArea();
+                    }
+
+                    if (!"null".equals(bestMatch.getCountryCode())) {
+                        locationFormat += bestMatch.getCountryCode();
+                    }
+
+                    if (!"null".equals(bestMatch.getPostalCode())) {
+                        locationFormat += bestMatch.getPostalCode();
+                    }
+
+                    mTitleView.setText(locationFormat);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -291,7 +310,7 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
 
         if (latitude == null && longitude == null) { // Location.java is calling this method
             url = "http://api.open-notify.org/iss-pass.json?lat=" +
-                    mLatitude + "&lon=" + mLongitude + "&n=100";
+                    mLatitude + "&lon=" + mLongitude + "&n=20";
         } else {                                     // Alert.java is calling this method
             url = "http://api.open-notify.org/iss-pass.json?lat=" +
                     latitude + "&lon=" + longitude;

@@ -89,20 +89,20 @@
     <string name="decimalTitle">Decimal Places</string>
     <string name="decimalDialogMessage">Change the accuracy of all numerical values</string>
     <string name="decimalSummary">Current accuracy level is at $1 decimal places</string>
-    <string name="decimalUnit"> decimal places</string>
+    <string name="decimalUnit"> dp</string>
 
     <string name="colorTitle">Prediction line color</string>
     <string name="colorSummary">Change the color of prediction lines</string>
 
     <string name="sizeTitle">Prediction line size</string>
     <string name="sizeDialogMessage">Change the size of ISS\'s prediction line</string>
-    <string name="sizeSummary">Current line size is $1 dp</string>
-    <string name="sizeUnit"> dp</string>
+    <string name="sizeSummary">Current line size is $1</string>
+    <string name="sizeUnit"> </string>
 
     <string name="textSizeTitle">Text size</string>
     <string name="textSizeDialogMessage">Change the size of all text values</string>
-    <string name="textSizeSummary">Current text size is $1 sp</string>
-    <string name="textSizeUnit"> sp</string>
+    <string name="textSizeSummary">Current text size is $1</string>
+    <string name="textSizeUnit"> </string>
 
     <string name="textTitle">Text color</string>
     <string name="textSummary">Change the color of text values</string>

@@ -16,6 +16,9 @@ import com.restart.spacestationtracker.data.SightSee;
 
 import java.util.List;
 
+/**
+ * The type Location adapter.
+ */
 public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int VIEW_TYPE_HEADER = 0;
@@ -24,17 +27,28 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private List<SightSee> mSightSees;
     private final View mHeaderView;
 
+    /**
+     * Instantiates a new Location adapter.
+     *
+     * @param activity   The calling activity
+     * @param headerView The header view
+     */
     public LocationAdapter(Activity activity, View headerView) {
         this.mActivity = activity;
         this.mHeaderView = headerView;
     }
 
-    class LocationAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class LocationAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView mDate;
         private final TextView mDuration;
         private final Button mCalendar;
         private final Button mShare;
 
+        /**
+         * Instantiates a new Location adapter view holder.
+         *
+         * @param view The parent view holding the widgets.
+         */
         LocationAdapterViewHolder(View view) {
             super(view);
             mDate = (TextView) view.findViewById(R.id.date);
@@ -46,14 +60,14 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
         /**
-         * Called when a view has been clicked.
+         * Called when the calendar or share button views have been clicked.
          *
          * @param v The view that was clicked.
          */
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.calendarButton:
+                case R.id.calendarButton: // User is saving the ISS flyby event to phone calendar
                     Intent intent = new Intent(Intent.ACTION_INSERT)
                             .setData(Events.CONTENT_URI)
                             .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
@@ -61,17 +75,17 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             .putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
                                     mSightSees.get(getAdapterPosition()).getSetTimeDate().getTime())
                             .putExtra(Events.TITLE, "ISS Sighting")
-                            .putExtra(Events.DESCRIPTION, "ISS will be visible here, going to check it out.")
+                            .putExtra(Events.DESCRIPTION, "ISS will be visible here. Going to check it out!")
                             .putExtra(Events.EVENT_LOCATION, SightSee.getLocation())
                             .putExtra(Events.AVAILABILITY, Events.AVAILABILITY_BUSY);
                     mActivity.startActivity(intent);
                     break;
-                case R.id.shareButton:
+                case R.id.shareButton: // User is sharing the ISS flyby event
                     Intent sendIntent = new Intent();
                     sendIntent.setAction(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Check it out! ISS will be visible at " +
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Check it out!\n\nISS will be visible at " +
                             SightSee.getLocation() + " on " +
-                            mSightSees.get(getAdapterPosition()).getRiseTime() + ". ");
+                            mSightSees.get(getAdapterPosition()).getRiseTime() + ".\n\n" + mActivity.getString(R.string.msg_get_it_on_play_store_url));
                     sendIntent.setType("text/plain");
                     mActivity.startActivity(sendIntent);
                     break;
@@ -79,11 +93,24 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
+    /**
+     * The first position of the RecyclerView is its header. The proceeding are the list itself.
+     *
+     * @param position The index of the view
+     * @return If the view is the header of a regular item
+     */
     @Override
     public int getItemViewType(int position) {
         return (position == 0) ? VIEW_TYPE_HEADER : VIEW_TYPE_ITEM;
     }
 
+    /**
+     * Create the view holder but the header and list items have their own separate ones.
+     *
+     * @param parent   To inflate the view
+     * @param viewType To differentiate between header vs. item
+     * @return The new ViewHolder
+     */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_HEADER) {
@@ -95,6 +122,13 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     }
 
+    /**
+     * Set widget values to of their corresponding values from the data set. Only if we are managing
+     * the list items and not the header.
+     *
+     * @param holder   Incoming ViewHolder holding the widgets references
+     * @param position The index we are interested in updating
+     */
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof LocationAdapterViewHolder) {
@@ -103,12 +137,25 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    static class HeaderViewHolder extends RecyclerView.ViewHolder {
-        public HeaderViewHolder(View view) {
+    /**
+     * The type Header view holder.
+     */
+    private static class HeaderViewHolder extends RecyclerView.ViewHolder {
+        /**
+         * Instantiates a new Header view holder.
+         *
+         * @param view the view
+         */
+        HeaderViewHolder(View view) {
             super(view);
         }
     }
 
+    /**
+     * Size of the data set.
+     *
+     * @return Size of the data set.
+     */
     @Override
     public int getItemCount() {
         if (mSightSees == null) return 0;
@@ -116,9 +163,9 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     /**
-     * Set the data list of recyclerview to a new one
+     * Set the data list of RecyclerView to a new one
      *
-     * @param dataSet the new data list
+     * @param dataSet The new data list
      */
     public void setDataSet(List<SightSee> dataSet) {
         mSightSees = dataSet;

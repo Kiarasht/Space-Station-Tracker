@@ -17,7 +17,6 @@ import com.restart.spacestationtracker.data.Astronaut;
 import com.restart.spacestationtracker.util.DateUtils;
 import com.squareup.picasso.Picasso;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,17 +25,34 @@ import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+/**
+ * The type People in space adapter.
+ */
 public class PeopleInSpaceAdapter extends RecyclerView.Adapter<PeopleInSpaceAdapter.PeopleInSpaceAdapterViewHolder> {
 
     private final Activity mActivity;
+    private final SimpleDateFormat mDateFormat;
     private List<Astronaut> mAstronauts;
 
-    public PeopleInSpaceAdapter(Activity activity, List<Astronaut> mAstronauts) {
-        this.mActivity = activity;
-        this.mAstronauts = mAstronauts;
+    /**
+     * Instantiates a new People in space adapter.
+     *
+     * @param activity   The calling activity
+     * @param astronauts The incoming list of astronauts to be displayed
+     */
+    public PeopleInSpaceAdapter(Activity activity, List<Astronaut> astronauts) {
+        mActivity = activity;
+        mAstronauts = astronauts;
+        mDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     }
 
+    /**
+     * The type People in space adapter view holder.
+     */
     class PeopleInSpaceAdapterViewHolder extends RecyclerView.ViewHolder {
+        /**
+         * All widgets that will hold values unique to an astronaut
+         */
         private final CircleImageView mProfileImage;
         private final ImageView mCountryFlag;
         private final ImageView mAstronautTwitter;
@@ -46,9 +62,15 @@ public class PeopleInSpaceAdapter extends RecyclerView.Adapter<PeopleInSpaceAdap
         private final TextView mDate;
         private final TextView mBio;
 
+        /**
+         * Instantiates a new People in space adapter view holder.
+         *
+         * @param view The incoming parent view
+         */
         PeopleInSpaceAdapterViewHolder(View view) {
             super(view);
 
+            /* Get references to each view. */
             mName = (TextView) view.findViewById(R.id.name);
             mRole = (TextView) view.findViewById(R.id.role);
             mDate = (TextView) view.findViewById(R.id.days_since_launch);
@@ -60,23 +82,40 @@ public class PeopleInSpaceAdapter extends RecyclerView.Adapter<PeopleInSpaceAdap
         }
     }
 
+    /**
+     * Inflate the new list view.
+     *
+     * @param parent   To inflate the view
+     * @param viewType N/A
+     * @return New inflated view
+     */
     @Override
     public PeopleInSpaceAdapter.PeopleInSpaceAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new PeopleInSpaceAdapterViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.people_row, parent, false));
     }
 
+    /**
+     * Setup the values for each widgets. Use the incoming ViewHolder to gain access to their corresponding
+     * references.
+     *
+     * @param holder   ViewHolder containing the widget references
+     * @param position The index in our list being updated with new data
+     */
     @Override
     public void onBindViewHolder(PeopleInSpaceAdapterViewHolder holder, int position) {
         final int pos = position;
 
+        /* If an astronaut exists in the data set, let update the values */
         if (mAstronauts.get(pos) != null) {
             String location = "Tiangong-2";
 
+            // Are the astronauts on the ISS?
             if (mAstronauts.get(pos).getLocation().contains("International Space Station")) {
                 location = "ISS";
             }
 
-            if (mAstronauts.get(pos).getTwitter().length() != 0) {
+            // Does the astronaut have a twitter handle?
+            if (!mAstronauts.get(pos).getTwitter().isEmpty()) {
                 holder.mAstronautTwitter.setImageDrawable(ContextCompat.getDrawable(mActivity, R.drawable.ic_action_twitter));
             }
 
@@ -93,6 +132,7 @@ public class PeopleInSpaceAdapter extends RecyclerView.Adapter<PeopleInSpaceAdap
                 }
             });
 
+            // Does the astronaut have a wiki handle?
             holder.mAstronautWiki.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -106,21 +146,27 @@ public class PeopleInSpaceAdapter extends RecyclerView.Adapter<PeopleInSpaceAdap
                 }
             });
 
-            DateFormat sinceLaunch = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-
+            /* Set the astro info and images */
             holder.mName.setText(mAstronauts.get(position).getName());
             holder.mRole.setText(mAstronauts.get(position).getRole() + " " + mActivity.getString(R.string.midAt) + " " + location);
             holder.mBio.setText(mAstronauts.get(position).getBio());
+
             try {
-                holder.mDate.setText(DateUtils.getDateDifference(sinceLaunch.parse(mAstronauts.get(position).getLaunchDate()).getTime(),new Date().getTime()));
+                holder.mDate.setText(DateUtils.getDateDifference(mDateFormat.parse(mAstronauts.get(position).getLaunchDate()).getTime(), new Date().getTime()));
             } catch (ParseException e) {
-                e.printStackTrace();
+                holder.mDate.setVisibility(View.INVISIBLE);
             }
+
             Picasso.with(mActivity).load(mAstronauts.get(position).getImage()).into(holder.mProfileImage);
             Picasso.with(mActivity).load(mAstronauts.get(position).getCountryLink()).into(holder.mCountryFlag);
         }
     }
 
+    /**
+     * Size of our data base. Equals number of astronauts in space.
+     *
+     * @return An int representing the size
+     */
     @Override
     public int getItemCount() {
         if (mAstronauts == null) return 0;
