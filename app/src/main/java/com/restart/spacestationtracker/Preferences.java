@@ -25,6 +25,8 @@ import com.restart.spacestationtracker.view.SeekBarPreference;
 /**
  * Manages the settings page of the apps from to have the user controls the visual and flow of the
  * application.
+ *
+ * TODO: As a user, I should have the option to reset an option or all options to their original values.
  */
 public class Preferences extends AppCompatActivity {
 

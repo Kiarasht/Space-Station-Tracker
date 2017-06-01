@@ -18,7 +18,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -226,13 +225,6 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
                 List<Address> matches = new Geocoder(this).getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                 final Address bestMatch = (matches.isEmpty() ? null : matches.get(0));
                 if (bestMatch != null) {
-                    findViewById(R.id.title).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Log.e(TAG, bestMatch.toString());
-                        }
-                    });
-
                     String locationFormat = "";
 
                     if (!"null".equals(bestMatch.getLocality())) {
@@ -240,11 +232,11 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
                     }
 
                     if (!"null".equals(bestMatch.getAdminArea())) {
-                        locationFormat += bestMatch.getAdminArea();
+                        locationFormat += bestMatch.getAdminArea() + " ";
                     }
 
                     if (!"null".equals(bestMatch.getCountryCode())) {
-                        locationFormat += bestMatch.getCountryCode();
+                        locationFormat += bestMatch.getCountryCode() + " ";
                     }
 
                     if (!"null".equals(bestMatch.getPostalCode())) {

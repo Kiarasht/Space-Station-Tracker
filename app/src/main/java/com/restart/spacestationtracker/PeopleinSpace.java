@@ -46,6 +46,7 @@ public class PeopleinSpace extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_layout);
 
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler);
         findViewById(R.id.actionLinear).setVisibility(View.GONE);
         mActivity = this;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -103,7 +104,6 @@ public class PeopleinSpace extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
-                    mRecyclerView = (RecyclerView) findViewById(R.id.recycler);
                     mRecyclerView.setLayoutManager(layoutManager);
                     mAdapter = new PeopleInSpaceAdapter(mActivity, peopleInSpace);
                     mRecyclerView.setHasFixedSize(true);

@@ -567,11 +567,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         urlBuilder.setLength(urlBuilder.length() - 1);
 
+        //TODO: As a user, I would like the option of changing the units from metric to imperial
         final String units = "miles";
         final String url = "https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=" +
                 urlBuilder.toString() +
                 "&units=" +
-                units; //TODO: maybe user decides on unit?
+                units;
 
         final int finalStart = mPoly;
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
