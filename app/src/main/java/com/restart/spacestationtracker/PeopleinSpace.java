@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
@@ -21,8 +22,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.restart.spacestationtracker.data.Astronaut;
 import com.restart.spacestationtracker.adapter.PeopleInSpaceAdapter;
+import com.restart.spacestationtracker.data.Astronaut;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,14 +41,14 @@ public class PeopleinSpace extends AppCompatActivity {
     private RequestQueue mRequestQueue;
     private AdView adView;
     private Activity mActivity;
+    private boolean mPaddingOnce;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recycler_layout);
+        setContentView(R.layout.people_in_space_layout);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler);
-        findViewById(R.id.actionLinear).setVisibility(View.GONE);
         mActivity = this;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mRequestQueue = Volley.newRequestQueue(this);
@@ -59,6 +60,16 @@ public class PeopleinSpace extends AppCompatActivity {
             AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.test_device)).build();
             if (adView != null) {
                 adView.loadAd(adRequest);
+
+                adView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        if (!mPaddingOnce) {
+                            mPaddingOnce = true;
+                            mRecyclerView.setPadding(mRecyclerView.getPaddingLeft(), mRecyclerView.getPaddingTop(), mRecyclerView.getPaddingRight(), mRecyclerView.getPaddingBottom() + adView.getHeight());
+                        }
+                    }
+                });
             }
         } else {
             findViewById(R.id.adView).setVisibility(View.GONE);

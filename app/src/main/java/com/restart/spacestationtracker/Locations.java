@@ -21,8 +21,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,6 +75,7 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
     private Activity mActivity;
     private int mActionBarSize;
     private int mFlexibleSpaceImageHeight;
+    private boolean mPaddingOnce;
 
     private int getActionBarSize() {
         TypedValue typedValue = new TypedValue();
@@ -93,8 +94,32 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
      */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recycler_layout);
+        setContentView(R.layout.locations_layout);
         mActivity = this;
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
+        mRecyclerView = (ObservableRecyclerView) findViewById(R.id.recycler);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        // Show an ad, or hide it if its disabled
+        if (!sharedPreferences.getBoolean("advertisement", false)) {
+            adView = (AdView) findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.test_device)).build();
+            if (adView != null) {
+                adView.loadAd(adRequest);
+
+                adView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        if (!mPaddingOnce) {
+                            mPaddingOnce = true;
+                            mRecyclerView.setPadding(mRecyclerView.getPaddingLeft(), mRecyclerView.getPaddingTop(), mRecyclerView.getPaddingRight(), mRecyclerView.getPaddingBottom() + adView.getHeight());
+                        }
+                    }
+                });
+            }
+        } else {
+            findViewById(R.id.adView).setVisibility(View.GONE);
+        }
 
         mFlexibleSpaceImageHeight = getResources().getDimensionPixelSize(R.dimen.flexible_space_image_height);
         mActionBarSize = getActionBarSize();
@@ -106,24 +131,6 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
         mTitleView.setText(getTitle());
         setTitle(null);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
-        mRecyclerView = (ObservableRecyclerView) findViewById(R.id.recycler);
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mRecyclerView.getLayoutParams();
-        // Show an ad, or hide it if its disabled
-        if (!sharedPreferences.getBoolean("advertisement", false)) {
-            adView = (AdView) findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.test_device)).build();
-            params.addRule(RelativeLayout.ALIGN_TOP, R.id.adView);
-            if (adView != null) {
-                adView.loadAd(adRequest);
-            }
-        } else {
-            findViewById(R.id.adView).setVisibility(View.GONE);
-            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        }
-
-        mRecyclerView.setLayoutParams(params);
         mRecyclerView.setScrollViewCallbacks(this);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
@@ -323,7 +330,7 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
                         dates.add(aSightSee);
                     }
 
-                    final View headerView = LayoutInflater.from(mActivity).inflate(R.layout.recycler_header, null);
+                    final View headerView = LayoutInflater.from(mActivity).inflate(R.layout.locations_header, null);
                     headerView.post(new Runnable() {
                         @Override
                         public void run() {
