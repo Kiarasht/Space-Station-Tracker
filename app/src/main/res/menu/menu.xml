@@ -8,7 +8,6 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/stream"
-        android:icon="@drawable/ic_stream"
         android:orderInCategory="90"
         android:title="@string/stream"
         app:showAsAction="ifRoom" />

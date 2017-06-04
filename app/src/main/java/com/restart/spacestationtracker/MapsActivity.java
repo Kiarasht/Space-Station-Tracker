@@ -636,10 +636,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     private void initiateBoomMenu() {
         mBoomMenu = (BoomMenuButton) findViewById(R.id.action_bar_right_bmb);
-        assert mBoomMenu != null;
         mBoomMenu.setButtonEnum(ButtonEnum.Ham);
         mBoomMenu.setPiecePlaceEnum(PiecePlaceEnum.HAM_4);
         mBoomMenu.setButtonPlaceEnum(ButtonPlaceEnum.HAM_4);
+        mBoomMenu.setDuration(1000);
 
         for (int i = 0; i < mBoomMenu.getPiecePlaceEnum().pieceNumber(); i++) {
             HamButton.Builder builder;

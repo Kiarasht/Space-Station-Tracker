@@ -330,16 +330,19 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
                         dates.add(aSightSee);
                     }
 
-                    final View headerView = LayoutInflater.from(mActivity).inflate(R.layout.locations_header, null);
-                    headerView.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            headerView.getLayoutParams().height = mFlexibleSpaceImageHeight;
-                        }
-                    });
-                    mAdapter = new LocationAdapter(mActivity, headerView);
-                    mAdapter.setDataSet(dates);
-                    mRecyclerView.setAdapter(mAdapter);
+                    if (mActivity != null) {
+                        final View headerView = LayoutInflater.from(mActivity).inflate(R.layout.locations_header, null);
+                        headerView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                headerView.getLayoutParams().height = mFlexibleSpaceImageHeight;
+                            }
+                        });
+
+                        mAdapter = new LocationAdapter(mActivity, headerView);
+                        mAdapter.setDataSet(dates);
+                        mRecyclerView.setAdapter(mAdapter);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

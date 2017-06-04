@@ -17,7 +17,7 @@
 
     <!-- Extras... -->
     <string name="reset">Refresh prediction lines</string>
-    <string name="stream">ISS\'s live stream</string>
+    <string name="stream">Live</string>
 
     <!-- String that are not translatable -->
     <!-- Admob -->
