@@ -6,7 +6,7 @@ An Android application that keeps track of the International Space Station and n
 
 Not counting minor features and helper classes, the app is mostly present through these four activities and their respective java files.
 
-| [MapsActivity](https://github.com/Kiarasht/Space-Station-Tracker/blob/master/app/src/main/java/com/restart/spacestationtracker/MapsActivity.java) | [Location](https://github.com/Kiarasht/Space-Station-Tracker/blob/master/app/src/main/java/com/restart/spacestationtracker/Locations.java) | [PeopleinSpace](https://github.com/Kiarasht/Space-Station-Tracker/blob/master/app/src/main/java/com/restart/spacestationtracker/PeopleinSpace.java) | [Preferences](https://github.com/Kiarasht/Space-Station-Tracker/blob/master/app/src/main/java/com/restart/spacestationtracker/Preferences.java) |
+| [MapsActivity](https://github.com/Kiarasht/Space-Station-Tracker/blob/master/app/src/main/java/com/restart/spacestationtracker/MapsActivity.java) | [Locations](https://github.com/Kiarasht/Space-Station-Tracker/blob/master/app/src/main/java/com/restart/spacestationtracker/Locations.java) | [PeopleinSpace](https://github.com/Kiarasht/Space-Station-Tracker/blob/master/app/src/main/java/com/restart/spacestationtracker/PeopleinSpace.java) | [Preferences](https://github.com/Kiarasht/Space-Station-Tracker/blob/master/app/src/main/java/com/restart/spacestationtracker/Preferences.java) |
 | ------------- | ------------- | ------------- | ------------- |
 | <img src="2.png" width="200"/> | <img src="3.png" width="200"/> | <img src="4.png" width="200"/> | <img src="5.png" width="200"/> |
 
