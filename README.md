@@ -2,7 +2,7 @@ Space Station Tracker
 ===================
 
 ## Introduction
-An Android application that keeps track of the International Space Station and notifies you if it's determined to pass by your location in the future. (~hour) Given a clear sky, you should be able to see the station with without any types of equipment. So keep an eye for it. :)
+An Android application that keeps track of the International Space Station and notifies you if it's determined to pass by your location in the future (~hour). Given a clear sky, you should be able to see the station without any types of equipment. So keep an eye for it. :)
 
 Not counting minor features and helper classes, the app is mostly present through these four activities and their respective java files.
 
