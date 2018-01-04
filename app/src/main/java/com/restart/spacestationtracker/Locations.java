@@ -98,11 +98,11 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
         mActivity = this;
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
-        mRecyclerView = (ObservableRecyclerView) findViewById(R.id.recycler);
+        mRecyclerView = findViewById(R.id.recycler);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         // Show an ad, or hide it if its disabled
         if (!sharedPreferences.getBoolean("advertisement", false)) {
-            adView = (AdView) findViewById(R.id.adView);
+            adView = findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.test_device)).build();
             if (adView != null) {
                 adView.loadAd(adRequest);
@@ -124,10 +124,10 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
         mFlexibleSpaceImageHeight = getResources().getDimensionPixelSize(R.dimen.flexible_space_image_height);
         mActionBarSize = getActionBarSize();
 
-        mImageView = (ImageView) findViewById(R.id.image);
+        mImageView = findViewById(R.id.image);
         mOverlayView = findViewById(R.id.overlay);
 
-        mTitleView = (TextView) findViewById(R.id.title);
+        mTitleView = findViewById(R.id.title);
         mTitleView.setText(getTitle());
         setTitle(null);
 

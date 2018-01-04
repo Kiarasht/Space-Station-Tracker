@@ -131,7 +131,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mActionBar.setDisplayShowTitleEnabled(false);
         LayoutInflater mInflater = LayoutInflater.from(this);
         View actionBar = mInflater.inflate(R.layout.custom_actionbar, null);
-        final TextView mTitleTextView = (TextView) actionBar.findViewById(R.id.title_text);
+        final TextView mTitleTextView = actionBar.findViewById(R.id.title_text);
         mTitleTextView.setText(R.string.map_activity);
         mActionBar.setCustomView(actionBar);
         mActionBar.setDisplayShowCustomEnabled(true);
@@ -146,8 +146,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mPolyArray = new Polyline[200];
         mContext = getApplicationContext();
         mRequestQueue = Volley.newRequestQueue(this);
-        mLatLong = ((TextView) findViewById(R.id.textView));
-        mDescription = (TextView) findViewById(R.id.textView2);
+        mLatLong = findViewById(R.id.textView);
+        mDescription = findViewById(R.id.textView2);
         PreferenceManager.setDefaultValues(this, R.xml.app_preferences, false);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mRefreshrate = 1000 * mSharedPreferences.getInt("refresh_Rate", 10);
@@ -194,7 +194,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
 
         if (!mSharedPreferences.getBoolean("advertisement", false)) {
-            mAdView = (AdView) findViewById(R.id.adView);
+            mAdView = findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.test_device)).build();
             mAdView.loadAd(adRequest);
         } else if (mAdView == null) {
@@ -248,7 +248,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mAdView.setVisibility(View.GONE);            // User disabled ads
         } else if (!mSharedPreferences.getBoolean("advertisement", false)) {
             if (mAdView == null) {                       // User wants ads but instance is null
-                mAdView = (AdView) findViewById(R.id.adView);
+                mAdView = findViewById(R.id.adView);
                 AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.test_device)).build();
                 mAdView.loadAd(adRequest);
             } else {                                    // User wants ads, instance already got one
@@ -635,7 +635,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      * onClickListeners
      */
     private void initiateBoomMenu() {
-        mBoomMenu = (BoomMenuButton) findViewById(R.id.action_bar_right_bmb);
+        mBoomMenu = findViewById(R.id.action_bar_right_bmb);
         mBoomMenu.setButtonEnum(ButtonEnum.Ham);
         mBoomMenu.setPiecePlaceEnum(PiecePlaceEnum.HAM_4);
         mBoomMenu.setButtonPlaceEnum(ButtonPlaceEnum.HAM_4);

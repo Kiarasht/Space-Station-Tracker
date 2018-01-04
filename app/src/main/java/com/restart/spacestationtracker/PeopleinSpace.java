@@ -48,7 +48,7 @@ public class PeopleinSpace extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.people_in_space_layout);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler);
+        mRecyclerView = findViewById(R.id.recycler);
         mActivity = this;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mRequestQueue = Volley.newRequestQueue(this);
@@ -56,7 +56,7 @@ public class PeopleinSpace extends AppCompatActivity {
 
         // Show an ad, or hide it if its disabled
         if (!sharedPreferences.getBoolean("advertisement", false)) {
-            adView = (AdView) findViewById(R.id.adView);
+            adView = findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.test_device)).build();
             if (adView != null) {
                 adView.loadAd(adRequest);

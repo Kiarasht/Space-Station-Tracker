@@ -26,7 +26,7 @@ public class AboutActivity extends AppCompatActivity {
 
     private void initLicenses() {
         LayoutInflater inflater = LayoutInflater.from(this);
-        LinearLayout content = (LinearLayout) findViewById(R.id.licenses);
+        LinearLayout content = findViewById(R.id.licenses);
 
         String[] softwareList = getResources().getStringArray(R.array.software_list);
         String[] licenseList = getResources().getStringArray(R.array.license_list);
@@ -40,7 +40,7 @@ public class AboutActivity extends AppCompatActivity {
 
     private void initVersions() {
         LayoutInflater inflater = LayoutInflater.from(this);
-        LinearLayout content = (LinearLayout) findViewById(R.id.version);
+        LinearLayout content = findViewById(R.id.version);
 
         String[] versionTitleList = getResources().getStringArray(R.array.version_title_list);
         String[] versionList = getResources().getStringArray(R.array.version_list);

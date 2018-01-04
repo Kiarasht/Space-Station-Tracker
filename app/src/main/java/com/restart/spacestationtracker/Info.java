@@ -27,7 +27,7 @@ public class Info extends AppCompatActivity implements ObservableScrollViewCallb
         super.onCreate(savedInstanceState);
         setContentView(R.layout.web_layout);
 
-        mWebView = (ObservableWebView) findViewById(R.id.webView2);
+        mWebView = findViewById(R.id.webView2);
         mWebView.setScrollViewCallbacks(this);
 
         if (mWebView != null) {

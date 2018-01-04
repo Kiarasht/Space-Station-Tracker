@@ -71,14 +71,14 @@ public class PeopleInSpaceAdapter extends RecyclerView.Adapter<PeopleInSpaceAdap
             super(view);
 
             /* Get references to each view. */
-            mName = (TextView) view.findViewById(R.id.name);
-            mRole = (TextView) view.findViewById(R.id.role);
-            mDate = (TextView) view.findViewById(R.id.days_since_launch);
-            mBio = (TextView) view.findViewById(R.id.bio);
-            mProfileImage = (CircleImageView) view.findViewById(R.id.img);
-            mCountryFlag = (ImageView) view.findViewById(R.id.countryFlag);
-            mAstronautTwitter = (ImageView) view.findViewById(R.id.astronautTwitter);
-            mAstronautWiki = (ImageView) view.findViewById(R.id.astronautWiki);
+            mName = view.findViewById(R.id.name);
+            mRole = view.findViewById(R.id.role);
+            mDate = view.findViewById(R.id.days_since_launch);
+            mBio = view.findViewById(R.id.bio);
+            mProfileImage = view.findViewById(R.id.img);
+            mCountryFlag = view.findViewById(R.id.countryFlag);
+            mAstronautTwitter = view.findViewById(R.id.astronautTwitter);
+            mAstronautWiki = view.findViewById(R.id.astronautWiki);
         }
     }
 

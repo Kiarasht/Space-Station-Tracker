@@ -51,10 +51,10 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
          */
         LocationAdapterViewHolder(View view) {
             super(view);
-            mDate = (TextView) view.findViewById(R.id.date);
-            mDuration = (TextView) view.findViewById(R.id.duration);
-            mCalendar = (Button) view.findViewById(R.id.calendarButton);
-            mShare = (Button) view.findViewById(R.id.shareButton);
+            mDate = view.findViewById(R.id.date);
+            mDuration = view.findViewById(R.id.duration);
+            mCalendar = view.findViewById(R.id.calendarButton);
+            mShare = view.findViewById(R.id.shareButton);
             mCalendar.setOnClickListener(this);
             mShare.setOnClickListener(this);
         }

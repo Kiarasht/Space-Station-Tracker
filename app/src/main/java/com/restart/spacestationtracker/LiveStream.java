@@ -21,7 +21,7 @@ public class LiveStream extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.web_layout);
 
-        mWebView = (WebView) findViewById(R.id.webView2);
+        mWebView = findViewById(R.id.webView2);
 
         if (mWebView != null) {
             mWebView.loadUrl("http://www.ustream.tv/channel/iss-hdev-payload/pop-out");
