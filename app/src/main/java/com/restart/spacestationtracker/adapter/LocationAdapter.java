@@ -87,7 +87,7 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             SightSee.getLocation() + " on " +
                             mSightSees.get(getAdapterPosition()).getRiseTime() + ".\n\n" + mActivity.getString(R.string.msg_get_it_on_play_store_url));
                     sendIntent.setType("text/plain");
-                    mActivity.startActivity(sendIntent);
+                    mActivity.startActivity(Intent.createChooser(sendIntent, "Share..."));
                     break;
             }
         }
