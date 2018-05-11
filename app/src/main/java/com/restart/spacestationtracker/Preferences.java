@@ -158,7 +158,7 @@ public class Preferences extends AppCompatActivity {
          * @return True if permission is granted. False if otherwise.
          */
         public boolean isLocationPermissionGranted() {
-            return Build.VERSION.SDK_INT >= 23 && mContext.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+            return Build.VERSION.SDK_INT <= Build.VERSION_CODES.M || mContext.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
         }
 
         /**
