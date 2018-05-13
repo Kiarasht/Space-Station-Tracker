@@ -157,8 +157,8 @@ public class PeopleInSpaceAdapter extends RecyclerView.Adapter<PeopleInSpaceAdap
                 holder.mDate.setVisibility(View.INVISIBLE);
             }
 
-            Picasso.with(mActivity).load(mAstronauts.get(position).getImage()).into(holder.mProfileImage);
-            Picasso.with(mActivity).load(mAstronauts.get(position).getCountryLink()).into(holder.mCountryFlag);
+            Picasso.get().load(mAstronauts.get(position).getImage()).into(holder.mProfileImage);
+            Picasso.get().load(mAstronauts.get(position).getCountryLink()).into(holder.mCountryFlag);
         }
     }
 

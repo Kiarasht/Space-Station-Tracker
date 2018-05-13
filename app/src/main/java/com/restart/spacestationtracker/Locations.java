@@ -256,7 +256,7 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
                 e.printStackTrace();
             }
 
-            Picasso.with(mActivity).load(url).into(mImageView);
+            Picasso.get().load(url).into(mImageView);
             displayResults();
             displayPasses(null, null, null);
         } else {
