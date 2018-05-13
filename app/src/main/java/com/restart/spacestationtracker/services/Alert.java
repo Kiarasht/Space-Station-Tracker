@@ -115,7 +115,7 @@ public class Alert extends Service {
                 dates = null;
 
                 for (int i = 0; i < 30 && sharedPreferences.getBoolean("notification_ISS", false)
-                        && (dates == null || dates.get(0) == null); ++i) {
+                        && (dates == null || (dates.size() > 0 && dates.get(0) == null)); ++i) {
                     // Get ISSs passes, saving them in an array of dates
                     dates = locations.displayPasses(String.valueOf(mLocation.getLatitude()),
                             String.valueOf(mLocation.getLongitude()), context);
