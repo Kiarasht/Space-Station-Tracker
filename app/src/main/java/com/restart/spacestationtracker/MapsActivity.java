@@ -2,6 +2,8 @@ package com.restart.spacestationtracker;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -71,6 +73,7 @@ import java.util.TimerTask;
  */
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
 
+    public static final String CHANNEL_ID = "iss_notification"; // Notification for Android 8.0 and higher
     private static final String TAG = ".MapsActivity";  // Used for volley and occasional Log
 
     private SharedPreferences mSharedPreferences;       // Managing options from Settings
@@ -116,6 +119,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         initializeVariables();
         initiateBoomMenu();
         initializeAds();
+        initializeNotificationChannel();
+    }
+
+    /**
+     * Create the NotificationChannel, but only on API 26+ because the NotificationChannel class
+     * is new and not in the support library
+     */
+    private void initializeNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.notificationTitle);
+            String description = getString(R.string.notificationSummary);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            if (notificationManager != null)
+                notificationManager.createNotificationChannel(channel);
+        }
     }
 
     /**
@@ -150,7 +172,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mDescription = findViewById(R.id.textView2);
         PreferenceManager.setDefaultValues(this, R.xml.app_preferences, false);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mRefreshrate = 1000 * mSharedPreferences.getInt("refresh_Rate", 10);
+        mRefreshrate = 1000 * (mSharedPreferences.getInt("refresh_Rate", 9) + 1);
         mFirstTime = mSharedPreferences.getBoolean(getString(R.string.firstTime), true);
 
         // Animation process for first time users. Skip if not first time (mFirstTime)
@@ -213,12 +235,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         requestNewInterstitial();
 
         // Update decimal format
-        String format = "0";
+        StringBuilder format = new StringBuilder("0");
         for (int i = 0; i < mSharedPreferences.getInt("decimalType", 3); ++i) {
-            if (i == 0) format += ".";
-            format += "#";
+            if (i == 0) format.append(".");
+            format.append("#");
         }
-        mDecimalFormat = new DecimalFormat(format);
+        mDecimalFormat = new DecimalFormat(format.toString());
 
         // When activity was just paused
         if (mStart) {

@@ -23,6 +23,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
 import com.restart.spacestationtracker.Locations;
+import com.restart.spacestationtracker.MapsActivity;
 import com.restart.spacestationtracker.R;
 
 import java.util.Date;
@@ -172,9 +173,9 @@ public class Alert extends Service {
         timer = null;
 
         NotificationManager nMgr = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        nMgr.cancel(NOTIFICATION_ID);
+        if (nMgr != null)
+            nMgr.cancel(NOTIFICATION_ID);
     }
-
 
     /**
      * Notification system that is used for this app. All we need to do is call this function
@@ -194,11 +195,11 @@ public class Alert extends Service {
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
                 R.drawable.iss_2011);
         NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
+                new NotificationCompat.Builder(this, MapsActivity.CHANNEL_ID)
                         .setAutoCancel(true)
                         .setOnlyAlertOnce(true)
                         .setOngoing(false)
-                        .setContentTitle("ISS Tracker")
+                        .setContentTitle(context.getString(R.string.app_name))
                         .setContentText(contentText)
                         .setSmallIcon(R.drawable.iss_2011)
                         .setLargeIcon(icon)
@@ -222,6 +223,7 @@ public class Alert extends Service {
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+        if (mNotificationManager != null)
+            mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 }
