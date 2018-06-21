@@ -16,10 +16,11 @@
         <activity
             android:name=".MapsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/map_activity"
+            android:label="@string/app_name"
             android:launchMode="singleTop">
-            <intent-filter android:label="@string/app_name">
+            <intent-filter android:label="@string/map_activity">
                 <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -85,7 +86,8 @@
         <!-- Alert Service -->
         <service
             android:name=".services.Alert"
-            android:enabled="true"/>
+            android:enabled="true"
+            android:process=":ServiceProcess" />
 
         <!-- API Key for accessing Google maps API -->
         <meta-data

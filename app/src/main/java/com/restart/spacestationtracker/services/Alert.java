@@ -1,6 +1,7 @@
 package com.restart.spacestationtracker.services;
 
 import android.Manifest;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -24,6 +25,7 @@ import android.support.v4.app.TaskStackBuilder;
 
 import com.restart.spacestationtracker.Locations;
 import com.restart.spacestationtracker.MapsActivity;
+import com.restart.spacestationtracker.Preferences;
 import com.restart.spacestationtracker.R;
 
 import java.util.Date;
@@ -77,7 +79,6 @@ public class Alert extends Service {
         }
     };
 
-
     /**
      * Starting a service for ISS Location updater.
      *
@@ -90,6 +91,18 @@ public class Alert extends Service {
                 != PackageManager.PERMISSION_GRANTED) {
             return START_STICKY;
         }
+
+        Intent clickIntent = new Intent(this, Preferences.class);
+        clickIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, clickIntent, 0);
+        Notification notification = new NotificationCompat.Builder(this, MapsActivity.CHANNEL_ID)
+                .setPriority(NotificationCompat.PRIORITY_MIN)
+                .setContentTitle("ISS Notification Service")
+                .setContentIntent(pendingIntent)
+                .setSmallIcon(R.drawable.iss_2011)
+                .build();
+
+        startForeground(1234, notification);
 
         final int locationTime = 1800000; // (30 minutes) minimum time interval between mLocation updates, in milliseconds
         final int locationDistance = 500; // (1500 meters) minimum distance between mLocation updates, in meters

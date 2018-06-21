@@ -4,6 +4,7 @@
     <string name="version_msg">List of previous changes, fixes, and updates:</string>
 
     <string-array name="version_title_list" translatable="false">
+        <item>Version: 4.01</item>
         <item>Version: 4.00</item>
         <item>Version: 3.40</item>
         <item>Version: 3.32</item>
@@ -28,6 +29,7 @@
     </string-array>
 
     <string-array name="version_list" translatable="false">
+        <item><![CDATA[- Notification service compatible with Android 8.0 and above<br>- Fixed crashes with notification service <br>- App name is no longer just \"Map\" on home screen. Yikes! How did this one go through? :thinking_face:]]></item>
         <item><![CDATA[- Big layout changes throughout the app<br>- Save future ISS flybys to your phone calendar<br>- Share the flybys with others]]></item>
         <item><![CDATA[- Map won\'t reset on orientation change<br>- Fixed a crash caused by slow connections]]></item>
         <item><![CDATA[- Crash on start for existing users<br>- What\'s new on Help page (You looking at it silly)]]></item>
