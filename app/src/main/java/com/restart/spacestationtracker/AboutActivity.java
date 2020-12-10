@@ -3,7 +3,7 @@ package com.restart.spacestationtracker;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.Html;
 import android.text.util.Linkify;
 import android.util.TypedValue;

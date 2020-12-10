@@ -152,7 +152,7 @@ public class HueSatView extends SquareView implements ColorObserver {
         canvas.drawBitmap(bitmap, null, viewRect, null);
         canvas.drawPath(borderPath, borderPaint);
 
-        canvas.save(Canvas.MATRIX_SAVE_FLAG | Canvas.CLIP_SAVE_FLAG);
+        canvas.save();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             canvas.clipPath(borderPath);
         }

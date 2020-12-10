@@ -1,6 +1,6 @@
 package com.restart.spacestationtracker.data;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Class of type Astronaut. Every single astronaut gets one.
@@ -8,7 +8,15 @@ import android.support.annotation.NonNull;
 public class Astronaut implements Comparable<Astronaut> {
 
     // Data needed to represent a single astronaut
-    private String name, image, countryLink, launchDate, role, location, bio, wiki, twitter;
+    private final String name;
+    private final String image;
+    private final String countryLink;
+    private final String launchDate;
+    private final String role;
+    private final String location;
+    private final String bio;
+    private final String wiki;
+    private final String twitter;
 
     /**
      * Instantiates a new Astronaut.
