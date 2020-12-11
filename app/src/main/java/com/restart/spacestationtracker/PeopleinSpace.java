@@ -108,7 +108,7 @@ public class PeopleinSpace extends AppCompatActivity {
      * Displays a list of astronauts in a RecyclerView
      */
     private void display_people() {
-        final String url = "http://www.howmanypeopleareinspacerightnow.com/peopleinspace.json";
+        final String url = "https://www.howmanypeopleareinspacerightnow.com/peopleinspace.json";
         final List<Astronaut> peopleInSpace = new ArrayList<>();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,

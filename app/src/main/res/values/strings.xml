@@ -70,6 +70,7 @@
     <string name="countryFlagContentDescription">Country flag this astronaut is from</string>
     <string name="astronautTwitterContentDescription">Icon to link to astronaut\'s twitter page</string>
     <string name="astronautWikiContentDescription">Icon to link to astronaut\'s wiki page</string>
+    <string name="astronautGoogleContentDescription">Icon to link to astronaut\'s Google search page</string>
 
     <!-- Setting strings in the preferences -->
     <string name="refreshTitle">Refresh Rate</string>

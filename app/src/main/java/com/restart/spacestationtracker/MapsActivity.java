@@ -661,7 +661,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mBoomMenu.setButtonEnum(ButtonEnum.Ham);
         mBoomMenu.setPiecePlaceEnum(PiecePlaceEnum.HAM_4);
         mBoomMenu.setButtonPlaceEnum(ButtonPlaceEnum.HAM_4);
-        mBoomMenu.setDuration(1000);
+        mBoomMenu.setDuration(850);
 
         for (int i = 0; i < mBoomMenu.getPiecePlaceEnum().pieceNumber(); i++) {
             HamButton.Builder builder;

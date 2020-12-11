@@ -270,11 +270,12 @@ public class Locations extends AppCompatActivity implements ObservableScrollView
      */
     private void displayResults() {
         // Returns a JSONObject
-        final String url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" +
+        final String url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
                 mLatitude +
                 "," +
                 mLongitude +
-                "&sensor=false";
+                "&sensor=false" +
+                "&key=" + getString(R.string.google_maps_key);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
                 null, new Response.Listener<JSONObject>() {

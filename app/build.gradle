@@ -17,7 +17,7 @@ android {
     compileSdkVersion 30
     defaultConfig {
         applicationId "com.restart.spacestationtracker"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 30
         versionCode 23
         versionName "5.0"
