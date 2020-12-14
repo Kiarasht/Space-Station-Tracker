@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:card_view="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:padding="8dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -26,24 +27,22 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_margin="16dp"
-                android:drawableLeft="@drawable/ic_calendar"
+                app:drawableStartCompat="@drawable/ic_calendar"
                 android:drawablePadding="16dp"
-                android:drawableStart="@drawable/ic_calendar"
                 android:textSize="14sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:drawableLeft="@drawable/ic_timer"
+                app:drawableStartCompat="@drawable/ic_timer"
                 android:drawablePadding="16dp"
-                android:drawableStart="@drawable/ic_timer"
                 android:textSize="14sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/date"/>
+                app:layout_constraintTop_toBottomOf="@+id/date" />
 
             <Button
                 android:id="@+id/calendarButton"
@@ -55,21 +54,20 @@
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/shareButton"
-                app:layout_constraintTop_toBottomOf="@+id/duration"/>
+                app:layout_constraintTop_toBottomOf="@+id/duration" />
 
             <Button
                 android:id="@+id/shareButton"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:text="@string/share"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/duration"/>
+                app:layout_constraintTop_toBottomOf="@+id/duration" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

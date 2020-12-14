@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,28 +24,22 @@ import java.util.List;
  */
 public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final int VIEW_TYPE_HEADER = 0;
     private static final int VIEW_TYPE_ITEM = 1;
     private final Activity mActivity;
     private List<SightSee> mSightSees;
-    private final View mHeaderView;
 
     /**
      * Instantiates a new Location adapter.
      *
-     * @param activity   The calling activity
-     * @param headerView The header view
+     * @param activity The calling activity
      */
-    public LocationAdapter(Activity activity, View headerView) {
+    public LocationAdapter(Activity activity) {
         this.mActivity = activity;
-        this.mHeaderView = headerView;
     }
 
     private class LocationAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView mDate;
         private final TextView mDuration;
-        private final Button mCalendar;
-        private final Button mShare;
 
         /**
          * Instantiates a new Location adapter view holder.
@@ -53,8 +50,8 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(view);
             mDate = view.findViewById(R.id.date);
             mDuration = view.findViewById(R.id.duration);
-            mCalendar = view.findViewById(R.id.calendarButton);
-            mShare = view.findViewById(R.id.shareButton);
+            Button mCalendar = view.findViewById(R.id.calendarButton);
+            Button mShare = view.findViewById(R.id.shareButton);
             mCalendar.setOnClickListener(this);
             mShare.setOnClickListener(this);
         }
@@ -94,14 +91,14 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     /**
-     * The first position of the RecyclerView is its header. The proceeding are the list itself.
+     * Returns the view type of the item in the recycler view
      *
      * @param position The index of the view
      * @return If the view is the header of a regular item
      */
     @Override
     public int getItemViewType(int position) {
-        return (position == 0) ? VIEW_TYPE_HEADER : VIEW_TYPE_ITEM;
+        return VIEW_TYPE_ITEM;
     }
 
     /**
@@ -111,15 +108,11 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      * @param viewType To differentiate between header vs. item
      * @return The new ViewHolder
      */
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == VIEW_TYPE_HEADER) {
-            return new HeaderViewHolder(mHeaderView);
-        } else {
-            return new LocationAdapter.LocationAdapterViewHolder(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.location_row, parent, false));
-        }
-
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new LocationAdapter.LocationAdapterViewHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.location_row, parent, false));
     }
 
     /**
@@ -130,7 +123,7 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      * @param position The index we are interested in updating
      */
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof LocationAdapterViewHolder) {
             ((LocationAdapterViewHolder) holder).mDate.setText(mSightSees.get(position).getRiseTime());
             ((LocationAdapterViewHolder) holder).mDuration.setText(mSightSees.get(position).getDuration());

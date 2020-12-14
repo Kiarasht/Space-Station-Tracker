@@ -85,7 +85,7 @@
             app:colorpicker_showHex="false"/>
     </PreferenceCategory>
 
-    <PreferenceCategory
+<!--    <PreferenceCategory
         android:key="Notification"
         android:title="Notification">
 
@@ -95,7 +95,7 @@
             android:summary="@string/notificationSummary"
             android:title="@string/notificationTitle"/>
 
-    </PreferenceCategory>
+    </PreferenceCategory>-->
 
     <PreferenceCategory
         android:key="Advertisement"

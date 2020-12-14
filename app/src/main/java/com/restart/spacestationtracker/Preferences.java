@@ -93,7 +93,7 @@ public class Preferences extends AppCompatActivity {
             // OnClick methods for each of the check boxes
             mPreferenceScreen.findPreference("advertisement").setOnPreferenceClickListener(this);
             mPreferenceScreen.findPreference("fullPage").setOnPreferenceClickListener(this);
-            mPreferenceScreen.findPreference("notification_ISS").setOnPreferenceClickListener(this);
+            //mPreferenceScreen.findPreference("notification_ISS").setOnPreferenceClickListener(this);
         }
 
         /**
@@ -143,13 +143,13 @@ public class Preferences extends AppCompatActivity {
          */
         @Override
         public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-            CheckBoxPreference iss_Tracker = (CheckBoxPreference) mPreferenceScreen.findPreference("notification_ISS");
+/*            CheckBoxPreference iss_Tracker = (CheckBoxPreference) mPreferenceScreen.findPreference("notification_ISS");
 
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 iss_Tracker.setChecked(false);
             } else {
                 iss_Tracker.setChecked(false);
-            }
+            }*/
         }
 
         /**
@@ -251,14 +251,15 @@ public class Preferences extends AppCompatActivity {
          * @return We handled the click, so pass it back.
          */
         private boolean onISSNotification(Preference preference) {
-            if (isLocationPermissionGranted()) {
+/*            if (isLocationPermissionGranted()) {
                 boolean checked = preference.getSharedPreferences().getBoolean("notification_ISS", false);
                 iss_Service(checked);
                 return true;
             } else {
                 getLocationPermission();
                 return true;
-            }
+            }*/
+            return true;
         }
     }
 }

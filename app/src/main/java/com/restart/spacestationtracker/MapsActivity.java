@@ -119,7 +119,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         initializeVariables();
         initiateBoomMenu();
         initializeAds();
-        initializeNotificationChannel();
+        //initializeNotificationChannel();
     }
 
     /**

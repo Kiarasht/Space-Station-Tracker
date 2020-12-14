@@ -3,7 +3,7 @@
     <dimen name="sliderWidth">36dp</dimen> <!--Matches checker pattern-->
     <dimen name="hexFieldWidth">88dp</dimen> <!-- 2 * slider width + margin. Explicit for when alpha is hidden in landscape -->
     <dimen name="preference_thumbnail_size">36dp</dimen>
-    <dimen name="flexible_space_image_height">240dp</dimen>
+    <dimen name="flexible_space_image_height">360dp</dimen>
     <dimen name="margin_standard">16dp</dimen>
     <dimen name="margin_short">8dp</dimen>
 </resources>

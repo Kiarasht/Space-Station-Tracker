@@ -31,10 +31,10 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
      * to the edges. We do this for all four sides.
      */
     private static final float mDPI = Resources.getSystem().getDisplayMetrics().density;
-    private static final int DIALOG_DPI_BOTTOM = 5;
-    private static final int DIALOG_DPI_RIGHT = 14;
-    private static final int DIALOG_DPI_LEFT = 19;
-    private static final int DIALOG_DPI_TOP = 5;
+    private static final int DIALOG_DPI_BOTTOM = 6;
+    private static final int DIALOG_DPI_RIGHT = 12;
+    private static final int DIALOG_DPI_LEFT = 12;
+    private static final int DIALOG_DPI_TOP = 6;
     private static final int DIALOG_PADDING_BOTTOM = (int) (DIALOG_DPI_BOTTOM * mDPI);
     private static final int DIALOG_PADDING_RIGHT = (int) (DIALOG_DPI_RIGHT * mDPI);
     private static final int DIALOG_PADDING_LEFT = (int) (DIALOG_DPI_LEFT * mDPI);
@@ -95,8 +95,8 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
         layout.setPadding(DIALOG_PADDING_LEFT, DIALOG_PADDING_TOP, DIALOG_PADDING_RIGHT, DIALOG_PADDING_BOTTOM);
 
         TextView mSplashText = new TextView(mContext);
-        mSplashText.setGravity(Gravity.CENTER_HORIZONTAL);
-        mSplashText.setPadding(DIALOG_PADDING_LEFT, DIALOG_PADDING_TOP, DIALOG_PADDING_RIGHT, DIALOG_PADDING_BOTTOM);
+        mSplashText.setGravity(Gravity.START);
+        mSplashText.setPadding(DIALOG_PADDING_LEFT, DIALOG_PADDING_TOP * 2, DIALOG_PADDING_RIGHT, DIALOG_PADDING_BOTTOM * 2);
         if (mDialogMessage != null) {
             mSplashText.setText(mDialogMessage);
         }
@@ -104,13 +104,14 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
 
         mValueText = new TextView(mContext);
         mValueText.setGravity(Gravity.CENTER_HORIZONTAL);
-        mValueText.setPadding(DIALOG_PADDING_LEFT, DIALOG_PADDING_TOP, DIALOG_PADDING_RIGHT, DIALOG_PADDING_BOTTOM);
+        mValueText.setPadding(DIALOG_PADDING_LEFT, DIALOG_PADDING_TOP, DIALOG_PADDING_RIGHT, DIALOG_PADDING_BOTTOM * 2);
         mValueText.setTextSize(24);
         params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layout.addView(mValueText, params);
 
         mSeekBar = new SeekBar(mContext);
         mSeekBar.setOnSeekBarChangeListener(this);
+        mSeekBar.setPadding(DIALOG_PADDING_LEFT, DIALOG_PADDING_TOP, DIALOG_PADDING_RIGHT, DIALOG_PADDING_BOTTOM * 2);
         layout.addView(mSeekBar, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
         if (shouldPersist())
