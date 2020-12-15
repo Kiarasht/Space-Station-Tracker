@@ -38,3 +38,4 @@ captures/
 
 # Keystore files
 *.jks
+/release/output-metadata.json

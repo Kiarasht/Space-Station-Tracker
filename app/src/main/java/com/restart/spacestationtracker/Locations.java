@@ -82,13 +82,13 @@ public class Locations extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recycler);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         // Show an ad, or hide it if its disabled
-        if (!sharedPreferences.getBoolean("advertisement", false)) {
+/*        if (!sharedPreferences.getBoolean("advertisement", false)) {
             mAdView = findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.test_device)).build();
             mAdView.loadAd(adRequest);
         } else {
             findViewById(R.id.adView).setVisibility(View.GONE);
-        }
+        }*/
 
         mImageView = findViewById(R.id.image);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -111,24 +111,24 @@ public class Locations extends AppCompatActivity {
             requestQueue.cancelAll(TAG);
         }
 
-        if (mAdView != null) {
+/*        if (mAdView != null) {
             mAdView.pause();
-        }
+        }*/
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (mAdView != null) {
+/*        if (mAdView != null) {
             mAdView.resume();
-        }
+        }*/
     }
 
     @Override
     public void onDestroy() {
-        if (mAdView != null) {
+/*        if (mAdView != null) {
             mAdView.destroy();
-        }
+        }*/
         super.onDestroy();
     }
 
