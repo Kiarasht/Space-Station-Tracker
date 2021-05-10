@@ -8,7 +8,7 @@ Not counting minor features and helper classes, the app is mostly present throug
 
 | [MapsActivity](https://github.com/Kiarasht/Space-Station-Tracker/blob/master/app/src/main/java/com/restart/spacestationtracker/MapsActivity.java) | [Locations](https://github.com/Kiarasht/Space-Station-Tracker/blob/master/app/src/main/java/com/restart/spacestationtracker/Locations.java) | [PeopleinSpace](https://github.com/Kiarasht/Space-Station-Tracker/blob/master/app/src/main/java/com/restart/spacestationtracker/PeopleinSpace.java) | [Preferences](https://github.com/Kiarasht/Space-Station-Tracker/blob/master/app/src/main/java/com/restart/spacestationtracker/Preferences.java) |
 | ------------- | ------------- | ------------- | ------------- |
-| <img src="2.png" width="200"/> | <img src="3.png" width="200"/> | <img src="4.png" width="200"/> | <img src="5.png" width="200"/> |
+| <img src="5.png" width="200"/> | <img src="4.png" width="200"/> | <img src="3.png" width="200"/> | <img src="2.png" width="200"/> |
 
 This project has come a long way for me. Here is how it was back on [Mar 28, 2016](https://github.com/Kiarasht/Space-Station-Tracker/tree/d7b6d48a4ebcdae9383a428d30a880a652ff3480) and [Apr 2, 2016](https://github.com/Kiarasht/Space-Station-Tracker/tree/05b99d5d8c8298230356caa6153452f77452059d).
 
