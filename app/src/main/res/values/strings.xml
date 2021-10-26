@@ -24,7 +24,7 @@
     <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
     <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">2926D3134FDFE6B31DFD956396E5497A</string>
+    <string name="test_device" translatable="false">929325F2F0BF61D906B059B6D0B1C042</string>
 
     <!-- Shared Pref -->
     <string name="firstTime">firstTime</string>

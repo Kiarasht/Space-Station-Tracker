@@ -72,12 +72,11 @@ public class Locations extends AppCompatActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
         mRecyclerView = findViewById(R.id.recycler);
-        AdView mAdView = findViewById(R.id.adView);
-        mAdView.loadAd(new AdRequest.Builder().build());
+        //AdView mAdView = findViewById(R.id.adView);
+        //mAdView.loadAd(new AdRequest.Builder().build());
 
         mImageView = findViewById(R.id.image);
         mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setNestedScrollingEnabled(true);
         mCollapsingToolbar = findViewById(R.id.collapsing_toolbar);
         mCollapsingToolbar.setTitle(getString(R.string.flybys_title));

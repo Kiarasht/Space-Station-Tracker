@@ -14,6 +14,7 @@
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
 
         <!-- Maps Activity (Launcher) -->
@@ -96,10 +97,10 @@
         </activity>
 
         <!-- Alert Service -->
-<!--        <service
-            android:name=".services.Alert"
-            android:enabled="true"
-            android:process=":ServiceProcess" />-->
+        <!--        <service
+                    android:name=".services.Alert"
+                    android:enabled="true"
+                    android:process=":ServiceProcess" />-->
 
         <!-- API Key for accessing Google maps API -->
         <meta-data

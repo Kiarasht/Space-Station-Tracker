@@ -99,7 +99,6 @@ public class PeopleInSpace extends AppCompatActivity {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
                 mRecyclerView.setLayoutManager(layoutManager);
                 mAdapter = new PeopleInSpaceAdapter(mActivity, peopleInSpace);
-                mRecyclerView.setHasFixedSize(true);
                 mRecyclerView.setNestedScrollingEnabled(true);
                 mAdapter.setDataSet(peopleInSpace);
                 mRecyclerView.setAdapter(mAdapter);

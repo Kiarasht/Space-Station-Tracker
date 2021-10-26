@@ -38,15 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_standard"
-            android:layout_marginTop="@dimen/margin_short"
-            android:gravity="center"
-            android:text="@string/msg_copyright"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_standard"
-            android:layout_marginTop="@dimen/margin_short"
+            android:layout_marginTop="@dimen/margin_standard"
             android:gravity="center"
             android:text="@string/msg_about_library_description"/>
 
@@ -61,25 +53,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_short"
+            android:layout_marginBottom="@dimen/margin_short"
             android:autoLink="web"
             android:gravity="center"
             android:text="@string/msg_get_it_on_play_store_url"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_standard"
-            android:gravity="center"
-            android:text="@string/msg_about_fork_me_on_github"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_standard"
-            android:layout_marginTop="@dimen/margin_short"
-            android:autoLink="web"
-            android:gravity="center"
-            android:text="@string/msg_about_github_url"/>
 
         <include layout="@layout/divider"/>
 

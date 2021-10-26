@@ -31,14 +31,14 @@
         android:layout_weight="1"
         >
 
-        <gov.s1.s1mobile.geoTag.colorpicker.SwatchView
+        <com.restart.spacestationtracker.colorpicker.SwatchView
             android:id="@+id/swatchView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:radialMargin="@dimen/margin"
             />
 
-        <gov.s1.s1mobile.geoTag.colorpicker.HueSatView
+        <com.restart.spacestationtracker.colorpicker.HueSatView
             android:id="@+id/hueSatView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,13 +57,13 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <gov.s1.s1mobile.geoTag.colorpicker.ValueView
+            <com.restart.spacestationtracker.colorpicker.ValueView
                 android:id="@+id/valueView"
                 android:layout_height="match_parent"
                 android:layout_width="@dimen/sliderWidth"
                 />
 
-            <gov.s1.s1mobile.geoTag.colorpicker.AlphaView
+            <com.restart.spacestationtracker.colorpicker.AlphaView
                 android:id="@+id/alphaView"
                 android:layout_height="match_parent"
                 android:layout_width="@dimen/sliderWidth"

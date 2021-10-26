@@ -884,6 +884,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         @Override
                         public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                             mInterstitialAd = interstitialAd;
+                            mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                                @Override
+                                public void onAdDismissedFullScreenContent() {
+                                    requestNewInterstitial();
+                                    switch (mInterstitialAdActivity) {
+                                        case 0:
+                                            startActivity(new Intent(mContext, Locations.class));
+                                            break;
+                                        case 1:
+                                            startActivity(new Intent(mContext, PeopleInSpace.class));
+                                            break;
+                                    }
+                                }
+
+                                @Override
+                                public void onAdShowedFullScreenContent() {
+                                    mInterstitialAd = null;
+                                }
+                            });
                         }
 
                         @Override

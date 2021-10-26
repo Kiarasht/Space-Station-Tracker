@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,6 +128,8 @@ public class PeopleInSpaceAdapter extends RecyclerView.Adapter<PeopleInSpaceAdap
             // Does the astronaut have a twitter handle?
             if (!mAstronauts.get(pos).getTwitter().isEmpty()) {
                 holder.mAstronautTwitter.setImageDrawable(ContextCompat.getDrawable(mActivity, R.drawable.ic_action_twitter));
+            } else {
+                holder.mAstronautTwitter.setImageDrawable(ContextCompat.getDrawable(mActivity, R.drawable.ic_action_twitter_grey));
             }
 
             holder.mAstronautTwitter.setOnClickListener(view -> {
@@ -173,6 +176,8 @@ public class PeopleInSpaceAdapter extends RecyclerView.Adapter<PeopleInSpaceAdap
 
                 @Override
                 public void onError(Exception e) {
+                    Picasso.get().load(R.drawable.ic_failure_profile).into(holder.mProfileImage);
+                    holder.mAstronautPictureProgress.setVisibility(View.GONE);
                 }
             });
             Picasso.get().load(mAstronauts.get(position).getCountryLink()).into(holder.mCountryFlag);
