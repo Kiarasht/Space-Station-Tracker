@@ -3,33 +3,26 @@ package com.restart.spacestationtracker;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.restart.spacestationtracker.adapter.LocationAdapter;
@@ -58,7 +51,6 @@ public class Locations extends AppCompatActivity {
     private RequestQueue requestQueue;
     private String mLongitude;
     private String mLatitude;
-    private AdView mAdView;
     private Activity mActivity;
     private CollapsingToolbarLayout mCollapsingToolbar;
 
@@ -80,15 +72,8 @@ public class Locations extends AppCompatActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
         mRecyclerView = findViewById(R.id.recycler);
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        // Show an ad, or hide it if its disabled
-/*        if (!sharedPreferences.getBoolean("advertisement", false)) {
-            mAdView = findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.test_device)).build();
-            mAdView.loadAd(adRequest);
-        } else {
-            findViewById(R.id.adView).setVisibility(View.GONE);
-        }*/
+        AdView mAdView = findViewById(R.id.adView);
+        mAdView.loadAd(new AdRequest.Builder().build());
 
         mImageView = findViewById(R.id.image);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -110,26 +95,6 @@ public class Locations extends AppCompatActivity {
         if (requestQueue != null) {
             requestQueue.cancelAll(TAG);
         }
-
-/*        if (mAdView != null) {
-            mAdView.pause();
-        }*/
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-/*        if (mAdView != null) {
-            mAdView.resume();
-        }*/
-    }
-
-    @Override
-    public void onDestroy() {
-/*        if (mAdView != null) {
-            mAdView.destroy();
-        }*/
-        super.onDestroy();
     }
 
     /**
@@ -222,35 +187,29 @@ public class Locations extends AppCompatActivity {
             url = "http://api.open-notify.org/iss-pass.json?lat=" + latitude + "&lon=" + longitude;
         }
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    final JSONArray results = response.getJSONArray("response");
-                    final List<SightSee> dates = new ArrayList<>();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+            try {
+                final JSONArray results = response.getJSONArray("response");
+                final List<SightSee> dates = new ArrayList<>();
 
-                    for (int i = 0; i < results.length(); ++i) {
-                        final JSONObject aPass = results.getJSONObject(i);
-                        passes.add(new Date(Long.parseLong(aPass.getString("risetime")) * 1000L));
-                        final SightSee aSightSee = new SightSee(aPass.getInt("duration"), aPass.getInt("risetime"));
-                        dates.add(aSightSee);
-                    }
-
-                    if (mActivity != null) {
-                        mAdapter = new LocationAdapter(mActivity);
-                        mAdapter.setDataSet(dates);
-                        mRecyclerView.setAdapter(mAdapter);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                for (int i = 0; i < results.length(); ++i) {
+                    final JSONObject aPass = results.getJSONObject(i);
+                    passes.add(new Date(Long.parseLong(aPass.getString("risetime")) * 1000L));
+                    final SightSee aSightSee = new SightSee(aPass.getInt("duration"), aPass.getInt("risetime"));
+                    dates.add(aSightSee);
                 }
+
+                if (mActivity != null) {
+                    mAdapter = new LocationAdapter(mActivity);
+                    mAdapter.setDataSet(dates);
+                    mRecyclerView.setAdapter(mAdapter);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError e) {
-                if (latitude == null && longitude == null) {
-                    Toast.makeText(Locations.this, R.string.errorConnection, Toast.LENGTH_LONG).show();
-                }
+        }, e -> {
+            if (latitude == null && longitude == null) {
+                Toast.makeText(Locations.this, R.string.errorConnection, Toast.LENGTH_LONG).show();
             }
         });
 

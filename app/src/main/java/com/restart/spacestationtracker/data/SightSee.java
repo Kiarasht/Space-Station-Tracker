@@ -19,9 +19,10 @@ public class SightSee {
     private static final Format mSimpleDateFormat;
     private static final Format mDecimalFormat;
     private static String location;
-    private Date mRiseTimeDate, mSetTimeDate;
-    private String mDuration;
-    private String mRiseTime;
+    private final Date mRiseTimeDate;
+    private final Date mSetTimeDate;
+    private final String mDuration;
+    private final String mRiseTime;
 
     /* Format all dates and decimals in the same manner. */
     static {

@@ -1,5 +1,6 @@
 package com.restart.spacestationtracker;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.NotificationChannel;
@@ -13,11 +14,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,18 +22,25 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
@@ -52,18 +55,15 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.crash.FirebaseCrash;
 import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
 import com.nightonke.boommenu.BoomButtons.HamButton;
-import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
 import com.nightonke.boommenu.Piece.PiecePlaceEnum;
 import com.wooplr.spotlight.SpotlightView;
-import com.wooplr.spotlight.utils.SpotlightListener;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -98,7 +98,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private int mPolyCounter;                           // Counts how many polyline there are
     private int mCurrentColor;                          // Holds the current colors of polylines
     private int mCurrentWidth;                          // Holds the current width of polylines
-    private int mRefreshrate;                           // Millisecond between each timer repeat of updating ISS's location
+    private int mRefreshRate;                           // Millisecond between each timer repeat of updating ISS's location
     private int mSuccess;                               // Tracks # times server failed to respond
     private int mPoly;                                  // Used for adding on to a timestamp and getting future locations
     private int mProgress;                              // Progress on polylines, make sure we finish one before moving on to next
@@ -125,6 +125,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     /**
      * Create the NotificationChannel, but only on API 26+ because the NotificationChannel class
      * is new and not in the support library
+     * <p>
+     * Removed until push notification is back on
      */
     private void initializeNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -152,7 +154,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
         LayoutInflater mInflater = LayoutInflater.from(this);
-        View actionBar = mInflater.inflate(R.layout.custom_actionbar, null);
+        @SuppressLint("InflateParams") View actionBar = mInflater.inflate(R.layout.custom_actionbar, null);
         final TextView mTitleTextView = actionBar.findViewById(R.id.title_text);
         mTitleTextView.setText(R.string.map_activity);
         mActionBar.setCustomView(actionBar);
@@ -172,18 +174,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mDescription = findViewById(R.id.textView2);
         PreferenceManager.setDefaultValues(this, R.xml.app_preferences, false);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mRefreshrate = 1000 * (mSharedPreferences.getInt("refresh_Rate", 9) + 1);
+        mRefreshRate = 1000 * (mSharedPreferences.getInt("refresh_Rate", 9) + 1);
         mFirstTime = mSharedPreferences.getBoolean(getString(R.string.firstTime), true);
 
         // Animation process for first time users. Skip if not first time (mFirstTime)
         final Activity activity = this;
         //  When view is shown, start our animations for first time users
-        mLatLong.post(new Runnable() {
-            @Override
-            public void run() {
-                if (mFirstTime) {
-                    startAnimation(mTitleTextView, activity);
-                }
+        mLatLong.post(() -> {
+            if (mFirstTime) {
+                startAnimation(mTitleTextView, activity);
             }
         });
     }
@@ -192,36 +191,56 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      * Initialize ads when the activity is started for the first time
      */
     private void initializeAds() {
+        List<String> testDevices = new ArrayList<>();
+        testDevices.add(getString(R.string.test_device));
+        MobileAds.setRequestConfiguration(new RequestConfiguration.Builder()
+                .setTestDeviceIds(testDevices)
+                .build());
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
 
-        MobileAds.initialize(mContext, getString(R.string.app_ID_Main));
-        // Initiate the interstitial ad and onAdClosed listener
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_unit_id));
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                requestNewInterstitial();
-                switch (mInterstitialAdActivity) {
-                    case 0:
-                        startActivity(new Intent(mContext, Locations.class));
-                        break;
-                    case 1:
-                        startActivity(new Intent(mContext, PeopleinSpace.class));
-                        break;
-                }
-            }
+        MobileAds.initialize(this, initializationStatus -> {
         });
 
-        if (!mSharedPreferences.getBoolean("advertisement", false)) {
-            mAdView = findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.test_device)).build();
-            mAdView.loadAd(adRequest);
-        } else if (mAdView == null) {
-            findViewById(R.id.adView).setVisibility(View.GONE);
-        }
+        // Initiate the interstitial ad and onAdClosed listener
+        InterstitialAd.load(this, getString(R.string.interstitial_ad_unit_id), new AdRequest.Builder().build(),
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        mInterstitialAd = interstitialAd;
+                        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                requestNewInterstitial();
+                                switch (mInterstitialAdActivity) {
+                                    case 0:
+                                        startActivity(new Intent(mContext, Locations.class));
+                                        break;
+                                    case 1:
+                                        startActivity(new Intent(mContext, PeopleInSpace.class));
+                                        break;
+                                }
+                            }
+
+                            @Override
+                            public void onAdShowedFullScreenContent() {
+                                mInterstitialAd = null;
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        mInterstitialAd = null;
+                    }
+                });
+
+        mAdView = findViewById(R.id.adView);
+        mAdView.loadAd(new AdRequest.Builder().build());
     }
 
     /**
@@ -244,7 +263,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // When activity was just paused
         if (mStart) {
-            mRefreshrate = 1000 * (mSharedPreferences.getInt("refresh_Rate", 9) + 1);
+            mRefreshRate = 1000 * (mSharedPreferences.getInt("refresh_Rate", 9) + 1);
             if (mTimer != null) {
                 mTimer.cancel();
                 mTimer.purge();
@@ -256,7 +275,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 public void run() {
                     trackISS();
                 }
-            }, 0, mRefreshrate);
+            }, 0, mRefreshRate);
 
             mMaptype();
             // When activity is killed or created for first time
@@ -265,18 +284,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mTimer = new Timer();
         }
 
-        // Provide optional advertisements that is visible/hidden by a checkbox in Preferences
-        if (mSharedPreferences.getBoolean("advertisement", false) && mAdView != null) {
-            mAdView.setVisibility(View.GONE);            // User disabled ads
-        } else if (!mSharedPreferences.getBoolean("advertisement", false)) {
-            if (mAdView == null) {                       // User wants ads but instance is null
-                mAdView = findViewById(R.id.adView);
-                AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.test_device)).build();
-                mAdView.loadAd(adRequest);
-            } else {                                    // User wants ads, instance already got one
-                mAdView.setVisibility(View.VISIBLE);
-            }
-        }
+        mAdView = findViewById(R.id.adView);
+        mAdView.loadAd(new AdRequest.Builder().build());
 
         // Update the color and size of polylines if they are different in settings than what they are right now
         mCurrentColor = Color.YELLOW;
@@ -386,7 +395,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      * This is where we can add markers or lines, add listeners or move the camera.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
         mMaptype();
 
@@ -414,54 +423,43 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void run() {
                 trackISS();
             }
-        }, 0, mRefreshrate);
+        }, 0, mRefreshRate);
     }
 
     /**
      * Background call for updatePolyline
      */
     private void asyncTaskPolyline() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mMap.clear();
-                trackISS();
-                mPoly = 0;
-                mPolyCounter = 0;
-            }
+        runOnUiThread(() -> {
+            mMap.clear();
+            trackISS();
+            mPoly = 0;
+            mPolyCounter = 0;
         });
 
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    mThreadManager = true;
-                    Date currentDate = new Date();
-                    mProgress = 0;
-                    for (int i = 0; i < 20; ++i) {
-                        int mLastPatience = 0;
-                        while (i > 0 && mLastPatience < 10 && mProgress < i) {
-                            Thread.sleep(300);
-                            ++mLastPatience;
-                        }
-
-                        if (mLastPatience >= 10) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(mContext, R.string.polyError, Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                            break;
-                        }
-
-                        updatePolyline(currentDate);
-                        Thread.sleep(1500);
+        AsyncTask.execute(() -> {
+            try {
+                mThreadManager = true;
+                Date currentDate = new Date();
+                mProgress = 0;
+                for (int i = 0; i < 20; ++i) {
+                    int mLastPatience = 0;
+                    while (i > 0 && mLastPatience < 10 && mProgress < i) {
+                        Thread.sleep(300);
+                        ++mLastPatience;
                     }
-                    mThreadManager = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
+
+                    if (mLastPatience >= 10) {
+                        runOnUiThread(() -> Toast.makeText(mContext, R.string.polyError, Toast.LENGTH_SHORT).show());
+                        break;
+                    }
+
+                    updatePolyline(currentDate);
+                    Thread.sleep(1500);
                 }
+                mThreadManager = false;
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -488,84 +486,76 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         final String url = "https://api.wheretheiss.at/v1/satellites/25544";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
-                null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    mSuccess = 0;        // Server responded successfully
-                    final double latParameter = Double.parseDouble(response.getString("latitude"));
-                    final double lngParameter = Double.parseDouble(response.getString("longitude"));
-                    final LatLng ISS = new LatLng(latParameter, lngParameter);
-                    final String LAT;
-                    final String LNG;
+                null, response -> {
+            try {
+                mSuccess = 0;        // Server responded successfully
+                final double latParameter = Double.parseDouble(response.getString("latitude"));
+                final double lngParameter = Double.parseDouble(response.getString("longitude"));
+                final LatLng ISS = new LatLng(latParameter, lngParameter);
+                final String LAT;
+                final String LNG;
 
-                    if (latParameter < 0) {
-                        LAT = mDecimalFormat.format(latParameter) + "° S";
-                    } else {
-                        LAT = mDecimalFormat.format(latParameter) + "° N";
-                    }
-
-                    if (lngParameter < 0) {
-                        LNG = mDecimalFormat.format(lngParameter) + "° W";
-                    } else {
-                        LNG = mDecimalFormat.format(lngParameter) + "° E";
-                    }
-
-                    final String position = LAT + ", " + LNG;
-                    final String visibility = response.getString("visibility");
-
-                    final StringBuilder moreInfo = new StringBuilder();
-                    moreInfo.append("Altitude: ").append(mDecimalFormat.format(Double.parseDouble(response.getString("altitude")))).append(" km").append("\n")
-                            .append("Velocity: ").append(mDecimalFormat.format(Double.parseDouble(response.getString("velocity")))).append(" kph").append("\n")
-                            .append("Footprint: ").append(mDecimalFormat.format(Double.parseDouble(response.getString("footprint")))).append(" km").append("\n")
-                            .append("Solar LAT: ").append(mDecimalFormat.format(Double.parseDouble(response.getString("solar_lat")))).append("°").append("\n")
-                            .append("Solar LON: ").append(mDecimalFormat.format(Double.parseDouble(response.getString("solar_lon")))).append("°").append("\n")
-                            .append("Visibility: ").append(visibility.substring(0, 1).toUpperCase()).append(visibility.substring(1)).append("\n");
-
-                    MapsActivity.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            if (mOnce) {
-                                mMap.moveCamera(CameraUpdateFactory.newLatLng(ISS));
-                                if (mMap.getUiSettings().isScrollGesturesEnabled()) {
-                                    mMap.getUiSettings().setScrollGesturesEnabled(false);
-                                }
-                                mOnce = false;
-                            } else if (mSharedPreferences.getBoolean("lock_ISS", false)) {
-                                mMap.moveCamera(CameraUpdateFactory.newLatLng(ISS));
-                                if (mMap.getUiSettings().isScrollGesturesEnabled()) {
-                                    mMap.getUiSettings().setScrollGesturesEnabled(false);
-                                }
-                            } else if (!mSharedPreferences.getBoolean("lock_ISS", false)) {
-                                mMap.getUiSettings().setScrollGesturesEnabled(true);
-                            }
-                            if (mMarker != null) {
-                                mMarker.remove();
-                            }
-
-                            mDescription.setText(moreInfo.toString());
-                            mLatLong.setText(position);
-                            mMarkerOptions.position(ISS);
-                            mMarker = mMap.addMarker(mMarkerOptions);
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError e) {
-                // Server did not respond. Got 5 chances before stop trying.
-                if (++mSuccess <= 4) {
-                    Toast.makeText(MapsActivity.this, getResources().getString(R.string.errorLessFive, mSuccess, mRefreshrate), Toast.LENGTH_SHORT).show();
+                if (latParameter < 0) {
+                    LAT = mDecimalFormat.format(latParameter) + "° S";
                 } else {
-                    Toast.makeText(MapsActivity.this, R.string.errorFiveTimes, Toast.LENGTH_LONG).show();
-                    if (mTimer != null) {
-                        mTimer.cancel();
-                        mTimer.purge();
-                    }
-                    mTimer = null;
+                    LAT = mDecimalFormat.format(latParameter) + "° N";
                 }
+
+                if (lngParameter < 0) {
+                    LNG = mDecimalFormat.format(lngParameter) + "° W";
+                } else {
+                    LNG = mDecimalFormat.format(lngParameter) + "° E";
+                }
+
+                final String position = LAT + ", " + LNG;
+                final String visibility = response.getString("visibility");
+
+                final StringBuilder moreInfo = new StringBuilder();
+                moreInfo.append("Altitude: ").append(mDecimalFormat.format(Double.parseDouble(response.getString("altitude")))).append(" km").append("\n")
+                        .append("Velocity: ").append(mDecimalFormat.format(Double.parseDouble(response.getString("velocity")))).append(" kph").append("\n")
+                        .append("Footprint: ").append(mDecimalFormat.format(Double.parseDouble(response.getString("footprint")))).append(" km").append("\n")
+                        .append("Solar LAT: ").append(mDecimalFormat.format(Double.parseDouble(response.getString("solar_lat")))).append("°").append("\n")
+                        .append("Solar LON: ").append(mDecimalFormat.format(Double.parseDouble(response.getString("solar_lon")))).append("°").append("\n")
+                        .append("Visibility: ").append(visibility.substring(0, 1).toUpperCase()).append(visibility.substring(1)).append("\n");
+
+                MapsActivity.this.runOnUiThread(() -> {
+                    if (mOnce) {
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(ISS));
+                        if (mMap.getUiSettings().isScrollGesturesEnabled()) {
+                            mMap.getUiSettings().setScrollGesturesEnabled(false);
+                        }
+                        mOnce = false;
+                    } else if (mSharedPreferences.getBoolean("lock_ISS", false)) {
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(ISS));
+                        if (mMap.getUiSettings().isScrollGesturesEnabled()) {
+                            mMap.getUiSettings().setScrollGesturesEnabled(false);
+                        }
+                    } else if (!mSharedPreferences.getBoolean("lock_ISS", false)) {
+                        mMap.getUiSettings().setScrollGesturesEnabled(true);
+                    }
+                    if (mMarker != null) {
+                        mMarker.remove();
+                    }
+
+                    mDescription.setText(moreInfo.toString());
+                    mLatLong.setText(position);
+                    mMarkerOptions.position(ISS);
+                    mMarker = mMap.addMarker(mMarkerOptions);
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, e -> {
+            // Server did not respond. Got 5 chances before stop trying.
+            if (++mSuccess <= 4) {
+                Toast.makeText(MapsActivity.this, getResources().getString(R.string.errorLessFive, mSuccess, mRefreshRate), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(MapsActivity.this, R.string.errorFiveTimes, Toast.LENGTH_LONG).show();
+                if (mTimer != null) {
+                    mTimer.cancel();
+                    mTimer.purge();
+                }
+                mTimer = null;
             }
         });
         jsonObjectRequest.setTag(TAG);
@@ -580,7 +570,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         final long[] futureTen = new long[10];
 
         for (int i = 0; i < futureTen.length; ++i) {
-            futureTen[i] = currentLong + (30 * mPoly++);
+            futureTen[i] = currentLong + (30L * mPoly++);
         }
 
         final StringBuilder urlBuilder = new StringBuilder();
@@ -597,57 +587,47 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 units;
 
         final int finalStart = mPoly;
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                try {
-                    final LatLng[] latLngs = new LatLng[10];
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, response -> {
+            try {
+                final LatLng[] latLngs = new LatLng[10];
 
-                    for (int i = 0; i < response.length(); ++i) {
-                        latLngs[i] = new LatLng(response.getJSONObject(i).getDouble("latitude"),
-                                response.getJSONObject(i).getDouble("longitude"));
-                    }
-
-                    MapsActivity.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            if (finalStart == 10) {
-                                for (int i = 0; i < futureTen.length - 1; ++i) {
-                                    mPolyLine = mMap.addPolyline(new PolylineOptions()
-                                            .add(latLngs[i], latLngs[i + 1])
-                                            .width(mCurrentWidth)
-                                            .color(mCurrentColor));
-                                    mPolyArray[mPolyCounter++] = mPolyLine;
-                                }
-                                mLast = latLngs[latLngs.length - 1];
-                                ++mProgress;
-                            } else {
-                                mPolyArray[mPolyCounter++] = mMap.addPolyline(new PolylineOptions()
-                                        .add(mLast, latLngs[0])
-                                        .width(mCurrentWidth)
-                                        .color(mCurrentColor));
-                                for (int i = 0; i < futureTen.length - 1; ++i) {
-                                    mPolyArray[mPolyCounter++] = mMap.addPolyline(new PolylineOptions()
-                                            .add(latLngs[i], latLngs[i + 1])
-                                            .width(mCurrentWidth)
-                                            .color(mCurrentColor));
-                                }
-                                mLast = latLngs[latLngs.length - 1];
-                                ++mProgress;
-                            }
-                        }
-                    });
-                } catch (Exception e) {
-                    if (mLast == null) {
-                        FirebaseCrash.report(new Exception("mLast was null"));
-                    }
-                    e.printStackTrace();
+                for (int i = 0; i < response.length(); ++i) {
+                    latLngs[i] = new LatLng(response.getJSONObject(i).getDouble("latitude"),
+                            response.getJSONObject(i).getDouble("longitude"));
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError e) {
 
+                MapsActivity.this.runOnUiThread(() -> {
+                    if (finalStart == 10) {
+                        for (int i = 0; i < futureTen.length - 1; ++i) {
+                            mPolyLine = mMap.addPolyline(new PolylineOptions()
+                                    .add(latLngs[i], latLngs[i + 1])
+                                    .width(mCurrentWidth)
+                                    .color(mCurrentColor));
+                            mPolyArray[mPolyCounter++] = mPolyLine;
+                        }
+                    } else {
+                        mPolyArray[mPolyCounter++] = mMap.addPolyline(new PolylineOptions()
+                                .add(mLast, latLngs[0])
+                                .width(mCurrentWidth)
+                                .color(mCurrentColor));
+                        for (int i = 0; i < futureTen.length - 1; ++i) {
+                            mPolyArray[mPolyCounter++] = mMap.addPolyline(new PolylineOptions()
+                                    .add(latLngs[i], latLngs[i + 1])
+                                    .width(mCurrentWidth)
+                                    .color(mCurrentColor));
+                        }
+                    }
+                    mLast = latLngs[latLngs.length - 1];
+                    ++mProgress;
+                });
+            } catch (Exception e) {
+                if (mLast == null) {
+                    FirebaseCrash.report(new Exception("mLast was null"));
+                }
+                e.printStackTrace();
             }
+        }, e -> {
+
         });
         mRequestQueue.add(jsonArrayRequest);
     }
@@ -668,20 +648,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             switch (i) {
                 case 0:
                     builder = new HamButton.Builder()
-                            .listener(new OnBMClickListener() {
-                                @Override
-                                public void onBoomButtonClick(int index) {
-                                    Intent intent;
-                                    if (isLocationPermissionGranted()) {
-                                        getLocationPermission();
+                            .listener(index -> {
+                                Intent intent;
+                                if (isLocationPermissionGranted()) {
+                                    getLocationPermission();
+                                } else {
+                                    if (mInterstitialAd != null) {
+                                        mInterstitialAd.show(MapsActivity.this);
+                                        mInterstitialAdActivity = 0;
                                     } else {
-                                        if (mInterstitialAd.isLoaded() && !mSharedPreferences.getBoolean("fullPage", false)) {
-                                            mInterstitialAd.show();
-                                            mInterstitialAdActivity = 0;
-                                        } else {
-                                            intent = new Intent(mContext, Locations.class);
-                                            startActivity(intent);
-                                        }
+                                        intent = new Intent(mContext, Locations.class);
+                                        startActivity(intent);
                                     }
                                 }
                             })
@@ -695,17 +672,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     break;
                 case 1:
                     builder = new HamButton.Builder()
-                            .listener(new OnBMClickListener() {
-                                @Override
-                                public void onBoomButtonClick(int index) {
-                                    Intent intent;
-                                    if (mInterstitialAd.isLoaded() && !mSharedPreferences.getBoolean("fullPage", false)) {
-                                        mInterstitialAd.show();
-                                        mInterstitialAdActivity = 1;
-                                    } else {
-                                        intent = new Intent(mContext, PeopleinSpace.class);
-                                        startActivity(intent);
-                                    }
+                            .listener(index -> {
+                                Intent intent;
+                                if (mInterstitialAd != null) {
+                                    mInterstitialAd.show(MapsActivity.this);
+                                    mInterstitialAdActivity = 1;
+                                } else {
+                                    intent = new Intent(mContext, PeopleInSpace.class);
+                                    startActivity(intent);
                                 }
                             })
                             .normalImageRes(R.drawable.astronaut)
@@ -718,22 +692,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     break;
                 case 2:
                     builder = new HamButton.Builder()
-                            .listener(new OnBMClickListener() {
-                                @Override
-                                public void onBoomButtonClick(int index) {
-                                    Intent intent;
-                                    /* Update the check box representing the app's service. If for example the service
-                                     exited not by the app, it shouldn't be checked. */
-                                    boolean Alert = isMyServiceRunning(com.restart.spacestationtracker.services.Alert.class);
+                            .listener(index -> {
+                                Intent intent;
+                                /* Update the check box representing the app's service. If for example the service
+                                 exited not by the app, it shouldn't be checked. */
+                                boolean Alert = isMyServiceRunning(com.restart.spacestationtracker.services.Alert.class);
 
-                                    if (Alert != mSharedPreferences.getBoolean("notification_ISS", false)) {
-                                        Toast.makeText(MapsActivity.this, R.string.errorNotByMe, Toast.LENGTH_LONG).show();
-                                        mSharedPreferences.edit().putBoolean("notification_ISS", Alert).apply();
-                                    }
-
-                                    intent = new Intent(mContext, Preferences.class);
-                                    startActivity(intent);
+                                if (Alert != mSharedPreferences.getBoolean("notification_ISS", false)) {
+                                    Toast.makeText(MapsActivity.this, R.string.errorNotByMe, Toast.LENGTH_LONG).show();
+                                    mSharedPreferences.edit().putBoolean("notification_ISS", Alert).apply();
                                 }
+
+                                intent = new Intent(mContext, Preferences.class);
+                                startActivity(intent);
                             })
                             .normalImageRes(R.drawable.ic_settings)
                             .normalTextRes(R.string.settings_title)
@@ -745,13 +716,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     break;
                 case 3:
                     builder = new HamButton.Builder()
-                            .listener(new OnBMClickListener() {
-                                @Override
-                                public void onBoomButtonClick(int index) {
-                                    Intent intent;
-                                    intent = new Intent(mContext, AboutActivity.class);
-                                    startActivity(intent);
-                                }
+                            .listener(index -> {
+                                Intent intent;
+                                intent = new Intent(mContext, AboutActivity.class);
+                                startActivity(intent);
                             })
                             .normalImageRes(R.drawable.ic_help_outline)
                             .normalTextRes(R.string.help_title)
@@ -794,13 +762,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            if (mInterstitialAd.isLoaded() && !mSharedPreferences.getBoolean("fullPage", false)) {
-                mInterstitialAd.show();
+            if (mInterstitialAd != null && !mSharedPreferences.getBoolean("fullPage", false)) {
+                mInterstitialAd.show(MapsActivity.this);
                 mInterstitialAdActivity = 0;
             } else {
                 startActivity(new Intent(mContext, Locations.class));
             }
         }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     /**
@@ -846,28 +816,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .lineAndArcColor(Color.parseColor("#6441A5"))
                 .dismissOnTouch(true)
                 .usageId("1")
-                .setListener(new SpotlightListener() {
-                    @Override
-                    public void onUserClicked(String s) {
-                        new SpotlightView.Builder(activity)
-                                .introAnimationDuration(400)
-                                .enableRevealAnimation(true)
-                                .performClick(true)
-                                .fadeinTextDuration(400)
-                                .headingTvColor(Color.parseColor("#6441A5"))
-                                .headingTvSize(32)
-                                .headingTvText("Main Features")
-                                .subHeadingTvColor(Color.parseColor("#ffffff"))
-                                .subHeadingTvSize(16)
-                                .subHeadingTvText(getString(R.string.tutorialTwo))
-                                .maskColor(Color.parseColor("#dc000000"))
-                                .target(mBoomMenu)
-                                .lineAnimDuration(400)
-                                .lineAndArcColor(Color.parseColor("#6441A5"))
-                                .dismissOnTouch(true)
-                                .usageId("2").show();
-                    }
-                }).show();
+                .setListener(s -> new SpotlightView.Builder(activity)
+                        .introAnimationDuration(400)
+                        .enableRevealAnimation(true)
+                        .performClick(true)
+                        .fadeinTextDuration(400)
+                        .headingTvColor(Color.parseColor("#6441A5"))
+                        .headingTvSize(32)
+                        .headingTvText("Main Features")
+                        .subHeadingTvColor(Color.parseColor("#ffffff"))
+                        .subHeadingTvSize(16)
+                        .subHeadingTvText(getString(R.string.tutorialTwo))
+                        .maskColor(Color.parseColor("#dc000000"))
+                        .target(mBoomMenu)
+                        .lineAnimDuration(400)
+                        .lineAndArcColor(Color.parseColor("#6441A5"))
+                        .dismissOnTouch(true)
+                        .usageId("2").show()).show();
     }
 
     /**
@@ -913,11 +878,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     private void requestNewInterstitial() {
         if (!mSharedPreferences.getBoolean("fullPage", false)) {
-            AdRequest adRequest = new AdRequest.Builder()
-                    .addTestDevice(getString(R.string.test_device))
-                    .build();
+            // Initiate the interstitial ad and onAdClosed listener
+            InterstitialAd.load(this, getString(R.string.interstitial_ad_unit_id), new AdRequest.Builder().build(),
+                    new InterstitialAdLoadCallback() {
+                        @Override
+                        public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                            mInterstitialAd = interstitialAd;
+                        }
 
-            mInterstitialAd.loadAd(adRequest);
+                        @Override
+                        public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                            mInterstitialAd = null;
+                        }
+                    });
         }
     }
 

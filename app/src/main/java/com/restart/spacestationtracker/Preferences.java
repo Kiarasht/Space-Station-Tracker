@@ -10,14 +10,14 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import android.widget.Toast;
 
 import com.restart.spacestationtracker.services.Alert;
 import com.restart.spacestationtracker.view.SeekBarPreference;
@@ -25,7 +25,7 @@ import com.restart.spacestationtracker.view.SeekBarPreference;
 /**
  * Manages the settings page of the apps from to have the user controls the visual and flow of the
  * application.
- *
+ * <p>
  * TODO: As a user, I should have the option to reset an option or all options to their original values.
  */
 public class Preferences extends AppCompatActivity {
@@ -56,7 +56,6 @@ public class Preferences extends AppCompatActivity {
      */
     public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
         private SharedPreferences mSharedPreferences;
-        private PreferenceScreen mPreferenceScreen;
         private SeekBarPreference mRefreshRate;
         private SeekBarPreference mPredictionSize;
         private SeekBarPreference mDecimalPlaces;
@@ -77,7 +76,7 @@ public class Preferences extends AppCompatActivity {
             mActivity = getActivity();
             mContext = mActivity.getApplicationContext();
             mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
-            mPreferenceScreen = getPreferenceScreen();
+            PreferenceScreen mPreferenceScreen = getPreferenceScreen();
 
             // Enable seekbars
             mRefreshRate = (SeekBarPreference) mPreferenceScreen.findPreference("refresh_Rate");
@@ -89,10 +88,6 @@ public class Preferences extends AppCompatActivity {
             mTextSize = (SeekBarPreference) mPreferenceScreen.findPreference("textSizeType");
             mTextSize.setSummary(this.getString(R.string.textSizeSummary).replace("$1", "" + mSharedPreferences.getInt("textSizeType", 12)));
             mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
-
-            // OnClick methods for each of the check boxes
-            mPreferenceScreen.findPreference("advertisement").setOnPreferenceClickListener(this);
-            mPreferenceScreen.findPreference("fullPage").setOnPreferenceClickListener(this);
             //mPreferenceScreen.findPreference("notification_ISS").setOnPreferenceClickListener(this);
         }
 
@@ -134,7 +129,7 @@ public class Preferences extends AppCompatActivity {
         /**
          * If permission was granted, check notification service box for the user so they don't have
          * to accept the permission and then click on the preference again.
-         *
+         * <p>
          * If permission was denied, then uncheck it.
          *
          * @param requestCode  For managing requests, in this case it's just 1
@@ -194,54 +189,12 @@ public class Preferences extends AppCompatActivity {
          */
         @Override
         public boolean onPreferenceClick(Preference preference) {
-            switch (preference.getKey()) {
-                case "advertisement":
-                    return onBannerAds(preference);
-                case "fullPage":
-                    return onFullPageAds(preference);
-                case "notification_ISS":
-                    return onISSNotification(preference);
-                default:
-                    return false;
-            }
-        }
-
-        /**
-         * When the preference corresponding with the banner ad was clicked.
-         * We just inform the user if they unchecked it. We will later use whether if this checkbox
-         * is checked or unchecked to display ads.
-         *
-         * @param preference The incoming preference that was clicked
-         * @return We handled the click, so pass it back
-         */
-        private boolean onBannerAds(Preference preference) {
-            boolean checked = preference.getSharedPreferences().getBoolean("advertisement", false);
-
-            if (!checked) {
-                Toast.makeText(mContext, R.string.startBannerAds, Toast.LENGTH_SHORT).show();
+            if ("notification_ISS".equals(preference.getKey())) {
+                return onISSNotification(preference);
             }
 
-            return true;
+            return false;
         }
-
-        /**
-         * When the preference corresponding with the full page ad was clicked.
-         * We just inform the user if they unchecked it. We will later use whether if this checkbox
-         * is checked or unchecked to display ads.
-         *
-         * @param preference The incoming preference that was clicked.
-         * @return We handled the click, so pass it back.
-         */
-        private boolean onFullPageAds(Preference preference) {
-            boolean checked = preference.getSharedPreferences().getBoolean("fullPage", false);
-
-            if (!checked) {
-                Toast.makeText(mContext, R.string.startFullAds, Toast.LENGTH_SHORT).show();
-            }
-
-            return true;
-        }
-
 
         /**
          * Start or stop the notification service. But first also check if we location permission is

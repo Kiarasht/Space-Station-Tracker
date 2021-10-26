@@ -129,41 +129,30 @@ public class PeopleInSpaceAdapter extends RecyclerView.Adapter<PeopleInSpaceAdap
                 holder.mAstronautTwitter.setImageDrawable(ContextCompat.getDrawable(mActivity, R.drawable.ic_action_twitter));
             }
 
-            holder.mAstronautTwitter.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (mAstronauts.get(pos).getTwitter().length() != 0) {
-                        mActivity.startActivity(new Intent(mActivity, Info.class)
-                                .putExtra("url", mAstronauts.get(pos).getTwitter())
-                                .putExtra("astro", mAstronauts.get(pos).getName()));
-                    } else {
-                        Toast.makeText(mActivity, mAstronauts.get(pos).getName().split(" ")[0] + " " + mActivity.getString(R.string.errorNoTwitter), Toast.LENGTH_SHORT).show();
-                    }
+            holder.mAstronautTwitter.setOnClickListener(view -> {
+                if (mAstronauts.get(pos).getTwitter().length() != 0) {
+                    mActivity.startActivity(new Intent(mActivity, Info.class)
+                            .putExtra("url", mAstronauts.get(pos).getTwitter())
+                            .putExtra("astro", mAstronauts.get(pos).getName()));
+                } else {
+                    Toast.makeText(mActivity, mAstronauts.get(pos).getName().split(" ")[0] + " " + mActivity.getString(R.string.errorNoTwitter), Toast.LENGTH_SHORT).show();
                 }
             });
 
             // Does the astronaut have a wiki handle?
-            holder.mAstronautWiki.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (mAstronauts.get(pos).getWiki().length() != 0) {
-                        mActivity.startActivity(new Intent(mActivity, Info.class)
-                                .putExtra("url", mAstronauts.get(pos).getWiki())
-                                .putExtra("astro", mAstronauts.get(pos).getName()));
-                    } else {
-                        Toast.makeText(mActivity, mAstronauts.get(pos).getName().split(" ")[0] + " " + mActivity.getString(R.string.errorNoWiki), Toast.LENGTH_SHORT).show();
-                    }
+            holder.mAstronautWiki.setOnClickListener(view -> {
+                if (mAstronauts.get(pos).getWiki().length() != 0) {
+                    mActivity.startActivity(new Intent(mActivity, Info.class)
+                            .putExtra("url", mAstronauts.get(pos).getWiki())
+                            .putExtra("astro", mAstronauts.get(pos).getName()));
+                } else {
+                    Toast.makeText(mActivity, mAstronauts.get(pos).getName().split(" ")[0] + " " + mActivity.getString(R.string.errorNoWiki), Toast.LENGTH_SHORT).show();
                 }
             });
 
-            holder.mAstronautGoogle.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mActivity.startActivity(new Intent(mActivity, Info.class)
-                            .putExtra("url", "https://www.google.com/search?q=" + mAstronauts.get(pos).getName())
-                            .putExtra("astro", mAstronauts.get(pos).getName()));
-                }
-            });
+            holder.mAstronautGoogle.setOnClickListener(view -> mActivity.startActivity(new Intent(mActivity, Info.class)
+                    .putExtra("url", "https://www.google.com/search?q=" + mAstronauts.get(pos).getName())
+                    .putExtra("astro", mAstronauts.get(pos).getName())));
 
             /* Set the astro info and images */
             holder.mName.setText(mAstronauts.get(position).getName());

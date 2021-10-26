@@ -2,23 +2,18 @@ package com.restart.spacestationtracker;
 
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.View;
-import android.view.ViewTreeObserver;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -36,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class PeopleinSpace extends AppCompatActivity {
+public class PeopleInSpace extends AppCompatActivity {
 
     private PeopleInSpaceAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -52,30 +47,17 @@ public class PeopleinSpace extends AppCompatActivity {
 
         mRecyclerView = findViewById(R.id.recycler);
         mActivity = this;
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mRequestQueue = Volley.newRequestQueue(this);
         display_people();
 
-        // Show an ad, or hide it if its disabled
-        if (!sharedPreferences.getBoolean("advertisement", false)) {
-            adView = findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.test_device)).build();
-            if (adView != null) {
-                adView.loadAd(adRequest);
-
-                adView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        if (!mPaddingOnce) {
-                            mPaddingOnce = true;
-                            mRecyclerView.setPadding(mRecyclerView.getPaddingLeft(), mRecyclerView.getPaddingTop(), mRecyclerView.getPaddingRight(), mRecyclerView.getPaddingBottom() + adView.getHeight());
-                        }
-                    }
-                });
+        adView = findViewById(R.id.adView);
+        adView.loadAd(new AdRequest.Builder().build());
+        adView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            if (!mPaddingOnce) {
+                mPaddingOnce = true;
+                mRecyclerView.setPadding(mRecyclerView.getPaddingLeft(), mRecyclerView.getPaddingTop(), mRecyclerView.getPaddingRight(), mRecyclerView.getPaddingBottom() + adView.getHeight());
             }
-        } else {
-            findViewById(R.id.adView).setVisibility(View.GONE);
-        }
+        });
     }
 
     /**
@@ -112,24 +94,20 @@ public class PeopleinSpace extends AppCompatActivity {
         final List<Astronaut> peopleInSpace = new ArrayList<>();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
-                null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
-                    mRecyclerView.setLayoutManager(layoutManager);
-                    mAdapter = new PeopleInSpaceAdapter(mActivity, peopleInSpace);
-                    mRecyclerView.setHasFixedSize(true);
-                    mRecyclerView.setNestedScrollingEnabled(true);
-                    mAdapter.setDataSet(peopleInSpace);
-                    mRecyclerView.setAdapter(mAdapter);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                null, response -> {
+            try {
+                LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
+                mRecyclerView.setLayoutManager(layoutManager);
+                mAdapter = new PeopleInSpaceAdapter(mActivity, peopleInSpace);
+                mRecyclerView.setHasFixedSize(true);
+                mRecyclerView.setNestedScrollingEnabled(true);
+                mAdapter.setDataSet(peopleInSpace);
+                mRecyclerView.setAdapter(mAdapter);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError e) {
+        }, e -> {
+            if (e != null) {
                 Log.e("PeopleInSpace Volley", e.getMessage());
             }
         }) {

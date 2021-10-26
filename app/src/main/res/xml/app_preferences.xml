@@ -97,21 +97,4 @@
 
     </PreferenceCategory>-->
 
-    <PreferenceCategory
-        android:key="Advertisement"
-        android:title="Advertisement">
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="advertisement"
-            android:summary="@string/advertisementSummary"
-            android:title="@string/advertisementTitle"/>
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="fullPage"
-            android:summary="@string/fullSummary"
-            android:title="@string/fullTitle"/>
-    </PreferenceCategory>
-
 </PreferenceScreen>

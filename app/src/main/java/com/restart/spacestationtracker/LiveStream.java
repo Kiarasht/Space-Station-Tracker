@@ -24,7 +24,7 @@ public class LiveStream extends Activity {
         mWebView = findViewById(R.id.webView2);
 
         if (mWebView != null) {
-            mWebView.loadUrl("http://www.ustream.tv/channel/iss-hdev-payload/pop-out");
+            mWebView.loadUrl("https://www.ustream.tv/channel/iss-hdev-payload/pop-out");
             mWebView.getSettings().setJavaScriptEnabled(true);
             mWebView.setVerticalScrollBarEnabled(false);
 
@@ -34,9 +34,8 @@ public class LiveStream extends Activity {
                 mWebView.setWebViewClient(new MyWebViewClientNougat());
             }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) { // Auto play if above Jelly
-                mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
-            }
+            // Auto play if above Jelly
+            mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
         } else {
             Toast.makeText(getApplicationContext(), R.string.errorWebView, Toast.LENGTH_SHORT).show();
         }
@@ -45,8 +44,7 @@ public class LiveStream extends Activity {
     /**
      * Loads WebView inside the app instead of starting phone's default browser
      */
-    @SuppressWarnings("deprecation")
-    private class MyWebViewClient extends WebViewClient {
+    private static class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
@@ -58,7 +56,7 @@ public class LiveStream extends Activity {
      * MyWebViewClient for Android Nougat
      */
     @TargetApi(Build.VERSION_CODES.N)
-    private class MyWebViewClientNougat extends WebViewClient {
+    private static class MyWebViewClientNougat extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             view.loadUrl(request.getUrl().toString());
@@ -72,14 +70,13 @@ public class LiveStream extends Activity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            switch (keyCode) {
-                case KeyEvent.KEYCODE_BACK:
-                    if (mWebView.canGoBack()) {
-                        mWebView.goBack();
-                    } else {
-                        finish();
-                    }
-                    return true;
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                if (mWebView.canGoBack()) {
+                    mWebView.goBack();
+                } else {
+                    finish();
+                }
+                return true;
             }
         }
         return super.onKeyDown(keyCode, event);

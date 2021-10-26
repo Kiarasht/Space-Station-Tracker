@@ -1,0 +1,57 @@
+{
+  "project_info": {
+    "project_number": "610526938997",
+    "firebase_url": "https://project-5182046725513325760.firebaseio.com",
+    "project_id": "project-5182046725513325760",
+    "storage_bucket": "project-5182046725513325760.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610526938997:android:d2c9f654f829d90c",
+        "android_client_info": {
+          "package_name": "com.restart.spacestationtracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610526938997-6epoddv303bfu8emiqdc7o01dvpi901p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.restart.spacestationtracker",
+            "certificate_hash": "7aa9fe5c42e5caec9023db086a884cfd1fd3705d"
+          }
+        },
+        {
+          "client_id": "610526938997-rd8qv49paueu54e05to5ik003g5f23o0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.restart.spacestationtracker",
+            "certificate_hash": "3270d4055e1dbdb080980f05009ea2b1571de8cc"
+          }
+        },
+        {
+          "client_id": "610526938997-hl0bnuht412fe2o3qa7bc8i0vqcbgicj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2NLkI53gjTd4FoYgCUMp0ClwSd9Ii5FU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610526938997-hl0bnuht412fe2o3qa7bc8i0vqcbgicj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-1850763013639682~7037607031"
+    }
+  ],
+  "configuration_version": "1"
+}
