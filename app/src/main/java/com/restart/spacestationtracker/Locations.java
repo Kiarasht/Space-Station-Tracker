@@ -9,7 +9,9 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,8 +24,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.restart.spacestationtracker.adapter.LocationAdapter;
 import com.restart.spacestationtracker.data.SightSee;
@@ -44,6 +44,10 @@ import java.util.List;
  */
 public class Locations extends AppCompatActivity {
     private final String TAG = ".Locations";
+    private static final int ISS_NORAD_ID = 25544;
+    private static final int ISS_RESULT_DAYS = 5;
+    private static final int ISS_MIN_VISIBILITY = 300;
+    private static final String ISS_TRACKER_API = "HPD8AL-KBDGWE-JS2M48-4XH2";
 
     private ImageView mImageView;
     private LocationAdapter mAdapter;
@@ -51,8 +55,10 @@ public class Locations extends AppCompatActivity {
     private RequestQueue requestQueue;
     private String mLongitude;
     private String mLatitude;
+    private String mElevation;
     private Activity mActivity;
     private CollapsingToolbarLayout mCollapsingToolbar;
+    private ProgressBar mLoading;
 
     /**
      * Assign simple widgets while also use the Google API to get user's location.
@@ -78,8 +84,11 @@ public class Locations extends AppCompatActivity {
         mImageView = findViewById(R.id.image);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setNestedScrollingEnabled(true);
+        mRecyclerView.setVisibility(View.GONE);
         mCollapsingToolbar = findViewById(R.id.collapsing_toolbar);
         mCollapsingToolbar.setTitle(getString(R.string.flybys_title));
+
+        mLoading = findViewById(R.id.location_loading);
 
         // mRecyclerViewBackground makes RecyclerView's background except header view.
         requestQueue = Volley.newRequestQueue(this);
@@ -119,10 +128,10 @@ public class Locations extends AppCompatActivity {
         if (location != null) {
             String url = "https://maps.googleapis.com/maps/api/staticmap?" +
                     "center=LAT,LNG&" +
-                    "zoom=10&" +
+                    "zoom=13&" +
                     "scale=1&" +
                     "size=640x640&" +
-                    "maptype=hybrid&" +
+                    "maptype=terrain&" +
                     "style=feature:road|visibility:off&" +
                     "style=feature:poi|visibility:off&" +
                     "style=feature:landscape|visibility:off&" +
@@ -133,6 +142,7 @@ public class Locations extends AppCompatActivity {
 
             mLatitude = String.valueOf(location.getLatitude());
             mLongitude = String.valueOf(location.getLongitude());
+            mElevation = String.valueOf(location.getAltitude());
             url = url.replace("LAT", mLatitude);
             url = url.replace("LNG", mLongitude);
 
@@ -166,6 +176,7 @@ public class Locations extends AppCompatActivity {
             }
 
             Picasso.get().load(url).into(mImageView);
+            mImageView.setImageAlpha(150);
             displayPasses(null, null, null);
         } else {
             Toast.makeText(this, R.string.errorLocation, Toast.LENGTH_LONG).show();
@@ -181,20 +192,20 @@ public class Locations extends AppCompatActivity {
         final String url;
 
         if (latitude == null && longitude == null) { // Location.java is calling this method
-            url = "http://api.open-notify.org/iss-pass.json?lat=" + mLatitude + "&lon=" + mLongitude + "&n=20";
+            url = "https://api.n2yo.com/rest/v1/satellite/visualpasses/" + ISS_NORAD_ID + "/" + mLatitude + "/" + mLongitude + "/" + mElevation + "/" + ISS_RESULT_DAYS + "/" + ISS_MIN_VISIBILITY + "/&apiKey=" + ISS_TRACKER_API;
         } else { // Alert.java is calling this method
             url = "http://api.open-notify.org/iss-pass.json?lat=" + latitude + "&lon=" + longitude;
         }
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             try {
-                final JSONArray results = response.getJSONArray("response");
+                final JSONArray results = response.getJSONArray("passes");
                 final List<SightSee> dates = new ArrayList<>();
 
                 for (int i = 0; i < results.length(); ++i) {
                     final JSONObject aPass = results.getJSONObject(i);
-                    passes.add(new Date(Long.parseLong(aPass.getString("risetime")) * 1000L));
-                    final SightSee aSightSee = new SightSee(aPass.getInt("duration"), aPass.getInt("risetime"));
+                    passes.add(new Date(Long.parseLong(aPass.getString("startUTC")) * 1000L));
+                    final SightSee aSightSee = new SightSee(aPass.getInt("duration"), aPass.getInt("startUTC"));
                     dates.add(aSightSee);
                 }
 
@@ -202,13 +213,20 @@ public class Locations extends AppCompatActivity {
                     mAdapter = new LocationAdapter(mActivity);
                     mAdapter.setDataSet(dates);
                     mRecyclerView.setAdapter(mAdapter);
+                    mLoading.setVisibility(View.GONE);
+                    mRecyclerView.setVisibility(View.VISIBLE);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+                Toast.makeText(Locations.this, R.string.errorConnection, Toast.LENGTH_LONG).show();
+                mLoading.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.GONE);
             }
         }, e -> {
             if (latitude == null && longitude == null) {
                 Toast.makeText(Locations.this, R.string.errorConnection, Toast.LENGTH_LONG).show();
+                mLoading.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.GONE);
             }
         });
 

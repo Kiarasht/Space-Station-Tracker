@@ -1,5 +1,7 @@
 package com.restart.spacestationtracker;
 
+import static com.restart.spacestationtracker.util.IsRunningTestKt.isRunningTest;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -582,7 +584,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //TODO: As a user, I would like the option of changing the units from metric to imperial
         final String units = "miles";
         final String url = "https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=" +
-                urlBuilder.toString() +
+                urlBuilder +
                 "&units=" +
                 units;
 

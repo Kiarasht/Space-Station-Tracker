@@ -27,7 +27,7 @@ public class SightSee {
     /* Format all dates and decimals in the same manner. */
     static {
         mSimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.getDefault());
-        mDecimalFormat = new DecimalFormat("#.#");
+        mDecimalFormat = new DecimalFormat("#");
     }
 
     /**

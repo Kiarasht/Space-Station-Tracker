@@ -1,10 +1,5 @@
 package com.restart.spacestationtracker.util;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 /**
  * Helper method to parse and format any date related values and compare them to a user's
  * current date to give context of when an event occurred.
@@ -15,29 +10,6 @@ public class DateUtils {
     private final static long HOURS_TO_DAYS = 24;
     private final static long DAYS_TO_MONTHS = 30;
     private final static long MONTHS_TO_YEAR = 12;
-    private final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss", Locale.getDefault());
-
-    /**
-     * Parse a date from the input string
-     *
-     * @param dateTime A string representing the date of an event from the API.
-     * @return A date parsed from the string.
-     * @throws ParseException if the beginning of the specified string cannot be parsed.
-     */
-    public static Date parseDate(String dateTime) throws ParseException {
-        return DATE_FORMAT.parse(dateTime);
-    }
-
-    /**
-     * Parse a string from a given previous timestamp and user's current time which represents the
-     * difference between the two.
-     *
-     * @param past A previous timestamp date, representing a previous earth quake.
-     * @return The difference between the two dates in string.
-     */
-    public static String getDateDifference(long past) {
-        return getStringDateDifference(new Date().getTime() - new Date(past).getTime());
-    }
 
     /**
      * Parse a string from a given previous timestamp and a custom timestamp to compare it to.
@@ -48,7 +20,7 @@ public class DateUtils {
      * @return A string representing the difference between the two dates.
      */
     public static String getDateDifference(long past, long future) {
-        return getStringDateDifference(new Date(future).getTime() - new Date(past).getTime());
+        return getStringDateDifference(future - past);
     }
 
     /**
@@ -68,11 +40,11 @@ public class DateUtils {
         if (difference_hours < 24) {
             return "1 day in space";
         } else if (difference_days < 30) {
-            return String.valueOf(difference_days) + " day" + isPlural(difference_days) + " in space";
+            return difference_days + " day" + isPlural(difference_days) + " in space";
         } else if (difference_months < 12) {
-            return String.valueOf(difference_months) + " month" + isPlural(difference_months) + " in space";
+            return difference_months + " month" + isPlural(difference_months) + " in space";
         } else {
-            return String.valueOf(difference_years) + " year" + isPlural(difference_years) + " in space";
+            return difference_years + " year" + isPlural(difference_years) + " in space";
         }
     }
 
