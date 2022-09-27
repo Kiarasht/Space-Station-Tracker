@@ -7,15 +7,6 @@ def localProperties = new Properties()
 localProperties.load(new FileInputStream(localPropertiesFile))
 
 android {
-    signingConfigs {
-        release {
-            storeFile file('/Users/KTorki/Desktop/ISSTracker.jks')
-            storePassword 'chetori63'
-            keyAlias 'isstracker'
-            keyPassword 'chetori63'
-        }
-    }
-
     // Removing packaging options otherwise it gives duplicate error
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
@@ -45,7 +36,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
         }
     }
 }

@@ -1,3 +1,6 @@
+#- name: Permission for gradlew
+#  run: chmod +x gradlew
+
 name: Android CI
 
 on:
@@ -8,24 +11,46 @@ on:
 
 jobs:
   static-analysis:
-    name: Execute analyse on code
+    name: Code Analysis
     continue-on-error: false
-    timeout-minutes: 5
+    timeout-minutes: 20
     runs-on: macos-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up JDK 11
+      - name: Setup JDK 11
         uses: actions/setup-java@v3
         with:
           java-version: '11'
           distribution: 'temurin'
           cache: gradle
 
-      - name: Lint
+      - name: Lint check
         run: ./gradlew lint
+
+  unit-test:
+    name: Unit Test
+    continue-on-error: false
+    timeout-minutes: 20
+    runs-on: macos-latest
+    needs:
+      - static-analysis
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Unit tests
+        run: ./gradlew testDebugUnitTest
 
   build-and-test:
     name: Build and test
@@ -37,7 +62,7 @@ jobs:
         api-level: [ 21, 24, 29, 31, 33 ]
         target: [ google_apis ]
     needs:
-      - static-analysis
+      - unit-test
 
     steps:
       - name: Checkout repo
@@ -49,12 +74,6 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: gradle
-
-      - name: Permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Unit tests
-        run: ./gradlew testDebugUnitTest
 
       - name: Instrumentation tests
         uses: reactivecircus/android-emulator-runner@v2
@@ -90,3 +109,40 @@ jobs:
         with:
           name: app-debug
           path: app/build/outputs/apk/debug/app-debug.apk
+
+  generate-release-apk:
+    name: Generate release APK
+    timeout-minutes: 20
+    runs-on: macos-latest
+    needs:
+      - build-and-test
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Build with gradle
+        run: ./gradlew assembleRelease
+
+      - uses: r0adkll/sign-android-release@v1
+        name: Sign app APK
+        id: sign_app
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: app-release
+          path: ${{steps.sign_app.outputs.signedReleaseFile}}
