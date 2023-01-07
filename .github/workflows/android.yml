@@ -131,7 +131,7 @@ jobs:
       - name: Build with gradle
         run: ./gradlew assembleRelease
 
-      - uses: r0adkll/sign-android-release@v1
+      - uses: ilharp/sign-android-release@v1.0.4
         name: Sign app APK
         id: sign_app
         with:
