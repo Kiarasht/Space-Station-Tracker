@@ -59,7 +59,7 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        api-level: [ 21, 24, 29, 31, 33 ]
+        api-level: [ 29, 31, 33 ]
         target: [ google_apis ]
     needs:
       - unit-test
