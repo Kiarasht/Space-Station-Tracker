@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">สถานีอวกาศนานาชาติติดตาม</string>
+
+    
+    <string name="map_activity">แผนที่</string>
+    <string name="flybys_title">ฟลายบาย</string>
+    <string name="space_title">กำลังปฏิบัติหน้าที่</string>
+    <string name="settings_title">การตั้งค่า</string>
+    <string name="help_title">ช่วย</string>
+
+    
+    <string name="flybys_summary">ตรวจสอบบัตรผ่านของ ISS ตามตำแหน่งของคุณ</string>
+    <string name="space_summary">ดูว่าใครอยู่ในอวกาศในขณะนี้</string>
+    <string name="settings_summary">จัดการการตั้งค่าแอปทั่วไป</string>
+    <string name="help_summary">ให้คะแนนหรือเรียนรู้เกี่ยวกับแอป</string>
+
+    
+    <string name="reset">รีเฟรชเส้นทำนาย</string>
+    <string name="stream">สด</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">ครั้งแรก</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>ไม่มี</item>
+        <item>ปกติ</item>
+        <item>ดาวเทียม</item>
+        <item>ภูมิประเทศ</item>
+        <item>ไฮบริด</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">ฟลายบาย</string>
+    <string name="label_peopleinspace">ใครอยู่ในอวกาศ\?</string>
+    <string name="label_setting">การตั้งค่า</string>
+    <string name="label_help">ช่วย</string>
+    <string name="label_stream">ถ่ายทอดสด</string>
+
+    
+    <string name="startAlert">แจ้งเตือนเมื่อ ISS อยู่ใกล้ๆ</string>
+    <string name="stopAlert">หยุดแจ้งเตือนเมื่อ ISS อยู่ใกล้ๆ</string>
+    <string name="startFullAds">เปิดใช้งานโฆษณาแบบเต็มหน้า ขอบคุณสำหรับการสนับสนุน ;)</string>
+    <string name="startBannerAds">เปิดใช้งานโฆษณาแบนเนอร์แล้ว ขอบคุณสำหรับการสนับสนุน ;)</string>
+
+    
+    <string name="tutorialOne">แผนที่แสดงตำแหน่งปัจจุบันของ ISS พร้อมเส้นทำนายตำแหน่งที่จะไป</string>
+    <string name="tutorialTwo">Drawer นำคุณไปสู่คุณสมบัติอื่นๆ เช่น flybys การตั้งค่า ฯลฯ...</string>
+    <string name="midAt">ที่</string>
+    <string name="checkerContentDescription">ไอคอนแสดงว่ามีการเลือกสีโปร่งใส</string>
+    <string name="countryFlagContentDescription">ธงชาติของนักบินอวกาศคนนี้</string>
+    <string name="astronautTwitterContentDescription">ไอคอนสำหรับเชื่อมโยงไปยังหน้า Twitter ของนักบินอวกาศ</string>
+    <string name="astronautWikiContentDescription">ไอคอนสำหรับเชื่อมโยงไปยังหน้าวิกิของนักบินอวกาศ</string>
+    <string name="astronautGoogleContentDescription">ไอคอนสำหรับเชื่อมโยงไปยังหน้าค้นหาของ Google นักบินอวกาศ</string>
+
+    
+    <string name="refreshTitle">อัตราการรีเฟรช</string>
+    <string name="refreshSummary">อัตราการรีเฟรชปัจจุบันคือ $1 วินาที/รีเฟรช</string>
+    <string name="declination_unit">วินาที/รีเฟรช</string>
+    <string name="refreshDialogMessage">เวลาระหว่าง ISS ที่ได้รับการอัปเดตไปยังตำแหน่งใหม่</string>
+
+    <string name="lockTitle">ล็อคไอเอส</string>
+    <string name="lockSummary">ล็อคเข้าสู่ ISS และติดตามมันบนแผนที่</string>
+
+    <string name="infoTitle">ข้อมูลเพิ่มเติม</string>
+    <string name="infoSummary">ให้ข้อมูลเพิ่มเติมเกี่ยวกับ ISS บนแผนที่</string>
+
+    <string name="mapTitle">ประเภทแผนที่</string>
+    <string name="mapSummary">เปลี่ยนประเภทแผนที่จากหน้าก่อนหน้า</string>
+
+    <string name="decimalTitle">ตำแหน่งทศนิยม</string>
+    <string name="decimalDialogMessage">เปลี่ยนความแม่นยำของค่าตัวเลขทั้งหมด</string>
+    <string name="decimalSummary">ระดับความแม่นยำปัจจุบันอยู่ที่ทศนิยม 1 ดอลลาร์</string>
+    <string name="decimalUnit">DP</string>
+
+    <string name="colorTitle">สีของเส้นทำนาย</string>
+    <string name="colorSummary">เปลี่ยนสีของเส้นทำนาย</string>
+
+    <string name="sizeTitle">ขนาดเส้นทำนาย</string>
+    <string name="sizeDialogMessage">เปลี่ยนขนาดของเส้นพยากรณ์ของ ISS</string>
+    <string name="sizeSummary">ขนาดเส้นปัจจุบันคือ $1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">ขนาดข้อความ</string>
+    <string name="textSizeDialogMessage">เปลี่ยนขนาดของค่าข้อความทั้งหมด</string>
+    <string name="textSizeSummary">ขนาดข้อความปัจจุบันคือ $1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">สีข้อความ</string>
+    <string name="textSummary">เปลี่ยนสีของค่าข้อความ</string>
+
+    <string name="textHighlightTitle">โครงร่างข้อความ</string>
+    <string name="textHighlightSummary">เปลี่ยนสีเค้าร่างของค่าข้อความ</string>
+
+    <string name="notificationTitle">การแจ้งเตือนของสถานีอวกาศนานาชาติ</string>
+    <string name="notificationSummary">แจ้งเตือนเมื่อ ISS คาดว่าจะบินผ่านตำแหน่งของฉัน</string>
+
+    <string name="advertisementTitle">แบนเนอร์</string>
+    <string name="advertisementSummary">ปิดการใช้งานโฆษณาแบนเนอร์บนแอป</string>
+
+    <string name="fullTitle">เต็มหน้า</string>
+    <string name="fullSummary">ปิดการใช้งานโฆษณาแบบเต็มหน้าในแอป</string>
+
+    
+    <string name="errorWebView">ไม่สามารถโหลดหน้าได้</string>
+    <string name="errorLocation">ไม่พบตำแหน่งของคุณ</string>
+    <string name="errorPermissionLocation">ปฏิเสธการเข้าถึงตำแหน่งของคุณ</string>
+    <string name="errorConnection">ไม่ว่าคุณจะไม่มีการเชื่อมต่อหรือเซิร์ฟเวอร์โอเวอร์โหลด</string>
+    <string name="errorNetwork">ข้อผิดพลาดที่ไม่รู้จักได้เกิดขึ้น. ข้อผิดพลาด: 401</string>
+    <string name="errorMap">ไม่สามารถใช้การตั้งค่ากับแผนที่</string>
+    <string name="errorFiveTimes">ล้มเหลวทั้งหมด 5 ครั้ง ไม่ว่าคุณจะไม่มีการเชื่อมต่อหรือเซิร์ฟเวอร์โอเวอร์โหลด</string>
+    <string name="errorLessFive">การร้องขอไปยังเซิร์ฟเวอร์ล้มเหลว %1$d จาก 5 กำลังพยายามใน %2$d วินาที</string>
+    <string name="errorWaitPoly">สร้างเส้นทำนายแล้ว</string>
+    <string name="errorNotByMe">คุณไม่ได้หยุดการแจ้งเตือนของ ISS</string>
+    <string name="errorNoWiki">ไม่มีหน้าวิกิ</string>
+    <string name="errorNoTwitter">ไม่มีบัญชีทวิตเตอร์</string>
+    <string name="data_corrupted">ข้อมูลแอปเสียหาย กำลังรีเซ็ต!</string>
+    <string name="polyError">ไม่สามารถสร้างเส้นทำนายได้</string>
+    <string name="calendar">ปฏิทิน</string>
+    <string name="share">แบ่งปัน</string>
+    <string name="image_content">รูปภาพแผนที่พร้อมเครื่องหมายบอกตำแหน่งของผู้ใช้</string>
+    <string name="iss_sighting_share_title">การเล็งของไอเอสเอส</string>
+    <string name="iss_sighting_share_description">ISS จะปรากฏที่นี่ จะไปลองดู!</string>
+    <string name="iss_sighting_share_body">\"ลองดูสิ!\n\nISS จะปรากฏอยู่ที่ \"</string>
+    <string name="iss_sighting_share_chooser">แบ่งปัน…</string>
+    <string name="on">\" บน \"</string>
+    <string name="one_day_in_space">อยู่ในอวกาศ 1 วัน</string>
+    <string name="in_space">\" ในที่ว่าง\"</string>
+    <string name="day">\" วัน\"</string>
+    <string name="month">\" เดือน\"</string>
+    <string name="year">\" ปี\"</string>
+    <string name="since">\"เนื่องจาก \"</string>
+    <string name="tutorial_one_title">สวัสดี :)</string>
+    <string name="tutorial_two_title">คุณสมบัติหลัก</string>
+</resources>

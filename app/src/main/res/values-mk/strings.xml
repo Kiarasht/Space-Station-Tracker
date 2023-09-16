@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Карта</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">На должност</string>
+    <string name="settings_title">Поставки</string>
+    <string name="help_title">Помош</string>
+
+    
+    <string name="flybys_summary">Проверете ги пропусниците на ISS до вашата локација</string>
+    <string name="space_summary">Погледнете кој е во вселената во моментов</string>
+    <string name="settings_summary">Управувајте со општите поставки на апликацијата</string>
+    <string name="help_summary">Оценете или дознајте за апликацијата</string>
+
+    
+    <string name="reset">Освежете ги линиите за предвидување</string>
+    <string name="stream">Во живо</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">прв пат</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Никој</item>
+        <item>Нормално</item>
+        <item>Сателит</item>
+        <item>Теренот</item>
+        <item>Хибрид</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">Кој е во вселената\?</string>
+    <string name="label_setting">Поставки</string>
+    <string name="label_help">Помош</string>
+    <string name="label_stream">Пренос во живо</string>
+
+    
+    <string name="startAlert">Известете кога ISS е блиску</string>
+    <string name="stopAlert">Престанете да известувате кога ISS е блиску</string>
+    <string name="startFullAds">Овозможени се реклами на цела страница. Фала за поддршката ;)</string>
+    <string name="startBannerAds">Банер рекламите се овозможени. Фала за поддршката ;)</string>
+
+    
+    <string name="tutorialOne">Картата ја прикажува моменталната локација на ISS со линија за предвидување каде ќе биде.</string>
+    <string name="tutorialTwo">Фиоката ве води до други функции како што се прелетувања, поставки итн…</string>
+    <string name="midAt">на</string>
+    <string name="checkerContentDescription">Иконата претставува дека е избрана проѕирна боја</string>
+    <string name="countryFlagContentDescription">Знаме на земјата од каде е овој астронаут</string>
+    <string name="astronautTwitterContentDescription">Икона за врска до страницата на Твитер на астронаутот</string>
+    <string name="astronautWikiContentDescription">Икона за поврзување до вики-страницата на астронаутот</string>
+    <string name="astronautGoogleContentDescription">Икона за поврзување до страницата за пребарување на Google на астронаутот</string>
+
+    
+    <string name="refreshTitle">Стапка на освежување</string>
+    <string name="refreshSummary">Тековната стапка на освежување е $1 сек/освежување</string>
+    <string name="declination_unit">сек/освежи</string>
+    <string name="refreshDialogMessage">Време помеѓу ISS ажурирањето на новата локација.</string>
+
+    <string name="lockTitle">Заклучи ISS</string>
+    <string name="lockSummary">Заклучете се на ISS и следете го на мапата</string>
+
+    <string name="infoTitle">Додатни информации</string>
+    <string name="infoSummary">Обезбедете дополнителни информации за ISS на картата</string>
+
+    <string name="mapTitle">Тип на карта</string>
+    <string name="mapSummary">Променете го типот на картата од претходната страница</string>
+
+    <string name="decimalTitle">Децимални места</string>
+    <string name="decimalDialogMessage">Променете ја точноста на сите нумерички вредности</string>
+    <string name="decimalSummary">Тековното ниво на точност е на 1 $ децимали</string>
+    <string name="decimalUnit">дп</string>
+
+    <string name="colorTitle">Боја на линијата за предвидување</string>
+    <string name="colorSummary">Променете ја бојата на линиите за предвидување</string>
+
+    <string name="sizeTitle">Големина на линијата за предвидување</string>
+    <string name="sizeDialogMessage">Променете ја големината на линијата за предвидување на ISS</string>
+    <string name="sizeSummary">Тековната големина на линијата е 1 $</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Големина на текстот</string>
+    <string name="textSizeDialogMessage">Променете ја големината на сите текстуални вредности</string>
+    <string name="textSizeSummary">Тековната големина на текстот е $1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Боја на текстот</string>
+    <string name="textSummary">Променете ја бојата на вредностите на текстот</string>
+
+    <string name="textHighlightTitle">Преглед на текст</string>
+    <string name="textHighlightSummary">Променете ја бојата на контурите на вредностите на текстот</string>
+
+    <string name="notificationTitle">Известување за ISS</string>
+    <string name="notificationSummary">Известете кога се очекува ISS да прелета над мојата локација</string>
+
+    <string name="advertisementTitle">Банер</string>
+    <string name="advertisementSummary">Оневозможете банери на апликацијата</string>
+
+    <string name="fullTitle">Цела страница</string>
+    <string name="fullSummary">Оневозможете ги рекламите на целата страница на апликацијата</string>
+
+    
+    <string name="errorWebView">Не може да се вчита страницата</string>
+    <string name="errorLocation">Не може да се најде вашата локација.</string>
+    <string name="errorPermissionLocation">Одбиен пристап до вашата локација</string>
+    <string name="errorConnection">Или немате врска или серверот е преоптоварен.</string>
+    <string name="errorNetwork">Настана непозната грешка. Грешка: 401</string>
+    <string name="errorMap">Не може да се применат поставките на картата</string>
+    <string name="errorFiveTimes">Не успеа сите 5 пати. Или немате врска или серверот е преоптоварен.</string>
+    <string name="errorLessFive">Барањето до серверот не успеа. %1$d од 5. Се обидува за %2$d секунди.</string>
+    <string name="errorWaitPoly">Веќе се создаваат линии за предвидување</string>
+    <string name="errorNotByMe">Известувањето за ISS не беше запрено од вас.</string>
+    <string name="errorNoWiki">нема вики страница</string>
+    <string name="errorNoTwitter">нема сметка на Твитер</string>
+    <string name="data_corrupted">Податоците од апликацијата се оштетени. Ресетирање!</string>
+    <string name="polyError">Не може да се создаде линија за предвидување</string>
+    <string name="calendar">Календар</string>
+    <string name="share">Споделете</string>
+    <string name="image_content">Слика на карта со маркер за локација на корисникот.</string>
+    <string name="iss_sighting_share_title">Гледање на ISS</string>
+    <string name="iss_sighting_share_description">ISS ќе биде видлив овде. Ќе го проверам!</string>
+    <string name="iss_sighting_share_body">\"Провери го!\n\nISS ќе биде видлива на \"</string>
+    <string name="iss_sighting_share_chooser">Споделете…</string>
+    <string name="on">\" на \"</string>
+    <string name="one_day_in_space">1 ден во вселената</string>
+    <string name="in_space">\"во вселената\"</string>
+    <string name="day">\"ден\"</string>
+    <string name="month">\"месец\"</string>
+    <string name="year">\"година\"</string>
+    <string name="since">„Од“</string>
+    <string name="tutorial_one_title">Здраво :)</string>
+    <string name="tutorial_two_title">Главни карактеристики</string>
+</resources>

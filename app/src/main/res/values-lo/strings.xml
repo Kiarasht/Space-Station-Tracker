@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ບົບຕິດຕາມລຸດ ISS</string>
+
+    
+    <string name="map_activity">ແຜນທີ່</string>
+    <string name="flybys_title">ບິນບີ</string>
+    <string name="space_title">ຢູ່ໃນຫນ້າທີ່</string>
+    <string name="settings_title">ການຕັ້ງຄ່າ</string>
+    <string name="help_title">ຊ່ວຍເຫຼືອ</string>
+
+    
+    <string name="flybys_summary">ກວດເບິ່ງບັດ ISS ໂດຍສະຖານທີ່ຂອງທ່ານ</string>
+    <string name="space_summary">ເບິ່ງວ່າໃຜຢູ່ໃນອາວະກາດດຽວນີ້</string>
+    <string name="settings_summary">ຈັດການການຕັ້ງຄ່າແອັບຯທົ່ວໄປ</string>
+    <string name="help_summary">ໃຫ້ຄະແນນ ຫຼືຮຽນຮູ້ກ່ຽວກັບແອັບ</string>
+
+    
+    <string name="reset">ໂຫຼດເສັ້ນການຄາດຄະເນຄືນໃໝ່</string>
+    <string name="stream">ດໍາລົງຊີວິດ</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">ຄັ້ງ​ທໍາ​ອິດ</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>ບໍ່ມີ</item>
+        <item>ປົກກະຕິ</item>
+        <item>ດາວທຽມ</item>
+        <item>ພູມສັນຖານ</item>
+        <item>ປະສົມ</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">ບິນບີ</string>
+    <string name="label_peopleinspace">ໃຜຢູ່ໃນອາວະກາດ\?</string>
+    <string name="label_setting">ການຕັ້ງຄ່າ</string>
+    <string name="label_help">ຊ່ວຍເຫຼືອ</string>
+    <string name="label_stream">ຖ່າຍທອດສົດ</string>
+
+    
+    <string name="startAlert">ແຈ້ງເຕືອນເມື່ອ ISS ຢູ່ໃກ້</string>
+    <string name="stopAlert">ຢຸດການແຈ້ງເຕືອນເມື່ອ ISS ຢູ່ໃກ້ໆ</string>
+    <string name="startFullAds">ໂຄສະນາເຕັມໜ້າຖືກເປີດໃຊ້. ຂໍ​ຂອບ​ໃຈ​ສໍາ​ລັບ​ການ​ສະ​ຫນັບ​ສະ​ຫນູນ ;)</string>
+    <string name="startBannerAds">ໂຄສະນາປ້າຍໂຄສະນາຖືກເປີດໃຊ້. ຂໍ​ຂອບ​ໃຈ​ສໍາ​ລັບ​ການ​ສະ​ຫນັບ​ສະ​ຫນູນ ;)</string>
+
+    
+    <string name="tutorialOne">ແຜນ​ທີ່​ສະ​ແດງ​ໃຫ້​ເຫັນ​ສະ​ຖານ​ທີ່​ປະ​ຈຸ​ບັນ​ຂອງ ISS ກັບ​ເສັ້ນ​ການ​ຄາດ​ຄະ​ເນ​ຂອງ​ບ່ອນ​ທີ່​ຈະ​ຢູ່​.</string>
+    <string name="tutorialTwo">Drawer ຈະພາທ່ານໄປຫາລັກສະນະອື່ນໆເຊັ່ນ flybys, ການຕັ້ງຄ່າ, ແລະອື່ນໆ ...</string>
+    <string name="midAt">ທີ່</string>
+    <string name="checkerContentDescription">ໄອຄອນສະແດງໃຫ້ເຫັນສີໂປ່ງໃສຖືກເລືອກ</string>
+    <string name="countryFlagContentDescription">ທຸງປະເທດນັກອາວະກາດນີ້ມາຈາກ</string>
+    <string name="astronautTwitterContentDescription">ໄອຄອນເພື່ອເຊື່ອມຕໍ່ກັບໜ້າ twitter ຂອງນັກບິນອາວະກາດ</string>
+    <string name="astronautWikiContentDescription">ໄອຄອນເພື່ອເຊື່ອມຕໍ່ກັບໜ້າ wiki ຂອງນັກອາວະກາດ</string>
+    <string name="astronautGoogleContentDescription">ໄອຄອນເພື່ອເຊື່ອມຕໍ່ກັບໜ້າຄົ້ນຫາ Google ຂອງນັກອາວະກາດ</string>
+
+    
+    <string name="refreshTitle">ອັດຕາການໂຫຼດຂໍ້ມູນຄືນໃໝ່</string>
+    <string name="refreshSummary">ອັດຕາການໂຫຼດຂໍ້ມູນໃໝ່ໃນປັດຈຸບັນແມ່ນ $1 ວິນາທີ/ການໂຫຼດຂໍ້ມູນຄືນໃໝ່</string>
+    <string name="declination_unit">ວິນາທີ/ໂຫຼດຂໍ້ມູນຄືນໃໝ່</string>
+    <string name="refreshDialogMessage">ເວລາລະຫວ່າງ ISS ໄດ້ຮັບການປັບປຸງສະຖານທີ່ໃຫມ່ຂອງມັນ.</string>
+
+    <string name="lockTitle">ລັອກ ISS</string>
+    <string name="lockSummary">ລັອກໃສ່ ISS ແລະຕິດຕາມມັນຢູ່ໃນແຜນທີ່</string>
+
+    <string name="infoTitle">ຂໍ້​ມູນ​ເພີ່ມ​ຕື່ມ</string>
+    <string name="infoSummary">ໃຫ້ຂໍ້ມູນເພີ່ມເຕີມກ່ຽວກັບ ISS ໃນແຜນທີ່</string>
+
+    <string name="mapTitle">ປະເພດແຜນທີ່</string>
+    <string name="mapSummary">ປ່ຽນປະເພດແຜນທີ່ຈາກໜ້າກ່ອນໜ້າ</string>
+
+    <string name="decimalTitle">ສະຖານທີ່ທົດສະນິຍົມ</string>
+    <string name="decimalDialogMessage">ປ່ຽນຄວາມຖືກຕ້ອງຂອງຄ່າຕົວເລກທັງໝົດ</string>
+    <string name="decimalSummary">ລະດັບຄວາມຖືກຕ້ອງໃນປະຈຸບັນແມ່ນຢູ່ທີ່ $1 ຈຸດທົດສະນິຍົມ</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">ສີເສັ້ນການຄາດເດົາ</string>
+    <string name="colorSummary">ປ່ຽນສີຂອງເສັ້ນການຄາດຄະເນ</string>
+
+    <string name="sizeTitle">ຂະໜາດເສັ້ນການຄາດເດົາ</string>
+    <string name="sizeDialogMessage">ປ່ຽນຂະຫນາດຂອງເສັ້ນການຄາດຄະເນຂອງ ISS</string>
+    <string name="sizeSummary">ຂະໜາດເສັ້ນປະຈຸບັນແມ່ນ $1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">ຂະໜາດຕົວໜັງສື</string>
+    <string name="textSizeDialogMessage">ປ່ຽນຂະໜາດຂອງຄ່າຂໍ້ຄວາມທັງໝົດ</string>
+    <string name="textSizeSummary">ຂະໜາດຂໍ້ຄວາມປັດຈຸບັນແມ່ນ $1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">ສີຂໍ້ຄວາມ</string>
+    <string name="textSummary">ປ່ຽນສີຂອງຄ່າຂໍ້ຄວາມ</string>
+
+    <string name="textHighlightTitle">ໂຄງສ້າງຂໍ້ຄວາມ</string>
+    <string name="textHighlightSummary">ປ່ຽນສີໂຄງຮ່າງຂອງຄ່າຂໍ້ຄວາມ</string>
+
+    <string name="notificationTitle">ແຈ້ງ ISS</string>
+    <string name="notificationSummary">ແຈ້ງເຕືອນເມື່ອ ISS ຄາດວ່າຈະບິນຜ່ານສະຖານທີ່ຂອງຂ້ອຍ</string>
+
+    <string name="advertisementTitle">ປ້າຍໂຄສະນາ</string>
+    <string name="advertisementSummary">ປິດການໃຊ້ປ້າຍໂຄສະນາໃນແອັບ</string>
+
+    <string name="fullTitle">ໜ້າເຕັມ</string>
+    <string name="fullSummary">ປິດການໃຊ້ງານໂຄສະນາເຕັມໜ້າຢູ່ໃນແອັບ</string>
+
+    
+    <string name="errorWebView">ບໍ່ສາມາດໂຫຼດໜ້າໄດ້</string>
+    <string name="errorLocation">ບໍ່ສາມາດຊອກຫາສະຖານທີ່ຂອງທ່ານໄດ້.</string>
+    <string name="errorPermissionLocation">ປະຕິເສດການເຂົ້າເຖິງສະຖານທີ່ຂອງທ່ານ</string>
+    <string name="errorConnection">ບໍ່ວ່າເຈົ້າບໍ່ມີການເຊື່ອມຕໍ່ ຫຼືເຊີບເວີຖືກໂຫຼດຫຼາຍເກີນໄປ.</string>
+    <string name="errorNetwork">ເກີດຄວາມຜິດພາດທີ່ບໍ່ຮູ້ຈັກຂຶ້ນ. ຂໍ້ຜິດພາດ: 401</string>
+    <string name="errorMap">ບໍ່ສາມາດນຳໃຊ້ການຕັ້ງຄ່າໃສ່ແຜນທີ່ໄດ້</string>
+    <string name="errorFiveTimes">ລົ້ມເຫລວທັງໝົດ 5 ຄັ້ງ. ບໍ່ວ່າເຈົ້າບໍ່ມີການເຊື່ອມຕໍ່ ຫຼືເຊີບເວີຖືກໂຫຼດຫຼາຍເກີນໄປ.</string>
+    <string name="errorLessFive">ການຮ້ອງຂໍຫາເຊີບເວີລົ້ມເຫລວ. %1$d ຈາກທັງໝົດ 5. ພະຍາຍາມໃນ %2$d ວິນາທີ.</string>
+    <string name="errorWaitPoly">ສ້າງເສັ້ນການຄາດເດົາແລ້ວ</string>
+    <string name="errorNotByMe">ການແຈ້ງເຕືອນ ISS ບໍ່ໄດ້ຢຸດໂດຍທ່ານ.</string>
+    <string name="errorNoWiki">ບໍ່ມີໜ້າ wiki</string>
+    <string name="errorNoTwitter">ບໍ່ມີບັນຊີ twitter</string>
+    <string name="data_corrupted">ຂໍ້ມູນແອັບເສຍຫາຍ. ຣີເຊັດ!</string>
+    <string name="polyError">ບໍ່ສາມາດສ້າງເສັ້ນການຄາດເດົາໄດ້</string>
+    <string name="calendar">ປະຕິທິນ</string>
+    <string name="share">ແບ່ງປັນ</string>
+    <string name="image_content">ຮູບພາບຂອງແຜນທີ່ທີ່ມີເຄື່ອງຫມາຍສໍາລັບສະຖານທີ່ຂອງຜູ້ໃຊ້.</string>
+    <string name="iss_sighting_share_title">ການເບິ່ງ ISS</string>
+    <string name="iss_sighting_share_description">ISS ຈະເຫັນໄດ້ຢູ່ທີ່ນີ້. ໄປ​ກວດ​ເບິ່ງ​!</string>
+    <string name="iss_sighting_share_body">“ກວດ​ເບິ່ງ​ມັນ​ອອກ!\n\nISS ຈະເຫັນໄດ້ຢູ່ທີ່ \"</string>
+    <string name="iss_sighting_share_chooser">ແບ່ງປັນ...</string>
+    <string name="on">\"ສຸດ\"</string>
+    <string name="one_day_in_space">1 ມື້ໃນອາວະກາດ</string>
+    <string name="in_space">\"ໃນອາວະກາດ\"</string>
+    <string name="day">\"ມື້\"</string>
+    <string name="month">\"ເດືອນ\"</string>
+    <string name="year">\" ປີ\"</string>
+    <string name="since">\"ຕັ້ງແຕ່\"</string>
+    <string name="tutorial_one_title">ສະ​ບາຍ​ດີ :)</string>
+    <string name="tutorial_two_title">ຄຸນນະສົມບັດຕົ້ນຕໍ</string>
+</resources>

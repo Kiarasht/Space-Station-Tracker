@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS izsekotājs</string>
+
+    
+    <string name="map_activity">Karte</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">Darbā</string>
+    <string name="settings_title">Iestatījumi</string>
+    <string name="help_title">Palīdzība</string>
+
+    
+    <string name="flybys_summary">Pārbaudiet ISS caurlaides jūsu atrašanās vietā</string>
+    <string name="space_summary">Skatiet, kas šobrīd atrodas kosmosā</string>
+    <string name="settings_summary">Pārvaldiet vispārīgos lietotņu iestatījumus</string>
+    <string name="help_summary">Novērtējiet lietotni vai uzziniet par to</string>
+
+    
+    <string name="reset">Atsvaidziniet prognožu līnijas</string>
+    <string name="stream">Tiešraide</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">pirmo reizi</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Nav</item>
+        <item>Normāls</item>
+        <item>Satelīts</item>
+        <item>Reljefs</item>
+        <item>Hibrīds</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">Kas atrodas kosmosā\?</string>
+    <string name="label_setting">Iestatījumi</string>
+    <string name="label_help">Palīdzība</string>
+    <string name="label_stream">Tiešraide</string>
+
+    
+    <string name="startAlert">Paziņot, kad ISS ir tuvu</string>
+    <string name="stopAlert">Pārtrauciet paziņot, kad ISS ir tuvu</string>
+    <string name="startFullAds">Pilnas lapas reklāmas ir iespējotas. Paldies par atbalstu ;)</string>
+    <string name="startBannerAds">Reklāmkarogu reklāmas ir iespējotas. Paldies par atbalstu ;)</string>
+
+    
+    <string name="tutorialOne">Karte parāda SKS pašreizējo atrašanās vietu ar prognozes līniju, kur tā atradīsies.</string>
+    <string name="tutorialTwo">Atvilktne novirza jūs uz citām funkcijām, piemēram, lidojumiem, iestatījumiem utt.</string>
+    <string name="midAt">plkst</string>
+    <string name="checkerContentDescription">Ikona norāda, ka ir izvēlēta caurspīdīga krāsa</string>
+    <string name="countryFlagContentDescription">Valsts karogs, no kura nāk šis astronauts</string>
+    <string name="astronautTwitterContentDescription">Ikona, lai izveidotu saiti uz astronautu Twitter lapu</string>
+    <string name="astronautWikiContentDescription">Ikona, lai izveidotu saiti uz astronauta wiki lapu</string>
+    <string name="astronautGoogleContentDescription">Ikona, lai izveidotu saiti uz astronauta Google meklēšanas lapu</string>
+
+    
+    <string name="refreshTitle">Atjaunošanas biežums</string>
+    <string name="refreshSummary">Pašreizējais atsvaidzināšanas ātrums ir USD 1 s/atsvaidzināšana</string>
+    <string name="declination_unit">sek/atsvaidzināt</string>
+    <string name="refreshDialogMessage">Laiks starp ISS atjaunināšanu uz jauno atrašanās vietu.</string>
+
+    <string name="lockTitle">Slēgt ISS</string>
+    <string name="lockSummary">Nofiksējieties uz ISS un sekojiet tai kartē</string>
+
+    <string name="infoTitle">Papildus informācija</string>
+    <string name="infoSummary">Sniedziet kartē papildu informāciju par ISS</string>
+
+    <string name="mapTitle">Kartes veids</string>
+    <string name="mapSummary">Mainiet kartes veidu no iepriekšējās lapas</string>
+
+    <string name="decimalTitle">Decimālzīmes</string>
+    <string name="decimalDialogMessage">Mainiet visu skaitlisko vērtību precizitāti</string>
+    <string name="decimalSummary">Pašreizējais precizitātes līmenis ir 1 dolārs aiz komata</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Prognozes līnijas krāsa</string>
+    <string name="colorSummary">Mainiet prognozēšanas līniju krāsu</string>
+
+    <string name="sizeTitle">Prognozes līnijas izmērs</string>
+    <string name="sizeDialogMessage">Mainiet SKS prognozēšanas līnijas izmēru</string>
+    <string name="sizeSummary">Pašreizējais rindas izmērs ir 1 $</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Teksta lielums</string>
+    <string name="textSizeDialogMessage">Mainiet visu teksta vērtību lielumu</string>
+    <string name="textSizeSummary">Pašreizējais teksta lielums ir 1 $</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Teksta krāsa</string>
+    <string name="textSummary">Mainiet teksta vērtību krāsu</string>
+
+    <string name="textHighlightTitle">Teksta kontūra</string>
+    <string name="textHighlightSummary">Mainiet teksta vērtību kontūras krāsu</string>
+
+    <string name="notificationTitle">ISS paziņojums</string>
+    <string name="notificationSummary">Paziņot, kad ir paredzēts, ka ISS lidos virs manas atrašanās vietas</string>
+
+    <string name="advertisementTitle">Reklāmkarogs</string>
+    <string name="advertisementSummary">Atspējot reklāmkarogu reklāmas lietotnē</string>
+
+    <string name="fullTitle">Pilna lapa</string>
+    <string name="fullSummary">Lietotnē atspējojiet pilnas lapas reklāmas</string>
+
+    
+    <string name="errorWebView">Nevar ielādēt lapu</string>
+    <string name="errorLocation">Nevar atrast jūsu atrašanās vietu.</string>
+    <string name="errorPermissionLocation">Ir liegta piekļuve jūsu atrašanās vietai</string>
+    <string name="errorConnection">Vai nu jums nav savienojuma, vai arī serveris ir pārslogots.</string>
+    <string name="errorNetwork">Radās nezināma kļūda. Kļūda: 401</string>
+    <string name="errorMap">Kartei nevar lietot iestatījumus</string>
+    <string name="errorFiveTimes">Visas 5 reizes neizdevās. Vai nu jums nav savienojuma, vai arī serveris ir pārslogots.</string>
+    <string name="errorLessFive">Pieprasījums serverim neizdevās. %1$d no 5. Mēģināsim pēc %2$d sekundēm.</string>
+    <string name="errorWaitPoly">Jau tiek veidotas prognožu līnijas</string>
+    <string name="errorNotByMe">Jūs neapturējāt ISS paziņojumu.</string>
+    <string name="errorNoWiki">nav wiki lapas</string>
+    <string name="errorNoTwitter">nav twitter konta</string>
+    <string name="data_corrupted">Lietotnes dati ir bojāti. Notiek atiestatīšana!</string>
+    <string name="polyError">Nevar izveidot prognožu līniju</string>
+    <string name="calendar">Kalendārs</string>
+    <string name="share">Dalīties</string>
+    <string name="image_content">Kartes attēls ar lietotāja atrašanās vietas marķieri.</string>
+    <string name="iss_sighting_share_title">ISS novērošana</string>
+    <string name="iss_sighting_share_description">Šeit būs redzama ISS. Dodos to pārbaudīt!</string>
+    <string name="iss_sighting_share_body">\"Pārbaudiet to!\n\nISS būs redzams plkst.</string>
+    <string name="iss_sighting_share_chooser">Kopīgot…</string>
+    <string name="on">\"uz\"</string>
+    <string name="one_day_in_space">1 diena kosmosā</string>
+    <string name="in_space">\" kosmosā\"</string>
+    <string name="day">\"diena\"</string>
+    <string name="month">\"mēnesis\"</string>
+    <string name="year">\"gads\"</string>
+    <string name="since">\"Kopš\"</string>
+    <string name="tutorial_one_title">Sveiks :)</string>
+    <string name="tutorial_two_title">Galvenās iezīmes</string>
+</resources>

@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Mapa</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">Na dužnosti</string>
+    <string name="settings_title">Postavke</string>
+    <string name="help_title">Upomoć</string>
+
+    
+    <string name="flybys_summary">Provjerite ISS-ove propusnice pored vaše lokacije</string>
+    <string name="space_summary">Pogledajte ko je trenutno u svemiru</string>
+    <string name="settings_summary">Upravljajte općim postavkama aplikacije</string>
+    <string name="help_summary">Ocijenite ili saznajte više o aplikaciji</string>
+
+    
+    <string name="reset">Osvježite linije predviđanja</string>
+    <string name="stream">Uživo</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">prvi put</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Nema</item>
+        <item>Normalno</item>
+        <item>Satelit</item>
+        <item>Teren</item>
+        <item>Hibrid</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">Ko je u svemiru\?</string>
+    <string name="label_setting">Postavke</string>
+    <string name="label_help">Upomoć</string>
+    <string name="label_stream">Live Stream</string>
+
+    
+    <string name="startAlert">Obavijesti kada je ISS blizu</string>
+    <string name="stopAlert">Prestanite obavještavati kada je ISS blizu</string>
+    <string name="startFullAds">Oglasi na cijeloj stranici su omogućeni. Hvala na podršci ;)</string>
+    <string name="startBannerAds">Baner oglasi su omogućeni. Hvala na podršci ;)</string>
+
+    
+    <string name="tutorialOne">Mapa prikazuje trenutnu lokaciju ISS-a s linijom predviđanja gdje će se nalaziti.</string>
+    <string name="tutorialTwo">Ladica vas vodi do drugih funkcija kao što su preleti, postavke, itd…</string>
+    <string name="midAt">at</string>
+    <string name="checkerContentDescription">Ikona označava da je odabrana prozirna boja</string>
+    <string name="countryFlagContentDescription">Zastava zemlje iz koje je ovaj astronaut</string>
+    <string name="astronautTwitterContentDescription">Ikona za vezu do astronautove twitter stranice</string>
+    <string name="astronautWikiContentDescription">Ikona za vezu do astronautove wiki stranice</string>
+    <string name="astronautGoogleContentDescription">Ikona za vezu do astronautove Google stranice za pretraživanje</string>
+
+    
+    <string name="refreshTitle">Refresh Rate</string>
+    <string name="refreshSummary">Trenutna brzina osvježavanja je $1 s/osvježavanje</string>
+    <string name="declination_unit">sec/osvježi</string>
+    <string name="refreshDialogMessage">Vrijeme između ISS ažuriranja na novu lokaciju.</string>
+
+    <string name="lockTitle">Zaključaj ISS</string>
+    <string name="lockSummary">Zaključajte na ISS i pratite ga na mapi</string>
+
+    <string name="infoTitle">Dodatne informacije</string>
+    <string name="infoSummary">Navedite dodatne informacije o ISS-u na mapi</string>
+
+    <string name="mapTitle">Vrsta karte</string>
+    <string name="mapSummary">Promijenite vrstu karte sa prethodne stranice</string>
+
+    <string name="decimalTitle">Decimalna mjesta</string>
+    <string name="decimalDialogMessage">Promijenite tačnost svih numeričkih vrijednosti</string>
+    <string name="decimalSummary">Trenutni nivo tačnosti je na 1 decimalu od $1</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Boja linije predviđanja</string>
+    <string name="colorSummary">Promijenite boju linija predviđanja</string>
+
+    <string name="sizeTitle">Veličina linije predviđanja</string>
+    <string name="sizeDialogMessage">Promijenite veličinu ISS-ove linije predviđanja</string>
+    <string name="sizeSummary">Trenutna veličina linije je $1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Veličina teksta</string>
+    <string name="textSizeDialogMessage">Promijenite veličinu svih tekstualnih vrijednosti</string>
+    <string name="textSizeSummary">Trenutna veličina teksta je $1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Boja teksta</string>
+    <string name="textSummary">Promijenite boju tekstualnih vrijednosti</string>
+
+    <string name="textHighlightTitle">Text Outline</string>
+    <string name="textHighlightSummary">Promijenite boju okvira tekstualnih vrijednosti</string>
+
+    <string name="notificationTitle">ISS Notification</string>
+    <string name="notificationSummary">Obavijesti kada se očekuje da ISS preleti moju lokaciju</string>
+
+    <string name="advertisementTitle">Baner</string>
+    <string name="advertisementSummary">Onemogućite baner oglase u aplikaciji</string>
+
+    <string name="fullTitle">Cijela stranica</string>
+    <string name="fullSummary">Onemogućite oglase na cijeloj stranici u aplikaciji</string>
+
+    
+    <string name="errorWebView">Nije moguće učitati stranicu</string>
+    <string name="errorLocation">Nije moguće pronaći vašu lokaciju.</string>
+    <string name="errorPermissionLocation">Odbijen pristup vašoj lokaciji</string>
+    <string name="errorConnection">Ili nemate vezu ili je server preopterećen.</string>
+    <string name="errorNetwork">Došlo je do nepoznate greške. Greška: 401</string>
+    <string name="errorMap">Nije moguće primijeniti postavke na mapu</string>
+    <string name="errorFiveTimes">Neuspješno svih 5 puta. Ili nemate vezu ili je server preopterećen.</string>
+    <string name="errorLessFive">Zahtjev za server nije uspio. %1$d od 5. Pokušavam za %2$d sekundi.</string>
+    <string name="errorWaitPoly">Već kreiram linije predviđanja</string>
+    <string name="errorNotByMe">Niste zaustavili ISS obavještenje.</string>
+    <string name="errorNoWiki">nema wiki stranicu</string>
+    <string name="errorNoTwitter">nema twitter nalog</string>
+    <string name="data_corrupted">Podaci aplikacije su oštećeni. Resetiranje!</string>
+    <string name="polyError">Nije moguće kreirati liniju predviđanja</string>
+    <string name="calendar">Kalendar</string>
+    <string name="share">Dijeli</string>
+    <string name="image_content">Slika karte sa markerom za lokaciju korisnika.</string>
+    <string name="iss_sighting_share_title">ISS Sighting</string>
+    <string name="iss_sighting_share_description">ISS će biti vidljiv ovdje. Idem to provjeriti!</string>
+    <string name="iss_sighting_share_body">\"Provjeri!\n\nISS će biti vidljiv na \"</string>
+    <string name="iss_sighting_share_chooser">Podijeli…</string>
+    <string name="on">\" na \"</string>
+    <string name="one_day_in_space">1 dan u svemiru</string>
+    <string name="in_space">\" u svemiru\"</string>
+    <string name="day">\" dan\"</string>
+    <string name="month">\"mjesec\"</string>
+    <string name="year">\"godina\"</string>
+    <string name="since">\"od\"</string>
+    <string name="tutorial_one_title">Hej tamo :)</string>
+    <string name="tutorial_two_title">Glavne karakteristike</string>
+</resources>

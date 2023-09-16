@@ -24,7 +24,7 @@
     <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
     <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">929325F2F0BF61D906B059B6D0B1C042</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
 
     <!-- Shared Pref -->
     <string name="firstTime">firstTime</string>
@@ -65,7 +65,7 @@
     <!-- Extra in app strings here and there -->
     <string name="tutorialOne">Map shows ISS\'s current location with a prediction line of where it will be.</string>
     <string name="tutorialTwo">Drawer takes you to other features such as flybys, settings, etc&#8230;</string>
-    <string name="midAt">at</string>
+    <string name="midAt"> at </string>
     <string name="checkerContentDescription">Icon represents that a transparent color is picked</string>
     <string name="countryFlagContentDescription">Country flag this astronaut is from</string>
     <string name="astronautTwitterContentDescription">Icon to link to astronaut\'s twitter page</string>
@@ -138,4 +138,17 @@
     <string name="calendar">Calendar</string>
     <string name="share">Share</string>
     <string name="image_content">Image of a map with a marker for user location.</string>
+    <string name="iss_sighting_share_title">ISS Sighting</string>
+    <string name="iss_sighting_share_description">ISS will be visible here. Going to check it out!</string>
+    <string name="iss_sighting_share_body">"Check it out!\n\nISS will be visible at "</string>
+    <string name="iss_sighting_share_chooser">Share…</string>
+    <string name="on">" on "</string>
+    <string name="one_day_in_space">1 day in space</string>
+    <string name="in_space">" in space"</string>
+    <string name="day">" day"</string>
+    <string name="month">" month"</string>
+    <string name="year">" year"</string>
+    <string name="since">"Since "</string>
+    <string name="tutorial_one_title">Hey There :)</string>
+    <string name="tutorial_two_title">Main Features</string>
 </resources>

@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS ଟ୍ରାକର୍ |</string>
+
+    
+    <string name="map_activity">ମାନଚିତ୍ର</string>
+    <string name="flybys_title">ଫ୍ଲାଇବିସ୍</string>
+    <string name="space_title">କାର୍ଯ୍ୟରତ</string>
+    <string name="settings_title">ସେଟିଂସମୂହ</string>
+    <string name="help_title">ସାହାଯ୍ୟ</string>
+
+    
+    <string name="flybys_summary">ଆପଣଙ୍କ ଅବସ୍ଥାନ ଦ୍ୱାରା ISS ର ପାସ୍ ଯାଞ୍ଚ କରନ୍ତୁ |</string>
+    <string name="space_summary">ବର୍ତ୍ତମାନ ମହାକାଶରେ କିଏ ଅଛନ୍ତି ଦେଖନ୍ତୁ |</string>
+    <string name="settings_summary">ସାଧାରଣ ଆପ୍ ସେଟିଂସମୂହ ପରିଚାଳନା କରନ୍ତୁ |</string>
+    <string name="help_summary">ଆପ୍ ବିଷୟରେ ମୂଲ୍ୟାଙ୍କନ କରନ୍ତୁ କିମ୍ବା ଶିଖନ୍ତୁ |</string>
+
+    
+    <string name="reset">ଭବିଷ୍ୟବାଣୀ ରେଖା ସତେଜ କରନ୍ତୁ |</string>
+    <string name="stream">ଲାଇଭ୍ |</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">ପ୍ରଥମ ଥର</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>୧</item>
+        <item>୨</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>କିଛି ନୁହେଁ |</item>
+        <item>ସାଧାରଣ</item>
+        <item>ସାଟେଲାଇଟ୍</item>
+        <item>ଭୂମି</item>
+        <item>ହାଇବ୍ରିଡ୍ |</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">ଫ୍ଲାଇବିସ୍</string>
+    <string name="label_peopleinspace">ମହାକାଶରେ କିଏ ଅଛନ୍ତି\?</string>
+    <string name="label_setting">ସେଟିଂସମୂହ</string>
+    <string name="label_help">ସାହାଯ୍ୟ</string>
+    <string name="label_stream">ଲାଇଭ୍ ଷ୍ଟ୍ରିମ୍ |</string>
+
+    
+    <string name="startAlert">କେତେବେଳେ ISS ପାଖାପାଖି ଅଛି ତାହା ଜଣାନ୍ତୁ |</string>
+    <string name="stopAlert">ଯେତେବେଳେ ISS ପାଖାପାଖି ଥାଏ, ସୂଚନା ଦେବା ବନ୍ଦ କରନ୍ତୁ |</string>
+    <string name="startFullAds">ପୂର୍ଣ୍ଣ ପୃଷ୍ଠା ବିଜ୍ଞାପନ ସକ୍ଷମ ହୋଇଛି | ସମର୍ଥନ ପାଇଁ ଧନ୍ୟବାଦ;)</string>
+    <string name="startBannerAds">ବ୍ୟାନର ବିଜ୍ଞାପନ ସକ୍ଷମ ହୋଇଛି | ସମର୍ଥନ ପାଇଁ ଧନ୍ୟବାଦ;)</string>
+
+    
+    <string name="tutorialOne">ମାନଚିତ୍ରଟି କେଉଁଠାରେ ହେବ ତାହାର ଏକ ପୂର୍ବାନୁମାନ ରେଖା ସହିତ ISS ର ସାମ୍ପ୍ରତିକ ଅବସ୍ଥାନ ଦେଖାଏ |</string>
+    <string name="tutorialTwo">ଡ୍ରୟର ଆପଣଙ୍କୁ ଅନ୍ୟ ବ features ଶିଷ୍ଟ୍ୟଗୁଡିକ ଯେପରିକି ଫ୍ଲାଏବାଇସ୍, ସେଟିଙ୍ଗ୍ ଇତ୍ୟାଦି ନେଇଥାଏ |</string>
+    <string name="midAt">at</string>
+    <string name="checkerContentDescription">ଆଇକନ୍ ଦର୍ଶାଏ ଯେ ଏକ ସ୍ୱଚ୍ଛ ରଙ୍ଗ ବାଛିଛି |</string>
+    <string name="countryFlagContentDescription">ଏହି ମହାକାଶଚାରୀ ଦେଶ ପତାକା |</string>
+    <string name="astronautTwitterContentDescription">ମହାକାଶଚାରୀଙ୍କ ଟ୍ୱିଟର ପୃଷ୍ଠାରେ ଲିଙ୍କ୍ କରିବାକୁ ଆଇକନ୍ |</string>
+    <string name="astronautWikiContentDescription">ମହାକାଶଚାରୀଙ୍କ ୱିକି ପୃଷ୍ଠାକୁ ଲିଙ୍କ୍ କରିବାକୁ ଆଇକନ୍ |</string>
+    <string name="astronautGoogleContentDescription">ମହାକାଶଚାରୀଙ୍କ ଗୁଗୁଲ୍ ସର୍ଚ୍ଚ ପେଜ୍ ସହିତ ଲିଙ୍କ୍ କରିବାକୁ ଆଇକନ୍ |</string>
+
+    
+    <string name="refreshTitle">ସତେଜ ହାର</string>
+    <string name="refreshSummary">ସାମ୍ପ୍ରତିକ ସତେଜ ହାର ହେଉଛି $ 1 ସେକେଣ୍ଡ /ସତେଜ |</string>
+    <string name="declination_unit">ସେକେଣ୍ଡ /ସତେଜ</string>
+    <string name="refreshDialogMessage">ISS ମଧ୍ୟରେ ସମୟ ଏହାର ନୂତନ ଅବସ୍ଥାନକୁ ଅପଡେଟ୍ ହେବା |</string>
+
+    <string name="lockTitle">ISS ଲକ୍ କରନ୍ତୁ |</string>
+    <string name="lockSummary">ISS ଉପରେ ଲକ୍ କରନ୍ତୁ ଏବଂ ମାନଚିତ୍ରରେ ଏହାକୁ ଅନୁସରଣ କରନ୍ତୁ |</string>
+
+    <string name="infoTitle">ଅତିରିକ୍ତ ତଥ୍ୟ</string>
+    <string name="infoSummary">ମାନଚିତ୍ରରେ ISS ବିଷୟରେ ଅତିରିକ୍ତ ସୂଚନା ପ୍ରଦାନ କରନ୍ତୁ |</string>
+
+    <string name="mapTitle">ମାନଚିତ୍ର ପ୍ରକାର</string>
+    <string name="mapSummary">ପୂର୍ବ ପୃଷ୍ଠାରୁ ମାନଚିତ୍ର ପ୍ରକାର ପରିବର୍ତ୍ତନ କରନ୍ତୁ |</string>
+
+    <string name="decimalTitle">ଦଶମିକ ସ୍ଥାନ |</string>
+    <string name="decimalDialogMessage">ସମସ୍ତ ସାଂଖ୍ୟିକ ମୂଲ୍ୟଗୁଡ଼ିକର ସଠିକତା ପରିବର୍ତ୍ତନ କରନ୍ତୁ |</string>
+    <string name="decimalSummary">ସାମ୍ପ୍ରତିକ ସଠିକତା ସ୍ତର $ 1 ଦଶମିକ ସ୍ଥାନରେ ଅଛି |</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">ଭବିଷ୍ୟବାଣୀ ରେଖା ରଙ୍ଗ |</string>
+    <string name="colorSummary">ଭବିଷ୍ୟବାଣୀ ରେଖାଗୁଡ଼ିକର ରଙ୍ଗ ପରିବର୍ତ୍ତନ କରନ୍ତୁ |</string>
+
+    <string name="sizeTitle">ଭବିଷ୍ୟବାଣୀ ରେଖା ଆକାର |</string>
+    <string name="sizeDialogMessage">ISS ର ପୂର୍ବାନୁମାନ ଲାଇନର ଆକାର ପରିବର୍ତ୍ତନ କରନ୍ତୁ |</string>
+    <string name="sizeSummary">ସାମ୍ପ୍ରତିକ ରେଖା ଆକାର ହେଉଛି $ 1 |</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">ପାଠ୍ୟ ଆକାର |</string>
+    <string name="textSizeDialogMessage">ସମସ୍ତ ପାଠ୍ୟ ମୂଲ୍ୟର ଆକାର ପରିବର୍ତ୍ତନ କରନ୍ତୁ |</string>
+    <string name="textSizeSummary">ସାମ୍ପ୍ରତିକ ପାଠ୍ୟ ଆକାର ହେଉଛି $ 1 |</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">ପାଠ୍ୟ ରଙ୍ଗ |</string>
+    <string name="textSummary">ପାଠ୍ୟ ମୂଲ୍ୟଗୁଡ଼ିକର ରଙ୍ଗ ପରିବର୍ତ୍ତନ କରନ୍ତୁ |</string>
+
+    <string name="textHighlightTitle">ପାଠ୍ୟ ବାହ୍ୟରେଖା |</string>
+    <string name="textHighlightSummary">ପାଠ୍ୟ ମୂଲ୍ୟଗୁଡ଼ିକର ବାହ୍ୟରେଖା ରଙ୍ଗ ପରିବର୍ତ୍ତନ କରନ୍ତୁ |</string>
+
+    <string name="notificationTitle">ISS ବିଜ୍ଞପ୍ତି |</string>
+    <string name="notificationSummary">କେତେବେଳେ ISS ମୋ ଅବସ୍ଥାନ ଉପରେ ଉଡ଼ିବ ବୋଲି ଆଶା କରାଯାଏ |</string>
+
+    <string name="advertisementTitle">ବ୍ୟାନର |</string>
+    <string name="advertisementSummary">ଆପରେ ବ୍ୟାନର ବିଜ୍ଞାପନଗୁଡିକ ଅକ୍ଷମ କରନ୍ତୁ |</string>
+
+    <string name="fullTitle">ପୂର୍ଣ୍ଣ ପୃଷ୍ଠା |</string>
+    <string name="fullSummary">ଆପରେ ପୂର୍ଣ୍ଣ ପୃଷ୍ଠା ବିଜ୍ଞାପନଗୁଡିକ ଅକ୍ଷମ କରନ୍ତୁ |</string>
+
+    
+    <string name="errorWebView">ପୃଷ୍ଠା ଲୋଡ୍ କରିବାକୁ ଅସମର୍ଥ |</string>
+    <string name="errorLocation">ତୁମର ଅବସ୍ଥାନ ଖୋଜିବାରେ ଅସମର୍ଥ |</string>
+    <string name="errorPermissionLocation">ତୁମର ଅବସ୍ଥାନକୁ ପ୍ରବେଶ ପ୍ରତ୍ୟାଖ୍ୟାନ |</string>
+    <string name="errorConnection">ଆପଣଙ୍କର କ connection ଣସି ସଂଯୋଗ ନାହିଁ କିମ୍ବା ସର୍ଭର ଓଭରଲୋଡ୍ ହୋଇଛି |</string>
+    <string name="errorNetwork">ଏକ ଅଜ୍ଞାତ ତ୍ରୁଟି ଘଟିଛି | ତ୍ରୁଟି: 401</string>
+    <string name="errorMap">ମାନଚିତ୍ରରେ ସେଟିଂସମୂହ ପ୍ରୟୋଗ କରିପାରିବ ନାହିଁ |</string>
+    <string name="errorFiveTimes">ସମସ୍ତ 5 ଥର ବିଫଳ ହେଲା | ଆପଣଙ୍କର କ connection ଣସି ସଂଯୋଗ ନାହିଁ କିମ୍ବା ସର୍ଭର ଓଭରଲୋଡ୍ ହୋଇଛି |</string>
+    <string name="errorLessFive">ସର୍ଭରକୁ ଅନୁରୋଧ ବିଫଳ ହେଲା |  %1$d ରୁ 5. %2$d ସେକେଣ୍ଡରେ ଚେଷ୍ଟା କରୁଛି |</string>
+    <string name="errorWaitPoly">ପୂର୍ବରୁ ଭବିଷ୍ୟବାଣୀ ରେଖା ସୃଷ୍ଟି କରୁଛି |</string>
+    <string name="errorNotByMe">ISS ବିଜ୍ଞପ୍ତି ଆପଣଙ୍କ ଦ୍ୱାରା ବନ୍ଦ ହୋଇନାହିଁ |</string>
+    <string name="errorNoWiki">ୱିକି ପୃଷ୍ଠା ନାହିଁ |</string>
+    <string name="errorNoTwitter">ଏକ ଟୁଇଟର ଆକାଉଣ୍ଟ ନାହିଁ |</string>
+    <string name="data_corrupted">ଆପ୍ ଡାଟା ଭ୍ରଷ୍ଟ ହୋଇଯାଇଛି | ପୁନ et ସେଟ୍ କରୁଛି!</string>
+    <string name="polyError">ଭବିଷ୍ୟବାଣୀ ରେଖା ସୃଷ୍ଟି କରିବାରେ ଅସମର୍ଥ |</string>
+    <string name="calendar">କ୍ୟାଲେଣ୍ଡର</string>
+    <string name="share">ଅଂଶୀଦାର କରନ୍ତୁ |</string>
+    <string name="image_content">ଉପଭୋକ୍ତା ଅବସ୍ଥାନ ପାଇଁ ଏକ ମାର୍କର ସହିତ ଏକ ମାନଚିତ୍ରର ପ୍ରତିଛବି |</string>
+    <string name="iss_sighting_share_title">ISS ଦର୍ଶନ |</string>
+    <string name="iss_sighting_share_description">ISS ଏଠାରେ ଦୃଶ୍ୟମାନ ହେବ | ଏହାକୁ ଯାଞ୍ଚ କରିବାକୁ ଯାଉଛନ୍ତି!</string>
+    <string name="iss_sighting_share_body">\"ଏହାକୁ ଯାଞ୍ଚ କର!\n\nISS ଦୃଶ୍ୟମାନ ହେବ \"</string>
+    <string name="iss_sighting_share_chooser">ଅଂଶୀଦାର…</string>
+    <string name="on">\"ଅନ\"</string>
+    <string name="one_day_in_space">ଜାଗାରେ 1 ଦିନ |</string>
+    <string name="in_space">\"ମହାକାଶରେ\"</string>
+    <string name="day">\"ଦିନ\"</string>
+    <string name="month">\"ମାସ\"</string>
+    <string name="year">\"ବର୍ଷ\"</string>
+    <string name="since">\"ଯେହେତୁ\"</string>
+    <string name="tutorial_one_title">ହଇଓ :)</string>
+    <string name="tutorial_two_title">ମୁଖ୍ୟ ବ Features ଶିଷ୍ଟ୍ୟଗୁଡିକ</string>
+</resources>

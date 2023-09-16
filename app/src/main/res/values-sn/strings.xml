@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Map</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">Pabasa</string>
+    <string name="settings_title">Settings</string>
+    <string name="help_title">Help</string>
+
+    
+    <string name="flybys_summary">Tarisa maISS anopfuura nenzvimbo yako</string>
+    <string name="space_summary">Ona kuti ndiani ari muchadenga izvozvi</string>
+    <string name="settings_summary">Manage general app marongero</string>
+    <string name="help_summary">Ratidza kana dzidza nezve app</string>
+
+    
+    <string name="reset">Mutsidzira mitsetse yekufanotaura</string>
+    <string name="stream">Rarama</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">kekutanga</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Hapana</item>
+        <item>Normal</item>
+        <item>Satellite</item>
+        <item>Terrain</item>
+        <item>Hybrid</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">Ndiani ari muSpace\?</string>
+    <string name="label_setting">Settings</string>
+    <string name="label_help">Help</string>
+    <string name="label_stream">Live Stream</string>
+
+    
+    <string name="startAlert">Zivisa kana ISS yava pedyo</string>
+    <string name="stopAlert">Mira kuzivisa kana ISS yave pedyo</string>
+    <string name="startFullAds">Mapeji akazara ads akabatidzwa. Thanks nerutsigiro ;)</string>
+    <string name="startBannerAds">Banner ads yakabatidzwa. Thanks nerutsigiro ;)</string>
+
+    
+    <string name="tutorialOne">Mepu inoratidza ISS nzvimbo iripo ine mutsara wekufungidzira wepaichave.</string>
+    <string name="tutorialTwo">Dhirowa inokuendesa kune zvimwe zvinhu zvakaita seflybys, marongero, nezvimwe…</string>
+    <string name="midAt">pa</string>
+    <string name="checkerContentDescription">Icon inomiririra kuti ruvara rwakajeka rwunosarudzwa</string>
+    <string name="countryFlagContentDescription">Mureza wenyika uyu astronaut anobva</string>
+    <string name="astronautTwitterContentDescription">Icon yekubatanidza kune astronaut\'s twitter peji</string>
+    <string name="astronautWikiContentDescription">Icon yekubatanidza kune astronaut\'s wiki peji</string>
+    <string name="astronautGoogleContentDescription">Icon yekubatanidza kune astronaut\'s Google search peji</string>
+
+    
+    <string name="refreshTitle">Refresh Rate</string>
+    <string name="refreshSummary">Parizvino reti yekuvandudza i$1 sec/refresh</string>
+    <string name="declination_unit">sec/refresh</string>
+    <string name="refreshDialogMessage">Nguva pakati peISS ichigadziridzwa kunzvimbo yayo itsva.</string>
+
+    <string name="lockTitle">Kiya ISS</string>
+    <string name="lockSummary">Kiya paISS woitevera pamepu</string>
+
+    <string name="infoTitle">Mamwe Mashoko</string>
+    <string name="infoSummary">Ipa rumwe ruzivo nezve ISS pamepu</string>
+
+    <string name="mapTitle">Mepu type</string>
+    <string name="mapSummary">Chinja mhando yemepu kubva papeji yapfuura</string>
+
+    <string name="decimalTitle">Decimal Nzvimbo</string>
+    <string name="decimalDialogMessage">Shandura kururama kwenhamba dzose dzenhamba</string>
+    <string name="decimalSummary">Chiyero chechokwadi chiri pa $1 decimal nzvimbo</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Prediction line color</string>
+    <string name="colorSummary">Shandura ruvara rwemitsara yekufungidzira</string>
+
+    <string name="sizeTitle">Prediction line size</string>
+    <string name="sizeDialogMessage">Shandura saizi yeISS\'s pregeration line</string>
+    <string name="sizeSummary">Saizi yemutsetse iUS $1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Saizi yemavara</string>
+    <string name="textSizeDialogMessage">Shandura saizi yemavara ese</string>
+    <string name="textSizeSummary">Saizi yemavara iripo i$1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Ruvara rwemavara</string>
+    <string name="textSummary">Shandura ruvara rwemavara</string>
+
+    <string name="textHighlightTitle">Runyoro</string>
+    <string name="textHighlightSummary">Shandura ruvara rwekutaura kwemavara</string>
+
+    <string name="notificationTitle">ISS Notification</string>
+    <string name="notificationSummary">Zivisa kana ISS inotarisirwa kubhururuka pamusoro penzvimbo yangu</string>
+
+    <string name="advertisementTitle">Banner</string>
+    <string name="advertisementSummary">Dzima mabhana ads paapp</string>
+
+    <string name="fullTitle">Peji Yakazara</string>
+    <string name="fullSummary">Dzima kushambadza kwemapeji akazara paapp</string>
+
+    
+    <string name="errorWebView">Tatadza kurodha peji</string>
+    <string name="errorLocation">Tatadza kuwana nzvimbo yako.</string>
+    <string name="errorPermissionLocation">Warambidzwa kuwana nzvimbo yako</string>
+    <string name="errorConnection">Pamwe hauna chinongedzo kana server yakawandisa.</string>
+    <string name="errorNetwork">Pane chikanganiso chisingazivikanwe chaitika. Kukanganisa: 401</string>
+    <string name="errorMap">Hatikwanisi kuisa marongero kumepu</string>
+    <string name="errorFiveTimes">Akundikana zvese ka5. Pamwe hauna chinongedzo kana server yakawandisa.</string>
+    <string name="errorLessFive">Chikumbiro kuseva chakundikana. %1$d kubva pa5. Kuedza mukati %2$d masekonzi.</string>
+    <string name="errorWaitPoly">Tatova kugadzira mitsetse yekufungidzira</string>
+    <string name="errorNotByMe">ISS Notification haina kumiswa newe.</string>
+    <string name="errorNoWiki">haina peji yewiki</string>
+    <string name="errorNoTwitter">haana twitter account</string>
+    <string name="data_corrupted">App data yakashatiswa. Resetting!</string>
+    <string name="polyError">Hatikwanisi kugadzira mutsara wekufungidzira</string>
+    <string name="calendar">Calendar</string>
+    <string name="share">Share</string>
+    <string name="image_content">Mufananidzo wemepu ine chiratidzo chenzvimbo yemushandisi.</string>
+    <string name="iss_sighting_share_title">ISS Kuona</string>
+    <string name="iss_sighting_share_description">ISS ichaonekwa pano. Kuenda kunozviongorora!</string>
+    <string name="iss_sighting_share_body">\"Itarise!\n\nISS ichaonekwa pa\"</string>
+    <string name="iss_sighting_share_chooser">Goverana...</string>
+    <string name="on">\"pa\"</string>
+    <string name="one_day_in_space">1 zuva munzvimbo</string>
+    <string name="in_space">\"muchadenga\"</string>
+    <string name="day">\" zuva\"</string>
+    <string name="month">\" mwedzi\"</string>
+    <string name="year">\" gore\"</string>
+    <string name="since">\"Kubva\"</string>
+    <string name="tutorial_one_title">Hei ikoko :)</string>
+    <string name="tutorial_two_title">Main Features</string>
+</resources>

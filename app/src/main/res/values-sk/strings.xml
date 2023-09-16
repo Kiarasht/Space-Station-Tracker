@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Mapa</string>
+    <string name="flybys_title">Prelety</string>
+    <string name="space_title">V službe</string>
+    <string name="settings_title">nastavenie</string>
+    <string name="help_title">Pomoc</string>
+
+    
+    <string name="flybys_summary">Skontrolujte priechody ISS podľa vašej polohy</string>
+    <string name="space_summary">Pozrite sa, kto je práve teraz vo vesmíre</string>
+    <string name="settings_summary">Spravujte všeobecné nastavenia aplikácie</string>
+    <string name="help_summary">Ohodnoťte aplikáciu alebo sa o nej informujte</string>
+
+    
+    <string name="reset">Obnoviť predikčné riadky</string>
+    <string name="stream">Naživo</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">prvýkrát</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>žiadne</item>
+        <item>Normálne</item>
+        <item>satelit</item>
+        <item>Terén</item>
+        <item>Hybrid</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Prelety</string>
+    <string name="label_peopleinspace">Kto je vo vesmíre\?</string>
+    <string name="label_setting">nastavenie</string>
+    <string name="label_help">Pomoc</string>
+    <string name="label_stream">Živý prenos</string>
+
+    
+    <string name="startAlert">Upozorniť, keď je ISS blízko</string>
+    <string name="stopAlert">Prestaňte upozorňovať, keď je ISS blízko</string>
+    <string name="startFullAds">Reklamy na celú stránku sú povolené. Vďaka za podporu ;)</string>
+    <string name="startBannerAds">Bannerové reklamy sú povolené. Vďaka za podporu ;)</string>
+
+    
+    <string name="tutorialOne">Mapa zobrazuje aktuálnu polohu ISS s predikčnou čiarou, kde sa bude nachádzať.</string>
+    <string name="tutorialTwo">Zásuvka vás zavedie k ďalším funkciám, ako sú prelety, nastavenia atď.</string>
+    <string name="midAt">pri</string>
+    <string name="checkerContentDescription">Ikona znamená, že je vybratá priehľadná farba</string>
+    <string name="countryFlagContentDescription">Vlajka krajiny, z ktorej pochádza tento astronaut</string>
+    <string name="astronautTwitterContentDescription">Ikona na prepojenie na astronautovu twitterovú stránku</string>
+    <string name="astronautWikiContentDescription">Ikona na prepojenie na astronautovu wiki stránku</string>
+    <string name="astronautGoogleContentDescription">Ikona na prepojenie na astronautovu vyhľadávaciu stránku Google</string>
+
+    
+    <string name="refreshTitle">Obnovovacia frekvencia</string>
+    <string name="refreshSummary">Aktuálna obnovovacia frekvencia je 1 $ s/obnovenie</string>
+    <string name="declination_unit">sek/obnoviť</string>
+    <string name="refreshDialogMessage">Čas medzi aktualizáciou ISS na nové miesto.</string>
+
+    <string name="lockTitle">Uzamknite ISS</string>
+    <string name="lockSummary">Zamknite na ISS a nasledujte ju na mape</string>
+
+    <string name="infoTitle">Dodatočné informácie</string>
+    <string name="infoSummary">Poskytnite ďalšie informácie o ISS na mape</string>
+
+    <string name="mapTitle">Typ mapy</string>
+    <string name="mapSummary">Zmeňte typ mapy z predchádzajúcej stránky</string>
+
+    <string name="decimalTitle">Desatinné miesta</string>
+    <string name="decimalDialogMessage">Zmeňte presnosť všetkých číselných hodnôt</string>
+    <string name="decimalSummary">Aktuálna úroveň presnosti je na $1 desatinné miesta</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Farba predpovednej čiary</string>
+    <string name="colorSummary">Zmeňte farbu predikčných čiar</string>
+
+    <string name="sizeTitle">Veľkosť predikčnej čiary</string>
+    <string name="sizeDialogMessage">Zmeňte veľkosť predikčnej čiary ISS</string>
+    <string name="sizeSummary">Aktuálna veľkosť riadku je 1 USD</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Veľkosť textu</string>
+    <string name="textSizeDialogMessage">Zmeňte veľkosť všetkých textových hodnôt</string>
+    <string name="textSizeSummary">Aktuálna veľkosť textu je 1 $</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Farba textu</string>
+    <string name="textSummary">Zmeňte farbu textových hodnôt</string>
+
+    <string name="textHighlightTitle">Obrys textu</string>
+    <string name="textHighlightSummary">Zmeňte farbu obrysu textových hodnôt</string>
+
+    <string name="notificationTitle">Oznámenie ISS</string>
+    <string name="notificationSummary">Upozorniť, keď sa očakáva, že ISS preletí nad mojou polohou</string>
+
+    <string name="advertisementTitle">Banner</string>
+    <string name="advertisementSummary">Zakázať bannerové reklamy v aplikácii</string>
+
+    <string name="fullTitle">Celá strana</string>
+    <string name="fullSummary">Zakázať celostránkové reklamy v aplikácii</string>
+
+    
+    <string name="errorWebView">Stránka sa nedá načítať</string>
+    <string name="errorLocation">Nepodarilo sa nájsť vašu polohu.</string>
+    <string name="errorPermissionLocation">Prístup k vašej polohe bol odmietnutý</string>
+    <string name="errorConnection">Buď nemáte žiadne pripojenie, alebo je server preťažený.</string>
+    <string name="errorNetwork">Vyskytla sa neznáma chyba. Chyba: 401</string>
+    <string name="errorMap">Nie je možné použiť nastavenia na mapu</string>
+    <string name="errorFiveTimes">Všetko zlyhalo 5 krát. Buď nemáte žiadne pripojenie, alebo je server preťažený.</string>
+    <string name="errorLessFive">Požiadavka na server zlyhala. %1$d z 5. Pokus o %2$d sekúnd.</string>
+    <string name="errorWaitPoly">Už sa vytvárajú predikčné čiary</string>
+    <string name="errorNotByMe">Oznámenie ISS ste nezastavili.</string>
+    <string name="errorNoWiki">nemá wiki stránku</string>
+    <string name="errorNoTwitter">nemá účet na Twitteri</string>
+    <string name="data_corrupted">Údaje aplikácie sú poškodené. Prebieha resetovanie!</string>
+    <string name="polyError">Nedá sa vytvoriť riadok predpovede</string>
+    <string name="calendar">Kalendár</string>
+    <string name="share">zdieľam</string>
+    <string name="image_content">Obrázok mapy so značkou polohy používateľa.</string>
+    <string name="iss_sighting_share_title">Pozorovanie ISS</string>
+    <string name="iss_sighting_share_description">Tu bude viditeľná ISS. Ideme to skontrolovať!</string>
+    <string name="iss_sighting_share_body">\"Skontrolovať to!\n\nISS bude viditeľná o „</string>
+    <string name="iss_sighting_share_chooser">Zdieľam…</string>
+    <string name="on">\"zapnuté\"</string>
+    <string name="one_day_in_space">1 deň vo vesmíre</string>
+    <string name="in_space">\" vo vesmíre\"</string>
+    <string name="day">\"deň\"</string>
+    <string name="month">\"mesiac\"</string>
+    <string name="year">\"rok\"</string>
+    <string name="since">\"Odkedy\"</string>
+    <string name="tutorial_one_title">Hej ty tam :)</string>
+    <string name="tutorial_two_title">Hlavné rysy</string>
+</resources>

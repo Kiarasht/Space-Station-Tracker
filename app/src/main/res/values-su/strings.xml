@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Harita</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">Ditugaskeun</string>
+    <string name="settings_title">Setélan</string>
+    <string name="help_title">Tulung</string>
+
+    
+    <string name="flybys_summary">Pariksa pas ISS ku lokasi anjeun</string>
+    <string name="space_summary">Tingali saha anu aya di angkasa ayeuna</string>
+    <string name="settings_summary">Atur setélan aplikasi umum</string>
+    <string name="help_summary">Evaluasi atanapi diajar ngeunaan aplikasi</string>
+
+    
+    <string name="reset">Refresh garis prediksi</string>
+    <string name="stream">Hirup</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">munggaran</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Euweuh</item>
+        <item>Biasa</item>
+        <item>Satelit</item>
+        <item>rupa bumi</item>
+        <item>Hibrida</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">Saha nu di Angkasa\?</string>
+    <string name="label_setting">Setélan</string>
+    <string name="label_help">Tulung</string>
+    <string name="label_stream">Live Stream</string>
+
+    
+    <string name="startAlert">Béjakeun nalika ISS caket</string>
+    <string name="stopAlert">Eureun ngabéjaan nalika ISS caket</string>
+    <string name="startFullAds">Iklan kaca pinuh diaktipkeun. Hatur nuhun kana pangrojongna ;)</string>
+    <string name="startBannerAds">Iklan spanduk diaktipkeun. Hatur nuhun kana pangrojongna ;)</string>
+
+    
+    <string name="tutorialOne">Peta nunjukkeun lokasi ISS ayeuna sareng garis prediksi dimana éta bakal aya.</string>
+    <string name="tutorialTwo">Laci mawa anjeun ka fitur sanés sapertos flybys, setélan, jsb…</string>
+    <string name="midAt">di</string>
+    <string name="checkerContentDescription">Ikon ngagambarkeun yén warna transparan dipilih</string>
+    <string name="countryFlagContentDescription">Bandéra nagara asalna tina astronot ieu</string>
+    <string name="astronautTwitterContentDescription">Ikon pikeun numbu ka halaman twitter astronot</string>
+    <string name="astronautWikiContentDescription">Ikon pikeun numbu ka kaca wiki astronot</string>
+    <string name="astronautGoogleContentDescription">Ikon pikeun numbu ka kaca pilarian Google astronot</string>
+
+    
+    <string name="refreshTitle">Refresh Laju</string>
+    <string name="refreshSummary">Laju refresh ayeuna $1 detik/refresh</string>
+    <string name="declination_unit">detik /refresh</string>
+    <string name="refreshDialogMessage">Waktu antara ISS diropéa ka lokasi anyarna.</string>
+
+    <string name="lockTitle">Konci ISS</string>
+    <string name="lockSummary">Konci kana ISS teras turutan dina peta</string>
+
+    <string name="infoTitle">Inpo tambahan</string>
+    <string name="infoSummary">Nyadiakeun inpo tambahan ngeunaan ISS dina peta</string>
+
+    <string name="mapTitle">Jinis peta</string>
+    <string name="mapSummary">Robah tipe peta ti kaca saméméhna</string>
+
+    <string name="decimalTitle">Tempat Decimal</string>
+    <string name="decimalDialogMessage">Robah akurasi sadaya nilai numeris</string>
+    <string name="decimalSummary">Tingkat akurasi ayeuna aya dina $1 tempat desimal</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Warna garis prediksi</string>
+    <string name="colorSummary">Robah warna garis prediksi</string>
+
+    <string name="sizeTitle">Ukuran garis prediksi</string>
+    <string name="sizeDialogMessage">Robah ukuran garis prediksi ISS</string>
+    <string name="sizeSummary">Ukuran garis ayeuna $1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Ukuran téks</string>
+    <string name="textSizeDialogMessage">Robah ukuran sadaya nilai téks</string>
+    <string name="textSizeSummary">Ukuran téks ayeuna $1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Warna téks</string>
+    <string name="textSummary">Robah warna nilai téks</string>
+
+    <string name="textHighlightTitle">Outline téks</string>
+    <string name="textHighlightSummary">Ngarobah warna outline tina nilai téks</string>
+
+    <string name="notificationTitle">Bewara ISS</string>
+    <string name="notificationSummary">Béjakeun nalika ISS diperkirakeun ngapung di lokasi kuring</string>
+
+    <string name="advertisementTitle">Spanduk</string>
+    <string name="advertisementSummary">Pareuman iklan spanduk dina aplikasi</string>
+
+    <string name="fullTitle">Kaca Pinuh</string>
+    <string name="fullSummary">Nonaktipkeun iklan halaman lengkep dina aplikasi</string>
+
+    
+    <string name="errorWebView">Teu tiasa ngamuat halaman</string>
+    <string name="errorLocation">Teu tiasa mendakan lokasi anjeun.</string>
+    <string name="errorPermissionLocation">Ditampik aksés ka lokasi anjeun</string>
+    <string name="errorConnection">Boh anjeun teu boga sambungan atawa server overloaded.</string>
+    <string name="errorNetwork">Aya kasalahan anu teu dipikanyaho. Kasalahan: 401</string>
+    <string name="errorMap">Teu tiasa nerapkeun setélan kana peta</string>
+    <string name="errorFiveTimes">Gagal sadayana 5 kali. Boh anjeun teu boga sambungan atawa server overloaded.</string>
+    <string name="errorLessFive">Paménta ka server gagal. %1$d tina 5. Nyobian dina %2$d detik.</string>
+    <string name="errorWaitPoly">Geus nyieun garis prediksi</string>
+    <string name="errorNotByMe">Bewara ISS teu dieureunkeun ku anjeun.</string>
+    <string name="errorNoWiki">teu boga kaca wiki</string>
+    <string name="errorNoTwitter">teu boga akun twitter</string>
+    <string name="data_corrupted">Data aplikasi rusak. Ngareset!</string>
+    <string name="polyError">Teu bisa nyieun garis prediksi</string>
+    <string name="calendar">Kalénder</string>
+    <string name="share">Bagikeun</string>
+    <string name="image_content">Gambar peta kalayan spidol pikeun lokasi pamaké.</string>
+    <string name="iss_sighting_share_title">ISS tetempoan</string>
+    <string name="iss_sighting_share_description">ISS bakal katingali di dieu. Bade parios deui!</string>
+    <string name="iss_sighting_share_body">\"Parios éta!\n\nISS bakal katingali dina \"</string>
+    <string name="iss_sighting_share_chooser">Bagikeun…</string>
+    <string name="on">\"dina\"</string>
+    <string name="one_day_in_space">1 dinten di angkasa</string>
+    <string name="in_space">\"di angkasa\"</string>
+    <string name="day">\" dinten\"</string>
+    <string name="month">\" sasih\"</string>
+    <string name="year">\"taun\"</string>
+    <string name="since">\"Ti saprak\"</string>
+    <string name="tutorial_one_title">Héi anu didinya :)</string>
+    <string name="tutorial_two_title">Fitur Utama</string>
+</resources>

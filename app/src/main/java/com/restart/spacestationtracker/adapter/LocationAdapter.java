@@ -1,5 +1,6 @@
 package com.restart.spacestationtracker.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.provider.CalendarContract;
@@ -63,29 +64,26 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
          */
         @Override
         public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.calendarButton: // User is saving the ISS flyby event to phone calendar
-                    Intent intent = new Intent(Intent.ACTION_INSERT)
-                            .setData(Events.CONTENT_URI)
-                            .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
-                                    mSightSees.get(getAdapterPosition()).getRiseTimeDate().getTime())
-                            .putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
-                                    mSightSees.get(getAdapterPosition()).getSetTimeDate().getTime())
-                            .putExtra(Events.TITLE, "ISS Sighting")
-                            .putExtra(Events.DESCRIPTION, "ISS will be visible here. Going to check it out!")
-                            .putExtra(Events.EVENT_LOCATION, SightSee.getLocation())
-                            .putExtra(Events.AVAILABILITY, Events.AVAILABILITY_BUSY);
-                    mActivity.startActivity(intent);
-                    break;
-                case R.id.shareButton: // User is sharing the ISS flyby event
-                    Intent sendIntent = new Intent();
-                    sendIntent.setAction(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Check it out!\n\nISS will be visible at " +
-                            SightSee.getLocation() + " on " +
-                            mSightSees.get(getAdapterPosition()).getRiseTime() + ".\n\n" + mActivity.getString(R.string.msg_get_it_on_play_store_url));
-                    sendIntent.setType("text/plain");
-                    mActivity.startActivity(Intent.createChooser(sendIntent, "Share..."));
-                    break;
+            if (v.getId() == R.id.calendarButton) {
+                Intent intent = new Intent(Intent.ACTION_INSERT)
+                        .setData(Events.CONTENT_URI)
+                        .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+                                mSightSees.get(getBindingAdapterPosition()).getRiseTimeDate().getTime())
+                        .putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
+                                mSightSees.get(getBindingAdapterPosition()).getSetTimeDate().getTime())
+                        .putExtra(Events.TITLE, mActivity.getString(R.string.iss_sighting_share_title))
+                        .putExtra(Events.DESCRIPTION, mActivity.getString(R.string.iss_sighting_share_description))
+                        .putExtra(Events.EVENT_LOCATION, SightSee.getLocation())
+                        .putExtra(Events.AVAILABILITY, Events.AVAILABILITY_BUSY);
+                mActivity.startActivity(intent);
+            } else if (v.getId() == R.id.shareButton) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, mActivity.getString(R.string.iss_sighting_share_body) +
+                        SightSee.getLocation() + mActivity.getString(R.string.on) +
+                        mSightSees.get(getBindingAdapterPosition()).getRiseTime() + ".\n\n" + mActivity.getString(R.string.msg_get_it_on_play_store_url));
+                sendIntent.setType("text/plain");
+                mActivity.startActivity(Intent.createChooser(sendIntent, mActivity.getString(R.string.iss_sighting_share_chooser)));
             }
         }
     }
@@ -131,20 +129,6 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     /**
-     * The type Header view holder.
-     */
-    private static class HeaderViewHolder extends RecyclerView.ViewHolder {
-        /**
-         * Instantiates a new Header view holder.
-         *
-         * @param view the view
-         */
-        HeaderViewHolder(View view) {
-            super(view);
-        }
-    }
-
-    /**
      * Size of the data set.
      *
      * @return Size of the data set.
@@ -160,6 +144,7 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      *
      * @param dataSet The new data list
      */
+    @SuppressLint("NotifyDataSetChanged")
     public void setDataSet(List<SightSee> dataSet) {
         mSightSees = dataSet;
         notifyDataSetChanged();

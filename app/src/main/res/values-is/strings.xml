@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS rekja spor einhvers</string>
+
+    
+    <string name="map_activity">Kort</string>
+    <string name="flybys_title">Flugleiðir</string>
+    <string name="space_title">Á vakt</string>
+    <string name="settings_title">Stillingar</string>
+    <string name="help_title">Hjálp</string>
+
+    
+    <string name="flybys_summary">Athugaðu vegabréf ISS eftir staðsetningu þinni</string>
+    <string name="space_summary">Sjáðu hver er í geimnum núna</string>
+    <string name="settings_summary">Stjórna almennum forritastillingum</string>
+    <string name="help_summary">Gefðu einkunn eða lærðu um appið</string>
+
+    
+    <string name="reset">Endurnýjaðu spálínur</string>
+    <string name="stream">Lifa</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">fyrsta skipti</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Enginn</item>
+        <item>Eðlilegt</item>
+        <item>Gervihnöttur</item>
+        <item>Landsvæði</item>
+        <item>Hybrid</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flugleiðir</string>
+    <string name="label_peopleinspace">Hver er í geimnum\?</string>
+    <string name="label_setting">Stillingar</string>
+    <string name="label_help">Hjálp</string>
+    <string name="label_stream">Bein útsending</string>
+
+    
+    <string name="startAlert">Látið vita þegar ISS er nálægt</string>
+    <string name="stopAlert">Hættu að láta vita þegar ISS er nálægt</string>
+    <string name="startFullAds">Heilsíðuauglýsingar virkar. Takk fyrir stuðninginn ;)</string>
+    <string name="startBannerAds">Kveikt á borðaauglýsingum. Takk fyrir stuðninginn ;)</string>
+
+    
+    <string name="tutorialOne">Kort sýnir núverandi staðsetningu ISS með spálínu um hvar hún verður.</string>
+    <string name="tutorialTwo">Skúffa fer með þig í aðra eiginleika eins og framhjáflug, stillingar osfrv...</string>
+    <string name="midAt">kl</string>
+    <string name="checkerContentDescription">Tákn táknar að gagnsæ litur er valinn</string>
+    <string name="countryFlagContentDescription">Landsfáni sem þessi geimfari er frá</string>
+    <string name="astronautTwitterContentDescription">Tákn til að tengja við Twitter-síðu geimfara</string>
+    <string name="astronautWikiContentDescription">Tákn til að tengja við wiki síðu geimfara</string>
+    <string name="astronautGoogleContentDescription">Tákn til að tengja við Google leitarsíðu geimfara</string>
+
+    
+    <string name="refreshTitle">Endurnýjunartíðni</string>
+    <string name="refreshSummary">Núverandi endurnýjunartíðni er $1 sekúnda/uppfærslu</string>
+    <string name="declination_unit">sek/fresh</string>
+    <string name="refreshDialogMessage">Tími á milli þess að ISS er uppfært á nýjan stað.</string>
+
+    <string name="lockTitle">Læstu ISS</string>
+    <string name="lockSummary">Læstu á ISS og fylgdu því á kortinu</string>
+
+    <string name="infoTitle">Viðbótarupplýsingar</string>
+    <string name="infoSummary">Gefðu frekari upplýsingar um ISS á kortinu</string>
+
+    <string name="mapTitle">Tegund korts</string>
+    <string name="mapSummary">Breyttu kortagerð frá fyrri síðu</string>
+
+    <string name="decimalTitle">Aukastafir</string>
+    <string name="decimalDialogMessage">Breyttu nákvæmni allra tölugilda</string>
+    <string name="decimalSummary">Núverandi nákvæmni er við $1 aukastafi</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Litur spálínu</string>
+    <string name="colorSummary">Breyttu lit spálína</string>
+
+    <string name="sizeTitle">Spá línustærð</string>
+    <string name="sizeDialogMessage">Breyttu stærð spálínu ISS</string>
+    <string name="sizeSummary">Núverandi línustærð er $1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Textastærð</string>
+    <string name="textSizeDialogMessage">Breyttu stærð allra textagilda</string>
+    <string name="textSizeSummary">Núverandi textastærð er $1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Litur texta</string>
+    <string name="textSummary">Breyttu litnum á textagildum</string>
+
+    <string name="textHighlightTitle">Textaútlínur</string>
+    <string name="textHighlightSummary">Breyttu útlínum lit textagilda</string>
+
+    <string name="notificationTitle">ISS tilkynning</string>
+    <string name="notificationSummary">Láta vita þegar búist er við að ISS fljúgi yfir staðsetningu mína</string>
+
+    <string name="advertisementTitle">Borði</string>
+    <string name="advertisementSummary">Slökktu á borðaauglýsingum í appinu</string>
+
+    <string name="fullTitle">Heil síða</string>
+    <string name="fullSummary">Slökktu á heilsíðuauglýsingum í appinu</string>
+
+    
+    <string name="errorWebView">Ekki tókst að hlaða síðu</string>
+    <string name="errorLocation">Ekki er hægt að finna staðsetningu þína.</string>
+    <string name="errorPermissionLocation">Neitað um aðgang að staðsetningu þinni</string>
+    <string name="errorConnection">Annaðhvort ertu ekki með neina tengingu eða þjónninn er ofhlaðinn.</string>
+    <string name="errorNetwork">Óþekkt villa hefur komið upp. Villa: 401</string>
+    <string name="errorMap">Ekki er hægt að nota stillingar á kortið</string>
+    <string name="errorFiveTimes">Misheppnaðist öll 5 skiptin. Annaðhvort ertu ekki með neina tengingu eða þjónninn er ofhlaðinn.</string>
+    <string name="errorLessFive">Beiðni til netþjóns mistókst. %1$d af 5. Reynir eftir %2$d sekúndur.</string>
+    <string name="errorWaitPoly">Búin að búa til spálínur</string>
+    <string name="errorNotByMe">ISS tilkynning var ekki stöðvuð af þér.</string>
+    <string name="errorNoWiki">er ekki með wiki síðu</string>
+    <string name="errorNoTwitter">er ekki með twitter reikning</string>
+    <string name="data_corrupted">Forritsgögn eru skemmd. Núllstillir!</string>
+    <string name="polyError">Ekki tókst að búa til spálínu</string>
+    <string name="calendar">Dagatal</string>
+    <string name="share">Deila</string>
+    <string name="image_content">Mynd af korti með merki fyrir staðsetningu notanda.</string>
+    <string name="iss_sighting_share_title">ISS sjón</string>
+    <string name="iss_sighting_share_description">ISS verður sýnilegt hér. Ætla að athuga það!</string>
+    <string name="iss_sighting_share_body">\"Skoðaðu þetta!\n\nISS verður sýnilegt á \"</string>
+    <string name="iss_sighting_share_chooser">Deildu…</string>
+    <string name="on">\"á\"</string>
+    <string name="one_day_in_space">1 dagur í geimnum</string>
+    <string name="in_space">\" í geimnum\"</string>
+    <string name="day">\" dagur\"</string>
+    <string name="month">\"mánuður\"</string>
+    <string name="year">\"ár\"</string>
+    <string name="since">\"Síðan\"</string>
+    <string name="tutorial_one_title">Hæ :)</string>
+    <string name="tutorial_two_title">Aðalatriði</string>
+</resources>

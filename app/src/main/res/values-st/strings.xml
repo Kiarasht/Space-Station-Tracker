@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">\'Mapa</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">Mosebetsing</string>
+    <string name="settings_title">Litlhophiso</string>
+    <string name="help_title">Thusa</string>
+
+    
+    <string name="flybys_summary">Sheba lipallo tsa ISS haufi le sebaka sa hau</string>
+    <string name="space_summary">Bona hore na ke mang ea sebakeng hona joale</string>
+    <string name="settings_summary">Laola litlhophiso tse akaretsang tsa app</string>
+    <string name="help_summary">Reita kapa ithute ka app</string>
+
+    
+    <string name="reset">Hlahisa methati ea ho bolela esale pele</string>
+    <string name="stream">Phela</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">lekhetlo la pele</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Ha ho letho</item>
+        <item>Tloaelehileng</item>
+        <item>Sathelaete</item>
+        <item>Naha</item>
+        <item>Hybrid</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">Ke mang ea Sebakeng\?</string>
+    <string name="label_setting">Litlhophiso</string>
+    <string name="label_help">Thusa</string>
+    <string name="label_stream">Live Stream</string>
+
+    
+    <string name="startAlert">Tsebisa ha ISS e le haufi</string>
+    <string name="stopAlert">Emisa ho tsebisa ha ISS e le haufi</string>
+    <string name="startFullAds">Lipapatso tse felletseng tsa leqephe li lumelletsoe. Ke leboha tšehetso ;)</string>
+    <string name="startBannerAds">Lipapatso tsa banner li lumelletsoe. Ke leboha tšehetso ;)</string>
+
+    
+    <string name="tutorialOne">\'Mapa o bonts\'a sebaka sa hajoale sa ISS ka mola oa ponelopele ea moo e tla ba teng.</string>
+    <string name="tutorialTwo">Drawer e u isa lits\'ebetsong tse ling tse kang li-flybys, litlhophiso, joalo-joalo ...</string>
+    <string name="midAt">ho</string>
+    <string name="checkerContentDescription">Letšoao le bontša hore ho khethiloe \'mala o bonaletsang</string>
+    <string name="countryFlagContentDescription">Molaetsa oa naha setsebi sena sa sefofane se tsoa</string>
+    <string name="astronautTwitterContentDescription">Letšoao le hokahanyang le leqephe la twitter la astronaut</string>
+    <string name="astronautWikiContentDescription">Letšoao le hokahanyang le leqephe la wiki la astronaut</string>
+    <string name="astronautGoogleContentDescription">Letšoao la ho hokahanya le leqephe la ho batla la astronaut la Google</string>
+
+    
+    <string name="refreshTitle">Refresh Rate</string>
+    <string name="refreshSummary">Sekhahla sa ho khatholla hona joale ke $1 sec/re khatholla</string>
+    <string name="declination_unit">motsotsoana/hlasimolla</string>
+    <string name="refreshDialogMessage">Nako pakeng tsa ISS ho nchafatsoa sebakeng sa eona se secha.</string>
+
+    <string name="lockTitle">Notlela ISS</string>
+    <string name="lockSummary">Notlela ho ISS \'me u e latele \'mapeng</string>
+
+    <string name="infoTitle">Boitsebiso bo Eketsehileng</string>
+    <string name="infoSummary">Fana ka lintlha tse ling mabapi le ISS \'mapeng</string>
+
+    <string name="mapTitle">Mofuta oa \'mapa</string>
+    <string name="mapSummary">Fetola mofuta oa \'mapa ho tsoa leqepheng le fetileng</string>
+
+    <string name="decimalTitle">Libaka tsa Decimal</string>
+    <string name="decimalDialogMessage">Fetola ho nepahala ha litekanyetso tsohle tsa linomoro</string>
+    <string name="decimalSummary">Boemo ba hajoale ba ho nepahala ke $1 libakeng tsa decimal</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">\'Mala oa mola oa ho bolela</string>
+    <string name="colorSummary">Fetola \'mala oa mela ea ho bolela esale pele</string>
+
+    <string name="sizeTitle">Boholo ba mola oa ho bolela esale pele</string>
+    <string name="sizeDialogMessage">Fetola boholo ba mola oa ho bolela esale pele oa ISS</string>
+    <string name="sizeSummary">Boholo ba mohala oa hajoale ke $1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Boholo ba mongolo</string>
+    <string name="textSizeDialogMessage">Fetola boholo ba lintlha tsohle tsa mongolo</string>
+    <string name="textSizeSummary">Boholo ba mongolo ke $1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">\'Mala oa mongolo</string>
+    <string name="textSummary">Fetola \'mala oa boleng ba mongolo</string>
+
+    <string name="textHighlightTitle">Kemiso ea Mongolo</string>
+    <string name="textHighlightSummary">Fetola \'mala oa kemiso ea boleng ba mongolo</string>
+
+    <string name="notificationTitle">Tsebiso ea ISS</string>
+    <string name="notificationSummary">Tsebisa ha ISS e lebelletsoe ho fofa sebakeng sa ka</string>
+
+    <string name="advertisementTitle">Banner</string>
+    <string name="advertisementSummary">Thibela lipapatso tsa banner ho app</string>
+
+    <string name="fullTitle">Leqephe le Feletseng</string>
+    <string name="fullSummary">Thibela lipapatso tse felletseng ho sesebelisoa</string>
+
+    
+    <string name="errorWebView">Ha e khone ho bula leqephe</string>
+    <string name="errorLocation">Ha re khone ho fumana sebaka sa hau.</string>
+    <string name="errorPermissionLocation">E hanetsoe ho fumana sebaka sa hau</string>
+    <string name="errorConnection">Mohlomong ha u na khokahanyo kapa seva e tletse.</string>
+    <string name="errorNetwork">Phoso e sa tsejoeng e etsahetse. Phoso: 401</string>
+    <string name="errorMap">Ha e khone ho kenya litlhophiso \'mapeng</string>
+    <string name="errorFiveTimes">E hlotsoe makhetlo a 5 kaofela. Mohlomong ha u na khokahanyo kapa seva e tletse.</string>
+    <string name="errorLessFive">Kopo ho seva e hlolehile. %1$d ho tse 5. E leka ka mor\'a metsotsoana e %2$d.</string>
+    <string name="errorWaitPoly">E se e ntse e theha mela ea ho bolela esale pele</string>
+    <string name="errorNotByMe">Tsebiso ea ISS ha ea emisoa ke uena.</string>
+    <string name="errorNoWiki">ha e na leqephe la wiki</string>
+    <string name="errorNoTwitter">ha e na ak\'haonte ea twitter</string>
+    <string name="data_corrupted">Lintlha tsa app li senyehile. E qala hape!</string>
+    <string name="polyError">Ha e khone ho theha mola oa ho bolela esale pele</string>
+    <string name="calendar">Khalendara</string>
+    <string name="share">Arolelana</string>
+    <string name="image_content">Setšoantšo sa \'mapa o nang le lesupa bakeng sa sebaka sa mosebelisi.</string>
+    <string name="iss_sighting_share_title">ISS Pono</string>
+    <string name="iss_sighting_share_description">ISS e tla bonahala mona. Ke tlil\'o e sheba!</string>
+    <string name="iss_sighting_share_body">\"Lekola!\n\nISS e tla bonahala ho \"</string>
+    <string name="iss_sighting_share_chooser">Arolelana...</string>
+    <string name="on">\"ka\"</string>
+    <string name="one_day_in_space">Letsatsi le 1 sebakeng</string>
+    <string name="in_space">\"sebakeng\"</string>
+    <string name="day">\"letsatsi\"</string>
+    <string name="month">\"khoeli\"</string>
+    <string name="year">\"selemo\"</string>
+    <string name="since">\"Ho tloha\"</string>
+    <string name="tutorial_one_title">Lumela moo :)</string>
+    <string name="tutorial_two_title">Likarolo tse ka Sehloohong</string>
+</resources>

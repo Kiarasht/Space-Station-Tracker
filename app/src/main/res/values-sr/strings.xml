@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ИСС Трацкер</string>
+
+    
+    <string name="map_activity">Мапа</string>
+    <string name="flybys_title">Флибис</string>
+    <string name="space_title">На дужности</string>
+    <string name="settings_title">Подешавања</string>
+    <string name="help_title">Помоћ</string>
+
+    
+    <string name="flybys_summary">Проверите ИСС-ове пропуснице поред ваше локације</string>
+    <string name="space_summary">Погледајте ко је тренутно у свемиру</string>
+    <string name="settings_summary">Управљајте општим подешавањима апликације</string>
+    <string name="help_summary">Оцените или сазнајте више о апликацији</string>
+
+    
+    <string name="reset">Освежите линије предвиђања</string>
+    <string name="stream">Уживо</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">први пут</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Ниједан</item>
+        <item>Нормално</item>
+        <item>Сателит</item>
+        <item>Терраин</item>
+        <item>Хибрид</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Флибис</string>
+    <string name="label_peopleinspace">Ко је у свемиру\?</string>
+    <string name="label_setting">Подешавања</string>
+    <string name="label_help">Помоћ</string>
+    <string name="label_stream">Ливе Стреам</string>
+
+    
+    <string name="startAlert">Обавестите када је ИСС близу</string>
+    <string name="stopAlert">Престаните да обавештавате када је ИСС близу</string>
+    <string name="startFullAds">Огласи преко целе странице су омогућени. Хвала за подрску ;)</string>
+    <string name="startBannerAds">Банер огласи су омогућени. Хвала за подрску ;)</string>
+
+    
+    <string name="tutorialOne">Мапа приказује тренутну локацију ИСС-а са линијом предвиђања где ће се налазити.</string>
+    <string name="tutorialTwo">Фиока вас води до других функција као што су прелети, подешавања, итд…</string>
+    <string name="midAt">ат</string>
+    <string name="checkerContentDescription">Икона представља да је изабрана провидна боја</string>
+    <string name="countryFlagContentDescription">Застава земље из које је овај астронаут</string>
+    <string name="astronautTwitterContentDescription">Икона за везу до астронаутове твитер странице</string>
+    <string name="astronautWikiContentDescription">Икона за везу до астронаутове вики странице</string>
+    <string name="astronautGoogleContentDescription">Икона за везу до странице Гоогле претраге астронаута</string>
+
+    
+    <string name="refreshTitle">Рефресх Рате</string>
+    <string name="refreshSummary">Тренутна брзина освежавања је $1 сек/освежавање</string>
+    <string name="declination_unit">сец/рефресх</string>
+    <string name="refreshDialogMessage">Време између ИСС ажурирања на нову локацију.</string>
+
+    <string name="lockTitle">Лоцк ИСС</string>
+    <string name="lockSummary">Закључајте се на ИСС и пратите га на мапи</string>
+
+    <string name="infoTitle">Додатне информације</string>
+    <string name="infoSummary">Наведите додатне информације о ИСС-у на мапи</string>
+
+    <string name="mapTitle">Тип карте</string>
+    <string name="mapSummary">Промените тип карте са претходне странице</string>
+
+    <string name="decimalTitle">Децимална места</string>
+    <string name="decimalDialogMessage">Промените тачност свих нумеричких вредности</string>
+    <string name="decimalSummary">Тренутни ниво тачности је на 1 децималу од $1</string>
+    <string name="decimalUnit">дп</string>
+
+    <string name="colorTitle">Боја линије предвиђања</string>
+    <string name="colorSummary">Промените боју линија предвиђања</string>
+
+    <string name="sizeTitle">Величина линије предвиђања</string>
+    <string name="sizeDialogMessage">Промените величину ИСС-ове линије предвиђања</string>
+    <string name="sizeSummary">Тренутна величина линије је $1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Величина текста</string>
+    <string name="textSizeDialogMessage">Промените величину свих текстуалних вредности</string>
+    <string name="textSizeSummary">Тренутна величина текста је $1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Боја текста</string>
+    <string name="textSummary">Промените боју текстуалних вредности</string>
+
+    <string name="textHighlightTitle">Тект Оутлине</string>
+    <string name="textHighlightSummary">Промените боју оквира текстуалних вредности</string>
+
+    <string name="notificationTitle">ИСС Нотифицатион</string>
+    <string name="notificationSummary">Обавести када се очекује да ИСС прелети моју локацију</string>
+
+    <string name="advertisementTitle">Банер</string>
+    <string name="advertisementSummary">Онемогућите банер огласе у апликацији</string>
+
+    <string name="fullTitle">Цела страна</string>
+    <string name="fullSummary">Онемогућите огласе преко целе странице у апликацији</string>
+
+    
+    <string name="errorWebView">Није могуће учитати страницу</string>
+    <string name="errorLocation">Није могуће пронаћи вашу локацију.</string>
+    <string name="errorPermissionLocation">Одбијен приступ вашој локацији</string>
+    <string name="errorConnection">Или немате везу или је сервер преоптерећен.</string>
+    <string name="errorNetwork">Непозната грешка се догодила. Грешка: 401</string>
+    <string name="errorMap">Није могуће применити подешавања на мапу</string>
+    <string name="errorFiveTimes">Неуспешно свих 5 пута. Или немате везу или је сервер преоптерећен.</string>
+    <string name="errorLessFive">Захтев за сервер није успео. %1$д од 5. Покушавам за %2$д секунди.</string>
+    <string name="errorWaitPoly">Већ креирам линије предвиђања</string>
+    <string name="errorNotByMe">ИСС Нотифицатион нисте зауставили ви.</string>
+    <string name="errorNoWiki">нема вики страницу</string>
+    <string name="errorNoTwitter">нема твитер налог</string>
+    <string name="data_corrupted">Подаци апликације су оштећени. Ресетовање!</string>
+    <string name="polyError">Није могуће креирати линију предвиђања</string>
+    <string name="calendar">Календар</string>
+    <string name="share">Објави</string>
+    <string name="image_content">Слика мапе са маркером за локацију корисника.</string>
+    <string name="iss_sighting_share_title">ИСС Сигхтинг</string>
+    <string name="iss_sighting_share_description">ИСС ће бити видљив овде. Идем да проверим!</string>
+    <string name="iss_sighting_share_body">\"Погледај!\n\nИСС ће бити видљив на \"</string>
+    <string name="iss_sighting_share_chooser">Објави…</string>
+    <string name="on">\" на \"</string>
+    <string name="one_day_in_space">1 дан у свемиру</string>
+    <string name="in_space">\" у свемиру\"</string>
+    <string name="day">\"дан\"</string>
+    <string name="month">\" месец дана\"</string>
+    <string name="year">\"година\"</string>
+    <string name="since">\"Од \"</string>
+    <string name="tutorial_one_title">Хеј тамо :)</string>
+    <string name="tutorial_two_title">Главне карактеристике</string>
+</resources>

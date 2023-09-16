@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">د ISS تعقیبونکی</string>
+
+    
+    <string name="map_activity">نقشه</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">په دنده</string>
+    <string name="settings_title">ترتیبات</string>
+    <string name="help_title">مرسته</string>
+
+    
+    <string name="flybys_summary">د خپل ځای څخه د ISS پاسونه چیک کړئ</string>
+    <string name="space_summary">وګورئ چې اوس څوک په فضا کې دي</string>
+    <string name="settings_summary">د عمومي ایپ تنظیمات اداره کړئ</string>
+    <string name="help_summary">د اپلیکیشن په اړه ارزونه یا زده کړه</string>
+
+    
+    <string name="reset">د وړاندوینې کرښې تازه کړئ</string>
+    <string name="stream">ژوندی</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">لومړی ځل</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>هیڅ نه</item>
+        <item>نورمال</item>
+        <item>سپوږمکۍ</item>
+        <item>خاوره</item>
+        <item>هایبرډ</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">څوک په فضا کې دی؟</string>
+    <string name="label_setting">ترتیبات</string>
+    <string name="label_help">مرسته</string>
+    <string name="label_stream">ژوندی جریان</string>
+
+    
+    <string name="startAlert">خبر کړئ کله چې ISS نږدې وي</string>
+    <string name="stopAlert">کله چې ISS نږدې وي نو خبر ورکول بند کړئ</string>
+    <string name="startFullAds">د بشپړ پاڼې اعلانونه فعال شوي. د ملاتړ لپاره مننه؛)</string>
+    <string name="startBannerAds">د بینر اعلانونه فعال شوي. د ملاتړ لپاره مننه؛)</string>
+
+    
+    <string name="tutorialOne">نقشه د ISS اوسنی موقعیت د وړاندوینې کرښې سره ښیې چې دا به چیرې وي.</string>
+    <string name="tutorialTwo">ډرایور تاسو نورو ب featuresو ته لیږي لکه فلای بایس ، تنظیمات او نور ...</string>
+    <string name="midAt">په</string>
+    <string name="checkerContentDescription">آیکون څرګندوي چې یو شفاف رنګ غوره شوی</string>
+    <string name="countryFlagContentDescription">د هیواد بیرغ دا خلاباز دی</string>
+    <string name="astronautTwitterContentDescription">د خلاباز د ټویټر پاڼې سره د لینک کولو نښه</string>
+    <string name="astronautWikiContentDescription">د خلاباز د ويکي پاڼې د تړنې نښه</string>
+    <string name="astronautGoogleContentDescription">د خلاباز د ګوګل لټون پاڼې سره د لینک کولو نښه</string>
+
+    
+    <string name="refreshTitle">د تازه کولو نرخ</string>
+    <string name="refreshSummary">د تازه کولو اوسنی نرخ $ 1 ثانیه /ریفریش دی</string>
+    <string name="declination_unit">sec/refresh</string>
+    <string name="refreshDialogMessage">د ISS ترمنځ وخت خپل نوي ځای ته تازه کیږي.</string>
+
+    <string name="lockTitle">ISS بند کړئ</string>
+    <string name="lockSummary">په ISS کې لاک کړئ او په نقشه کې یې تعقیب کړئ</string>
+
+    <string name="infoTitle">اضافي معلومات</string>
+    <string name="infoSummary">په نقشه کې د ISS په اړه اضافي معلومات چمتو کړئ</string>
+
+    <string name="mapTitle">د نقشې ډول</string>
+    <string name="mapSummary">د مخکینۍ پاڼې څخه د نقشې ډول بدل کړئ</string>
+
+    <string name="decimalTitle">لسیزې ځایونه</string>
+    <string name="decimalDialogMessage">د ټولو عددي ارزښتونو دقت بدل کړئ</string>
+    <string name="decimalSummary">د دقت اوسنۍ کچه په $ 1 لسیزو ځایونو کې ده</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">د وړاندوینې کرښې رنګ</string>
+    <string name="colorSummary">د وړاندوینې کرښې رنګ بدل کړئ</string>
+
+    <string name="sizeTitle">د وړاندوینې کرښې اندازه</string>
+    <string name="sizeDialogMessage">د ISS د وړاندوینې کرښې اندازه بدل کړئ</string>
+    <string name="sizeSummary">د اوسنۍ کرښې اندازه $1 ده</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">د متن اندازه</string>
+    <string name="textSizeDialogMessage">د ټولو متن ارزښتونو اندازه بدل کړئ</string>
+    <string name="textSizeSummary">د اوسني متن اندازه $1 ده</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">د متن رنګ</string>
+    <string name="textSummary">د متن ارزښتونو رنګ بدل کړئ</string>
+
+    <string name="textHighlightTitle">د متن بڼه</string>
+    <string name="textHighlightSummary">د متن ارزښتونو د بڼې رنګ بدل کړئ</string>
+
+    <string name="notificationTitle">د ISS خبرتیا</string>
+    <string name="notificationSummary">خبر کړئ کله چې ISS تمه کیږي زما ځای ته الوتنه وکړي</string>
+
+    <string name="advertisementTitle">بینر</string>
+    <string name="advertisementSummary">په ایپ کې د بینر اعلانونه غیر فعال کړئ</string>
+
+    <string name="fullTitle">بشپړ پاڼه</string>
+    <string name="fullSummary">په اپلیکیشن کې د بشپړ مخ اعلانونه غیر فعال کړئ</string>
+
+    
+    <string name="errorWebView">د پاڼې د پورته کولو توان نلري</string>
+    <string name="errorLocation">ستاسو د ځای موندلو توان نلري.</string>
+    <string name="errorPermissionLocation">ستاسو ځای ته د لاسرسي مخه ونیول شوه</string>
+    <string name="errorConnection">یا تاسو هیڅ اړیکه نلرئ یا سرور ډیر بار شوی دی.</string>
+    <string name="errorNetwork">یوه نامعلومه تېروتنه رامنځته شوه. تېروتنه: 401</string>
+    <string name="errorMap">په نقشه کې ترتیبات نشي پلي کولی</string>
+    <string name="errorFiveTimes">ټول 5 ځله ناکام شو. یا تاسو هیڅ اړیکه نلرئ یا سرور ډیر بار شوی دی.</string>
+    <string name="errorLessFive">د سرور غوښتنه ناکامه شوه. %1$d له 5 څخه. په %2$d ثانیو کې هڅه کول.</string>
+    <string name="errorWaitPoly">دمخه د وړاندوینې کرښې رامینځته کول</string>
+    <string name="errorNotByMe">د ISS خبرتیا ستاسو لخوا نه وه بنده شوې.</string>
+    <string name="errorNoWiki">ويکي پاڼه نه لري</string>
+    <string name="errorNoTwitter">د ټویټر حساب نه لري</string>
+    <string name="data_corrupted">د اپلیکیشن ډاټا فاسد شوې. بیا تنظیم کول!</string>
+    <string name="polyError">د وړاندوینې کرښې په جوړولو کې ناتواني</string>
+    <string name="calendar">جنتري</string>
+    <string name="share">شریکول</string>
+    <string name="image_content">د کارونکي موقعیت لپاره د مارکر سره د نقشې عکس.</string>
+    <string name="iss_sighting_share_title">د ISS لید</string>
+    <string name="iss_sighting_share_description">ISS به دلته ښکاره شي. د کتلو لپاره ځي!</string>
+    <string name="iss_sighting_share_body">\"ویې ګوره!\n\nISS به په کې ښکاره شي \"</string>
+    <string name="iss_sighting_share_chooser">شریکول…</string>
+    <string name="on">\"پر\"</string>
+    <string name="one_day_in_space">1 ورځ په فضا کې</string>
+    <string name="in_space">\"په فضا کې\"</string>
+    <string name="day">\"ورځ\"</string>
+    <string name="month">\"میاشت\"</string>
+    <string name="year">\"کال\"</string>
+    <string name="since">\"له هغه راهیسې\"</string>
+    <string name="tutorial_one_title">هې هلته :)</string>
+    <string name="tutorial_two_title">اصلي ځانګړتیاوې</string>
+</resources>

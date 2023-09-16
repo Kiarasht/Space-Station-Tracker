@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Kaart</string>
+    <string name="flybys_title">Vliegvlieë</string>
+    <string name="space_title">Op diens</string>
+    <string name="settings_title">Instellings</string>
+    <string name="help_title">Help</string>
+
+    
+    <string name="flybys_summary">Kontroleer ISS se passe by jou ligging</string>
+    <string name="space_summary">Kyk wie is nou in die ruimte</string>
+    <string name="settings_summary">Bestuur algemene programinstellings</string>
+    <string name="help_summary">Beoordeel of leer oor die toepassing</string>
+
+    
+    <string name="reset">Verfris voorspellingslyne</string>
+    <string name="stream">Leef</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">eerste keer</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Geen</item>
+        <item>Normaal</item>
+        <item>Satelliet</item>
+        <item>Terrein</item>
+        <item>Hibried</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Vliegvlieë</string>
+    <string name="label_peopleinspace">Wie is in die ruimte\?</string>
+    <string name="label_setting">Instellings</string>
+    <string name="label_help">Help</string>
+    <string name="label_stream">Lewendige stroom</string>
+
+    
+    <string name="startAlert">Stel in kennis wanneer ISS naby is</string>
+    <string name="stopAlert">Hou op om in kennis te stel wanneer ISS naby is</string>
+    <string name="startFullAds">Volbladadvertensies geaktiveer. Dankie vir die ondersteuning ;)</string>
+    <string name="startBannerAds">Banieradvertensies geaktiveer. Dankie vir die ondersteuning ;)</string>
+
+    
+    <string name="tutorialOne">Kaart toon ISS se huidige ligging met \'n voorspellingslyn van waar dit sal wees.</string>
+    <string name="tutorialTwo">Drawer neem jou na ander kenmerke soos verbyvlugte, instellings, ens ...</string>
+    <string name="midAt">by</string>
+    <string name="checkerContentDescription">Ikoon verteenwoordig dat \'n deursigtige kleur gekies word</string>
+    <string name="countryFlagContentDescription">Landvlag waarvan hierdie ruimtevaarder afkomstig is</string>
+    <string name="astronautTwitterContentDescription">Ikoon om na ruimtevaarder se Twitter-bladsy te skakel</string>
+    <string name="astronautWikiContentDescription">Ikoon om na ruimtevaarder se wiki-bladsy te skakel</string>
+    <string name="astronautGoogleContentDescription">Ikoon om na ruimtevaarder se Google-soektogbladsy te skakel</string>
+
+    
+    <string name="refreshTitle">Herlaaitempo</string>
+    <string name="refreshSummary">Huidige herlaaitempo is $1 sek/herlaai</string>
+    <string name="declination_unit">sek/verfris</string>
+    <string name="refreshDialogMessage">Tyd tussen ISS wat opgedateer word na sy nuwe ligging.</string>
+
+    <string name="lockTitle">Sluit ISS</string>
+    <string name="lockSummary">Sluit op ISS en volg dit op die kaart</string>
+
+    <string name="infoTitle">Addisionele inligting</string>
+    <string name="infoSummary">Verskaf bykomende inligting oor ISS op die kaart</string>
+
+    <string name="mapTitle">Kaart tipe</string>
+    <string name="mapSummary">Verander die kaarttipe vanaf die vorige bladsy</string>
+
+    <string name="decimalTitle">Desimale plekke</string>
+    <string name="decimalDialogMessage">Verander die akkuraatheid van alle numeriese waardes</string>
+    <string name="decimalSummary">Huidige akkuraatheidsvlak is op $1 desimale plekke</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Voorspelling lyn kleur</string>
+    <string name="colorSummary">Verander die kleur van voorspellingslyne</string>
+
+    <string name="sizeTitle">Voorspellingslyngrootte</string>
+    <string name="sizeDialogMessage">Verander die grootte van ISS se voorspellingslyn</string>
+    <string name="sizeSummary">Huidige lyngrootte is $1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Teks grootte</string>
+    <string name="textSizeDialogMessage">Verander die grootte van alle tekswaardes</string>
+    <string name="textSizeSummary">Huidige teksgrootte is $1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Teks kleur</string>
+    <string name="textSummary">Verander die kleur van tekswaardes</string>
+
+    <string name="textHighlightTitle">Teks uiteensetting</string>
+    <string name="textHighlightSummary">Verander die buitelynkleur van tekswaardes</string>
+
+    <string name="notificationTitle">ISS Kennisgewing</string>
+    <string name="notificationSummary">Stel in kennis wanneer ISS na verwagting oor my ligging sal vlieg</string>
+
+    <string name="advertisementTitle">Banier</string>
+    <string name="advertisementSummary">Deaktiveer banieradvertensies op die toepassing</string>
+
+    <string name="fullTitle">Volledige bladsy</string>
+    <string name="fullSummary">Deaktiveer volbladadvertensies op die toepassing</string>
+
+    
+    <string name="errorWebView">Kan nie bladsy laai nie</string>
+    <string name="errorLocation">Kan nie jou ligging vind nie.</string>
+    <string name="errorPermissionLocation">Toegang tot jou ligging geweier</string>
+    <string name="errorConnection">Óf jy het geen verbinding nie óf bediener is oorlaai.</string>
+    <string name="errorNetwork">\'n Onbekende fout het voorgekom. Fout: 401</string>
+    <string name="errorMap">Kan nie instellings op kaart toepas nie</string>
+    <string name="errorFiveTimes">Het al 5 keer misluk. Óf jy het geen verbinding nie óf bediener is oorlaai.</string>
+    <string name="errorLessFive">Versoek na bediener het misluk. %1$d uit 5. Probeer oor %2$d sekondes.</string>
+    <string name="errorWaitPoly">Het reeds voorspellingslyne geskep</string>
+    <string name="errorNotByMe">ISS-kennisgewing is nie deur jou gestop nie.</string>
+    <string name="errorNoWiki">het nie \'n wiki-bladsy nie</string>
+    <string name="errorNoTwitter">het nie \'n Twitter-rekening nie</string>
+    <string name="data_corrupted">Programdata is beskadig. Stel terug!</string>
+    <string name="polyError">Kan nie voorspellingslyn skep nie</string>
+    <string name="calendar">Kalender</string>
+    <string name="share">Deel</string>
+    <string name="image_content">Beeld van \'n kaart met \'n merker vir gebruikerligging.</string>
+    <string name="iss_sighting_share_title">ISS waarneming</string>
+    <string name="iss_sighting_share_description">ISS sal hier sigbaar wees. Gaan kyk daarna!</string>
+    <string name="iss_sighting_share_body">\"Kyk daarna!\n\nISS sal sigbaar wees by \"</string>
+    <string name="iss_sighting_share_chooser">Deel …</string>
+    <string name="on">\"aan\"</string>
+    <string name="one_day_in_space">1 dag in die ruimte</string>
+    <string name="in_space">\" in die ruimte\"</string>
+    <string name="day">\"dag\"</string>
+    <string name="month">\"maand\"</string>
+    <string name="year">\" jaar\"</string>
+    <string name="since">\"Sedert\"</string>
+    <string name="tutorial_one_title">Haai daar :)</string>
+    <string name="tutorial_two_title">Belangrikste kenmerke</string>
+</resources>
