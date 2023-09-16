@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">Трекер МКС</string>
+
+    
+    <string name="map_activity">Карта</string>
+    <string name="flybys_title">Перельоти</string>
+    <string name="space_title">На чергуванні</string>
+    <string name="settings_title">Налаштування</string>
+    <string name="help_title">Довідка</string>
+
+    
+    <string name="flybys_summary">Перевірте проходи МКС за вашим місцем розташування</string>
+    <string name="space_summary">Подивіться, хто зараз у космосі</string>
+    <string name="settings_summary">Керуйте загальними налаштуваннями програми</string>
+    <string name="help_summary">Оцініть додаток або дізнайтеся про нього</string>
+
+    
+    <string name="reset">Оновити рядки передбачення</string>
+    <string name="stream">Жити</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">перший раз</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Жодного</item>
+        <item>нормальний</item>
+        <item>Супутник</item>
+        <item>Рельєф місцевості</item>
+        <item>Гібрид</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Перельоти</string>
+    <string name="label_peopleinspace">Хто в космосі\?</string>
+    <string name="label_setting">Налаштування</string>
+    <string name="label_help">Довідка</string>
+    <string name="label_stream">Наживо</string>
+
+    
+    <string name="startAlert">Повідомити, коли МКС буде поруч</string>
+    <string name="stopAlert">Припинити сповіщення, коли ISS поблизу</string>
+    <string name="startFullAds">Оголошення на всю сторінку ввімкнено. Дякую за підтримку ;)</string>
+    <string name="startBannerAds">Банерна реклама ввімкнена. Дякую за підтримку ;)</string>
+
+    
+    <string name="tutorialOne">Карта показує поточне місцезнаходження МКС із прогнозованою лінією, де вона буде.</string>
+    <string name="tutorialTwo">Панель відкриває інші функції, такі як обльоти, налаштування тощо…</string>
+    <string name="midAt">в</string>
+    <string name="checkerContentDescription">Значок означає, що вибрано прозорий колір</string>
+    <string name="countryFlagContentDescription">Прапор країни, з якої походить цей астронавт</string>
+    <string name="astronautTwitterContentDescription">Піктограма для посилання на сторінку астронавта у Twitter</string>
+    <string name="astronautWikiContentDescription">Значок для посилання на вікі-сторінку астронавта</string>
+    <string name="astronautGoogleContentDescription">Піктограма для посилання на сторінку пошуку астронавта в Google</string>
+
+    
+    <string name="refreshTitle">Частота оновлення</string>
+    <string name="refreshSummary">Поточна частота оновлення становить $1 с/оновлення</string>
+    <string name="declination_unit">сек/оновлення</string>
+    <string name="refreshDialogMessage">Час між оновленням МКС до її нового розташування.</string>
+
+    <string name="lockTitle">Замок МКС</string>
+    <string name="lockSummary">Налаштуйтеся на МКС і слідуйте за нею на карті</string>
+
+    <string name="infoTitle">Додаткова інформація</string>
+    <string name="infoSummary">Надайте додаткову інформацію про МКС на карті</string>
+
+    <string name="mapTitle">Тип карти</string>
+    <string name="mapSummary">Змініть тип карти з попередньої сторінки</string>
+
+    <string name="decimalTitle">Десяткові знаки</string>
+    <string name="decimalDialogMessage">Змінити точність усіх числових значень</string>
+    <string name="decimalSummary">Поточний рівень точності становить 1 долар після коми</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Колір лінії прогнозу</string>
+    <string name="colorSummary">Змінити колір ліній передбачення</string>
+
+    <string name="sizeTitle">Розмір лінії передбачення</string>
+    <string name="sizeDialogMessage">Змініть розмір лінії передбачення ISS</string>
+    <string name="sizeSummary">Поточний розмір рядка становить $1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Розмір тексту</string>
+    <string name="textSizeDialogMessage">Змінити розмір усіх текстових значень</string>
+    <string name="textSizeSummary">Поточний розмір тексту становить $1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Колір тексту</string>
+    <string name="textSummary">Змінити колір текстових значень</string>
+
+    <string name="textHighlightTitle">Схема тексту</string>
+    <string name="textHighlightSummary">Змінити колір контуру текстових значень</string>
+
+    <string name="notificationTitle">Сповіщення МКС</string>
+    <string name="notificationSummary">Повідомляти, коли очікується проліт МКС над моїм місцезнаходженням</string>
+
+    <string name="advertisementTitle">банер</string>
+    <string name="advertisementSummary">Вимкніть банерну рекламу в додатку</string>
+
+    <string name="fullTitle">Повна сторінка</string>
+    <string name="fullSummary">Вимкніть рекламу на всю сторінку в додатку</string>
+
+    
+    <string name="errorWebView">Неможливо завантажити сторінку</string>
+    <string name="errorLocation">Не вдалося знайти ваше місцезнаходження.</string>
+    <string name="errorPermissionLocation">Відмовлено в доступі до вашого місцезнаходження</string>
+    <string name="errorConnection">Або у вас немає з’єднання, або сервер перевантажений.</string>
+    <string name="errorNetwork">Сталася невідома помилка. Помилка: 401</string>
+    <string name="errorMap">Не вдається застосувати налаштування до карти</string>
+    <string name="errorFiveTimes">Не вдалося всі 5 разів. Або у вас немає з’єднання, або сервер перевантажений.</string>
+    <string name="errorLessFive">Помилка запиту до сервера. %1$d із 5. Спроба через %2$d секунд.</string>
+    <string name="errorWaitPoly">Уже створені рядки прогнозів</string>
+    <string name="errorNotByMe">Сповіщення ISS не було зупинено вами.</string>
+    <string name="errorNoWiki">не має вікі-сторінки</string>
+    <string name="errorNoTwitter">не має облікового запису в Twitter</string>
+    <string name="data_corrupted">Дані програми пошкоджено. Скидання!</string>
+    <string name="polyError">Неможливо створити рядок передбачення</string>
+    <string name="calendar">Календар</string>
+    <string name="share">Поділіться</string>
+    <string name="image_content">Зображення карти з маркером місцезнаходження користувача.</string>
+    <string name="iss_sighting_share_title">Спостереження МКС</string>
+    <string name="iss_sighting_share_description">ISS буде видно тут. Збираюся перевірити це!</string>
+    <string name="iss_sighting_share_body">\"Перевір!\n\nISS буде видно на \"</string>
+    <string name="iss_sighting_share_chooser">Поділитися…</string>
+    <string name="on">\" на \"</string>
+    <string name="one_day_in_space">1 день у космосі</string>
+    <string name="in_space">\" в космосі\"</string>
+    <string name="day">\"день\"</string>
+    <string name="month">\"місяць\"</string>
+    <string name="year">\"рік\"</string>
+    <string name="since">\"Оскільки\"</string>
+    <string name="tutorial_one_title">Привіт :)</string>
+    <string name="tutorial_two_title">Основні риси</string>
+</resources>

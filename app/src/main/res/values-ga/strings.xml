@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">Lorgaire ISS</string>
+
+    
+    <string name="map_activity">Léarscáil</string>
+    <string name="flybys_title">Cuilbheart</string>
+    <string name="space_title">Ar Dualgas</string>
+    <string name="settings_title">Socruithe</string>
+    <string name="help_title">Cabhrú</string>
+
+    
+    <string name="flybys_summary">Seiceáil pasanna ISS de réir do shuíomh</string>
+    <string name="space_summary">Féach cé atá sa spás faoi láthair</string>
+    <string name="settings_summary">Bainistigh socruithe ginearálta app</string>
+    <string name="help_summary">Déan rátáil nó foghlaim faoin aip</string>
+
+    
+    <string name="reset">Athnuaigh línte tuar</string>
+    <string name="stream">Beo</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">chéad uair</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Dada</item>
+        <item>Gnáth</item>
+        <item>Satailít</item>
+        <item>tír-raon</item>
+        <item>hibrideach</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Cuilbheart</string>
+    <string name="label_peopleinspace">Cé atá sa Spás\?</string>
+    <string name="label_setting">Socruithe</string>
+    <string name="label_help">Cabhrú</string>
+    <string name="label_stream">Sruth Beo</string>
+
+    
+    <string name="startAlert">Fógra a thabhairt nuair atá ISS in aice láimhe</string>
+    <string name="stopAlert">Ná cuir fógra nuair atá ISS in aice láimhe</string>
+    <string name="startFullAds">Fógraí leathanach iomlán cumasaithe. Go raibh maith agat as an tacaíocht ;)</string>
+    <string name="startBannerAds">Cumasaíodh fógraí meirgí. Go raibh maith agat as an tacaíocht ;)</string>
+
+    
+    <string name="tutorialOne">Taispeánann an léarscáil suíomh reatha ISS le líne réamh-mheasta faoin áit a mbeidh sé.</string>
+    <string name="tutorialTwo">Tógann drawer tú chuig gnéithe eile cosúil le flybys, socruithe, srl…</string>
+    <string name="midAt">ag</string>
+    <string name="checkerContentDescription">Léiríonn an deilbhín go bhfuil dath trédhearcach roghnaithe</string>
+    <string name="countryFlagContentDescription">Bratach tíre as ar tháinig an spásaire seo</string>
+    <string name="astronautTwitterContentDescription">Deilbhín chun nasc a dhéanamh le leathanach twitter an spásaire</string>
+    <string name="astronautWikiContentDescription">Deilbhín chun nasc a dhéanamh le leathanach vicí an spásaire</string>
+    <string name="astronautGoogleContentDescription">Deilbhín chun nasc a dhéanamh le leathanach cuardaigh Google an spásaire</string>
+
+    
+    <string name="refreshTitle">Ráta Athnuachana</string>
+    <string name="refreshSummary">$1 sec/athnuachan an ráta athnuachana reatha</string>
+    <string name="declination_unit">soic/athnuachan</string>
+    <string name="refreshDialogMessage">An t-am idir ISS a bheith nuashonraithe go dtí a shuíomh nua.</string>
+
+    <string name="lockTitle">Glasáil ISS</string>
+    <string name="lockSummary">Cuir glas ar ISS agus lean ar an léarscáil é</string>
+
+    <string name="infoTitle">Eolas Breise</string>
+    <string name="infoSummary">Cuir eolas breise ar fáil faoin ISS ar an léarscáil</string>
+
+    <string name="mapTitle">Cineál léarscáil</string>
+    <string name="mapSummary">Athraigh an cineál léarscáile ón leathanach roimhe seo</string>
+
+    <string name="decimalTitle">Áiteanna Deachúla</string>
+    <string name="decimalDialogMessage">Athraigh cruinneas na luachanna uimhriúla go léir</string>
+    <string name="decimalSummary">Tá an leibhéal cruinnis reatha cothrom le $1 ionad de dheachúlacha</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Dath líne tuar</string>
+    <string name="colorSummary">Athraigh dath na línte tuar</string>
+
+    <string name="sizeTitle">Méid líne tuartha</string>
+    <string name="sizeDialogMessage">Athraigh méid líne tuar ISS</string>
+    <string name="sizeSummary">Is é méid na líne reatha ná $1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Méid an téacs</string>
+    <string name="textSizeDialogMessage">Athraigh méid na luachanna téacs go léir</string>
+    <string name="textSizeSummary">Is é méid an téacs reatha ná $1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Dath téacs</string>
+    <string name="textSummary">Athraigh dath luachanna téacs</string>
+
+    <string name="textHighlightTitle">Imlíne Téacs</string>
+    <string name="textHighlightSummary">Athraigh dath imlíne luachanna an téacs</string>
+
+    <string name="notificationTitle">Fógra ISS</string>
+    <string name="notificationSummary">Fógra a thabhairt nuair a mheastar go mbeidh ISS ag eitilt thar mo shuíomh</string>
+
+    <string name="advertisementTitle">Meirge</string>
+    <string name="advertisementSummary">Díchumasaigh fógraí meirgí ar an aip</string>
+
+    <string name="fullTitle">Leathanach Iomlán</string>
+    <string name="fullSummary">Díchumasaigh fógraí leathanaigh iomlána ar an aip</string>
+
+    
+    <string name="errorWebView">Ní féidir an leathanach a lódáil</string>
+    <string name="errorLocation">Ní féidir do shuíomh a aimsiú.</string>
+    <string name="errorPermissionLocation">Diúltaíodh rochtain ar do shuíomh</string>
+    <string name="errorConnection">Níl aon nasc agat nó tá an freastalaí ró-ualaithe.</string>
+    <string name="errorNetwork">Tharla earráid anaithnid. Earráid: 401</string>
+    <string name="errorMap">Ní féidir socruithe a chur i bhfeidhm ar an léarscáil</string>
+    <string name="errorFiveTimes">Theip ar gach 5 huaire. Níl aon nasc agat nó tá an freastalaí ró-ualaithe.</string>
+    <string name="errorLessFive">Theip ar an iarratas chuig an bhfreastalaí. %1$d as 5. Ag iarraidh i %2$d soicind.</string>
+    <string name="errorWaitPoly">Cheana féin ag cruthú línte tuar</string>
+    <string name="errorNotByMe">Níor chuir tú stop le Fógra ISS.</string>
+    <string name="errorNoWiki">nach bhfuil leathanach vicí</string>
+    <string name="errorNoTwitter">níl cuntas twitter aige</string>
+    <string name="data_corrupted">Tá sonraí app truaillithe. Athshocrú!</string>
+    <string name="polyError">Ní féidir líne tuar a chruthú</string>
+    <string name="calendar">Féilire</string>
+    <string name="share">Comhroinn</string>
+    <string name="image_content">Íomhá de léarscáil le marcóir don suíomh úsáideora.</string>
+    <string name="iss_sighting_share_title">Radharc ISS</string>
+    <string name="iss_sighting_share_description">Beidh ISS le feiceáil anseo. Ag dul chun é a sheiceáil amach!</string>
+    <string name="iss_sighting_share_body">“Seiceáil amach é!\n\nBeidh ISS le feiceáil ag \"</string>
+    <string name="iss_sighting_share_chooser">Roinn…</string>
+    <string name="on">\" ar \"</string>
+    <string name="one_day_in_space">1 lá sa spás</string>
+    <string name="in_space">\"sa spás\"</string>
+    <string name="day">\"lá\"</string>
+    <string name="month">\"mí\"</string>
+    <string name="year">\"bliain\"</string>
+    <string name="since">\"Ó\"</string>
+    <string name="tutorial_one_title">Hey there :)</string>
+    <string name="tutorial_two_title">Príomhghnéithe</string>
+</resources>

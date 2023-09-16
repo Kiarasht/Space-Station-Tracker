@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Xəritə</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">Növbətçi</string>
+    <string name="settings_title">Parametrlər</string>
+    <string name="help_title">Kömək edin</string>
+
+    
+    <string name="flybys_summary">Yerləşdiyiniz yerdən ISS-nin keçidlərini yoxlayın</string>
+    <string name="space_summary">Görün indi kosmosda kim var</string>
+    <string name="settings_summary">Ümumi proqram parametrlərini idarə edin</string>
+    <string name="help_summary">Proqramı qiymətləndirin və ya öyrənin</string>
+
+    
+    <string name="reset">Proqnoz xətlərini yeniləyin</string>
+    <string name="stream">Canlı</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">ilk dəfə</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Heç biri</item>
+        <item>Normal</item>
+        <item>Peyk</item>
+        <item>Ərazi</item>
+        <item>Hibrid</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">Kosmosda kim var\?</string>
+    <string name="label_setting">Parametrlər</string>
+    <string name="label_help">Kömək edin</string>
+    <string name="label_stream">Canlı Yayım</string>
+
+    
+    <string name="startAlert">ISS yaxın olduqda bildirin</string>
+    <string name="stopAlert">ISS yaxın olduqda bildiriş verməyi dayandırın</string>
+    <string name="startFullAds">Tam səhifə reklamları aktivləşdirildi. dəstəyə görə təşəkkürlər ;)</string>
+    <string name="startBannerAds">Banner reklamları aktivləşdirildi. dəstəyə görə təşəkkürlər ;)</string>
+
+    
+    <string name="tutorialOne">Xəritə ISS-nin cari yerini onun harada olacağına dair proqnoz xətti ilə göstərir.</string>
+    <string name="tutorialTwo">Çekmece sizi uçuşlar, parametrlər və s. kimi digər xüsusiyyətlərə aparır...</string>
+    <string name="midAt">saat</string>
+    <string name="checkerContentDescription">İşarə şəffaf rəngin seçildiyini bildirir</string>
+    <string name="countryFlagContentDescription">Bu astronavtın olduğu ölkə bayrağı</string>
+    <string name="astronautTwitterContentDescription">Astronavtın twitter səhifəsinə keçid üçün işarə</string>
+    <string name="astronautWikiContentDescription">Astronavtın viki səhifəsinə keçid üçün işarə</string>
+    <string name="astronautGoogleContentDescription">Astronavtın Google axtarış səhifəsinə keçid üçün işarə</string>
+
+    
+    <string name="refreshTitle">Yeniləmə dərəcəsi</string>
+    <string name="refreshSummary">Cari yeniləmə dərəcəsi $1 saniyə/təzədir</string>
+    <string name="declination_unit">saniyə/təzələyin</string>
+    <string name="refreshDialogMessage">ISS-nin yeni məkanına yenilənməsi arasındakı vaxt.</string>
+
+    <string name="lockTitle">ISS-i kilidləyin</string>
+    <string name="lockSummary">ISS-ə kilidləyin və onu xəritədə izləyin</string>
+
+    <string name="infoTitle">Əlavə məlumat</string>
+    <string name="infoSummary">Xəritədə ISS haqqında əlavə məlumat verin</string>
+
+    <string name="mapTitle">Xəritə növü</string>
+    <string name="mapSummary">Əvvəlki səhifədən xəritə növünü dəyişdirin</string>
+
+    <string name="decimalTitle">Ondalıq yerlər</string>
+    <string name="decimalDialogMessage">Bütün ədədi dəyərlərin düzgünlüyünü dəyişdirin</string>
+    <string name="decimalSummary">Cari dəqiqlik səviyyəsi $1 onluq yerindədir</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Proqnoz xətti rəngi</string>
+    <string name="colorSummary">Proqnoz xətlərinin rəngini dəyişdirin</string>
+
+    <string name="sizeTitle">Proqnoz xəttinin ölçüsü</string>
+    <string name="sizeDialogMessage">ISS-in proqnoz xəttinin ölçüsünü dəyişdirin</string>
+    <string name="sizeSummary">Cari xəttin ölçüsü 1 dollardır</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Mətn ölçüsü</string>
+    <string name="textSizeDialogMessage">Bütün mətn dəyərlərinin ölçüsünü dəyişdirin</string>
+    <string name="textSizeSummary">Cari mətn ölçüsü $1-dir</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Mətnin rəngi</string>
+    <string name="textSummary">Mətn dəyərlərinin rəngini dəyişdirin</string>
+
+    <string name="textHighlightTitle">Mətn kontur</string>
+    <string name="textHighlightSummary">Mətn dəyərlərinin kontur rəngini dəyişdirin</string>
+
+    <string name="notificationTitle">ISS bildirişi</string>
+    <string name="notificationSummary">ISS-nin mənim yerim üzərində uçması gözlənilən zaman bildirin</string>
+
+    <string name="advertisementTitle">Banner</string>
+    <string name="advertisementSummary">Tətbiqdə banner reklamlarını deaktiv edin</string>
+
+    <string name="fullTitle">Tam Səhifə</string>
+    <string name="fullSummary">Tətbiqdə tam səhifə reklamlarını deaktiv edin</string>
+
+    
+    <string name="errorWebView">Səhifəni yükləmək mümkün deyil</string>
+    <string name="errorLocation">Məkanınızı tapmaq mümkün deyil.</string>
+    <string name="errorPermissionLocation">Məkanınıza giriş qadağan edildi</string>
+    <string name="errorConnection">Ya əlaqəniz yoxdur, ya da server həddən artıq yüklənib.</string>
+    <string name="errorNetwork">Naməlum xəta baş verib. Səhv: 401</string>
+    <string name="errorMap">Parametrləri xəritəyə tətbiq etmək mümkün deyil</string>
+    <string name="errorFiveTimes">Bütün 5 dəfə uğursuz oldu. Ya əlaqəniz yoxdur, ya da server həddən artıq yüklənib.</string>
+    <string name="errorLessFive">Serverə sorğu alınmadı. %1$d/5. %2$d saniyəyə cəhd edilir.</string>
+    <string name="errorWaitPoly">Artıq proqnoz xətləri yaradılır</string>
+    <string name="errorNotByMe">ISS Bildirişi sizin tərəfinizdən dayandırılmadı.</string>
+    <string name="errorNoWiki">wiki səhifəsi yoxdur</string>
+    <string name="errorNoTwitter">twitter hesabı yoxdur</string>
+    <string name="data_corrupted">Tətbiq məlumatları pozulub. Sıfırlanır!</string>
+    <string name="polyError">Proqnoz xətti yaratmaq mümkün deyil</string>
+    <string name="calendar">Təqvim</string>
+    <string name="share">Paylaşın</string>
+    <string name="image_content">İstifadəçi yeri üçün marker olan xəritənin şəkli.</string>
+    <string name="iss_sighting_share_title">ISS Nişanı</string>
+    <string name="iss_sighting_share_description">ISS burada görünəcək. Yoxlamağa gedirəm!</string>
+    <string name="iss_sighting_share_body">\"Onu yoxlamaq!\n\nISS \"də görünəcək\"</string>
+    <string name="iss_sighting_share_chooser">Paylaşın...</string>
+    <string name="on">\"haqqında\"</string>
+    <string name="one_day_in_space">Kosmosda 1 gün</string>
+    <string name="in_space">\"kosmosda\"</string>
+    <string name="day">\" gün\"</string>
+    <string name="month">\"ay\"</string>
+    <string name="year">\"il\"</string>
+    <string name="since">\"O vaxtdan\"</string>
+    <string name="tutorial_one_title">Salam :)</string>
+    <string name="tutorial_two_title">Əsas xüsusiyyətləri</string>
+</resources>

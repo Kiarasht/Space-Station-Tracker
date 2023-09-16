@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Hartă</string>
+    <string name="flybys_title">Flyby-uri</string>
+    <string name="space_title">La datorie</string>
+    <string name="settings_title">Setări</string>
+    <string name="help_title">Ajutor</string>
+
+    
+    <string name="flybys_summary">Verificați permisele ISS lângă locația dvs</string>
+    <string name="space_summary">Vezi cine este în spațiu acum</string>
+    <string name="settings_summary">Gestionați setările generale ale aplicației</string>
+    <string name="help_summary">Evaluați sau aflați despre aplicație</string>
+
+    
+    <string name="reset">Actualizează liniile de predicție</string>
+    <string name="stream">Trăi</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">prima data</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Nici unul</item>
+        <item>Normal</item>
+        <item>Satelit</item>
+        <item>Teren</item>
+        <item>Hibrid</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flyby-uri</string>
+    <string name="label_peopleinspace">Cine este în spațiu\?</string>
+    <string name="label_setting">Setări</string>
+    <string name="label_help">Ajutor</string>
+    <string name="label_stream">Transmitere live</string>
+
+    
+    <string name="startAlert">Notificați când ISS este în apropiere</string>
+    <string name="stopAlert">Nu mai anunțați când ISS este în apropiere</string>
+    <string name="startFullAds">Anunțurile pe toată pagina sunt activate. Multumesc pentru ajutor ;)</string>
+    <string name="startBannerAds">Anunțurile banner au fost activate. Multumesc pentru ajutor ;)</string>
+
+    
+    <string name="tutorialOne">Harta arată locația actuală a ISS cu o linie de predicție a locului în care va fi.</string>
+    <string name="tutorialTwo">Drawer vă duce la alte funcții, cum ar fi flyby-uri, setări etc...</string>
+    <string name="midAt">la</string>
+    <string name="checkerContentDescription">Pictograma reprezintă alegerea unei culori transparente</string>
+    <string name="countryFlagContentDescription">Steagul țării din care provine acest astronaut</string>
+    <string name="astronautTwitterContentDescription">Pictogramă pentru a trimite la pagina de Twitter a astronautului</string>
+    <string name="astronautWikiContentDescription">Pictogramă pentru a trimite la pagina wiki a astronautului</string>
+    <string name="astronautGoogleContentDescription">Pictogramă pentru a trimite la pagina de căutare Google a astronautului</string>
+
+    
+    <string name="refreshTitle">Rată de reîmprospătare</string>
+    <string name="refreshSummary">Rata de reîmprospătare actuală este de 1 USD/reîmprospătare</string>
+    <string name="declination_unit">sec/reîmprospătare</string>
+    <string name="refreshDialogMessage">Timp între actualizarea ISS la noua sa locație.</string>
+
+    <string name="lockTitle">Blocați ISS</string>
+    <string name="lockSummary">Blocați-vă pe ISS și urmați-l pe hartă</string>
+
+    <string name="infoTitle">Informații suplimentare</string>
+    <string name="infoSummary">Furnizați informații suplimentare despre ISS pe hartă</string>
+
+    <string name="mapTitle">Tip hartă</string>
+    <string name="mapSummary">Schimbați tipul hărții din pagina anterioară</string>
+
+    <string name="decimalTitle">Zecimale</string>
+    <string name="decimalDialogMessage">Modificați precizia tuturor valorilor numerice</string>
+    <string name="decimalSummary">Nivelul actual de precizie este de 1 $ zecimală</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Culoarea liniei de predicție</string>
+    <string name="colorSummary">Schimbați culoarea liniilor de predicție</string>
+
+    <string name="sizeTitle">Dimensiunea liniei de predicție</string>
+    <string name="sizeDialogMessage">Schimbați dimensiunea liniei de predicție a ISS</string>
+    <string name="sizeSummary">Dimensiunea curentă a liniei este de 1 USD</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Mărimea textului</string>
+    <string name="textSizeDialogMessage">Modificați dimensiunea tuturor valorilor textului</string>
+    <string name="textSizeSummary">Dimensiunea actuală a textului este de 1 USD</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Culoarea textului</string>
+    <string name="textSummary">Schimbați culoarea valorilor textului</string>
+
+    <string name="textHighlightTitle">Contur text</string>
+    <string name="textHighlightSummary">Schimbați culoarea conturului valorilor textului</string>
+
+    <string name="notificationTitle">Notificare ISS</string>
+    <string name="notificationSummary">Notificați când se așteaptă ca ISS să survoleze locația mea</string>
+
+    <string name="advertisementTitle">Banner</string>
+    <string name="advertisementSummary">Dezactivați anunțurile banner în aplicație</string>
+
+    <string name="fullTitle">Pagină plină</string>
+    <string name="fullSummary">Dezactivați anunțurile pe toată pagina în aplicație</string>
+
+    
+    <string name="errorWebView">Pagina nu se poate încărca</string>
+    <string name="errorLocation">Imposibil de găsit locația dvs.</string>
+    <string name="errorPermissionLocation">Accesul interzis la locația dvs</string>
+    <string name="errorConnection">Fie nu aveți conexiune, fie serverul este supraîncărcat.</string>
+    <string name="errorNetwork">A apărut o eroare necunoscută. Eroare: 401</string>
+    <string name="errorMap">Nu se pot aplica setările hărții</string>
+    <string name="errorFiveTimes">A eșuat de toate de 5 ori. Fie nu aveți conexiune, fie serverul este supraîncărcat.</string>
+    <string name="errorLessFive">Solicitarea către server a eșuat. %1$d din 5. Se încearcă în %2$d secunde.</string>
+    <string name="errorWaitPoly">Se creează deja linii de predicție</string>
+    <string name="errorNotByMe">Notificarea ISS nu a fost oprită de dvs.</string>
+    <string name="errorNoWiki">nu are o pagină wiki</string>
+    <string name="errorNoTwitter">nu are cont de twitter</string>
+    <string name="data_corrupted">Datele aplicației sunt corupte. Resetare!</string>
+    <string name="polyError">Nu se poate crea linia de predicție</string>
+    <string name="calendar">Calendar</string>
+    <string name="share">Acțiune</string>
+    <string name="image_content">Imagine a unei hărți cu un marcator pentru locația utilizatorului.</string>
+    <string name="iss_sighting_share_title">Observare ISS</string>
+    <string name="iss_sighting_share_description">ISS va fi vizibil aici. Merg să-l verific!</string>
+    <string name="iss_sighting_share_body">\"Verifică!\n\nISS va fi vizibil la \"</string>
+    <string name="iss_sighting_share_chooser">Acțiune…</string>
+    <string name="on">\" pe \"</string>
+    <string name="one_day_in_space">1 zi în spațiu</string>
+    <string name="in_space">\" in spatiu\"</string>
+    <string name="day">\"zi\"</string>
+    <string name="month">\"luna\"</string>
+    <string name="year">\"an\"</string>
+    <string name="since">\"De cand \"</string>
+    <string name="tutorial_one_title">Hei acolo :)</string>
+    <string name="tutorial_two_title">Caracteristici principale</string>
+</resources>

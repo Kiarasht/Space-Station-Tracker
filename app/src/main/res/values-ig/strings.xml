@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Maapụ</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">Na Ọrụ</string>
+    <string name="settings_title">Ntọala</string>
+    <string name="help_title">Enyemaka</string>
+
+    
+    <string name="flybys_summary">Lelee akwụkwọ ikike ISS site na ọnọdụ gị</string>
+    <string name="space_summary">Hụ onye nọ na mbara igwe ugbu a</string>
+    <string name="settings_summary">Jikwaa ntọala ngwa izugbe</string>
+    <string name="help_summary">Nweta ma ọ bụ mụta maka ngwa ahụ</string>
+
+    
+    <string name="reset">Weghachite ahịrị amụma</string>
+    <string name="stream">Dị ndụ</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">Oge mbụ</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Ọ dịghị</item>
+        <item>Nkịtị</item>
+        <item>Satellite</item>
+        <item>Ala</item>
+        <item>Ngwakọ</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">Onye nọ na Space\?</string>
+    <string name="label_setting">Ntọala</string>
+    <string name="label_help">Enyemaka</string>
+    <string name="label_stream">Live Stream</string>
+
+    
+    <string name="startAlert">Gwa mgbe ISS dị nso</string>
+    <string name="stopAlert">Kwụsị igosi mgbe ISS dị nso</string>
+    <string name="startFullAds">Agbanyere mgbasa ozi ibe zuru ezu. Daalụ maka nkwado ahụ;)</string>
+    <string name="startBannerAds">Agbanyere mgbasa ozi ọkọlọtọ. Daalụ maka nkwado ahụ;)</string>
+
+    
+    <string name="tutorialOne">Map na-egosi ọnọdụ ISS dị ugbu a yana ahịrị amụma nke ebe ọ ga-adị.</string>
+    <string name="tutorialTwo">Drawer na-eburu gị gaa na atụmatụ ndị ọzọ dị ka flybys, ntọala, wdg…</string>
+    <string name="midAt">na</string>
+    <string name="checkerContentDescription">Akara ngosi na-anọchi anya na ahọpụtara agba na-enweghị atụ</string>
+    <string name="countryFlagContentDescription">Ọkọlọtọ obodo nke a igwe elu igwe si</string>
+    <string name="astronautTwitterContentDescription">Akara iji jikọta na ibe twitter onye mbara igwe</string>
+    <string name="astronautWikiContentDescription">Akara iji jikọta na ibe wiki nke igwe mbara igwe</string>
+    <string name="astronautGoogleContentDescription">Akara iji jikọta na ibe ọchụchọ Google nke igwe mbara igwe</string>
+
+    
+    <string name="refreshTitle">Ọnụego ume ọhụrụ</string>
+    <string name="refreshSummary">Ọnụego ume ọhụrụ dị ugbu a bụ $1 sk/ume ọhụrụ</string>
+    <string name="declination_unit">sk/nweta ume</string>
+    <string name="refreshDialogMessage">Oge dị n\'etiti ISS na-emelite na ebe ọhụrụ ya.</string>
+
+    <string name="lockTitle">Mkpọchi ISS</string>
+    <string name="lockSummary">Kpọchie na ISS wee soro ya na maapụ</string>
+
+    <string name="infoTitle">Ozi nkowa mgbakwunye</string>
+    <string name="infoSummary">Nye ozi ndị ọzọ gbasara ISS na maapụ</string>
+
+    <string name="mapTitle">Ụdị map</string>
+    <string name="mapSummary">Gbanwee ụdị maapụ site na ibe gara aga</string>
+
+    <string name="decimalTitle">Ebe iri</string>
+    <string name="decimalDialogMessage">Gbanwee izi ezi nke ụkpụrụ ọnụọgụgụ niile</string>
+    <string name="decimalSummary">Ọkwa izi ezi ugbu a dị na $1 nkeji iri</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Agba akara amụma</string>
+    <string name="colorSummary">Gbanwee agba nke ahịrị amụma</string>
+
+    <string name="sizeTitle">Ogo ahịrị amụma</string>
+    <string name="sizeDialogMessage">Gbanwee nha ahịrị amụma ISS</string>
+    <string name="sizeSummary">Ogo ahịrị ugbu a bụ $1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Ogo ederede</string>
+    <string name="textSizeDialogMessage">Gbanwee nha nke ụkpụrụ ederede niile</string>
+    <string name="textSizeSummary">Ogo ederede ugbu a bụ $1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Agba ederede</string>
+    <string name="textSummary">Gbanwee agba nke ụkpụrụ ederede</string>
+
+    <string name="textHighlightTitle">Nkọwa ederede</string>
+    <string name="textHighlightSummary">Gbanwee agba ndepụta nke ụkpụrụ ederede</string>
+
+    <string name="notificationTitle">ISS ngosi</string>
+    <string name="notificationSummary">Gwa mgbe ISS ga-efefe n\'ebe m nọ</string>
+
+    <string name="advertisementTitle">ọkọlọtọ</string>
+    <string name="advertisementSummary">Gbanyụọ mgbasa ozi ọkọlọtọ na ngwa ahụ</string>
+
+    <string name="fullTitle">Ibe zuru ezu</string>
+    <string name="fullSummary">Gbanyụọ mgbasa ozi ibe zuru ezu na ngwa</string>
+
+    
+    <string name="errorWebView">Enweghị ike ibunye ibe</string>
+    <string name="errorLocation">Enweghị ike ịchọta ọnọdụ gị.</string>
+    <string name="errorPermissionLocation">Ajụrụ gị ịnweta ọnọdụ gị</string>
+    <string name="errorConnection">Ma ị nweghị njikọ ma ọ bụ ihe nkesa ebuola ibu.</string>
+    <string name="errorNetwork">Njehie amaghị ama emela. Mmehie: 401</string>
+    <string name="errorMap">Enweghị ike itinye ntọala na maapụ</string>
+    <string name="errorFiveTimes">Oge 5 dara ada. Ma ị nweghị njikọ ma ọ bụ ihe nkesa ebuola ibu.</string>
+    <string name="errorLessFive">Arịrịọ maka ihe nkesa adaghị. %1$d n\'ime 5. Na-agbalị na %2$d sekọnd.</string>
+    <string name="errorWaitPoly">Na-ekepụta ahịrị amụma</string>
+    <string name="errorNotByMe">Ị kwụsịghị ọkwa ISS.</string>
+    <string name="errorNoWiki">enweghị wiki ibe</string>
+    <string name="errorNoTwitter">enweghị akaụntụ twitter</string>
+    <string name="data_corrupted">E mebiela data ngwa. Na-atọgharị!</string>
+    <string name="polyError">Enweghị ike ịmepụta ahịrị amụma</string>
+    <string name="calendar">Kalenda</string>
+    <string name="share">Kekọrịta</string>
+    <string name="image_content">Onyonyo nke maapụ nwere akara maka ọnọdụ onye ọrụ.</string>
+    <string name="iss_sighting_share_title">ISS hụrụ</string>
+    <string name="iss_sighting_share_description">A ga-ahụ ISS ebe a. Na-aga ịlele ya!</string>
+    <string name="iss_sighting_share_body">\"Lelee ya!\n\nA ga-ahụ ISS na\"</string>
+    <string name="iss_sighting_share_chooser">Kekọrịta…</string>
+    <string name="on">\"na\"</string>
+    <string name="one_day_in_space">1 ụbọchị na oghere</string>
+    <string name="in_space">\"N\'ime oghere\"</string>
+    <string name="day">\"ụbọchị\"</string>
+    <string name="month">\"ọnwa\"</string>
+    <string name="year">\"afọ\"</string>
+    <string name="since">\"Ebe ọ bụ na\"</string>
+    <string name="tutorial_one_title">Lee anya :)</string>
+    <string name="tutorial_two_title">Isi atụmatụ</string>
+</resources>

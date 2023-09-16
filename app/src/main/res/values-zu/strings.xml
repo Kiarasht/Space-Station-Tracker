@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">I-ISS Tracker</string>
+
+    
+    <string name="map_activity">Imephu</string>
+    <string name="flybys_title">Ama-Flybys</string>
+    <string name="space_title">Emsebenzini</string>
+    <string name="settings_title">Izilungiselelo</string>
+    <string name="help_title">Usizo</string>
+
+    
+    <string name="flybys_summary">Hlola ukudlula kwe-ISS ngendawo yakho</string>
+    <string name="space_summary">Bona ukuthi ubani osemkhathini njengamanje</string>
+    <string name="settings_summary">Phatha izilungiselelo zohlelo lokusebenza olujwayelekile</string>
+    <string name="help_summary">Linganisa noma funda mayelana nohlelo lokusebenza</string>
+
+    
+    <string name="reset">Vuselela imigqa yokubikezela</string>
+    <string name="stream">Phila</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">okokuqala</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Lutho</item>
+        <item>Okuvamile</item>
+        <item>Isathelayithi</item>
+        <item>Isimo sezwe</item>
+        <item>Ingxubevange</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Ama-Flybys</string>
+    <string name="label_peopleinspace">Ubani osemkhathini\?</string>
+    <string name="label_setting">Izilungiselelo</string>
+    <string name="label_help">Usizo</string>
+    <string name="label_stream">Ukusakaza Bukhoma</string>
+
+    
+    <string name="startAlert">Yazisa uma i-ISS iseduze</string>
+    <string name="stopAlert">Misa ukwazisa uma i-ISS iseduze</string>
+    <string name="startFullAds">Izikhangiso zekhasi eligcwele zinikwe amandla. Siyabonga ngosekelo ;)</string>
+    <string name="startBannerAds">Izikhangiso zesibhengezo zinikwe amandla. Siyabonga ngosekelo ;)</string>
+
+    
+    <string name="tutorialOne">Imephu ibonisa indawo yamanje ye-ISS enomugqa wokuqagela walapho ezoba khona.</string>
+    <string name="tutorialTwo">Ikhabethe likuyisa kwezinye izici ezinjengama-flybys, izilungiselelo, njll...</string>
+    <string name="midAt">kwe</string>
+    <string name="checkerContentDescription">Isithonjana simelela ukuthi umbala okhanyelayo ukhethiwe</string>
+    <string name="countryFlagContentDescription">Hlaba umkhosi wezwe lo somkhathi usuka kuwo</string>
+    <string name="astronautTwitterContentDescription">Isithonjana sokuxhuma ekhasini le-twitter likasonkanyezi</string>
+    <string name="astronautWikiContentDescription">Isithonjana sokuxhuma ekhasini le-wiki likasonkanyezi</string>
+    <string name="astronautGoogleContentDescription">Isithonjana sokuxhuma ekhasini lokusesha le-Google likasonkanyezi</string>
+
+    
+    <string name="refreshTitle">Isilinganiso Sokuvuselela</string>
+    <string name="refreshSummary">Izinga lamanje lokuvuselela ngu-$1 isekhondi/ukuvuselela</string>
+    <string name="declination_unit">isekhondi/qala kabusha</string>
+    <string name="refreshDialogMessage">Isikhathi phakathi kwe-ISS yokubuyekezwa endaweni yayo entsha.</string>
+
+    <string name="lockTitle">Khiya i-ISS</string>
+    <string name="lockSummary">Khiya ku-ISS bese uyilandela kumephu</string>
+
+    <string name="infoTitle">Ulwazi Olwengeziwe</string>
+    <string name="infoSummary">Nikeza ulwazi olwengeziwe mayelana ne-ISS kumephu</string>
+
+    <string name="mapTitle">Uhlobo lwemephu</string>
+    <string name="mapSummary">Shintsha uhlobo lwemephu kusuka ekhasini eledlule</string>
+
+    <string name="decimalTitle">Izindawo zamadesimali</string>
+    <string name="decimalDialogMessage">Shintsha ukunemba kwawo wonke amanani ezinombolo</string>
+    <string name="decimalSummary">Ileveli yamanje yokunemba iku-$1 ezindaweni zedesimali</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Umbala womugqa wokubikezela</string>
+    <string name="colorSummary">Shintsha umbala wemigqa yokubikezela</string>
+
+    <string name="sizeTitle">Usayizi womugqa wokubikezela</string>
+    <string name="sizeDialogMessage">Shintsha usayizi womugqa wokubikezela we-ISS</string>
+    <string name="sizeSummary">Usayizi wamanje womugqa ungu-$1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Usayizi wombhalo</string>
+    <string name="textSizeDialogMessage">Shintsha usayizi wawo wonke amanani ombhalo</string>
+    <string name="textSizeSummary">Usayizi wombhalo wamanje ungu-$1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Umbala wombhalo</string>
+    <string name="textSummary">Shintsha umbala wamanani ombhalo</string>
+
+    <string name="textHighlightTitle">Uhlaka Lombhalo</string>
+    <string name="textHighlightSummary">Shintsha umbala wohlaka wamanani ombhalo</string>
+
+    <string name="notificationTitle">Isaziso se-ISS</string>
+    <string name="notificationSummary">Yazisa uma i-ISS ilindeleke ukuthi indize phezu kwendawo yami</string>
+
+    <string name="advertisementTitle">Isibhengezo</string>
+    <string name="advertisementSummary">Khubaza izikhangiso zesibhengezo kuhlelo lokusebenza</string>
+
+    <string name="fullTitle">Ikhasi Eligcwele</string>
+    <string name="fullSummary">Khubaza izikhangiso zekhasi eligcwele ohlelweni lokusebenza</string>
+
+    
+    <string name="errorWebView">Ayikwazi ukulayisha ikhasi</string>
+    <string name="errorLocation">Ayikwazi ukuthola indawo yakho.</string>
+    <string name="errorPermissionLocation">Unqatshelwe ukufinyelela indawo yakho</string>
+    <string name="errorConnection">Kuphakathi kokuthi awunakho uxhumano noma iseva ilayishwe kakhulu.</string>
+    <string name="errorNetwork">Kwenzeke iphutha elingaziwa. Iphutha: 401</string>
+    <string name="errorMap">Ayikwazi ukusebenzisa izilungiselelo kumephu</string>
+    <string name="errorFiveTimes">Yehlulekile zonke izikhathi ezi-5. Kuphakathi kokuthi awunakho uxhumano noma iseva ilayishwe kakhulu.</string>
+    <string name="errorLessFive">Isicelo esiya kuseva sihlulekile. %1$d kokungu-5. Izama kumasekhondi angu-%2$d.</string>
+    <string name="errorWaitPoly">Usuvele udala imigqa yokubikezela</string>
+    <string name="errorNotByMe">Isaziso se-ISS asimiswanga nguwe.</string>
+    <string name="errorNoWiki">ayinalo ikhasi le-wiki</string>
+    <string name="errorNoTwitter">akanayo i-akhawunti ye-twitter</string>
+    <string name="data_corrupted">Idatha yohlelo lokusebenza yonakele. Isetha kabusha!</string>
+    <string name="polyError">Ayikwazi ekudaleni umugqa wokubikezela</string>
+    <string name="calendar">Ikhalenda</string>
+    <string name="share">Yabelana</string>
+    <string name="image_content">Isithombe semephu enomaka wendawo yomsebenzisi.</string>
+    <string name="iss_sighting_share_title">Ukubona kwe-ISS</string>
+    <string name="iss_sighting_share_description">I-ISS izobonakala lapha. Ngizoyihlola!</string>
+    <string name="iss_sighting_share_body">\"Kuhlole!\n\nI-ISS izobonakala kokuthi \"</string>
+    <string name="iss_sighting_share_chooser">Yabelana...</string>
+    <string name="on">\"ku\"</string>
+    <string name="one_day_in_space">Usuku olungu-1 esikhaleni</string>
+    <string name="in_space">\"emkhathini\"</string>
+    <string name="day">\"usuku\"</string>
+    <string name="month">\"inyanga\"</string>
+    <string name="year">\"unyaka\"</string>
+    <string name="since">\"Kusukela\"</string>
+    <string name="tutorial_one_title">Sawubona :)</string>
+    <string name="tutorial_two_title">Izici Eziyinhloko</string>
+</resources>

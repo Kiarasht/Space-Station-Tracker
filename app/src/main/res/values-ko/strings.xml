@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS 추적기</string>
+
+    
+    <string name="map_activity">지도</string>
+    <string name="flybys_title">저공비행</string>
+    <string name="space_title">근무중인</string>
+    <string name="settings_title">설정</string>
+    <string name="help_title">돕다</string>
+
+    
+    <string name="flybys_summary">귀하의 위치별로 ISS 패스를 확인하세요</string>
+    <string name="space_summary">지금 우주에 누가 있는지 확인하세요</string>
+    <string name="settings_summary">일반 앱 설정 관리</string>
+    <string name="help_summary">앱을 평가하거나 앱에 대해 알아보세요.</string>
+
+    
+    <string name="reset">예측 라인 새로 고침</string>
+    <string name="stream">살다</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">처음으로</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>삼</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>없음</item>
+        <item>정상</item>
+        <item>위성</item>
+        <item>지역</item>
+        <item>잡종</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">저공비행</string>
+    <string name="label_peopleinspace">우주에는 누가 있나요\?</string>
+    <string name="label_setting">설정</string>
+    <string name="label_help">돕다</string>
+    <string name="label_stream">라이브 스트림</string>
+
+    
+    <string name="startAlert">ISS가 가까이 있을 때 알림</string>
+    <string name="stopAlert">ISS가 근처에 있을 때 알림 중지</string>
+    <string name="startFullAds">전체 페이지 광고가 활성화되었습니다. 도와 주셔서 감사합니다 ;)</string>
+    <string name="startBannerAds">배너 광고가 활성화되었습니다. 도와 주셔서 감사합니다 ;)</string>
+
+    
+    <string name="tutorialOne">지도는 ISS의 현재 위치를 예측선과 함께 보여줍니다.</string>
+    <string name="tutorialTwo">서랍은 비행, 설정 등과 같은 다른 기능으로 이동합니다.</string>
+    <string name="midAt">~에</string>
+    <string name="checkerContentDescription">아이콘은 투명한 색상이 선택되었음을 나타냅니다.</string>
+    <string name="countryFlagContentDescription">이 우주비행사의 출신국 국기</string>
+    <string name="astronautTwitterContentDescription">우주비행사의 트위터 페이지로 연결되는 아이콘</string>
+    <string name="astronautWikiContentDescription">우주비행사의 위키 페이지로 연결되는 아이콘</string>
+    <string name="astronautGoogleContentDescription">우주비행사의 Google 검색 페이지로 연결되는 아이콘</string>
+
+    
+    <string name="refreshTitle">재생률</string>
+    <string name="refreshSummary">현재 새로 고침 빈도는 $1초/새로 고침입니다.</string>
+    <string name="declination_unit">초/새로고침</string>
+    <string name="refreshDialogMessage">ISS가 새 위치로 업데이트되는 사이의 시간입니다.</string>
+
+    <string name="lockTitle">ISS 잠금</string>
+    <string name="lockSummary">ISS를 잠그고 지도에서 따라가세요</string>
+
+    <string name="infoTitle">추가 정보</string>
+    <string name="infoSummary">지도에 ISS에 대한 추가 정보 제공</string>
+
+    <string name="mapTitle">지도 유형</string>
+    <string name="mapSummary">이전 페이지에서 지도 유형 변경</string>
+
+    <string name="decimalTitle">소수점 자리</string>
+    <string name="decimalDialogMessage">모든 숫자 값의 정확도 변경</string>
+    <string name="decimalSummary">현재 정확도 수준은 소수점 $1 자리입니다.</string>
+    <string name="decimalUnit">DP</string>
+
+    <string name="colorTitle">예측선 색상</string>
+    <string name="colorSummary">예측선 색상 변경</string>
+
+    <string name="sizeTitle">예측 라인 크기</string>
+    <string name="sizeDialogMessage">ISS의 예측선 크기 변경</string>
+    <string name="sizeSummary">현재 줄 크기는 $1입니다.</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">텍스트 크기</string>
+    <string name="textSizeDialogMessage">모든 텍스트 값의 크기 변경</string>
+    <string name="textSizeSummary">현재 텍스트 크기는 $1입니다.</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">텍스트 색상</string>
+    <string name="textSummary">텍스트 값의 색상 변경</string>
+
+    <string name="textHighlightTitle">텍스트 개요</string>
+    <string name="textHighlightSummary">텍스트 값의 윤곽선 색상 변경</string>
+
+    <string name="notificationTitle">ISS 알림</string>
+    <string name="notificationSummary">ISS가 내 위치 위로 날아갈 것으로 예상되는 경우 알림</string>
+
+    <string name="advertisementTitle">배너</string>
+    <string name="advertisementSummary">앱에서 배너 광고 비활성화</string>
+
+    <string name="fullTitle">전체 페이지</string>
+    <string name="fullSummary">앱에서 전체 페이지 광고를 비활성화합니다.</string>
+
+    
+    <string name="errorWebView">페이지를 로드할 수 없습니다.</string>
+    <string name="errorLocation">귀하의 위치를 ​​찾을 수 없습니다.</string>
+    <string name="errorPermissionLocation">귀하의 위치에 대한 액세스가 거부되었습니다.</string>
+    <string name="errorConnection">연결이 없거나 서버가 과부하되었습니다.</string>
+    <string name="errorNetwork">알 수 없는 오류가 발생했습니다. 오류: 401</string>
+    <string name="errorMap">지도에 설정을 적용할 수 없습니다.</string>
+    <string name="errorFiveTimes">5번 모두 실패했습니다. 연결이 없거나 서버가 과부하되었습니다.</string>
+    <string name="errorLessFive">서버에 대한 요청이 실패했습니다. 5개 중 %1$d개. %2$d초 후에 시도합니다.</string>
+    <string name="errorWaitPoly">이미 예측선을 생성 중입니다.</string>
+    <string name="errorNotByMe">ISS 알림은 귀하에 의해 중단되지 않았습니다.</string>
+    <string name="errorNoWiki">위키 페이지가 없습니다</string>
+    <string name="errorNoTwitter">트위터 계정이 없습니다</string>
+    <string name="data_corrupted">앱 데이터가 손상되었습니다. 재설정 중!</string>
+    <string name="polyError">예측 라인을 생성할 수 없습니다.</string>
+    <string name="calendar">달력</string>
+    <string name="share">공유하다</string>
+    <string name="image_content">사용자 위치 표시가 있는 지도 이미지</string>
+    <string name="iss_sighting_share_title">ISS 조준</string>
+    <string name="iss_sighting_share_description">ISS가 여기에 표시됩니다. 확인하러 갑니다!</string>
+    <string name="iss_sighting_share_body">\"확인 해봐!\n\nISS는 \"에서 볼 수 있습니다.</string>
+    <string name="iss_sighting_share_chooser">공유하다…</string>
+    <string name="on">\" 에 \"</string>
+    <string name="one_day_in_space">우주에서의 1일</string>
+    <string name="in_space">\"우주에서\"</string>
+    <string name="day">\" 낮\"</string>
+    <string name="month">\" 월\"</string>
+    <string name="year">\" 년도\"</string>
+    <string name="since">\"부터 \"</string>
+    <string name="tutorial_one_title">안녕하세요 :)</string>
+    <string name="tutorial_two_title">주요 특징</string>
+</resources>

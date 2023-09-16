@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Karta</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">Nobatçy</string>
+    <string name="settings_title">Sazlamalar</string>
+    <string name="help_title">Kömek ediň</string>
+
+    
+    <string name="flybys_summary">ISS-iň geçişini ýerleşýän ýeriňizi barlaň</string>
+    <string name="space_summary">Kosmosda kimiň bardygyny görüň</string>
+    <string name="settings_summary">Umumy programma sazlamalaryny dolandyryň</string>
+    <string name="help_summary">Programma baha beriň ýa-da öwreniň</string>
+
+    
+    <string name="reset">Çaklama setirlerini täzeläň</string>
+    <string name="stream">Göni</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">birinji sapar</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Hiç</item>
+        <item>Adaty</item>
+        <item>Sputnik</item>
+        <item>Terrain</item>
+        <item>Gibrid</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">Kosmosda kim bar\?</string>
+    <string name="label_setting">Sazlamalar</string>
+    <string name="label_help">Kömek ediň</string>
+    <string name="label_stream">Göni ýaýlym</string>
+
+    
+    <string name="startAlert">ISS-iň haçan ýakyndygyny habar beriň</string>
+    <string name="stopAlert">ISS ýakyn wagty habar bermegi bes ediň</string>
+    <string name="startFullAds">Doly sahypa mahabatlary açyk. Goldaw üçin sag boluň;)</string>
+    <string name="startBannerAds">Banner mahabatlary açyk. Goldaw üçin sag boluň;)</string>
+
+    
+    <string name="tutorialOne">Kartada ISS-iň häzirki ýerleşişini, nirede boljakdygyny çaklamak çyzgysy görkezilýär.</string>
+    <string name="tutorialTwo">Çyzgy sizi uçuşlar, sazlamalar we ş.m. ýaly beýleki aýratynlyklara alyp barýar…</string>
+    <string name="midAt">at</string>
+    <string name="checkerContentDescription">Nyşan, açyk reňkiň saýlanandygyny aňladýar</string>
+    <string name="countryFlagContentDescription">Bu kosmonawtyň ýurt baýdagy</string>
+    <string name="astronautTwitterContentDescription">Kosmonawtyň twitter sahypasyna baglanyşyk nyşany</string>
+    <string name="astronautWikiContentDescription">Kosmonawtyň wiki sahypasyna baglanyşyk nyşany</string>
+    <string name="astronautGoogleContentDescription">Kosmonawtyň Google gözleg sahypasyna baglanyşyk üçin nyşan</string>
+
+    
+    <string name="refreshTitle">Bahany täzeläň</string>
+    <string name="refreshSummary">Häzirki täzeleniş tizligi $ 1 sek /täzelenme</string>
+    <string name="declination_unit">sek /täzelen</string>
+    <string name="refreshDialogMessage">ISS-iň arasyndaky täze wagt täzelenýär.</string>
+
+    <string name="lockTitle">ISS-i gulplaň</string>
+    <string name="lockSummary">ISS-e gulplaň we kartada yzarlaň</string>
+
+    <string name="infoTitle">Goşmaça maglumat</string>
+    <string name="infoSummary">Kartada ISS hakda goşmaça maglumat beriň</string>
+
+    <string name="mapTitle">Kartanyň görnüşi</string>
+    <string name="mapSummary">Öňki sahypadan kartanyň görnüşini üýtgediň</string>
+
+    <string name="decimalTitle">Onluk ýerler</string>
+    <string name="decimalDialogMessage">Numhli san bahalarynyň takyklygyny üýtgediň</string>
+    <string name="decimalSummary">Häzirki takyklyk derejesi $ 1 onluk ýerde</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Çaklamanyň çyzygynyň reňki</string>
+    <string name="colorSummary">Çaklama setirleriniň reňkini üýtgediň</string>
+
+    <string name="sizeTitle">Çaklama setiriniň ululygy</string>
+    <string name="sizeDialogMessage">ISS-iň çaklama setiriniň ululygyny üýtgediň</string>
+    <string name="sizeSummary">Häzirki setiriň ululygy $ 1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Tekstiň ululygy</string>
+    <string name="textSizeDialogMessage">Texthli tekst bahalarynyň ululygyny üýtgediň</string>
+    <string name="textSizeSummary">Häzirki tekst ölçegi $ 1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Tekstiň reňki</string>
+    <string name="textSummary">Tekst bahalarynyň reňkini üýtgediň</string>
+
+    <string name="textHighlightTitle">Tekstiň görnüşi</string>
+    <string name="textHighlightSummary">Tekst bahalarynyň çyzgy reňkini üýtgediň</string>
+
+    <string name="notificationTitle">ISS habarnamasy</string>
+    <string name="notificationSummary">ISS-iň haçan meniň ýerleşýän ýerimden uçjakdygyna habar beriň</string>
+
+    <string name="advertisementTitle">Banner</string>
+    <string name="advertisementSummary">Programmada banner mahabatlaryny öçüriň</string>
+
+    <string name="fullTitle">Doly sahypa</string>
+    <string name="fullSummary">Programmada doly sahypa mahabatlaryny öçüriň</string>
+
+    
+    <string name="errorWebView">Sahypany ýükläp bolmaýar</string>
+    <string name="errorLocation">Locationeriňizi tapyp bilmedim</string>
+    <string name="errorPermissionLocation">Locationeriňize girmekden ýüz öwürdi</string>
+    <string name="errorConnection">Youa-da baglanyşyk ýok ýa-da serwer aşa ýüklenendir.</string>
+    <string name="errorNetwork">Näbelli ýalňyşlyk ýüze çykdy. Roralňyşlyk: 401</string>
+    <string name="errorMap">Sazlamalary karta ulanyp bolmaýar</string>
+    <string name="errorFiveTimes">Hemmesi 5 gezek şowsuz boldy. Youa-da baglanyşyk ýok ýa-da serwer aşa ýüklenendir.</string>
+    <string name="errorLessFive">Serwere haýyş başa barmady. 5-den %1$d. %2$d sekuntda synap görmek.</string>
+    <string name="errorWaitPoly">Eýýäm çaklama setirlerini döredýär</string>
+    <string name="errorNotByMe">ISS habarnamasy siz tarapyndan saklanmady.</string>
+    <string name="errorNoWiki">wiki sahypasy ýok</string>
+    <string name="errorNoTwitter">twitter hasaby ýok</string>
+    <string name="data_corrupted">Programma maglumatlary zaýalanýar. Täzeden düzmek!</string>
+    <string name="polyError">Çaklama setirini döredip bolmaýar</string>
+    <string name="calendar">Senenama</string>
+    <string name="share">Paýlaş</string>
+    <string name="image_content">Ulanyjynyň ýerleşýän ýeri üçin markerli kartanyň şekili.</string>
+    <string name="iss_sighting_share_title">ISS görmek</string>
+    <string name="iss_sighting_share_description">ISS şu ýerde görüner. Barlamaga gitmek!</string>
+    <string name="iss_sighting_share_body">\"Barlap görüň!\n\nISS-de görüner \"</string>
+    <string name="iss_sighting_share_chooser">Paýlaş ...</string>
+    <string name="on">\"on\"</string>
+    <string name="one_day_in_space">Kosmosda 1 gün</string>
+    <string name="in_space">\"kosmosda\"</string>
+    <string name="day">\"gün\"</string>
+    <string name="month">\"aý\"</string>
+    <string name="year">\"ýyl\"</string>
+    <string name="since">\"Şondan bäri\"</string>
+    <string name="tutorial_one_title">Heý bar :)</string>
+    <string name="tutorial_two_title">Esasy aýratynlyklary</string>
+</resources>

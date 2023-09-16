@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS ट्रॅकर</string>
+
+    
+    <string name="map_activity">नकाशा</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">कर्तव्य</string>
+    <string name="settings_title">सेटिंग्ज</string>
+    <string name="help_title">मदत करा</string>
+
+    
+    <string name="flybys_summary">तुमच्या स्थानावरून ISS चे पास तपासा</string>
+    <string name="space_summary">सध्या अंतराळात कोण आहे ते पहा</string>
+    <string name="settings_summary">सामान्य अॅप सेटिंग्ज व्यवस्थापित करा</string>
+    <string name="help_summary">रेट करा किंवा अॅपबद्दल जाणून घ्या</string>
+
+    
+    <string name="reset">अंदाज रेषा रिफ्रेश करा</string>
+    <string name="stream">राहतात</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">पहिल्यांदा</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>१</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>काहीही नाही</item>
+        <item>सामान्य</item>
+        <item>उपग्रह</item>
+        <item>भूप्रदेश</item>
+        <item>संकरित</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">अंतराळात कोण आहे\?</string>
+    <string name="label_setting">सेटिंग्ज</string>
+    <string name="label_help">मदत करा</string>
+    <string name="label_stream">थेट प्रसारण</string>
+
+    
+    <string name="startAlert">ISS जवळ असताना सूचित करा</string>
+    <string name="stopAlert">ISS जवळ असताना सूचित करणे थांबवा</string>
+    <string name="startFullAds">पूर्ण पृष्ठ जाहिराती सक्षम. समर्थनासाठी धन्यवाद ;)</string>
+    <string name="startBannerAds">बॅनर जाहिराती सक्षम केल्या. समर्थनासाठी धन्यवाद ;)</string>
+
+    
+    <string name="tutorialOne">नकाशा ISS चे वर्तमान स्थान कोठे असेल याच्या अंदाजानुसार दाखवतो.</string>
+    <string name="tutorialTwo">ड्रॉवर तुम्हाला इतर वैशिष्ट्यांवर घेऊन जातो जसे की फ्लायबाय, सेटिंग्ज इ.…</string>
+    <string name="midAt">येथे</string>
+    <string name="checkerContentDescription">चिन्ह दर्शवितो की पारदर्शक रंग निवडला आहे</string>
+    <string name="countryFlagContentDescription">हा अंतराळवीर देशाचा ध्वज आहे</string>
+    <string name="astronautTwitterContentDescription">अंतराळवीराच्या ट्विटर पृष्ठाशी लिंक करण्यासाठी चिन्ह</string>
+    <string name="astronautWikiContentDescription">अंतराळवीराच्या विकी पृष्ठाशी लिंक करण्यासाठी चिन्ह</string>
+    <string name="astronautGoogleContentDescription">अंतराळवीराच्या Google शोध पृष्ठाशी दुवा साधण्यासाठी चिन्ह</string>
+
+    
+    <string name="refreshTitle">रीफ्रेश दर</string>
+    <string name="refreshSummary">वर्तमान रिफ्रेश दर $1 सेकंद/रिफ्रेश आहे</string>
+    <string name="declination_unit">सेकंद/रिफ्रेश</string>
+    <string name="refreshDialogMessage">ISS मधील वेळ त्याच्या नवीन स्थानावर अपडेट होत आहे.</string>
+
+    <string name="lockTitle">ISS लॉक करा</string>
+    <string name="lockSummary">ISS वर लॉक करा आणि नकाशावर त्याचे अनुसरण करा</string>
+
+    <string name="infoTitle">अतिरिक्त माहिती</string>
+    <string name="infoSummary">नकाशावर ISS बद्दल अतिरिक्त माहिती प्रदान करा</string>
+
+    <string name="mapTitle">नकाशा प्रकार</string>
+    <string name="mapSummary">मागील पृष्ठावरून नकाशा प्रकार बदला</string>
+
+    <string name="decimalTitle">दशांश ठिकाणी</string>
+    <string name="decimalDialogMessage">सर्व संख्यात्मक मूल्यांची अचूकता बदला</string>
+    <string name="decimalSummary">सध्याची अचूकता पातळी $1 दशांश ठिकाणी आहे</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">अंदाज रेखा रंग</string>
+    <string name="colorSummary">अंदाज रेखांचा रंग बदला</string>
+
+    <string name="sizeTitle">अंदाज रेखा आकार</string>
+    <string name="sizeDialogMessage">ISS च्या अंदाज रेषेचा आकार बदला</string>
+    <string name="sizeSummary">वर्तमान रेषेचा आकार $1 आहे</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">मजकूर आकार</string>
+    <string name="textSizeDialogMessage">सर्व मजकूर मूल्यांचा आकार बदला</string>
+    <string name="textSizeSummary">वर्तमान मजकूर आकार $1 आहे</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">मजकूर रंग</string>
+    <string name="textSummary">मजकूर मूल्यांचा रंग बदला</string>
+
+    <string name="textHighlightTitle">मजकूर बाह्यरेखा</string>
+    <string name="textHighlightSummary">मजकूर मूल्यांचा बाह्यरेखा रंग बदला</string>
+
+    <string name="notificationTitle">ISS सूचना</string>
+    <string name="notificationSummary">माझ्या स्थानावरून ISS उडणे अपेक्षित असताना सूचित करा</string>
+
+    <string name="advertisementTitle">बॅनर</string>
+    <string name="advertisementSummary">अॅपवरील बॅनर जाहिराती अक्षम करा</string>
+
+    <string name="fullTitle">पूर्ण पान</string>
+    <string name="fullSummary">अॅपवरील संपूर्ण पृष्ठ जाहिराती अक्षम करा</string>
+
+    
+    <string name="errorWebView">पृष्ठ लोड करण्यात अक्षम</string>
+    <string name="errorLocation">तुमचे स्थान शोधण्यात अक्षम.</string>
+    <string name="errorPermissionLocation">तुमच्या स्थानावर प्रवेश नाकारला</string>
+    <string name="errorConnection">एकतर तुमच्याकडे कनेक्शन नाही किंवा सर्व्हर ओव्हरलोड झाला आहे.</string>
+    <string name="errorNetwork">एक अज्ञात त्रुटी आली आहे. त्रुटी: 401</string>
+    <string name="errorMap">नकाशावर सेटिंग्ज लागू करू शकत नाही</string>
+    <string name="errorFiveTimes">सर्व 5 वेळा अयशस्वी. एकतर तुमच्याकडे कनेक्शन नाही किंवा सर्व्हर ओव्हरलोड झाला आहे.</string>
+    <string name="errorLessFive">सर्व्हरची विनंती अयशस्वी. 5 पैकी %1$d. %2$d सेकंदात प्रयत्न करत आहे.</string>
+    <string name="errorWaitPoly">आधीच अंदाज रेखा तयार करत आहे</string>
+    <string name="errorNotByMe">ISS अधिसूचना तुमच्याद्वारे थांबवली गेली नाही.</string>
+    <string name="errorNoWiki">विकी पृष्ठ नाही</string>
+    <string name="errorNoTwitter">ट्विटर खाते नाही</string>
+    <string name="data_corrupted">अॅप डेटा करप्ट झाला आहे. रीसेट करत आहे!</string>
+    <string name="polyError">अंदाज रेखा तयार करण्यात अक्षम</string>
+    <string name="calendar">कॅलेंडर</string>
+    <string name="share">शेअर करा</string>
+    <string name="image_content">वापरकर्त्याच्या स्थानासाठी मार्करसह नकाशाची प्रतिमा.</string>
+    <string name="iss_sighting_share_title">ISS पाहणे</string>
+    <string name="iss_sighting_share_description">ISS येथे दृश्यमान असेल. ते तपासण्यासाठी जात आहे!</string>
+    <string name="iss_sighting_share_body">\"ते पहा!\n\nISS येथे दृश्यमान होईल \"</string>
+    <string name="iss_sighting_share_chooser">शेअर करा...</string>
+    <string name="on">\"चालू\"</string>
+    <string name="one_day_in_space">अंतराळात 1 दिवस</string>
+    <string name="in_space">\"अंतराळात\"</string>
+    <string name="day">\"दिवस\"</string>
+    <string name="month">\"महिना\"</string>
+    <string name="year">\"वर्ष\"</string>
+    <string name="since">\"पासून\"</string>
+    <string name="tutorial_one_title">अहो :)</string>
+    <string name="tutorial_two_title">मुख्य वैशिष्ट्ये</string>
+</resources>

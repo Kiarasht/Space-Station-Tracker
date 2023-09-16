@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">አይኤስኤስ መከታተያ</string>
+
+    
+    <string name="map_activity">ካርታ</string>
+    <string name="flybys_title">ፍላይቢስ</string>
+    <string name="space_title">በስራ ላይ</string>
+    <string name="settings_title">ቅንብሮች</string>
+    <string name="help_title">እገዛ</string>
+
+    
+    <string name="flybys_summary">በአከባቢዎ የአይኤስኤስ ማለፊያዎችን ያረጋግጡ</string>
+    <string name="space_summary">አሁን ማን በጠፈር ላይ እንዳለ ይመልከቱ</string>
+    <string name="settings_summary">አጠቃላይ የመተግበሪያ ቅንብሮችን ያቀናብሩ</string>
+    <string name="help_summary">ስለመተግበሪያው ደረጃ ይስጡ ወይም ይወቁ</string>
+
+    
+    <string name="reset">የትንበያ መስመሮችን ያድሱ</string>
+    <string name="stream">ቀጥታ</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">የመጀመሪያ ግዜ</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>ምንም</item>
+        <item>መደበኛ</item>
+        <item>ሳተላይት</item>
+        <item>የመሬት አቀማመጥ</item>
+        <item>ድቅል</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">ፍላይቢስ</string>
+    <string name="label_peopleinspace">በ Space ውስጥ ያለው ማነው\?</string>
+    <string name="label_setting">ቅንብሮች</string>
+    <string name="label_help">እገዛ</string>
+    <string name="label_stream">የቀጥታ ዥረት</string>
+
+    
+    <string name="startAlert">አይኤስኤስ ሲጠጋ አሳውቅ</string>
+    <string name="stopAlert">አይኤስኤስ ሲጠጋ ማሳወቅ ያቁሙ</string>
+    <string name="startFullAds">የሙሉ ገጽ ማስታወቂያዎች ነቅተዋል። ለድጋፉ እናመሰግናለን ;)</string>
+    <string name="startBannerAds">የባነር ማስታወቂያዎች ነቅተዋል። ለድጋፉ እናመሰግናለን ;)</string>
+
+    
+    <string name="tutorialOne">ካርታው የአይኤስኤስን መገኛ የት እንደሚሆን ከሚገመተው መስመር ጋር ያሳያል።</string>
+    <string name="tutorialTwo">መሳቢያ እርስዎን ወደ ሌሎች እንደ ፍላይቢስ፣ መቼቶች፣ ወዘተ...</string>
+    <string name="midAt">በ</string>
+    <string name="checkerContentDescription">አዶ ግልጽ የሆነ ቀለም መመረጡን ይወክላል</string>
+    <string name="countryFlagContentDescription">የሀገር ባንዲራ ይህ ጠፈርተኛ የመጣ ነው።</string>
+    <string name="astronautTwitterContentDescription">ወደ የጠፈር ተመራማሪው የትዊተር ገጽ የማገናኘት አዶ</string>
+    <string name="astronautWikiContentDescription">ወደ የጠፈር ተመራማሪው የዊኪ ገጽ የማገናኘት አዶ</string>
+    <string name="astronautGoogleContentDescription">ወደ የጠፈር ተመራማሪው ጎግል መፈለጊያ ገጽ የማገናኘት አዶ</string>
+
+    
+    <string name="refreshTitle">የማደስ ደረጃ</string>
+    <string name="refreshSummary">የአሁኑ የማደሻ መጠን $1 ሰከንድ/በታደሰ ነው።</string>
+    <string name="declination_unit">ሰከንድ/አድስ</string>
+    <string name="refreshDialogMessage">በአይኤስኤስ መካከል ያለው ጊዜ ወደ አዲሱ ቦታው እየተዘመነ ነው።</string>
+
+    <string name="lockTitle">አይኤስኤስን ቆልፍ</string>
+    <string name="lockSummary">አይኤስኤስ ላይ ቆልፈው በካርታው ላይ ይከተሉት።</string>
+
+    <string name="infoTitle">ተጨማሪ መረጃ</string>
+    <string name="infoSummary">ስለ አይኤስኤስ ተጨማሪ መረጃ በካርታው ላይ ያቅርቡ</string>
+
+    <string name="mapTitle">የካርታ አይነት</string>
+    <string name="mapSummary">የካርታውን አይነት ከቀዳሚው ገጽ ይለውጡ</string>
+
+    <string name="decimalTitle">የአስርዮሽ ቦታዎች</string>
+    <string name="decimalDialogMessage">የሁሉንም የቁጥር እሴቶች ትክክለኛነት ይቀይሩ</string>
+    <string name="decimalSummary">የአሁኑ ትክክለኛነት ደረጃ በ$1 አስርዮሽ ቦታዎች ላይ ነው።</string>
+    <string name="decimalUnit">ዲፒ</string>
+
+    <string name="colorTitle">የትንበያ መስመር ቀለም</string>
+    <string name="colorSummary">የትንበያ መስመሮችን ቀለም ይለውጡ</string>
+
+    <string name="sizeTitle">የትንበያ መስመር መጠን</string>
+    <string name="sizeDialogMessage">የአይኤስኤስ ትንበያ መስመር መጠን ይቀይሩ</string>
+    <string name="sizeSummary">የአሁኑ መስመር መጠን $1 ነው።</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">የጽሑፍ መጠን</string>
+    <string name="textSizeDialogMessage">የሁሉንም የጽሑፍ እሴቶች መጠን ይቀይሩ</string>
+    <string name="textSizeSummary">የአሁኑ የጽሑፍ መጠን $1 ነው።</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">የጽሑፍ ቀለም</string>
+    <string name="textSummary">የጽሑፍ እሴቶችን ቀለም ይለውጡ</string>
+
+    <string name="textHighlightTitle">የጽሑፍ መግለጫ</string>
+    <string name="textHighlightSummary">የጽሑፍ እሴቶችን ንድፍ ቀለም ይለውጡ</string>
+
+    <string name="notificationTitle">የአይኤስኤስ ማስታወቂያ</string>
+    <string name="notificationSummary">አይኤስኤስ በእኔ ቦታ ላይ እንዲበር ሲጠበቅ አሳውቅ</string>
+
+    <string name="advertisementTitle">ባነር</string>
+    <string name="advertisementSummary">በመተግበሪያው ላይ የባነር ማስታወቂያዎችን አሰናክል</string>
+
+    <string name="fullTitle">ሙሉ ገጽ</string>
+    <string name="fullSummary">በመተግበሪያው ላይ የሙሉ ገጽ ማስታወቂያዎችን አሰናክል</string>
+
+    
+    <string name="errorWebView">ገጽ መጫን አልተቻለም</string>
+    <string name="errorLocation">አካባቢዎን ማግኘት አልተቻለም።</string>
+    <string name="errorPermissionLocation">የእርስዎን አካባቢ መዳረሻ ተከልክሏል።</string>
+    <string name="errorConnection">ምንም ግንኙነት የለህም ወይ አገልጋይ ከልክ በላይ ተጭኗል።</string>
+    <string name="errorNetwork">ያልታወቀ ስህተት ተከስቷል. ስህተት፡ 401</string>
+    <string name="errorMap">በካርታው ላይ ቅንብሮችን መተግበር አልተቻለም</string>
+    <string name="errorFiveTimes">ሁሉም 5 ጊዜ አልተሳካም። ምንም ግንኙነት የለህም ወይ አገልጋይ ከልክ በላይ ተጭኗል።</string>
+    <string name="errorLessFive">የአገልጋይ ጥያቄ አልተሳካም። %1$d ከ 5. በ%2$d ሰከንዶች ውስጥ በመሞከር ላይ።</string>
+    <string name="errorWaitPoly">አስቀድሞ የትንበያ መስመሮችን መፍጠር</string>
+    <string name="errorNotByMe">የአይኤስኤስ ማሳወቂያ በእርስዎ አልቆመም።</string>
+    <string name="errorNoWiki">የዊኪ ገጽ የለውም</string>
+    <string name="errorNoTwitter">የትዊተር መለያ የለውም</string>
+    <string name="data_corrupted">የመተግበሪያ ውሂብ ተበላሽቷል። ዳግም በማስጀመር ላይ!</string>
+    <string name="polyError">የትንበያ መስመር መፍጠር አልተቻለም</string>
+    <string name="calendar">የቀን መቁጠሪያ</string>
+    <string name="share">አጋራ</string>
+    <string name="image_content">ለተጠቃሚ መገኛ ቦታ ጠቋሚ ያለው የካርታ ምስል።</string>
+    <string name="iss_sighting_share_title">አይኤስኤስ እይታ</string>
+    <string name="iss_sighting_share_description">አይኤስኤስ እዚህ ይታያል። ሊፈትሽ ነው!</string>
+    <string name="iss_sighting_share_body">\"ተመልከተው!\n\nአይኤስኤስ በ\" ላይ ይታያል</string>
+    <string name="iss_sighting_share_chooser">አጋራ…</string>
+    <string name="on">\"ላይ\"</string>
+    <string name="one_day_in_space">1 ቀን በጠፈር ውስጥ</string>
+    <string name="in_space">\"በጠፈር ውስጥ\"</string>
+    <string name="day">\" ቀን\"</string>
+    <string name="month">\" ወር\"</string>
+    <string name="year">\" አመት\"</string>
+    <string name="since">\" ጀምሮ \"</string>
+    <string name="tutorial_one_title">ሄይ :)</string>
+    <string name="tutorial_two_title">ዋና ዋና ባህሪያት</string>
+</resources>

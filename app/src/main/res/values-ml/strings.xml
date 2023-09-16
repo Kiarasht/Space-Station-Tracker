@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS ട്രാക്കർ</string>
+
+    
+    <string name="map_activity">മാപ്പ്</string>
+    <string name="flybys_title">ഫ്ലൈബൈസ്</string>
+    <string name="space_title">ഡ്യൂട്ടിയിൽ</string>
+    <string name="settings_title">ക്രമീകരണങ്ങൾ</string>
+    <string name="help_title">സഹായം</string>
+
+    
+    <string name="flybys_summary">നിങ്ങളുടെ ലൊക്കേഷൻ അനുസരിച്ച് ISS-ന്റെ പാസുകൾ പരിശോധിക്കുക</string>
+    <string name="space_summary">ആരൊക്കെയാണ് ഇപ്പോൾ ബഹിരാകാശത്തുള്ളതെന്ന് നോക്കൂ</string>
+    <string name="settings_summary">പൊതുവായ ആപ്പ് ക്രമീകരണങ്ങൾ നിയന്ത്രിക്കുക</string>
+    <string name="help_summary">റേറ്റുചെയ്യുക അല്ലെങ്കിൽ ആപ്പിനെക്കുറിച്ച് അറിയുക</string>
+
+    
+    <string name="reset">പ്രവചന വരികൾ പുതുക്കുക</string>
+    <string name="stream">ലൈവ്</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">ആദ്യതവണ</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>ഒന്നുമില്ല</item>
+        <item>സാധാരണ</item>
+        <item>ഉപഗ്രഹം</item>
+        <item>ഭൂപ്രദേശം</item>
+        <item>ഹൈബ്രിഡ്</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">ഫ്ലൈബൈസ്</string>
+    <string name="label_peopleinspace">ബഹിരാകാശത്ത് ആരുണ്ട്\?</string>
+    <string name="label_setting">ക്രമീകരണങ്ങൾ</string>
+    <string name="label_help">സഹായം</string>
+    <string name="label_stream">തത്സമയ സ്ട്രീം</string>
+
+    
+    <string name="startAlert">ISS അടുത്തായിരിക്കുമ്പോൾ അറിയിക്കുക</string>
+    <string name="stopAlert">ISS അടുത്തായിരിക്കുമ്പോൾ അറിയിക്കുന്നത് നിർത്തുക</string>
+    <string name="startFullAds">മുഴുവൻ പേജ് പരസ്യങ്ങൾ പ്രവർത്തനക്ഷമമാക്കി. പിന്തുണയ്ക്ക് നന്ദി ;)</string>
+    <string name="startBannerAds">ബാനർ പരസ്യങ്ങൾ പ്രവർത്തനക്ഷമമാക്കി. പിന്തുണയ്ക്ക് നന്ദി ;)</string>
+
+    
+    <string name="tutorialOne">ഐഎസ്‌എസിന്റെ നിലവിലെ ലൊക്കേഷൻ അത് എവിടെയായിരിക്കുമെന്നതിന്റെ പ്രവചനരേഖയോടൊപ്പം മാപ്പ് കാണിക്കുന്നു.</string>
+    <string name="tutorialTwo">ഡ്രോയർ നിങ്ങളെ ഫ്ലൈബൈകൾ, ക്രമീകരണങ്ങൾ മുതലായവ പോലുള്ള മറ്റ് സവിശേഷതകളിലേക്ക് കൊണ്ടുപോകുന്നു...</string>
+    <string name="midAt">ചെയ്തത്</string>
+    <string name="checkerContentDescription">ഒരു സുതാര്യമായ നിറം തിരഞ്ഞെടുത്തതായി ഐക്കൺ പ്രതിനിധീകരിക്കുന്നു</string>
+    <string name="countryFlagContentDescription">ഈ ബഹിരാകാശയാത്രികൻ രാജ്യ പതാകയിൽ നിന്നുള്ളതാണ്</string>
+    <string name="astronautTwitterContentDescription">ബഹിരാകാശ സഞ്ചാരിയുടെ ട്വിറ്റർ പേജിലേക്ക് ലിങ്ക് ചെയ്യാനുള്ള ഐക്കൺ</string>
+    <string name="astronautWikiContentDescription">ബഹിരാകാശ സഞ്ചാരിയുടെ വിക്കി പേജിലേക്ക് ലിങ്ക് ചെയ്യാനുള്ള ഐക്കൺ</string>
+    <string name="astronautGoogleContentDescription">ബഹിരാകാശ സഞ്ചാരിയുടെ ഗൂഗിൾ സെർച്ച് പേജിലേക്ക് ലിങ്ക് ചെയ്യാനുള്ള ഐക്കൺ</string>
+
+    
+    <string name="refreshTitle">പുതുക്കിയ നിരക്ക്</string>
+    <string name="refreshSummary">നിലവിലെ പുതുക്കൽ നിരക്ക് $1 സെക്കൻഡ്/പുതുക്കലാണ്</string>
+    <string name="declination_unit">സെക്കന്റ്/പുതുക്കുക</string>
+    <string name="refreshDialogMessage">ISS തമ്മിലുള്ള സമയം അതിന്റെ പുതിയ സ്ഥാനത്തേക്ക് അപ്‌ഡേറ്റ് ചെയ്യപ്പെടുന്നു.</string>
+
+    <string name="lockTitle">ISS ലോക്ക് ചെയ്യുക</string>
+    <string name="lockSummary">ISS-ലേക്ക് ലോക്ക് ചെയ്‌ത് മാപ്പിൽ അത് പിന്തുടരുക</string>
+
+    <string name="infoTitle">അധിക വിവരങ്ങൾ</string>
+    <string name="infoSummary">മാപ്പിൽ ISS നെക്കുറിച്ചുള്ള കൂടുതൽ വിവരങ്ങൾ നൽകുക</string>
+
+    <string name="mapTitle">മാപ്പ് തരം</string>
+    <string name="mapSummary">മുമ്പത്തെ പേജിൽ നിന്ന് മാപ്പ് തരം മാറ്റുക</string>
+
+    <string name="decimalTitle">ദശാംശ സ്ഥാനങ്ങൾ</string>
+    <string name="decimalDialogMessage">എല്ലാ സംഖ്യാ മൂല്യങ്ങളുടെയും കൃത്യത മാറ്റുക</string>
+    <string name="decimalSummary">നിലവിലെ കൃത്യത നില $1 ദശാംശ സ്ഥാനത്താണ്</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">പ്രവചന രേഖയുടെ നിറം</string>
+    <string name="colorSummary">പ്രവചന വരികളുടെ നിറം മാറ്റുക</string>
+
+    <string name="sizeTitle">പ്രവചന രേഖയുടെ വലിപ്പം</string>
+    <string name="sizeDialogMessage">ISS-ന്റെ പ്രവചനരേഖയുടെ വലിപ്പം മാറ്റുക</string>
+    <string name="sizeSummary">നിലവിലെ ലൈൻ വലുപ്പം $1 ആണ്</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">വാചക വലുപ്പം</string>
+    <string name="textSizeDialogMessage">എല്ലാ ടെക്സ്റ്റ് മൂല്യങ്ങളുടെയും വലുപ്പം മാറ്റുക</string>
+    <string name="textSizeSummary">നിലവിലെ ടെക്‌സ്‌റ്റ് വലുപ്പം $1 ആണ്</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">ടെക്സ്റ്റ് നിറം</string>
+    <string name="textSummary">ടെക്സ്റ്റ് മൂല്യങ്ങളുടെ നിറം മാറ്റുക</string>
+
+    <string name="textHighlightTitle">ടെക്സ്റ്റ് ഔട്ട്ലൈൻ</string>
+    <string name="textHighlightSummary">ടെക്സ്റ്റ് മൂല്യങ്ങളുടെ ഔട്ട്ലൈൻ നിറം മാറ്റുക</string>
+
+    <string name="notificationTitle">ISS അറിയിപ്പ്</string>
+    <string name="notificationSummary">എന്റെ ലൊക്കേഷനു മുകളിലൂടെ ISS പറക്കുമെന്ന് പ്രതീക്ഷിക്കുമ്പോൾ അറിയിക്കുക</string>
+
+    <string name="advertisementTitle">ബാനർ</string>
+    <string name="advertisementSummary">ആപ്പിലെ ബാനർ പരസ്യങ്ങൾ പ്രവർത്തനരഹിതമാക്കുക</string>
+
+    <string name="fullTitle">മുഴുവൻ പേജ്</string>
+    <string name="fullSummary">ആപ്പിൽ മുഴുവൻ പേജ് പരസ്യങ്ങൾ പ്രവർത്തനരഹിതമാക്കുക</string>
+
+    
+    <string name="errorWebView">പേജ് ലോഡ് ചെയ്യാനായില്ല</string>
+    <string name="errorLocation">നിങ്ങളുടെ സ്ഥാനം കണ്ടെത്താനായില്ല.</string>
+    <string name="errorPermissionLocation">നിങ്ങളുടെ ലൊക്കേഷനിലേക്കുള്ള പ്രവേശനം നിഷേധിച്ചു</string>
+    <string name="errorConnection">ഒന്നുകിൽ നിങ്ങൾക്ക് കണക്ഷനില്ല അല്ലെങ്കിൽ സെർവർ ഓവർലോഡ് ആണ്.</string>
+    <string name="errorNetwork">അവ്യക്തമായ പിഴവ് സംഭവിച്ചിരിക്കുന്നു. പിശക്: 401</string>
+    <string name="errorMap">മാപ്പിൽ ക്രമീകരണം പ്രയോഗിക്കാൻ കഴിയില്ല</string>
+    <string name="errorFiveTimes">5 തവണയും പരാജയപ്പെട്ടു. ഒന്നുകിൽ നിങ്ങൾക്ക് കണക്ഷനില്ല അല്ലെങ്കിൽ സെർവർ ഓവർലോഡ് ആണ്.</string>
+    <string name="errorLessFive">സെർവറിലേക്കുള്ള അഭ്യർത്ഥന പരാജയപ്പെട്ടു. 5-ൽ %1$d. %2$d സെക്കൻഡിനുള്ളിൽ ശ്രമിക്കുന്നു.</string>
+    <string name="errorWaitPoly">ഇതിനകം പ്രവചന വരികൾ സൃഷ്ടിക്കുന്നു</string>
+    <string name="errorNotByMe">ISS അറിയിപ്പ് നിങ്ങൾ നിർത്തിയില്ല.</string>
+    <string name="errorNoWiki">ഒരു വിക്കി പേജ് ഇല്ല</string>
+    <string name="errorNoTwitter">ഒരു ട്വിറ്റർ അക്കൗണ്ട് ഇല്ല</string>
+    <string name="data_corrupted">ആപ്പ് ഡാറ്റ കേടായി. പുനഃസജ്ജമാക്കുന്നു!</string>
+    <string name="polyError">പ്രവചന രേഖ സൃഷ്‌ടിക്കാനായില്ല</string>
+    <string name="calendar">കലണ്ടർ</string>
+    <string name="share">പങ്കിടുക</string>
+    <string name="image_content">ഉപയോക്തൃ ലൊക്കേഷനായി മാർക്കർ ഉള്ള ഒരു മാപ്പിന്റെ ചിത്രം.</string>
+    <string name="iss_sighting_share_title">ISS കാഴ്ച</string>
+    <string name="iss_sighting_share_description">ISS ഇവിടെ ദൃശ്യമാകും. അത് പരിശോധിക്കാൻ പോകുന്നു!</string>
+    <string name="iss_sighting_share_body">\"ഇത് പരിശോധിക്കുക!\n\nISS ഇവിടെ ദൃശ്യമാകും \"</string>
+    <string name="iss_sighting_share_chooser">പങ്കിടുക...</string>
+    <string name="on">\"ഓൺ\"</string>
+    <string name="one_day_in_space">ബഹിരാകാശത്ത് ഒരു ദിവസം</string>
+    <string name="in_space">\"ബഹിരാകാശത്ത്\"</string>
+    <string name="day">\"ദിവസം\"</string>
+    <string name="month">\" മാസം\"</string>
+    <string name="year">\"വർഷം\"</string>
+    <string name="since">\"മുതലുള്ള \"</string>
+    <string name="tutorial_one_title">ഹേയ്, അവിടെയുണ്ടോ :)</string>
+    <string name="tutorial_two_title">പ്രധാന സവിശേഷതകൾ</string>
+</resources>

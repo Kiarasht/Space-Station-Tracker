@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Карта</string>
+    <string name="flybys_title">Флибис</string>
+    <string name="space_title">Дежур</string>
+    <string name="settings_title">Көйләүләр</string>
+    <string name="help_title">Ярдәм итегез</string>
+
+    
+    <string name="flybys_summary">Сезнең урыныгыз буенча ISS узышларын тикшерегез</string>
+    <string name="space_summary">Космоста кем барлыгын карагыз</string>
+    <string name="settings_summary">Гомуми кушымта көйләнмәләре белән идарә итү</string>
+    <string name="help_summary">Кушымта турында бәяләгез яки өйрәнегез</string>
+
+    
+    <string name="reset">Фаразлау юлларын яңарту</string>
+    <string name="stream">Тере</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">беренче тапкыр</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Беркем дә юк</item>
+        <item>Нормаль</item>
+        <item>Спутник</item>
+        <item>Территория</item>
+        <item>Гибрид</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Флибис</string>
+    <string name="label_peopleinspace">Космоста кем бар\?</string>
+    <string name="label_setting">Көйләүләр</string>
+    <string name="label_help">Ярдәм итегез</string>
+    <string name="label_stream">Тере агым</string>
+
+    
+    <string name="startAlert">ISS кайчан якын икәнлеген хәбәр итегез</string>
+    <string name="stopAlert">ISS якын булганда хәбәр итүдән туктагыз</string>
+    <string name="startFullAds">Тулы бит рекламалары кушылган. Ярдәм өчен рәхмәт;)</string>
+    <string name="startBannerAds">Баннер рекламалары кушылган. Ярдәм өчен рәхмәт;)</string>
+
+    
+    <string name="tutorialOne">Карта ISSның хәзерге урынын күрсәтә, аның кайда булачагын фаразлау сызыгы.</string>
+    <string name="tutorialTwo">Тартма сезне бүтән функцияләргә алып бара, мәсәлән, флиб, көйләү һ.б.</string>
+    <string name="midAt">at</string>
+    <string name="checkerContentDescription">Икона ачык төснең сайланганын күрсәтә</string>
+    <string name="countryFlagContentDescription">Бу космонавт ил флагы</string>
+    <string name="astronautTwitterContentDescription">Космонавтның твиттер битенә сылтама</string>
+    <string name="astronautWikiContentDescription">Космонавтның вики битенә сылтама иконасы</string>
+    <string name="astronautGoogleContentDescription">Космонавтның Google эзләү битенә сылтама</string>
+
+    
+    <string name="refreshTitle">Ставканы яңарту</string>
+    <string name="refreshSummary">Хәзерге яңарту ставкасы $ 1 сек /яңарту</string>
+    <string name="declination_unit">сек /яңарту</string>
+    <string name="refreshDialogMessage">ISS арасындагы вакыт аның яңа урынына яңартыла.</string>
+
+    <string name="lockTitle">ISS йозак</string>
+    <string name="lockSummary">ISS ябык һәм картада иярегез</string>
+
+    <string name="infoTitle">Өстәмә мәгълүмат</string>
+    <string name="infoSummary">Картада ISS турында өстәмә мәгълүмат бирегез</string>
+
+    <string name="mapTitle">Карта төре</string>
+    <string name="mapSummary">Алдагы биттән карта төрен үзгәртегез</string>
+
+    <string name="decimalTitle">Унлыклы урыннар</string>
+    <string name="decimalDialogMessage">Барлык санлы кыйммәтләрнең төгәллеген үзгәртегез</string>
+    <string name="decimalSummary">Хәзерге төгәллек дәрәҗәсе $ 1 дистә урында</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Фаразлау сызыгы төсе</string>
+    <string name="colorSummary">Фаразлау юлларының төсен үзгәртегез</string>
+
+    <string name="sizeTitle">Фаразлау сызыгы</string>
+    <string name="sizeDialogMessage">ISS фаразлау сызыгы күләмен үзгәртегез</string>
+    <string name="sizeSummary">Хәзерге линия күләме $ 1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Текст күләме</string>
+    <string name="textSizeDialogMessage">Барлык текст кыйммәтләренең зурлыгын үзгәртегез</string>
+    <string name="textSizeSummary">Хәзерге текст күләме $ 1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Текст төсе</string>
+    <string name="textSummary">Текст кыйммәтләренең төсен үзгәртү</string>
+
+    <string name="textHighlightTitle">Текст планы</string>
+    <string name="textHighlightSummary">Текст кыйммәтләренең схемасын үзгәртегез</string>
+
+    <string name="notificationTitle">ISS хәбәр итү</string>
+    <string name="notificationSummary">ISS кайчан минем урынымнан очыр дип көтелә</string>
+
+    <string name="advertisementTitle">Баннер</string>
+    <string name="advertisementSummary">Кушымта баннер рекламаларын сүндерегез</string>
+
+    <string name="fullTitle">Тулы бит</string>
+    <string name="fullSummary">Кушымта тулы бит рекламаларын сүндерегез</string>
+
+    
+    <string name="errorWebView">Битне йөкләп булмый</string>
+    <string name="errorLocation">Сезнең урыныгызны таба алмый.</string>
+    <string name="errorPermissionLocation">Сезнең урыныгызга керүдән баш тарттылар</string>
+    <string name="errorConnection">Йә сезнең тоташуыгыз юк, яисә сервер артык йөкләнгән.</string>
+    <string name="errorNetwork">Билгесез хата килеп чыкты. Хата: 401</string>
+    <string name="errorMap">Картага көйләүләрне куллана алмыйм</string>
+    <string name="errorFiveTimes">Барлык 5 тапкыр да уңышсыз. Йә сезнең тоташуыгыз юк, яисә сервер артык йөкләнгән.</string>
+    <string name="errorLessFive">Серверга сорау үтәлмәде.  %1$d 5. %2$d секундта сынап карау.</string>
+    <string name="errorWaitPoly">Инде фаразлау юллары</string>
+    <string name="errorNotByMe">ISS хәбәр итүе сезнең белән туктатылмады.</string>
+    <string name="errorNoWiki">вики бите юк</string>
+    <string name="errorNoTwitter">twitter аккаунты юк</string>
+    <string name="data_corrupted">Кушымта мәгълүматлары бозылган. Кабатлау!</string>
+    <string name="polyError">Фаразлау сызыгын булдыра алмый</string>
+    <string name="calendar">Календарь</string>
+    <string name="share">Бүлешү</string>
+    <string name="image_content">Кулланучының урнашуы өчен маркерлы картаның рәсеме.</string>
+    <string name="iss_sighting_share_title">ISS күрү</string>
+    <string name="iss_sighting_share_description">ISS монда күренәчәк. Аны тикшерергә барабыз!</string>
+    <string name="iss_sighting_share_body">\"Тикшерергә аны!\n\nISS күренеп торачак \"</string>
+    <string name="iss_sighting_share_chooser">Бүлешү…</string>
+    <string name="on">\"on\"</string>
+    <string name="one_day_in_space">Космоста 1 көн</string>
+    <string name="in_space">\"космоста\"</string>
+    <string name="day">\"көн\"</string>
+    <string name="month">\"ай\"</string>
+    <string name="year">\" ел\"</string>
+    <string name="since">\"Шуннан\"</string>
+    <string name="tutorial_one_title">Сәлам :)</string>
+    <string name="tutorial_two_title">Төп үзенчәлекләр</string>
+</resources>

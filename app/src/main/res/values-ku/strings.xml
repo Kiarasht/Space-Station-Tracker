@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Qert</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">Li ser kar</string>
+    <string name="settings_title">Settings</string>
+    <string name="help_title">Alîkarî</string>
+
+    
+    <string name="flybys_summary">Derbasiyên ISS-ê li cîhê xwe kontrol bikin</string>
+    <string name="space_summary">Binêrin ka kî niha li fezayê ye</string>
+    <string name="settings_summary">Mîhengên sepanê yên gelemperî birêve bibin</string>
+    <string name="help_summary">Li ser sepanê binirxînin an fêr bibin</string>
+
+    
+    <string name="reset">Xetên pêşbîniyê nûve bikin</string>
+    <string name="stream">Jîyan</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">cara yekem</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Netû</item>
+        <item>Normal</item>
+        <item>Satelayt</item>
+        <item>Erd</item>
+        <item>Hybrid</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">Kî li Fezayê ye\?</string>
+    <string name="label_setting">Settings</string>
+    <string name="label_help">Alîkarî</string>
+    <string name="label_stream">Live Stream</string>
+
+    
+    <string name="startAlert">Dema ku ISS nêzîk e agahdar bikin</string>
+    <string name="stopAlert">Dema ku ISS nêzîk e, agahdarkirinê rawestînin</string>
+    <string name="startFullAds">Reklamên rûpela tevahî çalak kirin. Spas ji bo piştgiriyê ;)</string>
+    <string name="startBannerAds">Reklamên banner çalak kirin. Spas ji bo piştgiriyê ;)</string>
+
+    
+    <string name="tutorialOne">Nexşe cîhê niha yê ISS bi xêzek pêşbîniya ku ew ê li ku be nîşan dide.</string>
+    <string name="tutorialTwo">Drawer we digihîne taybetmendiyên din ên wekî flybys, mîhengan, hwd…</string>
+    <string name="midAt">ba</string>
+    <string name="checkerContentDescription">Icon destnîşan dike ku rengek zelal tê hilbijartin</string>
+    <string name="countryFlagContentDescription">Ala welat ev astronot jê ye</string>
+    <string name="astronautTwitterContentDescription">Îkona ku bi rûpela twitterê ya astronotan ve girêdayî ye</string>
+    <string name="astronautWikiContentDescription">Îkona ku bi rûpela wîkî ya astronotan ve were girêdan</string>
+    <string name="astronautGoogleContentDescription">Îkona ku bi rûpela lêgerîna Google a astronotê ve girêdide</string>
+
+    
+    <string name="refreshTitle">Rêjeya Nûvekirinê</string>
+    <string name="refreshSummary">Rêjeya nûvekirinê ya niha $1 çirk /nûvekirin e</string>
+    <string name="declination_unit">sek /nûvekirin</string>
+    <string name="refreshDialogMessage">Demê di navbera ISS de ku li cîhê xwe yê nû nûve dibe.</string>
+
+    <string name="lockTitle">Lock ISS</string>
+    <string name="lockSummary">Li ser ISS-ê kilît bikin û li ser nexşeyê bişopînin</string>
+
+    <string name="infoTitle">Additional Info</string>
+    <string name="infoSummary">Li ser nexşeyê agahdariya bêtir li ser ISS peyda bikin</string>
+
+    <string name="mapTitle">Cureyê nexşeyê</string>
+    <string name="mapSummary">Tîpa nexşeyê ji rûpela berê biguherînin</string>
+
+    <string name="decimalTitle">Cihên Dehanî</string>
+    <string name="decimalDialogMessage">Rastiya hemî nirxên hejmarî biguherînin</string>
+    <string name="decimalSummary">Asta rastbûna niha di $1 deh deh de ye</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Rengê xeta pêşbîniyê</string>
+    <string name="colorSummary">Rengê xetên pêşbîniyê biguherînin</string>
+
+    <string name="sizeTitle">Mezinahiya xeta pêşbîniyê</string>
+    <string name="sizeDialogMessage">Mezinahiya xeta pêşbîniya ISS biguhezînin</string>
+    <string name="sizeSummary">Mezinahiya xeta niha $1 e</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Mezinahiya nivîsê</string>
+    <string name="textSizeDialogMessage">Mezinahiya hemî nirxên nivîsê biguherînin</string>
+    <string name="textSizeSummary">Mezinahiya nivîsê ya niha $1 e</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Rengê nivîsê</string>
+    <string name="textSummary">Rengê nirxên nivîsê biguherînin</string>
+
+    <string name="textHighlightTitle">Text Outline</string>
+    <string name="textHighlightSummary">Rengê rêzê yên nirxên nivîsê biguherînin</string>
+
+    <string name="notificationTitle">Agahdariya ISS</string>
+    <string name="notificationSummary">Kengê tê çaverêkirin ku ISS li ser cîhê min bifire agahdar bike</string>
+
+    <string name="advertisementTitle">Banner</string>
+    <string name="advertisementSummary">Reklamên banner li ser sepanê neçalak bikin</string>
+
+    <string name="fullTitle">Rûpel Tev</string>
+    <string name="fullSummary">Reklamên rûpela tevahî li ser sepanê neçalak bikin</string>
+
+    
+    <string name="errorWebView">Nekarî rûpel were barkirin</string>
+    <string name="errorLocation">Nikarin cîhê xwe bibînin.</string>
+    <string name="errorPermissionLocation">Gihîştina cîhê we hate red kirin</string>
+    <string name="errorConnection">An pêwendiya we tune an jî server zêde barkirî ye.</string>
+    <string name="errorNetwork">Çewtiyek nenas derket. Çewtî: 401</string>
+    <string name="errorMap">Nikare mîhengan li ser nexşeyê bicîh bîne</string>
+    <string name="errorFiveTimes">Her 5 caran têk çû. An pêwendiya we tune an jî server zêde barkirî ye.</string>
+    <string name="errorLessFive">Daxwaza serverê têk çû. %1$d ji 5. Di %2$d çirkeyan de hewl tê dayîn.</string>
+    <string name="errorWaitPoly">Jixwe xetên pêşbîniyê diafirîne</string>
+    <string name="errorNotByMe">Agahdariya ISS ji hêla we ve nehat rawestandin.</string>
+    <string name="errorNoWiki">rûpelek wîkî nîne</string>
+    <string name="errorNoTwitter">hesabê twitterê tune</string>
+    <string name="data_corrupted">Daneyên sepanê xera bûne. Resetting!</string>
+    <string name="polyError">Di afirandina xeta pêşbîniyê de nikarî</string>
+    <string name="calendar">Salname</string>
+    <string name="share">Par</string>
+    <string name="image_content">Wêneyê nexşeyek bi nîşankerek ji bo cîhê bikarhêner.</string>
+    <string name="iss_sighting_share_title">ISS Sighting</string>
+    <string name="iss_sighting_share_description">ISS dê li vir xuya bibe. Diçim ku wê kontrol bikim!</string>
+    <string name="iss_sighting_share_body">\"Hûn dixwazin!\n\nISS dê li \"</string>
+    <string name="iss_sighting_share_chooser">Par…</string>
+    <string name="on">\"li ser\"</string>
+    <string name="one_day_in_space">1 roj li fezayê</string>
+    <string name="in_space">\"li fezayê\"</string>
+    <string name="day">\"roj\"</string>
+    <string name="month">\"meh\"</string>
+    <string name="year">\"sal\"</string>
+    <string name="since">\"Ji ber ku\"</string>
+    <string name="tutorial_one_title">Hey heye :)</string>
+    <string name="tutorial_two_title">Taybetmendiyên sereke</string>
+</resources>

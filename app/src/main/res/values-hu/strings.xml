@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Térkép</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">Szolgálatban</string>
+    <string name="settings_title">Beállítások</string>
+    <string name="help_title">Segítség</string>
+
+    
+    <string name="flybys_summary">Ellenőrizze az ISS bérleteit a tartózkodási helye mellett</string>
+    <string name="space_summary">Nézze meg, ki van most az űrben</string>
+    <string name="settings_summary">Általános alkalmazásbeállítások kezelése</string>
+    <string name="help_summary">Értékelje az alkalmazást, vagy tájékozódjon róla</string>
+
+    
+    <string name="reset">Frissítse az előrejelzési sorokat</string>
+    <string name="stream">Élő</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">először</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Egyik sem</item>
+        <item>Normál</item>
+        <item>Műhold</item>
+        <item>Terep</item>
+        <item>Hibrid</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">Ki van az űrben\?</string>
+    <string name="label_setting">Beállítások</string>
+    <string name="label_help">Segítség</string>
+    <string name="label_stream">Élő adás</string>
+
+    
+    <string name="startAlert">Értesítés, ha az ISS a közelben van</string>
+    <string name="stopAlert">Hagyja abba az értesítést, ha az ISS a közelben van</string>
+    <string name="startFullAds">A teljes oldalas hirdetések engedélyezve. Köszönet a támogatásért ;)</string>
+    <string name="startBannerAds">Szalaghirdetések engedélyezve. Köszönet a támogatásért ;)</string>
+
+    
+    <string name="tutorialOne">A térkép az ISS jelenlegi helyét mutatja, egy előrejelzési vonallal, hogy hol lesz.</string>
+    <string name="tutorialTwo">A fiók más funkciókhoz vezet, mint például a repülések, beállítások stb.</string>
+    <string name="midAt">nál nél</string>
+    <string name="checkerContentDescription">Az ikon azt jelzi, hogy a rendszer átlátszó színt választott</string>
+    <string name="countryFlagContentDescription">Országzászló, ahonnan ez az űrhajós származik</string>
+    <string name="astronautTwitterContentDescription">Ikon az űrhajós twitter-oldalára mutató hivatkozáshoz</string>
+    <string name="astronautWikiContentDescription">Ikon az űrhajós wikioldalára mutató hivatkozáshoz</string>
+    <string name="astronautGoogleContentDescription">Ikon az űrhajós Google keresőoldalára mutató hivatkozáshoz</string>
+
+    
+    <string name="refreshTitle">Frissítési ráta</string>
+    <string name="refreshSummary">A jelenlegi frissítési gyakoriság 1 mp/frissítés</string>
+    <string name="declination_unit">mp/frissítés</string>
+    <string name="refreshDialogMessage">Az ISS új helyére való frissítése között eltelt idő.</string>
+
+    <string name="lockTitle">Zárja le az ISS-t</string>
+    <string name="lockSummary">Zárja be az ISS-t, és kövesse azt a térképen</string>
+
+    <string name="infoTitle">További információ</string>
+    <string name="infoSummary">Adjon meg további információkat az ISS-ről a térképen</string>
+
+    <string name="mapTitle">Térkép típusa</string>
+    <string name="mapSummary">Módosítsa a térképtípust az előző oldalról</string>
+
+    <string name="decimalTitle">Tizedes jel</string>
+    <string name="decimalDialogMessage">Módosítsa az összes számérték pontosságát</string>
+    <string name="decimalSummary">A jelenlegi pontossági szint 1 USD tizedesjegy</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Előrejelző vonal színe</string>
+    <string name="colorSummary">Módosítsa az előrejelzési vonalak színét</string>
+
+    <string name="sizeTitle">Előrejelző sor mérete</string>
+    <string name="sizeDialogMessage">Módosítsa az ISS előrejelzési vonalának méretét</string>
+    <string name="sizeSummary">A sor jelenlegi mérete 1 USD</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Szövegméret</string>
+    <string name="textSizeDialogMessage">Módosítsa az összes szövegérték méretét</string>
+    <string name="textSizeSummary">A szöveg jelenlegi mérete 1 USD</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Szöveg szín</string>
+    <string name="textSummary">Módosítsa a szövegértékek színét</string>
+
+    <string name="textHighlightTitle">Szöveg vázlat</string>
+    <string name="textHighlightSummary">Módosítsa a szövegértékek körvonalának színét</string>
+
+    <string name="notificationTitle">ISS értesítés</string>
+    <string name="notificationSummary">Értesítés, ha az ISS várhatóan átrepül a helyem felett</string>
+
+    <string name="advertisementTitle">Transzparens</string>
+    <string name="advertisementSummary">A szalaghirdetések letiltása az alkalmazásban</string>
+
+    <string name="fullTitle">Teljes oldal</string>
+    <string name="fullSummary">Az egész oldalas hirdetések letiltása az alkalmazásban</string>
+
+    
+    <string name="errorWebView">Nem sikerült betölteni az oldalt</string>
+    <string name="errorLocation">Nem található a tartózkodási helye.</string>
+    <string name="errorPermissionLocation">Megtagadva a hozzáférést a tartózkodási helyéhez</string>
+    <string name="errorConnection">Vagy nincs kapcsolat, vagy a szerver túlterhelt.</string>
+    <string name="errorNetwork">Ismeretlen hiba lépett fel. Hiba: 401</string>
+    <string name="errorMap">Nem lehet beállításokat alkalmazni a térképen</string>
+    <string name="errorFiveTimes">Mind az 5 alkalommal nem sikerült. Vagy nincs kapcsolat, vagy a szerver túlterhelt.</string>
+    <string name="errorLessFive">A szerverhez intézett kérés sikertelen. %1$d/5. Próbálkozás %2$d másodperc múlva.</string>
+    <string name="errorWaitPoly">Már előrejelzési sorokat hoz létre</string>
+    <string name="errorNotByMe">Az ISS értesítést nem Ön állította le.</string>
+    <string name="errorNoWiki">nincs wiki oldala</string>
+    <string name="errorNoTwitter">nincs twitter fiókja</string>
+    <string name="data_corrupted">Az alkalmazásadatok sérültek. Visszaállítás!</string>
+    <string name="polyError">Nem lehet létrehozni előrejelzési sort</string>
+    <string name="calendar">Naptár</string>
+    <string name="share">Ossza meg</string>
+    <string name="image_content">A térkép képe a felhasználó helyének jelölőjével.</string>
+    <string name="iss_sighting_share_title">ISS észlelés</string>
+    <string name="iss_sighting_share_description">Itt látható lesz az ISS. Megyek megnézni!</string>
+    <string name="iss_sighting_share_body">\"Nézd meg!\n\nAz ISS itt lesz látható: \"</string>
+    <string name="iss_sighting_share_chooser">Ossza meg…</string>
+    <string name="on">\" tovább \"</string>
+    <string name="one_day_in_space">1 nap az űrben</string>
+    <string name="in_space">\" űrben\"</string>
+    <string name="day">\"nap\"</string>
+    <string name="month">\" hónap\"</string>
+    <string name="year">\"év\"</string>
+    <string name="since">\"mióta\"</string>
+    <string name="tutorial_one_title">Halihó :)</string>
+    <string name="tutorial_two_title">Főbb jellemzői</string>
+</resources>

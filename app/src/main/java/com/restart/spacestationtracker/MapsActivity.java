@@ -1,7 +1,5 @@
 package com.restart.spacestationtracker;
 
-import static com.restart.spacestationtracker.util.IsRunningTestKt.isRunningTest;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -246,7 +244,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     /**
-     * Reread the refreshrate and update views if needed such as prediction line, texts and their
+     * Reread the refresh rate and update views if needed such as prediction line, texts and their
      * properties (Color, size, etc.).
      */
     protected void onResume() {
@@ -271,7 +269,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mTimer.purge();
                 mTimer = null;
             }
-            mTimer = new Timer();                // Track ISS based on refreshrate
+            mTimer = new Timer();                // Track ISS based on refresh rate
             mTimer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
@@ -781,6 +779,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      *
      * @param serviceClass Class service searching for
      * @return Returns if user's phone is running the given service.
+     * @noinspection SameParameterValue notifications are disabled for now
      */
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -808,7 +807,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .fadeinTextDuration(400)
                 .headingTvColor(Color.parseColor("#6441A5"))
                 .headingTvSize(32)
-                .headingTvText("Hey There :)")
+                .headingTvText(getString(R.string.tutorial_one_title))
                 .subHeadingTvColor(Color.parseColor("#ffffff"))
                 .subHeadingTvSize(16)
                 .subHeadingTvText(getString(R.string.tutorialOne))
@@ -825,7 +824,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         .fadeinTextDuration(400)
                         .headingTvColor(Color.parseColor("#6441A5"))
                         .headingTvSize(32)
-                        .headingTvText("Main Features")
+                        .headingTvText(getString(R.string.tutorial_two_title))
                         .subHeadingTvColor(Color.parseColor("#ffffff"))
                         .subHeadingTvSize(16)
                         .subHeadingTvText(getString(R.string.tutorialTwo))

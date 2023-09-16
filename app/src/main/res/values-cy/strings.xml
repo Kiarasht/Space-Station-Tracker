@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">Traciwr ISS</string>
+
+    
+    <string name="map_activity">Map</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">Ar ddyletswydd</string>
+    <string name="settings_title">Gosodiadau</string>
+    <string name="help_title">Help</string>
+
+    
+    <string name="flybys_summary">Gwiriwch docynnau ISS yn ôl eich lleoliad</string>
+    <string name="space_summary">Gweld pwy sydd yn y gofod ar hyn o bryd</string>
+    <string name="settings_summary">Rheoli gosodiadau ap cyffredinol</string>
+    <string name="help_summary">Graddiwch neu dysgwch am yr ap</string>
+
+    
+    <string name="reset">Adnewyddu llinellau rhagfynegi</string>
+    <string name="stream">Byw</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">tro cyntaf</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Dim</item>
+        <item>Arferol</item>
+        <item>Lloeren</item>
+        <item>Tirwedd</item>
+        <item>Hybrid</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">Pwy sydd yn y Gofod\?</string>
+    <string name="label_setting">Gosodiadau</string>
+    <string name="label_help">Help</string>
+    <string name="label_stream">Ffrwd Fyw</string>
+
+    
+    <string name="startAlert">Rhoi gwybod pan fydd ISS gerllaw</string>
+    <string name="stopAlert">Rhoi\'r gorau i hysbysu pan fydd ISS gerllaw</string>
+    <string name="startFullAds">Hysbysebion tudalen lawn wedi\'u galluogi. Diolch am y gefnogaeth ;)</string>
+    <string name="startBannerAds">Hysbysebion baner wedi\'u galluogi. Diolch am y gefnogaeth ;)</string>
+
+    
+    <string name="tutorialOne">Mae\'r map yn dangos lleoliad presennol ISS gyda llinell ragfynegi o ble y bydd.</string>
+    <string name="tutorialTwo">Mae drawer yn mynd â chi i nodweddion eraill fel flybys, gosodiadau, ac ati…</string>
+    <string name="midAt">yn</string>
+    <string name="checkerContentDescription">Mae eicon yn cynrychioli bod lliw tryloyw yn cael ei ddewis</string>
+    <string name="countryFlagContentDescription">Baner gwlad y gofodwr hwn o</string>
+    <string name="astronautTwitterContentDescription">Eicon i gysylltu â thudalen trydar y gofodwr</string>
+    <string name="astronautWikiContentDescription">Eicon i ddolen i dudalen wiki\'r gofodwr</string>
+    <string name="astronautGoogleContentDescription">Eicon i gysylltu â thudalen chwilio Google y gofodwr</string>
+
+    
+    <string name="refreshTitle">Cyfradd Adnewyddu</string>
+    <string name="refreshSummary">Y gyfradd adnewyddu gyfredol yw $1 eiliad/adnewyddu</string>
+    <string name="declination_unit">eiliad/adnewyddu</string>
+    <string name="refreshDialogMessage">Amser rhwng ISS gael ei ddiweddaru i\'w leoliad newydd.</string>
+
+    <string name="lockTitle">Cloi ISS</string>
+    <string name="lockSummary">Clowch ar ISS a\'i ddilyn ar y map</string>
+
+    <string name="infoTitle">Gwybodaeth ychwanegol</string>
+    <string name="infoSummary">Darparwch wybodaeth ychwanegol am ISS ar y map</string>
+
+    <string name="mapTitle">Math o fap</string>
+    <string name="mapSummary">Newidiwch y math o fap o\'r dudalen flaenorol</string>
+
+    <string name="decimalTitle">Lleoedd Degol</string>
+    <string name="decimalDialogMessage">Newid cywirdeb yr holl werthoedd rhifiadol</string>
+    <string name="decimalSummary">Y lefel cywirdeb presennol yw $1 lle degol</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Lliw llinell rhagfynegiad</string>
+    <string name="colorSummary">Newid lliw llinellau rhagfynegi</string>
+
+    <string name="sizeTitle">Maint llinell rhagfynegiad</string>
+    <string name="sizeDialogMessage">Newid maint llinell ragfynegiad ISS</string>
+    <string name="sizeSummary">Maint y llinell ar hyn o bryd yw $1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Maint testun</string>
+    <string name="textSizeDialogMessage">Newid maint yr holl werthoedd testun</string>
+    <string name="textSizeSummary">Maint y testun ar hyn o bryd yw $1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Lliw testun</string>
+    <string name="textSummary">Newid lliw gwerthoedd testun</string>
+
+    <string name="textHighlightTitle">Amlinelliad Testun</string>
+    <string name="textHighlightSummary">Newid lliw amlinellol gwerthoedd testun</string>
+
+    <string name="notificationTitle">Hysbysiad ISS</string>
+    <string name="notificationSummary">Rhowch wybod pryd y disgwylir i ISS hedfan dros fy lleoliad</string>
+
+    <string name="advertisementTitle">Baner</string>
+    <string name="advertisementSummary">Analluogi hysbysebion baner ar yr ap</string>
+
+    <string name="fullTitle">Tudalen Llawn</string>
+    <string name="fullSummary">Analluogi hysbysebion tudalen lawn ar yr ap</string>
+
+    
+    <string name="errorWebView">Methu llwytho tudalen</string>
+    <string name="errorLocation">Methu dod o hyd i\'ch lleoliad.</string>
+    <string name="errorPermissionLocation">Wedi gwrthod mynediad i\'ch lleoliad</string>
+    <string name="errorConnection">Naill ai nid oes gennych unrhyw gysylltiad neu mae\'r gweinydd wedi\'i orlwytho.</string>
+    <string name="errorNetwork">Mae gwall anhysbys wedi digwydd. Gwall: 401</string>
+    <string name="errorMap">Methu â chymhwyso gosodiadau i fapio</string>
+    <string name="errorFiveTimes">Wedi methu bob 5 gwaith. Naill ai nid oes gennych unrhyw gysylltiad neu mae\'r gweinydd wedi\'i orlwytho.</string>
+    <string name="errorLessFive">Methodd y cais i\'r gweinydd. %1$d allan o 5. Yn ceisio ymhen %2$d eiliad.</string>
+    <string name="errorWaitPoly">Eisoes yn creu llinellau rhagfynegi</string>
+    <string name="errorNotByMe">Ni stopiodd ISS Notification gennych chi.</string>
+    <string name="errorNoWiki">nid oes ganddo dudalen wiki</string>
+    <string name="errorNoTwitter">nid oes ganddo gyfrif twitter</string>
+    <string name="data_corrupted">Mae data app wedi\'i lygru. Yn ailosod!</string>
+    <string name="polyError">Methu creu llinell ragfynegi</string>
+    <string name="calendar">Calendr</string>
+    <string name="share">Rhannu</string>
+    <string name="image_content">Delwedd o fap gyda marciwr ar gyfer lleoliad y defnyddiwr.</string>
+    <string name="iss_sighting_share_title">Golwg ISS</string>
+    <string name="iss_sighting_share_description">Bydd ISS i\'w weld yma. Mynd i edrych arno!</string>
+    <string name="iss_sighting_share_body">\"Edrychwch arno!\n\nBydd ISS i\'w weld yn \"</string>
+    <string name="iss_sighting_share_chooser">Rhannu…</string>
+    <string name="on">\" ar \"</string>
+    <string name="one_day_in_space">1 diwrnod yn y gofod</string>
+    <string name="in_space">\"yn y gofod\"</string>
+    <string name="day">\" Dydd\"</string>
+    <string name="month">\"mis\"</string>
+    <string name="year">\"blwyddyn\"</string>
+    <string name="since">\"Ers\"</string>
+    <string name="tutorial_one_title">Hei Yno :)</string>
+    <string name="tutorial_two_title">Prif Nodweddion</string>
+</resources>

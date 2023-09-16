@@ -1,5 +1,6 @@
 package com.restart.spacestationtracker.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 
@@ -7,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +19,10 @@ import android.widget.Toast;
 import com.restart.spacestationtracker.Info;
 import com.restart.spacestationtracker.R;
 import com.restart.spacestationtracker.data.Astronaut;
-import com.restart.spacestationtracker.util.DateUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -112,6 +109,7 @@ public class PeopleInSpaceAdapter extends RecyclerView.Adapter<PeopleInSpaceAdap
      * @param holder   ViewHolder containing the widget references
      * @param position The index in our list being updated with new data
      */
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final PeopleInSpaceAdapterViewHolder holder, int position) {
         final int pos = position;
@@ -163,8 +161,8 @@ public class PeopleInSpaceAdapter extends RecyclerView.Adapter<PeopleInSpaceAdap
             holder.mBio.setText(mAstronauts.get(position).getBio());
 
             try {
-                holder.mDate.setText(DateUtils.getDateDifference(mDateFormat.parse(mAstronauts.get(position).getLaunchDate()).getTime(), new Date().getTime()));
-            } catch (ParseException e) {
+                holder.mDate.setText(mActivity.getString(R.string.since) + mDateFormat.format(mAstronauts.get(position).getLaunchDate()));
+            } catch (Exception e) {
                 holder.mDate.setVisibility(View.INVISIBLE);
             }
 
@@ -200,6 +198,7 @@ public class PeopleInSpaceAdapter extends RecyclerView.Adapter<PeopleInSpaceAdap
      *
      * @param dataSet the new data list
      */
+    @SuppressLint("NotifyDataSetChanged")
     public void setDataSet(List<Astronaut> dataSet) {
         mAstronauts = dataSet;
         notifyDataSetChanged();

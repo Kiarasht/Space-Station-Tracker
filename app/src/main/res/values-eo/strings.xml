@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS-Spurilo</string>
+
+    
+    <string name="map_activity">Mapo</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">Deĵoranta</string>
+    <string name="settings_title">Agordoj</string>
+    <string name="help_title">Helpu</string>
+
+    
+    <string name="flybys_summary">Kontrolu la enirpermesilojn de ISS laŭ via loko</string>
+    <string name="space_summary">Vidu kiu nun estas en la spaco</string>
+    <string name="settings_summary">Administri ĝeneralajn agordojn</string>
+    <string name="help_summary">Tatu aŭ lernu pri la aplikaĵo</string>
+
+    
+    <string name="reset">Refreŝigu antaŭdirajn liniojn</string>
+    <string name="stream">Vivu</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">unuafoje</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Neniu</item>
+        <item>Normala</item>
+        <item>Satelito</item>
+        <item>Tereno</item>
+        <item>Hibrido</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">Kiu estas en la Spaco\?</string>
+    <string name="label_setting">Agordoj</string>
+    <string name="label_help">Helpu</string>
+    <string name="label_stream">Live Stream</string>
+
+    
+    <string name="startAlert">Sciigi kiam ISS estas proksime</string>
+    <string name="stopAlert">Ĉesu sciigi kiam ISS estas proksime</string>
+    <string name="startFullAds">Plenpaĝaj anoncoj ebligitaj. Dankon pro la subteno ;)</string>
+    <string name="startBannerAds">Banner-anoncoj ebligitaj. Dankon pro la subteno ;)</string>
+
+    
+    <string name="tutorialOne">Mapo montras la nunan lokon de ISS kun prognoza linio de kie ĝi estos.</string>
+    <string name="tutorialTwo">Kesto kondukas vin al aliaj funkcioj kiel flugoj, agordoj, ktp...</string>
+    <string name="midAt">ĉe</string>
+    <string name="checkerContentDescription">Ikono reprezentas, ke travidebla koloro estas elektita</string>
+    <string name="countryFlagContentDescription">Landa flago de tiu ĉi astronaŭto estas</string>
+    <string name="astronautTwitterContentDescription">Ikono por ligi al la tviterpaĝo de astronaŭto</string>
+    <string name="astronautWikiContentDescription">Ikono por ligi al la vikipaĝo de astronaŭto</string>
+    <string name="astronautGoogleContentDescription">Ikono por ligi al la serĉpaĝo de Guglo de astronaŭto</string>
+
+    
+    <string name="refreshTitle">Refreŝiga indico</string>
+    <string name="refreshSummary">Nuna refreŝiga indico estas $1 sek/refreŝiĝo</string>
+    <string name="declination_unit">sek/refreŝigi</string>
+    <string name="refreshDialogMessage">Tempo inter ISS ĝisdatigita al sia nova loko.</string>
+
+    <string name="lockTitle">Ŝlosu ISS</string>
+    <string name="lockSummary">Ŝlosu al ISS kaj sekvu ĝin sur la mapo</string>
+
+    <string name="infoTitle">Pliaj Informoj</string>
+    <string name="infoSummary">Provizu pliajn informojn pri ISS sur la mapo</string>
+
+    <string name="mapTitle">Mapo tipo</string>
+    <string name="mapSummary">Ŝanĝu la mapspecon de la antaŭa paĝo</string>
+
+    <string name="decimalTitle">Decimalaj Lokoj</string>
+    <string name="decimalDialogMessage">Ŝanĝu la precizecon de ĉiuj nombraj valoroj</string>
+    <string name="decimalSummary">Nuna precizeca nivelo estas je $1 decimalaj lokoj</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Antaŭdira liniokoloro</string>
+    <string name="colorSummary">Ŝanĝu la koloron de antaŭdiraj linioj</string>
+
+    <string name="sizeTitle">Antaŭdira linio grandeco</string>
+    <string name="sizeDialogMessage">Ŝanĝu la grandecon de la prognoza linio de ISS</string>
+    <string name="sizeSummary">Nuna liniogrando estas $1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Teksta grandeco</string>
+    <string name="textSizeDialogMessage">Ŝanĝu la grandecon de ĉiuj tekstaj valoroj</string>
+    <string name="textSizeSummary">Nuna teksta grandeco estas $1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Teksta koloro</string>
+    <string name="textSummary">Ŝanĝu la koloron de tekstovaloroj</string>
+
+    <string name="textHighlightTitle">Teksta Skizo</string>
+    <string name="textHighlightSummary">Ŝanĝu la konturan koloron de tekstaj valoroj</string>
+
+    <string name="notificationTitle">ISS Sciigo</string>
+    <string name="notificationSummary">Sciigi kiam ISS estos atendita flugi super mia loko</string>
+
+    <string name="advertisementTitle">Standardo</string>
+    <string name="advertisementSummary">Malebligu rubandojn en la programo</string>
+
+    <string name="fullTitle">Plena Paĝo</string>
+    <string name="fullSummary">Malebligu plenpaĝajn reklamojn en la programo</string>
+
+    
+    <string name="errorWebView">Ne eblas ŝargi paĝon</string>
+    <string name="errorLocation">Ne eblas trovi vian lokon.</string>
+    <string name="errorPermissionLocation">Neita aliro al via loko</string>
+    <string name="errorConnection">Aŭ vi ne havas konekton aŭ servilo estas troŝarĝita.</string>
+    <string name="errorNetwork">Nekonata eraro okazis. Eraro: 401</string>
+    <string name="errorMap">Ne povas apliki agordojn al mapo</string>
+    <string name="errorFiveTimes">Malsukcesis ĉiujn 5 fojojn. Aŭ vi ne havas konekton aŭ servilo estas troŝarĝita.</string>
+    <string name="errorLessFive">Peto al servilo malsukcesis. %1$d el 5. Provo en %2$d sekundoj.</string>
+    <string name="errorWaitPoly">Jam kreas antaŭdirajn liniojn</string>
+    <string name="errorNotByMe">ISS-Avizo ne estis ĉesigita de vi.</string>
+    <string name="errorNoWiki">ne havas vikipaĝon</string>
+    <string name="errorNoTwitter">ne havas tviteran konton</string>
+    <string name="data_corrupted">Aplikaj datumoj estas koruptitaj. Restarigante!</string>
+    <string name="polyError">Ne eblas krei antaŭdiran linion</string>
+    <string name="calendar">Kalendaro</string>
+    <string name="share">Kunhavigi</string>
+    <string name="image_content">Bildo de mapo kun markilo por uzantloko.</string>
+    <string name="iss_sighting_share_title">ISS Vidado</string>
+    <string name="iss_sighting_share_description">ISS estos videbla ĉi tie. Intencas kontroli ĝin!</string>
+    <string name="iss_sighting_share_body">\"Rigardu!\n\nISS estos videbla ĉe \"</string>
+    <string name="iss_sighting_share_chooser">Kunhavigi…</string>
+    <string name="on">\"sur\"</string>
+    <string name="one_day_in_space">1 tago en la spaco</string>
+    <string name="in_space">\"en spaco\"</string>
+    <string name="day">\"tago\"</string>
+    <string name="month">\"monato\"</string>
+    <string name="year">\"jaro\"</string>
+    <string name="since">\"Ekde\"</string>
+    <string name="tutorial_one_title">Saluton :)</string>
+    <string name="tutorial_two_title">Ĉefaj trajtoj</string>
+</resources>

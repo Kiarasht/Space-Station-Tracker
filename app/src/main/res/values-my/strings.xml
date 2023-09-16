@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">မြေပုံ</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">On Duty</string>
+    <string name="settings_title">ဆက်တင်များ</string>
+    <string name="help_title">ကူညီကြပါ</string>
+
+    
+    <string name="flybys_summary">သင်၏တည်နေရာမှ ISS ၏ဖြတ်သန်းမှုများကိုစစ်ဆေးပါ။</string>
+    <string name="space_summary">အခု အာကာသထဲမှာ ဘယ်သူရှိနေလဲ ကြည့်လိုက်ပါ။</string>
+    <string name="settings_summary">အထွေထွေအက်ပ်ဆက်တင်များကို စီမံပါ။</string>
+    <string name="help_summary">အဆင့်သတ်မှတ်ပါ သို့မဟုတ် အက်ပ်အကြောင်း လေ့လာပါ။</string>
+
+    
+    <string name="reset">ခန့်မှန်းချက်လိုင်းများကို ပြန်လည်စတင်ပါ။</string>
+    <string name="stream">နေထိုင်ပါ။</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">ပထမဆုံးအကြိမ်</string>
+
+    
+    <string-array name="entryValues">
+        <item>၀ယ်တယ်။</item>
+        <item>၁</item>
+        <item>၂</item>
+        <item>၃</item>
+        <item>၄</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>တစ်ခုမှ</item>
+        <item>ပုံမှန်</item>
+        <item>ဂြိုလ်တု</item>
+        <item>အောင်ပန်း</item>
+        <item>စပ်သည်။</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">အာကာသထဲမှာ ဘယ်သူလဲ။</string>
+    <string name="label_setting">ဆက်တင်များ</string>
+    <string name="label_help">ကူညီကြပါ</string>
+    <string name="label_stream">တိုက်ရိုက်ထုတ်လွှင့်ခြင်း</string>
+
+    
+    <string name="startAlert">ISS အနီးတွင်ရှိသည့်အခါ အသိပေးပါ။</string>
+    <string name="stopAlert">ISS အနီးတွင် ရှိနေသည့်အခါ အကြောင်းကြားခြင်းကို ရပ်ပါ။</string>
+    <string name="startFullAds">စာမျက်နှာအပြည့် ကြော်ငြာများကို ဖွင့်ထားသည်။ အားပေးမှု အတွက် ကျေးဇူးတင်ပါတယ် ;)</string>
+    <string name="startBannerAds">နဖူးစည်းကြော်ငြာများကို ဖွင့်ထားသည်။ အားပေးမှု အတွက် ကျေးဇူးတင်ပါတယ် ;)</string>
+
+    
+    <string name="tutorialOne">မြေပုံသည် ISS ၏ လက်ရှိတည်နေရာတည်နေရာကို ခန့်မှန်းသည့်မျဉ်းဖြင့် ပြသသည်။</string>
+    <string name="tutorialTwo">Drawer သည် သင့်အား flybys၊ ဆက်တင်များ စသည်တို့ကဲ့သို့ အခြားအင်္ဂါရပ်များသို့ ခေါ်ဆောင်သွားသည် ။</string>
+    <string name="midAt">မှာ</string>
+    <string name="checkerContentDescription">အိုင်ကွန်သည် ပွင့်လင်းသောအရောင်ကို ရွေးထားသည်ကို ကိုယ်စားပြုသည်။</string>
+    <string name="countryFlagContentDescription">ဤအာကာသယာဉ်မှူးသည် နိုင်ငံအလံဖြစ်သည်။</string>
+    <string name="astronautTwitterContentDescription">အာကာသယာဉ်မှူး၏ တွစ်တာစာမျက်နှာသို့ လင့်ခ်ချိတ်ရန် သင်္ကေတ</string>
+    <string name="astronautWikiContentDescription">အာကာသယာဉ်မှူး၏ ဝီကီစာမျက်နှာသို့ လင့်ခ်ချိတ်ရန် သင်္ကေတ</string>
+    <string name="astronautGoogleContentDescription">အာကာသယာဉ်မှူး၏ Google ရှာဖွေမှုစာမျက်နှာသို့ လင့်ခ်ချိတ်ရန် သင်္ကေတ</string>
+
+    
+    <string name="refreshTitle">ပြန်လည်စတင်မှုနှုန်း</string>
+    <string name="refreshSummary">လက်ရှိပြန်လည်ဆန်းသစ်မှုနှုန်းသည် $1 စက္ကန့်/ပြန်လည်စတင်ခြင်းဖြစ်ပါသည်။</string>
+    <string name="declination_unit">စက္ကန့်/ပြန်လည်စတင်ပါ။</string>
+    <string name="refreshDialogMessage">ISS သည် ၎င်း၏တည်နေရာအသစ်သို့ အပ်ဒိတ်လုပ်နေသည့်အချိန်။</string>
+
+    <string name="lockTitle">ISS ကို လော့ခ်ချပါ။</string>
+    <string name="lockSummary">ISS တွင် သော့ခတ်ပြီး မြေပုံပေါ်တွင် လိုက်နာပါ။</string>
+
+    <string name="infoTitle">ထပ်လောင်းအချက်အလက်</string>
+    <string name="infoSummary">မြေပုံပေါ်တွင် ISS အကြောင်း နောက်ထပ်အချက်အလက်များ ပေးပါ။</string>
+
+    <string name="mapTitle">မြေပုံအမျိုးအစား</string>
+    <string name="mapSummary">ယခင်စာမျက်နှာမှ မြေပုံအမျိုးအစားကို ပြောင်းပါ။</string>
+
+    <string name="decimalTitle">ဒဿမနေရာများ</string>
+    <string name="decimalDialogMessage">ဂဏန်းတန်ဖိုးများအားလုံး၏ တိကျမှုကို ပြောင်းလဲပါ။</string>
+    <string name="decimalSummary">လက်ရှိတိကျမှုအဆင့်မှာ $1 ဒဿမနေရာများဖြစ်သည်။</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">ခန့်မှန်းလိုင်းအရောင်</string>
+    <string name="colorSummary">ခန့်မှန်းလိုင်းများ၏အရောင်ကိုပြောင်းပါ။</string>
+
+    <string name="sizeTitle">ခန့်မှန်းလိုင်းအရွယ်အစား</string>
+    <string name="sizeDialogMessage">ISS ၏ ခန့်မှန်းခြေလိုင်းအရွယ်အစားကို ပြောင်းပါ။</string>
+    <string name="sizeSummary">လက်ရှိလိုင်းအရွယ်အစားမှာ $1 ဖြစ်သည်။</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">စာသားအရွယ်အစား</string>
+    <string name="textSizeDialogMessage">စာသားတန်ဖိုးများအားလုံး၏ အရွယ်အစားကို ပြောင်းလဲပါ။</string>
+    <string name="textSizeSummary">လက်ရှိ စာသားအရွယ်အစားမှာ $1 ဖြစ်သည်။</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">စာသားအရောင်</string>
+    <string name="textSummary">စာသားတန်ဖိုးများ၏အရောင်ကိုပြောင်းပါ။</string>
+
+    <string name="textHighlightTitle">စာသားကောက်ကြောင်း</string>
+    <string name="textHighlightSummary">စာသားတန်ဖိုးများ၏ ကောက်ကြောင်းအရောင်ကို ပြောင်းပါ။</string>
+
+    <string name="notificationTitle">ISS အသိပေးချက်</string>
+    <string name="notificationSummary">ကျွန်ုပ်၏တည်နေရာကိုကျော်၍ ISS ပျံသန်းမည်ဟု မျှော်လင့်သည့်အခါ အကြောင်းကြားပါ။</string>
+
+    <string name="advertisementTitle">ဆိုင်းဘုတ်</string>
+    <string name="advertisementSummary">အက်ပ်တွင် နဖူးစည်းကြော်ငြာများကို ပိတ်ပါ။</string>
+
+    <string name="fullTitle">စာမျက်နှာအပြည့်</string>
+    <string name="fullSummary">အက်ပ်တွင် စာမျက်နှာအပြည့်ကြော်ငြာများကို ပိတ်ပါ။</string>
+
+    
+    <string name="errorWebView">စာမျက်နှာကို ဖွင့်၍မရပါ။</string>
+    <string name="errorLocation">သင့်တည်နေရာကို ရှာမတွေ့ပါ။</string>
+    <string name="errorPermissionLocation">သင့်တည်နေရာကို အသုံးပြုခွင့် ငြင်းပယ်ထားသည်။</string>
+    <string name="errorConnection">သင့်တွင် အချိတ်အဆက်မရှိသော သို့မဟုတ် ဆာဗာသည် ဝန်ပိုနေပါသည်။</string>
+    <string name="errorNetwork">အမည်မသိ အမှားတစ်ခု ဖြစ်ပွားခဲ့သည်။ အမှား- ၄၀၁</string>
+    <string name="errorMap">မြေပုံတွင် ဆက်တင်များကို မသုံးနိုင်ပါ။</string>
+    <string name="errorFiveTimes">၅ ကြိမ်စလုံး ပျက်ကွက်ခဲ့ပါတယ်။ သင့်တွင် အချိတ်အဆက်မရှိသော သို့မဟုတ် ဆာဗာသည် ဝန်ပိုနေပါသည်။</string>
+    <string name="errorLessFive">ဆာဗာသို့ တောင်းဆိုမှု မအောင်မြင်ပါ။ 5 ခုတွင် %1$d။ %2$d စက္ကန့်အတွင်း ကြိုးစားနေပါသည်။</string>
+    <string name="errorWaitPoly">ခန့်မှန်းလိုင်းများကို ဖန်တီးပြီးဖြစ်သည်။</string>
+    <string name="errorNotByMe">ISS အကြောင်းကြားချက်ကို သင် ရပ်တန့်မထားပါ။</string>
+    <string name="errorNoWiki">wiki စာမျက်နှာ မရှိပါ။</string>
+    <string name="errorNoTwitter">twitter အကောင့် မရှိပါ။</string>
+    <string name="data_corrupted">အက်ပ်ဒေတာ ပျက်စီးနေသည်။ ပြန်လည်သတ်မှတ်ခြင်း</string>
+    <string name="polyError">ကြိုတင်ခန့်မှန်းလိုင်းကို ဖန်တီး၍မရပါ။</string>
+    <string name="calendar">ပြက္ခဒိန်</string>
+    <string name="share">မျှဝေပါ။</string>
+    <string name="image_content">အသုံးပြုသူတည်နေရာအတွက် အမှတ်အသားပါရှိသော မြေပုံတစ်ခု၏ပုံ။</string>
+    <string name="iss_sighting_share_title">ISS မြင်ကွင်း</string>
+    <string name="iss_sighting_share_description">ISS ကို ဤနေရာတွင် မြင်ရပါမည်။ အဲဒါကို စစ်ဆေးဖို့ သွားမယ်။</string>
+    <string name="iss_sighting_share_body">\"စုံစမ်းသည်!\n\nISS မှာ မြင်နိုင်ပါလိမ့်မယ်\"</string>
+    <string name="iss_sighting_share_chooser">မျှဝေပါ…</string>
+    <string name="on">\"ပေါ်\"</string>
+    <string name="one_day_in_space">အာကာသထဲတွင် ၁ ရက်</string>
+    <string name="in_space">\" အာကာသထဲမှာ\"</string>
+    <string name="day">\"နေ့\"</string>
+    <string name="month">\"လ\"</string>
+    <string name="year">\"နှစ်\"</string>
+    <string name="since">\"ကတည်းက\"</string>
+    <string name="tutorial_one_title">ဟေ့ဒီမှာ :)</string>
+    <string name="tutorial_two_title">အဓိကအင်္ဂါရပ်များ</string>
+</resources>

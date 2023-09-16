@@ -133,7 +133,7 @@ public class PeopleInSpace extends AppCompatActivity {
                             final String wiki = anAstronaut.getString("biolink");
                             final String twitter = anAstronaut.getString("twitter");
 
-                            if (role != null && !role.isEmpty())
+                            if (!role.isEmpty())
                                 role = role.substring(0, 1).toUpperCase() + role.substring(1);
                             Astronaut storeAnAstronaut = new Astronaut(name, image, countryLink, launchDate, role, location, bio, wiki, twitter);
                             peopleInSpace.add(storeAnAstronaut);
@@ -145,10 +145,8 @@ public class PeopleInSpace extends AppCompatActivity {
                     }
 
                     return Response.success(new JSONObject(jsonString), HttpHeaderParser.parseCacheHeaders(response));
-                } catch (UnsupportedEncodingException e) {
+                } catch (UnsupportedEncodingException | JSONException e) {
                     return Response.error(new ParseError(e));
-                } catch (JSONException je) {
-                    return Response.error(new ParseError(je));
                 }
             }
         };

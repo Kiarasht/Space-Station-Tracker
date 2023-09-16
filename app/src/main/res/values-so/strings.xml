@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Maab</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">Shaqada</string>
+    <string name="settings_title">Dejinta</string>
+    <string name="help_title">I caawi</string>
+
+    
+    <string name="flybys_summary">Hubi kaarka ISS ee goobtaada</string>
+    <string name="space_summary">Bal eeg cidda hadda bannaanka ku jirta</string>
+    <string name="settings_summary">Maamul habaynta abka guud</string>
+    <string name="help_summary">Qiimee ama baro abka</string>
+
+    
+    <string name="reset">Dib u cusboonaysii khadadka saadaasha</string>
+    <string name="stream">Live</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">Markii ugu horeysay</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Midna</item>
+        <item>Caadi ah</item>
+        <item>Satellite</item>
+        <item>Dhulka</item>
+        <item>Isku-dhafan</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">Yaa ku jira Space\?</string>
+    <string name="label_setting">Dejinta</string>
+    <string name="label_help">I caawi</string>
+    <string name="label_stream">Stream Live</string>
+
+    
+    <string name="startAlert">Ogeysii marka ISS u dhowdahay</string>
+    <string name="stopAlert">Jooji ogeysiinta marka ISS u dhowdahay</string>
+    <string name="startFullAds">Xayeysiiska bogga buuxa waa la furay Waad ku mahadsan tahay taageerada;)</string>
+    <string name="startBannerAds">Xayeysiisyada calanka waa la furay Waad ku mahadsan tahay taageerada;)</string>
+
+    
+    <string name="tutorialOne">Khariidadu waxay tusinaysaa goobta ISS ay hadda ku sugan tahay oo leh xariiq saadaasha halka ay ahaan doonto.</string>
+    <string name="tutorialTwo">Drawer wuxuu ku qaadaa sifooyin kale sida flybys, settings, iwm…</string>
+    <string name="midAt">at</string>
+    <string name="checkerContentDescription">Astaantu waxay ka dhigan tahay in midab hufan la doortay</string>
+    <string name="countryFlagContentDescription">Calanka dalka cirbixiyeenkan ayaa ka yimid</string>
+    <string name="astronautTwitterContentDescription">Sumadda lagu xidhidhiyo cirbixiyeenka boggiisa twitter</string>
+    <string name="astronautWikiContentDescription">Astaanta lagu xidhi karo cirbixiyeenka bogga wiki</string>
+    <string name="astronautGoogleContentDescription">Summada lagu xidhidhiyo cirbixiyeenka boggiisa raadinta Google</string>
+
+    
+    <string name="refreshTitle">Heerka Cusbooneysii</string>
+    <string name="refreshSummary">Qiimaha cusboonaysiinta hadda waa $1 ilbiriqsi/cusbooneysi</string>
+    <string name="declination_unit">ilbiriqsi/cusbooneysi</string>
+    <string name="refreshDialogMessage">Waqtiga u dhexeeya ISS oo la cusboonaysiinayo goobta cusub.</string>
+
+    <string name="lockTitle">Quful ISS</string>
+    <string name="lockSummary">Ku xidh ISS oo ku raac khariidada</string>
+
+    <string name="infoTitle">Xog dheeraad ah</string>
+    <string name="infoSummary">Ku bixi macluumaad dheeraad ah oo ku saabsan ISS khariidada</string>
+
+    <string name="mapTitle">Nooca khariidadda</string>
+    <string name="mapSummary">Ka beddel nooca khariidadda boggii hore</string>
+
+    <string name="decimalTitle">Meelo tobanle ah</string>
+    <string name="decimalDialogMessage">Beddel saxnaanta dhammaan qiimayaasha tirooyinka</string>
+    <string name="decimalSummary">Heerka saxnaanta hadda waa $1 jajab tobanle</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">midabka saadaasha</string>
+    <string name="colorSummary">Beddel midabka khadadka saadaasha</string>
+
+    <string name="sizeTitle">Cabbirka xariiqda saadaasha</string>
+    <string name="sizeDialogMessage">Beddel cabbirka khadka saadaasha ISS</string>
+    <string name="sizeSummary">Cabbirka khadka hadda waa $1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Cabbirka qoraalka</string>
+    <string name="textSizeDialogMessage">Beddel cabbirka dhammaan qiyamka qoraalka</string>
+    <string name="textSizeSummary">Cabbirka qoraalka hadda waa $1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Midabka qoraalka</string>
+    <string name="textSummary">Beddel midabka qiimaha qoraalka</string>
+
+    <string name="textHighlightTitle">Qoraalka qoraalka</string>
+    <string name="textHighlightSummary">Beddel midabka dulucda qiimaha qoraalka</string>
+
+    <string name="notificationTitle">Ogeysiinta ISS</string>
+    <string name="notificationSummary">Ogeysii marka ISS la filayo inay ku dul duusho goobtayda</string>
+
+    <string name="advertisementTitle">Calan</string>
+    <string name="advertisementSummary">Jooji xayaysiisyada banner ee abka</string>
+
+    <string name="fullTitle">Bog buuxa</string>
+    <string name="fullSummary">Jooji xayaysiisyada bogga buuxa ee abka</string>
+
+    
+    <string name="errorWebView">Aan awoodin in la shubo bogga</string>
+    <string name="errorLocation">Ma heli karo goobtaada</string>
+    <string name="errorPermissionLocation">Loo diiday gelitaanka goobtaada</string>
+    <string name="errorConnection">Ama ma lihid wax xidhiidh ah ama seerfar ayaa culays ku ah.</string>
+    <string name="errorNetwork">Khalad aan la garanayn ayaa dhacay Khaladka: 401</string>
+    <string name="errorMap">Laguma dabaqi karo dejinta khariidada</string>
+    <string name="errorFiveTimes">Fashilmay dhammaan 5 jeer Ama ma lihid wax xidhiidh ah ama seerfar ayaa culays ku ah.</string>
+    <string name="errorLessFive">Codsiga server-ka waa guuldareystay. %1$d ka baxsan 5. Isku day %2$d sekan.</string>
+    <string name="errorWaitPoly">Hadda ka hor abuuraya khadadka saadaasha</string>
+    <string name="errorNotByMe">Ogeysiinta ISS ma aadan joojin adiga</string>
+    <string name="errorNoWiki">ma laha bog wiki</string>
+    <string name="errorNoTwitter">ma laha akoon twitter ah</string>
+    <string name="data_corrupted">Xogta abka waa la kharribmay Dib u dejinta!</string>
+    <string name="polyError">Aan awoodin abuurista khadka saadaasha</string>
+    <string name="calendar">Kalandarka</string>
+    <string name="share">La wadaag</string>
+    <string name="image_content">Sawirka khariidad leh calaamade goobta isticmaalaha.</string>
+    <string name="iss_sighting_share_title">Aragtida ISS</string>
+    <string name="iss_sighting_share_description">ISS waa laga arki doonaa halkan U socda si aad u hubiso!</string>
+    <string name="iss_sighting_share_body">\" iska hubi!\n\nISS waxay ka muuqan doontaa\"</string>
+    <string name="iss_sighting_share_chooser">La wadaag…</string>
+    <string name="on">\" ku\"</string>
+    <string name="one_day_in_space">1 maalin meel bannaan ah</string>
+    <string name="in_space">\"meel bannaan\"</string>
+    <string name="day">\"maalin\"</string>
+    <string name="month">\"bil\"</string>
+    <string name="year">\"sanad\"</string>
+    <string name="since">\"Tan iyo\"</string>
+    <string name="tutorial_one_title">Haye waa :)</string>
+    <string name="tutorial_two_title">Tilmaamaha ugu muhiimsan</string>
+</resources>

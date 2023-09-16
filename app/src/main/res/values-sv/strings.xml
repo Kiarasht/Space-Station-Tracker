@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Karta</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">I tjänst</string>
+    <string name="settings_title">inställningar</string>
+    <string name="help_title">Hjälp</string>
+
+    
+    <string name="flybys_summary">Kontrollera ISS:s pass förbi din plats</string>
+    <string name="space_summary">Se vem som är i rymden just nu</string>
+    <string name="settings_summary">Hantera allmänna appinställningar</string>
+    <string name="help_summary">Betygsätt eller lär dig mer om appen</string>
+
+    
+    <string name="reset">Uppdatera prediktionslinjer</string>
+    <string name="stream">leva</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">första gången</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Ingen</item>
+        <item>Vanligt</item>
+        <item>Satellit</item>
+        <item>Terräng</item>
+        <item>Hybrid</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">Vem är i rymden\?</string>
+    <string name="label_setting">inställningar</string>
+    <string name="label_help">Hjälp</string>
+    <string name="label_stream">Direktsändning</string>
+
+    
+    <string name="startAlert">Meddela när ISS är i närheten</string>
+    <string name="stopAlert">Sluta meddela när ISS är i närheten</string>
+    <string name="startFullAds">Helsidesannonser aktiverade. Tack för stödet ;)</string>
+    <string name="startBannerAds">Bannerannonser har aktiverats. Tack för stödet ;)</string>
+
+    
+    <string name="tutorialOne">Kartan visar ISS:s nuvarande position med en förutsägelselinje för var den kommer att vara.</string>
+    <string name="tutorialTwo">Drawer tar dig till andra funktioner som förbiflygningar, inställningar, etc...</string>
+    <string name="midAt">på</string>
+    <string name="checkerContentDescription">Ikonen representerar att en transparent färg väljs</string>
+    <string name="countryFlagContentDescription">Landsflagga som denna astronaut kommer från</string>
+    <string name="astronautTwitterContentDescription">Ikon för att länka till astronautens twittersida</string>
+    <string name="astronautWikiContentDescription">Ikon för att länka till astronautens wikisida</string>
+    <string name="astronautGoogleContentDescription">Ikon för att länka till astronautens söksida på Google</string>
+
+    
+    <string name="refreshTitle">Uppdateringsfrekvens</string>
+    <string name="refreshSummary">Aktuell uppdateringsfrekvens är $1 sek/uppdatering</string>
+    <string name="declination_unit">sek/uppdatera</string>
+    <string name="refreshDialogMessage">Tid mellan ISS uppdateras till sin nya plats.</string>
+
+    <string name="lockTitle">Lås ISS</string>
+    <string name="lockSummary">Lås in på ISS och följ den på kartan</string>
+
+    <string name="infoTitle">Ytterligare info</string>
+    <string name="infoSummary">Ge ytterligare information om ISS på kartan</string>
+
+    <string name="mapTitle">Karttyp</string>
+    <string name="mapSummary">Ändra karttyp från föregående sida</string>
+
+    <string name="decimalTitle">Decimaler</string>
+    <string name="decimalDialogMessage">Ändra noggrannheten för alla numeriska värden</string>
+    <string name="decimalSummary">Nuvarande noggrannhetsnivå är på $1 decimaler</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Förutsägelselinjefärg</string>
+    <string name="colorSummary">Ändra färgen på prediktionslinjer</string>
+
+    <string name="sizeTitle">Förutsägelselinjestorlek</string>
+    <string name="sizeDialogMessage">Ändra storleken på ISS:s prediktionslinje</string>
+    <string name="sizeSummary">Nuvarande radstorlek är $1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Textstorlek</string>
+    <string name="textSizeDialogMessage">Ändra storleken på alla textvärden</string>
+    <string name="textSizeSummary">Nuvarande textstorlek är $1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Text färg</string>
+    <string name="textSummary">Ändra färgen på textvärden</string>
+
+    <string name="textHighlightTitle">Textöversikt</string>
+    <string name="textHighlightSummary">Ändra konturfärgen för textvärden</string>
+
+    <string name="notificationTitle">ISS-meddelande</string>
+    <string name="notificationSummary">Meddela när ISS förväntas flyga över min plats</string>
+
+    <string name="advertisementTitle">Baner</string>
+    <string name="advertisementSummary">Inaktivera bannerannonser i appen</string>
+
+    <string name="fullTitle">Hel sida</string>
+    <string name="fullSummary">Inaktivera helsidesannonser i appen</string>
+
+    
+    <string name="errorWebView">Det gick inte att ladda sidan</string>
+    <string name="errorLocation">Det gick inte att hitta din plats.</string>
+    <string name="errorPermissionLocation">Nekad åtkomst till din plats</string>
+    <string name="errorConnection">Antingen har du ingen anslutning eller så är servern överbelastad.</string>
+    <string name="errorNetwork">Ett okänt fel har uppstått. Fel: 401</string>
+    <string name="errorMap">Det går inte att tillämpa inställningar på kartan</string>
+    <string name="errorFiveTimes">Misslyckades alla 5 gångerna. Antingen har du ingen anslutning eller så är servern överbelastad.</string>
+    <string name="errorLessFive">Begäran till server misslyckades. %1$d av 5. Försöker om %2$d sekunder.</string>
+    <string name="errorWaitPoly">Skapar redan förutsägelselinjer</string>
+    <string name="errorNotByMe">ISS Notification stoppades inte av dig.</string>
+    <string name="errorNoWiki">har ingen wikisida</string>
+    <string name="errorNoTwitter">har inget twitterkonto</string>
+    <string name="data_corrupted">Appdata är skadad. Återställer!</string>
+    <string name="polyError">Det gick inte att skapa prediktionsrad</string>
+    <string name="calendar">Kalender</string>
+    <string name="share">Dela med sig</string>
+    <string name="image_content">Bild av en karta med en markör för användarens plats.</string>
+    <string name="iss_sighting_share_title">ISS-observation</string>
+    <string name="iss_sighting_share_description">ISS kommer att synas här. Ska kolla upp det!</string>
+    <string name="iss_sighting_share_body">\"Kolla in det!\n\nISS kommer att synas på \"</string>
+    <string name="iss_sighting_share_chooser">Dela med sig…</string>
+    <string name="on">\"på\"</string>
+    <string name="one_day_in_space">1 dag i rymden</string>
+    <string name="in_space">\" i rymden\"</string>
+    <string name="day">\"dag\"</string>
+    <string name="month">\"månad\"</string>
+    <string name="year">\" år\"</string>
+    <string name="since">\"Eftersom \"</string>
+    <string name="tutorial_one_title">Hallå där :)</string>
+    <string name="tutorial_two_title">Huvuddrag</string>
+</resources>

@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ISS Su\'e</string>
+
+    
+    <string name="map_activity">Fa\'afanua</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">I le Tiute</string>
+    <string name="settings_title">Fa\'atonu</string>
+    <string name="help_title">Fesoasoani</string>
+
+    
+    <string name="flybys_summary">Siaki pasi a le ISS i lou nofoaga</string>
+    <string name="space_summary">Va\'ai po\'o ai o lo\'o i le vanimonimo i le taimi nei</string>
+    <string name="settings_summary">Puleaina tulaga lautele o le app</string>
+    <string name="help_summary">Fa\'ailoga pe a\'oa\'o e uiga i le app</string>
+
+    
+    <string name="reset">Toe faafou laina vavalo</string>
+    <string name="stream">Ola</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">taimi muamua</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Leai</item>
+        <item>masani</item>
+        <item>Satelite</item>
+        <item>fanua</item>
+        <item>Fa\'atosina</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">O ai i Avanoa\?</string>
+    <string name="label_setting">Fa\'atonu</string>
+    <string name="label_help">Fesoasoani</string>
+    <string name="label_stream">Live Stream</string>
+
+    
+    <string name="startAlert">Fa\'ailoa pe a latalata mai le ISS</string>
+    <string name="stopAlert">Taofi le logoina pe a latalata mai le ISS</string>
+    <string name="startFullAds">Fa\'aola itulau atoa fa\'asalalauga. Faafetai mo le lagolago ;)</string>
+    <string name="startBannerAds">Fa\'aola fa\'asalalauga fa\'asalalau. Faafetai mo le lagolago ;)</string>
+
+    
+    <string name="tutorialOne">Fa\'afanua o lo\'o fa\'aalia ai le nofoaga o lo\'o iai nei le ISS ma se laina va\'ai po\'o fea o iai.</string>
+    <string name="tutorialTwo">Drawer e ave oe i isi mea e pei o lele, faʻatulagaga, ma isi ...</string>
+    <string name="midAt">i</string>
+    <string name="checkerContentDescription">O lo\'o fa\'atusalia le fa\'ailoga o se lanu manino ua filifilia</string>
+    <string name="countryFlagContentDescription">Fu\'a a le atunu\'u e sau ai lenei tagata va\'alele</string>
+    <string name="astronautTwitterContentDescription">Fa\'ailoga e feso\'ota\'i i le itulau twitter a le astronaut</string>
+    <string name="astronautWikiContentDescription">Fa\'aiko e feso\'ota\'i i le itulau wiki a le astronaut</string>
+    <string name="astronautGoogleContentDescription">Fa\'ailoga e feso\'ota\'i i le itulau su\'esu\'e a Google astronaut</string>
+
+    
+    <string name="refreshTitle">Fua Fa\'afouina</string>
+    <string name="refreshSummary">Ole fua ole fa\'afou o lo\'o iai nei e $1 sec/fa\'afouina</string>
+    <string name="declination_unit">sec/faafouina</string>
+    <string name="refreshDialogMessage">Taimi i le va o le ISS e faʻafouina i lona nofoaga fou.</string>
+
+    <string name="lockTitle">Loka ISS</string>
+    <string name="lockSummary">Loka i le ISS ma mulimuli i luga o le faafanua</string>
+
+    <string name="infoTitle">Fa\'amatalaga Faaopoopo</string>
+    <string name="infoSummary">Tuuina atu faʻamatalaga faaopoopo e uiga i le ISS ile faʻafanua</string>
+
+    <string name="mapTitle">Ituaiga faafanua</string>
+    <string name="mapSummary">Suia le ituaiga faafanua mai le itulau muamua</string>
+
+    <string name="decimalTitle">Nofoaga Desimal</string>
+    <string name="decimalDialogMessage">Suia le sa\'o o mea tau numera uma</string>
+    <string name="decimalSummary">Ole tulaga sa\'o ile taimi nei ole $1tesimale nofoaga</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Lanu laina vavalo</string>
+    <string name="colorSummary">Suia le lanu o laina vavalo</string>
+
+    <string name="sizeTitle">Le tele o laina vavalo</string>
+    <string name="sizeDialogMessage">Suia le tele ole laina vavalo a le ISS</string>
+    <string name="sizeSummary">Ole tele ole laina ole taimi nei e $1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Tele o tusitusiga</string>
+    <string name="textSizeDialogMessage">Suia le tele o fa\'amaumauga uma</string>
+    <string name="textSizeSummary">Ole tele ole tusitusiga ole taimi nei e $1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Lanu o tusitusiga</string>
+    <string name="textSummary">Suia le lanu o mea taua o tusitusiga</string>
+
+    <string name="textHighlightTitle">Otootoga o Tusitusiga</string>
+    <string name="textHighlightSummary">Suia le lanu auivi o tau o tusitusiga</string>
+
+    <string name="notificationTitle">ISS Fa\'asilasilaga</string>
+    <string name="notificationSummary">Fa\'ailoa pe a fa\'amoemoe e lele le ISS i lo\'u nofoaga</string>
+
+    <string name="advertisementTitle">Fu\'a</string>
+    <string name="advertisementSummary">Taofi fa\'asalalauga fu\'a i luga ole app</string>
+
+    <string name="fullTitle">Itulau Atoa</string>
+    <string name="fullSummary">Fa\'agata fa\'asalalauga itulau atoa ile app</string>
+
+    
+    <string name="errorWebView">Le mafai ona utaina le itulau</string>
+    <string name="errorLocation">Le mafai ona maua lou nofoaga.</string>
+    <string name="errorPermissionLocation">Te\'ena le avanoa i lou nofoaga</string>
+    <string name="errorConnection">Pe leai sau feso\'ota\'iga po\'o le \'au\'aunaga ua ova le uta.</string>
+    <string name="errorNetwork">Ua tupu se mea sese e le iloa. Sese: 401</string>
+    <string name="errorMap">Le mafai ona fa\'aoga tulaga ile faafanua</string>
+    <string name="errorFiveTimes">Le manuia uma 5 taimi. Pe leai sau feso\'ota\'iga po\'o le \'au\'aunaga ua ova le uta.</string>
+    <string name="errorLessFive">Ua le manuia le talosaga ile server. %1$d mai le 5. Taumafai ile %2$d sekone.</string>
+    <string name="errorWaitPoly">Ua uma ona fai laina vavalo</string>
+    <string name="errorNotByMe">ISS Notification e le\'i taofia e oe.</string>
+    <string name="errorNoWiki">e leai se itulau wiki</string>
+    <string name="errorNoTwitter">e leai sana tala twitter</string>
+    <string name="data_corrupted">Ua leaga fa\'amaumauga a le app. Toe setiina!</string>
+    <string name="polyError">Le mafai ona fai laina vavalo</string>
+    <string name="calendar">Kalena</string>
+    <string name="share">Faasoa</string>
+    <string name="image_content">Ata o se faafanua ma se maka mo le nofoaga o tagata e faaaogāina.</string>
+    <string name="iss_sighting_share_title">Va\'aiga ISS</string>
+    <string name="iss_sighting_share_description">ISS o le a iloa iinei. E alu e siaki!</string>
+    <string name="iss_sighting_share_body">\"Siaki atu!\n\nISS o le a vaaia ile \"</string>
+    <string name="iss_sighting_share_chooser">Fa\'asoa...</string>
+    <string name="on">\"i luga\"</string>
+    <string name="one_day_in_space">1 aso i le vateatea</string>
+    <string name="in_space">\"i le vateatea\"</string>
+    <string name="day">\" aso\"</string>
+    <string name="month">\" masina\"</string>
+    <string name="year">\" tausaga\"</string>
+    <string name="since">\"Talu mai\"</string>
+    <string name="tutorial_one_title">Talofa e :)</string>
+    <string name="tutorial_two_title">Vaega Autu</string>
+</resources>

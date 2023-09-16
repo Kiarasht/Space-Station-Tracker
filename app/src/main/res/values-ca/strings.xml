@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">Seguidor de l\'ISS</string>
+
+    
+    <string name="map_activity">Mapa</string>
+    <string name="flybys_title">Sobrevols</string>
+    <string name="space_title">De servei</string>
+    <string name="settings_title">Configuració</string>
+    <string name="help_title">Ajuda</string>
+
+    
+    <string name="flybys_summary">Comproveu els abonaments de l\'ISS per la vostra ubicació</string>
+    <string name="space_summary">Mira qui està a l\'espai ara mateix</string>
+    <string name="settings_summary">Gestioneu la configuració general de l\'aplicació</string>
+    <string name="help_summary">Valoreu o obteniu informació sobre l\'aplicació</string>
+
+    
+    <string name="reset">Actualitza les línies de predicció</string>
+    <string name="stream">Viu</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">primera vegada</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Cap</item>
+        <item>Normal</item>
+        <item>Satèl·lit</item>
+        <item>Terreny</item>
+        <item>Híbrid</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Sobrevols</string>
+    <string name="label_peopleinspace">Qui és a l\'espai\?</string>
+    <string name="label_setting">Configuració</string>
+    <string name="label_help">Ajuda</string>
+    <string name="label_stream">Transmissió en directe</string>
+
+    
+    <string name="startAlert">Aviseu quan l\'ISS estigui a prop</string>
+    <string name="stopAlert">Deixa de notificar quan l\'ISS estigui a prop</string>
+    <string name="startFullAds">Anuncis de pàgina completa activats. Gràcies pel suport ;)</string>
+    <string name="startBannerAds">S\'han activat els anuncis de bàner. Gràcies pel suport ;)</string>
+
+    
+    <string name="tutorialOne">El mapa mostra la ubicació actual de l\'ISS amb una línia de predicció d\'on serà.</string>
+    <string name="tutorialTwo">El calaix us porta a altres funcions com ara sobrevols, configuracions, etc.</string>
+    <string name="midAt">a les</string>
+    <string name="checkerContentDescription">La icona representa que s\'escull un color transparent</string>
+    <string name="countryFlagContentDescription">Bandera del país de la qual és aquest astronauta</string>
+    <string name="astronautTwitterContentDescription">Icona per enllaçar a la pàgina de twitter de l\'astronauta</string>
+    <string name="astronautWikiContentDescription">Icona per enllaçar a la pàgina wiki de l\'astronauta</string>
+    <string name="astronautGoogleContentDescription">Icona per enllaçar a la pàgina de cerca de Google de l\'astronauta</string>
+
+    
+    <string name="refreshTitle">Freqüència d\'actualització</string>
+    <string name="refreshSummary">La taxa d\'actualització actual és d\'1 seg per actualització</string>
+    <string name="declination_unit">segon/actualitzar</string>
+    <string name="refreshDialogMessage">Temps entre l\'actualització de l\'ISS a la seva nova ubicació.</string>
+
+    <string name="lockTitle">Bloquejar l\'ISS</string>
+    <string name="lockSummary">Bloqueu-vos a l\'ISS i seguiu-lo al mapa</string>
+
+    <string name="infoTitle">Informació addicional</string>
+    <string name="infoSummary">Proporcioneu informació addicional sobre l\'ISS al mapa</string>
+
+    <string name="mapTitle">Tipus de mapa</string>
+    <string name="mapSummary">Canvia el tipus de mapa de la pàgina anterior</string>
+
+    <string name="decimalTitle">Llocs decimals</string>
+    <string name="decimalDialogMessage">Canvieu la precisió de tots els valors numèrics</string>
+    <string name="decimalSummary">El nivell de precisió actual és d\'1 $ decimals</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Color de la línia de predicció</string>
+    <string name="colorSummary">Canvia el color de les línies de predicció</string>
+
+    <string name="sizeTitle">Mida de la línia de predicció</string>
+    <string name="sizeDialogMessage">Canvia la mida de la línia de predicció de l\'ISS</string>
+    <string name="sizeSummary">La mida actual de la línia és d\'1 $</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Mida del text</string>
+    <string name="textSizeDialogMessage">Canvia la mida de tots els valors de text</string>
+    <string name="textSizeSummary">La mida actual del text és d\'1 $</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Color del text</string>
+    <string name="textSummary">Canvia el color dels valors del text</string>
+
+    <string name="textHighlightTitle">Esquema de text</string>
+    <string name="textHighlightSummary">Canvia el color del contorn dels valors del text</string>
+
+    <string name="notificationTitle">Notificació ISS</string>
+    <string name="notificationSummary">Notificar quan s\'espera que l\'ISS sobrevoli la meva ubicació</string>
+
+    <string name="advertisementTitle">Bandera</string>
+    <string name="advertisementSummary">Desactiveu els anuncis de bàner a l\'aplicació</string>
+
+    <string name="fullTitle">Pàgina completa</string>
+    <string name="fullSummary">Desactiveu els anuncis de pàgina completa a l\'aplicació</string>
+
+    
+    <string name="errorWebView">No es pot carregar la pàgina</string>
+    <string name="errorLocation">No es pot trobar la teva ubicació.</string>
+    <string name="errorPermissionLocation">S\'ha denegat l\'accés a la teva ubicació</string>
+    <string name="errorConnection">O no teniu connexió o el servidor està sobrecarregat.</string>
+    <string name="errorNetwork">Ha ocorregut un error desconegut. Error: 401</string>
+    <string name="errorMap">No es pot aplicar la configuració al mapa</string>
+    <string name="errorFiveTimes">Han fallat les 5 vegades. O no teniu connexió o el servidor està sobrecarregat.</string>
+    <string name="errorLessFive">La sol·licitud al servidor ha fallat. %1$d de 5. S\'està provant d\'aquí a %2$d segons.</string>
+    <string name="errorWaitPoly">Ja s\'estan creant línies de predicció</string>
+    <string name="errorNotByMe">La notificació ISS no l\'has aturat.</string>
+    <string name="errorNoWiki">no té una pàgina wiki</string>
+    <string name="errorNoTwitter">no té un compte de twitter</string>
+    <string name="data_corrupted">Les dades de l\'aplicació estan malmeses. S\'està reiniciant!</string>
+    <string name="polyError">No es pot crear la línia de predicció</string>
+    <string name="calendar">Calendari</string>
+    <string name="share">Compartir</string>
+    <string name="image_content">Imatge d\'un mapa amb un marcador per a la ubicació de l\'usuari.</string>
+    <string name="iss_sighting_share_title">Albirament de l\'ISS</string>
+    <string name="iss_sighting_share_description">L\'ISS serà visible aquí. Anem a comprovar-ho!</string>
+    <string name="iss_sighting_share_body">\"Comprova-ho!\n\nL\'ISS serà visible a \"</string>
+    <string name="iss_sighting_share_chooser">Compartir…</string>
+    <string name="on">\"en\"</string>
+    <string name="one_day_in_space">1 dia a l\'espai</string>
+    <string name="in_space">\" a l\'espai\"</string>
+    <string name="day">\"dia\"</string>
+    <string name="month">\"mes\"</string>
+    <string name="year">\" curs\"</string>
+    <string name="since">\"Des de\"</string>
+    <string name="tutorial_one_title">Hola :)</string>
+    <string name="tutorial_two_title">Principals característiques</string>
+</resources>

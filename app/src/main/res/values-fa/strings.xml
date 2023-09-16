@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">ردیاب ISS</string>
+
+    
+    <string name="map_activity">نقشه</string>
+    <string name="flybys_title">Flybys</string>
+    <string name="space_title">در حال انجام وظیفه</string>
+    <string name="settings_title">تنظیمات</string>
+    <string name="help_title">کمک</string>
+
+    
+    <string name="flybys_summary">مجوزهای ISS را در محل خود بررسی کنید</string>
+    <string name="space_summary">ببینید چه کسی در حال حاضر در فضا است</string>
+    <string name="settings_summary">تنظیمات کلی برنامه را مدیریت کنید</string>
+    <string name="help_summary">به برنامه امتیاز دهید یا درباره آن اطلاعات کسب کنید</string>
+
+    
+    <string name="reset">خطوط پیش بینی را به روز کنید</string>
+    <string name="stream">زنده</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">بار اول</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>هیچ یک</item>
+        <item>طبیعی</item>
+        <item>ماهواره</item>
+        <item>زمین</item>
+        <item>ترکیبی</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_peopleinspace">چه کسی در فضاست؟</string>
+    <string name="label_setting">تنظیمات</string>
+    <string name="label_help">کمک</string>
+    <string name="label_stream">پخش زنده</string>
+
+    
+    <string name="startAlert">وقتی ISS نزدیک است اطلاع دهید</string>
+    <string name="stopAlert">وقتی ISS نزدیک است، اطلاع رسانی را متوقف کنید</string>
+    <string name="startFullAds">تبلیغات تمام صفحه فعال شد. از حمایت شما ممنونم ؛)</string>
+    <string name="startBannerAds">تبلیغات بنری فعال شد از حمایت شما ممنونم ؛)</string>
+
+    
+    <string name="tutorialOne">نقشه مکان فعلی ISS را با یک خط پیش‌بینی از جایی که قرار است نشان دهد.</string>
+    <string name="tutorialTwo">کشو شما را به ویژگی های دیگری مانند flybys، تنظیمات و غیره می برد…</string>
+    <string name="midAt">در</string>
+    <string name="checkerContentDescription">نماد نشان می دهد که یک رنگ شفاف انتخاب شده است</string>
+    <string name="countryFlagContentDescription">پرچم کشور این فضانورد است</string>
+    <string name="astronautTwitterContentDescription">نماد پیوند به صفحه توییتر فضانورد</string>
+    <string name="astronautWikiContentDescription">نماد پیوند به صفحه ویکی فضانورد</string>
+    <string name="astronautGoogleContentDescription">نماد پیوند به صفحه جستجوی فضانورد در گوگل</string>
+
+    
+    <string name="refreshTitle">نرخ تجدید</string>
+    <string name="refreshSummary">نرخ تازه‌سازی فعلی 1 دلار در ثانیه در بازخوانی است</string>
+    <string name="declination_unit">ثانیه /تازه کردن</string>
+    <string name="refreshDialogMessage">زمان بین ISS به روز رسانی به مکان جدید.</string>
+
+    <string name="lockTitle">قفل ISS</string>
+    <string name="lockSummary">روی ISS قفل کنید و آن را روی نقشه دنبال کنید</string>
+
+    <string name="infoTitle">اطلاعات اضافی</string>
+    <string name="infoSummary">اطلاعات بیشتری در مورد ISS روی نقشه ارائه دهید</string>
+
+    <string name="mapTitle">نوع نقشه</string>
+    <string name="mapSummary">نوع نقشه را از صفحه قبل تغییر دهید</string>
+
+    <string name="decimalTitle">مکان های اعشاری</string>
+    <string name="decimalDialogMessage">دقت تمام مقادیر عددی را تغییر دهید</string>
+    <string name="decimalSummary">سطح دقت فعلی 1 دلار رقم اعشار است</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">رنگ خط پیش بینی</string>
+    <string name="colorSummary">رنگ خطوط پیش بینی را تغییر دهید</string>
+
+    <string name="sizeTitle">اندازه خط پیش بینی</string>
+    <string name="sizeDialogMessage">اندازه خط پیش بینی ISS را تغییر دهید</string>
+    <string name="sizeSummary">اندازه خط فعلی 1 دلار است</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">اندازه متن</string>
+    <string name="textSizeDialogMessage">اندازه تمام مقادیر متن را تغییر دهید</string>
+    <string name="textSizeSummary">اندازه متن فعلی 1 دلار است</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">رنگ متن</string>
+    <string name="textSummary">رنگ مقادیر متن را تغییر دهید</string>
+
+    <string name="textHighlightTitle">طرح کلی متن</string>
+    <string name="textHighlightSummary">رنگ طرح کلی مقادیر متن را تغییر دهید</string>
+
+    <string name="notificationTitle">اطلاعیه ISS</string>
+    <string name="notificationSummary">زمانی که انتظار می رود ایستگاه فضایی بین المللی بر فراز مکان من پرواز کند، اطلاع دهید</string>
+
+    <string name="advertisementTitle">بنر</string>
+    <string name="advertisementSummary">تبلیغات بنری را در برنامه غیرفعال کنید</string>
+
+    <string name="fullTitle">صفحه کامل</string>
+    <string name="fullSummary">تبلیغات تمام صفحه را در برنامه غیرفعال کنید</string>
+
+    
+    <string name="errorWebView">صفحه بارگیری نمی شود</string>
+    <string name="errorLocation">نمی توان مکان شما را پیدا کرد.</string>
+    <string name="errorPermissionLocation">دسترسی به موقعیت مکانی شما ممنوع شد</string>
+    <string name="errorConnection">یا اتصال ندارید یا سرور بیش از حد بارگذاری شده است.</string>
+    <string name="errorNetwork">خطایی ناشناخته اتفاق افتاده است. خطا: 401</string>
+    <string name="errorMap">نمی توان تنظیمات را روی نقشه اعمال کرد</string>
+    <string name="errorFiveTimes">همه 5 بار ناموفق بود. یا اتصال ندارید یا سرور بیش از حد بارگذاری شده است.</string>
+    <string name="errorLessFive">درخواست به سرور انجام نشد. %1$d از 5. امتحان در %2$d ثانیه.</string>
+    <string name="errorWaitPoly">در حال حاضر خطوط پیش بینی ایجاد شده است</string>
+    <string name="errorNotByMe">اعلان ISS توسط شما متوقف نشده است.</string>
+    <string name="errorNoWiki">صفحه ویکی ندارد</string>
+    <string name="errorNoTwitter">اکانت توییتر ندارد</string>
+    <string name="data_corrupted">داده های برنامه خراب است. بازنشانی!</string>
+    <string name="polyError">قادر به ایجاد خط پیش بینی نیست</string>
+    <string name="calendar">تقویم</string>
+    <string name="share">اشتراک گذاری</string>
+    <string name="image_content">تصویر نقشه با نشانگر مکان کاربر.</string>
+    <string name="iss_sighting_share_title">مشاهده ISS</string>
+    <string name="iss_sighting_share_description">ISS در اینجا قابل مشاهده خواهد بود. رفتن به بررسی آن!</string>
+    <string name="iss_sighting_share_body">\"آن را بررسی کنید!\n\nISS در \" قابل مشاهده خواهد بود</string>
+    <string name="iss_sighting_share_chooser">اشتراک گذاری…</string>
+    <string name="on">\" بر \"</string>
+    <string name="one_day_in_space">1 روز در فضا</string>
+    <string name="in_space">\" در فضای\"</string>
+    <string name="day">\"روز\"</string>
+    <string name="month">\"ماه\"</string>
+    <string name="year">\"سال\"</string>
+    <string name="since">\"از آنجا که \"</string>
+    <string name="tutorial_one_title">سلام :)</string>
+    <string name="tutorial_two_title">ویژگی های اصلی</string>
+</resources>

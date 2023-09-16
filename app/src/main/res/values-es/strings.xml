@@ -1,0 +1,154 @@
+<resources>
+    
+    <string name="app_name">Rastreador de la ISS</string>
+
+    
+    <string name="map_activity">Mapa</string>
+    <string name="flybys_title">Sobrevuelos</string>
+    <string name="space_title">De servicio</string>
+    <string name="settings_title">Ajustes</string>
+    <string name="help_title">Ayuda</string>
+
+    
+    <string name="flybys_summary">Consulta los pases de la ISS según tu ubicación</string>
+    <string name="space_summary">Mira quién está en el espacio ahora mismo.</string>
+    <string name="settings_summary">Administrar la configuración general de la aplicación</string>
+    <string name="help_summary">Califica o aprende sobre la aplicación</string>
+
+    
+    <string name="reset">Actualizar líneas de predicción</string>
+    <string name="stream">Vivir</string>
+
+    
+    
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
+
+    
+    <string name="firstTime">primera vez</string>
+
+    
+    <string-array name="entryValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entry">
+        <item>Ninguno</item>
+        <item>Normal</item>
+        <item>Satélite</item>
+        <item>Terreno</item>
+        <item>Híbrido</item>
+    </string-array>
+
+    
+    <string name="hexEditDefault">00000000</string>
+
+    
+    <string name="label_location">Sobrevuelos</string>
+    <string name="label_peopleinspace">¿Quién está en el espacio\?</string>
+    <string name="label_setting">Ajustes</string>
+    <string name="label_help">Ayuda</string>
+    <string name="label_stream">Transmisión en vivo</string>
+
+    
+    <string name="startAlert">Notificar cuando la ISS esté cerca</string>
+    <string name="stopAlert">Deja de notificar cuando la ISS esté cerca</string>
+    <string name="startFullAds">Anuncios de página completa habilitados. Gracias por el apoyo ;)</string>
+    <string name="startBannerAds">Anuncios de banner habilitados. Gracias por el apoyo ;)</string>
+
+    
+    <string name="tutorialOne">El mapa muestra la ubicación actual de la ISS con una línea de predicción de dónde estará.</string>
+    <string name="tutorialTwo">Drawer te lleva a otras funciones como sobrevuelos, configuraciones, etc.</string>
+    <string name="midAt">en</string>
+    <string name="checkerContentDescription">El icono representa que se ha elegido un color transparente.</string>
+    <string name="countryFlagContentDescription">Bandera del país de donde es este astronauta</string>
+    <string name="astronautTwitterContentDescription">Icono para enlazar a la página de Twitter del astronauta.</string>
+    <string name="astronautWikiContentDescription">Icono para vincular a la página wiki del astronauta.</string>
+    <string name="astronautGoogleContentDescription">Ícono para vincular a la página de búsqueda de Google del astronauta</string>
+
+    
+    <string name="refreshTitle">Frecuencia de actualización</string>
+    <string name="refreshSummary">La frecuencia de actualización actual es de 1 USD por segundo/actualización.</string>
+    <string name="declination_unit">seg/actualizar</string>
+    <string name="refreshDialogMessage">Tiempo entre la actualización de la ISS a su nueva ubicación.</string>
+
+    <string name="lockTitle">Bloquear ISS</string>
+    <string name="lockSummary">Fijate en la ISS y síguela en el mapa.</string>
+
+    <string name="infoTitle">Información adicional</string>
+    <string name="infoSummary">Proporcionar información adicional sobre la ISS en el mapa.</string>
+
+    <string name="mapTitle">Tipo de mapa</string>
+    <string name="mapSummary">Cambiar el tipo de mapa de la página anterior</string>
+
+    <string name="decimalTitle">Lugares decimales</string>
+    <string name="decimalDialogMessage">Cambiar la precisión de todos los valores numéricos.</string>
+    <string name="decimalSummary">El nivel de precisión actual es de $1 decimal</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Color de la línea de predicción</string>
+    <string name="colorSummary">Cambiar el color de las líneas de predicción.</string>
+
+    <string name="sizeTitle">Tamaño de línea de predicción</string>
+    <string name="sizeDialogMessage">Cambiar el tamaño de la línea de predicción de la ISS</string>
+    <string name="sizeSummary">El tamaño de línea actual es $1</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Tamano del texto</string>
+    <string name="textSizeDialogMessage">Cambiar el tamaño de todos los valores de texto.</string>
+    <string name="textSizeSummary">El tamaño del texto actual es $1</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Color de texto</string>
+    <string name="textSummary">Cambiar el color de los valores del texto.</string>
+
+    <string name="textHighlightTitle">Esquema del texto</string>
+    <string name="textHighlightSummary">Cambiar el color del contorno de los valores del texto</string>
+
+    <string name="notificationTitle">Notificación de la ISS</string>
+    <string name="notificationSummary">Notificar cuando se espera que la ISS sobrevuele mi ubicación</string>
+
+    <string name="advertisementTitle">Bandera</string>
+    <string name="advertisementSummary">Deshabilitar anuncios publicitarios en la aplicación</string>
+
+    <string name="fullTitle">Página completa</string>
+    <string name="fullSummary">Deshabilite los anuncios de página completa en la aplicación</string>
+
+    
+    <string name="errorWebView">No se puede cargar la página</string>
+    <string name="errorLocation">No se puede encontrar tu ubicación.</string>
+    <string name="errorPermissionLocation">Acceso denegado a su ubicación</string>
+    <string name="errorConnection">O no tienes conexión o el servidor está sobrecargado.</string>
+    <string name="errorNetwork">Un error desconocido a ocurrido. Error: 401</string>
+    <string name="errorMap">No se pueden aplicar configuraciones al mapa</string>
+    <string name="errorFiveTimes">Falló las 5 veces. O no tienes conexión o el servidor está sobrecargado.</string>
+    <string name="errorLessFive">La solicitud al servidor falló. %1$d de 5. Lo intento en %2$d segundos.</string>
+    <string name="errorWaitPoly">Ya creando líneas de predicción</string>
+    <string name="errorNotByMe">La notificación ISS no fue detenida por usted.</string>
+    <string name="errorNoWiki">no tiene una página wiki</string>
+    <string name="errorNoTwitter">no tiene una cuenta de twitter</string>
+    <string name="data_corrupted">Los datos de la aplicación están dañados. ¡Reiniciando!</string>
+    <string name="polyError">No se puede crear una línea de predicción</string>
+    <string name="calendar">Calendario</string>
+    <string name="share">Compartir</string>
+    <string name="image_content">Imagen de un mapa con un marcador para la ubicación del usuario.</string>
+    <string name="iss_sighting_share_title">Avistamiento de la ISS</string>
+    <string name="iss_sighting_share_description">La ISS será visible aquí. ¡Voy a comprobarlo!</string>
+    <string name="iss_sighting_share_body">\"¡Échale un vistazo!\n\nLa ISS será visible en \"</string>
+    <string name="iss_sighting_share_chooser">Compartir…</string>
+    <string name="on">\" en \"</string>
+    <string name="one_day_in_space">1 día en el espacio</string>
+    <string name="in_space">\" en el espacio\"</string>
+    <string name="day">\" día\"</string>
+    <string name="month">\" mes\"</string>
+    <string name="year">\" año\"</string>
+    <string name="since">\"Desde \"</string>
+    <string name="tutorial_one_title">Hola :)</string>
+    <string name="tutorial_two_title">Principales características</string>
+</resources>
