@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">සිතියම</string>
-    <string name="flybys_title">ෆ්ලයිබයිස්</string>
+    <string name="flybys_title">පසුකරමින්</string>
     <string name="space_title">රාජකාරියේ</string>
     <string name="settings_title">සැකසුම්</string>
     <string name="help_title">උදව්</string>
 
     
-    <string name="flybys_summary">ඔබගේ ස්ථානය අනුව ISS හි අවසරපත් පරීක්ෂා කරන්න</string>
+    <string name="flybys_summary">ISS ඔබේ ස්ථානය පසුකර යන්නේ කවදාදැයි පරීක්ෂා කරන්න</string>
     <string name="space_summary">දැන් අභ්‍යවකාශයේ සිටින්නේ කවුදැයි බලන්න</string>
     <string name="settings_summary">සාමාන්‍ය යෙදුම් සැකසීම් කළමනාකරණය කරන්න</string>
     <string name="help_summary">යෙදුම අගයන්න හෝ ඉගෙන ගන්න</string>
@@ -20,38 +20,8 @@
     <string name="stream">සජීවි</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">පළමු වරට</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>කිසිවක් නැත</item>
-        <item>සාමාන්යයි</item>
-        <item>චන්ද්රිකාව</item>
-        <item>භූමිය</item>
-        <item>දෙමුහුන්</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">ෆ්ලයිබයිස්</string>
-    <string name="label_peopleinspace">අභ්‍යවකාශයේ සිටින්නේ කවුද\?</string>
+    <string name="label_people_in_space">අභ්‍යවකාශයේ සිටින්නේ කවුද\?</string>
     <string name="label_setting">සැකසුම්</string>
     <string name="label_help">උදව්</string>
     <string name="label_stream">සජීවී විකාශය</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">බැනර් දැන්වීම් සබල කර ඇත. සහයට ස්තූතියි ;)</string>
 
     
-    <string name="tutorialOne">සිතියම ISS හි වත්මන් ස්ථානය එය කොහිදැයි පුරෝකථන රේඛාවක් සමඟ පෙන්වයි.</string>
-    <string name="tutorialTwo">ලාච්චුව ඔබව පියාසර කිරීම, සැකසීම් වැනි වෙනත් විශේෂාංග වෙත ගෙන යයි...</string>
+    <string name="tutorialOne">සිතියම ISS වත්මන් ස්ථානය එය කොහිදැයි පුරෝකථන රේඛාවක් සමඟ පෙන්වයි.</string>
+    <string name="tutorialTwo">ලාච්චුව ඔබව flybys සහ සැකසුම් වැනි වෙනත් විශේෂාංග වෙත ගෙන යයි.</string>
     <string name="midAt">හිදී</string>
     <string name="checkerContentDescription">අයිකනය නියෝජනය කරන්නේ විනිවිද පෙනෙන වර්ණයක් තෝරාගෙන ඇති බවයි</string>
     <string name="countryFlagContentDescription">මෙම ගගනගාමියා රට ධජයෙන්</string>
-    <string name="astronautTwitterContentDescription">ගගනගාමියාගේ ට්විටර් පිටුවට සම්බන්ධ කිරීමට අයිකනය</string>
-    <string name="astronautWikiContentDescription">ගගනගාමියාගේ විකි පිටුවට සම්බන්ධ වීමට ඇති අයිකනය</string>
-    <string name="astronautGoogleContentDescription">ගගනගාමියාගේ Google සෙවුම් පිටුවට සම්බන්ධ කිරීමට ඇති අයිකනය</string>
+    <string name="astronautTwitterContentDescription">ගගනගාමීන්ගේ ට්විටර් පිටුවට සම්බන්ධ කිරීමට අයිකනය</string>
+    <string name="astronautWikiContentDescription">ගගනගාමීන්ගේ විකි පිටුවට සම්බන්ධ කිරීමට ඇති අයිකනය</string>
+    <string name="astronautGoogleContentDescription">ගගනගාමීන්ගේ ගූගල් සෙවුම් පිටුවට සම්බන්ධ කිරීමට අයිකනය</string>
 
     
     <string name="refreshTitle">Refresh Rate</string>
-    <string name="refreshSummary">වත්මන් නැවුම් කිරීමේ අනුපාතය $1 තත්පර/නැවුම් කිරීමකි</string>
+    <string name="refreshSummary">සිතියම මත ISS ස්ථානය යාවත්කාලීන කිරීමට පෙර කාලය</string>
     <string name="declination_unit">තත්පර/නැවුම් කරන්න</string>
     <string name="refreshDialogMessage">ISS අතර කාලය එහි නව ස්ථානයට යාවත්කාලීන වේ.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">දශම ස්ථාන</string>
     <string name="decimalDialogMessage">සියලුම සංඛ්‍යාත්මක අගයන්හි නිරවද්‍යතාවය වෙනස් කරන්න</string>
-    <string name="decimalSummary">වත්මන් නිරවද්‍යතා මට්ටම $1 දශම ස්ථාන වේ</string>
+    <string name="decimalSummary">සියලුම සංඛ්‍යාත්මක අගයන්හි නිරවද්‍යතාවය වෙනස් කරන්න</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">පුරෝකථන රේඛාවේ වර්ණය</string>
     <string name="colorSummary">අනාවැකි රේඛාවල වර්ණය වෙනස් කරන්න</string>
 
     <string name="sizeTitle">පුරෝකථන රේඛාවේ විශාලත්වය</string>
-    <string name="sizeDialogMessage">ISS හි පුරෝකථන රේඛාවේ ප්‍රමාණය වෙනස් කරන්න</string>
-    <string name="sizeSummary">වත්මන් රේඛා ප්‍රමාණය ඩොලර් 1 කි</string>
+    <string name="sizeDialogMessage">ISSs අනාවැකි රේඛාවේ ප්‍රමාණය වෙනස් කරන්න</string>
+    <string name="sizeSummary">ISSs අනාවැකි රේඛාවේ ප්‍රමාණය වෙනස් කරන්න</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">පෙළ ප්රමාණය</string>
-    <string name="textSizeDialogMessage">සියලුම පෙළ අගයන්හි ප්‍රමාණය වෙනස් කරන්න</string>
-    <string name="textSizeSummary">වත්මන් පෙළ ප්‍රමාණය ඩොලර් 1 කි</string>
+    <string name="textSizeDialogMessage">සිතියමේ ඇති සියලුම පෙළ අගයන්හි ප්‍රමාණය වෙනස් කරන්න</string>
+    <string name="textSizeSummary">සිතියමේ ඇති සියලුම පෙළ අගයන්හි ප්‍රමාණය වෙනස් කරන්න</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">පෙළ වර්ණය</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">නොදන්නා දෝෂයක් සිදුවී ඇත. දෝෂය: 401</string>
     <string name="errorMap">සිතියමට සැකසීම් යෙදිය නොහැක</string>
     <string name="errorFiveTimes">5 වතාවක්ම අසාර්ථකයි. එක්කෝ ඔබට සම්බන්ධතාවයක් නැත, නැතහොත් සේවාදායකය අධික ලෙස පටවා ඇත.</string>
-    <string name="errorLessFive">සේවාදායකය වෙත ඉල්ලීම අසාර්ථක විය. 5 න් %1$d. තත්පර %2$d කින් උත්සාහ කරමින්.</string>
+    <string name="errorLessFive">සේවාදායකය වෙත ඉල්ලීම අසාර්ථක විය. නැවත උත්සාහ කරමින්...</string>
     <string name="errorWaitPoly">දැනටමත් අනාවැකි රේඛා නිර්මාණය කරමින්</string>
     <string name="errorNotByMe">ISS දැනුම්දීම ඔබ විසින් නතර කර නැත.</string>
     <string name="errorNoWiki">විකි පිටුවක් නැත</string>
-    <string name="errorNoTwitter">twitter ගිණුමක් නැත</string>
+    <string name="errorNoTwitter">Twitter ගිණුමක් නැත</string>
+    <string name="errorNoInstagram">Instagram ගිණුමක් නැත</string>
+    <string name="errorNoFacebook">ෆේස්බුක් ගිණුමක් නැත</string>
     <string name="data_corrupted">යෙදුම් දත්ත දූෂිත වී ඇත. යළි පිහිටුවීම!</string>
     <string name="polyError">පුරෝකථන රේඛාවක් සෑදීමට නොහැකිය</string>
     <string name="calendar">දින දර්ශනය</string>
@@ -140,7 +112,7 @@
     <string name="image_content">පරිශීලක ස්ථානය සඳහා සලකුණක් සහිත සිතියමක රූපය.</string>
     <string name="iss_sighting_share_title">ISS දර්ශනය</string>
     <string name="iss_sighting_share_description">ISS මෙහි දෘශ්‍යමාන වනු ඇත. එය පරීක්ෂා කිරීමට යනවා!</string>
-    <string name="iss_sighting_share_body">\"එය පරික්ෂා කරන්න!\n\nISS දර්ශනය වනු ඇත්තේ \"</string>
+    <string name="iss_sighting_share_body">\"එය පරීක්ෂා කරන්න! ISS දර්ශනය වනු ඇත \"</string>
     <string name="iss_sighting_share_chooser">බෙදාගන්න…</string>
     <string name="on">\" මත \"</string>
     <string name="one_day_in_space">අභ්‍යවකාශයේ දින 1ක්</string>
@@ -148,7 +120,16 @@
     <string name="day">\" දවස\"</string>
     <string name="month">\" මස\"</string>
     <string name="year">\" අවුරුදු\"</string>
-    <string name="since">\"පටන් \"</string>
+    <string name="since">\"දියත් කරන ලදී\"</string>
     <string name="tutorial_one_title">ඒයි මේ :)</string>
     <string name="tutorial_two_title">ප්රධාන ලක්ෂණ</string>
+
+    <string name="license">විවෘත මූලාශ්‍ර බලපත්‍ර</string>
+    <string name="msg_license">මෙම යෙදුම පහත මෘදුකාංග භාවිතයෙන් සාදා ඇත:</string>
+    <string name="msg_about_fork_me_on_github">GitHub මත එය ෆෝක් කරන්න</string>
+    <string name="msg_about_library_description">ISS Tracker යනු ජාත්‍යන්තර අභ්‍යවකාශ මධ්‍යස්ථානයේ පිහිටීම නිරීක්ෂණය කිරීමට සහ දැනට අභ්‍යවකාශයේ සිටින ගගනගාමීන් මොනවාදැයි සොයා බැලීමට ඔබට ඉඩ සලසන ඇන්ඩ්‍රොයිඩ් යෙදුමකි.</string>
+    <string name="desc_about_app">මෙම යෙදුම ගැන</string>
+    <string name="msg_get_it_on_play_store">එය Google Play මත ලබා ගන්න</string>
+    <string name="version">අනුවාද</string>
+    <string name="version_msg">පෙර වෙනස්කම්, නිවැරදි කිරීම් සහ යාවත්කාලීන ලැයිස්තුව:</string>
 </resources>

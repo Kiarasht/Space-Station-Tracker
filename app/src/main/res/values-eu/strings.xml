@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Mapa</string>
-    <string name="flybys_title">Flyby-ak</string>
+    <string name="flybys_title">Handik pasatzen</string>
     <string name="space_title">Lanean</string>
     <string name="settings_title">Ezarpenak</string>
     <string name="help_title">Laguntza</string>
 
     
-    <string name="flybys_summary">Egiaztatu ISS-en pasabideak zure kokapenaren arabera</string>
+    <string name="flybys_summary">Egiaztatu noiz pasatuko den ISS zure kokapenetik</string>
     <string name="space_summary">Ikusi nor dagoen espazioan oraintxe bertan</string>
     <string name="settings_summary">Kudeatu aplikazioaren ezarpen orokorrak</string>
     <string name="help_summary">Baloratu edo ikasi aplikazioari buruz</string>
@@ -20,38 +20,8 @@
     <string name="stream">Zuzenean</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">Lehen aldiz</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Bat ere ez</item>
-        <item>Normala</item>
-        <item>Satelitea</item>
-        <item>Lurra</item>
-        <item>Hibridoa</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
-    <string name="label_location">Flyby-ak</string>
-    <string name="label_peopleinspace">Nor dago Espazioan\?</string>
+    <string name="label_location">Flybyak</string>
+    <string name="label_people_in_space">Nor dago Espazioan\?</string>
     <string name="label_setting">Ezarpenak</string>
     <string name="label_help">Laguntza</string>
     <string name="label_stream">Zuzeneko erreprodukzioa</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">Banner-iragarkiak gaituta. Eskerrik asko laguntzagatik ;)</string>
 
     
-    <string name="tutorialOne">Mapak ISSren uneko kokapena erakusten du non egongo den iragarpen-lerro batekin.</string>
-    <string name="tutorialTwo">Tiraderak beste funtzio batzuetara eramaten zaitu, hala nola hegaldiak, ezarpenak, etab...</string>
+    <string name="tutorialOne">Mapa ISSren uneko kokapena erakusten du non egongo den iragarpen-lerro batekin.</string>
+    <string name="tutorialTwo">Tiraderak beste eginbide batzuetara eramaten zaitu, hala nola hegaldiak eta ezarpenak.</string>
     <string name="midAt">etan</string>
     <string name="checkerContentDescription">Ikonoak kolore garden bat hautatu dela adierazten du</string>
     <string name="countryFlagContentDescription">Herriko bandera astronauta hau da</string>
-    <string name="astronautTwitterContentDescription">Ikonoa astronauten twitter orrira estekatzeko</string>
-    <string name="astronautWikiContentDescription">Astronautaren wiki orrira estekatzeko ikonoa</string>
-    <string name="astronautGoogleContentDescription">Astronautaren Google bilaketa-orrira estekatzeko ikonoa</string>
+    <string name="astronautTwitterContentDescription">Astronauten twitter orrira estekatzeko ikonoa</string>
+    <string name="astronautWikiContentDescription">Ikonoa astronauten wiki orrira estekatzeko</string>
+    <string name="astronautGoogleContentDescription">Ikonoa astronauten Google bilaketa-orrira estekatzeko</string>
 
     
     <string name="refreshTitle">Freskatze tasa</string>
-    <string name="refreshSummary">Egungo freskatze-tasa $ 1 segundo/freskatzea da</string>
+    <string name="refreshSummary">ISSren kokapena mapan eguneratu aurretik denbora kopurua</string>
     <string name="declination_unit">seg/freskatu</string>
     <string name="refreshDialogMessage">ISS bere kokapen berrira eguneratzen den arteko denbora.</string>
 
@@ -89,7 +59,7 @@
 
     <string name="decimalTitle">Leku hamartarrak</string>
     <string name="decimalDialogMessage">Aldatu zenbakizko balio guztien zehaztasuna</string>
-    <string name="decimalSummary">Uneko zehaztasun-maila $ 1 hamartarrekin dago</string>
+    <string name="decimalSummary">Aldatu zenbakizko balio guztien zehaztasuna</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Iragarpen-lerroaren kolorea</string>
@@ -97,12 +67,12 @@
 
     <string name="sizeTitle">Iragarpen-lerroaren tamaina</string>
     <string name="sizeDialogMessage">Aldatu ISSren iragarpen-lerroaren tamaina</string>
-    <string name="sizeSummary">Uneko lerroaren tamaina $ 1 da</string>
+    <string name="sizeSummary">Aldatu ISSren iragarpen-lerroaren tamaina</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Testuaren tamaina</string>
-    <string name="textSizeDialogMessage">Aldatu testu-balio guztien tamaina</string>
-    <string name="textSizeSummary">Uneko testuaren tamaina $1 da</string>
+    <string name="textSizeDialogMessage">Aldatu mapako testu-balio guztien tamaina</string>
+    <string name="textSizeSummary">Aldatu mapako testu-balio guztien tamaina</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Testuaren kolorea</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">Errore ezezagun bat gertatu da. Errorea: 401</string>
     <string name="errorMap">Ezin dira ezarri ezarpenak mapan</string>
     <string name="errorFiveTimes">5 aldiz huts egin du. Edo ez duzu konexiorik edo zerbitzaria gainkargatuta dago.</string>
-    <string name="errorLessFive">Zerbitzariari egindako eskaerak huts egin du. %1$d/5. %2$d segundotan saiatzen.</string>
+    <string name="errorLessFive">Zerbitzariari egindako eskaerak huts egin du. Berriro saiatzen…</string>
     <string name="errorWaitPoly">Dagoeneko iragarpen-lerroak sortzen ari dira</string>
     <string name="errorNotByMe">Zuk ez duzu ISS jakinarazpena gelditu.</string>
     <string name="errorNoWiki">ez du wiki orririk</string>
-    <string name="errorNoTwitter">ez du twitter konturik</string>
+    <string name="errorNoTwitter">ez du Twitter konturik</string>
+    <string name="errorNoInstagram">ez du Instagram konturik</string>
+    <string name="errorNoFacebook">ez du Facebook konturik</string>
     <string name="data_corrupted">Aplikazioaren datuak hondatuta daude. Berrezartzen!</string>
     <string name="polyError">Ezin da iragarpen-lerroa sortu</string>
     <string name="calendar">Egutegia</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Erabiltzailearen kokapenaren marka duen mapa baten irudia.</string>
     <string name="iss_sighting_share_title">ISS Behaketa</string>
     <string name="iss_sighting_share_description">ISS hemen ikusgai egongo da. Ikustera noa!</string>
-    <string name="iss_sighting_share_body">\"Begiratu ezazu!\n\nISS-n ikusgai egongo da \"</string>
+    <string name="iss_sighting_share_body">\"Begiratu! ISS helbidean egongo da ikusgai\"</string>
     <string name="iss_sighting_share_chooser">Partekatu…</string>
     <string name="on">\"aktibatuta\"</string>
     <string name="one_day_in_space">Egun 1 espazioan</string>
@@ -148,7 +120,16 @@
     <string name="day">\"eguna\"</string>
     <string name="month">\"hilabete\"</string>
     <string name="year">\"urtea\"</string>
-    <string name="since">\"Gerotik\"</string>
+    <string name="since">\"Abian jarri\"</string>
     <string name="tutorial_one_title">Aupa :)</string>
     <string name="tutorial_two_title">Ezaugarri nagusiak</string>
+
+    <string name="license">Kode irekiko lizentziak</string>
+    <string name="msg_license">Aplikazio hau software hau erabiliz eraiki da:</string>
+    <string name="msg_about_fork_me_on_github">Sar ezazu GitHub-en</string>
+    <string name="msg_about_library_description">ISS Tracker Android aplikazio bat da, Nazioarteko Espazio Estazioaren posizioa jarraitzeko eta gaur egun espazioan dauden astronautak jakiteko.</string>
+    <string name="desc_about_app">Aplikazio honi buruz</string>
+    <string name="msg_get_it_on_play_store">Lortu Google Play-n</string>
+    <string name="version">Bertsioak</string>
+    <string name="version_msg">Aurreko aldaketen, konponketen eta eguneraketen zerrenda:</string>
 </resources>

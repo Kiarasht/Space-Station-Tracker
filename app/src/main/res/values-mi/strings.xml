@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Mapi</string>
-    <string name="flybys_title">Rererere</string>
+    <string name="flybys_title">Haere Mai</string>
     <string name="space_title">Kei runga i te kawenga</string>
     <string name="settings_title">Tautuhinga</string>
     <string name="help_title">Awhina</string>
 
     
-    <string name="flybys_summary">Tirohia nga paahitanga a ISS i to waahi</string>
+    <string name="flybys_summary">Tirohia te wa ka haere a ISS ma to waahi</string>
     <string name="space_summary">Tirohia ko wai kei te waahi inaianei</string>
     <string name="settings_summary">Whakahaerehia nga tautuhinga taupānga whanui</string>
     <string name="help_summary">Whakatauhia, ako ranei mo te taupānga</string>
@@ -20,38 +20,8 @@
     <string name="stream">Ora</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">wa tuatahi</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Karekau</item>
-        <item>Pūnoa</item>
-        <item>Satellite</item>
-        <item>Papa whenua</item>
-        <item>Ranu</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Rererere</string>
-    <string name="label_peopleinspace">Ko wai kei Mokowhiti\?</string>
+    <string name="label_people_in_space">Ko wai kei Space\?</string>
     <string name="label_setting">Tautuhinga</string>
     <string name="label_help">Awhina</string>
     <string name="label_stream">Rere Ora</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">Kua whakahohea nga panui kara. Nga mihi mo te tautoko ;)</string>
 
     
-    <string name="tutorialOne">Ko te Mapi e whakaatu ana i te waahi o ISS o naianei me te rarangi matapae kei hea.</string>
-    <string name="tutorialTwo">Ka kawea koe e Drawer ki etahi atu ahuatanga penei i nga rererangi, nga tautuhinga, aha atu…</string>
+    <string name="tutorialOne">Ko te Mapi e whakaatu ana i te waahi o naianei me te rarangi matapae kei hea.</string>
+    <string name="tutorialTwo">Ka kawea koe e Drawer ki etahi atu ahuatanga penei i nga rererangi me nga tautuhinga.</string>
     <string name="midAt">i</string>
     <string name="checkerContentDescription">Ko te tohu e tohu ana ka kohia he tae maramara</string>
     <string name="countryFlagContentDescription">Ko te haki whenua i ahu mai tenei kairorohiko</string>
-    <string name="astronautTwitterContentDescription">Tohu hei hono ki te wharangi twitter a te kairangi</string>
-    <string name="astronautWikiContentDescription">Ata hei hono ki te wharangi wiki a te kairangi</string>
-    <string name="astronautGoogleContentDescription">Ata ki te hono ki te wharangi rapu a Google a te kairangi</string>
+    <string name="astronautTwitterContentDescription">Tohu hei hono ki te wharangi twitter astronauts</string>
+    <string name="astronautWikiContentDescription">Ata hei hono ki te wharangi wiki astronauts</string>
+    <string name="astronautGoogleContentDescription">Tohu hei hono ki te wharangi rapu a Google</string>
 
     
     <string name="refreshTitle">Rere tāmata</string>
-    <string name="refreshSummary">Ko te tere tāmata o nāianei he $1 hēkona/tāmata</string>
+    <string name="refreshSummary">Te roanga o te wa i mua i te whakahou i te waahi ISS ki te mapi</string>
     <string name="declination_unit">hekona/whakahou</string>
     <string name="refreshDialogMessage">Te wa i waenga i te ISS e whakahou ana ki tana waahi hou.</string>
 
@@ -89,7 +59,7 @@
 
     <string name="decimalTitle">Wāhi ā-ira</string>
     <string name="decimalDialogMessage">Hurihia te tika o nga uara tau katoa</string>
-    <string name="decimalSummary">Ko te taumata tika o naianei kei te $1 nga waahi ira</string>
+    <string name="decimalSummary">Hurihia te tika o nga uara tau katoa</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Tae raina matapae</string>
@@ -97,12 +67,12 @@
 
     <string name="sizeTitle">Rahi raina matapae</string>
     <string name="sizeDialogMessage">Hurihia te rahi o te raina matapae a ISS</string>
-    <string name="sizeSummary">Ko te rahi o te raina o naianei he $1</string>
+    <string name="sizeSummary">Hurihia te rahi o te raina matapae a ISS</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Rahi kupu</string>
-    <string name="textSizeDialogMessage">Hurihia te rahi o nga uara kuputuhi katoa</string>
-    <string name="textSizeSummary">He $1 te rahi o te kuputuhi o naianei</string>
+    <string name="textSizeDialogMessage">Hurihia te rahi o nga uara kuputuhi katoa i runga mapi</string>
+    <string name="textSizeSummary">Hurihia te rahi o nga uara kuputuhi katoa i runga mapi</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Tae kupu</string>
@@ -126,21 +96,23 @@
     <string name="errorPermissionLocation">Kua whakakorehia te uru ki to waahi</string>
     <string name="errorConnection">Karekau he hononga, kei te taumaha te tūmau.</string>
     <string name="errorNetwork">Kua puta he hapa e kore e mohiotia. Hapa: 401</string>
-    <string name="errorMap">Kāore e taea te tono tautuhinga ki te mahere</string>
+    <string name="errorMap">Kaore e taea te tono tautuhinga ki te mapi</string>
     <string name="errorFiveTimes">I rahua katoa e 5 nga wa. Karekau he hononga, kei te taumaha te tūmau.</string>
-    <string name="errorLessFive">I rahua te tono ki te tūmau. %1$d o te 5. E ngana ana i roto i te %2$d hēkona.</string>
+    <string name="errorLessFive">I rahua te tono ki te tūmau. Kei te ngana ano…</string>
     <string name="errorWaitPoly">Kua hanga rarangi matapae</string>
     <string name="errorNotByMe">Kaore koe i aukati i te Panui ISS.</string>
     <string name="errorNoWiki">karekau he wharangi wiki</string>
-    <string name="errorNoTwitter">karekau he putea twitter</string>
+    <string name="errorNoTwitter">karekau he putea Twitter</string>
+    <string name="errorNoInstagram">kaore he putea Instagram</string>
+    <string name="errorNoFacebook">karekau he putea Facebook</string>
     <string name="data_corrupted">Kua kino nga raraunga taupānga. Tautuhi ano!</string>
     <string name="polyError">Kaore e taea te hanga raina matapae</string>
     <string name="calendar">Maramataka</string>
-    <string name="share">Tiria</string>
+    <string name="share">Tiri</string>
     <string name="image_content">Whakaahua o te mapi me te tohu mo te waahi kaiwhakamahi.</string>
     <string name="iss_sighting_share_title">ISS Tirohanga</string>
     <string name="iss_sighting_share_description">Ka kitea te ISS i konei. Haere ki te tirotiro!</string>
-    <string name="iss_sighting_share_body">\"Tirohia!\n\nKa kitea te ISS i \"</string>
+    <string name="iss_sighting_share_body">\"Tirohia! Ka kitea te ISS i \"</string>
     <string name="iss_sighting_share_chooser">Tiri…</string>
     <string name="on">\"i runga\"</string>
     <string name="one_day_in_space">1 ra i te waahi</string>
@@ -148,7 +120,16 @@
     <string name="day">\"ra\"</string>
     <string name="month">\"marama\"</string>
     <string name="year">\"tau\"</string>
-    <string name="since">\"Mai\"</string>
+    <string name="since">\"Whakarewa\"</string>
     <string name="tutorial_one_title">Kia ora :)</string>
     <string name="tutorial_two_title">Nga waahanga matua</string>
+
+    <string name="license">Nga raihana puna tuwhera</string>
+    <string name="msg_license">Ka hangaia tenei tono ma te whakamahi i nga raupaparorohiko e whai ake nei:</string>
+    <string name="msg_about_fork_me_on_github">Marau ki GitHub</string>
+    <string name="msg_about_library_description">Ko te ISS Tracker he tono phi ka taea e koe te whai i te tuunga o te Teihana Mokowhiti o te Ao me te mohio he aha nga kairangirangi kei te waahi inaianei.</string>
+    <string name="desc_about_app">Mō tēnei taupānga</string>
+    <string name="msg_get_it_on_play_store">Tikina ki runga Google Play</string>
+    <string name="version">Putanga</string>
+    <string name="version_msg">Rarangi o nga huringa o mua, whakatika, me nga whakahou:</string>
 </resources>

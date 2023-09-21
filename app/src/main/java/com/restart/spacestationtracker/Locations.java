@@ -1,7 +1,6 @@
 package com.restart.spacestationtracker;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -9,6 +8,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -24,10 +24,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.restart.spacestationtracker.adapter.LocationAdapter;
 import com.restart.spacestationtracker.data.SightSee;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,9 +58,9 @@ public class Locations extends AppCompatActivity {
     private String mLongitude;
     private String mLatitude;
     private String mElevation;
-    private Activity mActivity;
     private CollapsingToolbarLayout mCollapsingToolbar;
     private ProgressBar mLoading;
+    private boolean mPaddingOnce;
 
     /**
      * Assign simple widgets while also use the Google API to get user's location.
@@ -74,12 +76,18 @@ public class Locations extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
-        mActivity = this;
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView = findViewById(R.id.recycler);
-        //AdView mAdView = findViewById(R.id.adView);
-        //mAdView.loadAd(new AdRequest.Builder().build());
+
+        AdView mAdView = findViewById(R.id.adView);
+        mAdView.loadAd(new AdRequest.Builder().build());
+        mAdView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            if (!mPaddingOnce) {
+                mPaddingOnce = true;
+                DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
+                mRecyclerView.setPadding(mRecyclerView.getPaddingLeft(), mRecyclerView.getPaddingTop(), mRecyclerView.getPaddingRight(), mRecyclerView.getPaddingBottom() + mAdView.getHeight() + mToolbar.getHeight() + (int) ((48 * displayMetrics.density) + 0.5));
+            }
+        });
 
         mImageView = findViewById(R.id.image);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -128,7 +136,7 @@ public class Locations extends AppCompatActivity {
         if (location != null) {
             String url = "https://maps.googleapis.com/maps/api/staticmap?" +
                     "center=LAT,LNG&" +
-                    "zoom=13&" +
+                    "zoom=10&" +
                     "scale=1&" +
                     "size=640x640&" +
                     "maptype=terrain&" +
@@ -175,7 +183,7 @@ public class Locations extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            Picasso.get().load(url).into(mImageView);
+            Glide.with(this).load(url).into(mImageView);
             mImageView.setImageAlpha(150);
             displayPasses(null, null, null);
         } else {
@@ -209,8 +217,8 @@ public class Locations extends AppCompatActivity {
                     dates.add(aSightSee);
                 }
 
-                if (mActivity != null) {
-                    mAdapter = new LocationAdapter(mActivity);
+                if (this != null) {
+                    mAdapter = new LocationAdapter(this);
                     mAdapter.setDataSet(dates);
                     mRecyclerView.setAdapter(mAdapter);
                     mLoading.setVisibility(View.GONE);

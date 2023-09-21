@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Kort</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">Passerer</string>
     <string name="space_title">På vagt</string>
     <string name="settings_title">Indstillinger</string>
     <string name="help_title">Hjælp</string>
 
     
-    <string name="flybys_summary">Tjek ISS\'s pas ved dit sted</string>
+    <string name="flybys_summary">Tjek, hvornår ISS vil passere dit sted</string>
     <string name="space_summary">Se, hvem der er i rummet lige nu</string>
     <string name="settings_summary">Administrer generelle appindstillinger</string>
     <string name="help_summary">Bedøm eller lær om appen</string>
@@ -20,38 +20,8 @@
     <string name="stream">Direkte</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">første gang</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Ingen</item>
-        <item>Normal</item>
-        <item>Satellit</item>
-        <item>Terræn</item>
-        <item>Hybrid</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">Hvem er i rummet\?</string>
+    <string name="label_people_in_space">Hvem er i rummet\?</string>
     <string name="label_setting">Indstillinger</string>
     <string name="label_help">Hjælp</string>
     <string name="label_stream">Live stream</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">Bannerannoncer aktiveret. Tak for støtten ;)</string>
 
     
-    <string name="tutorialOne">Kort viser ISS\' nuværende placering med en forudsigelseslinje for, hvor den vil være.</string>
-    <string name="tutorialTwo">Skuffe tager dig til andre funktioner såsom forbiflyvninger, indstillinger osv...</string>
+    <string name="tutorialOne">Kort viser ISS nuværende placering med en forudsigelseslinje for, hvor den vil være.</string>
+    <string name="tutorialTwo">Skuffe tager dig til andre funktioner såsom forbiflyvninger og indstillinger.</string>
     <string name="midAt">på</string>
     <string name="checkerContentDescription">Ikon repræsenterer, at en gennemsigtig farve er valgt</string>
     <string name="countryFlagContentDescription">Landsflag denne astronaut er fra</string>
-    <string name="astronautTwitterContentDescription">Ikon for at linke til astronautens twitter-side</string>
-    <string name="astronautWikiContentDescription">Ikon for at linke til astronautens wiki-side</string>
-    <string name="astronautGoogleContentDescription">Ikon for at linke til astronautens Google-søgeside</string>
+    <string name="astronautTwitterContentDescription">Ikon for at linke til astronauters twitter-side</string>
+    <string name="astronautWikiContentDescription">Ikon for at linke til astronauternes wiki-side</string>
+    <string name="astronautGoogleContentDescription">Ikon for at linke til astronauters Google-søgeside</string>
 
     
     <string name="refreshTitle">Opdateringshastighed</string>
-    <string name="refreshSummary">Aktuel opdateringshastighed er $1 sek./opdatering</string>
+    <string name="refreshSummary">Mængde tid før opdatering af ISS-placering på kortet</string>
     <string name="declination_unit">sek/refresh</string>
     <string name="refreshDialogMessage">Tid mellem ISS bliver opdateret til sin nye placering.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">Decimaler</string>
     <string name="decimalDialogMessage">Ændre nøjagtigheden af ​​alle numeriske værdier</string>
-    <string name="decimalSummary">Det nuværende nøjagtighedsniveau er på $1 decimaler</string>
+    <string name="decimalSummary">Ændre nøjagtigheden af ​​alle numeriske værdier</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Forudsigelseslinjefarve</string>
     <string name="colorSummary">Skift farven på forudsigelseslinjer</string>
 
     <string name="sizeTitle">Forudsigelseslinjestørrelse</string>
-    <string name="sizeDialogMessage">Ændre størrelsen på ISS\' forudsigelseslinje</string>
-    <string name="sizeSummary">Nuværende linjestørrelse er $1</string>
+    <string name="sizeDialogMessage">Skift størrelsen på ISSs forudsigelseslinje</string>
+    <string name="sizeSummary">Skift størrelsen på ISSs forudsigelseslinje</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Tekststørrelse</string>
-    <string name="textSizeDialogMessage">Skift størrelsen på alle tekstværdier</string>
-    <string name="textSizeSummary">Den aktuelle tekststørrelse er $1</string>
+    <string name="textSizeDialogMessage">Skift størrelsen af ​​alle tekstværdier på kortet</string>
+    <string name="textSizeSummary">Skift størrelsen af ​​alle tekstværdier på kortet</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Tekstfarve</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">En ukendt fejl er sket. Fejl: 401</string>
     <string name="errorMap">Kan ikke anvende indstillinger på kortet</string>
     <string name="errorFiveTimes">Mislykkedes alle 5 gange. Enten har du ingen forbindelse, eller også er serveren overbelastet.</string>
-    <string name="errorLessFive">Anmodning til server mislykkedes. %1$d ud af 5. Prøver om %2$d sekunder.</string>
+    <string name="errorLessFive">Anmodning til server mislykkedes. Prøver igen...</string>
     <string name="errorWaitPoly">Opretter allerede forudsigelseslinjer</string>
     <string name="errorNotByMe">ISS Notification blev ikke stoppet af dig.</string>
     <string name="errorNoWiki">har ikke en wiki-side</string>
-    <string name="errorNoTwitter">har ikke en twitter-konto</string>
+    <string name="errorNoTwitter">har ikke en Twitter-konto</string>
+    <string name="errorNoInstagram">har ikke en Instagram-konto</string>
+    <string name="errorNoFacebook">har ikke en Facebook-konto</string>
     <string name="data_corrupted">Appdata er beskadiget. Nulstilling!</string>
     <string name="polyError">Kan ikke oprette en forudsigelseslinje</string>
     <string name="calendar">Kalender</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Billede af et kort med en markør for brugerens placering.</string>
     <string name="iss_sighting_share_title">ISS observation</string>
     <string name="iss_sighting_share_description">ISS vil være synlig her. Vil tjekke det ud!</string>
-    <string name="iss_sighting_share_body">\"Tjek det ud!\n\nISS vil være synlig på \"</string>
+    <string name="iss_sighting_share_body">\"Tjek det ud! ISS vil være synlig på \"</string>
     <string name="iss_sighting_share_chooser">Del…</string>
     <string name="on">\" på \"</string>
     <string name="one_day_in_space">1 dag i rummet</string>
@@ -148,7 +120,16 @@
     <string name="day">\"dag\"</string>
     <string name="month">\"måned\"</string>
     <string name="year">\"år\"</string>
-    <string name="since">\"Siden\"</string>
+    <string name="since">\"Lanceret\"</string>
     <string name="tutorial_one_title">Hej med dig :)</string>
     <string name="tutorial_two_title">Hovedtræk</string>
+
+    <string name="license">Open source-licenser</string>
+    <string name="msg_license">Denne applikation er konstrueret ved hjælp af følgende software:</string>
+    <string name="msg_about_fork_me_on_github">Fordel det på GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker er en Android-applikation, der giver dig mulighed for at spore positionen af ​​den internationale rumstation og finde ud af, hvilke astronauter der i øjeblikket er i rummet.</string>
+    <string name="desc_about_app">Om denne app</string>
+    <string name="msg_get_it_on_play_store">Få det på Google Play</string>
+    <string name="version">Versioner</string>
+    <string name="version_msg">Liste over tidligere ændringer, rettelser og opdateringer:</string>
 </resources>

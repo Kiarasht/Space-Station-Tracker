@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Daim ntawv qhia</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">Dhau Los</string>
     <string name="space_title">Ntawm Lub Luag Haujlwm</string>
     <string name="settings_title">Chaw</string>
     <string name="help_title">Pab</string>
 
     
-    <string name="flybys_summary">Tshawb xyuas ISS cov ntawv hla ntawm koj qhov chaw</string>
+    <string name="flybys_summary">Tshawb xyuas thaum twg ISS yuav dhau los ntawm koj qhov chaw nyob</string>
     <string name="space_summary">Saib leej twg nyob hauv qhov chaw tam sim no</string>
     <string name="settings_summary">Tswj lub app nqis</string>
     <string name="help_summary">Rate los yog kawm txog lub app</string>
@@ -20,38 +20,8 @@
     <string name="stream">Nyob</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">thawj zaug</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Tsis muaj</item>
-        <item>Ib txwm</item>
-        <item>satellite</item>
-        <item>Thaj av</item>
-        <item>Hybrid</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">Leej twg nyob hauv Space\?</string>
+    <string name="label_people_in_space">Leej twg nyob hauv Space\?</string>
     <string name="label_setting">Chaw</string>
     <string name="label_help">Pab</string>
     <string name="label_stream">Live Stream</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">Banner ad enabled. Ua tsaug rau kev txhawb nqa ;)</string>
 
     
-    <string name="tutorialOne">Daim ntawv qhia qhia ISS qhov chaw tam sim no nrog cov kab twv seb nws yuav nyob qhov twg.</string>
-    <string name="tutorialTwo">Drawer coj koj mus rau lwm yam nta xws li flybys, chaw, thiab lwm yam ...</string>
+    <string name="tutorialOne">Daim ntawv qhia qhia ISS qhov chaw tam sim no nrog txoj kab twv seb nws yuav nyob qhov twg.</string>
+    <string name="tutorialTwo">Drawer coj koj mus rau lwm yam nta xws li flybys thiab chaw.</string>
     <string name="midAt">ntawm</string>
     <string name="checkerContentDescription">Icon sawv cev tias cov xim pob tshab tau xaiv</string>
     <string name="countryFlagContentDescription">Lub teb chaws chij no astronaut yog los ntawm</string>
-    <string name="astronautTwitterContentDescription">Icon txuas mus rau astronaut\'s twitter nplooj ntawv</string>
-    <string name="astronautWikiContentDescription">Icon txuas mus rau astronaut nplooj ntawv wiki</string>
-    <string name="astronautGoogleContentDescription">Icon txuas mus rau astronaut\'s Google search page</string>
+    <string name="astronautTwitterContentDescription">Icon txuas mus rau astronauts twitter nplooj ntawv</string>
+    <string name="astronautWikiContentDescription">Icon txuas mus rau astronauts wiki nplooj</string>
+    <string name="astronautGoogleContentDescription">Icon txuas mus rau astronauts Google search page</string>
 
     
     <string name="refreshTitle">Refresh Rate</string>
-    <string name="refreshSummary">Tus nqi tshiab tam sim no yog $ 1 sec /refresh</string>
+    <string name="refreshSummary">Lub sijhawm ua ntej hloov kho ISS qhov chaw ntawm daim ntawv qhia</string>
     <string name="declination_unit">sec/refresh</string>
     <string name="refreshDialogMessage">Lub sijhawm nruab nrab ntawm ISS tau hloov kho rau nws qhov chaw tshiab.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">Qhov chaw decimal</string>
     <string name="decimalDialogMessage">Hloov qhov tseeb ntawm txhua tus lej muaj nuj nqis</string>
-    <string name="decimalSummary">Qhov tseeb tam sim no yog nyob ntawm $ 1 tus lej lej</string>
+    <string name="decimalSummary">Hloov qhov tseeb ntawm txhua tus lej muaj nuj nqis</string>
     <string name="decimalUnit">ua dp</string>
 
     <string name="colorTitle">Kev twv kab xim xim</string>
     <string name="colorSummary">Hloov cov xim ntawm cov kab twv ua ntej</string>
 
     <string name="sizeTitle">Kev kwv yees kab loj</string>
-    <string name="sizeDialogMessage">Hloov qhov loj ntawm ISS txoj kab twv ua ntej</string>
-    <string name="sizeSummary">Tam sim no kab loj yog $1</string>
+    <string name="sizeDialogMessage">Hloov qhov loj ntawm ISSs kev twv kab</string>
+    <string name="sizeSummary">Hloov qhov loj ntawm ISSs kev twv kab</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Cov ntawv loj</string>
-    <string name="textSizeDialogMessage">Hloov qhov loj ntawm tag nrho cov ntawv muaj nuj nqis</string>
-    <string name="textSizeSummary">Cov ntawv loj tam sim no yog $1</string>
+    <string name="textSizeDialogMessage">Hloov qhov loj ntawm tag nrho cov ntawv tseem ceeb ntawm daim ntawv qhia</string>
+    <string name="textSizeSummary">Hloov qhov loj ntawm tag nrho cov ntawv tseem ceeb ntawm daim ntawv qhia</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Xim ntawv</string>
@@ -126,13 +96,15 @@
     <string name="errorPermissionLocation">Tsis kam nkag mus rau koj qhov chaw</string>
     <string name="errorConnection">Txawm hais tias koj tsis muaj kev sib txuas lossis server yog overloaded.</string>
     <string name="errorNetwork">Ib qho yuam kev tsis paub tau tshwm sim. yuam kev: 401</string>
-    <string name="errorMap">Siv tsis tau cov chaw rau daim ntawv qhia</string>
+    <string name="errorMap">Tsis tuaj yeem siv qhov chaw rau daim ntawv qhia</string>
     <string name="errorFiveTimes">Ua tsis tiav 5 zaug. Txawm hais tias koj tsis muaj kev sib txuas lossis server yog overloaded.</string>
-    <string name="errorLessFive">Thov rau server ua tsis tiav. %1$d tawm ntawm 5. Sim hauv %2$d vib nas this.</string>
+    <string name="errorLessFive">Thov rau server ua tsis tiav. Rov sim dua…</string>
     <string name="errorWaitPoly">Twb tau tsim cov kab twv ua ntej</string>
     <string name="errorNotByMe">ISS ceeb toom tsis tau nres los ntawm koj.</string>
     <string name="errorNoWiki">tsis muaj nplooj ntawv wiki</string>
-    <string name="errorNoTwitter">tsis muaj twitter account</string>
+    <string name="errorNoTwitter">tsis muaj Twitter account</string>
+    <string name="errorNoInstagram">tsis muaj Instagram account</string>
+    <string name="errorNoFacebook">tsis muaj Facebook account</string>
     <string name="data_corrupted">Cov ntaub ntawv App yog corrupted. Rov pib dua!</string>
     <string name="polyError">Tsis muaj peev xwm tsim kab twv ua ntej</string>
     <string name="calendar">Daim ntawv qhia hnub</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Duab ntawm ib daim ntawv qhia nrog tus cim rau tus neeg siv qhov chaw.</string>
     <string name="iss_sighting_share_title">ISS Kev Pom Kev</string>
     <string name="iss_sighting_share_description">ISS yuav pom ntawm no. Mus xyuas nws!</string>
-    <string name="iss_sighting_share_body">\"Saib nws!\n\nISS yuav pom ntawm \"</string>
+    <string name="iss_sighting_share_body">\"Saib nws! ISS yuav pom ntawm\"</string>
     <string name="iss_sighting_share_chooser">Qhia…</string>
     <string name="on">\"rau\"</string>
     <string name="one_day_in_space">1 hnub hauv qhov chaw</string>
@@ -148,7 +120,16 @@
     <string name="day">\"hnub\"</string>
     <string name="month">\"lub hli\"</string>
     <string name="year">\"xyoo\"</string>
-    <string name="since">\"Txij thaum\"</string>
+    <string name="since">\"Launched\"</string>
     <string name="tutorial_one_title">Hlo There :)</string>
     <string name="tutorial_two_title">Lub ntsiab nta</string>
+
+    <string name="license">Qhib cov ntawv tso cai</string>
+    <string name="msg_license">Daim ntawv thov no yog tsim los siv software hauv qab no:</string>
+    <string name="msg_about_fork_me_on_github">Fork nws ntawm GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker yog ib daim ntawv thov hauv Android uas tso cai rau koj taug qab txoj haujlwm ntawm International Chaw Chaw Nres Nkoj thiab nrhiav seb cov neeg nyob hauv qhov chaw tam sim no nyob hauv qhov chaw.</string>
+    <string name="desc_about_app">Hais txog no app</string>
+    <string name="msg_get_it_on_play_store">Tau nws hauv Google Play</string>
+    <string name="version">Versions</string>
+    <string name="version_msg">Cov npe ntawm cov kev hloov pauv dhau los, kho, thiab hloov tshiab:</string>
 </resources>

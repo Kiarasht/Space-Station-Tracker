@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Žemėlapis</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">Praeinant</string>
     <string name="space_title">Vykdantis pareigas</string>
     <string name="settings_title">Nustatymai</string>
     <string name="help_title">Pagalba</string>
 
     
-    <string name="flybys_summary">Patikrinkite ISS leidimus pagal savo vietą</string>
+    <string name="flybys_summary">Patikrinkite, kada ISS praeis pro jūsų vietą</string>
     <string name="space_summary">Pažiūrėkite, kas šiuo metu yra erdvėje</string>
     <string name="settings_summary">Tvarkykite bendruosius programos nustatymus</string>
     <string name="help_summary">Įvertinkite arba sužinokite apie programą</string>
@@ -20,38 +20,8 @@
     <string name="stream">Tiesiogiai</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">Pirmas kartas</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Nė vienas</item>
-        <item>Normalus</item>
-        <item>Palydovas</item>
-        <item>Reljefas</item>
-        <item>Hibridinis</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">Kas yra kosmose\?</string>
+    <string name="label_people_in_space">Kas yra Kosmose\?</string>
     <string name="label_setting">Nustatymai</string>
     <string name="label_help">Pagalba</string>
     <string name="label_stream">Tiesiogiai</string>
@@ -64,17 +34,17 @@
 
     
     <string name="tutorialOne">Žemėlapyje rodoma dabartinė TKS vieta su numatymo linija, kur ji bus.</string>
-    <string name="tutorialTwo">Stalčius perkelia jus į kitas funkcijas, tokias kaip skrydžiai, nustatymai ir kt.</string>
+    <string name="tutorialTwo">Drawer perkelia jus į kitas funkcijas, tokias kaip skrydžiai ir nustatymai.</string>
     <string name="midAt">adresu</string>
     <string name="checkerContentDescription">Piktograma reiškia, kad pasirinkta skaidri spalva</string>
     <string name="countryFlagContentDescription">Šalies vėliava, iš kurios kilęs šis astronautas</string>
-    <string name="astronautTwitterContentDescription">Piktograma, nurodanti nuorodą į astronauto Twitter puslapį</string>
-    <string name="astronautWikiContentDescription">Piktograma, nurodanti nuorodą į astronauto wiki puslapį</string>
-    <string name="astronautGoogleContentDescription">Piktograma, skirta nuorodai į astronauto „Google“ paieškos puslapį</string>
+    <string name="astronautTwitterContentDescription">Piktograma, nurodanti nuorodą į astronautų Twitter puslapį</string>
+    <string name="astronautWikiContentDescription">Piktograma, nurodanti nuorodą į astronautų wiki puslapį</string>
+    <string name="astronautGoogleContentDescription">Piktograma, skirta nuorodai į astronautų „Google“ paieškos puslapį</string>
 
     
     <string name="refreshTitle">Atnaujinimo dažnis</string>
-    <string name="refreshSummary">Dabartinis atnaujinimo dažnis yra 1 USD už atnaujinimą</string>
+    <string name="refreshSummary">Laikas iki ISS vietos atnaujinimo žemėlapyje</string>
     <string name="declination_unit">sek./atnaujinti</string>
     <string name="refreshDialogMessage">Laikas nuo ISS atnaujinimo iki naujos vietos.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">Dešimtainės vietos</string>
     <string name="decimalDialogMessage">Pakeiskite visų skaitinių reikšmių tikslumą</string>
-    <string name="decimalSummary">Dabartinis tikslumo lygis yra 1 USD po kablelio</string>
+    <string name="decimalSummary">Pakeiskite visų skaitinių reikšmių tikslumą</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Numatymo linijos spalva</string>
     <string name="colorSummary">Pakeiskite numatymo eilučių spalvą</string>
 
     <string name="sizeTitle">Numatymo eilutės dydis</string>
-    <string name="sizeDialogMessage">Pakeiskite ISS numatymo linijos dydį</string>
-    <string name="sizeSummary">Dabartinis eilutės dydis yra 1 USD</string>
+    <string name="sizeDialogMessage">Pakeiskite ISS numatymo eilutės dydį</string>
+    <string name="sizeSummary">Pakeiskite ISS numatymo eilutės dydį</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Teksto dydis</string>
-    <string name="textSizeDialogMessage">Pakeiskite visų teksto reikšmių dydį</string>
-    <string name="textSizeSummary">Dabartinis teksto dydis yra 1 USD</string>
+    <string name="textSizeDialogMessage">Pakeiskite visų teksto reikšmių dydį žemėlapyje</string>
+    <string name="textSizeSummary">Pakeiskite visų teksto reikšmių dydį žemėlapyje</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Teksto spalva</string>
@@ -126,13 +96,15 @@
     <string name="errorPermissionLocation">Prieiga prie jūsų vietos uždrausta</string>
     <string name="errorConnection">Arba neturite ryšio, arba serveris perkrautas.</string>
     <string name="errorNetwork">Įvyko nežinoma klaida. Klaida: 401</string>
-    <string name="errorMap">Neįmanoma pritaikyti žemėlapio nustatymų</string>
+    <string name="errorMap">Žemėlapiui negalima pritaikyti nustatymų</string>
     <string name="errorFiveTimes">Nepavyko visus 5 kartus. Arba neturite ryšio, arba serveris perkrautas.</string>
-    <string name="errorLessFive">Prašymas serveriui nepavyko. %1$d iš 5. Bandoma po %2$d sek.</string>
+    <string name="errorLessFive">Prašymas serveriui nepavyko. Bandoma dar kartą…</string>
     <string name="errorWaitPoly">Jau kuriamos numatymo linijos</string>
     <string name="errorNotByMe">ISS pranešimo nesustabdėte jūs.</string>
     <string name="errorNoWiki">neturi wiki puslapio</string>
-    <string name="errorNoTwitter">neturi twitter paskyros</string>
+    <string name="errorNoTwitter">neturi Twitter paskyros</string>
+    <string name="errorNoInstagram">neturi Instagram paskyros</string>
+    <string name="errorNoFacebook">neturi Facebook paskyros</string>
     <string name="data_corrupted">Programos duomenys sugadinti. Nustatoma iš naujo!</string>
     <string name="polyError">Nepavyko sukurti numatymo eilutės</string>
     <string name="calendar">Kalendorius</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Žemėlapio vaizdas su naudotojo vietos žymekliu.</string>
     <string name="iss_sighting_share_title">ISS stebėjimas</string>
     <string name="iss_sighting_share_description">TKS bus matomas čia. Einu patikrinti!</string>
-    <string name="iss_sighting_share_body">\"Pasižiūrėk!\n\nTKS bus matomas „</string>
+    <string name="iss_sighting_share_body">\"Patikrinkite! ISS bus matomas \"</string>
     <string name="iss_sighting_share_chooser">Dalintis…</string>
     <string name="on">\"įjungta\"</string>
     <string name="one_day_in_space">1 diena kosmose</string>
@@ -148,7 +120,16 @@
     <string name="day">\"diena\"</string>
     <string name="month">\"mėnuo\"</string>
     <string name="year">\"metai\"</string>
-    <string name="since">\"Nuo \"</string>
+    <string name="since">\"Paleista\"</string>
     <string name="tutorial_one_title">Labas :)</string>
     <string name="tutorial_two_title">Pagrindinės funkcijos</string>
+
+    <string name="license">Atvirojo kodo licencijos</string>
+    <string name="msg_license">Ši programa sukurta naudojant šią programinę įrangą:</string>
+    <string name="msg_about_fork_me_on_github">Įjunkite jį „GitHub“.</string>
+    <string name="msg_about_library_description">„ISS Tracker“ yra „Android“ programa, leidžianti sekti Tarptautinės kosminės stoties padėtį ir sužinoti, kokie astronautai šiuo metu yra kosmose.</string>
+    <string name="desc_about_app">Apie šią programėlę</string>
+    <string name="msg_get_it_on_play_store">Gaukite jį iš „Google Play“.</string>
+    <string name="version">Versijos</string>
+    <string name="version_msg">Ankstesnių pakeitimų, pataisymų ir atnaujinimų sąrašas:</string>
 </resources>

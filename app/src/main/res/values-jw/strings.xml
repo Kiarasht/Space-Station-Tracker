@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">peta</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">Ngliwati</string>
     <string name="space_title">Ing tugas</string>
     <string name="settings_title">Setelan</string>
     <string name="help_title">Pitulung</string>
 
     
-    <string name="flybys_summary">Priksa pass ISS miturut lokasi sampeyan</string>
+    <string name="flybys_summary">Priksa kapan ISS bakal ngliwati lokasi sampeyan</string>
     <string name="space_summary">Delengen sapa sing ana ing angkasa saiki</string>
     <string name="settings_summary">Ngatur setelan app umum</string>
     <string name="help_summary">Rate utawa sinau babagan app</string>
@@ -20,38 +20,8 @@
     <string name="stream">Urip</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">pisanan</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>ora ana</item>
-        <item>Normal</item>
-        <item>Satelit</item>
-        <item>terrain</item>
-        <item>Hibrida</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">Sapa sing ana ing Angkasa\?</string>
+    <string name="label_people_in_space">Sapa sing ana ing Angkasa\?</string>
     <string name="label_setting">Setelan</string>
     <string name="label_help">Pitulung</string>
     <string name="label_stream">Live Stream</string>
@@ -64,17 +34,17 @@
 
     
     <string name="tutorialOne">Peta nuduhake lokasi ISS saiki kanthi garis prediksi bakal ana.</string>
-    <string name="tutorialTwo">Laci nggawa sampeyan menyang fitur liyane kayata flybys, setelan, etc ...</string>
+    <string name="tutorialTwo">Laci nggawa sampeyan menyang fitur liyane kayata flybys lan setelan.</string>
     <string name="midAt">ing</string>
     <string name="checkerContentDescription">Ikon nuduhake yen warna transparan dipilih</string>
     <string name="countryFlagContentDescription">Gendéra negara asalé astronot iki</string>
     <string name="astronautTwitterContentDescription">Ikon kanggo nyambung menyang kaca twitter astronot</string>
-    <string name="astronautWikiContentDescription">Ikon kanggo pranala menyang kaca wiki astronot</string>
-    <string name="astronautGoogleContentDescription">Ikon kanggo nyambung menyang kaca telusuran Google astronot</string>
+    <string name="astronautWikiContentDescription">Ikon kanggo nyambung menyang kaca wiki astronot</string>
+    <string name="astronautGoogleContentDescription">Ikon kanggo nyambung menyang kaca telusuran astronot Google</string>
 
     
     <string name="refreshTitle">Refresh Rate</string>
-    <string name="refreshSummary">Tingkat refresh saiki $1 detik/refresh</string>
+    <string name="refreshSummary">Jumlah wektu sadurunge nganyari lokasi ISS ing peta</string>
     <string name="declination_unit">sec /refresh</string>
     <string name="refreshDialogMessage">Wektu antarane ISS dianyari menyang lokasi anyar.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">Panggonan Decimal</string>
     <string name="decimalDialogMessage">Ngganti akurasi kabeh nilai numerik</string>
-    <string name="decimalSummary">Tingkat akurasi saiki ana ing $1 desimal</string>
+    <string name="decimalSummary">Ngganti akurasi kabeh nilai numerik</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Warna garis ramalan</string>
     <string name="colorSummary">Ngganti warna garis prediksi</string>
 
     <string name="sizeTitle">Ukuran garis prediksi</string>
-    <string name="sizeDialogMessage">Ganti ukuran garis prediksi ISS</string>
-    <string name="sizeSummary">Ukuran baris saiki $1</string>
+    <string name="sizeDialogMessage">Ngganti ukuran garis prediksi ISS</string>
+    <string name="sizeSummary">Ngganti ukuran garis prediksi ISS</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Ukuran teks</string>
-    <string name="textSizeDialogMessage">Ngganti ukuran kabeh nilai teks</string>
-    <string name="textSizeSummary">Ukuran teks saiki $1</string>
+    <string name="textSizeDialogMessage">Ngganti ukuran kabeh nilai teks ing peta</string>
+    <string name="textSizeSummary">Ngganti ukuran kabeh nilai teks ing peta</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Warna teks</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">Ana kesalahan sing ora dingerteni. Kesalahan: 401</string>
     <string name="errorMap">Ora bisa ngetrapake setelan menyang peta</string>
     <string name="errorFiveTimes">Gagal kabeh 5 kaping. Sampeyan ora duwe sambungan utawa server overloaded.</string>
-    <string name="errorLessFive">Panjaluk menyang server gagal. %1$d saka 5. Nyoba ing %2$d detik.</string>
+    <string name="errorLessFive">Panjaluk menyang server gagal. Nyoba maneh…</string>
     <string name="errorWaitPoly">Wis nggawe garis prediksi</string>
     <string name="errorNotByMe">Notifikasi ISS ora mandheg sampeyan.</string>
     <string name="errorNoWiki">ora duwe kaca wiki</string>
-    <string name="errorNoTwitter">ora duwe akun twitter</string>
+    <string name="errorNoTwitter">ora duwe akun Twitter</string>
+    <string name="errorNoInstagram">ora duwe akun Instagram</string>
+    <string name="errorNoFacebook">ora duwe akun Facebook</string>
     <string name="data_corrupted">Data app rusak. Ngreset!</string>
     <string name="polyError">Ora bisa nggawe garis prediksi</string>
     <string name="calendar">Tanggalan</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Gambar peta kanthi tandha lokasi pangguna.</string>
     <string name="iss_sighting_share_title">Penampakan ISS</string>
     <string name="iss_sighting_share_description">ISS bakal katon ing kene. Arep mriksa metu!</string>
-    <string name="iss_sighting_share_body">“Priksa!\n\nISS bakal katon ing \"</string>
+    <string name="iss_sighting_share_body">\"Priksa! ISS bakal katon ing \"</string>
     <string name="iss_sighting_share_chooser">Nuduhake…</string>
     <string name="on">\"ing\"</string>
     <string name="one_day_in_space">1 dina ing papan</string>
@@ -148,7 +120,16 @@
     <string name="day">\"dina\"</string>
     <string name="month">\"wulan\"</string>
     <string name="year">\"taun\"</string>
-    <string name="since">\"Wiwit\"</string>
+    <string name="since">\"Diluncurake\"</string>
     <string name="tutorial_one_title">He kowe :)</string>
     <string name="tutorial_two_title">Fitur Utama</string>
+
+    <string name="license">Lisensi sumber terbuka</string>
+    <string name="msg_license">Aplikasi iki dibangun nggunakake piranti lunak ing ngisor iki:</string>
+    <string name="msg_about_fork_me_on_github">Fork ing GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker minangka aplikasi Android sing ngidini sampeyan nglacak posisi Stasiun Angkasa Internasional lan ngerteni apa astronot saiki ana ing angkasa.</string>
+    <string name="desc_about_app">Babagan app iki</string>
+    <string name="msg_get_it_on_play_store">Entuk ing Google Play</string>
+    <string name="version">Versi</string>
+    <string name="version_msg">Dhaptar owah-owahan, ndandani, lan nganyari sadurunge:</string>
 </resources>

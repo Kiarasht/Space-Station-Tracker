@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Mappa</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">Għaddi minn</string>
     <string name="space_title">On Duty</string>
     <string name="settings_title">Settings</string>
     <string name="help_title">Għajnuna</string>
 
     
-    <string name="flybys_summary">Iċċekkja l-passes tal-ISS mill-post tiegħek</string>
+    <string name="flybys_summary">Iċċekkja meta l-ISS tgħaddi mill-post tiegħek</string>
     <string name="space_summary">Ara min qiegħed fl-ispazju bħalissa</string>
     <string name="settings_summary">Immaniġġja s-settings ġenerali tal-app</string>
     <string name="help_summary">Rata jew tgħallem dwar l-app</string>
@@ -20,38 +20,8 @@
     <string name="stream">Jgħix</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">l-ewwel darba</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Xejn</item>
-        <item>Normali</item>
-        <item>Satellita</item>
-        <item>Terren</item>
-        <item>Ibridu</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">Min hu fl-Ispazju\?</string>
+    <string name="label_people_in_space">Min hu fl-Ispazju\?</string>
     <string name="label_setting">Settings</string>
     <string name="label_help">Għajnuna</string>
     <string name="label_stream">Live Stream</string>
@@ -64,17 +34,17 @@
 
     
     <string name="tutorialOne">Il-mappa turi l-post attwali tal-ISS b\'linja ta\' tbassir ta\' fejn se tkun.</string>
-    <string name="tutorialTwo">Drawer tieħdok għal karatteristiċi oħra bħal flybys, settings, eċċ...</string>
+    <string name="tutorialTwo">Drawer tieħdok għal karatteristiċi oħra bħal flybys u settings.</string>
     <string name="midAt">fi</string>
     <string name="checkerContentDescription">L-ikona tirrappreżenta li jinġabar kulur trasparenti</string>
     <string name="countryFlagContentDescription">Bandiera tal-pajjiż minn fejn ġej dan l-astronawta</string>
-    <string name="astronautTwitterContentDescription">Ikona biex tgħaqqad il-paġna ta\' twitter tal-astronawti</string>
+    <string name="astronautTwitterContentDescription">Ikona biex torbot mal-paġna ta\' twitter tal-astronawti</string>
     <string name="astronautWikiContentDescription">Ikona biex tgħaqqad il-paġna tal-wiki tal-astronawti</string>
-    <string name="astronautGoogleContentDescription">Ikona biex tgħaqqad mal-paġna ta\' tfittxija ta\' Google tal-astronawti</string>
+    <string name="astronautGoogleContentDescription">Ikona biex tgħaqqad mal-paġna ta\' tfittxija ta\' l-astronawti ta\' Google</string>
 
     
     <string name="refreshTitle">Rata ta\' Aġġornar</string>
-    <string name="refreshSummary">Ir-rata ta\' aġġornament attwali hija ta\' $1 sek/aġġornament</string>
+    <string name="refreshSummary">Ammont ta\' ħin qabel ma taġġorna l-post tal-ISS fuq il-mappa</string>
     <string name="declination_unit">sek/aġġornament</string>
     <string name="refreshDialogMessage">Ħin bejn l-ISS li tiġi aġġornata għall-post il-ġdid tagħha.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">Postijiet Deċimali</string>
     <string name="decimalDialogMessage">Ibdel l-eżattezza tal-valuri numeriċi kollha</string>
-    <string name="decimalSummary">Il-livell ta\' preċiżjoni attwali huwa f\'punti deċimali ta\' $1</string>
+    <string name="decimalSummary">Ibdel l-eżattezza tal-valuri numeriċi kollha</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Kulur tal-linja tat-tbassir</string>
     <string name="colorSummary">Ibdel il-kulur tal-linji tat-tbassir</string>
 
     <string name="sizeTitle">Daqs tal-linja tat-tbassir</string>
-    <string name="sizeDialogMessage">Ibdel id-daqs tal-linja tat-tbassir tal-ISS</string>
-    <string name="sizeSummary">Id-daqs tal-linja attwali huwa $1</string>
+    <string name="sizeDialogMessage">Ibdel id-daqs tal-linja tat-tbassir tal-ISSs</string>
+    <string name="sizeSummary">Ibdel id-daqs tal-linja tat-tbassir tal-ISSs</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Daqs tat-test</string>
-    <string name="textSizeDialogMessage">Ibdel id-daqs tal-valuri kollha tat-test</string>
-    <string name="textSizeSummary">Id-daqs attwali tat-test huwa $1</string>
+    <string name="textSizeDialogMessage">Ibdel id-daqs tal-valuri kollha tat-test fuq il-mappa</string>
+    <string name="textSizeSummary">Ibdel id-daqs tal-valuri kollha tat-test fuq il-mappa</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Kulur tat-test</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">Sar żball mhux magħruf. Żball: 401</string>
     <string name="errorMap">Ma tistax tapplika s-settings għall-mappa</string>
     <string name="errorFiveTimes">Falliet il-5 darbiet kollha. Jew m\'għandekx konnessjoni jew is-server huwa mgħobbi żżejjed.</string>
-    <string name="errorLessFive">It-talba lil server falliet. %1$d minn 5. Jipprova fi %2$d sekondi.</string>
+    <string name="errorLessFive">It-talba lil server falliet. Jipprova mill-ġdid...</string>
     <string name="errorWaitPoly">Diġà qed toħloq linji ta\' tbassir</string>
-    <string name="errorNotByMe">In-Notifika ISS ma twaqqfetx minnek.</string>
+    <string name="errorNotByMe">In-Notifika ISS ma twaqqfitx minnek.</string>
     <string name="errorNoWiki">m\'għandux paġna wiki</string>
-    <string name="errorNoTwitter">m\'għandux kont ta\' twitter</string>
+    <string name="errorNoTwitter">m\'għandux kont Twitter</string>
+    <string name="errorNoInstagram">m\'għandux kont Instagram</string>
+    <string name="errorNoFacebook">m\'għandux kont Facebook</string>
     <string name="data_corrupted">Id-dejta tal-app hija korrotta. Irrisettjar!</string>
     <string name="polyError">Ma tistax tinħoloq linja ta\' tbassir</string>
     <string name="calendar">Kalendarju</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Immaġni ta \'mappa b\'markatur għall-lokazzjoni tal-utent.</string>
     <string name="iss_sighting_share_title">Lemħ tal-ISS</string>
     <string name="iss_sighting_share_description">L-ISS se tkun viżibbli hawn. Se tivverifikah!</string>
-    <string name="iss_sighting_share_body">“Iċċekkjaha!\n\nL-ISS se tkun viżibbli fi \"</string>
+    <string name="iss_sighting_share_body">\"Iċċekkjah! L-ISS tkun viżibbli fi\"</string>
     <string name="iss_sighting_share_chooser">Aqsam...</string>
     <string name="on">\" fuq \"</string>
     <string name="one_day_in_space">ġurnata fl-ispazju</string>
@@ -148,7 +120,16 @@
     <string name="day">\"jum\"</string>
     <string name="month">\"xahar\"</string>
     <string name="year">\"sena\"</string>
-    <string name="since">\"Minn \"</string>
+    <string name="since">\"Mnedija\"</string>
     <string name="tutorial_one_title">Ħej hemm :)</string>
     <string name="tutorial_two_title">Karatteristiċi Ewlenin</string>
+
+    <string name="license">Liċenzji ta\' sors miftuħ</string>
+    <string name="msg_license">Din l-applikazzjoni hija mibnija bl-użu tas-softwer li ġej:</string>
+    <string name="msg_about_fork_me_on_github">Fork fuq GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker hija applikazzjoni android li tippermettilek issegwi l-pożizzjoni tal-Istazzjon Spazjali Internazzjonali u taf x\'inhuma l-astronawti bħalissa fl-ispazju.</string>
+    <string name="desc_about_app">Dwar din l-app</string>
+    <string name="msg_get_it_on_play_store">Ġibha fuq Google Play</string>
+    <string name="version">Verżjonijiet</string>
+    <string name="version_msg">Lista ta\' bidliet, soluzzjonijiet u aġġornamenti preċedenti:</string>
 </resources>

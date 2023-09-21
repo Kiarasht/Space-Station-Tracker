@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Palapala ʻāina</string>
-    <string name="flybys_title">Nā lele lele</string>
+    <string name="flybys_title">Kaalo ana</string>
     <string name="space_title">Ma ke Duty</string>
     <string name="settings_title">Nā hoʻonohonoho</string>
     <string name="help_title">Kokua</string>
 
     
-    <string name="flybys_summary">E nānā i nā ala o ISS ma kou wahi</string>
+    <string name="flybys_summary">E nānā i ka wā e hele ai ʻo ISS ma kou wahi</string>
     <string name="space_summary">E ʻike ʻo wai i ka lewa i kēia manawa</string>
     <string name="settings_summary">Mālama i nā hoʻonohonoho polokalamu maʻamau</string>
     <string name="help_summary">E helu a aʻo e pili ana i ka polokalamu</string>
@@ -20,38 +20,8 @@
     <string name="stream">Ola</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">ka manawa mua</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>ʻAʻohe</item>
-        <item>Maʻamau</item>
-        <item>Satelika</item>
-        <item>ʻĀina</item>
-        <item>Huinaʻi</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Nā lele lele</string>
-    <string name="label_peopleinspace">ʻO wai ma Space\?</string>
+    <string name="label_people_in_space">ʻO wai ma Space\?</string>
     <string name="label_setting">Nā hoʻonohonoho</string>
     <string name="label_help">Kokua</string>
     <string name="label_stream">Kahawai Ola</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">Hoʻohana ʻia nā hoʻolaha hae. Mahalo no ke kākoʻo;)</string>
 
     
-    <string name="tutorialOne">Hōʻike ka palapala ʻāina i kahi o ISS i kēia manawa me kahi laina wānana o kahi e kū ai.</string>
-    <string name="tutorialTwo">Lawe ʻo Drawer iā ʻoe i nā hiʻohiʻona ʻē aʻe e like me nā flybys, nā hoʻonohonoho, etc.</string>
+    <string name="tutorialOne">Hōʻike ka palapala ʻāina iā ISS i kēia manawa me kahi laina wānana o kahi e kū ai.</string>
+    <string name="tutorialTwo">Lawe ʻo Drawer iā ʻoe i nā hiʻohiʻona ʻē aʻe e like me nā lele lele a me nā hoʻonohonoho.</string>
     <string name="midAt">ma</string>
-    <string name="checkerContentDescription">Hōʻike ke kiʻi i ke koho ʻia ʻana o kahi waihoʻoluʻu māmā</string>
+    <string name="checkerContentDescription">Hōʻike ke kiʻi i ke koho ʻia ʻana o kahi waihoʻoluʻu akaka</string>
     <string name="countryFlagContentDescription">ʻO ka hae ʻāina no kēia mea hoʻokele</string>
-    <string name="astronautTwitterContentDescription">Ikona no ka loulou i ka ʻaoʻao twitter a Astronaut</string>
-    <string name="astronautWikiContentDescription">Ikona e loulou i ka ʻaoʻao wiki o ka Astronaut</string>
-    <string name="astronautGoogleContentDescription">Ikona e loulou ai i ka ʻaoʻao hulina Google a Astronaut</string>
+    <string name="astronautTwitterContentDescription">Ikona e loulou i ka ʻaoʻao twitter astronauts</string>
+    <string name="astronautWikiContentDescription">Ikona e loulou i ka ʻaoʻao wiki astronauts</string>
+    <string name="astronautGoogleContentDescription">Ikona e loulou i ka ʻaoʻao hulina Google</string>
 
     
     <string name="refreshTitle">Ka helu hou ʻana</string>
-    <string name="refreshSummary">ʻO $1 kekona/hōʻano hou i kēia manawa</string>
+    <string name="refreshSummary">Ka nui o ka manawa ma mua o ka hoʻonui ʻana i kahi o ISS ma ka palapala ʻāina</string>
     <string name="declination_unit">sec/refresh</string>
     <string name="refreshDialogMessage">ʻO ka manawa ma waena o ISS e hoʻonui i kona wahi hou.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">Wahi Desimal</string>
     <string name="decimalDialogMessage">Hoʻololi i ka pololei o nā helu helu āpau</string>
-    <string name="decimalSummary">Aia ka pae pololei o kēia manawa ma $1 mau wahi decimal</string>
+    <string name="decimalSummary">Hoʻololi i ka pololei o nā helu helu āpau</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">kala laina wānana</string>
     <string name="colorSummary">E hoʻololi i ke kala o nā laina wānana</string>
 
     <string name="sizeTitle">Ka nui laina wānana</string>
-    <string name="sizeDialogMessage">Hoʻololi i ka nui o ka laina wānana o ISS</string>
-    <string name="sizeSummary">ʻO ka nui laina o kēia manawa he $1</string>
+    <string name="sizeDialogMessage">Hoʻololi i ka nui o ka laina wānana ISS</string>
+    <string name="sizeSummary">Hoʻololi i ka nui o ka laina wānana ISS</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Nui kikokikona</string>
-    <string name="textSizeDialogMessage">Hoʻololi i ka nui o nā waiwai kikokikona a pau</string>
-    <string name="textSizeSummary">ʻO ka nui kikokikona o kēia manawa he $1</string>
+    <string name="textSizeDialogMessage">Hoʻololi i ka nui o nā waiwai kikokikona ma ka palapala ʻāina</string>
+    <string name="textSizeSummary">Hoʻololi i ka nui o nā waiwai kikokikona ma ka palapala ʻāina</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">kala kikokiko</string>
@@ -124,15 +94,17 @@
     <string name="errorWebView">ʻAʻole hiki ke hoʻouka i ka ʻaoʻao</string>
     <string name="errorLocation">ʻAʻole hiki ke ʻimi i kou wahi.</string>
     <string name="errorPermissionLocation">Hōʻole ʻia ke komo ʻana i kou wahi</string>
-    <string name="errorConnection">ʻAʻohe āu pilina a i ʻole ke kau nei ke kikowaena.</string>
+    <string name="errorConnection">ʻAʻohe āu pilina a i ʻole ua hoʻonui ʻia ke kikowaena.</string>
     <string name="errorNetwork">Ua loaʻa kahi hewa ʻike ʻole. Hapa: 401</string>
     <string name="errorMap">ʻAʻole hiki ke hoʻopili i nā hoʻonohonoho i ka palapala ʻāina</string>
-    <string name="errorFiveTimes">Hāʻule nā ​​manawa 5 a pau. ʻAʻohe āu pilina a i ʻole ke kau nei ke kikowaena.</string>
-    <string name="errorLessFive">Ua hāʻule ke noi i ke kikowaena. %1$d o 5. Ke ho\'āʻo nei i loko o %2$d kekona.</string>
+    <string name="errorFiveTimes">Hāʻule nā ​​manawa 5 a pau. ʻAʻohe āu pilina a i ʻole ua hoʻonui ʻia ke kikowaena.</string>
+    <string name="errorLessFive">Ua hāʻule ke noi i ke kikowaena. Ke hoʻāʻo hou nei…</string>
     <string name="errorWaitPoly">Ke hana nei i nā laina wānana</string>
     <string name="errorNotByMe">ʻAʻole ʻoe i kāpae ʻia ka leka hoʻomaopopo ISS.</string>
     <string name="errorNoWiki">ʻaʻohe ʻaoʻao wiki</string>
-    <string name="errorNoTwitter">ʻaʻohe moʻolelo twitter</string>
+    <string name="errorNoTwitter">ʻaʻohe moʻolelo Twitter</string>
+    <string name="errorNoInstagram">ʻaʻohe moʻolelo Instagram</string>
+    <string name="errorNoFacebook">ʻaʻohe moʻokāki Facebook</string>
     <string name="data_corrupted">Ua hewa ka ʻikepili app. Hoʻoponopono hou!</string>
     <string name="polyError">ʻAʻole hiki ke hana i ka laina wānana</string>
     <string name="calendar">Kalena</string>
@@ -140,7 +112,7 @@
     <string name="image_content">ʻO ke kiʻi o ka palapala ʻāina me kahi māka no ka wahi mea hoʻohana.</string>
     <string name="iss_sighting_share_title">Nānā ISS</string>
     <string name="iss_sighting_share_description">E ʻike ʻia ʻo ISS ma aneʻi. Ke hele nei e nānā!</string>
-    <string name="iss_sighting_share_body">\"Nānā iā ia!\n\nE ʻike ʻia ʻo ISS ma \"</string>
+    <string name="iss_sighting_share_body">\"E nānā! E ʻike ʻia ʻo ISS ma \"</string>
     <string name="iss_sighting_share_chooser">Kaʻana like…</string>
     <string name="on">\"ma\"</string>
     <string name="one_day_in_space">1 lā ma kahi ākea</string>
@@ -148,7 +120,16 @@
     <string name="day">\" lā\"</string>
     <string name="month">\" mahina\"</string>
     <string name="year">\" makahiki\"</string>
-    <string name="since">\"Mai\"</string>
+    <string name="since">\"Hoʻokuʻu ʻia\"</string>
     <string name="tutorial_one_title">Aloha :)</string>
     <string name="tutorial_two_title">Nā hiʻohiʻona nui</string>
+
+    <string name="license">Nā laikini wehe</string>
+    <string name="msg_license">Kūkulu ʻia kēia noi me ka hoʻohana ʻana i nā polokalamu penei:</string>
+    <string name="msg_about_fork_me_on_github">Hoʻopili iā ia ma GitHub</string>
+    <string name="msg_about_library_description">He polokalamu kelepona ʻo ISS Tracker e hiki ai iā ʻoe ke hahai i ke kūlana o ka International Space Station a ʻike i nā mea astronauts i kēia manawa.</string>
+    <string name="desc_about_app">E pili ana i kēia polokalamu</string>
+    <string name="msg_get_it_on_play_store">E kiʻi iā ia ma Google Play</string>
+    <string name="version">Nā manaʻo</string>
+    <string name="version_msg">Ka papa inoa o nā hoʻololi mua, hoʻoponopono, a me nā mea hou:</string>
 </resources>

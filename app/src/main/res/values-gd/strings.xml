@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Mapa</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">A\' dol seachad</string>
     <string name="space_title">Air Dleasdanas</string>
     <string name="settings_title">Suidhichidhean</string>
     <string name="help_title">Cuideachadh</string>
 
     
-    <string name="flybys_summary">Thoir sùil air pasan ISS leis an àite agad</string>
+    <string name="flybys_summary">Thoir sùil nuair a thèid ISS seachad air d’ àite</string>
     <string name="space_summary">Faic cò tha san fhànais an-dràsta</string>
     <string name="settings_summary">Stiùirich roghainnean app coitcheann</string>
     <string name="help_summary">Dèan measadh air no ionnsaich mun aplacaid</string>
@@ -20,38 +20,8 @@
     <string name="stream">Beò</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">chiad uair</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Chan eil gin</item>
-        <item>àbhaisteach</item>
-        <item>Satailteach</item>
-        <item>Cruth-tìre</item>
-        <item>Hibrid</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">Cò tha anns an fhànais\?</string>
+    <string name="label_people_in_space">Cò tha anns an Space\?</string>
     <string name="label_setting">Suidhichidhean</string>
     <string name="label_help">Cuideachadh</string>
     <string name="label_stream">Sruth beò</string>
@@ -64,17 +34,17 @@
 
     
     <string name="tutorialOne">Tha am mapa a’ sealltainn suidheachadh làithreach ISS le loidhne ro-innse air far am bi e.</string>
-    <string name="tutorialTwo">Bidh drathair gad thoirt gu feartan eile leithid flybys, suidheachaidhean, msaa…</string>
+    <string name="tutorialTwo">Bidh drathair gad thoirt gu feartan eile leithid flybys agus suidheachaidhean.</string>
     <string name="midAt">aig</string>
     <string name="checkerContentDescription">Tha an ìomhaigh a’ riochdachadh gu bheil dath follaiseach air a thaghadh</string>
     <string name="countryFlagContentDescription">Bratach na dùthcha às an tàinig an speuradair seo</string>
-    <string name="astronautTwitterContentDescription">An ìomhaigheag airson ceangal gu duilleag twitter an speuradair</string>
-    <string name="astronautWikiContentDescription">An ìomhaigheag airson ceangal gu duilleag wiki an speuradair</string>
-    <string name="astronautGoogleContentDescription">An ìomhaigheag airson ceangal gu duilleag rannsachaidh Google an speuradair</string>
+    <string name="astronautTwitterContentDescription">An ìomhaigheag airson ceangal gu duilleag twitter speuradairean</string>
+    <string name="astronautWikiContentDescription">An ìomhaigheag airson ceangal gu duilleag wiki speuradairean</string>
+    <string name="astronautGoogleContentDescription">An ìomhaigheag airson ceangal gu duilleag rannsachaidh speuradairean Google</string>
 
     
     <string name="refreshTitle">Ìre Ath-nuadhachaidh</string>
-    <string name="refreshSummary">Is e $1 diog/ùrachadh an ìre ùrachaidh an-dràsta</string>
+    <string name="refreshSummary">An ùine mus ùraich thu àite ISS air a’ mhapa</string>
     <string name="declination_unit">diog/ùrachadh</string>
     <string name="refreshDialogMessage">An ùine eadar ISS a’ faighinn ùrachadh chun àite ùr aige.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">Àiteachan Deicheach</string>
     <string name="decimalDialogMessage">Atharraich cruinneas gach luach àireamhach</string>
-    <string name="decimalSummary">Tha an ìre cruinneas làithreach aig $1 ionad deicheach</string>
+    <string name="decimalSummary">Atharraich cruinneas gach luach àireamhach</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Dath loidhne ro-innse</string>
     <string name="colorSummary">Atharraich dath nan loidhnichean ro-innse</string>
 
     <string name="sizeTitle">Meud loidhne ro-innse</string>
-    <string name="sizeDialogMessage">Atharraich meud loidhne ro-innse ISS</string>
-    <string name="sizeSummary">Is e $1 meud na loidhne an-dràsta</string>
+    <string name="sizeDialogMessage">Atharraich meud loidhne ro-innse ISSs</string>
+    <string name="sizeSummary">Atharraich meud loidhne ro-innse ISSs</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Meud teacsa</string>
-    <string name="textSizeDialogMessage">Atharraich meud gach luach teacsa</string>
-    <string name="textSizeSummary">Is e meud an teacsa làithreach $1</string>
+    <string name="textSizeDialogMessage">Atharraich meud gach luach teacsa air mapa</string>
+    <string name="textSizeSummary">Atharraich meud gach luach teacsa air mapa</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Dath teacsa</string>
@@ -126,13 +96,15 @@
     <string name="errorPermissionLocation">Dhiùlt ruigsinneachd don àite agad</string>
     <string name="errorConnection">An dàrna cuid chan eil ceangal agad no tha am frithealaiche air a luchdachadh cus.</string>
     <string name="errorNetwork">Thachair mearachd neo-aithnichte. Mearachd: 401</string>
-    <string name="errorMap">Chan urrainn dhuinn roghainnean a chur an sàs air mapa</string>
+    <string name="errorMap">Cha ghabh roghainnean a chur an sàs air mapa</string>
     <string name="errorFiveTimes">Dh\'fhàillig a h-uile 5 tursan. An dàrna cuid chan eil ceangal agad no tha am frithealaiche air a luchdachadh cus.</string>
-    <string name="errorLessFive">Dh\'fhàillig an t-iarrtas dhan fhrithealaiche. %1$d a-mach à 5. A\' feuchainn ann an %2$d diog.</string>
+    <string name="errorLessFive">Dh\'fhàillig an t-iarrtas dhan fhrithealaiche. A’ feuchainn a-rithist…</string>
     <string name="errorWaitPoly">A-cheana a’ cruthachadh loidhnichean ro-innse</string>
     <string name="errorNotByMe">Cha do chuir thu stad air fios ISS.</string>
     <string name="errorNoWiki">chan eil duilleag wiki aige</string>
-    <string name="errorNoTwitter">chan eil cunntas twitter aige</string>
+    <string name="errorNoTwitter">chan eil cunntas Twitter aige</string>
+    <string name="errorNoInstagram">chan eil cunntas Instagram aige</string>
+    <string name="errorNoFacebook">chan eil cunntas Facebook aige</string>
     <string name="data_corrupted">Tha dàta app truaillte. Ath-shuidheachadh!</string>
     <string name="polyError">Cha ghabh loidhne ro-innse a chruthachadh</string>
     <string name="calendar">Mìosachan</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Ìomhaigh de mhapa le comharra airson àite neach-cleachdaidh.</string>
     <string name="iss_sighting_share_title">Sealladh ISS</string>
     <string name="iss_sighting_share_description">Bidh ISS ri fhaicinn an seo. A’ dol a thoirt sùil air!</string>
-    <string name="iss_sighting_share_body">\"Dèan sgrùdadh air!\n\nBidh ISS ri fhaicinn aig “</string>
+    <string name="iss_sighting_share_body">msgstr \"Thoir sùil air! Bidh ISS ri fhaicinn aig \"</string>
     <string name="iss_sighting_share_chooser">Roinn…</string>
     <string name="on">\"air\"</string>
     <string name="one_day_in_space">1 latha san fhànais</string>
@@ -148,7 +120,16 @@
     <string name="day">\" latha\"</string>
     <string name="month">\" mìos\"</string>
     <string name="year">\" bliadhna\"</string>
-    <string name="since">\"Bho\"</string>
+    <string name="since">\"Air a chur air bhog\"</string>
     <string name="tutorial_one_title">Hi ann :)</string>
     <string name="tutorial_two_title">Prìomh fheartan</string>
+
+    <string name="license">Ceadan còd fosgailte</string>
+    <string name="msg_license">Tha an tagradh seo air a thogail a’ cleachdadh bathar-bog a leanas:</string>
+    <string name="msg_about_fork_me_on_github">Fork e air GitHub</string>
+    <string name="msg_about_library_description">Is e aplacaid android a th’ ann an ISS Tracker a leigeas leat sùil a chumail air suidheachadh an Stèisean Fànais Eadar-nàiseanta agus faighinn a-mach dè na speuradairean a tha san fhànais an-dràsta.</string>
+    <string name="desc_about_app">Mu dheidhinn an aplacaid seo</string>
+    <string name="msg_get_it_on_play_store">Faigh e air Google Play</string>
+    <string name="version">Tionndaidhean</string>
+    <string name="version_msg">Liosta de dh\'atharrachaidhean, rèiteachaidhean agus ùrachaidhean roimhe:</string>
 </resources>

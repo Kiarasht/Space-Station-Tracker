@@ -19,26 +19,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+            <RelativeLayout
+                android:id="@+id/img_border"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                app:civ_border_color="#FF000000"
-                app:civ_border_width="2dp"
+                android:background="@drawable/round_border_style"
+                android:padding="2dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="4dp">
+
+                    <ImageView
+                        android:id="@+id/img"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:importantForAccessibility="no"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
 
             <ProgressBar
                 android:id="@+id/astronaut_picture_progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:indeterminate="true"
-                app:layout_constraintBottom_toBottomOf="@+id/img"
-                app:layout_constraintEnd_toEndOf="@+id/img"
-                app:layout_constraintStart_toStartOf="@+id/img"
-                app:layout_constraintTop_toTopOf="@+id/img" />
+                app:layout_constraintBottom_toBottomOf="@+id/img_border"
+                app:layout_constraintEnd_toEndOf="@+id/img_border"
+                app:layout_constraintStart_toStartOf="@+id/img_border"
+                app:layout_constraintTop_toTopOf="@+id/img_border" />
 
             <TextView
                 android:id="@+id/name"
@@ -49,26 +65,27 @@
                 android:layout_marginTop="16dp"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintLeft_toRightOf="@+id/img"
+                app:layout_constraintLeft_toRightOf="@+id/img_border"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/countryFlag"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:contentDescription="@string/countryFlagContentDescription"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/role"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:textSize="12sp"
-                app:layout_constraintLeft_toRightOf="@+id/img"
+                app:layout_constraintLeft_toRightOf="@+id/img_border"
                 app:layout_constraintTop_toBottomOf="@+id/name" />
 
             <ImageView
@@ -76,39 +93,65 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:contentDescription="@string/astronautTwitterContentDescription"
                 android:src="@drawable/ic_action_twitter_grey"
-                app:layout_constraintLeft_toRightOf="@+id/img"
+                app:layout_constraintLeft_toRightOf="@+id/img_border"
                 app:layout_constraintTop_toBottomOf="@+id/role" />
+
+            <ImageView
+                android:id="@+id/astronautInstagram"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="4dp"
+                android:contentDescription="@string/astronautTwitterContentDescription"
+                android:padding="4dp"
+                android:scaleType="fitStart"
+                android:src="@drawable/ic_action_instagram_grey"
+                app:layout_constraintBottom_toBottomOf="@+id/astronautTwitter"
+                app:layout_constraintLeft_toRightOf="@+id/astronautTwitter"
+                app:layout_constraintTop_toTopOf="@+id/astronautTwitter" />
+
+            <ImageView
+                android:id="@+id/astronautFacebook"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="4dp"
+                android:contentDescription="@string/astronautTwitterContentDescription"
+                android:padding="4dp"
+                android:scaleType="fitStart"
+                android:src="@drawable/ic_action_facebook_grey"
+                app:layout_constraintBottom_toBottomOf="@+id/astronautInstagram"
+                app:layout_constraintLeft_toRightOf="@+id/astronautInstagram"
+                app:layout_constraintTop_toTopOf="@+id/astronautInstagram" />
 
             <ImageView
                 android:id="@+id/astronautWiki"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="4dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/astronautWikiContentDescription"
                 android:padding="4dp"
                 android:scaleType="fitStart"
                 android:src="@drawable/ic_wikipedia"
-                app:layout_constraintLeft_toRightOf="@+id/astronautTwitter"
-                app:layout_constraintTop_toBottomOf="@+id/role" />
+                app:layout_constraintBottom_toBottomOf="@+id/astronautFacebook"
+                app:layout_constraintLeft_toRightOf="@+id/astronautFacebook"
+                app:layout_constraintTop_toTopOf="@+id/astronautFacebook" />
 
             <ImageView
                 android:id="@+id/astronautGoogle"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="4dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/astronautGoogleContentDescription"
                 android:padding="4dp"
                 android:scaleType="fitStart"
                 android:src="@drawable/ic_google_search"
+                app:layout_constraintBottom_toBottomOf="@+id/astronautWiki"
                 app:layout_constraintLeft_toRightOf="@+id/astronautWiki"
-                app:layout_constraintTop_toBottomOf="@+id/role" />
+                app:layout_constraintTop_toTopOf="@+id/astronautWiki" />
 
             <TextView
                 android:id="@+id/days_since_launch"
@@ -137,7 +180,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img" />
+                app:layout_constraintTop_toBottomOf="@+id/img_border" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

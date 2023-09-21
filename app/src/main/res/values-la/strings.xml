@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Map</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">Transeuntes</string>
     <string name="space_title">Officium</string>
     <string name="settings_title">Occasus</string>
     <string name="help_title">Auxilium</string>
 
     
-    <string name="flybys_summary">Reprehendo ISS faucibus tua locus</string>
+    <string name="flybys_summary">Reprehendo cum ISS transibit per locum tuum</string>
     <string name="space_summary">Vide qui in spatio nunc</string>
     <string name="settings_summary">Curo generalis app occasus</string>
     <string name="help_summary">Rate vel discere de app</string>
@@ -20,38 +20,8 @@
     <string name="stream">Vivamus</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">primum tempus</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Nullus</item>
-        <item>Normal</item>
-        <item>Satellite</item>
-        <item>Terrain</item>
-        <item>Hybrid</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">Who\'s in Space\?</string>
+    <string name="label_people_in_space">Who is in Space\?</string>
     <string name="label_setting">Occasus</string>
     <string name="label_help">Auxilium</string>
     <string name="label_stream">Live Stream</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">Vexillum addit enabled. Gratias pro auxilio ;)</string>
 
     
-    <string name="tutorialOne">Tabula indicat ISS situm currentem cum vaticinatione linea ubi futurum est.</string>
-    <string name="tutorialTwo">Drawer te ad alias lineamenta accipit, ut musca, occasus, etc…</string>
+    <string name="tutorialOne">Tabula indicat ISS location currenti cum vaticinatione linea ubi erit.</string>
+    <string name="tutorialTwo">Drawer te ad alias lineamenta accipit, ut musca et occasus.</string>
     <string name="midAt">at</string>
     <string name="checkerContentDescription">Icon repraesentat diaphanum colorem lecta</string>
     <string name="countryFlagContentDescription">Patria vexillum hoc astronaut est a</string>
-    <string name="astronautTwitterContentDescription">Icon to link to astronaut\'s twitter page</string>
-    <string name="astronautWikiContentDescription">Icon ligare ad paginam wiki astronaut\'s</string>
-    <string name="astronautGoogleContentDescription">Icon ligare ad paginam astronaut Google inquisitionis</string>
+    <string name="astronautTwitterContentDescription">Icon to link to astronauts twitter page</string>
+    <string name="astronautWikiContentDescription">Icon ligare ad astronautas wiki page</string>
+    <string name="astronautGoogleContentDescription">Icon coniungi cum astronautis ad Google paginam investigationis</string>
 
     
     <string name="refreshTitle">Renovare Rate</string>
-    <string name="refreshSummary">Current reficite rate est $ I sec/renovare</string>
+    <string name="refreshSummary">Moles temporis ante adaequationis ISS locus in tabula</string>
     <string name="declination_unit">sec/renovare</string>
     <string name="refreshDialogMessage">Tempus inter ISS renovationem ad novum locum suum renovatur.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">Decimal Places</string>
     <string name="decimalDialogMessage">Mutata accurate omnium valorum numerorum</string>
-    <string name="decimalSummary">Current accurate gradu est apud $ I decimales locis</string>
+    <string name="decimalSummary">Mutata accurate omnium valorum numerorum</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Praedictio linea color</string>
     <string name="colorSummary">Color praedictionis lineae mutare</string>
 
     <string name="sizeTitle">Praedictio linea magnitudine</string>
-    <string name="sizeDialogMessage">Mutare magnitudinem ISS praedictum linea</string>
-    <string name="sizeSummary">Current linea mole est $ I \"</string>
+    <string name="sizeDialogMessage">Mutare magnitudinem ISSs praedictionis linea</string>
+    <string name="sizeSummary">Mutare magnitudinem ISSs praedictionis linea</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Textus magnitudine</string>
-    <string name="textSizeDialogMessage">Mutata magnitudinem omnium textuum bonorum</string>
-    <string name="textSizeSummary">Current textus magnitudo sit $ I \"</string>
+    <string name="textSizeDialogMessage">Mutata magnitudinem omnium textuum bonorum in tabula</string>
+    <string name="textSizeSummary">Mutata magnitudinem omnium textuum bonorum in tabula</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Textus color</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">Error incognitus inciderunt. Error: 401</string>
     <string name="errorMap">Non applicare occasus ad map</string>
     <string name="errorFiveTimes">Defecit omnes V temporibus. Aut nexum non habes, aut servo cumulatur.</string>
-    <string name="errorLessFive">Request servo defecit. %1$d e 5. Conatus in secundis %2$d.</string>
+    <string name="errorLessFive">Request servo defecit. Retrying…</string>
     <string name="errorWaitPoly">Iam lineas creans praedictionem</string>
-    <string name="errorNotByMe">ISS Notification non sistitur a te.</string>
+    <string name="errorNotByMe">ISS Notification non sistitur a vobis.</string>
     <string name="errorNoWiki">non habet wiki pagina</string>
-    <string name="errorNoTwitter">non habet Twitter propter</string>
+    <string name="errorNoTwitter">non habet Twitter</string>
+    <string name="errorNoInstagram">non habet Instagram rationem</string>
+    <string name="errorNoFacebook">non habet Facebook Ratio</string>
     <string name="data_corrupted">Corrupta notitia app. Repositione!</string>
     <string name="polyError">Posse creare praedictionem versus</string>
     <string name="calendar">Calendarium</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Imago geographicae cum titulo pro usuario locus.</string>
     <string name="iss_sighting_share_title">ISS Visus</string>
     <string name="iss_sighting_share_description">ISS Videbitur hic. Ire reprehendo eam!</string>
-    <string name="iss_sighting_share_body">\"Reprehendo eam!\n\nISS patebit at \"</string>
+    <string name="iss_sighting_share_body">\"Reprehende eum! ISS apparebit in\"</string>
     <string name="iss_sighting_share_chooser">Share…</string>
     <string name="on">\" in \"</string>
     <string name="one_day_in_space">I dies in spatio</string>
@@ -148,7 +120,16 @@
     <string name="day">\"dies\"</string>
     <string name="month">\"mensis\"</string>
     <string name="year">\" annus \"</string>
-    <string name="since">\"Quia\"</string>
+    <string name="since">\"Deductus\"</string>
     <string name="tutorial_one_title">Heus ibi :)</string>
     <string name="tutorial_two_title">Marisque</string>
+
+    <string name="license">Apertum fontem licentiae</string>
+    <string name="msg_license">Haec applicatio construitur utens software his:</string>
+    <string name="msg_about_fork_me_on_github">Furca eam GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker applicatio android est quae te indagare positionem Stationis Spatii Internationalis et explorare quid astronautae nunc in spatio sint.</string>
+    <string name="desc_about_app">De hoc app</string>
+    <string name="msg_get_it_on_play_store">Pervenit in Google Play</string>
+    <string name="version">Versiones</string>
+    <string name="version_msg">Index priorum mutationum, locorum, et updates:</string>
 </resources>

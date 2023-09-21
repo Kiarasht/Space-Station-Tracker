@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Imephu</string>
-    <string name="flybys_title">IiFlybys</string>
+    <string name="flybys_title">Ukudlula</string>
     <string name="space_title">Kumsebenzi</string>
     <string name="settings_title">Iisetingi</string>
     <string name="help_title">Nceda</string>
 
     
-    <string name="flybys_summary">Jonga iipasi ze-ISS ngendawo yakho</string>
+    <string name="flybys_summary">Jonga ukuba i-ISS iya kudlula nini na kwindawo yakho</string>
     <string name="space_summary">Jonga ukuba ngubani osesithubeni ngoku</string>
     <string name="settings_summary">Lawula iisetingi zeapp gabalala</string>
     <string name="help_summary">Thelekelela okanye ufunde malunga ne-app</string>
@@ -20,38 +20,8 @@
     <string name="stream">Phila</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">ixesha lokuqala</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Akukho nanye</item>
-        <item>Okuqhelekileyo</item>
-        <item>Isathelayithi</item>
-        <item>Umhlaba</item>
-        <item>Hybrid</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">IiFlybys</string>
-    <string name="label_peopleinspace">Ngubani oseSithubeni\?</string>
+    <string name="label_people_in_space">Ngubani oseSithubeni\?</string>
     <string name="label_setting">Iisetingi</string>
     <string name="label_help">Nceda</string>
     <string name="label_stream">Umthombo philayo</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">Iintengiso zesibhengezo zivuliwe. Enkosi ngenkxaso ;)</string>
 
     
-    <string name="tutorialOne">Imephu ibonisa indawo yangoku ye-ISS enomgca wokuxela kwangaphambili apho iyakuba khona.</string>
-    <string name="tutorialTwo">Idrowa ikusa kwezinye izinto ezinje ngebhabhathane, useto, njl..</string>
+    <string name="tutorialOne">Imephu ibonisa i-ISS indawo yangoku enomgca wokuxela kwangaphambili apho iyakuba khona.</string>
+    <string name="tutorialTwo">Idrowa ikuthatha ikuse kwezinye izinto ezinje ngebhabhathane kunye noseto.</string>
     <string name="midAt">e</string>
     <string name="checkerContentDescription">I-Icon ibonisa ukuba umbala ocacileyo ukhethiwe</string>
     <string name="countryFlagContentDescription">iflegi yelizwe lo astronaut usuka</string>
-    <string name="astronautTwitterContentDescription">Umqondiso wokudibanisa kwiphepha le-twitter likasomajukujuku</string>
-    <string name="astronautWikiContentDescription">Umqondiso wokudibanisa kwiphepha le-astronaut\'s wiki</string>
-    <string name="astronautGoogleContentDescription">Umqondiso wokunxulumanisa nosomajukujuku wephepha lokukhangela likaGoogle</string>
+    <string name="astronautTwitterContentDescription">Umqondiso wokudibanisa nosomajukujuku kwiphepha le-twitter</string>
+    <string name="astronautWikiContentDescription">Umqondiso wokunxulumanisa koosomajukujuku kwiphepha le-wiki</string>
+    <string name="astronautGoogleContentDescription">Umqondiso wokudibanisa koosomajukujuku kwiphepha lokukhangela likaGoogle</string>
 
     
     <string name="refreshTitle">Ireyithi yokuhlaziya</string>
-    <string name="refreshSummary">Ireyithi yokuhlaziya yangoku yi-$1 sec/refresh</string>
+    <string name="refreshSummary">Ubungakanani bexesha phambi kokuhlaziya indawo ye-ISS kwimephu</string>
     <string name="declination_unit">umzuzwana/hlaziya</string>
     <string name="refreshDialogMessage">Ixesha phakathi kwe-ISS yokuhlaziywa kwindawo yayo entsha.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">Iindawo zedesimali</string>
     <string name="decimalDialogMessage">Guqula ukuchaneka kwawo onke amanani amanani</string>
-    <string name="decimalSummary">Inqanaba langoku lokuchaneka liku-$1 iindawo</string>
+    <string name="decimalSummary">Guqula ukuchaneka kwawo onke amanani amanani</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Umbala womgca wokuqikelela</string>
     <string name="colorSummary">Guqula umbala wemigca yokuqikelela</string>
 
     <string name="sizeTitle">Ubungakanani bomgca wokuqikelela</string>
-    <string name="sizeDialogMessage">Guqula ubungakanani bomgca wokuqikelela we-ISS</string>
-    <string name="sizeSummary">Ubungakanani bomgca wangoku yi-$1</string>
+    <string name="sizeDialogMessage">Guqula ubungakanani be-ISSs umgca wokuxela kwangaphambili</string>
+    <string name="sizeSummary">Guqula ubungakanani be-ISSs umgca wokuxela kwangaphambili</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Ubungakanani bombhalo</string>
-    <string name="textSizeDialogMessage">Guqula ubungakanani bawo onke amaxabiso okubhaliweyo</string>
-    <string name="textSizeSummary">Ubungakanani bombhalo wangoku yi-$1</string>
+    <string name="textSizeDialogMessage">Guqula ubungakanani bawo onke amanani okubhaliweyo kwimephu</string>
+    <string name="textSizeSummary">Guqula ubungakanani bawo onke amanani okubhaliweyo kwimephu</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Umbala wombhalo</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">Kwenzeke impazamo engaziwayo. Impazamo: 401</string>
     <string name="errorMap">Ayinakufaka iisetingi kwimephu</string>
     <string name="errorFiveTimes">Ayiphumelelanga onke amaxesha ayi-5. Inoba awunamdibaniso okanye iseva igcwele kakhulu.</string>
-    <string name="errorLessFive">Isicelo somncedisi asiphumelelanga. %1$d kwi-5. Izama kwi-%2$d imizuzwana.</string>
+    <string name="errorLessFive">Isicelo somncedisi asiphumelelanga. Iyazama kwakhona...</string>
     <string name="errorWaitPoly">Sele uyila imigca yokuqikelela</string>
     <string name="errorNotByMe">Isaziso se-ISS asimiswanga nguwe.</string>
     <string name="errorNoWiki">ayinalo iphepha le-wiki</string>
-    <string name="errorNoTwitter">akanayo iakhawunti ye-twitter</string>
+    <string name="errorNoTwitter">ayinayo iakhawunti kaTwitter</string>
+    <string name="errorNoInstagram">ayinayo iakhawunti ye-Instagram</string>
+    <string name="errorNoFacebook">akanayo iakhawunti kaFacebook</string>
     <string name="data_corrupted">Idatha ye-App yonakele. Iyaseta kwakhona!</string>
     <string name="polyError">Akukwazeki ekudaleni umgca woqikelelo</string>
     <string name="calendar">Ikhalenda</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Umfanekiso wemephu enesiphawuli sendawo yomsebenzisi.</string>
     <string name="iss_sighting_share_title">Ukubonwa kwe-ISS</string>
     <string name="iss_sighting_share_description">I-ISS iya kubonakala apha. Yiza kuyijonga!</string>
-    <string name="iss_sighting_share_body">\"Yijonge!\n\nI-ISS iya kubonakala apha \"</string>
+    <string name="iss_sighting_share_body">\"Yijonge! I-ISS iza kubonakala apha \"</string>
     <string name="iss_sighting_share_chooser">Yabelana...</string>
     <string name="on">\"kwi\"</string>
     <string name="one_day_in_space">Usuku olu-1 esithubeni</string>
@@ -148,7 +120,16 @@
     <string name="day">\" usuku\"</string>
     <string name="month">\" inyanga\"</string>
     <string name="year">\" unyaka\"</string>
-    <string name="since">\"Ukusukela\"</string>
+    <string name="since">\"Yaziswa\"</string>
     <string name="tutorial_one_title">Molo apho :)</string>
     <string name="tutorial_two_title">Iimpawu eziphambili</string>
+
+    <string name="license">Iimvume zomthombo ovulekileyo</string>
+    <string name="msg_license">Esi sicelo sakhiwe kusetyenziswa isoftware elandelayo:</string>
+    <string name="msg_about_fork_me_on_github">Yifake kwi-GitHub</string>
+    <string name="msg_about_library_description">I-ISS Tracker sisicelo se-android esikuvumela ukuba ulandelele indawo yeSikhululo saMajukujuku saMazwe ngaMazwe kwaye ufumanise ukuba yintoni na oosomajukujuku abasesithubeni.</string>
+    <string name="desc_about_app">Malunga nale app</string>
+    <string name="msg_get_it_on_play_store">Yifumane kuDlalo lukaGoogle</string>
+    <string name="version">Iinguqulelo</string>
+    <string name="version_msg">Uluhlu lweenguqu zangaphambili, izilungiso, kunye nohlaziyo:</string>
 </resources>

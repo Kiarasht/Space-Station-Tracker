@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Bản đồ</string>
-    <string name="flybys_title">Bay ngang qua</string>
+    <string name="flybys_title">Đi ngang qua</string>
     <string name="space_title">Đang làm nhiệm vụ</string>
     <string name="settings_title">Cài đặt</string>
     <string name="help_title">Giúp đỡ</string>
 
     
-    <string name="flybys_summary">Kiểm tra đường đi của ISS qua vị trí của bạn</string>
+    <string name="flybys_summary">Kiểm tra khi nào ISS sẽ đi ngang qua vị trí của bạn</string>
     <string name="space_summary">Xem ai đang ở trong không gian ngay bây giờ</string>
     <string name="settings_summary">Quản lý cài đặt ứng dụng chung</string>
     <string name="help_summary">Xếp hạng hoặc tìm hiểu về ứng dụng</string>
@@ -20,38 +20,8 @@
     <string name="stream">Sống</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">lần đầu tiên</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Không có</item>
-        <item>Bình thường</item>
-        <item>Vệ tinh</item>
-        <item>Địa hình</item>
-        <item>Hỗn hợp</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Bay ngang qua</string>
-    <string name="label_peopleinspace">Ai ở trong không gian\?</string>
+    <string name="label_people_in_space">Ai ở trong không gian\?</string>
     <string name="label_setting">Cài đặt</string>
     <string name="label_help">Giúp đỡ</string>
     <string name="label_stream">Trực tiếp</string>
@@ -64,17 +34,17 @@
 
     
     <string name="tutorialOne">Bản đồ hiển thị vị trí hiện tại của ISS với dòng dự đoán về vị trí của nó.</string>
-    <string name="tutorialTwo">Ngăn kéo sẽ đưa bạn đến các tính năng khác như bay ngang qua, cài đặt, v.v...</string>
+    <string name="tutorialTwo">Drawer sẽ đưa bạn đến các tính năng khác như flyby và cài đặt.</string>
     <string name="midAt">Tại</string>
     <string name="checkerContentDescription">Biểu tượng thể hiện rằng một màu trong suốt đã được chọn</string>
     <string name="countryFlagContentDescription">Lá cờ quốc gia mà phi hành gia này đến từ</string>
-    <string name="astronautTwitterContentDescription">Biểu tượng để liên kết đến trang twitter của phi hành gia</string>
-    <string name="astronautWikiContentDescription">Biểu tượng để liên kết tới trang wiki của phi hành gia</string>
-    <string name="astronautGoogleContentDescription">Biểu tượng để liên kết tới trang tìm kiếm Google của phi hành gia</string>
+    <string name="astronautTwitterContentDescription">Biểu tượng để liên kết đến trang Twitter của các phi hành gia</string>
+    <string name="astronautWikiContentDescription">Biểu tượng để liên kết đến trang wiki phi hành gia</string>
+    <string name="astronautGoogleContentDescription">Biểu tượng để liên kết tới trang tìm kiếm phi hành gia Google</string>
 
     
     <string name="refreshTitle">Tốc độ làm tươi</string>
-    <string name="refreshSummary">Tốc độ làm mới hiện tại là $1 giây/làm mới</string>
+    <string name="refreshSummary">Khoảng thời gian trước khi cập nhật vị trí ISS trên bản đồ</string>
     <string name="declination_unit">giây/làm mới</string>
     <string name="refreshDialogMessage">Thời gian giữa ISS được cập nhật đến vị trí mới.</string>
 
@@ -89,7 +59,7 @@
 
     <string name="decimalTitle">Số thập phân</string>
     <string name="decimalDialogMessage">Thay đổi độ chính xác của tất cả các giá trị số</string>
-    <string name="decimalSummary">Mức độ chính xác hiện tại là $1 chữ số thập phân</string>
+    <string name="decimalSummary">Thay đổi độ chính xác của tất cả các giá trị số</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Màu dòng dự đoán</string>
@@ -97,12 +67,12 @@
 
     <string name="sizeTitle">Kích thước dòng dự đoán</string>
     <string name="sizeDialogMessage">Thay đổi kích thước dòng dự đoán của ISS</string>
-    <string name="sizeSummary">Kích thước dòng hiện tại là $1</string>
+    <string name="sizeSummary">Thay đổi kích thước dòng dự đoán của ISS</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Cỡ chữ</string>
-    <string name="textSizeDialogMessage">Thay đổi kích thước của tất cả các giá trị văn bản</string>
-    <string name="textSizeSummary">Kích thước văn bản hiện tại là $1</string>
+    <string name="textSizeDialogMessage">Thay đổi kích thước của tất cả giá trị văn bản trên bản đồ</string>
+    <string name="textSizeSummary">Thay đổi kích thước của tất cả giá trị văn bản trên bản đồ</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Văn bản màu</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">Một lỗi không rõ đã xảy ra. Lỗi: 401</string>
     <string name="errorMap">Không thể áp dụng cài đặt cho bản đồ</string>
     <string name="errorFiveTimes">Thất bại cả 5 lần. Hoặc bạn không có kết nối hoặc máy chủ bị quá tải.</string>
-    <string name="errorLessFive">Yêu cầu tới máy chủ không thành công. %1$d trên 5. Đang thử sau %2$d giây.</string>
+    <string name="errorLessFive">Yêu cầu tới máy chủ không thành công. Đang thử lại…</string>
     <string name="errorWaitPoly">Đã tạo dòng dự đoán</string>
-    <string name="errorNotByMe">Thông báo ISS không phải do bạn dừng lại.</string>
+    <string name="errorNotByMe">Thông báo ISS không bị bạn dừng lại.</string>
     <string name="errorNoWiki">không có trang wiki</string>
-    <string name="errorNoTwitter">không có tài khoản twitter</string>
+    <string name="errorNoTwitter">không có tài khoản Twitter</string>
+    <string name="errorNoInstagram">không có tài khoản Instagram</string>
+    <string name="errorNoFacebook">không có tài khoản Facebook</string>
     <string name="data_corrupted">Dữ liệu ứng dụng bị hỏng. Đặt lại!</string>
     <string name="polyError">Không thể tạo dòng dự đoán</string>
     <string name="calendar">Lịch</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Hình ảnh bản đồ có điểm đánh dấu vị trí của người dùng.</string>
     <string name="iss_sighting_share_title">quan sát ISS</string>
     <string name="iss_sighting_share_description">ISS sẽ hiển thị ở đây. Đi để kiểm tra xem nó ra!</string>
-    <string name="iss_sighting_share_body">\"Kiểm tra nó đi!\n\nISS sẽ hiển thị tại \"</string>
+    <string name="iss_sighting_share_body">\"Hãy xem thử! ISS sẽ hiển thị tại \"</string>
     <string name="iss_sighting_share_chooser">Chia sẻ…</string>
     <string name="on">\" TRÊN \"</string>
     <string name="one_day_in_space">1 ngày trong không gian</string>
@@ -148,7 +120,16 @@
     <string name="day">\" ngày\"</string>
     <string name="month">\" tháng\"</string>
     <string name="year">\" năm\"</string>
-    <string name="since">\"Từ \"</string>
+    <string name="since">\"Đã ra mắt\"</string>
     <string name="tutorial_one_title">Chào bạn :)</string>
     <string name="tutorial_two_title">Những đặc điểm chính</string>
+
+    <string name="license">Giấy phép nguồn mở</string>
+    <string name="msg_license">Ứng dụng này được xây dựng bằng phần mềm sau:</string>
+    <string name="msg_about_fork_me_on_github">Phân nhánh nó trên GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker là một ứng dụng Android cho phép bạn theo dõi vị trí của Trạm vũ trụ quốc tế và tìm hiểu những phi hành gia hiện đang ở trong không gian.</string>
+    <string name="desc_about_app">Giới thiệu về ứng dụng này</string>
+    <string name="msg_get_it_on_play_store">Tải nó trên Google Play</string>
+    <string name="version">Phiên bản</string>
+    <string name="version_msg">Danh sách các thay đổi, sửa lỗi và cập nhật trước đó:</string>
 </resources>

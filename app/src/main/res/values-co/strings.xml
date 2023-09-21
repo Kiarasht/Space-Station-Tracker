@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Mappa</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">Passendu</string>
     <string name="space_title">On duty</string>
     <string name="settings_title">Settings</string>
     <string name="help_title">Aiutu</string>
 
     
-    <string name="flybys_summary">Verificate i pass di ISS da u vostru locu</string>
+    <string name="flybys_summary">Verificate quandu ISS passerà da u vostru locu</string>
     <string name="space_summary">Vede quale hè in u spaziu avà</string>
     <string name="settings_summary">Gestisce i paràmetri generali di l\'app</string>
     <string name="help_summary">Valuta o scopre nantu à l\'app</string>
@@ -20,38 +20,8 @@
     <string name="stream">Live</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">prima volta</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Nimu</item>
-        <item>Normale</item>
-        <item>Satellitu</item>
-        <item>Terrain</item>
-        <item>Hybrid</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">Quale hè in u spaziu\?</string>
+    <string name="label_people_in_space">Quale hè in u Spaziu\?</string>
     <string name="label_setting">Settings</string>
     <string name="label_help">Aiutu</string>
     <string name="label_stream">Live Stream</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">Banner ads attivati. Grazie per u sustegnu ;)</string>
 
     
-    <string name="tutorialOne">A mappa mostra a situazione attuale di l\'ISS cù una linea di predizione di induve serà.</string>
-    <string name="tutorialTwo">Drawer vi porta à altre funzioni cum\'è flybys, paràmetri, etc...</string>
+    <string name="tutorialOne">A mappa mostra a situazione attuale ISS cù una linea di predizione di induve serà.</string>
+    <string name="tutorialTwo">Drawer vi porta à altre funziunalità cum\'è flybys è paràmetri.</string>
     <string name="midAt">à</string>
     <string name="checkerContentDescription">L\'icona rapprisenta chì un culore trasparente hè sceltu</string>
     <string name="countryFlagContentDescription">Bandiera di u paese da questu astronauta</string>
-    <string name="astronautTwitterContentDescription">Icona per ligà à a pagina Twitter di l\'astronauta</string>
-    <string name="astronautWikiContentDescription">Icona per ligà à a pagina wiki di l\'astronauta</string>
-    <string name="astronautGoogleContentDescription">Icona per ligà à a pagina di ricerca di Google di l\'astronauta</string>
+    <string name="astronautTwitterContentDescription">Icona per ligà à a pagina di Twitter di l\'astronauti</string>
+    <string name="astronautWikiContentDescription">Icona per ligà à a pagina wiki di l\'astronauti</string>
+    <string name="astronautGoogleContentDescription">Icona per ligà à a pagina di ricerca di Google astronauti</string>
 
     
     <string name="refreshTitle">Frequenza di rinfrescante</string>
-    <string name="refreshSummary">A tarifa di rinfrescante attuale hè di $ 1 sec /rinfrescante</string>
+    <string name="refreshSummary">Quantità di tempu prima di aghjurnà u locu ISS nantu à a mappa</string>
     <string name="declination_unit">sec /rinfrescà</string>
     <string name="refreshDialogMessage">U tempu trà l\'ISS hè aghjurnatu à u so novu locu.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">I posti decimali</string>
     <string name="decimalDialogMessage">Cambia a precisione di tutti i valori numerichi</string>
-    <string name="decimalSummary">U livellu di precisione attuale hè à $ 1 decimali</string>
+    <string name="decimalSummary">Cambia a precisione di tutti i valori numerichi</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Colore di a linea di predizione</string>
     <string name="colorSummary">Cambia u culore di e linee di predizione</string>
 
     <string name="sizeTitle">Dimensione di a linea di predizione</string>
-    <string name="sizeDialogMessage">Cambia a dimensione di a linea di predizione di l\'ISS</string>
-    <string name="sizeSummary">A dimensione attuale di a linea hè $ 1</string>
+    <string name="sizeDialogMessage">Cambia a dimensione di a linea di predizione ISS</string>
+    <string name="sizeSummary">Cambia a dimensione di a linea di predizione ISS</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Dimensione di u testu</string>
-    <string name="textSizeDialogMessage">Cambia a dimensione di tutti i valori di testu</string>
-    <string name="textSizeSummary">A dimensione attuale di u testu hè $ 1</string>
+    <string name="textSizeDialogMessage">Cambia a dimensione di tutti i valori di testu nantu à a mappa</string>
+    <string name="textSizeSummary">Cambia a dimensione di tutti i valori di testu nantu à a mappa</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Culore di testu</string>
@@ -126,13 +96,15 @@
     <string name="errorPermissionLocation">Denegatu l\'accessu à u vostru locu</string>
     <string name="errorConnection">O ùn avete micca cunnessione o u servitore hè sovraccaricatu.</string>
     <string name="errorNetwork">Un errore scunnisciutu hè accadutu. Errore: 401</string>
-    <string name="errorMap">Ùn pò micca applicà i paràmetri à a mappa</string>
+    <string name="errorMap">Ùn pò micca applicà paràmetri à a mappa</string>
     <string name="errorFiveTimes">Fiascu tutte e 5 volte. O ùn avete micca cunnessione o u servitore hè sovraccaricatu.</string>
-    <string name="errorLessFive">A dumanda à u servitore hà fiascatu. %1$d fora di 5. Pruvatu in %2$d seconde.</string>
+    <string name="errorLessFive">A dumanda à u servitore hà fiascatu. Riprova…</string>
     <string name="errorWaitPoly">Dighjà creanu linee di predizione</string>
     <string name="errorNotByMe">A Notificazione ISS ùn hè stata fermata da voi.</string>
     <string name="errorNoWiki">ùn hà micca una pagina wiki</string>
-    <string name="errorNoTwitter">ùn hà micca un contu twitter</string>
+    <string name="errorNoTwitter">ùn hà micca un contu Twitter</string>
+    <string name="errorNoInstagram">ùn hà micca un contu Instagram</string>
+    <string name="errorNoFacebook">ùn hà micca un contu Facebook</string>
     <string name="data_corrupted">I dati di l\'app sò currutti. Resetting!</string>
     <string name="polyError">Impossibile di creà una linea di predizione</string>
     <string name="calendar">Calendariu</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Immagine di una mappa cù un marcatore per u locu di l\'utilizatori.</string>
     <string name="iss_sighting_share_title">Sighting ISS</string>
     <string name="iss_sighting_share_description">ISS serà visibile quì. Andà à verificà!</string>
-    <string name="iss_sighting_share_body">\"Da un\'uchjata!\n\nL\'ISS serà visibile à \"</string>
+    <string name="iss_sighting_share_body">\"Verificate! L\'ISS serà visibile à\"</string>
     <string name="iss_sighting_share_chooser">sparte…</string>
     <string name="on">\" on \"</string>
     <string name="one_day_in_space">1 ghjornu in u spaziu</string>
@@ -148,7 +120,16 @@
     <string name="day">\" ghjornu\"</string>
     <string name="month">\" mese\"</string>
     <string name="year">\" annu\"</string>
-    <string name="since">\"Dapoi\"</string>
+    <string name="since">\"Lanciatu\"</string>
     <string name="tutorial_one_title">Hey là :)</string>
     <string name="tutorial_two_title">Funzioni principali</string>
+
+    <string name="license">Licenze open source</string>
+    <string name="msg_license">Questa applicazione hè custruita cù u seguente software:</string>
+    <string name="msg_about_fork_me_on_github">Fork it in GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker hè una applicazione Android chì permette di seguità a pusizione di a Stazione Spaziale Internaziunale è scopre ciò chì astronauti sò attualmente in u spaziu.</string>
+    <string name="desc_about_app">Circa sta app</string>
+    <string name="msg_get_it_on_play_store">Get it on Google Play</string>
+    <string name="version">Versioni</string>
+    <string name="version_msg">Lista di cambiamenti precedenti, correzioni è aghjurnamenti:</string>
 </resources>

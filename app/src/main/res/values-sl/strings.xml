@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Zemljevid</string>
-    <string name="flybys_title">Preleti</string>
+    <string name="flybys_title">Mimo</string>
     <string name="space_title">Na dolžnosti</string>
     <string name="settings_title">nastavitve</string>
     <string name="help_title">pomoč</string>
 
     
-    <string name="flybys_summary">Preverite prehode ISS mimo vaše lokacije</string>
+    <string name="flybys_summary">Preverite, kdaj bo ISS šel mimo vaše lokacije</string>
     <string name="space_summary">Poglejte, kdo je trenutno v vesolju</string>
     <string name="settings_summary">Upravljanje splošnih nastavitev aplikacije</string>
     <string name="help_summary">Ocenite aplikacijo ali se poučite o njej</string>
@@ -20,38 +20,8 @@
     <string name="stream">V živo</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">prvič</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Noben</item>
-        <item>normalno</item>
-        <item>Satelit</item>
-        <item>Teren</item>
-        <item>Hibrid</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Preleti</string>
-    <string name="label_peopleinspace">Kdo je v vesolju\?</string>
+    <string name="label_people_in_space">Kdo je v vesolju\?</string>
     <string name="label_setting">nastavitve</string>
     <string name="label_help">pomoč</string>
     <string name="label_stream">Prenos v živo</string>
@@ -64,17 +34,17 @@
 
     
     <string name="tutorialOne">Zemljevid prikazuje trenutno lokacijo ISS z napovedjo, kje bo.</string>
-    <string name="tutorialTwo">Predal vas popelje do drugih funkcij, kot so preleti, nastavitve itd.</string>
+    <string name="tutorialTwo">Predal vas popelje do drugih funkcij, kot so preleti in nastavitve.</string>
     <string name="midAt">pri</string>
     <string name="checkerContentDescription">Ikona pomeni, da je izbrana prozorna barva</string>
     <string name="countryFlagContentDescription">Zastava države, iz katere prihaja ta astronavt</string>
-    <string name="astronautTwitterContentDescription">Ikona za povezavo do astronavtove strani na Twitterju</string>
-    <string name="astronautWikiContentDescription">Ikona za povezavo do astronavtove wiki strani</string>
-    <string name="astronautGoogleContentDescription">Ikona za povezavo do astronavtove iskalne strani Google</string>
+    <string name="astronautTwitterContentDescription">Ikona za povezavo do strani astronavtov na Twitterju</string>
+    <string name="astronautWikiContentDescription">Ikona za povezavo do wiki strani astronavtov</string>
+    <string name="astronautGoogleContentDescription">Ikona za povezavo do strani za iskanje astronavtov v Googlu</string>
 
     
     <string name="refreshTitle">Hitrost osveževanja</string>
-    <string name="refreshSummary">Trenutna hitrost osveževanja je $1 s/osvežitev</string>
+    <string name="refreshSummary">Količina časa pred posodobitvijo lokacije ISS na zemljevidu</string>
     <string name="declination_unit">sek/osveži</string>
     <string name="refreshDialogMessage">Čas med posodobitvijo ISS na novo lokacijo.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">Decimalna mesta</string>
     <string name="decimalDialogMessage">Spremenite natančnost vseh številskih vrednosti</string>
-    <string name="decimalSummary">Trenutna raven natančnosti je 1 USD decimalnih mest</string>
+    <string name="decimalSummary">Spremenite natančnost vseh številskih vrednosti</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Barva črte napovedi</string>
     <string name="colorSummary">Spremenite barvo predvidenih črt</string>
 
     <string name="sizeTitle">Velikost vrstice napovedi</string>
-    <string name="sizeDialogMessage">Spremenite velikost napovedne črte ISS</string>
-    <string name="sizeSummary">Trenutna velikost vrstice je 1 $</string>
+    <string name="sizeDialogMessage">Spremenite velikost črte napovedi ISS</string>
+    <string name="sizeSummary">Spremenite velikost črte napovedi ISS</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Velikost besedila</string>
-    <string name="textSizeDialogMessage">Spremenite velikost vseh besedilnih vrednosti</string>
-    <string name="textSizeSummary">Trenutna velikost besedila je $1</string>
+    <string name="textSizeDialogMessage">Spremenite velikost vseh besedilnih vrednosti na zemljevidu</string>
+    <string name="textSizeSummary">Spremenite velikost vseh besedilnih vrednosti na zemljevidu</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Barva besedila</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">Prišlo je do neznane napake. Napaka: 401</string>
     <string name="errorMap">Nastavitev ni mogoče uporabiti za zemljevid</string>
     <string name="errorFiveTimes">Vseh 5-krat ni uspelo. Nimate povezave ali pa je strežnik preobremenjen.</string>
-    <string name="errorLessFive">Zahteva strežniku ni uspela. %1$d od 5. Poskus čez %2$d sekund.</string>
+    <string name="errorLessFive">Zahteva strežniku ni uspela. Ponovni poskus ...</string>
     <string name="errorWaitPoly">Že ustvarja napovedne vrstice</string>
     <string name="errorNotByMe">Obvestila ISS niste ustavili vi.</string>
     <string name="errorNoWiki">nima wiki strani</string>
-    <string name="errorNoTwitter">nima twitter računa</string>
+    <string name="errorNoTwitter">nima Twitter računa</string>
+    <string name="errorNoInstagram">nima Instagram računa</string>
+    <string name="errorNoFacebook">nima Facebook računa</string>
     <string name="data_corrupted">Podatki aplikacije so poškodovani. Ponastavitev!</string>
     <string name="polyError">Ni mogoče ustvariti predvidene vrstice</string>
     <string name="calendar">Koledar</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Slika zemljevida z oznako za lokacijo uporabnika.</string>
     <string name="iss_sighting_share_title">Opazovanje ISS</string>
     <string name="iss_sighting_share_description">ISS bo viden tukaj. Grem preverit!</string>
-    <string name="iss_sighting_share_body">»Preverite!\n\nISS bo viden na \"</string>
+    <string name="iss_sighting_share_body">\"Preverite! ISS bo viden ob \"</string>
     <string name="iss_sighting_share_chooser">Deliti…</string>
     <string name="on">\" na \"</string>
     <string name="one_day_in_space">1 dan v vesolju</string>
@@ -148,7 +120,16 @@
     <string name="day">\"dan\"</string>
     <string name="month">\"mesec\"</string>
     <string name="year">\"leto\"</string>
-    <string name="since">\"Od \"</string>
+    <string name="since">\"Zagnano\"</string>
     <string name="tutorial_one_title">Živijo :)</string>
     <string name="tutorial_two_title">Glavne značilnosti</string>
+
+    <string name="license">Odprtokodne licence</string>
+    <string name="msg_license">Ta aplikacija je izdelana z naslednjo programsko opremo:</string>
+    <string name="msg_about_fork_me_on_github">Fork it na GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker je aplikacija za android, ki vam omogoča spremljanje položaja Mednarodne vesoljske postaje in ugotavljanje, kateri astronavti so trenutno v vesolju.</string>
+    <string name="desc_about_app">O tej aplikaciji</string>
+    <string name="msg_get_it_on_play_store">Prenesite ga v Google Play</string>
+    <string name="version">Različice</string>
+    <string name="version_msg">Seznam prejšnjih sprememb, popravkov in posodobitev:</string>
 </resources>

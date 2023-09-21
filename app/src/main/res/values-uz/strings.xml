@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Xarita</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">O\'tish</string>
     <string name="space_title">Hizmatda</string>
     <string name="settings_title">Sozlamalar</string>
     <string name="help_title">Yordam</string>
 
     
-    <string name="flybys_summary">Joylashuvingiz boʻyicha ISS talonlarini tekshiring</string>
+    <string name="flybys_summary">ISS sizning joylashuvingizdan qachon o\'tishini tekshiring</string>
     <string name="space_summary">Kosmosda kim borligini ko\'ring</string>
     <string name="settings_summary">Umumiy ilova sozlamalarini boshqaring</string>
     <string name="help_summary">Baholang yoki ilova haqida bilib oling</string>
@@ -20,38 +20,8 @@
     <string name="stream">Jonli</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">birinchi marta</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Yo\'q</item>
-        <item>Oddiy</item>
-        <item>Sun\'iy yo\'ldosh</item>
-        <item>Tuproq</item>
-        <item>Gibrid</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">Kosmosda kim bor\?</string>
+    <string name="label_people_in_space">Kosmosda kim bor\?</string>
     <string name="label_setting">Sozlamalar</string>
     <string name="label_help">Yordam</string>
     <string name="label_stream">Jonli translatsiya</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">Banner reklamalari yoqilgan. Qo\'llab-quvvatlaganingiz uchun rahmat;)</string>
 
     
-    <string name="tutorialOne">Xaritada ISS ning hozirgi joylashuvi, uning qayerda bo‘lishini bashorat qilish chizig‘i ko‘rsatilgan.</string>
-    <string name="tutorialTwo">Tortma sizni boshqa funksiyalarga olib boradi, masalan, parvozlar, sozlamalar va boshqalar…</string>
+    <string name="tutorialOne">Xaritada ISSning joriy joylashuvi, uning qayerda bo‘lishini bashorat qilish chizig‘i ko‘rsatilgan.</string>
+    <string name="tutorialTwo">Drawer sizni parvozlar va sozlamalar kabi boshqa xususiyatlarga olib boradi.</string>
     <string name="midAt">da</string>
     <string name="checkerContentDescription">Belgisi shaffof rang tanlanganligini bildiradi</string>
     <string name="countryFlagContentDescription">Bu kosmonavtning davlat bayrog\'i</string>
-    <string name="astronautTwitterContentDescription">Astronavtning twitter sahifasiga havola qilish uchun belgi</string>
-    <string name="astronautWikiContentDescription">Astronavtning wiki sahifasiga havola qilish uchun belgi</string>
-    <string name="astronautGoogleContentDescription">Kosmonavtning Google qidiruv sahifasiga havola qilish uchun belgi</string>
+    <string name="astronautTwitterContentDescription">Astronavtlar twitter sahifasiga havola qilish uchun belgi</string>
+    <string name="astronautWikiContentDescription">Astronavtlar wiki sahifasiga havola qilish uchun belgi</string>
+    <string name="astronautGoogleContentDescription">Kosmonavtlar Google qidiruv sahifasiga havola uchun belgi</string>
 
     
     <string name="refreshTitle">Yangilanish tezligi</string>
-    <string name="refreshSummary">Joriy yangilanish tezligi $1 soniya/yangilash</string>
+    <string name="refreshSummary">Xaritadagi ISS manzilini yangilashdan oldingi vaqt</string>
     <string name="declination_unit">soniya/yangilash</string>
     <string name="refreshDialogMessage">ISS yangi manziliga yangilanishi orasidagi vaqt.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">O\'nlik o\'rinlar</string>
     <string name="decimalDialogMessage">Barcha raqamli qiymatlarning aniqligini o\'zgartiring</string>
-    <string name="decimalSummary">Joriy aniqlik darajasi $1 kasrdan iborat</string>
+    <string name="decimalSummary">Barcha raqamli qiymatlarning aniqligini o\'zgartiring</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Bashorat chizig\'i rangi</string>
     <string name="colorSummary">Bashoratli chiziqlar rangini o\'zgartiring</string>
 
     <string name="sizeTitle">Prognoz chizig\'i o\'lchami</string>
-    <string name="sizeDialogMessage">ISSning bashorat chizig\'i hajmini o\'zgartiring</string>
-    <string name="sizeSummary">Joriy chiziq hajmi $1</string>
+    <string name="sizeDialogMessage">ISS prognoz chizig\'ining hajmini o\'zgartiring</string>
+    <string name="sizeSummary">ISS prognoz chizig\'ining hajmini o\'zgartiring</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Matn hajmi</string>
-    <string name="textSizeDialogMessage">Barcha matn qiymatlarining hajmini o\'zgartiring</string>
-    <string name="textSizeSummary">Joriy matn hajmi $1</string>
+    <string name="textSizeDialogMessage">Xaritadagi barcha matn qiymatlarining hajmini o\'zgartiring</string>
+    <string name="textSizeSummary">Xaritadagi barcha matn qiymatlarining hajmini o\'zgartiring</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Matn rangi</string>
@@ -126,13 +96,15 @@
     <string name="errorPermissionLocation">Joylashuvingizga kirish taqiqlandi</string>
     <string name="errorConnection">Yoki sizda aloqa yo\'q yoki server haddan tashqari yuklangan.</string>
     <string name="errorNetwork">Noma\'lum xatolik yuz berdi. Xato: 401</string>
-    <string name="errorMap">Sozlamalarni xaritaga qo‘llash imkonsiz</string>
+    <string name="errorMap">Sozlamalarni xaritaga qo‘llab bo‘lmaydi</string>
     <string name="errorFiveTimes">Hammasi 5 marta muvaffaqiyatsiz bo\'ldi. Yoki sizda aloqa yo\'q yoki server haddan tashqari yuklangan.</string>
-    <string name="errorLessFive">Serverga so‘rov amalga oshmadi. %1$d/5. Urinish %2$d soniyadan keyin.</string>
+    <string name="errorLessFive">Serverga so‘rov amalga oshmadi. Qayta urinish…</string>
     <string name="errorWaitPoly">Allaqachon bashorat qilish chiziqlari yaratilmoqda</string>
-    <string name="errorNotByMe">ISS xabarnomasini siz to‘xtatmagansiz.</string>
-    <string name="errorNoWiki">wiki sahifasi yo\'q</string>
-    <string name="errorNoTwitter">twitter hisobi yo\'q</string>
+    <string name="errorNotByMe">ISS xabarnomasi siz tomonidan toʻxtatilmagan.</string>
+    <string name="errorNoWiki">wiki sahifasiga ega emas</string>
+    <string name="errorNoTwitter">Twitter akkaunti yo\'q</string>
+    <string name="errorNoInstagram">Instagram hisobiga ega emas</string>
+    <string name="errorNoFacebook">Facebook akkaunti yo\'q</string>
     <string name="data_corrupted">Ilova maʼlumotlari buzilgan. Qayta tiklanmoqda!</string>
     <string name="polyError">Bashorat chizig‘ini yaratib bo‘lmadi</string>
     <string name="calendar">Kalendar</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Foydalanuvchi joylashuvi uchun markerli xarita tasviri.</string>
     <string name="iss_sighting_share_title">ISSni ko\'rish</string>
     <string name="iss_sighting_share_description">ISS bu erda ko\'rinadi. Tekshirish uchun ketyapman!</string>
-    <string name="iss_sighting_share_body">\"Tekshirib ko\'r!\n\nISS \"da ko\'rinadi\"</string>
+    <string name="iss_sighting_share_body">\"Ko\'ring! ISS \"da ko\'rinadi</string>
     <string name="iss_sighting_share_chooser">Ulashish…</string>
     <string name="on">\"yoq\"</string>
     <string name="one_day_in_space">Kosmosda 1 kun</string>
@@ -148,7 +120,16 @@
     <string name="day">\"kun\"</string>
     <string name="month">\"oy\"</string>
     <string name="year">\"yil\"</string>
-    <string name="since">\"Buyon\"</string>
+    <string name="since">\"Ishga tushirildi\"</string>
     <string name="tutorial_one_title">Salom :)</string>
     <string name="tutorial_two_title">Asosiy xususiyatlar</string>
+
+    <string name="license">Ochiq kodli litsenziyalar</string>
+    <string name="msg_license">Ushbu dastur quyidagi dasturlar yordamida yaratilgan:</string>
+    <string name="msg_about_fork_me_on_github">Uni GitHub-ga ulang</string>
+    <string name="msg_about_library_description">ISS Tracker - bu Xalqaro kosmik stansiyaning holatini kuzatish va hozirda qaysi astronavtlar koinotda ekanligini bilish imkonini beruvchi android ilovasi.</string>
+    <string name="desc_about_app">Ushbu ilova haqida</string>
+    <string name="msg_get_it_on_play_store">Uni Google Play orqali yuklab oling</string>
+    <string name="version">Versiyalar</string>
+    <string name="version_msg">Oldingi o\'zgarishlar, tuzatishlar va yangilanishlar ro\'yxati:</string>
 </resources>

@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Mapa</string>
-    <string name="flybys_title">Průlety</string>
+    <string name="flybys_title">Kolemjdoucí</string>
     <string name="space_title">Ve službě</string>
     <string name="settings_title">Nastavení</string>
     <string name="help_title">Pomoc</string>
 
     
-    <string name="flybys_summary">Zkontrolujte průchody ISS podle vaší polohy</string>
+    <string name="flybys_summary">Zkontrolujte, kdy ISS projde kolem vaší polohy</string>
     <string name="space_summary">Podívejte se, kdo je právě ve vesmíru</string>
     <string name="settings_summary">Spravujte obecná nastavení aplikace</string>
     <string name="help_summary">Ohodnoťte aplikaci nebo se o ní informujte</string>
@@ -20,38 +20,8 @@
     <string name="stream">Žít</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">poprvé</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Žádný</item>
-        <item>Normální</item>
-        <item>Družice</item>
-        <item>Terén</item>
-        <item>Hybridní</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Průlety</string>
-    <string name="label_peopleinspace">Kdo je ve vesmíru\?</string>
+    <string name="label_people_in_space">Kdo je ve vesmíru\?</string>
     <string name="label_setting">Nastavení</string>
     <string name="label_help">Pomoc</string>
     <string name="label_stream">Živý přenos</string>
@@ -64,17 +34,17 @@
 
     
     <string name="tutorialOne">Mapa ukazuje aktuální polohu ISS s předpovědí, kde se bude nacházet.</string>
-    <string name="tutorialTwo">Zásuvka vás zavede k dalším funkcím, jako jsou průlety, nastavení atd…</string>
+    <string name="tutorialTwo">Zásuvka vás zavede k dalším funkcím, jako jsou průlety a nastavení.</string>
     <string name="midAt">na</string>
     <string name="checkerContentDescription">Ikona znamená, že je vybrána průhledná barva</string>
     <string name="countryFlagContentDescription">Vlajka země, ze které tento astronaut pochází</string>
-    <string name="astronautTwitterContentDescription">Ikona pro odkaz na astronautovu twitterovou stránku</string>
-    <string name="astronautWikiContentDescription">Ikona pro odkaz na astronautovu wiki stránku</string>
-    <string name="astronautGoogleContentDescription">Ikona pro odkaz na astronautovu vyhledávací stránku Google</string>
+    <string name="astronautTwitterContentDescription">Ikona pro odkaz na twitterovou stránku astronautů</string>
+    <string name="astronautWikiContentDescription">Ikona pro odkaz na wiki stránku astronautů</string>
+    <string name="astronautGoogleContentDescription">Ikona pro odkaz na stránku vyhledávání astronautů Google</string>
 
     
     <string name="refreshTitle">Obnovovací frekvence</string>
-    <string name="refreshSummary">Aktuální obnovovací frekvence je 1 $ s/obnovení</string>
+    <string name="refreshSummary">Doba před aktualizací polohy ISS na mapě</string>
     <string name="declination_unit">sek/obnovit</string>
     <string name="refreshDialogMessage">Čas mezi aktualizací ISS na nové místo.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">Desetinná místa</string>
     <string name="decimalDialogMessage">Změňte přesnost všech číselných hodnot</string>
-    <string name="decimalSummary">Aktuální úroveň přesnosti je na $1 desetinných míst</string>
+    <string name="decimalSummary">Změňte přesnost všech číselných hodnot</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Barva předpovědní čáry</string>
     <string name="colorSummary">Změňte barvu predikčních čar</string>
 
     <string name="sizeTitle">Velikost předpovědní čáry</string>
-    <string name="sizeDialogMessage">Změňte velikost předpovědní čáry ISS</string>
-    <string name="sizeSummary">Aktuální velikost řádku je 1 $</string>
+    <string name="sizeDialogMessage">Změňte velikost predikční čáry ISS</string>
+    <string name="sizeSummary">Změňte velikost predikční čáry ISS</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Velikost textu</string>
-    <string name="textSizeDialogMessage">Změňte velikost všech textových hodnot</string>
-    <string name="textSizeSummary">Aktuální velikost textu je $1</string>
+    <string name="textSizeDialogMessage">Změňte velikost všech textových hodnot na mapě</string>
+    <string name="textSizeSummary">Změňte velikost všech textových hodnot na mapě</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Barva textu</string>
@@ -126,13 +96,15 @@
     <string name="errorPermissionLocation">Odepřen přístup k vaší poloze</string>
     <string name="errorConnection">Buď nemáte připojení, nebo je server přetížený.</string>
     <string name="errorNetwork">Nastala neznámá chyba. Chyba: 401</string>
-    <string name="errorMap">Nastavení na mapu nelze použít</string>
+    <string name="errorMap">Nelze použít nastavení na mapu</string>
     <string name="errorFiveTimes">Vše se 5krát nezdařilo. Buď nemáte připojení, nebo je server přetížený.</string>
-    <string name="errorLessFive">Požadavek na server se nezdařil. %1$d z 5. Pokus za %2$d sekund.</string>
+    <string name="errorLessFive">Požadavek na server se nezdařil. Opakování…</string>
     <string name="errorWaitPoly">Již vytváříte predikční čáry</string>
     <string name="errorNotByMe">Oznámení ISS jste nezastavili.</string>
     <string name="errorNoWiki">nemá wiki stránku</string>
-    <string name="errorNoTwitter">nemá twitterový účet</string>
+    <string name="errorNoTwitter">nemá účet na Twitteru</string>
+    <string name="errorNoInstagram">nemá účet na Instagramu</string>
+    <string name="errorNoFacebook">nemá účet na Facebooku</string>
     <string name="data_corrupted">Data aplikace jsou poškozená. Resetování!</string>
     <string name="polyError">Nelze vytvořit předpovědní čáru</string>
     <string name="calendar">Kalendář</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Obrázek mapy se značkou pro umístění uživatele.</string>
     <string name="iss_sighting_share_title">Pozorování ISS</string>
     <string name="iss_sighting_share_description">ISS zde bude vidět. Jde to zkontrolovat!</string>
-    <string name="iss_sighting_share_body">\"Koukni na to!\n\nISS bude viditelná v \"</string>
+    <string name="iss_sighting_share_body">\"Podívejte se na to! ISS bude viditelná v \"</string>
     <string name="iss_sighting_share_chooser">Podíl…</string>
     <string name="on">\"zapnuto\"</string>
     <string name="one_day_in_space">1 den ve vesmíru</string>
@@ -148,7 +120,16 @@
     <string name="day">\" den\"</string>
     <string name="month">\" Měsíc\"</string>
     <string name="year">\"rok\"</string>
-    <string name="since">\"Od té doby \"</string>
+    <string name="since">\"Spuštěno\"</string>
     <string name="tutorial_one_title">Nazdárek :)</string>
     <string name="tutorial_two_title">Hlavní rysy</string>
+
+    <string name="license">Open source licence</string>
+    <string name="msg_license">Tato aplikace je vytvořena pomocí následujícího softwaru:</string>
+    <string name="msg_about_fork_me_on_github">Fork to na GitHubu</string>
+    <string name="msg_about_library_description">ISS Tracker je aplikace pro Android, která vám umožní sledovat polohu Mezinárodní vesmírné stanice a zjistit, jací astronauti jsou aktuálně ve vesmíru.</string>
+    <string name="desc_about_app">O této aplikaci</string>
+    <string name="msg_get_it_on_play_store">Získejte ji na Google Play</string>
+    <string name="version">Verze</string>
+    <string name="version_msg">Seznam předchozích změn, oprav a aktualizací:</string>
 </resources>

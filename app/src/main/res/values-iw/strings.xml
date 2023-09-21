@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">מַפָּה</string>
-    <string name="flybys_title">מעברי טיסה</string>
+    <string name="flybys_title">עובד ליד</string>
     <string name="space_title">בתפקיד</string>
     <string name="settings_title">הגדרות</string>
     <string name="help_title">עֶזרָה</string>
 
     
-    <string name="flybys_summary">בדוק את המעברים של ISS לפי המיקום שלך</string>
+    <string name="flybys_summary">בדוק מתי ISS תעבור ליד המיקום שלך</string>
     <string name="space_summary">ראה מי נמצא בחלל עכשיו</string>
     <string name="settings_summary">נהל הגדרות כלליות של האפליקציה</string>
     <string name="help_summary">דרג או למד על האפליקציה</string>
@@ -20,38 +20,8 @@
     <string name="stream">לחיות</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">פעם ראשונה</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>אף אחד</item>
-        <item>נוֹרמָלִי</item>
-        <item>לוויין</item>
-        <item>פְּנֵי הַשֵׁטַח</item>
-        <item>היברידי</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">מעברי טיסה</string>
-    <string name="label_peopleinspace">מי בחלל\?</string>
+    <string name="label_people_in_space">מי בחלל\?</string>
     <string name="label_setting">הגדרות</string>
     <string name="label_help">עֶזרָה</string>
     <string name="label_stream">שידור חי</string>
@@ -64,21 +34,21 @@
 
     
     <string name="tutorialOne">המפה מציגה את המיקום הנוכחי של ISS עם קו חיזוי של היכן הוא יהיה.</string>
-    <string name="tutorialTwo">מגירה לוקחת אותך לתכונות אחרות כמו מעברים, הגדרות וכו\'...</string>
+    <string name="tutorialTwo">מגירה לוקחת אותך לתכונות אחרות כגון מעברים והגדרות.</string>
     <string name="midAt">בְּ-</string>
     <string name="checkerContentDescription">סמל מייצג שנבחר צבע שקוף</string>
     <string name="countryFlagContentDescription">דגל המדינה ממנו בא האסטרונאוט</string>
-    <string name="astronautTwitterContentDescription">סמל לקישור לעמוד הטוויטר של האסטרונאוט</string>
-    <string name="astronautWikiContentDescription">סמל לקישור לדף הוויקי של האסטרונאוט</string>
-    <string name="astronautGoogleContentDescription">סמל לקישור לדף החיפוש של אסטרונאוט בגוגל</string>
+    <string name="astronautTwitterContentDescription">סמל לקישור לדף הטוויטר של אסטרונאוטים</string>
+    <string name="astronautWikiContentDescription">סמל לקישור לדף הוויקי של האסטרונאוטים</string>
+    <string name="astronautGoogleContentDescription">סמל לקישור לדף החיפוש של Google של אסטרונאוטים</string>
 
     
     <string name="refreshTitle">קצב רענון</string>
-    <string name="refreshSummary">קצב הרענון הנוכחי הוא $1 שניה לרענון</string>
+    <string name="refreshSummary">משך הזמן לפני עדכון מיקום ISS במפה</string>
     <string name="declination_unit">שניות/רענון</string>
     <string name="refreshDialogMessage">הזמן בין עדכון ISS למיקומו החדש.</string>
 
-    <string name="lockTitle">נעל את ISS</string>
+    <string name="lockTitle">נעילת ISS</string>
     <string name="lockSummary">נעלו על ISS ועקבו אחריה על המפה</string>
 
     <string name="infoTitle">מידע נוסף</string>
@@ -89,7 +59,7 @@
 
     <string name="decimalTitle">מקומות עשרוניים</string>
     <string name="decimalDialogMessage">שנה את הדיוק של כל הערכים המספריים</string>
-    <string name="decimalSummary">רמת הדיוק הנוכחית היא ב-$1 מקומות עשרוניים</string>
+    <string name="decimalSummary">שנה את הדיוק של כל הערכים המספריים</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">צבע קו חיזוי</string>
@@ -97,12 +67,12 @@
 
     <string name="sizeTitle">גודל קו חיזוי</string>
     <string name="sizeDialogMessage">שנה את גודל קו החיזוי של ISS</string>
-    <string name="sizeSummary">גודל השורה הנוכחי הוא $1</string>
+    <string name="sizeSummary">שנה את גודל קו החיזוי של ISS</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">גודל טקסט</string>
-    <string name="textSizeDialogMessage">שנה את הגודל של כל ערכי הטקסט</string>
-    <string name="textSizeSummary">גודל הטקסט הנוכחי הוא $1</string>
+    <string name="textSizeDialogMessage">שנה את הגודל של כל ערכי הטקסט במפה</string>
+    <string name="textSizeSummary">שנה את הגודל של כל ערכי הטקסט במפה</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">צבע טקסט</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">אירעה שגיאה לא ידועה. שגיאה: 401</string>
     <string name="errorMap">לא ניתן להחיל הגדרות על המפה</string>
     <string name="errorFiveTimes">נכשל כל 5 הפעמים. או שאין לך חיבור או שהשרת עמוס יתר על המידה.</string>
-    <string name="errorLessFive">הבקשה לשרת נכשלה. %1$d מתוך 5. מנסה בעוד %2$d שניות.</string>
+    <string name="errorLessFive">הבקשה לשרת נכשלה. מנסה שוב...</string>
     <string name="errorWaitPoly">כבר יוצר קווי חיזוי</string>
     <string name="errorNotByMe">הודעת ISS לא נעצרה על ידך.</string>
     <string name="errorNoWiki">אין דף ויקי</string>
     <string name="errorNoTwitter">אין לו חשבון טוויטר</string>
+    <string name="errorNoInstagram">אין לו חשבון אינסטגרם</string>
+    <string name="errorNoFacebook">אין לו חשבון פייסבוק</string>
     <string name="data_corrupted">נתוני האפליקציה פגומים. מאפס!</string>
     <string name="polyError">לא ניתן ליצור קו חיזוי</string>
     <string name="calendar">לוּחַ שָׁנָה</string>
@@ -140,7 +112,7 @@
     <string name="image_content">תמונה של מפה עם סמן למיקום המשתמש.</string>
     <string name="iss_sighting_share_title">ISS Sighting</string>
     <string name="iss_sighting_share_description">ISS יהיה גלוי כאן. הולך לבדוק את זה!</string>
-    <string name="iss_sighting_share_body">\"תבדוק את זה!\n\nISS יהיה גלוי ב-\"</string>
+    <string name="iss_sighting_share_body">\"בדוק את זה! ISS יהיה גלוי ב\"</string>
     <string name="iss_sighting_share_chooser">לַחֲלוֹק…</string>
     <string name="on">\"על\"</string>
     <string name="one_day_in_space">יום אחד בחלל</string>
@@ -148,7 +120,16 @@
     <string name="day">\"יום\"</string>
     <string name="month">\"חודש\"</string>
     <string name="year">\"שנה\"</string>
-    <string name="since">\"מאז \"</string>
+    <string name="since">\"הושק\"</string>
     <string name="tutorial_one_title">שלום :)</string>
     <string name="tutorial_two_title">תכונות עיקריות</string>
+
+    <string name="license">רישיונות קוד פתוח</string>
+    <string name="msg_license">יישום זה נבנה באמצעות התוכנות הבאות:</string>
+    <string name="msg_about_fork_me_on_github">מזלג את זה ב-GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker הוא אפליקציית אנדרואיד המאפשרת לך לעקוב אחר המיקום של תחנת החלל הבינלאומית ולגלות אילו אסטרונאוטים נמצאים כעת בחלל.</string>
+    <string name="desc_about_app">על האפליקציה הזו</string>
+    <string name="msg_get_it_on_play_store">קבל אותו ב-Google Play</string>
+    <string name="version">גרסאות</string>
+    <string name="version_msg">רשימת שינויים, תיקונים ועדכונים קודמים:</string>
 </resources>

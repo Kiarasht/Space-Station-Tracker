@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Харита</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">Гузариш</string>
     <string name="space_title">Дар навбатдор</string>
     <string name="settings_title">Танзимотҳо</string>
     <string name="help_title">Кӯмак</string>
 
     
-    <string name="flybys_summary">Гузаришҳои ISS-ро дар назди макони худ санҷед</string>
+    <string name="flybys_summary">Санҷед, ки кай ISS аз макони шумо мегузарад</string>
     <string name="space_summary">Бингар, ки хозир дар кайхон кист</string>
     <string name="settings_summary">Танзимоти умумии барномаро идора кунед</string>
     <string name="help_summary">Баҳо диҳед ё дар бораи барнома маълумот гиред</string>
@@ -20,38 +20,8 @@
     <string name="stream">Зиндагӣ</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">бори аввал</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Ҳеҷ</item>
-        <item>Муқаррарӣ</item>
-        <item>Моҳвора</item>
-        <item>Релеф</item>
-        <item>Гибрид</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">Кӣ дар кайҳон аст\?</string>
+    <string name="label_people_in_space">Кӣ дар кайҳон аст\?</string>
     <string name="label_setting">Танзимотҳо</string>
     <string name="label_help">Кӯмак</string>
     <string name="label_stream">Ҷараёни мустақим</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">Таблиғоти баннерӣ фаъол карда шудааст. Ташаккур барои дастгирӣ;)</string>
 
     
-    <string name="tutorialOne">Харита макони кунунии ISS-ро бо хати пешгӯии он дар куҷо нишон медиҳад.</string>
-    <string name="tutorialTwo">Обовара шуморо ба дигар хусусиятҳо, аз қабили парвозҳо, танзимот ва ғайра мебарад…</string>
+    <string name="tutorialOne">Харита макони кунунии ISS-ро бо хати пешгӯии он дар куҷост нишон медиҳад.</string>
+    <string name="tutorialTwo">Обовара шуморо ба дигар хусусиятҳо, аз қабили парвозҳо ва танзимот мебарад.</string>
     <string name="midAt">дар</string>
     <string name="checkerContentDescription">Нишона нишон медиҳад, ки ранги шаффоф интихоб шудааст</string>
     <string name="countryFlagContentDescription">Парчами кишвар ин астронавт аз</string>
-    <string name="astronautTwitterContentDescription">Нишона барои истинод ба саҳифаи Твиттери астронавт</string>
-    <string name="astronautWikiContentDescription">Нишона барои истинод ба саҳифаи вики астронавт</string>
-    <string name="astronautGoogleContentDescription">Нишона барои истинод ба саҳифаи ҷустуҷӯи кайҳоннавард дар Google</string>
+    <string name="astronautTwitterContentDescription">Нишона барои истинод ба саҳифаи кайҳоннавардон дар Твиттер</string>
+    <string name="astronautWikiContentDescription">Нишона барои истинод ба саҳифаи викии кайҳоннавардон</string>
+    <string name="astronautGoogleContentDescription">Нишона барои истинод ба саҳифаи ҷустуҷӯи кайҳоннавардон дар Google</string>
 
     
     <string name="refreshTitle">Меъёри навсозӣ</string>
-    <string name="refreshSummary">Меъёри навсозии ҷорӣ $1 сония/навсозӣ аст</string>
+    <string name="refreshSummary">Миқдори вақт пеш аз навсозии макони ISS дар харита</string>
     <string name="declination_unit">сония/навсозӣ</string>
     <string name="refreshDialogMessage">Вақти байни ISS навсозӣ ба макони нави худ.</string>
 
@@ -89,7 +59,7 @@
 
     <string name="decimalTitle">Ҷойҳои даҳӣ</string>
     <string name="decimalDialogMessage">Тағйир додани дақиқии ҳамаи арзишҳои ададӣ</string>
-    <string name="decimalSummary">Сатҳи ҳозираи дақиқ дар $1 ҷойҳои даҳӣ аст</string>
+    <string name="decimalSummary">Тағйир додани дақиқии ҳамаи арзишҳои ададӣ</string>
     <string name="decimalUnit">дп</string>
 
     <string name="colorTitle">Ранги хати пешгӯӣ</string>
@@ -97,12 +67,12 @@
 
     <string name="sizeTitle">Андозаи хати пешгӯӣ</string>
     <string name="sizeDialogMessage">Андозаи хати пешгӯии ISS-ро тағир диҳед</string>
-    <string name="sizeSummary">Андозаи хати ҷорӣ $1 аст</string>
+    <string name="sizeSummary">Андозаи хати пешгӯии ISS-ро тағир диҳед</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Андозаи матн</string>
-    <string name="textSizeDialogMessage">Андозаи ҳамаи арзишҳои матниро тағир диҳед</string>
-    <string name="textSizeSummary">Андозаи матни ҷорӣ $1 аст</string>
+    <string name="textSizeDialogMessage">Андозаи ҳамаи арзишҳои матниро дар харита тағир диҳед</string>
+    <string name="textSizeSummary">Андозаи ҳамаи арзишҳои матниро дар харита тағир диҳед</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Ранги матн</string>
@@ -126,21 +96,23 @@
     <string name="errorPermissionLocation">Дастрасӣ ба макони шумо рад карда шуд</string>
     <string name="errorConnection">Ё шумо пайваст надоред ё сервер пурбор шудааст.</string>
     <string name="errorNetwork">Хатогии номаълум рух дод. Хатогӣ: 401</string>
-    <string name="errorMap">Танзимотро ба харита татбиқ кардан мумкин нест</string>
+    <string name="errorMap">Танзимотҳоро ба харита татбиқ кардан мумкин нест</string>
     <string name="errorFiveTimes">Ҳама 5 маротиба ноком шуд. Ё шумо пайваст надоред ё сервер пурбор шудааст.</string>
-    <string name="errorLessFive">Дархост ба сервер ноком шуд. %1$d аз 5. Кӯшиш дар %2$d сония.</string>
+    <string name="errorLessFive">Дархост ба сервер ноком шуд. Кӯшиши дубора…</string>
     <string name="errorWaitPoly">Аллакай сохтани хатҳои пешгӯӣ</string>
-    <string name="errorNotByMe">Огоҳиномаи ISS аз ҷониби шумо боздошта нашудааст.</string>
+    <string name="errorNotByMe">Огоҳии ISS аз ҷониби шумо қатъ карда нашудааст.</string>
     <string name="errorNoWiki">саҳифаи вики надорад</string>
-    <string name="errorNoTwitter">ҳисоби twitter надорад</string>
+    <string name="errorNoTwitter">ҳисоби Twitter надорад</string>
+    <string name="errorNoInstagram">ҳисоби Instagram надорад</string>
+    <string name="errorNoFacebook">ҳисоби Facebook надорад</string>
     <string name="data_corrupted">Маълумоти барнома вайрон шудааст. Бозсозӣ!</string>
     <string name="polyError">Дар сохтани хати пешгӯӣ имконнопазир аст</string>
     <string name="calendar">Тақвим</string>
     <string name="share">Мубодила</string>
-    <string name="image_content">Тасвири харита бо маркер барои ҷойгиршавии корбар.</string>
+    <string name="image_content">Тасвири харита бо аломати ҷойгиршавии корбар.</string>
     <string name="iss_sighting_share_title">Нигоҳдории ISS</string>
     <string name="iss_sighting_share_description">ISS дар ин ҷо намоён хоҳад шуд. Меравед онро тафтиш кунед!</string>
-    <string name="iss_sighting_share_body">\"Инро Санҷ!\n\nISS дар \"намоён хоҳад шуд\"</string>
+    <string name="iss_sighting_share_body">\"Инро санҷед! ISS дар он намоён хоҳад шуд \"</string>
     <string name="iss_sighting_share_chooser">Мубодила…</string>
     <string name="on">\"дар\"</string>
     <string name="one_day_in_space">1 рӯз дар кайҳон</string>
@@ -148,7 +120,16 @@
     <string name="day">\"рӯз\"</string>
     <string name="month">\"моҳ\"</string>
     <string name="year">\"сол\"</string>
-    <string name="since">\"Азбаски\"</string>
+    <string name="since">\"Оғоз карда шуд\"</string>
     <string name="tutorial_one_title">Эй оне ки :)</string>
     <string name="tutorial_two_title">Хусусиятҳои асосӣ</string>
+
+    <string name="license">Литсензияҳои кушодаасос</string>
+    <string name="msg_license">Ин барнома бо истифода аз нармафзори зерин сохта шудааст:</string>
+    <string name="msg_about_fork_me_on_github">Онро дар GitHub пайваст кунед</string>
+    <string name="msg_about_library_description">ISS Tracker як барномаи андроид аст, ки ба шумо имкон медиҳад мавқеи Истгоҳи Байналмилалии Кайҳонро пайгирӣ кунед ва фаҳмед, ки айни замон кадом астронавтҳо дар фазо қарор доранд.</string>
+    <string name="desc_about_app">Дар бораи ин барнома</string>
+    <string name="msg_get_it_on_play_store">Онро дар Google Play гиред</string>
+    <string name="version">Версияҳо</string>
+    <string name="version_msg">Рӯйхати тағиротҳо, ислоҳҳо ва навсозиҳои қаблӣ:</string>
 </resources>

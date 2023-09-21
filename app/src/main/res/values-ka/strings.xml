@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">რუკა</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">Ავლით</string>
     <string name="space_title">Მორიგე</string>
     <string name="settings_title">პარამეტრები</string>
     <string name="help_title">დახმარება</string>
 
     
-    <string name="flybys_summary">შეამოწმეთ ISS-ის საშვი თქვენი მდებარეობის მიხედვით</string>
+    <string name="flybys_summary">შეამოწმეთ, როდის გაივლის ISS თქვენს მდებარეობას</string>
     <string name="space_summary">ნახეთ ვინ არის ახლა კოსმოსში</string>
     <string name="settings_summary">აპლიკაციის ზოგადი პარამეტრების მართვა</string>
     <string name="help_summary">შეაფასეთ ან შეიტყვეთ აპლიკაციის შესახებ</string>
@@ -20,38 +20,8 @@
     <string name="stream">ცოცხალი</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">პირველად</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>არცერთი</item>
-        <item>ნორმალური</item>
-        <item>Სატელიტი</item>
-        <item>რელიეფი</item>
-        <item>ჰიბრიდული</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">ვინ არის კოსმოსში\?</string>
+    <string name="label_people_in_space">ვინ არის კოსმოსში\?</string>
     <string name="label_setting">პარამეტრები</string>
     <string name="label_help">დახმარება</string>
     <string name="label_stream">Პირდაპირი ეთერი</string>
@@ -64,17 +34,17 @@
 
     
     <string name="tutorialOne">რუკა აჩვენებს ISS-ის ამჟამინდელ მდებარეობას პროგნოზირების ხაზით, თუ სად იქნება ის.</string>
-    <string name="tutorialTwo">უჯრა მიგიყვანთ სხვა ფუნქციებზე, როგორიცაა flybys, პარამეტრები და ა.შ.</string>
+    <string name="tutorialTwo">უჯრა მიგიყვანთ სხვა ფუნქციებზე, როგორიცაა flybys და პარამეტრები.</string>
     <string name="midAt">ზე</string>
     <string name="checkerContentDescription">ხატულა წარმოადგენს გამჭვირვალე ფერის არჩევას</string>
     <string name="countryFlagContentDescription">ქვეყნის დროშა საიდანაც არის ეს ასტრონავტი</string>
-    <string name="astronautTwitterContentDescription">ხატულა ასტრონავტის ტვიტერზე დასაკავშირებლად</string>
-    <string name="astronautWikiContentDescription">ხატულა ასტრონავტის ვიკი გვერდის დასაკავშირებლად</string>
-    <string name="astronautGoogleContentDescription">ხატულა ასტრონავტის Google საძიებო გვერდის დასაკავშირებლად</string>
+    <string name="astronautTwitterContentDescription">ხატულა ასტრონავტების ტვიტერზე დასაკავშირებლად</string>
+    <string name="astronautWikiContentDescription">ხატულა ასტრონავტების ვიკი გვერდის დასაკავშირებლად</string>
+    <string name="astronautGoogleContentDescription">ხატულა ასტრონავტების Google საძიებო გვერდის დასაკავშირებლად</string>
 
     
     <string name="refreshTitle">განახლების სიხშირე</string>
-    <string name="refreshSummary">ამჟამინდელი განახლების სიჩქარეა $1 წამი/განახლება</string>
+    <string name="refreshSummary">დრო რუკაზე ISS მდებარეობის განახლებამდე</string>
     <string name="declination_unit">წამი/განახლება</string>
     <string name="refreshDialogMessage">დრო ISS-ის ახალ მდებარეობაზე განახლებას შორის.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">ათწილადი ადგილები</string>
     <string name="decimalDialogMessage">შეცვალეთ ყველა რიცხვითი მნიშვნელობის სიზუსტე</string>
-    <string name="decimalSummary">სიზუსტის ამჟამინდელი დონე არის $1 ათობითი ადგილებში</string>
+    <string name="decimalSummary">შეცვალეთ ყველა რიცხვითი მნიშვნელობის სიზუსტე</string>
     <string name="decimalUnit">დპ</string>
 
     <string name="colorTitle">პროგნოზის ხაზის ფერი</string>
     <string name="colorSummary">შეცვალეთ პროგნოზის ხაზების ფერი</string>
 
     <string name="sizeTitle">პროგნოზის ხაზის ზომა</string>
-    <string name="sizeDialogMessage">შეცვალეთ ISS-ის პროგნოზირების ხაზის ზომა</string>
-    <string name="sizeSummary">ხაზის ამჟამინდელი ზომა არის $1</string>
+    <string name="sizeDialogMessage">შეცვალეთ ISS-ების პროგნოზირების ხაზის ზომა</string>
+    <string name="sizeSummary">შეცვალეთ ISS-ების პროგნოზირების ხაზის ზომა</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Ტექსტის ზომა</string>
-    <string name="textSizeDialogMessage">შეცვალეთ ყველა ტექსტის მნიშვნელობის ზომა</string>
-    <string name="textSizeSummary">ტექსტის ამჟამინდელი ზომა არის $1</string>
+    <string name="textSizeDialogMessage">შეცვალეთ ყველა ტექსტის მნიშვნელობის ზომა რუკაზე</string>
+    <string name="textSizeSummary">შეცვალეთ ყველა ტექსტის მნიშვნელობის ზომა რუკაზე</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">ტექსტის ფერი</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">მოხდა გაურკვეველი შეცდომა. შეცდომა: 401</string>
     <string name="errorMap">რუკაზე პარამეტრების გამოყენება შეუძლებელია</string>
     <string name="errorFiveTimes">5-ჯერ ვერ მოხერხდა. ან არ გაქვთ კავშირი ან სერვერი გადატვირთულია.</string>
-    <string name="errorLessFive">სერვერზე მოთხოვნა ვერ მოხერხდა. %1$d 5-დან. ცდა %2$d წამში.</string>
+    <string name="errorLessFive">სერვერზე მოთხოვნა ვერ მოხერხდა. ხელახლა მცდელობა…</string>
     <string name="errorWaitPoly">უკვე ვქმნით პროგნოზირების ხაზებს</string>
-    <string name="errorNotByMe">ISS შეტყობინება არ შეგიწყვეტიათ.</string>
+    <string name="errorNotByMe">ISS შეტყობინება არ შეწყვეტილა თქვენ მიერ.</string>
     <string name="errorNoWiki">არ აქვს ვიკი გვერდი</string>
-    <string name="errorNoTwitter">არ აქვს ტვიტერის ანგარიში</string>
+    <string name="errorNoTwitter">არ აქვს Twitter ანგარიში</string>
+    <string name="errorNoInstagram">არ აქვს ინსტაგრამის ანგარიში</string>
+    <string name="errorNoFacebook">არ აქვს Facebook ანგარიში</string>
     <string name="data_corrupted">აპის მონაცემები დაზიანებულია. გადაყენება!</string>
     <string name="polyError">პროგნოზის ხაზის შექმნა შეუძლებელია</string>
     <string name="calendar">Კალენდარი</string>
@@ -140,7 +112,7 @@
     <string name="image_content">რუკის სურათი მომხმარებლის მდებარეობის მარკერით.</string>
     <string name="iss_sighting_share_title">ISS Sighting</string>
     <string name="iss_sighting_share_description">ISS აქ გამოჩნდება. ვაპირებ ამის შემოწმებას!</string>
-    <string name="iss_sighting_share_body">\"Შეამოწმე!\n\nISS ხილული იქნება \"</string>
+    <string name="iss_sighting_share_body">\"შეამოწმეთ! ISS ხილული იქნება\"</string>
     <string name="iss_sighting_share_chooser">გააზიარე…</string>
     <string name="on">\"ზე\"</string>
     <string name="one_day_in_space">1 დღე კოსმოსში</string>
@@ -148,7 +120,16 @@
     <string name="day">\" დღეს\"</string>
     <string name="month">\"თვე\"</string>
     <string name="year">\"წელი\"</string>
-    <string name="since">\"მას შემდეგ, რაც\"</string>
+    <string name="since">\"Დაიწყო \"</string>
     <string name="tutorial_one_title">Ჰეი მანდ :)</string>
     <string name="tutorial_two_title">Ძირითადი მახასიათებლები</string>
+
+    <string name="license">ღია კოდის ლიცენზიები</string>
+    <string name="msg_license">ეს აპლიკაცია შექმნილია შემდეგი პროგრამული უზრუნველყოფის გამოყენებით:</string>
+    <string name="msg_about_fork_me_on_github">ჩანგალი ის GitHub-ზე</string>
+    <string name="msg_about_library_description">ISS Tracker არის ანდროიდის აპლიკაცია, რომელიც საშუალებას გაძლევთ თვალყური ადევნოთ საერთაშორისო კოსმოსური სადგურის პოზიციას და გაარკვიოთ რა ასტრონავტები არიან ამჟამად კოსმოსში.</string>
+    <string name="desc_about_app">ამ აპლიკაციის შესახებ</string>
+    <string name="msg_get_it_on_play_store">მიიღეთ ის Google Play-ზე</string>
+    <string name="version">ვერსიები</string>
+    <string name="version_msg">წინა ცვლილებების, შესწორებებისა და განახლებების სია:</string>
 </resources>

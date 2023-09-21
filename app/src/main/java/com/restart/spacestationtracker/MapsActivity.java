@@ -192,7 +192,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     private void initializeAds() {
         List<String> testDevices = new ArrayList<>();
-        testDevices.add(getString(R.string.test_device));
+        testDevices.add("9D8A446B53611FCE04214236159EB750");
+        testDevices.add("54686107F6B785A3B1575E1F6E4BD613");
         MobileAds.setRequestConfiguration(new RequestConfiguration.Builder()
                 .setTestDeviceIds(testDevices)
                 .build());
@@ -277,7 +278,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }, 0, mRefreshRate);
 
-            mMaptype();
+            mMapType();
             // When activity is killed or created for first time
         } else {
             mStart = true;
@@ -397,7 +398,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
-        mMaptype();
+        mMapType();
 
         if (mTimer == null) {
             mTimer = new Timer();
@@ -467,7 +468,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     /**
      * Changes the map type to match the one from settings. If it's the same just return.
      */
-    private void mMaptype() {
+    private void mMapType() {
         int current = Integer.parseInt(mSharedPreferences.getString("mapType", "2"));
 
         if (mMap != null) {
@@ -548,7 +549,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }, e -> {
             // Server did not respond. Got 5 chances before stop trying.
             if (++mSuccess <= 4) {
-                Toast.makeText(MapsActivity.this, getResources().getString(R.string.errorLessFive, mSuccess, mRefreshRate), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapsActivity.this, getResources().getString(R.string.errorLessFive), Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(MapsActivity.this, R.string.errorFiveTimes, Toast.LENGTH_LONG).show();
                 if (mTimer != null) {

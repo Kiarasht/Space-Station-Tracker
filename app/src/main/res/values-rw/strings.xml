@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Ikarita</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">Kurengana</string>
     <string name="space_title">Kumurimo</string>
     <string name="settings_title">Igenamiterere</string>
     <string name="help_title">Ubufasha</string>
 
     
-    <string name="flybys_summary">Reba inzira ya ISS aho uherereye</string>
+    <string name="flybys_summary">Reba igihe ISS izanyura aho uherereye</string>
     <string name="space_summary">Reba ninde uri mumwanya ubungubu</string>
     <string name="settings_summary">Gucunga igenamiterere rusange rya porogaramu</string>
     <string name="help_summary">Gereranya cyangwa wige kubyerekeye porogaramu</string>
@@ -20,38 +20,8 @@
     <string name="stream">Baho</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">bwa mbere</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Nta na kimwe</item>
-        <item>Bisanzwe</item>
-        <item>Satelite</item>
-        <item>Ubutaka</item>
-        <item>Hybrid</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">Ninde uri mu kirere\?</string>
+    <string name="label_people_in_space">Ninde uri mu kirere\?</string>
     <string name="label_setting">Igenamiterere</string>
     <string name="label_help">Ubufasha</string>
     <string name="label_stream">Inzira Nzima</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">Amatangazo yamamaza ashoboye. Urakoze ku nkunga;)</string>
 
     
-    <string name="tutorialOne">Ikarita yerekana aho ISS iherereye hamwe n\'umurongo wo guhanura aho uzaba.</string>
-    <string name="tutorialTwo">Igishushanyo kikujyana mubindi bintu nka flybys, igenamiterere, nibindi…</string>
+    <string name="tutorialOne">Ikarita yerekana ISS iriho ubu hamwe numurongo wo guhanura aho uzaba.</string>
+    <string name="tutorialTwo">Igishushanyo kikujyana mubindi bintu nka flybys nigenamiterere.</string>
     <string name="midAt">kuri</string>
     <string name="checkerContentDescription">Agashusho kagaragaza ko ibara ritagaragara ryatoranijwe</string>
     <string name="countryFlagContentDescription">Ibendera ryigihugu uyu mucyogajuru akomoka</string>
-    <string name="astronautTwitterContentDescription">Agashusho guhuza page ya twitter yindege</string>
-    <string name="astronautWikiContentDescription">Agashushondanga guhuza page ya wiki yo mu kirere</string>
-    <string name="astronautGoogleContentDescription">Agashusho gahuza page yishakisha ya Google</string>
+    <string name="astronautTwitterContentDescription">Agashushondanga guhuza page ya twitter</string>
+    <string name="astronautWikiContentDescription">Agashushondanga guhuza page ya wiki</string>
+    <string name="astronautGoogleContentDescription">Agashusho gahuza abahanga mubyogajuru page ya Google</string>
 
     
     <string name="refreshTitle">Kongera igipimo</string>
-    <string name="refreshSummary">Igipimo cyo kugarura ubu ni $ 1 sec /kugarura</string>
+    <string name="refreshSummary">Umubare wigihe mbere yo kuvugurura umwanya wa ISS kurikarita</string>
     <string name="declination_unit">amasegonda</string>
     <string name="refreshDialogMessage">Igihe hagati ya ISS igenda ivugururwa ahantu hashya.</string>
 
@@ -89,23 +59,23 @@
 
     <string name="decimalTitle">Ahantu ha cumi</string>
     <string name="decimalDialogMessage">Hindura ukuri kwindangagaciro zose</string>
-    <string name="decimalSummary">Urwego rwukuri ruri kuri $ 1 ahantu icumi</string>
+    <string name="decimalSummary">Hindura ukuri kwindangagaciro zose</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Ibara ry\'umurongo</string>
     <string name="colorSummary">Hindura ibara ry\'imirongo yo guhanura</string>
 
-    <string name="sizeTitle">Ingano yumurongo</string>
+    <string name="sizeTitle">Ingano y\'umurongo</string>
     <string name="sizeDialogMessage">Hindura ingano yumurongo wo guhanura ISS</string>
-    <string name="sizeSummary">Ingano yumurongo ni $ 1</string>
+    <string name="sizeSummary">Hindura ingano yumurongo wo guhanura ISS</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Ingano yinyandiko</string>
-    <string name="textSizeDialogMessage">Hindura ingano yinyandiko zose</string>
-    <string name="textSizeSummary">Ingano yinyandiko iriho ni $ 1</string>
+    <string name="textSizeDialogMessage">Hindura ingano yinyandiko zose zagaciro kurikarita</string>
+    <string name="textSizeSummary">Hindura ingano yinyandiko zose zagaciro kurikarita</string>
     <string name="textSizeUnit" />
 
-    <string name="textTitle">Ibara ryanditse</string>
+    <string name="textTitle">Ibara ry\'inyandiko</string>
     <string name="textSummary">Hindura ibara ryimyandikire</string>
 
     <string name="textHighlightTitle">Urucacagu rw\'inyandiko</string>
@@ -118,7 +88,7 @@
     <string name="advertisementSummary">Hagarika banneri yamamaza kuri porogaramu</string>
 
     <string name="fullTitle">Urupapuro rwuzuye</string>
-    <string name="fullSummary">Hagarika amatangazo yuzuye kurupapuro</string>
+    <string name="fullSummary">Hagarika amatangazo yamamaza yuzuye kuri porogaramu</string>
 
     
     <string name="errorWebView">Ntushobora gupakira page</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">Ikosa ritazwi ryabaye. Ikosa: 401</string>
     <string name="errorMap">Ntushobora gukoresha igenamiterere ku ikarita</string>
     <string name="errorFiveTimes">Byatsinzwe inshuro 5 zose. Waba udafite aho uhurira cyangwa seriveri irenze.</string>
-    <string name="errorLessFive">Gusaba seriveri byarananiranye.  %1$d kuri 5. Kugerageza %2$d amasegonda.</string>
+    <string name="errorLessFive">Gusaba seriveri byarananiranye. Gusubiramo…</string>
     <string name="errorWaitPoly">Kurema imirongo yo guhanura</string>
     <string name="errorNotByMe">Kumenyesha ISS ntabwo wahagaritswe nawe.</string>
     <string name="errorNoWiki">ntabwo ifite page ya wiki</string>
-    <string name="errorNoTwitter">ntabwo ifite konte ya twitter</string>
+    <string name="errorNoTwitter">idafite konte ya Twitter</string>
+    <string name="errorNoInstagram">idafite konte ya Instagram</string>
+    <string name="errorNoFacebook">idafite konte ya Facebook</string>
     <string name="data_corrupted">Amakuru ya porogaramu yarangiritse. Gusubiramo!</string>
     <string name="polyError">Ntibishoboka mugukora umurongo wo guhanura</string>
     <string name="calendar">Kalendari</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Ishusho yikarita ifite ikimenyetso cyerekana aho ukoresha.</string>
     <string name="iss_sighting_share_title">ISS Kubona</string>
     <string name="iss_sighting_share_description">ISS izagaragara hano. Kujya kugenzura!</string>
-    <string name="iss_sighting_share_body">\"Reba neza!\n\nISS izagaragara kuri \"</string>
+    <string name="iss_sighting_share_body">\"Reba neza! ISS izagaragara kuri\"</string>
     <string name="iss_sighting_share_chooser">Sangira…</string>
     <string name="on">\"kuri\"</string>
     <string name="one_day_in_space">Umunsi 1 mumwanya</string>
@@ -148,7 +120,16 @@
     <string name="day">\"umunsi\"</string>
     <string name="month">\"ukwezi\"</string>
     <string name="year">\"umwaka\"</string>
-    <string name="since">\"Kuva\"</string>
+    <string name="since">\"Yatangijwe\"</string>
     <string name="tutorial_one_title">Hey Hano :)</string>
     <string name="tutorial_two_title">Ibyingenzi</string>
+
+    <string name="license">Gufungura impushya</string>
+    <string name="msg_license">Iyi porogaramu yubatswe hakoreshejwe software ikurikira:</string>
+    <string name="msg_about_fork_me_on_github">Kureka kuri GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker ni porogaramu ya android igufasha gukurikirana aho Sitasiyo Mpuzamahanga ihagaze no kumenya icyo icyogajuru kiri mu kirere.</string>
+    <string name="desc_about_app">Ibyerekeye iyi porogaramu</string>
+    <string name="msg_get_it_on_play_store">Kubona kuri Google Play</string>
+    <string name="version">Imirongo</string>
+    <string name="version_msg">Urutonde rwimpinduka zabanjirije, gukosora, no kuvugurura:</string>
 </resources>

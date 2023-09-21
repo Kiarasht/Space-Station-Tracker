@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">ನಕ್ಷೆ</string>
-    <string name="flybys_title">ಫ್ಲೈಬೈಸ್</string>
+    <string name="flybys_title">ಹಾದುಹೋಗುತ್ತಿದೆ</string>
     <string name="space_title">ಕರ್ತವ್ಯದ ಮೇಲೆ</string>
     <string name="settings_title">ಸಂಯೋಜನೆಗಳು</string>
     <string name="help_title">ಸಹಾಯ</string>
 
     
-    <string name="flybys_summary">ನಿಮ್ಮ ಸ್ಥಳದ ಮೂಲಕ ISS ನ ಪಾಸ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ</string>
+    <string name="flybys_summary">ನಿಮ್ಮ ಸ್ಥಳದಿಂದ ISS ಯಾವಾಗ ಹಾದುಹೋಗುತ್ತದೆ ಎಂಬುದನ್ನು ಪರಿಶೀಲಿಸಿ</string>
     <string name="space_summary">ಇದೀಗ ಬಾಹ್ಯಾಕಾಶದಲ್ಲಿ ಯಾರಿದ್ದಾರೆ ಎಂಬುದನ್ನು ನೋಡಿ</string>
     <string name="settings_summary">ಸಾಮಾನ್ಯ ಅಪ್ಲಿಕೇಶನ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ನಿರ್ವಹಿಸಿ</string>
     <string name="help_summary">ರೇಟ್ ಮಾಡಿ ಅಥವಾ ಅಪ್ಲಿಕೇಶನ್ ಬಗ್ಗೆ ತಿಳಿಯಿರಿ</string>
@@ -20,38 +20,8 @@
     <string name="stream">ಲೈವ್</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">ಮೊದಲ ಬಾರಿಗೆ</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>ಯಾವುದೂ</item>
-        <item>ಸಾಮಾನ್ಯ</item>
-        <item>ಉಪಗ್ರಹ</item>
-        <item>ಭೂ ಪ್ರದೇಶ</item>
-        <item>ಹೈಬ್ರಿಡ್</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">ಫ್ಲೈಬೈಸ್</string>
-    <string name="label_peopleinspace">ಬಾಹ್ಯಾಕಾಶದಲ್ಲಿ ಯಾರಿದ್ದಾರೆ\?</string>
+    <string name="label_people_in_space">ಬಾಹ್ಯಾಕಾಶದಲ್ಲಿ ಯಾರಿದ್ದಾರೆ\?</string>
     <string name="label_setting">ಸಂಯೋಜನೆಗಳು</string>
     <string name="label_help">ಸಹಾಯ</string>
     <string name="label_stream">ನಿರಂತರ ಪ್ರಸಾರ</string>
@@ -63,8 +33,8 @@
     <string name="startBannerAds">ಬ್ಯಾನರ್ ಜಾಹೀರಾತುಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ. ಬೆಂಬಲಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು;)</string>
 
     
-    <string name="tutorialOne">ನಕ್ಷೆಯು ISS ನ ಪ್ರಸ್ತುತ ಸ್ಥಳವನ್ನು ಅದು ಎಲ್ಲಿದೆ ಎಂಬ ಭವಿಷ್ಯವಾಣಿಯೊಂದಿಗೆ ತೋರಿಸುತ್ತದೆ.</string>
-    <string name="tutorialTwo">ಡ್ರಾಯರ್ ನಿಮ್ಮನ್ನು ಫ್ಲೈಬೈಸ್, ಸೆಟ್ಟಿಂಗ್‌ಗಳು, ಇತ್ಯಾದಿಗಳಂತಹ ಇತರ ವೈಶಿಷ್ಟ್ಯಗಳಿಗೆ ಕರೆದೊಯ್ಯುತ್ತದೆ…</string>
+    <string name="tutorialOne">ನಕ್ಷೆಯು ISS ಪ್ರಸ್ತುತ ಸ್ಥಳವನ್ನು ಅದು ಎಲ್ಲಿದೆ ಎಂಬ ಭವಿಷ್ಯವಾಣಿಯೊಂದಿಗೆ ತೋರಿಸುತ್ತದೆ.</string>
+    <string name="tutorialTwo">ಫ್ಲೈಬೈಸ್ ಮತ್ತು ಸೆಟ್ಟಿಂಗ್‌ಗಳಂತಹ ಇತರ ವೈಶಿಷ್ಟ್ಯಗಳಿಗೆ ಡ್ರಾಯರ್ ನಿಮ್ಮನ್ನು ಕರೆದೊಯ್ಯುತ್ತದೆ.</string>
     <string name="midAt">ನಲ್ಲಿ</string>
     <string name="checkerContentDescription">ಪಾರದರ್ಶಕ ಬಣ್ಣವನ್ನು ಆರಿಸಲಾಗಿದೆ ಎಂದು ಐಕಾನ್ ಪ್ರತಿನಿಧಿಸುತ್ತದೆ</string>
     <string name="countryFlagContentDescription">ಈ ಗಗನಯಾತ್ರಿ ದೇಶದ ಧ್ವಜದಿಂದ ಬಂದವರು</string>
@@ -74,7 +44,7 @@
 
     
     <string name="refreshTitle">ರಿಫ್ರೆಶ್ ದರ</string>
-    <string name="refreshSummary">ಪ್ರಸ್ತುತ ರಿಫ್ರೆಶ್ ದರವು $1 ಸೆಕೆಂಡ್/ರಿಫ್ರೆಶ್ ಆಗಿದೆ</string>
+    <string name="refreshSummary">ನಕ್ಷೆಯಲ್ಲಿ ISS ಸ್ಥಳವನ್ನು ನವೀಕರಿಸುವ ಮೊದಲು ಸಮಯ</string>
     <string name="declination_unit">ಸೆಕೆಂಡ್/ರಿಫ್ರೆಶ್</string>
     <string name="refreshDialogMessage">ISS ನಡುವಿನ ಸಮಯವನ್ನು ಅದರ ಹೊಸ ಸ್ಥಳಕ್ಕೆ ನವೀಕರಿಸಲಾಗುತ್ತದೆ.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">ದಶಮಾಂಶ ಸ್ಥಳಗಳು</string>
     <string name="decimalDialogMessage">ಎಲ್ಲಾ ಸಂಖ್ಯಾತ್ಮಕ ಮೌಲ್ಯಗಳ ನಿಖರತೆಯನ್ನು ಬದಲಾಯಿಸಿ</string>
-    <string name="decimalSummary">ಪ್ರಸ್ತುತ ನಿಖರತೆಯ ಮಟ್ಟವು $1 ದಶಮಾಂಶ ಸ್ಥಳಗಳಲ್ಲಿದೆ</string>
+    <string name="decimalSummary">ಎಲ್ಲಾ ಸಂಖ್ಯಾತ್ಮಕ ಮೌಲ್ಯಗಳ ನಿಖರತೆಯನ್ನು ಬದಲಾಯಿಸಿ</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">ಮುನ್ಸೂಚನೆ ರೇಖೆಯ ಬಣ್ಣ</string>
     <string name="colorSummary">ಭವಿಷ್ಯ ರೇಖೆಗಳ ಬಣ್ಣವನ್ನು ಬದಲಾಯಿಸಿ</string>
 
     <string name="sizeTitle">ಮುನ್ಸೂಚನೆ ರೇಖೆಯ ಗಾತ್ರ</string>
-    <string name="sizeDialogMessage">ISS ನ ಭವಿಷ್ಯ ರೇಖೆಯ ಗಾತ್ರವನ್ನು ಬದಲಾಯಿಸಿ</string>
-    <string name="sizeSummary">ಪ್ರಸ್ತುತ ಸಾಲಿನ ಗಾತ್ರ $1 ಆಗಿದೆ</string>
+    <string name="sizeDialogMessage">ISS ಗಳ ಭವಿಷ್ಯ ರೇಖೆಯ ಗಾತ್ರವನ್ನು ಬದಲಾಯಿಸಿ</string>
+    <string name="sizeSummary">ISS ಗಳ ಭವಿಷ್ಯ ರೇಖೆಯ ಗಾತ್ರವನ್ನು ಬದಲಾಯಿಸಿ</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">ಪಠ್ಯ ಗಾತ್ರ</string>
-    <string name="textSizeDialogMessage">ಎಲ್ಲಾ ಪಠ್ಯ ಮೌಲ್ಯಗಳ ಗಾತ್ರವನ್ನು ಬದಲಾಯಿಸಿ</string>
-    <string name="textSizeSummary">ಪ್ರಸ್ತುತ ಪಠ್ಯದ ಗಾತ್ರವು $1 ಆಗಿದೆ</string>
+    <string name="textSizeDialogMessage">ನಕ್ಷೆಯಲ್ಲಿನ ಎಲ್ಲಾ ಪಠ್ಯ ಮೌಲ್ಯಗಳ ಗಾತ್ರವನ್ನು ಬದಲಾಯಿಸಿ</string>
+    <string name="textSizeSummary">ನಕ್ಷೆಯಲ್ಲಿನ ಎಲ್ಲಾ ಪಠ್ಯ ಮೌಲ್ಯಗಳ ಗಾತ್ರವನ್ನು ಬದಲಾಯಿಸಿ</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">ಪಠ್ಯದ ಬಣ್ಣ</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">ಅಜ್ಞಾತ ದೋಷ ಸಂಭವಿಸಿದೆ. ದೋಷ: 401</string>
     <string name="errorMap">ನಕ್ಷೆಗೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಅನ್ವಯಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ</string>
     <string name="errorFiveTimes">ಎಲ್ಲಾ 5 ಬಾರಿ ವಿಫಲವಾಗಿದೆ. ನೀವು ಯಾವುದೇ ಸಂಪರ್ಕವನ್ನು ಹೊಂದಿಲ್ಲ ಅಥವಾ ಸರ್ವರ್ ಓವರ್‌ಲೋಡ್ ಆಗಿದೆ.</string>
-    <string name="errorLessFive">ಸರ್ವರ್‌ಗೆ ವಿನಂತಿ ವಿಫಲವಾಗಿದೆ. 5 ರಲ್ಲಿ %1$d. %2$d ಸೆಕೆಂಡುಗಳಲ್ಲಿ ಪ್ರಯತ್ನಿಸಲಾಗುತ್ತಿದೆ.</string>
+    <string name="errorLessFive">ಸರ್ವರ್‌ಗೆ ವಿನಂತಿ ವಿಫಲವಾಗಿದೆ. ಮರುಪ್ರಯತ್ನಿಸಲಾಗುತ್ತಿದೆ...</string>
     <string name="errorWaitPoly">ಈಗಾಗಲೇ ಮುನ್ಸೂಚನೆಯ ಸಾಲುಗಳನ್ನು ರಚಿಸಲಾಗುತ್ತಿದೆ</string>
     <string name="errorNotByMe">ISS ಅಧಿಸೂಚನೆಯನ್ನು ನೀವು ನಿಲ್ಲಿಸಿಲ್ಲ.</string>
     <string name="errorNoWiki">ವಿಕಿ ಪುಟವನ್ನು ಹೊಂದಿಲ್ಲ</string>
-    <string name="errorNoTwitter">ಟ್ವಿಟ್ಟರ್ ಖಾತೆಯನ್ನು ಹೊಂದಿಲ್ಲ</string>
+    <string name="errorNoTwitter">Twitter ಖಾತೆಯನ್ನು ಹೊಂದಿಲ್ಲ</string>
+    <string name="errorNoInstagram">Instagram ಖಾತೆಯನ್ನು ಹೊಂದಿಲ್ಲ</string>
+    <string name="errorNoFacebook">ಫೇಸ್ ಬುಕ್ ಖಾತೆಯನ್ನು ಹೊಂದಿಲ್ಲ</string>
     <string name="data_corrupted">ಅಪ್ಲಿಕೇಶನ್ ಡೇಟಾ ದೋಷಪೂರಿತವಾಗಿದೆ. ಮರುಹೊಂದಿಸಲಾಗುತ್ತಿದೆ!</string>
     <string name="polyError">ಮುನ್ಸೂಚನೆ ರೇಖೆಯನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ</string>
     <string name="calendar">ಕ್ಯಾಲೆಂಡರ್</string>
@@ -140,7 +112,7 @@
     <string name="image_content">ಬಳಕೆದಾರರ ಸ್ಥಳಕ್ಕಾಗಿ ಮಾರ್ಕರ್ ಹೊಂದಿರುವ ನಕ್ಷೆಯ ಚಿತ್ರ.</string>
     <string name="iss_sighting_share_title">ISS ವೀಕ್ಷಣೆ</string>
     <string name="iss_sighting_share_description">ISS ಇಲ್ಲಿ ಗೋಚರಿಸುತ್ತದೆ. ಅದನ್ನು ಪರಿಶೀಲಿಸಲು ಹೋಗುತ್ತಿದ್ದೇನೆ!</string>
-    <string name="iss_sighting_share_body">\"ಇದನ್ನು ಪರಿಶೀಲಿಸಿ!\n\nISS ಇಲ್ಲಿ ಗೋಚರಿಸುತ್ತದೆ \"</string>
+    <string name="iss_sighting_share_body">\"ಇದನ್ನು ಪರಿಶೀಲಿಸಿ! ISS ಇಲ್ಲಿ ಗೋಚರಿಸುತ್ತದೆ \"</string>
     <string name="iss_sighting_share_chooser">ಹಂಚಿಕೊಳ್ಳಿ...</string>
     <string name="on">\"ಮೇಲೆ\"</string>
     <string name="one_day_in_space">ಬಾಹ್ಯಾಕಾಶದಲ್ಲಿ 1 ದಿನ</string>
@@ -148,7 +120,16 @@
     <string name="day">\"ದಿನ\"</string>
     <string name="month">\" ತಿಂಗಳು\"</string>
     <string name="year">\" ವರ್ಷ\"</string>
-    <string name="since">\"ಇಂದಿನಿಂದ\"</string>
+    <string name="since">\"ಪ್ರಾರಂಭಿಸಲಾಗಿದೆ\"</string>
     <string name="tutorial_one_title">ಹಾಯ್ ಅಲ್ಲಿ :)</string>
     <string name="tutorial_two_title">ಮುಖ್ಯ ಲಕ್ಷಣಗಳು</string>
+
+    <string name="license">ತೆರೆದ ಮೂಲ ಪರವಾನಗಿಗಳು</string>
+    <string name="msg_license">ಈ ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ಈ ಕೆಳಗಿನ ಸಾಫ್ಟ್‌ವೇರ್ ಬಳಸಿ ನಿರ್ಮಿಸಲಾಗಿದೆ:</string>
+    <string name="msg_about_fork_me_on_github">ಅದನ್ನು GitHub ನಲ್ಲಿ ಫೋರ್ಕ್ ಮಾಡಿ</string>
+    <string name="msg_about_library_description">ISS ಟ್ರ್ಯಾಕರ್ ಎಂಬುದು ಆಂಡ್ರಾಯ್ಡ್ ಅಪ್ಲಿಕೇಶನ್ ಆಗಿದ್ದು ಅದು ಅಂತರರಾಷ್ಟ್ರೀಯ ಬಾಹ್ಯಾಕಾಶ ನಿಲ್ದಾಣದ ಸ್ಥಾನವನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಲು ಮತ್ತು ಪ್ರಸ್ತುತ ಬಾಹ್ಯಾಕಾಶದಲ್ಲಿ ಯಾವ ಗಗನಯಾತ್ರಿಗಳು ಇದ್ದಾರೆ ಎಂಬುದನ್ನು ಕಂಡುಹಿಡಿಯಲು ನಿಮಗೆ ಅನುಮತಿಸುತ್ತದೆ.</string>
+    <string name="desc_about_app">ಈ ಅಪ್ಲಿಕೇಶನ್ ಬಗ್ಗೆ</string>
+    <string name="msg_get_it_on_play_store">ಅದನ್ನು Google Play ನಲ್ಲಿ ಪಡೆಯಿರಿ</string>
+    <string name="version">ಆವೃತ್ತಿಗಳು</string>
+    <string name="version_msg">ಹಿಂದಿನ ಬದಲಾವಣೆಗಳು, ಪರಿಹಾರಗಳು ಮತ್ತು ನವೀಕರಣಗಳ ಪಟ್ಟಿ:</string>
 </resources>

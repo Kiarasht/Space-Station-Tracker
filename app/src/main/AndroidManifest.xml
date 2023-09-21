@@ -57,7 +57,7 @@
         <activity
             android:name=".PeopleInSpace"
             android:exported="false"
-            android:label="@string/label_peopleinspace">
+            android:label="@string/label_people_in_space">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.restart.spacestationtracker.MapsActivity" />
@@ -71,16 +71,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.restart.spacestationtracker.MapsActivity" />
-        </activity>
-
-        <!-- Info -->
-        <activity
-            android:name=".Info"
-            android:configChanges="orientation|screenSize"
-            android:exported="false">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.restart.spacestationtracker.PeopleInSpace" />
         </activity>
 
         <!-- Live Stream -->

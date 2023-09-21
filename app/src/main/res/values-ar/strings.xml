@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">خريطة</string>
-    <string name="flybys_title">Flyby</string>
+    <string name="flybys_title">مرورا</string>
     <string name="space_title">في الخدمة</string>
     <string name="settings_title">إعدادات</string>
     <string name="help_title">يساعد</string>
 
     
-    <string name="flybys_summary">تحقق من مرور محطة الفضاء الدولية حسب موقعك</string>
+    <string name="flybys_summary">تحقق من موعد مرور محطة الفضاء الدولية بموقعك</string>
     <string name="space_summary">معرفة من هو في الفضاء الآن</string>
     <string name="settings_summary">إدارة إعدادات التطبيق العامة</string>
     <string name="help_summary">معدل أو التعرف على التطبيق</string>
@@ -20,38 +20,8 @@
     <string name="stream">يعيش</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">اول مرة</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>لا أحد</item>
-        <item>طبيعي</item>
-        <item>الأقمار الصناعية</item>
-        <item>تضاريس</item>
-        <item>هجين</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flyby</string>
-    <string name="label_peopleinspace">من في الفضاء؟</string>
+    <string name="label_people_in_space">من هو في الفضاء؟</string>
     <string name="label_setting">إعدادات</string>
     <string name="label_help">يساعد</string>
     <string name="label_stream">البث المباشر</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">تم تمكين إعلانات البانر. شكرا على الدعم ؛)</string>
 
     
-    <string name="tutorialOne">تُظهر الخريطة الموقع الحالي لمحطة الفضاء الدولية مع خط تنبؤ بالمكان الذي ستكون فيه.</string>
-    <string name="tutorialTwo">ينقلك الدرج إلى ميزات أخرى مثل عمليات الطيران والإعدادات وما إلى ذلك ...</string>
+    <string name="tutorialOne">تُظهر الخريطة الموقع الحالي لمحطة الفضاء الدولية مع خط تنبؤ بالمكان الذي سيكون فيه.</string>
+    <string name="tutorialTwo">ينقلك الدرج إلى ميزات أخرى مثل عمليات الطيران والإعدادات.</string>
     <string name="midAt">في</string>
     <string name="checkerContentDescription">تمثل الأيقونة أنه تم اختيار لون شفاف</string>
     <string name="countryFlagContentDescription">علم البلد الذي ينتمي إليه رائد الفضاء هذا</string>
-    <string name="astronautTwitterContentDescription">أيقونة للارتباط بصفحة رائد الفضاء على تويتر</string>
-    <string name="astronautWikiContentDescription">أيقونة للارتباط بصفحة ويكي رائد الفضاء</string>
-    <string name="astronautGoogleContentDescription">رمز للارتباط بصفحة بحث Google الخاصة لرائد الفضاء</string>
+    <string name="astronautTwitterContentDescription">أيقونة للارتباط بصفحة رواد الفضاء على تويتر</string>
+    <string name="astronautWikiContentDescription">أيقونة للارتباط بصفحة ويكي رواد الفضاء</string>
+    <string name="astronautGoogleContentDescription">رمز للارتباط بصفحة بحث Google الخاصة برواد الفضاء</string>
 
     
     <string name="refreshTitle">معدل التحديث</string>
-    <string name="refreshSummary">معدل التحديث الحالي هو 1 دولار لكل ثانية</string>
+    <string name="refreshSummary">مقدار الوقت قبل تحديث موقع محطة الفضاء الدولية على الخريطة</string>
     <string name="declination_unit">ثانية/تحديث</string>
     <string name="refreshDialogMessage">الوقت بين تحديث محطة الفضاء الدولية إلى موقعها الجديد.</string>
 
@@ -89,7 +59,7 @@
 
     <string name="decimalTitle">منازل عشرية</string>
     <string name="decimalDialogMessage">تغيير دقة كافة القيم العددية</string>
-    <string name="decimalSummary">مستوى الدقة الحالي هو عند علامة عشرية قدرها 1 دولار</string>
+    <string name="decimalSummary">تغيير دقة كافة القيم العددية</string>
     <string name="decimalUnit">موانئ دبي</string>
 
     <string name="colorTitle">لون خط التنبؤ</string>
@@ -97,12 +67,12 @@
 
     <string name="sizeTitle">حجم خط التنبؤ</string>
     <string name="sizeDialogMessage">تغيير حجم خط التنبؤ لمحطة الفضاء الدولية</string>
-    <string name="sizeSummary">حجم الخط الحالي هو 1 دولار</string>
+    <string name="sizeSummary">تغيير حجم خط التنبؤ لمحطة الفضاء الدولية</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">حجم الخط</string>
-    <string name="textSizeDialogMessage">تغيير حجم كافة القيم النصية</string>
-    <string name="textSizeSummary">حجم النص الحالي هو 1 دولار</string>
+    <string name="textSizeDialogMessage">تغيير حجم كافة القيم النصية على الخريطة</string>
+    <string name="textSizeSummary">تغيير حجم كافة القيم النصية على الخريطة</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">لون الخط</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">حدث خطأ غير معروف. خطأ: 401</string>
     <string name="errorMap">لا يمكن تطبيق الإعدادات على الخريطة</string>
     <string name="errorFiveTimes">فشل كل 5 مرات. إما أنه ليس لديك اتصال أو أن الخادم مثقل.</string>
-    <string name="errorLessFive">فشل الطلب إلى الخادم. %1$d من أصل 5. ستتم المحاولة خلال %2$d ثانية.</string>
+    <string name="errorLessFive">فشل الطلب إلى الخادم. جارٍ إعادة المحاولة...</string>
     <string name="errorWaitPoly">يتم بالفعل إنشاء خطوط التنبؤ</string>
     <string name="errorNotByMe">لم يتم إيقاف إشعار محطة الفضاء الدولية (ISS) بواسطتك.</string>
     <string name="errorNoWiki">ليس لديه صفحة ويكي</string>
-    <string name="errorNoTwitter">ليس لديه حساب تويتر</string>
+    <string name="errorNoTwitter">ليس لديه حساب على تويتر</string>
+    <string name="errorNoInstagram">ليس لديه حساب في Instagram</string>
+    <string name="errorNoFacebook">ليس لديه حساب الفيسبوك</string>
     <string name="data_corrupted">بيانات التطبيق تالفة. إعادة الضبط!</string>
     <string name="polyError">غير قادر على إنشاء خط التنبؤ</string>
     <string name="calendar">تقويم</string>
@@ -140,7 +112,7 @@
     <string name="image_content">صورة خريطة مع علامة لموقع المستخدم.</string>
     <string name="iss_sighting_share_title">رؤية محطة الفضاء الدولية</string>
     <string name="iss_sighting_share_description">ستكون محطة الفضاء الدولية مرئية هنا. الذهاب للتحقق من ذلك!</string>
-    <string name="iss_sighting_share_body">\"تحقق من ذلك!\n\nستكون محطة الفضاء الدولية مرئية على \"</string>
+    <string name="iss_sighting_share_body">\"التحقق من ذلك! ستكون محطة الفضاء الدولية مرئية على \"</string>
     <string name="iss_sighting_share_chooser">يشارك…</string>
     <string name="on">\" على \"</string>
     <string name="one_day_in_space">1 يوم في الفضاء</string>
@@ -148,7 +120,16 @@
     <string name="day">\" يوم\"</string>
     <string name="month">\" شهر\"</string>
     <string name="year">\" سنة\"</string>
-    <string name="since">\"منذ \"</string>
+    <string name="since">\"تم إطلاقه\"</string>
     <string name="tutorial_one_title">مرحبًا يا من هناك :)</string>
     <string name="tutorial_two_title">الخصائص الرئيسية</string>
+
+    <string name="license">تراخيص مفتوحة المصدر</string>
+    <string name="msg_license">تم إنشاء هذا التطبيق باستخدام البرامج التالية:</string>
+    <string name="msg_about_fork_me_on_github">شوكة على جيثب</string>
+    <string name="msg_about_library_description">ISS Tracker هو تطبيق أندرويد يسمح لك بتتبع موقع محطة الفضاء الدولية ومعرفة رواد الفضاء الموجودين حاليًا في الفضاء.</string>
+    <string name="desc_about_app">عن هذا التطبيق</string>
+    <string name="msg_get_it_on_play_store">احصل عليه من متجر جوجل للتطبيقات</string>
+    <string name="version">الإصدارات</string>
+    <string name="version_msg">قائمة التغييرات والإصلاحات والتحديثات السابقة:</string>
 </resources>

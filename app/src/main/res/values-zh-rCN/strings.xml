@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">国际空间站追踪器</string>
+
+    
+    <string name="map_activity">地图</string>
+    <string name="flybys_title">经过</string>
+    <string name="space_title">值班</string>
+    <string name="settings_title">设置</string>
+    <string name="help_title">帮助</string>
+
+    
+    <string name="flybys_summary">检查国际空间站何时经过您所在的位置</string>
+    <string name="space_summary">查看现在谁在太空中</string>
+    <string name="settings_summary">管理常规应用程序设置</string>
+    <string name="help_summary">评价或了解该应用程序</string>
+
+    
+    <string name="reset">刷新预测线</string>
+    <string name="stream">居住</string>
+
+    
+    <string name="label_location">飞越</string>
+    <string name="label_people_in_space">谁在太空？</string>
+    <string name="label_setting">设置</string>
+    <string name="label_help">帮助</string>
+    <string name="label_stream">现场直播</string>
+
+    
+    <string name="startAlert">当国际空间站靠近时通知</string>
+    <string name="stopAlert">当国际空间站靠近时停止通知</string>
+    <string name="startFullAds">启用全页广告。感谢您的支持 ;）</string>
+    <string name="startBannerAds">横幅广告已启用。感谢您的支持 ;）</string>
+
+    
+    <string name="tutorialOne">地图显示国际空间站当前位置以及其所在位置的预测线。</string>
+    <string name="tutorialTwo">抽屉可带您进入其他功能，例如飞行和设置。</string>
+    <string name="midAt">在</string>
+    <string name="checkerContentDescription">图标表示选择了透明颜色</string>
+    <string name="countryFlagContentDescription">这位宇航员来自哪个国家的国旗</string>
+    <string name="astronautTwitterContentDescription">链接到宇航员 Twitter 页面的图标</string>
+    <string name="astronautWikiContentDescription">链接到宇航员维基页面的图标</string>
+    <string name="astronautGoogleContentDescription">链接到宇航员谷歌搜索页面的图标</string>
+
+    
+    <string name="refreshTitle">刷新率</string>
+    <string name="refreshSummary">更新国际空间站在地图上的位置之前的时间量</string>
+    <string name="declination_unit">秒/刷新</string>
+    <string name="refreshDialogMessage">国际空间站更新到新位置之间的时间。</string>
+
+    <string name="lockTitle">锁定国际空间站</string>
+    <string name="lockSummary">锁定国际空间站并在地图上跟随它</string>
+
+    <string name="infoTitle">附加信息</string>
+    <string name="infoSummary">在地图上提供有关国际空间站的附加信息</string>
+
+    <string name="mapTitle">地图类型</string>
+    <string name="mapSummary">更改上一页的地图类型</string>
+
+    <string name="decimalTitle">小数位</string>
+    <string name="decimalDialogMessage">更改所有数值的精度</string>
+    <string name="decimalSummary">更改所有数值的精度</string>
+    <string name="decimalUnit">DP</string>
+
+    <string name="colorTitle">预测线颜色</string>
+    <string name="colorSummary">更改预测线的颜色</string>
+
+    <string name="sizeTitle">预测线尺寸</string>
+    <string name="sizeDialogMessage">更改 ISS 预测线的大小</string>
+    <string name="sizeSummary">更改 ISS 预测线的大小</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">字体大小</string>
+    <string name="textSizeDialogMessage">更改地图上所有文本值的大小</string>
+    <string name="textSizeSummary">更改地图上所有文本值的大小</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">文字颜色</string>
+    <string name="textSummary">更改文本值的颜色</string>
+
+    <string name="textHighlightTitle">文字大纲</string>
+    <string name="textHighlightSummary">更改文本值的轮廓颜色</string>
+
+    <string name="notificationTitle">国际空间站通知</string>
+    <string name="notificationSummary">预计国际空间站将飞越我的位置时发出通知</string>
+
+    <string name="advertisementTitle">横幅</string>
+    <string name="advertisementSummary">禁用应用程序上的横幅广告</string>
+
+    <string name="fullTitle">完整页面</string>
+    <string name="fullSummary">禁用应用上的整页广告</string>
+
+    
+    <string name="errorWebView">无法加载页面</string>
+    <string name="errorLocation">无法找到您的位置。</string>
+    <string name="errorPermissionLocation">拒绝访问您的位置</string>
+    <string name="errorConnection">要么没有连接，要么服务器超载。</string>
+    <string name="errorNetwork">出现未知错误。错误：401</string>
+    <string name="errorMap">无法将设置应用于地图</string>
+    <string name="errorFiveTimes">5次全部失败。要么没有连接，要么服务器超载。</string>
+    <string name="errorLessFive">向服务器请求失败。正在重试...</string>
+    <string name="errorWaitPoly">已经创建预测线</string>
+    <string name="errorNotByMe">ISS 通知没有被你阻止。</string>
+    <string name="errorNoWiki">没有维基页面</string>
+    <string name="errorNoTwitter">没有 Twitter 帐户</string>
+    <string name="errorNoInstagram">没有 Instagram 帐户</string>
+    <string name="errorNoFacebook">没有 Facebook 帐户</string>
+    <string name="data_corrupted">应用程序数据已损坏。重置！</string>
+    <string name="polyError">无法创建预测线</string>
+    <string name="calendar">日历</string>
+    <string name="share">分享</string>
+    <string name="image_content">带有用户位置标记的地图图像。</string>
+    <string name="iss_sighting_share_title">国际空间站目击</string>
+    <string name="iss_sighting_share_description">国际空间站将在这里可见。要去检查一下！</string>
+    <string name="iss_sighting_share_body">“检查一下！国际空间站将在以下时间可见：”</string>
+    <string name="iss_sighting_share_chooser">分享…</string>
+    <string name="on">“ 在 ”</string>
+    <string name="one_day_in_space">太空 1 天</string>
+    <string name="in_space">“ 在太空”</string>
+    <string name="day">“ 天”</string>
+    <string name="month">“ 月”</string>
+    <string name="year">“ 年”</string>
+    <string name="since">“已启动”</string>
+    <string name="tutorial_one_title">嘿 ：）</string>
+    <string name="tutorial_two_title">主要特点</string>
+
+    <string name="license">开源许可证</string>
+    <string name="msg_license">该应用程序是使用以下软件构建的：</string>
+    <string name="msg_about_fork_me_on_github">在 GitHub 上分叉它</string>
+    <string name="msg_about_library_description">ISS Tracker 是一款 Android 应用程序，可让您跟踪国际空间站的位置并了解当前有哪些宇航员在太空中。</string>
+    <string name="desc_about_app">关于这个应用程序</string>
+    <string name="msg_get_it_on_play_store">在 Google Play 上获取</string>
+    <string name="version">版本</string>
+    <string name="version_msg">以前的更改、修复和更新列表：</string>
+</resources>

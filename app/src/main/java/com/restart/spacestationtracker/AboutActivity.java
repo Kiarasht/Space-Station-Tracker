@@ -19,7 +19,7 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_layout);
 
-        ((TextView) findViewById(R.id.app_version)).setText(getString(R.string.msg_app_version, getVersionName()));
+        ((TextView) findViewById(R.id.app_version)).setText(getVersionName());
         initLicenses();
         initVersions();
     }

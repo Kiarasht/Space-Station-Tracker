@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Kat jeyografik</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">Pase</string>
     <string name="space_title">Nan Devwa</string>
     <string name="settings_title">Anviwònman</string>
     <string name="help_title">Ede</string>
 
     
-    <string name="flybys_summary">Tcheke pas ISS nan kote ou ye a</string>
+    <string name="flybys_summary">Tcheke ki lè ISS ap pase bò kote ou a</string>
     <string name="space_summary">Gade ki moun ki nan espas kounye a</string>
     <string name="settings_summary">Jere anviwònman jeneral aplikasyon an</string>
     <string name="help_summary">Vote oswa aprann sou aplikasyon an</string>
@@ -20,38 +20,8 @@
     <string name="stream">Viv</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">premye fwa</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Okenn</item>
-        <item>Nòmal</item>
-        <item>Satelit</item>
-        <item>Tèren</item>
-        <item>Ibrid</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">Ki moun ki nan espas\?</string>
+    <string name="label_people_in_space">Ki moun ki nan espas\?</string>
     <string name="label_setting">Anviwònman</string>
     <string name="label_help">Ede</string>
     <string name="label_stream">Live Stream</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">Banner piblisite yo aktive. Mèsi pou sipò a ;)</string>
 
     
-    <string name="tutorialOne">Kat jeyografik montre kote ISS aktyèl la ak yon liy prediksyon kote li pral ye.</string>
-    <string name="tutorialTwo">Drawer mennen ou nan lòt karakteristik tankou flybys, anviwònman, elatriye ...</string>
+    <string name="tutorialOne">Kat jeyografik montre pozisyon aktyèl ISS ak yon liy prediksyon sou kote li pral ye.</string>
+    <string name="tutorialTwo">Drawer mennen ou nan lòt karakteristik tankou flybys ak anviwònman.</string>
     <string name="midAt">nan</string>
     <string name="checkerContentDescription">Ikon reprezante ke yo chwazi yon koulè transparan</string>
     <string name="countryFlagContentDescription">Drapo peyi a astwonòt sa a soti</string>
-    <string name="astronautTwitterContentDescription">Ikon pou lyen ak paj twitter astronot la</string>
-    <string name="astronautWikiContentDescription">Ikon pou lyen ak paj wiki astronot la</string>
-    <string name="astronautGoogleContentDescription">Ikon pou lyen ak paj rechèch Google astwonòt la</string>
+    <string name="astronautTwitterContentDescription">Ikon pou lyen ak paj twitter astwonòt yo</string>
+    <string name="astronautWikiContentDescription">Ikon pou lyen ak paj wiki astwonòt yo</string>
+    <string name="astronautGoogleContentDescription">Ikon pou lyen ak paj rechèch Google astwonòt yo</string>
 
     
     <string name="refreshTitle">Rafrechisman pousantaj</string>
-    <string name="refreshSummary">Pousantaj rafrechisman aktyèl la se $1 sec/actualisation</string>
+    <string name="refreshSummary">Kantite tan anvan mete ajou kote ISS sou kat jeyografik la</string>
     <string name="declination_unit">sek /rafrechi</string>
     <string name="refreshDialogMessage">Tan ant ISS jwenn aktyalizasyon nan nouvo kote li yo.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">Kote Decimal</string>
     <string name="decimalDialogMessage">Chanje presizyon tout valè nimerik yo</string>
-    <string name="decimalSummary">Nivo presizyon aktyèl la se nan $1 kote desimal</string>
+    <string name="decimalSummary">Chanje presizyon tout valè nimerik yo</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Koulè liy prediksyon</string>
     <string name="colorSummary">Chanje koulè liy prediksyon yo</string>
 
     <string name="sizeTitle">Gwosè liy prediksyon</string>
-    <string name="sizeDialogMessage">Chanje gwosè liy prediksyon ISS la</string>
-    <string name="sizeSummary">Gwosè liy aktyèl la se $1</string>
+    <string name="sizeDialogMessage">Chanje gwosè liy prediksyon ISS yo</string>
+    <string name="sizeSummary">Chanje gwosè liy prediksyon ISS yo</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Gwosè tèks la</string>
-    <string name="textSizeDialogMessage">Chanje gwosè tout valè tèks yo</string>
-    <string name="textSizeSummary">Gwosè tèks aktyèl la se $1</string>
+    <string name="textSizeDialogMessage">Chanje gwosè tout valè tèks yo sou kat la</string>
+    <string name="textSizeSummary">Chanje gwosè tout valè tèks yo sou kat la</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Koulè tèks</string>
@@ -126,13 +96,15 @@
     <string name="errorPermissionLocation">Yo refize jwenn aksè nan kote w ye a</string>
     <string name="errorConnection">Swa ou pa gen okenn koneksyon oswa sèvè twò chaje.</string>
     <string name="errorNetwork">Yon erè enkoni te fèt. Erè: 401</string>
-    <string name="errorMap">Pa ka aplike paramèt pou kat la</string>
+    <string name="errorMap">Pa ka aplike paramèt pou kat</string>
     <string name="errorFiveTimes">Echwe tout 5 fwa. Swa ou pa gen okenn koneksyon oswa sèvè twò chaje.</string>
-    <string name="errorLessFive">Demann nan sèvè echwe. %1$d sou 5. Eseye nan %2$d segonn.</string>
+    <string name="errorLessFive">Demann nan sèvè echwe. Nou eseye ankò...</string>
     <string name="errorWaitPoly">Deja kreye liy prediksyon</string>
-    <string name="errorNotByMe">ISS Notifikasyon pa te sispann pa ou.</string>
+    <string name="errorNotByMe">Notifikasyon ISS pa te sispann pa ou.</string>
     <string name="errorNoWiki">pa gen yon paj wiki</string>
-    <string name="errorNoTwitter">pa gen yon kont twitter</string>
+    <string name="errorNoTwitter">pa gen yon kont Twitter</string>
+    <string name="errorNoInstagram">pa gen yon kont Instagram</string>
+    <string name="errorNoFacebook">pa gen yon kont Facebook</string>
     <string name="data_corrupted">Done aplikasyon yo pèvèti. Reyajiste!</string>
     <string name="polyError">Pa kapab nan kreye liy prediksyon</string>
     <string name="calendar">Kalandriye</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Imaj yon kat ak yon makè pou kote itilizatè a.</string>
     <string name="iss_sighting_share_title">ISS Vue</string>
     <string name="iss_sighting_share_description">ISS pral vizib isit la. Pral tcheke li soti!</string>
-    <string name="iss_sighting_share_body">\"Gade sa!\n\nISS pral vizib nan \"</string>
+    <string name="iss_sighting_share_body">\"Tcheke li! ISS pral vizib nan\"</string>
     <string name="iss_sighting_share_chooser">Pataje…</string>
     <string name="on">\"sou\"</string>
     <string name="one_day_in_space">1 jou nan espas</string>
@@ -148,7 +120,16 @@
     <string name="day">\"jou\"</string>
     <string name="month">\"mwa\"</string>
     <string name="year">\" ane\"</string>
-    <string name="since">\"Depi\"</string>
+    <string name="since">\"Lanse\"</string>
     <string name="tutorial_one_title">Hey la :)</string>
     <string name="tutorial_two_title">Karakteristik prensipal</string>
+
+    <string name="license">Lisans sous louvri</string>
+    <string name="msg_license">Aplikasyon sa a konstwi lè l sèvi avèk lojisyèl sa yo:</string>
+    <string name="msg_about_fork_me_on_github">Fork li sou GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker se yon aplikasyon android ki pèmèt ou swiv pozisyon Estasyon Espas Entènasyonal la epi chèche konnen kisa astwonòt yo ye kounye a nan espas.</string>
+    <string name="desc_about_app">Konsènan aplikasyon sa a</string>
+    <string name="msg_get_it_on_play_store">Jwenn li sou Google Play</string>
+    <string name="version">Vèsyon yo</string>
+    <string name="version_msg">Lis chanjman, koreksyon, ak mizajou anvan yo:</string>
 </resources>

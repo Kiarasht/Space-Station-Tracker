@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Карта</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">Өтүп бара жаткан</string>
     <string name="space_title">On Duty</string>
     <string name="settings_title">Орнотуулар</string>
     <string name="help_title">Жардам</string>
 
     
-    <string name="flybys_summary">Жайгашкан жериңиз боюнча ISS билеттерин текшериңиз</string>
+    <string name="flybys_summary">ISS сиздин жайгашкан жериңизден качан өтөөрүн текшериңиз</string>
     <string name="space_summary">Азыр космосто ким бар экенин көрүңүз</string>
     <string name="settings_summary">Жалпы колдонмо жөндөөлөрүн башкарыңыз</string>
     <string name="help_summary">Колдонмо жөнүндө баа бериңиз же үйрөнүңүз</string>
@@ -20,38 +20,8 @@
     <string name="stream">Live</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">биринчи жолу</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Жок</item>
-        <item>Кадимки</item>
-        <item>Спутник</item>
-        <item>Жер</item>
-        <item>Гибрид</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">Космосто ким бар\?</string>
+    <string name="label_people_in_space">Космосто ким бар\?</string>
     <string name="label_setting">Орнотуулар</string>
     <string name="label_help">Жардам</string>
     <string name="label_stream">Түз Агым</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">Баннердик жарнамалар иштетилди. Колдоо үчүн рахмат;)</string>
 
     
-    <string name="tutorialOne">Картада ISSтин учурдагы жайгашкан жери анын кайда болорун болжолдоо сызыгы менен көрсөтөт.</string>
-    <string name="tutorialTwo">тартма сизди башка функцияларга алып барат, мисалы, учуулар, жөндөөлөр, ж.б.</string>
+    <string name="tutorialOne">Картада ISSтин учурдагы жайгашкан жери анын кайда болоорун болжолдоо сызыгы менен көрсөтөт.</string>
+    <string name="tutorialTwo">тартма сизди учуу жана жөндөөлөр сыяктуу башка функцияларга алып барат.</string>
     <string name="midAt">саат</string>
     <string name="checkerContentDescription">Белги тунук түс тандалып алынганын билдирет</string>
     <string name="countryFlagContentDescription">Бул астронавт өлкөнүн желеги</string>
-    <string name="astronautTwitterContentDescription">Космонавттын Твиттер барагына шилтеме берүү үчүн белги</string>
-    <string name="astronautWikiContentDescription">Astronaut\'s wiki баракчасына шилтеме берүү үчүн белги</string>
-    <string name="astronautGoogleContentDescription">Космонавттын Google издөө барагына шилтеме берүү үчүн белги</string>
+    <string name="astronautTwitterContentDescription">Космонавттардын twitter баракчасына шилтеме берүү үчүн белги</string>
+    <string name="astronautWikiContentDescription">Astronauts wiki баракчасына шилтеме берүү үчүн белги</string>
+    <string name="astronautGoogleContentDescription">Astronauts Google издөө барагына шилтеме берүү үчүн сөлөкөт</string>
 
     
     <string name="refreshTitle">Жаңыртуу ылдамдыгы</string>
-    <string name="refreshSummary">Учурдагы жаңылоо ылдамдыгы $1 сек/жаңылоо</string>
+    <string name="refreshSummary">Картада ISS жайгашкан жерин жаңыртууга чейинки убакыт</string>
     <string name="declination_unit">сек/жаңылоо</string>
     <string name="refreshDialogMessage">ISS жаңы жайгашкан жерине жаңыртылганга чейинки убакыт.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">Ондук орундар</string>
     <string name="decimalDialogMessage">Бардык сандык маанилердин тактыгын өзгөртүү</string>
-    <string name="decimalSummary">Учурдагы тактык деңгээли $1 ондук бөлүктө</string>
+    <string name="decimalSummary">Бардык сандык маанилердин тактыгын өзгөртүү</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Божомолдоо сызыгынын түсү</string>
     <string name="colorSummary">Болжолдоо сызыктарынын түсүн өзгөртүү</string>
 
     <string name="sizeTitle">Болжолдоо сызыгынын өлчөмү</string>
-    <string name="sizeDialogMessage">ISSтин болжолдоо сызыгынын өлчөмүн өзгөртүү</string>
-    <string name="sizeSummary">Учурдагы линиянын өлчөмү $1</string>
+    <string name="sizeDialogMessage">ISSs болжолдоо сызыгынын өлчөмүн өзгөртүү</string>
+    <string name="sizeSummary">ISSs болжолдоо сызыгынын өлчөмүн өзгөртүү</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Текст өлчөмү</string>
-    <string name="textSizeDialogMessage">Бардык текст баалуулуктарынын өлчөмүн өзгөртүү</string>
-    <string name="textSizeSummary">Учурдагы тексттин өлчөмү $1</string>
+    <string name="textSizeDialogMessage">Картадагы бардык текст маанилеринин өлчөмүн өзгөртүү</string>
+    <string name="textSizeSummary">Картадагы бардык текст маанилеринин өлчөмүн өзгөртүү</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Тексттин түсү</string>
@@ -126,13 +96,15 @@
     <string name="errorPermissionLocation">Жайгашкан жериңизге кирүүгө тыюу салынды</string>
     <string name="errorConnection">Же сизде байланыш жок же сервер ашыкча жүктөлгөн.</string>
     <string name="errorNetwork">Белгисиз ката кетти. Ката: 401</string>
-    <string name="errorMap">Картага жөндөөлөрдү колдонуу мүмкүн эмес</string>
+    <string name="errorMap">Картага орнотууларды колдонуу мүмкүн эмес</string>
     <string name="errorFiveTimes">Бардык 5 жолу ийгиликсиз болду. Же сизде байланыш жок же сервер ашыкча жүктөлгөн.</string>
-    <string name="errorLessFive">Серверге суроо-талап ишке ашкан жок. 5 ичинен %1$d. %2$d секунддан кийин аракет кылынууда.</string>
+    <string name="errorLessFive">Серверге суроо-талап ишке ашкан жок. Кайталанууда…</string>
     <string name="errorWaitPoly">Азыртадан эле болжолдоо сызыктары түзүлүүдө</string>
     <string name="errorNotByMe">ISS эскертмесин сиз токтоткон жоксуз.</string>
     <string name="errorNoWiki">вики баракчасы жок</string>
-    <string name="errorNoTwitter">twitter аккаунту жок</string>
+    <string name="errorNoTwitter">Twitter аккаунту жок</string>
+    <string name="errorNoInstagram">Instagram аккаунту жок</string>
+    <string name="errorNoFacebook">Facebook аккаунту жок</string>
     <string name="data_corrupted">Колдонмонун дайындары бузулган. Баштапкы абалга келтирилүүдө!</string>
     <string name="polyError">Божомолдоо линиясын түзүү мүмкүн эмес</string>
     <string name="calendar">Календар</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Колдонуучунун жайгашкан жери үчүн маркер менен картанын сүрөтү.</string>
     <string name="iss_sighting_share_title">ISS Sighting</string>
     <string name="iss_sighting_share_description">ISS бул жерде көрүнөт. Текшерүүгө баратам!</string>
-    <string name="iss_sighting_share_body">\"Муну карап көр!\n\nISS көрүнүп турат \"</string>
+    <string name="iss_sighting_share_body">\"Караңыз! ISS төмөнкү жерде көрүнөт: \"</string>
     <string name="iss_sighting_share_chooser">Бөлүшүү…</string>
     <string name="on">\"күндө\"</string>
     <string name="one_day_in_space">космосто 1 күн</string>
@@ -148,7 +120,16 @@
     <string name="day">\"күн\"</string>
     <string name="month">\"ай\"</string>
     <string name="year">\"жыл\"</string>
-    <string name="since">\"Андан бери\"</string>
+    <string name="since">\"Жүргүзүлдү\"</string>
     <string name="tutorial_one_title">Салам :)</string>
     <string name="tutorial_two_title">Негизги өзгөчөлүктөрү</string>
+
+    <string name="license">Ачык булак лицензиялары</string>
+    <string name="msg_license">Бул колдонмо төмөнкү программалык камсыздоону колдонуу менен курулган:</string>
+    <string name="msg_about_fork_me_on_github">Аны GitHub\'да айрыңыз</string>
+    <string name="msg_about_library_description">ISS Tracker - бул Эл аралык космос станциясынын абалын көзөмөлдөөгө жана учурда космосто кандай астронавттар бар экенин билүүгө мүмкүндүк берген андроид тиркемеси.</string>
+    <string name="desc_about_app">Бул колдонмо жөнүндө</string>
+    <string name="msg_get_it_on_play_store">Аны Google Play\'ден алыңыз</string>
+    <string name="version">Версиялар</string>
+    <string name="version_msg">Мурунку өзгөртүүлөр, оңдоолор жана жаңыртуулардын тизмеси:</string>
 </resources>

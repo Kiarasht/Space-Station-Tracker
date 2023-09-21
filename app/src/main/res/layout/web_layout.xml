@@ -3,8 +3,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.github.ksoichiro.android.observablescrollview.ObservableWebView
-        android:id="@+id/webView2"
+    <WebView
+        android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

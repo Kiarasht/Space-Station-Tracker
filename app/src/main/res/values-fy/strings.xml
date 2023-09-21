@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Map</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">Foarby gean</string>
     <string name="space_title">Yn funksje</string>
     <string name="settings_title">Ynstellings</string>
     <string name="help_title">Help</string>
 
     
-    <string name="flybys_summary">Kontrolearje de passaazjes fan ISS by jo lokaasje</string>
+    <string name="flybys_summary">Kontrolearje wannear\'t ISS troch jo lokaasje sil passe</string>
     <string name="space_summary">Sjoch wa\'t no yn \'e romte is</string>
     <string name="settings_summary">Beheare algemiene app ynstellings</string>
     <string name="help_summary">Beoardielje of leare oer de app</string>
@@ -20,38 +20,8 @@
     <string name="stream">Libje</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">earste kear</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Gjin</item>
-        <item>Normaal</item>
-        <item>Satellyt</item>
-        <item>Terrein</item>
-        <item>Hybride</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">Wa is yn \'e romte\?</string>
+    <string name="label_people_in_space">Wa is yn Space\?</string>
     <string name="label_setting">Ynstellings</string>
     <string name="label_help">Help</string>
     <string name="label_stream">Streekrjochte útstjoering</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">Banner advertinsjes ynskeakele. Dankewol foar de stipe ;)</string>
 
     
-    <string name="tutorialOne">Kaart toant de hjoeddeistige lokaasje fan ISS mei in foarsizzingsline fan wêr\'t it sil wêze.</string>
-    <string name="tutorialTwo">Drawer bringt jo nei oare funksjes lykas flybys, ynstellings, ensfh.</string>
+    <string name="tutorialOne">Kaart toant ISS hjoeddeistige lokaasje mei in foarsizzing line fan wêr\'t it sil wêze.</string>
+    <string name="tutorialTwo">Drawer bringt jo nei oare funksjes lykas flybys en ynstellings.</string>
     <string name="midAt">by</string>
     <string name="checkerContentDescription">Ikoan stiet foar dat in transparante kleur wurdt keazen</string>
     <string name="countryFlagContentDescription">Lânflagge dizze astronaut komt fan</string>
-    <string name="astronautTwitterContentDescription">Ikoan om te keppeljen nei de Twitter-side fan astronaut</string>
-    <string name="astronautWikiContentDescription">Ikoan om te keppeljen nei de astronaut\'s wiki-side</string>
-    <string name="astronautGoogleContentDescription">Ikoan om te keppeljen nei de Google-sykside fan astronaut</string>
+    <string name="astronautTwitterContentDescription">Ikoan om te keppeljen nei astronauts Twitter-side</string>
+    <string name="astronautWikiContentDescription">Ikoan om te keppeljen nei astronauts wiki side</string>
+    <string name="astronautGoogleContentDescription">Ikoan om te keppeljen nei astronauten Google sykside</string>
 
     
     <string name="refreshTitle">Ferfarskje Rate</string>
-    <string name="refreshSummary">Aktuele ferfarskingsfrekwinsje is $1 sek/ferfarsk</string>
+    <string name="refreshSummary">Hoefolle tiid foar it bywurkjen fan ISS-lokaasje op kaart</string>
     <string name="declination_unit">sek /ferfarskje</string>
     <string name="refreshDialogMessage">Tiid tusken ISS wurdt bywurke nei syn nije lokaasje.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">Desimale plakken</string>
     <string name="decimalDialogMessage">Feroarje de krektens fan alle numerike wearden</string>
-    <string name="decimalSummary">Aktuele krektensnivo is op $1 desimale plakken</string>
+    <string name="decimalSummary">Feroarje de krektens fan alle numerike wearden</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Foarsizzing line kleur</string>
     <string name="colorSummary">Feroarje de kleur fan foarsizzingslinen</string>
 
     <string name="sizeTitle">Foarsizzing line grutte</string>
-    <string name="sizeDialogMessage">Feroarje de grutte fan \'e foarsizzingsline fan ISS</string>
-    <string name="sizeSummary">De hjoeddeistige linegrutte is $1</string>
+    <string name="sizeDialogMessage">Feroarje de grutte fan ISSs foarsizzing line</string>
+    <string name="sizeSummary">Feroarje de grutte fan ISSs foarsizzing line</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Tekstgrutte</string>
-    <string name="textSizeDialogMessage">Feroarje de grutte fan alle tekstwearden</string>
-    <string name="textSizeSummary">Aktuele tekstgrutte is $1</string>
+    <string name="textSizeDialogMessage">Feroarje de grutte fan alle tekstwearden op kaart</string>
+    <string name="textSizeSummary">Feroarje de grutte fan alle tekstwearden op kaart</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Tekst kleur</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">Der hat him in ûnbekende fout foardien. Flater: 401</string>
     <string name="errorMap">Kin gjin ynstellings tapasse op kaart</string>
     <string name="errorFiveTimes">Mislearre alle 5 kear. Of jo hawwe gjin ferbining of tsjinner is oerladen.</string>
-    <string name="errorLessFive">Fersyk oan tsjinner mislearre. %1$d fan 5. Besykje oer %2$d sekonden.</string>
-    <string name="errorWaitPoly">Al meitsje foarsizzingslinen</string>
+    <string name="errorLessFive">Fersyk oan tsjinner mislearre. Opnij besykje...</string>
+    <string name="errorWaitPoly">Al meitsje foarsizzing rigels</string>
     <string name="errorNotByMe">ISS Notifikaasje waard net stoppe troch jo.</string>
     <string name="errorNoWiki">hat gjin wikiside</string>
-    <string name="errorNoTwitter">hat gjin twitter account</string>
+    <string name="errorNoTwitter">hat gjin Twitter account</string>
+    <string name="errorNoInstagram">hat gjin Instagram-akkount</string>
+    <string name="errorNoFacebook">hat gjin Facebook account</string>
     <string name="data_corrupted">App-gegevens binne skansearre. Resetten!</string>
     <string name="polyError">Net mooglik by it meitsjen fan foarsizzingline</string>
     <string name="calendar">Kalinder</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Ofbylding fan in kaart mei in marker foar brûkerslokaasje.</string>
     <string name="iss_sighting_share_title">ISS Sighting</string>
     <string name="iss_sighting_share_description">ISS sil hjir sichtber wêze. Gean nei it kontrolearjen!</string>
-    <string name="iss_sighting_share_body">\"Besjoch it!\n\nISS sil sichtber wêze op \"</string>
+    <string name="iss_sighting_share_body">\"Besjoch it út! ISS sil sichtber wêze by \"</string>
     <string name="iss_sighting_share_chooser">Diele…</string>
     <string name="on">\"oan\"</string>
     <string name="one_day_in_space">1 dei yn romte</string>
@@ -148,7 +120,16 @@
     <string name="day">\" dei\"</string>
     <string name="month">\" moanne\"</string>
     <string name="year">\" jier\"</string>
-    <string name="since">\"sûnt\"</string>
+    <string name="since">\"Launched\"</string>
     <string name="tutorial_one_title">Hey dêr :)</string>
     <string name="tutorial_two_title">Wichtigste skaaimerken</string>
+
+    <string name="license">Iepen boarne lisinsjes</string>
+    <string name="msg_license">Dizze applikaasje is konstruearre mei de folgjende software:</string>
+    <string name="msg_about_fork_me_on_github">Fork it op GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker is in Android-applikaasje wêrmei jo de posysje fan it International Space Station kinne folgje en útfine hokker astronauten op it stuit yn \'e romte binne.</string>
+    <string name="desc_about_app">Oer dizze app</string>
+    <string name="msg_get_it_on_play_store">Krij it op Google Play</string>
+    <string name="version">Ferzjes</string>
+    <string name="version_msg">List fan eardere wizigingen, reparaasjes en updates:</string>
 </resources>

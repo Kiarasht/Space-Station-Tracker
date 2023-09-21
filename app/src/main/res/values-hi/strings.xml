@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">नक्शा</string>
-    <string name="flybys_title">flybuys</string>
+    <string name="flybys_title">समीप से गुजरना</string>
     <string name="space_title">काम पर</string>
     <string name="settings_title">समायोजन</string>
     <string name="help_title">मदद</string>
 
     
-    <string name="flybys_summary">अपने स्थान के अनुसार आईएसएस के पास की जाँच करें</string>
+    <string name="flybys_summary">जांचें कि आईएसएस आपके स्थान से कब गुजरेगा</string>
     <string name="space_summary">देखिए इस वक्त अंतरिक्ष में कौन है</string>
     <string name="settings_summary">सामान्य ऐप सेटिंग प्रबंधित करें</string>
     <string name="help_summary">ऐप को रेट करें या उसके बारे में जानें</string>
@@ -20,38 +20,8 @@
     <string name="stream">रहना</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">पहली बार</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>कोई नहीं</item>
-        <item>सामान्य</item>
-        <item>उपग्रह</item>
-        <item>इलाके</item>
-        <item>हाइब्रिड</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">flybuys</string>
-    <string name="label_peopleinspace">अंतरिक्ष में कौन है\?</string>
+    <string name="label_people_in_space">अंतरिक्ष में कौन है\?</string>
     <string name="label_setting">समायोजन</string>
     <string name="label_help">मदद</string>
     <string name="label_stream">लाइव स्ट्रीम</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">बैनर विज्ञापन सक्षम. समर्थन के लिए धन्यवाद ;)</string>
 
     
-    <string name="tutorialOne">मानचित्र आईएसएस के वर्तमान स्थान को भविष्यवाणी रेखा के साथ दिखाता है कि वह कहां होगा।</string>
-    <string name="tutorialTwo">ड्रॉअर आपको अन्य सुविधाओं जैसे फ्लाईबीज़, सेटिंग्स आदि पर ले जाता है...</string>
+    <string name="tutorialOne">मानचित्र आईएसएस की वर्तमान स्थिति को भविष्यवाणी रेखा के साथ दिखाता है कि वह कहां होगी।</string>
+    <string name="tutorialTwo">ड्रॉअर आपको फ़्लाइबीज़ और सेटिंग्स जैसी अन्य सुविधाओं पर ले जाता है।</string>
     <string name="midAt">पर</string>
     <string name="checkerContentDescription">आइकन दर्शाता है कि एक पारदर्शी रंग चुना गया है</string>
     <string name="countryFlagContentDescription">यह अंतरिक्ष यात्री किस देश का ध्वज है\?</string>
-    <string name="astronautTwitterContentDescription">अंतरिक्ष यात्री के ट्विटर पेज से लिंक करने के लिए आइकन</string>
-    <string name="astronautWikiContentDescription">अंतरिक्ष यात्री के विकी पेज से लिंक करने के लिए आइकन</string>
-    <string name="astronautGoogleContentDescription">अंतरिक्ष यात्री के Google खोज पृष्ठ से लिंक करने के लिए आइकन</string>
+    <string name="astronautTwitterContentDescription">अंतरिक्ष यात्रियों के ट्विटर पेज से लिंक करने के लिए आइकन</string>
+    <string name="astronautWikiContentDescription">अंतरिक्ष यात्री विकी पेज से लिंक करने के लिए आइकन</string>
+    <string name="astronautGoogleContentDescription">अंतरिक्ष यात्रियों के Google खोज पृष्ठ से लिंक करने के लिए आइकन</string>
 
     
     <string name="refreshTitle">ताज़ा दर</string>
-    <string name="refreshSummary">वर्तमान ताज़ा दर $1 सेकंड/रीफ्रेश है</string>
+    <string name="refreshSummary">मानचित्र पर आईएसएस स्थान अपडेट करने से पहले का समय</string>
     <string name="declination_unit">सेकंड/रीफ्रेश</string>
     <string name="refreshDialogMessage">आईएसएस के नए स्थान पर अपडेट होने के बीच का समय।</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">दशमलव स्थानों</string>
     <string name="decimalDialogMessage">सभी संख्यात्मक मानों की सटीकता बदलें</string>
-    <string name="decimalSummary">वर्तमान सटीकता स्तर $1 दशमलव स्थानों पर है</string>
+    <string name="decimalSummary">सभी संख्यात्मक मानों की सटीकता बदलें</string>
     <string name="decimalUnit">डी पी</string>
 
     <string name="colorTitle">भविष्यवाणी रेखा का रंग</string>
     <string name="colorSummary">भविष्यवाणी पंक्तियों का रंग बदलें</string>
 
     <string name="sizeTitle">भविष्यवाणी रेखा का आकार</string>
-    <string name="sizeDialogMessage">आईएसएस की भविष्यवाणी रेखा का आकार बदलें</string>
-    <string name="sizeSummary">वर्तमान लाइन का आकार $1 है</string>
+    <string name="sizeDialogMessage">आईएसएस पूर्वानुमान रेखा का आकार बदलें</string>
+    <string name="sizeSummary">आईएसएस पूर्वानुमान रेखा का आकार बदलें</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">टेक्स्ट का साइज़</string>
-    <string name="textSizeDialogMessage">सभी टेक्स्ट मानों का आकार बदलें</string>
-    <string name="textSizeSummary">वर्तमान पाठ का आकार $1 है</string>
+    <string name="textSizeDialogMessage">मानचित्र पर सभी पाठ मानों का आकार बदलें</string>
+    <string name="textSizeSummary">मानचित्र पर सभी पाठ मानों का आकार बदलें</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">पाठ का रंग</string>
@@ -126,13 +96,15 @@
     <string name="errorPermissionLocation">आपके स्थान तक पहुंच से इनकार कर दिया गया</string>
     <string name="errorConnection">या तो आपके पास कोई कनेक्शन नहीं है या सर्वर अतिभारित है।</string>
     <string name="errorNetwork">एक अज्ञात त्रुटि हुई है। त्रुटि: 401</string>
-    <string name="errorMap">मानचित्र पर सेटिंग लागू नहीं की जा सकती</string>
+    <string name="errorMap">मानचित्र पर सेटिंग लागू नहीं कर सकते</string>
     <string name="errorFiveTimes">सभी 5 बार असफल रहे. या तो आपके पास कोई कनेक्शन नहीं है या सर्वर अतिभारित है।</string>
-    <string name="errorLessFive">सर्वर से अनुरोध विफल रहा. 5 में से %1$d। %2$d सेकंड में प्रयास कर रहा हूँ।</string>
+    <string name="errorLessFive">सर्वर से अनुरोध विफल रहा. पुनः प्रयास किया जा रहा है...</string>
     <string name="errorWaitPoly">पहले से ही भविष्यवाणी पंक्तियाँ बना रहा हूँ</string>
     <string name="errorNotByMe">आईएसएस अधिसूचना आपके द्वारा नहीं रोकी गई थी।</string>
     <string name="errorNoWiki">विकी पेज नहीं है</string>
     <string name="errorNoTwitter">ट्विटर अकाउंट नहीं है</string>
+    <string name="errorNoInstagram">इंस्टाग्राम अकाउंट नहीं है</string>
+    <string name="errorNoFacebook">फेसबुक अकाउंट नहीं है</string>
     <string name="data_corrupted">ऐप डेटा दूषित है. रीसेट हो रहा है!</string>
     <string name="polyError">पूर्वानुमान पंक्ति बनाने में असमर्थ</string>
     <string name="calendar">पंचांग</string>
@@ -140,7 +112,7 @@
     <string name="image_content">उपयोगकर्ता स्थान के लिए मार्कर के साथ मानचित्र की छवि।</string>
     <string name="iss_sighting_share_title">आईएसएस साइटिंग</string>
     <string name="iss_sighting_share_description">यहां आईएसएस दिखेगा. इसकी जाँच करने जा रहा हूँ!</string>
-    <string name="iss_sighting_share_body">\"इसकी जांच - पड़ताल करें!\n\nआईएसएस \"पर दिखाई देगा</string>
+    <string name="iss_sighting_share_body">\"इसे जांचें! आईएसएस यहां दिखाई देगा\"</string>
     <string name="iss_sighting_share_chooser">शेयर करना…</string>
     <string name="on">\" पर \"</string>
     <string name="one_day_in_space">अंतरिक्ष में 1 दिन</string>
@@ -148,7 +120,16 @@
     <string name="day">\" दिन\"</string>
     <string name="month">\" महीना\"</string>
     <string name="year">\" वर्ष\"</string>
-    <string name="since">\"तब से \"</string>
+    <string name="since">\"लॉन्च\"</string>
     <string name="tutorial_one_title">सुनो :)</string>
     <string name="tutorial_two_title">मुख्य विशेषताएं</string>
+
+    <string name="license">ओपन सोर्स लाइसेंस</string>
+    <string name="msg_license">यह एप्लिकेशन निम्नलिखित सॉफ़्टवेयर का उपयोग करके बनाया गया है:</string>
+    <string name="msg_about_fork_me_on_github">इसे GitHub पर फोर्क करें</string>
+    <string name="msg_about_library_description">आईएसएस ट्रैकर एक एंड्रॉइड एप्लिकेशन है जो आपको अंतर्राष्ट्रीय अंतरिक्ष स्टेशन की स्थिति को ट्रैक करने और यह पता लगाने की अनुमति देता है कि वर्तमान में कौन से अंतरिक्ष यात्री अंतरिक्ष में हैं।</string>
+    <string name="desc_about_app">इस ऐप के बारे में</string>
+    <string name="msg_get_it_on_play_store">गूगल प्ले से ले लों</string>
+    <string name="version">संस्करणों</string>
+    <string name="version_msg">पिछले परिवर्तनों, सुधारों और अद्यतनों की सूची:</string>
 </resources>

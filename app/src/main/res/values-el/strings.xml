@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Χάρτης</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">Περνώντας από</string>
     <string name="space_title">Στο καθήκον</string>
     <string name="settings_title">Ρυθμίσεις</string>
     <string name="help_title">Βοήθεια</string>
 
     
-    <string name="flybys_summary">Ελέγξτε τα πάσο του ISS από την τοποθεσία σας</string>
+    <string name="flybys_summary">Ελέγξτε πότε θα περάσει ο ISS από την τοποθεσία σας</string>
     <string name="space_summary">Δείτε ποιος είναι στο διάστημα αυτή τη στιγμή</string>
     <string name="settings_summary">Διαχειριστείτε τις γενικές ρυθμίσεις της εφαρμογής</string>
     <string name="help_summary">Βαθμολογήστε ή μάθετε για την εφαρμογή</string>
@@ -20,38 +20,8 @@
     <string name="stream">Ζω</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">πρώτη φορά</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Κανένας</item>
-        <item>Κανονικός</item>
-        <item>Δορυφόρος</item>
-        <item>Εδαφος</item>
-        <item>Υβρίδιο</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">Ποιος είναι στο Διάστημα;</string>
+    <string name="label_people_in_space">Ποιος είναι στο Διάστημα;</string>
     <string name="label_setting">Ρυθμίσεις</string>
     <string name="label_help">Βοήθεια</string>
     <string name="label_stream">Απευθείας μετάδοση</string>
@@ -64,17 +34,17 @@
 
     
     <string name="tutorialOne">Ο χάρτης δείχνει την τρέχουσα τοποθεσία του ISS με μια γραμμή πρόβλεψης για το πού θα βρίσκεται.</string>
-    <string name="tutorialTwo">Το συρτάρι σάς μεταφέρει σε άλλες λειτουργίες, όπως flybys, ρυθμίσεις κ.λπ…</string>
+    <string name="tutorialTwo">Το συρτάρι σάς μεταφέρει σε άλλες δυνατότητες, όπως πόρτες και ρυθμίσεις.</string>
     <string name="midAt">στο</string>
     <string name="checkerContentDescription">Το εικονίδιο αντιπροσωπεύει ότι έχει επιλεγεί ένα διαφανές χρώμα</string>
     <string name="countryFlagContentDescription">Σημαία χώρας από την οποία είναι αυτός ο αστροναύτης</string>
-    <string name="astronautTwitterContentDescription">Εικονίδιο για σύνδεση με τη σελίδα του αστροναύτη στο Twitter</string>
-    <string name="astronautWikiContentDescription">Εικονίδιο για σύνδεση με τη σελίδα wiki του αστροναύτη</string>
-    <string name="astronautGoogleContentDescription">Εικονίδιο για σύνδεση στη σελίδα αναζήτησης Google του αστροναύτη</string>
+    <string name="astronautTwitterContentDescription">Εικονίδιο για σύνδεση με τη σελίδα αστροναυτών στο Twitter</string>
+    <string name="astronautWikiContentDescription">Εικονίδιο για σύνδεση με τη σελίδα wiki αστροναυτών</string>
+    <string name="astronautGoogleContentDescription">Εικονίδιο για σύνδεση με τη σελίδα αναζήτησης Google αστροναυτών</string>
 
     
     <string name="refreshTitle">Ρυθμός ανανέωσης</string>
-    <string name="refreshSummary">Ο τρέχων ρυθμός ανανέωσης είναι $1 δευτερόλεπτο/ανανέωση</string>
+    <string name="refreshSummary">Χρόνος πριν από την ενημέρωση της τοποθεσίας του ISS στο χάρτη</string>
     <string name="declination_unit">δευτερόλεπτο/ανανέωση</string>
     <string name="refreshDialogMessage">Χρόνος μεταξύ της ενημέρωσης του ISS στη νέα του θέση.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">Δεκαδικά ψηφία</string>
     <string name="decimalDialogMessage">Αλλάξτε την ακρίβεια όλων των αριθμητικών τιμών</string>
-    <string name="decimalSummary">Το τρέχον επίπεδο ακρίβειας είναι 1 $ δεκαδικά ψηφία</string>
+    <string name="decimalSummary">Αλλάξτε την ακρίβεια όλων των αριθμητικών τιμών</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Χρώμα γραμμής πρόβλεψης</string>
     <string name="colorSummary">Αλλάξτε το χρώμα των γραμμών πρόβλεψης</string>
 
     <string name="sizeTitle">Μέγεθος γραμμής πρόβλεψης</string>
-    <string name="sizeDialogMessage">Αλλάξτε το μέγεθος της γραμμής πρόβλεψης του ISS</string>
-    <string name="sizeSummary">Το τρέχον μέγεθος γραμμής είναι $1</string>
+    <string name="sizeDialogMessage">Αλλάξτε το μέγεθος της γραμμής πρόβλεψης ISS</string>
+    <string name="sizeSummary">Αλλάξτε το μέγεθος της γραμμής πρόβλεψης ISS</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Μέγεθος κειμένου</string>
-    <string name="textSizeDialogMessage">Αλλάξτε το μέγεθος όλων των τιμών κειμένου</string>
-    <string name="textSizeSummary">Το τρέχον μέγεθος κειμένου είναι $1</string>
+    <string name="textSizeDialogMessage">Αλλάξτε το μέγεθος όλων των τιμών κειμένου στον χάρτη</string>
+    <string name="textSizeSummary">Αλλάξτε το μέγεθος όλων των τιμών κειμένου στον χάρτη</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Χρώμα κειμένου</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">Προέκυψε ένα άγνωστο σφάλμα. Σφάλμα: 401</string>
     <string name="errorMap">Δεν είναι δυνατή η εφαρμογή ρυθμίσεων στον χάρτη</string>
     <string name="errorFiveTimes">Απέτυχε και τις 5 φορές. Είτε δεν έχετε σύνδεση είτε ο διακομιστής είναι υπερφορτωμένος.</string>
-    <string name="errorLessFive">Το αίτημα στον διακομιστή απέτυχε. %1$d από 5. Προσπάθεια σε %2$d δευτερόλεπτα.</string>
+    <string name="errorLessFive">Το αίτημα στον διακομιστή απέτυχε. Επανάληψη…</string>
     <string name="errorWaitPoly">Δημιουργούνται ήδη γραμμές πρόβλεψης</string>
     <string name="errorNotByMe">Η ειδοποίηση ISS δεν διακόπηκε από εσάς.</string>
     <string name="errorNoWiki">δεν έχει σελίδα wiki</string>
-    <string name="errorNoTwitter">δεν έχει λογαριασμό στο twitter</string>
+    <string name="errorNoTwitter">δεν έχει λογαριασμό Twitter</string>
+    <string name="errorNoInstagram">δεν έχει λογαριασμό στο Instagram</string>
+    <string name="errorNoFacebook">δεν έχει λογαριασμό στο Facebook</string>
     <string name="data_corrupted">Τα δεδομένα της εφαρμογής είναι κατεστραμμένα. Επαναφορά!</string>
     <string name="polyError">Δεν είναι δυνατή η δημιουργία γραμμής πρόβλεψης</string>
     <string name="calendar">Ημερολόγιο</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Εικόνα χάρτη με δείκτη για την τοποθεσία του χρήστη.</string>
     <string name="iss_sighting_share_title">Παρατήρηση ISS</string>
     <string name="iss_sighting_share_description">Το ISS θα είναι ορατό εδώ. Πάω να το τσεκάρω!</string>
-    <string name="iss_sighting_share_body">\"Τσέκαρέ το!\n\nΟ ISS θα είναι ορατός στο \"</string>
+    <string name="iss_sighting_share_body">\"Δείτε το! Το ISS θα είναι ορατό στο \"</string>
     <string name="iss_sighting_share_chooser">Μερίδιο…</string>
     <string name="on">\" επί \"</string>
     <string name="one_day_in_space">1 μέρα στο διάστημα</string>
@@ -148,7 +120,16 @@
     <string name="day">\" ημέρα\"</string>
     <string name="month">\"μήνας\"</string>
     <string name="year">\"έτος\"</string>
-    <string name="since">\"Από \"</string>
+    <string name="since">\"Ξεκίνησε\"</string>
     <string name="tutorial_one_title">Γεια σου :)</string>
     <string name="tutorial_two_title">Κύρια χαρακτηριστικά</string>
+
+    <string name="license">Άδειες ανοιχτού κώδικα</string>
+    <string name="msg_license">Αυτή η εφαρμογή έχει κατασκευαστεί χρησιμοποιώντας το ακόλουθο λογισμικό:</string>
+    <string name="msg_about_fork_me_on_github">Διαχωρίστε το στο GitHub</string>
+    <string name="msg_about_library_description">Το ISS Tracker είναι μια εφαρμογή Android που σας επιτρέπει να παρακολουθείτε τη θέση του Διεθνούς Διαστημικού Σταθμού και να μάθετε ποιοι αστροναύτες βρίσκονται αυτή τη στιγμή στο διάστημα.</string>
+    <string name="desc_about_app">Σχετικά με αυτήν την εφαρμογή</string>
+    <string name="msg_get_it_on_play_store">Αποκτήστε το στο Google Play</string>
+    <string name="version">εκδόσεις</string>
+    <string name="version_msg">Λίστα προηγούμενων αλλαγών, διορθώσεων και ενημερώσεων:</string>
 </resources>

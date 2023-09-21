@@ -4,54 +4,24 @@
 
     
     <string name="map_activity">карта</string>
-    <string name="flybys_title">Облеты</string>
+    <string name="flybys_title">Проходя мимо</string>
     <string name="space_title">На службе</string>
     <string name="settings_title">Настройки</string>
     <string name="help_title">Помощь</string>
 
     
-    <string name="flybys_summary">Проверьте пропуска МКС по вашему местоположению</string>
+    <string name="flybys_summary">Проверьте, когда МКС пройдет мимо вашего местоположения</string>
     <string name="space_summary">Посмотрите, кто сейчас в космосе</string>
     <string name="settings_summary">Управление общими настройками приложения</string>
-    <string name="help_summary">Оцените приложение или узнайте о нем</string>
+    <string name="help_summary">Оцените или узнайте о приложении</string>
 
     
     <string name="reset">Обновить строки прогноза</string>
     <string name="stream">Жить</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">первый раз</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Никто</item>
-        <item>Нормальный</item>
-        <item>спутник</item>
-        <item>Местность</item>
-        <item>Гибридный</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Облеты</string>
-    <string name="label_peopleinspace">Кто в космосе\?</string>
+    <string name="label_people_in_space">Кто в космосе\?</string>
     <string name="label_setting">Настройки</string>
     <string name="label_help">Помощь</string>
     <string name="label_stream">Прямая трансляция</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">Баннерная реклама включена. Спасибо за поддержку ;)</string>
 
     
-    <string name="tutorialOne">Карта показывает текущее местоположение МКС с прогнозируемой линией того, где она будет.</string>
-    <string name="tutorialTwo">Drawer перенесет вас к другим функциям, таким как пролёты, настройки и т. д.</string>
+    <string name="tutorialOne">Карта показывает текущее местоположение МКС с линией прогноза того, где она будет.</string>
+    <string name="tutorialTwo">Drawer перенесет вас к другим функциям, таким как пролёты и настройки.</string>
     <string name="midAt">в</string>
     <string name="checkerContentDescription">Значок означает, что выбран прозрачный цвет.</string>
     <string name="countryFlagContentDescription">Флаг страны, из которой родом этот космонавт</string>
-    <string name="astronautTwitterContentDescription">Значок для ссылки на страницу космонавта в Твиттере.</string>
-    <string name="astronautWikiContentDescription">Значок для ссылки на вики-страницу астронавта</string>
-    <string name="astronautGoogleContentDescription">Значок для ссылки на страницу поиска космонавта в Google.</string>
+    <string name="astronautTwitterContentDescription">Значок ссылки на страницу космонавтов в Твиттере</string>
+    <string name="astronautWikiContentDescription">Значок для ссылки на вики-страницу астронавтов</string>
+    <string name="astronautGoogleContentDescription">Значок для ссылки на страницу поиска Google для астронавтов</string>
 
     
     <string name="refreshTitle">Частота обновления</string>
-    <string name="refreshSummary">Текущая частота обновления составляет 1 сек./обновление.</string>
+    <string name="refreshSummary">Количество времени до обновления местоположения МКС на карте.</string>
     <string name="declination_unit">сек/обновить</string>
     <string name="refreshDialogMessage">Время между обновлением МКС до нового местоположения.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">Десятичные знаки</string>
     <string name="decimalDialogMessage">Изменение точности всех числовых значений</string>
-    <string name="decimalSummary">Текущий уровень точности составляет 1 доллар после запятой.</string>
+    <string name="decimalSummary">Изменение точности всех числовых значений</string>
     <string name="decimalUnit">дп</string>
 
     <string name="colorTitle">Цвет линии прогноза</string>
     <string name="colorSummary">Изменение цвета линий прогнозирования</string>
 
     <string name="sizeTitle">Размер линии прогноза</string>
-    <string name="sizeDialogMessage">Изменить размер линии предсказания МКС</string>
-    <string name="sizeSummary">Текущий размер строки составляет 1 доллар США.</string>
+    <string name="sizeDialogMessage">Изменить размер линии прогнозирования ISS</string>
+    <string name="sizeSummary">Изменить размер линии прогнозирования ISS</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Размер текста</string>
-    <string name="textSizeDialogMessage">Изменение размера всех текстовых значений</string>
-    <string name="textSizeSummary">Текущий размер текста – 1 доллар США.</string>
+    <string name="textSizeDialogMessage">Изменить размер всех текстовых значений на карте</string>
+    <string name="textSizeSummary">Изменить размер всех текстовых значений на карте</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Цвет текста</string>
@@ -126,13 +96,15 @@
     <string name="errorPermissionLocation">Отказано в доступе к вашему местоположению</string>
     <string name="errorConnection">Либо у вас нет соединения, либо сервер перегружен.</string>
     <string name="errorNetwork">Произошла неизвестная ошибка. Ошибка: 401</string>
-    <string name="errorMap">Не могу применить настройки к карте</string>
+    <string name="errorMap">Невозможно применить настройки к карте</string>
     <string name="errorFiveTimes">Все 5 раз не получилось. Либо у вас нет соединения, либо сервер перегружен.</string>
-    <string name="errorLessFive">Запрос на сервер не удался. %1$d из 5. Попытка через %2$d секунд.</string>
+    <string name="errorLessFive">Запрос на сервер не удался. Повторная попытка…</string>
     <string name="errorWaitPoly">Линии прогнозирования уже созданы</string>
     <string name="errorNotByMe">Уведомление ISS не было остановлено вами.</string>
     <string name="errorNoWiki">не имеет вики-страницы</string>
-    <string name="errorNoTwitter">у него нет аккаунта в твиттере</string>
+    <string name="errorNoTwitter">не имеет аккаунта в Твиттере</string>
+    <string name="errorNoInstagram">не имеет аккаунта в Instagram</string>
+    <string name="errorNoFacebook">не имеет учетной записи Facebook</string>
     <string name="data_corrupted">Данные приложения повреждены. Сброс!</string>
     <string name="polyError">Невозможно создать линию прогнозирования</string>
     <string name="calendar">Календарь</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Изображение карты с маркером местоположения пользователя.</string>
     <string name="iss_sighting_share_title">МКС</string>
     <string name="iss_sighting_share_description">Здесь будет видна МКС. Собираюсь это проверить!</string>
-    <string name="iss_sighting_share_body">«Проверьте это!\n\nМКС будет видна на расстоянии \"</string>
+    <string name="iss_sighting_share_body">\"Посмотрите! МКС будет видна в \"</string>
     <string name="iss_sighting_share_chooser">Делиться…</string>
     <string name="on">\" на \"</string>
     <string name="one_day_in_space">1 день в космосе</string>
@@ -148,7 +120,16 @@
     <string name="day">\" день\"</string>
     <string name="month">\" месяц\"</string>
     <string name="year">\" год\"</string>
-    <string name="since">\"С \"</string>
+    <string name="since">«Запущен»</string>
     <string name="tutorial_one_title">Привет :)</string>
     <string name="tutorial_two_title">Основные характеристики</string>
+
+    <string name="license">Лицензии с открытым исходным кодом</string>
+    <string name="msg_license">Это приложение создано с использованием следующего программного обеспечения:</string>
+    <string name="msg_about_fork_me_on_github">Форкните его на GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker — приложение для Android, позволяющее отслеживать положение Международной космической станции и узнавать, какие космонавты сейчас находятся в космосе.</string>
+    <string name="desc_about_app">Об этом приложении</string>
+    <string name="msg_get_it_on_play_store">Загрузите его в Google Play</string>
+    <string name="version">Версии</string>
+    <string name="version_msg">Список предыдущих изменений, исправлений и обновлений:</string>
 </resources>

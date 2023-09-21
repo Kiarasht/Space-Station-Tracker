@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">מאַפּע</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">גייט פארביי</string>
     <string name="space_title">אויף פליכט</string>
     <string name="settings_title">סעטטינגס</string>
     <string name="help_title">הילף</string>
 
     
-    <string name="flybys_summary">קוק די פּאַסיז פון ISS דורך דיין אָרט</string>
+    <string name="flybys_summary">קוק ווען ISS וועט פאָרן דורך דיין אָרט</string>
     <string name="space_summary">זען ווער איז אין פּלאַץ רעכט איצט</string>
     <string name="settings_summary">פירן אַלגעמיינע אַפּ סעטטינגס</string>
     <string name="help_summary">קורס אָדער לערנען וועגן די אַפּ</string>
@@ -20,38 +20,8 @@
     <string name="stream">לעבן</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">ערשטע מאל</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>קיינער</item>
-        <item>נאָרמאַל</item>
-        <item>סאַטעליט</item>
-        <item>טעריין</item>
-        <item>היבריד</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">ווער איז אין ספעיס\?</string>
+    <string name="label_people_in_space">ווער איז אין ספעיס\?</string>
     <string name="label_setting">סעטטינגס</string>
     <string name="label_help">הילף</string>
     <string name="label_stream">לעבן סטרים</string>
@@ -64,17 +34,17 @@
 
     
     <string name="tutorialOne">מאַפּע ווייזט די קראַנט אָרט פון ISS מיט אַ פאָרויסזאָגן שורה פון ווו עס וועט זיין.</string>
-    <string name="tutorialTwo">שופלאָד נעמט איר צו אנדערע פֿעיִקייטן אַזאַ ווי פליביז, סעטטינגס, עטק ...</string>
+    <string name="tutorialTwo">שופלאָד נעמט איר צו אנדערע פֿעיִקייטן אַזאַ ווי פלייביז און סעטטינגס.</string>
     <string name="midAt">בייַ</string>
     <string name="checkerContentDescription">ייקאַן רעפּראַזענץ אַז אַ טראַנספּעראַנט קאָליר איז פּיקט</string>
     <string name="countryFlagContentDescription">לאַנד פאָן פון דעם אַסטראָנאַווט</string>
-    <string name="astronautTwitterContentDescription">ייקאַן צו לינק צו אַסטראָנאַווט ס טוויטטער בלאַט</string>
-    <string name="astronautWikiContentDescription">ייקאַן צו לינק צו אַסטראָנאַווט ס וויקי בלאַט</string>
-    <string name="astronautGoogleContentDescription">ייקאַן צו לינק צו אַסטראָנאַווט ס Google זוכן בלאַט</string>
+    <string name="astronautTwitterContentDescription">ייקאַן צו לינק צו אַסטראָנאַוץ טוויטטער בלאַט</string>
+    <string name="astronautWikiContentDescription">ייקאַן צו לינק צו אַסטראָנאַוץ וויקי בלאַט</string>
+    <string name="astronautGoogleContentDescription">ייקאַן צו לינק צו אַסטראָנאַוץ Google זוכן בלאַט</string>
 
     
     <string name="refreshTitle">דערפרישן קורס</string>
-    <string name="refreshSummary">דער דערפרישן קורס איז $ 1 סעק /דערפרישן</string>
+    <string name="refreshSummary">צייט איידער דערהייַנטיקונגען ISS אָרט אויף מאַפּע</string>
     <string name="declination_unit">סעק /דערפרישן</string>
     <string name="refreshDialogMessage">צייט צווישן ISS באַקומען דערהייַנטיקט צו זיין נייַע אָרט.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">דעצימאַל ערטער</string>
     <string name="decimalDialogMessage">טוישן די אַקיעראַסי פון אַלע נומעריקאַל וואַלועס</string>
-    <string name="decimalSummary">די איצטיקע אַקיעראַסי מדרגה איז ביי $ 1 דעצימאַל ערטער</string>
+    <string name="decimalSummary">טוישן די אַקיעראַסי פון אַלע נומעריקאַל וואַלועס</string>
     <string name="decimalUnit">דפּ</string>
 
     <string name="colorTitle">פּראָגנאָז שורה קאָליר</string>
     <string name="colorSummary">טוישן די קאָליר פון פּראָגנאָז שורות</string>
 
     <string name="sizeTitle">פּראָגנאָז שורה גרייס</string>
-    <string name="sizeDialogMessage">טוישן די גרייס פון די פאָרויסזאָגן שורה פון ISS</string>
-    <string name="sizeSummary">די איצטיקע שורה גרייס איז $1</string>
+    <string name="sizeDialogMessage">טוישן די גרייס פון די פּראָגנאָז שורה פון ISS</string>
+    <string name="sizeSummary">טוישן די גרייס פון די פּראָגנאָז שורה פון ISS</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">טעקסט גרייס</string>
-    <string name="textSizeDialogMessage">טוישן די גרייס פון אַלע טעקסט וואַלועס</string>
-    <string name="textSizeSummary">די איצטיקע טעקסט גרייס איז $1</string>
+    <string name="textSizeDialogMessage">טוישן די גרייס פון אַלע טעקסט וואַלועס אויף מאַפּע</string>
+    <string name="textSizeSummary">טוישן די גרייס פון אַלע טעקסט וואַלועס אויף מאַפּע</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">טעקסט קאָליר</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">אַן אומבאַקאַנט טעות איז פארגעקומען. טעות: 401</string>
     <string name="errorMap">קענען ניט צולייגן סעטטינגס צו מאַפּע</string>
     <string name="errorFiveTimes">דורכפאַל אַלע 5 מאל. אָדער איר האָבן קיין קשר אָדער סערווער איז אָוווערלאָודיד.</string>
-    <string name="errorLessFive">בעטן צו סערווער איז ניט אַנדערש. %1$d פון 5. פּרוּווט אין %2$d סעקונדעס.</string>
+    <string name="errorLessFive">בעטן צו סערווער איז ניט אַנדערש. פרובירט ווידער...</string>
     <string name="errorWaitPoly">שוין קריייטינג פּראָגנאָז שורות</string>
     <string name="errorNotByMe">ISS נאָטיפיקאַטיאָן איז נישט סטאַפּט דורך איר.</string>
     <string name="errorNoWiki">האט נישט קיין וויקי בלאט</string>
     <string name="errorNoTwitter">טוט נישט האָבן אַ טוויטטער חשבון</string>
+    <string name="errorNoInstagram">טוט נישט האָבן אַ ינסטאַגראַם חשבון</string>
+    <string name="errorNoFacebook">טוט נישט האָבן אַ Facebook חשבון</string>
     <string name="data_corrupted">אַפּ דאַטן איז פארדארבן. רעסעטטינג!</string>
     <string name="polyError">ניט געקענט צו שאַפֿן פּראָגנאָז שורה</string>
     <string name="calendar">קאַלענדאַר</string>
@@ -140,7 +112,7 @@
     <string name="image_content">בילד פון אַ מאַפּע מיט אַ מאַרקער פֿאַר באַניצער אָרט.</string>
     <string name="iss_sighting_share_title">ISS סייטינג</string>
     <string name="iss_sighting_share_description">ISS וועט זיין קענטיק דאָ. גיי צו קאָנטראָלירן עס!</string>
-    <string name="iss_sighting_share_body">\"קוק עס דורך!\n\nISS וועט זיין קענטיק אין \"</string>
+    <string name="iss_sighting_share_body">\"קוק עס אויס! ISS וועט זיין קענטיק אין\"</string>
     <string name="iss_sighting_share_chooser">ייַנטיילן…</string>
     <string name="on">\"אויף\"</string>
     <string name="one_day_in_space">1 טאָג אין פּלאַץ</string>
@@ -148,7 +120,16 @@
     <string name="day">\"טאָג\"</string>
     <string name="month">\"חודש\"</string>
     <string name="year">\"יאָר\"</string>
-    <string name="since">\"זינט\"</string>
+    <string name="since">\"געהויבן\"</string>
     <string name="tutorial_one_title">א גוטן :)</string>
     <string name="tutorial_two_title">הויפּט פֿעיִקייטן</string>
+
+    <string name="license">עפֿענען מקור לייסאַנסיז</string>
+    <string name="msg_license">די אַפּלאַקיישאַן איז קאַנסטראַקטאַד מיט די פאלגענדע ווייכווארג:</string>
+    <string name="msg_about_fork_me_on_github">פאָרלייגן עס אויף GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker איז אַן אַנדרויד אַפּלאַקיישאַן אַז אַלאַוז איר צו שפּור די שטעלע פון ​​די ינטערנאַטיאָנאַל ספעיס סטאנציע און געפֿינען וואָס אַסטראַנאָץ זענען איצט אין פּלאַץ.</string>
+    <string name="desc_about_app">וועגן דעם אַפּ</string>
+    <string name="msg_get_it_on_play_store">באַקומען עס אויף Google פּלייַ</string>
+    <string name="version">ווערסיעס</string>
+    <string name="version_msg">רשימה פון פריערדיקע ענדערונגען, פיקסיז און דערהייַנטיקונגען:</string>
 </resources>

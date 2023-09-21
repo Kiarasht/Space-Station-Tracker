@@ -56,10 +56,6 @@ public class Preferences extends AppCompatActivity {
      */
     public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
         private SharedPreferences mSharedPreferences;
-        private SeekBarPreference mRefreshRate;
-        private SeekBarPreference mPredictionSize;
-        private SeekBarPreference mDecimalPlaces;
-        private SeekBarPreference mTextSize;
         private Context mContext;
         private Activity mActivity;
 
@@ -76,17 +72,6 @@ public class Preferences extends AppCompatActivity {
             mActivity = getActivity();
             mContext = mActivity.getApplicationContext();
             mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
-            PreferenceScreen mPreferenceScreen = getPreferenceScreen();
-
-            // Enable seekbars
-            mRefreshRate = (SeekBarPreference) mPreferenceScreen.findPreference("refresh_Rate");
-            mRefreshRate.setSummary(this.getString(R.string.refreshSummary).replace("$1", "" + (mSharedPreferences.getInt("refresh_Rate", 9) + 1)));
-            mPredictionSize = (SeekBarPreference) mPreferenceScreen.findPreference("sizeType");
-            mPredictionSize.setSummary(this.getString(R.string.sizeSummary).replace("$1", "" + mSharedPreferences.getInt("sizeType", 5)));
-            mDecimalPlaces = (SeekBarPreference) mPreferenceScreen.findPreference("decimalType");
-            mDecimalPlaces.setSummary(this.getString(R.string.decimalSummary).replace("$1", "" + mSharedPreferences.getInt("decimalType", 3)));
-            mTextSize = (SeekBarPreference) mPreferenceScreen.findPreference("textSizeType");
-            mTextSize.setSummary(this.getString(R.string.textSizeSummary).replace("$1", "" + mSharedPreferences.getInt("textSizeType", 12)));
             mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
             //mPreferenceScreen.findPreference("notification_ISS").setOnPreferenceClickListener(this);
         }
@@ -156,30 +141,8 @@ public class Preferences extends AppCompatActivity {
             return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || mContext.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
         }
 
-        /**
-         * Handle any preference changes. In this case we use this listener for our seekbars.
-         *
-         * @param sharedPreferences The incoming preference that was changed.
-         * @param key               The key corresponding to the preference that was changed.
-         */
         @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            switch (key) {
-                case "refresh_Rate":
-                    mRefreshRate.setSummary(this.getString(R.string.refreshSummary).replace("$1", "" + (mSharedPreferences.getInt("refresh_Rate", 9) + 1)));
-                    break;
-                case "sizeType":
-                    mPredictionSize.setSummary(this.getString(R.string.sizeSummary).replace("$1", "" + mSharedPreferences.getInt("sizeType", 5)));
-                    break;
-                case "decimalType":
-                    mDecimalPlaces.setSummary(this.getString(R.string.decimalSummary).replace("$1", "" + mSharedPreferences.getInt("decimalType", 3)));
-                    break;
-                case "textSizeType":
-                    mTextSize.setSummary(this.getString(R.string.textSizeSummary).replace("$1", "" + mSharedPreferences.getInt("textSizeType", 12)));
-                default:
-                    break;
-            }
-        }
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) { }
 
         /**
          * Called when a Preference has been clicked.

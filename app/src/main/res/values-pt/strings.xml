@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Mapa</string>
-    <string name="flybys_title">Sobrevôos</string>
+    <string name="flybys_title">Passando por</string>
     <string name="space_title">Em serviço</string>
     <string name="settings_title">Configurações</string>
     <string name="help_title">Ajuda</string>
 
     
-    <string name="flybys_summary">Verifique os passes da ISS pela sua localização</string>
+    <string name="flybys_summary">Verifique quando a ISS passará pela sua localização</string>
     <string name="space_summary">Veja quem está no espaço agora</string>
     <string name="settings_summary">Gerenciar configurações gerais do aplicativo</string>
     <string name="help_summary">Avalie ou aprenda sobre o aplicativo</string>
@@ -20,38 +20,8 @@
     <string name="stream">Ao vivo</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">primeira vez</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Nenhum</item>
-        <item>Normal</item>
-        <item>Satélite</item>
-        <item>Terreno</item>
-        <item>Híbrido</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
-    <string name="label_location">Sobrevôos</string>
-    <string name="label_peopleinspace">Quem está no espaço\?</string>
+    <string name="label_location">Sobrevoos</string>
+    <string name="label_people_in_space">Quem está no espaço\?</string>
     <string name="label_setting">Configurações</string>
     <string name="label_help">Ajuda</string>
     <string name="label_stream">Transmissão ao vivo</string>
@@ -64,17 +34,17 @@
 
     
     <string name="tutorialOne">O mapa mostra a localização atual da ISS com uma linha de previsão de onde ela estará.</string>
-    <string name="tutorialTwo">O Drawer leva você para outros recursos, como sobrevôos, configurações, etc.</string>
+    <string name="tutorialTwo">O Drawer leva você a outros recursos, como sobrevoos e configurações.</string>
     <string name="midAt">no</string>
     <string name="checkerContentDescription">O ícone representa que uma cor transparente foi escolhida</string>
     <string name="countryFlagContentDescription">Bandeira do país de onde este astronauta é</string>
-    <string name="astronautTwitterContentDescription">Ícone para vincular à página do Twitter do astronauta</string>
-    <string name="astronautWikiContentDescription">Ícone para vincular à página wiki do astronauta</string>
-    <string name="astronautGoogleContentDescription">Ícone para vincular à página de pesquisa do astronauta no Google</string>
+    <string name="astronautTwitterContentDescription">Ícone para vincular à página do Twitter dos astronautas</string>
+    <string name="astronautWikiContentDescription">Ícone para vincular à página wiki dos astronautas</string>
+    <string name="astronautGoogleContentDescription">Ícone para vincular à página de pesquisa de astronautas no Google</string>
 
     
     <string name="refreshTitle">Taxa de atualização</string>
-    <string name="refreshSummary">A taxa de atualização atual é de US$ 1 segundo/atualização</string>
+    <string name="refreshSummary">Quantidade de tempo antes de atualizar a localização da ISS no mapa</string>
     <string name="declination_unit">seg/atualizar</string>
     <string name="refreshDialogMessage">Tempo entre a atualização da ISS para sua nova localização.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">Casas decimais</string>
     <string name="decimalDialogMessage">Altere a precisão de todos os valores numéricos</string>
-    <string name="decimalSummary">O nível de precisão atual é de US$ 1 casa decimal</string>
+    <string name="decimalSummary">Altere a precisão de todos os valores numéricos</string>
     <string name="decimalUnit">DP</string>
 
     <string name="colorTitle">Cor da linha de previsão</string>
     <string name="colorSummary">Alterar a cor das linhas de previsão</string>
 
     <string name="sizeTitle">Tamanho da linha de previsão</string>
-    <string name="sizeDialogMessage">Alterar o tamanho da linha de previsão da ISS</string>
-    <string name="sizeSummary">O tamanho atual da linha é de US$ 1</string>
+    <string name="sizeDialogMessage">Alterar o tamanho da linha de previsão de ISSs</string>
+    <string name="sizeSummary">Alterar o tamanho da linha de previsão de ISSs</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Tamanho do texto</string>
-    <string name="textSizeDialogMessage">Alterar o tamanho de todos os valores de texto</string>
-    <string name="textSizeSummary">O tamanho atual do texto é $ 1</string>
+    <string name="textSizeDialogMessage">Altere o tamanho de todos os valores de texto no mapa</string>
+    <string name="textSizeSummary">Altere o tamanho de todos os valores de texto no mapa</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Cor do texto</string>
@@ -128,19 +98,21 @@
     <string name="errorNetwork">Um erro desconhecido ocorreu. Erro: 401</string>
     <string name="errorMap">Não é possível aplicar configurações ao mapa</string>
     <string name="errorFiveTimes">Falhou todas as 5 vezes. Ou você não tem conexão ou o servidor está sobrecarregado.</string>
-    <string name="errorLessFive">Falha na solicitação ao servidor. %1$d de 5. Tentando em %2$d segundos.</string>
+    <string name="errorLessFive">Falha na solicitação ao servidor. Tentando novamente…</string>
     <string name="errorWaitPoly">Já criando linhas de previsão</string>
-    <string name="errorNotByMe">A notificação da ISS não foi interrompida por você.</string>
+    <string name="errorNotByMe">A notificação do ISS não foi interrompida por você.</string>
     <string name="errorNoWiki">não tem uma página wiki</string>
-    <string name="errorNoTwitter">não tem conta no Twitter</string>
+    <string name="errorNoTwitter">não tem uma conta no Twitter</string>
+    <string name="errorNoInstagram">não tem conta no Instagram</string>
+    <string name="errorNoFacebook">não tem conta no Facebook</string>
     <string name="data_corrupted">Os dados do aplicativo estão corrompidos. Reiniciando!</string>
     <string name="polyError">Não foi possível criar a linha de previsão</string>
     <string name="calendar">Calendário</string>
     <string name="share">Compartilhar</string>
     <string name="image_content">Imagem de um mapa com um marcador para localização do usuário.</string>
     <string name="iss_sighting_share_title">Avistamento da ISS</string>
-    <string name="iss_sighting_share_description">O ISS estará visível aqui. Vou conferir!</string>
-    <string name="iss_sighting_share_body">\"Confira!\n\nO ISS estará visível em \"</string>
+    <string name="iss_sighting_share_description">A ISS estará visível aqui. Vou conferir!</string>
+    <string name="iss_sighting_share_body">\"Confira! A ISS estará visível em \"</string>
     <string name="iss_sighting_share_chooser">Compartilhar…</string>
     <string name="on">\" sobre \"</string>
     <string name="one_day_in_space">1 dia no espaço</string>
@@ -148,7 +120,16 @@
     <string name="day">\" dia\"</string>
     <string name="month">\" mês\"</string>
     <string name="year">\" ano\"</string>
-    <string name="since">\"Desde \"</string>
+    <string name="since">\"Lançado\"</string>
     <string name="tutorial_one_title">Ei :)</string>
     <string name="tutorial_two_title">Principais características</string>
+
+    <string name="license">Licenças de código aberto</string>
+    <string name="msg_license">Este aplicativo é construído usando o seguinte software:</string>
+    <string name="msg_about_fork_me_on_github">Faça um fork no GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker é um aplicativo Android que permite rastrear a posição da Estação Espacial Internacional e descobrir quais astronautas estão atualmente no espaço.</string>
+    <string name="desc_about_app">Sobre este aplicativo</string>
+    <string name="msg_get_it_on_play_store">Obtê-lo no Google Play</string>
+    <string name="version">Versões</string>
+    <string name="version_msg">Lista de alterações, correções e atualizações anteriores:</string>
 </resources>

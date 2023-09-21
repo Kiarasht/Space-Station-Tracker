@@ -1,16 +1,16 @@
 <resources>
     
-    <string name="app_name">Gjurmues ISS</string>
+    <string name="app_name">Gjurmuesi ISS</string>
 
     
     <string name="map_activity">Harta</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">Duke kaluar nga</string>
     <string name="space_title">Ne detyre</string>
     <string name="settings_title">Cilësimet</string>
     <string name="help_title">Ndihmë</string>
 
     
-    <string name="flybys_summary">Kontrolloni lejet e ISS pranë vendndodhjes tuaj</string>
+    <string name="flybys_summary">Kontrolloni kur ISS do të kalojë pranë vendndodhjes tuaj</string>
     <string name="space_summary">Shihni kush është në hapësirë ​​tani</string>
     <string name="settings_summary">Menaxho cilësimet e përgjithshme të aplikacionit</string>
     <string name="help_summary">Vlerësoni ose mësoni rreth aplikacionit</string>
@@ -20,38 +20,8 @@
     <string name="stream">Jetoni</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">hera e parë</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Asnje</item>
-        <item>Normale</item>
-        <item>Satelitor</item>
-        <item>Terreni</item>
-        <item>Hibrid</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">Kush është në hapësirë\?</string>
+    <string name="label_people_in_space">Kush është në hapësirë\?</string>
     <string name="label_setting">Cilësimet</string>
     <string name="label_help">Ndihmë</string>
     <string name="label_stream">Transmetim i drejtpërdrejtë</string>
@@ -64,17 +34,17 @@
 
     
     <string name="tutorialOne">Harta tregon vendndodhjen aktuale të ISS me një linjë parashikimi se ku do të jetë.</string>
-    <string name="tutorialTwo">Sirtari ju çon në veçori të tjera si fluturimet, cilësimet, etj…</string>
+    <string name="tutorialTwo">Sirtari ju çon në veçori të tjera si p.sh. fluturimet dhe cilësimet.</string>
     <string name="midAt">në</string>
     <string name="checkerContentDescription">Ikona përfaqëson se është zgjedhur një ngjyrë transparente</string>
     <string name="countryFlagContentDescription">Flamuri i vendit nga është ky astronaut</string>
-    <string name="astronautTwitterContentDescription">Ikona për lidhjen me faqen e astronautit në Twitter</string>
-    <string name="astronautWikiContentDescription">Ikona për t\'u lidhur me faqen wiki të astronautit</string>
-    <string name="astronautGoogleContentDescription">Ikona për t\'u lidhur me faqen e kërkimit të astronautit në Google</string>
+    <string name="astronautTwitterContentDescription">Ikona për lidhjen me faqen e astronautëve në Twitter</string>
+    <string name="astronautWikiContentDescription">Ikona për t\'u lidhur me faqen wiki të astronautëve</string>
+    <string name="astronautGoogleContentDescription">Ikona për t\'u lidhur me faqen e kërkimit të astronautëve në Google</string>
 
     
     <string name="refreshTitle">Shpejtësia e rifreskimit</string>
-    <string name="refreshSummary">Shpejtësia aktuale e rifreskimit është 1 $ sek/rifreskim</string>
+    <string name="refreshSummary">Shuma e kohës përpara përditësimit të vendndodhjes së ISS në hartë</string>
     <string name="declination_unit">sek/rifresko</string>
     <string name="refreshDialogMessage">Koha ndërmjet azhurnimit të ISS në vendndodhjen e tij të re.</string>
 
@@ -89,7 +59,7 @@
 
     <string name="decimalTitle">Vendet dhjetore</string>
     <string name="decimalDialogMessage">Ndryshoni saktësinë e të gjitha vlerave numerike</string>
-    <string name="decimalSummary">Niveli aktual i saktësisë është në 1$ dhjetore</string>
+    <string name="decimalSummary">Ndryshoni saktësinë e të gjitha vlerave numerike</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Ngjyra e linjës së parashikimit</string>
@@ -97,12 +67,12 @@
 
     <string name="sizeTitle">Madhësia e linjës së parashikimit</string>
     <string name="sizeDialogMessage">Ndryshoni madhësinë e linjës së parashikimit të ISS</string>
-    <string name="sizeSummary">Madhësia aktuale e linjës është $1</string>
+    <string name="sizeSummary">Ndryshoni madhësinë e linjës së parashikimit të ISS</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Madhësia e tekstit</string>
-    <string name="textSizeDialogMessage">Ndryshoni madhësinë e të gjitha vlerave të tekstit</string>
-    <string name="textSizeSummary">Madhësia aktuale e tekstit është $1</string>
+    <string name="textSizeDialogMessage">Ndryshoni madhësinë e të gjitha vlerave të tekstit në hartë</string>
+    <string name="textSizeSummary">Ndryshoni madhësinë e të gjitha vlerave të tekstit në hartë</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Ngjyra e tekstit</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">Një gabim i panjohur ka ndodhur. Gabim: 401</string>
     <string name="errorMap">Nuk mund të aplikohen cilësimet në hartë</string>
     <string name="errorFiveTimes">Dështoi të gjitha 5 herë. Ose nuk keni lidhje ose serveri është i mbingarkuar.</string>
-    <string name="errorLessFive">Kërkesa për serverin dështoi. %1$d nga 5. Po provohet për %2$d sekonda.</string>
+    <string name="errorLessFive">Kërkesa për serverin dështoi. Po provon sërish…</string>
     <string name="errorWaitPoly">Tashmë po krijohen linja parashikimi</string>
     <string name="errorNotByMe">Njoftimi ISS nuk u ndal nga ju.</string>
     <string name="errorNoWiki">nuk ka faqe wiki</string>
     <string name="errorNoTwitter">nuk ka një llogari në Twitter</string>
+    <string name="errorNoInstagram">nuk ka një llogari në Instagram</string>
+    <string name="errorNoFacebook">nuk ka një llogari në Facebook</string>
     <string name="data_corrupted">Të dhënat e aplikacionit janë të dëmtuara. Rivendosja!</string>
     <string name="polyError">I paaftë në krijimin e linjës së parashikimit</string>
     <string name="calendar">Kalendari</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Imazhi i një harte me një shënues për vendndodhjen e përdoruesit.</string>
     <string name="iss_sighting_share_title">Shikimi ISS</string>
     <string name="iss_sighting_share_description">ISS do të jetë i dukshëm këtu. Do ta kontrolloni!</string>
-    <string name="iss_sighting_share_body">\"Kontrolloje!\n\nISS do të jetë i dukshëm në \"</string>
+    <string name="iss_sighting_share_body">\"Shikoni! ISS do të jetë i dukshëm në \"</string>
     <string name="iss_sighting_share_chooser">Ndani…</string>
     <string name="on">\"në\"</string>
     <string name="one_day_in_space">1 ditë në hapësirë</string>
@@ -148,7 +120,16 @@
     <string name="day">\"ditë\"</string>
     <string name="month">\" muaj\"</string>
     <string name="year">\"viti\"</string>
-    <string name="since">\"Që\"</string>
+    <string name="since">\"Lancuar\"</string>
     <string name="tutorial_one_title">Çkemi :)</string>
     <string name="tutorial_two_title">Karakteristikat kryesore</string>
+
+    <string name="license">Licencat me burim të hapur</string>
+    <string name="msg_license">Ky aplikacion është ndërtuar duke përdorur softuerin e mëposhtëm:</string>
+    <string name="msg_about_fork_me_on_github">Forkojeni në GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker është një aplikacion android që ju lejon të gjurmoni pozicionin e Stacionit Ndërkombëtar të Hapësirës dhe të zbuloni se çfarë astronautësh janë aktualisht në hapësirë.</string>
+    <string name="desc_about_app">Rreth këtij aplikacioni</string>
+    <string name="msg_get_it_on_play_store">Merre atë në Google Play</string>
+    <string name="version">Versionet</string>
+    <string name="version_msg">Lista e ndryshimeve, rregullimeve dhe përditësimeve të mëparshme:</string>
 </resources>

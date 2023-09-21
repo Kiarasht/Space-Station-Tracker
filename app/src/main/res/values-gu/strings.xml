@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">નકશો</string>
-    <string name="flybys_title">ફ્લાયબાયસ</string>
+    <string name="flybys_title">દ્વારા પસાર</string>
     <string name="space_title">ફરજ પર</string>
     <string name="settings_title">સેટિંગ્સ</string>
     <string name="help_title">મદદ</string>
 
     
-    <string name="flybys_summary">તમારા સ્થાન દ્વારા ISS ના પાસ તપાસો</string>
+    <string name="flybys_summary">ISS તમારા સ્થાન પાસેથી ક્યારે પસાર થશે તે તપાસો</string>
     <string name="space_summary">જુઓ કોણ અત્યારે અવકાશમાં છે</string>
     <string name="settings_summary">સામાન્ય એપ્લિકેશન સેટિંગ્સ મેનેજ કરો</string>
     <string name="help_summary">રેટ કરો અથવા એપ્લિકેશન વિશે જાણો</string>
@@ -20,38 +20,8 @@
     <string name="stream">જીવંત</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">પ્રથમ વખત</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>કોઈ નહિ</item>
-        <item>સામાન્ય</item>
-        <item>ઉપગ્રહ</item>
-        <item>ભૂપ્રદેશ</item>
-        <item>વર્ણસંકર</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">ફ્લાયબાયસ</string>
-    <string name="label_peopleinspace">અવકાશમાં કોણ છે\?</string>
+    <string name="label_people_in_space">અવકાશમાં કોણ છે\?</string>
     <string name="label_setting">સેટિંગ્સ</string>
     <string name="label_help">મદદ</string>
     <string name="label_stream">લાઇવ સ્ટ્રીમ</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">બેનર જાહેરાતો સક્ષમ. આધાર માટે આભાર;)</string>
 
     
-    <string name="tutorialOne">નકશો ISS નું વર્તમાન સ્થાન ક્યાં હશે તેની આગાહી રેખા સાથે બતાવે છે.</string>
-    <string name="tutorialTwo">ડ્રોઅર તમને અન્ય સુવિધાઓ પર લઈ જાય છે જેમ કે ફ્લાયબાય, સેટિંગ્સ વગેરે...</string>
+    <string name="tutorialOne">નકશો ISS વર્તમાન સ્થાન ક્યાં હશે તેની આગાહી રેખા સાથે બતાવે છે.</string>
+    <string name="tutorialTwo">ડ્રોઅર તમને ફ્લાયબાય અને સેટિંગ્સ જેવી અન્ય સુવિધાઓ પર લઈ જાય છે.</string>
     <string name="midAt">ખાતે</string>
     <string name="checkerContentDescription">આયકન દર્શાવે છે કે પારદર્શક રંગ પસંદ કરવામાં આવ્યો છે</string>
     <string name="countryFlagContentDescription">દેશનો ધ્વજ આ અવકાશયાત્રીનો છે</string>
-    <string name="astronautTwitterContentDescription">અવકાશયાત્રીના ટ્વિટર પૃષ્ઠ સાથે લિંક કરવા માટેનું ચિહ્ન</string>
-    <string name="astronautWikiContentDescription">અવકાશયાત્રીના વિકિ પૃષ્ઠને લિંક કરવા માટેનું ચિહ્ન</string>
-    <string name="astronautGoogleContentDescription">અવકાશયાત્રીના Google શોધ પૃષ્ઠને લિંક કરવા માટેનું ચિહ્ન</string>
+    <string name="astronautTwitterContentDescription">અવકાશયાત્રીઓ ટ્વિટર પૃષ્ઠને લિંક કરવા માટેનું ચિહ્ન</string>
+    <string name="astronautWikiContentDescription">અવકાશયાત્રીઓ વિકિ પૃષ્ઠને લિંક કરવા માટેનું ચિહ્ન</string>
+    <string name="astronautGoogleContentDescription">અવકાશયાત્રીઓ Google શોધ પૃષ્ઠને લિંક કરવા માટેનું ચિહ્ન</string>
 
     
     <string name="refreshTitle">તાજું દર</string>
-    <string name="refreshSummary">વર્તમાન રિફ્રેશ રેટ $1 સેકન્ડ/રિફ્રેશ છે</string>
+    <string name="refreshSummary">નકશા પર ISS સ્થાન અપડેટ કરતા પહેલાનો સમય</string>
     <string name="declination_unit">સેકન્ડ/તાજું કરો</string>
     <string name="refreshDialogMessage">ISS તેના નવા સ્થાન પર અપડેટ થવા વચ્ચેનો સમય.</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">દશાંશ સ્થાન</string>
     <string name="decimalDialogMessage">તમામ સંખ્યાત્મક મૂલ્યોની ચોકસાઈ બદલો</string>
-    <string name="decimalSummary">વર્તમાન ચોકસાઈ સ્તર $1 દશાંશ સ્થાને છે</string>
+    <string name="decimalSummary">તમામ સંખ્યાત્મક મૂલ્યોની ચોકસાઈ બદલો</string>
     <string name="decimalUnit">ડીપી</string>
 
     <string name="colorTitle">અનુમાન રેખા રંગ</string>
     <string name="colorSummary">આગાહી રેખાઓનો રંગ બદલો</string>
 
     <string name="sizeTitle">અનુમાન રેખા કદ</string>
-    <string name="sizeDialogMessage">ISS ની આગાહી રેખાનું કદ બદલો</string>
-    <string name="sizeSummary">વર્તમાન લાઇનનું કદ $1 છે</string>
+    <string name="sizeDialogMessage">ISSs આગાહી રેખાનું કદ બદલો</string>
+    <string name="sizeSummary">ISSs આગાહી રેખાનું કદ બદલો</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">ટેક્સ્ટનું કદ</string>
-    <string name="textSizeDialogMessage">તમામ ટેક્સ્ટ મૂલ્યોનું કદ બદલો</string>
-    <string name="textSizeSummary">વર્તમાન ટેક્સ્ટનું કદ $1 છે</string>
+    <string name="textSizeDialogMessage">નકશા પરના તમામ ટેક્સ્ટ મૂલ્યોનું કદ બદલો</string>
+    <string name="textSizeSummary">નકશા પરના તમામ ટેક્સ્ટ મૂલ્યોનું કદ બદલો</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">ટેક્સ્ટનો રંગ</string>
@@ -126,13 +96,15 @@
     <string name="errorPermissionLocation">તમારા સ્થાનની ઍક્સેસ નકારી</string>
     <string name="errorConnection">કાં તો તમારી પાસે કોઈ કનેક્શન નથી અથવા સર્વર ઓવરલોડ થયેલું છે.</string>
     <string name="errorNetwork">એક અજાણી ભૂલ આવી છે. ભૂલ: 401</string>
-    <string name="errorMap">નકશા પર સેટિંગ્સ લાગુ કરી શકતાં નથી</string>
-    <string name="errorFiveTimes">બધી 5 વખત નિષ્ફળ. કાં તો તમારી પાસે કોઈ કનેક્શન નથી અથવા સર્વર ઓવરલોડ થયેલું છે.</string>
-    <string name="errorLessFive">સર્વર માટે વિનંતી નિષ્ફળ. 5 માંથી %1$d. %2$d સેકન્ડમાં પ્રયાસ કરી રહ્યાં છીએ.</string>
+    <string name="errorMap">નકશા પર સેટિંગ્સ લાગુ કરી શકાતી નથી</string>
+    <string name="errorFiveTimes">તમામ 5 વખત નિષ્ફળ. કાં તો તમારી પાસે કોઈ કનેક્શન નથી અથવા સર્વર ઓવરલોડ થયેલું છે.</string>
+    <string name="errorLessFive">સર્વર માટે વિનંતી નિષ્ફળ. ફરી પ્રયાસ કરી રહ્યાં છીએ...</string>
     <string name="errorWaitPoly">પહેલેથી જ આગાહી રેખાઓ બનાવી રહી છે</string>
-    <string name="errorNotByMe">ISS સૂચના તમારા દ્વારા બંધ કરવામાં આવી નથી.</string>
+    <string name="errorNotByMe">ISS સૂચના તમારા દ્વારા અટકાવવામાં આવી ન હતી.</string>
     <string name="errorNoWiki">વિકિ પાનું નથી</string>
     <string name="errorNoTwitter">ટ્વિટર એકાઉન્ટ નથી</string>
+    <string name="errorNoInstagram">ઇન્સ્ટાગ્રામ એકાઉન્ટ નથી</string>
+    <string name="errorNoFacebook">ફેસબુક એકાઉન્ટ નથી</string>
     <string name="data_corrupted">એપ્લિકેશન ડેટા દૂષિત છે. રીસેટ કરી રહ્યું છે!</string>
     <string name="polyError">આગાહી રેખા બનાવવામાં અસમર્થ</string>
     <string name="calendar">કેલેન્ડર</string>
@@ -140,7 +112,7 @@
     <string name="image_content">વપરાશકર્તા સ્થાન માટે માર્કર સાથેના નકશાની છબી.</string>
     <string name="iss_sighting_share_title">ISS સાઇટિંગ</string>
     <string name="iss_sighting_share_description">ISS અહીં દેખાશે. તે તપાસવા જઈ રહ્યા છીએ!</string>
-    <string name="iss_sighting_share_body">\"તપાસી જુઓ!\n\nISS \" પર દેખાશે</string>
+    <string name="iss_sighting_share_body">\"તે તપાસો! ISS \" પર દેખાશે</string>
     <string name="iss_sighting_share_chooser">શેર કરો...</string>
     <string name="on">\"ચાલુ\"</string>
     <string name="one_day_in_space">અવકાશમાં 1 દિવસ</string>
@@ -148,7 +120,16 @@
     <string name="day">\"દિવસ\"</string>
     <string name="month">\" માસ\"</string>
     <string name="year">\"વર્ષ\"</string>
-    <string name="since">\"ત્યારથી \"</string>
+    <string name="since">\"શરૂ \"</string>
     <string name="tutorial_one_title">અરે ત્યાં :)</string>
     <string name="tutorial_two_title">મુખ્ય લક્ષણો</string>
+
+    <string name="license">ઓપન સોર્સ લાઇસન્સ</string>
+    <string name="msg_license">આ એપ્લિકેશન નીચેના સોફ્ટવેરનો ઉપયોગ કરીને બનાવવામાં આવી છે:</string>
+    <string name="msg_about_fork_me_on_github">તેને GitHub પર ફોર્ક કરો</string>
+    <string name="msg_about_library_description">ISS ટ્રેકર એ એક એન્ડ્રોઇડ એપ્લિકેશન છે જે તમને ઇન્ટરનેશનલ સ્પેસ સ્ટેશનની સ્થિતિને ટ્રૅક કરવા અને અવકાશમાં હાલમાં કયા અવકાશયાત્રીઓ છે તે શોધવાની મંજૂરી આપે છે.</string>
+    <string name="desc_about_app">આ એપ્લિકેશન વિશે</string>
+    <string name="msg_get_it_on_play_store">તેને Google Play પર મેળવો</string>
+    <string name="version">આવૃત્તિઓ</string>
+    <string name="version_msg">અગાઉના ફેરફારો, સુધારાઓ અને અપડેટ્સની સૂચિ:</string>
 </resources>

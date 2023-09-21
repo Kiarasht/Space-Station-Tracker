@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Газрын зураг</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">Хажуугаар өнгөрөх</string>
     <string name="space_title">Үүрэгт</string>
     <string name="settings_title">Тохиргоо</string>
     <string name="help_title">Туслаач</string>
 
     
-    <string name="flybys_summary">ОУСС-ын тасалбарыг байршлынхаа дагуу шалгана уу</string>
+    <string name="flybys_summary">ОУСС хэзээ таны байршлаар өнгөрөхийг шалгана уу</string>
     <string name="space_summary">Яг одоо сансарт хэн байгааг хараарай</string>
     <string name="settings_summary">Програмын ерөнхий тохиргоог удирдах</string>
     <string name="help_summary">Аппликешныг үнэлэх эсвэл сурах</string>
@@ -20,38 +20,8 @@
     <string name="stream">Амьд</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">анх удаа</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Байхгүй</item>
-        <item>Ердийн</item>
-        <item>Хиймэл дагуул</item>
-        <item>Газар нутаг</item>
-        <item>Гибрид</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">Сансарт хэн байна вэ\?</string>
+    <string name="label_people_in_space">Сансарт хэн байна вэ\?</string>
     <string name="label_setting">Тохиргоо</string>
     <string name="label_help">Туслаач</string>
     <string name="label_stream">Шууд дамжуулалт</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">Баннер зарыг идэвхжүүлсэн. Дэмжсэнд баярлалаа ;)</string>
 
     
-    <string name="tutorialOne">Газрын зураг нь ОУСС-ын одоогийн байршлыг хаана байхыг урьдчилан таамаглах шугамаар харуулж байна.</string>
-    <string name="tutorialTwo">Шүүгээ нь таныг нислэг, тохиргоо гэх мэт бусад функцууд руу аваачдаг ...</string>
+    <string name="tutorialOne">Газрын зураг нь ОУСС-ын одоогийн байршлыг хаана байхыг таамаглах шугамаар харуулж байна.</string>
+    <string name="tutorialTwo">Шүүгээ нь таныг нислэг, тохиргоо зэрэг бусад функцууд руу аваачдаг.</string>
     <string name="midAt">цагт</string>
     <string name="checkerContentDescription">Дүрс нь ил тод өнгө сонгогдсоныг илэрхийлнэ</string>
     <string name="countryFlagContentDescription">Энэ сансрын нисгэгч улсын туг</string>
-    <string name="astronautTwitterContentDescription">Сансрын нисгэгчийн твиттер хуудас руу холбох дүрс</string>
-    <string name="astronautWikiContentDescription">Сансрын нисгэгчийн вики хуудас руу холбох дүрс</string>
-    <string name="astronautGoogleContentDescription">Сансрын нисгэгчийн Google хайлтын хуудас руу холбох дүрс</string>
+    <string name="astronautTwitterContentDescription">Сансрын нисгэгчдийн твиттер хуудас руу холбох дүрс</string>
+    <string name="astronautWikiContentDescription">Сансрын нисгэгчдийн вики хуудас руу холбох дүрс</string>
+    <string name="astronautGoogleContentDescription">Сансрын нисгэгчдийн Google хайлтын хуудас руу холбох дүрс</string>
 
     
     <string name="refreshTitle">Сэргээх хурд</string>
-    <string name="refreshSummary">Одоогийн сэргээх хурд нь $1 сек/сэргээх</string>
+    <string name="refreshSummary">Газрын зураг дээрх ОУСС-ын байршлыг шинэчлэхээс өмнөх хугацаа</string>
     <string name="declination_unit">сек/шинэчлэх</string>
     <string name="refreshDialogMessage">ОУСС-ыг шинэ байршилдаа шинэчлэх хоорондох хугацаа.</string>
 
@@ -89,7 +59,7 @@
 
     <string name="decimalTitle">Аравтын орон</string>
     <string name="decimalDialogMessage">Бүх тоон утгуудын нарийвчлалыг өөрчлөх</string>
-    <string name="decimalSummary">Одоогийн нарийвчлалын түвшин $1 аравтын оронтой байна</string>
+    <string name="decimalSummary">Бүх тоон утгуудын нарийвчлалыг өөрчлөх</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Урьдчилан таамаглах шугамын өнгө</string>
@@ -97,12 +67,12 @@
 
     <string name="sizeTitle">Урьдчилан таамаглах шугамын хэмжээ</string>
     <string name="sizeDialogMessage">ОУСС-ын таамаглах шугамын хэмжээг өөрчлөх</string>
-    <string name="sizeSummary">Одоогийн мөрийн хэмжээ $1 байна</string>
+    <string name="sizeSummary">ОУСС-ын таамаглах шугамын хэмжээг өөрчлөх</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Текстийн хэмжээ</string>
-    <string name="textSizeDialogMessage">Текстийн бүх утгын хэмжээг өөрчлөх</string>
-    <string name="textSizeSummary">Одоогийн текстийн хэмжээ $1 байна</string>
+    <string name="textSizeDialogMessage">Газрын зураг дээрх бүх текстийн утгын хэмжээг өөрчлөх</string>
+    <string name="textSizeSummary">Газрын зураг дээрх бүх текстийн утгын хэмжээг өөрчлөх</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Текстийн өнгө</string>
@@ -126,13 +96,15 @@
     <string name="errorPermissionLocation">Таны байршилд хандахыг хориглосон</string>
     <string name="errorConnection">Танд холболт байхгүй эсвэл сервер хэт ачаалалтай байна.</string>
     <string name="errorNetwork">Үл мэдэгдэх алдаа гарлаа. Алдаа: 401</string>
-    <string name="errorMap">Газрын зурагт тохиргоо хийх боломжгүй</string>
+    <string name="errorMap">Газрын зурагт тохиргоог ашиглах боломжгүй</string>
     <string name="errorFiveTimes">Бүх 5 удаа бүтэлгүйтсэн. Танд холболт байхгүй эсвэл сервер хэт ачаалалтай байна.</string>
-    <string name="errorLessFive">Серверт хандах хүсэлт амжилтгүй боллоо. 5-аас %1$d. %2$d секундын дараа оролдоно.</string>
+    <string name="errorLessFive">Серверт хандах хүсэлт амжилтгүй боллоо. Дахин оролдож байна...</string>
     <string name="errorWaitPoly">Урьдчилан таамаглах мөрүүдийг аль хэдийн үүсгэж байна</string>
     <string name="errorNotByMe">ОУСС-ын мэдэгдлийг та зогсоосонгүй.</string>
     <string name="errorNoWiki">вики хуудас байхгүй</string>
-    <string name="errorNoTwitter">твиттер хаяггүй</string>
+    <string name="errorNoTwitter">Twitter хаяггүй</string>
+    <string name="errorNoInstagram">Instagram хаяггүй</string>
+    <string name="errorNoFacebook">фэйсбүүк хаяггүй</string>
     <string name="data_corrupted">Аппликешны өгөгдөл эвдэрсэн байна. Дахин тохируулж байна!</string>
     <string name="polyError">Урьдчилан таамаглах мөрийг үүсгэх боломжгүй</string>
     <string name="calendar">Хуанли</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Хэрэглэгчийн байршлын тэмдэглэгээ бүхий газрын зургийн зураг.</string>
     <string name="iss_sighting_share_title">ОУСС-ын ажиглалт</string>
     <string name="iss_sighting_share_description">ОУСС энд харагдах болно. Үүнийг шалгах гэж байна!</string>
-    <string name="iss_sighting_share_body">\"Үүнийг шалгаарай!\n\nОУСС \"д харагдах болно\"</string>
+    <string name="iss_sighting_share_body">\"Үүнийг шалгаарай! ОУСС харагдах болно \"</string>
     <string name="iss_sighting_share_chooser">Хуваалцах...</string>
     <string name="on">\"дээр\"</string>
     <string name="one_day_in_space">Сансарт 1 хоног</string>
@@ -148,7 +120,16 @@
     <string name="day">\"өдөр\"</string>
     <string name="month">\"сар\"</string>
     <string name="year">\"жил\"</string>
-    <string name="since">\"Үүнээс хойш\"</string>
+    <string name="since">\"Эхэлсэн\"</string>
     <string name="tutorial_one_title">Хөөе :)</string>
     <string name="tutorial_two_title">Үндсэн онцлог</string>
+
+    <string name="license">Нээлттэй эхийн лицензүүд</string>
+    <string name="msg_license">Энэхүү програмыг дараах программ хангамжийг ашиглан бүтээв.</string>
+    <string name="msg_about_fork_me_on_github">GitHub дээр сэрээ</string>
+    <string name="msg_about_library_description">ISS Tracker нь олон улсын сансрын станцын байрлалыг хянах, одоогоор сансарт ямар сансрын нисгэгчид байгааг мэдэх боломжийг олгодог андроид програм юм.</string>
+    <string name="desc_about_app">Энэ програмын тухай</string>
+    <string name="msg_get_it_on_play_store">Үүнийг Google Play дээрээс аваарай</string>
+    <string name="version">Хувилбарууд</string>
+    <string name="version_msg">Өмнөх өөрчлөлт, засвар, шинэчлэлтүүдийн жагсаалт:</string>
 </resources>

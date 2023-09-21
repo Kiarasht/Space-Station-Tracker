@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">地図</string>
-    <string name="flybys_title">フライバイ</string>
+    <string name="flybys_title">通りかかっ</string>
     <string name="space_title">勤務中</string>
     <string name="settings_title">設定</string>
     <string name="help_title">ヘルプ</string>
 
     
-    <string name="flybys_summary">現在地に応じて ISS のパスを確認する</string>
+    <string name="flybys_summary">ISS がいつ自分の場所を通過するかを確認する</string>
     <string name="space_summary">今誰が宇宙にいるのかを確認する</string>
     <string name="settings_summary">アプリの一般設定を管理する</string>
     <string name="help_summary">アプリを評価または知る</string>
@@ -20,38 +20,8 @@
     <string name="stream">ライブ</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">初めて</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>なし</item>
-        <item>普通</item>
-        <item>衛星</item>
-        <item>地形</item>
-        <item>ハイブリッド</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">フライバイ</string>
-    <string name="label_peopleinspace">宇宙にいるのは誰ですか\?</string>
+    <string name="label_people_in_space">宇宙にいるのは誰ですか\?</string>
     <string name="label_setting">設定</string>
     <string name="label_help">ヘルプ</string>
     <string name="label_stream">ライブストリーム</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">バナー広告が有効になりました。ご支援ありがとうございます ;）</string>
 
     
-    <string name="tutorialOne">地図には、ISS の現在位置と、ISS がどこに配置されるかを示す予測線が表示されます。</string>
-    <string name="tutorialTwo">ドロワーを使用すると、フライバイ、設定などの他の機能に移動できます。</string>
+    <string name="tutorialOne">地図には、ISS の現在位置と、その位置の予測線が表示されます。</string>
+    <string name="tutorialTwo">ドロワーを使用すると、フライバイや設定などの他の機能に移動できます。</string>
     <string name="midAt">で</string>
     <string name="checkerContentDescription">アイコンは透明な色が選択されたことを表します</string>
     <string name="countryFlagContentDescription">この宇宙飛行士の出身国旗</string>
-    <string name="astronautTwitterContentDescription">宇宙飛行士のTwitterページにリンクするアイコン</string>
+    <string name="astronautTwitterContentDescription">宇宙飛行士のツイッターページにリンクするアイコン</string>
     <string name="astronautWikiContentDescription">宇宙飛行士の Wiki ページにリンクするアイコン</string>
     <string name="astronautGoogleContentDescription">宇宙飛行士の Google 検索ページにリンクするアイコン</string>
 
     
     <string name="refreshTitle">リフレッシュレート</string>
-    <string name="refreshSummary">現在のリフレッシュ レートは 1 秒あたり 1 秒です</string>
+    <string name="refreshSummary">地図上の ISS の位​​置を更新するまでの時間</string>
     <string name="declination_unit">秒/リフレッシュ</string>
     <string name="refreshDialogMessage">ISS が新しい位置に更新されるまでの時間。</string>
 
@@ -89,20 +59,20 @@
 
     <string name="decimalTitle">小数位</string>
     <string name="decimalDialogMessage">すべての数値の精度を変更する</string>
-    <string name="decimalSummary">現在の精度レベルは小数点以下 1 桁です</string>
+    <string name="decimalSummary">すべての数値の精度を変更する</string>
     <string name="decimalUnit">DP</string>
 
     <string name="colorTitle">予測線の色</string>
     <string name="colorSummary">予測線の色を変更する</string>
 
     <string name="sizeTitle">予測線のサイズ</string>
-    <string name="sizeDialogMessage">ISSの予測線のサイズを変更する</string>
-    <string name="sizeSummary">現在の行サイズは $1 です</string>
+    <string name="sizeDialogMessage">ISS 予測線のサイズを変更する</string>
+    <string name="sizeSummary">ISS 予測線のサイズを変更する</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">文字サイズ</string>
-    <string name="textSizeDialogMessage">すべてのテキスト値のサイズを変更する</string>
-    <string name="textSizeSummary">現在のテキスト サイズは $1 です</string>
+    <string name="textSizeDialogMessage">マップ上のすべてのテキスト値のサイズを変更する</string>
+    <string name="textSizeSummary">マップ上のすべてのテキスト値のサイズを変更する</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">テキストの色</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">不明なエラーが発生しました。エラー: 401</string>
     <string name="errorMap">設定をマップに適用できません</string>
     <string name="errorFiveTimes">5回とも失敗。接続がないか、サーバーが過負荷になっています。</string>
-    <string name="errorLessFive">サーバーへのリクエストが失敗しました。 5 つ中 %1$d。%2$d 秒後に試行します。</string>
+    <string name="errorLessFive">サーバーへのリクエストが失敗しました。再試行中…</string>
     <string name="errorWaitPoly">すでに予測線を作成しています</string>
-    <string name="errorNotByMe">ISS 通知はあなたによって停止されたわけではありません。</string>
+    <string name="errorNotByMe">ISS 通知はあなたによって停止されませんでした。</string>
     <string name="errorNoWiki">Wiki ページがありません</string>
-    <string name="errorNoTwitter">ツイッターアカウントを持っていません</string>
+    <string name="errorNoTwitter">Twitterアカウントを持っていません</string>
+    <string name="errorNoInstagram">Instagramアカウントを持っていません</string>
+    <string name="errorNoFacebook">Facebook アカウントを持っていません</string>
     <string name="data_corrupted">アプリのデータが破損しています。リセット中！</string>
     <string name="polyError">予測線を作成できません</string>
     <string name="calendar">カレンダー</string>
@@ -140,7 +112,7 @@
     <string name="image_content">ユーザーの位置を示すマーカーが付いた地図の画像。</string>
     <string name="iss_sighting_share_title">ISSの目撃情報</string>
     <string name="iss_sighting_share_description">ここにISSが見えます。チェックしてみます！</string>
-    <string name="iss_sighting_share_body">\"それをチェックしてください！\n\nISSが見えるのは「」</string>
+    <string name="iss_sighting_share_body">「チェックしてみてください！ ISS が見えます。」</string>
     <string name="iss_sighting_share_chooser">共有…</string>
     <string name="on">\" の上 \"</string>
     <string name="one_day_in_space">宇宙での1日</string>
@@ -148,7 +120,16 @@
     <string name="day">\" 日\"</string>
     <string name="month">\" 月\"</string>
     <string name="year">\" 年\"</string>
-    <string name="since">\"以来 \"</string>
+    <string name="since">「発売しました」</string>
     <string name="tutorial_one_title">ちょっと、そこ ：）</string>
     <string name="tutorial_two_title">主な特徴</string>
+
+    <string name="license">オープンソースライセンス</string>
+    <string name="msg_license">このアプリケーションは次のソフトウェアを使用して構築されています。</string>
+    <string name="msg_about_fork_me_on_github">GitHub でフォークする</string>
+    <string name="msg_about_library_description">ISS Tracker は、国際宇宙ステーションの位置を追跡し、現在宇宙にいる宇宙飛行士を見つけることができる Android アプリケーションです。</string>
+    <string name="desc_about_app">このアプリについて</string>
+    <string name="msg_get_it_on_play_store">Google Playで入手する</string>
+    <string name="version">バージョン</string>
+    <string name="version_msg">以前の変更、修正、更新のリスト:</string>
 </resources>

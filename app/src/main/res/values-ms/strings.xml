@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Peta</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">Melewati</string>
     <string name="space_title">Bertugas</string>
     <string name="settings_title">tetapan</string>
     <string name="help_title">Tolong</string>
 
     
-    <string name="flybys_summary">Semak pas ISS mengikut lokasi anda</string>
+    <string name="flybys_summary">Semak bila ISS akan melalui lokasi anda</string>
     <string name="space_summary">Lihat siapa yang berada di angkasa sekarang</string>
     <string name="settings_summary">Urus tetapan apl umum</string>
     <string name="help_summary">Nilai atau pelajari tentang apl</string>
@@ -20,38 +20,8 @@
     <string name="stream">Langsung</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">kali pertama</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>tiada</item>
-        <item>Biasalah</item>
-        <item>Satelit</item>
-        <item>rupa bumi</item>
-        <item>Hibrid</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">Siapa di Angkasa\?</string>
+    <string name="label_people_in_space">Siapa di Angkasa\?</string>
     <string name="label_setting">tetapan</string>
     <string name="label_help">Tolong</string>
     <string name="label_stream">Siaran langsung</string>
@@ -64,7 +34,7 @@
 
     
     <string name="tutorialOne">Peta menunjukkan lokasi semasa ISS dengan garis ramalan tempat ia akan berada.</string>
-    <string name="tutorialTwo">Laci membawa anda ke ciri lain seperti flybys, tetapan, dll…</string>
+    <string name="tutorialTwo">Laci membawa anda ke ciri lain seperti flyby dan tetapan.</string>
     <string name="midAt">di</string>
     <string name="checkerContentDescription">Ikon mewakili bahawa warna lutsinar dipilih</string>
     <string name="countryFlagContentDescription">Bendera negara asal angkasawan ini</string>
@@ -74,7 +44,7 @@
 
     
     <string name="refreshTitle">Kadar Segar Semula</string>
-    <string name="refreshSummary">Kadar muat semula semasa ialah $1 saat/segar semula</string>
+    <string name="refreshSummary">Jumlah masa sebelum mengemas kini lokasi ISS pada peta</string>
     <string name="declination_unit">sec/refresh</string>
     <string name="refreshDialogMessage">Masa antara ISS dikemas kini ke lokasi baharunya.</string>
 
@@ -89,7 +59,7 @@
 
     <string name="decimalTitle">Tempat perpuluhan</string>
     <string name="decimalDialogMessage">Tukar ketepatan semua nilai berangka</string>
-    <string name="decimalSummary">Tahap ketepatan semasa berada pada $1 tempat perpuluhan</string>
+    <string name="decimalSummary">Tukar ketepatan semua nilai berangka</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Warna garis ramalan</string>
@@ -97,12 +67,12 @@
 
     <string name="sizeTitle">Saiz garis ramalan</string>
     <string name="sizeDialogMessage">Tukar saiz garis ramalan ISS</string>
-    <string name="sizeSummary">Saiz baris semasa ialah $1</string>
+    <string name="sizeSummary">Tukar saiz garis ramalan ISS</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Saiz teks</string>
-    <string name="textSizeDialogMessage">Tukar saiz semua nilai teks</string>
-    <string name="textSizeSummary">Saiz teks semasa ialah $1</string>
+    <string name="textSizeDialogMessage">Tukar saiz semua nilai teks pada peta</string>
+    <string name="textSizeSummary">Tukar saiz semua nilai teks pada peta</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Warna teks</string>
@@ -128,11 +98,13 @@
     <string name="errorNetwork">Ralat yang tidak diketahui telah berlaku. Ralat: 401</string>
     <string name="errorMap">Tidak boleh menggunakan tetapan pada peta</string>
     <string name="errorFiveTimes">Gagal semua 5 kali. Sama ada anda tiada sambungan atau pelayan terlebih beban.</string>
-    <string name="errorLessFive">Permintaan ke pelayan gagal. %1$d daripada 5. Mencuba dalam %2$d saat.</string>
+    <string name="errorLessFive">Permintaan ke pelayan gagal. Mencuba semula…</string>
     <string name="errorWaitPoly">Sudah mencipta garis ramalan</string>
-    <string name="errorNotByMe">Pemberitahuan ISS tidak dihentikan oleh anda.</string>
+    <string name="errorNotByMe">Pemberitahuan ISS tidak dihalang oleh anda.</string>
     <string name="errorNoWiki">tidak mempunyai halaman wiki</string>
-    <string name="errorNoTwitter">tidak mempunyai akaun twitter</string>
+    <string name="errorNoTwitter">tidak mempunyai akaun Twitter</string>
+    <string name="errorNoInstagram">tidak mempunyai akaun Instagram</string>
+    <string name="errorNoFacebook">tidak mempunyai akaun Facebook</string>
     <string name="data_corrupted">Data apl rosak. Menetapkan semula!</string>
     <string name="polyError">Tidak dapat mencipta garis ramalan</string>
     <string name="calendar">Kalendar</string>
@@ -140,7 +112,7 @@
     <string name="image_content">Imej peta dengan penanda untuk lokasi pengguna.</string>
     <string name="iss_sighting_share_title">Penglihatan ISS</string>
     <string name="iss_sighting_share_description">ISS akan kelihatan di sini. Akan menyemaknya!</string>
-    <string name="iss_sighting_share_body">\"Semak!\n\nISS akan kelihatan pada \"</string>
+    <string name="iss_sighting_share_body">\"Lihatlah! ISS akan kelihatan di \"</string>
     <string name="iss_sighting_share_chooser">Kongsi…</string>
     <string name="on">\"pada\"</string>
     <string name="one_day_in_space">1 hari di angkasa</string>
@@ -148,7 +120,16 @@
     <string name="day">\"hari\"</string>
     <string name="month">\"bulan\"</string>
     <string name="year">\"tahun\"</string>
-    <string name="since">\"Sejak \"</string>
+    <string name="since">\"Dilancarkan\"</string>
     <string name="tutorial_one_title">Hai Di sana :)</string>
     <string name="tutorial_two_title">Ciri-ciri utama</string>
+
+    <string name="license">Lesen sumber terbuka</string>
+    <string name="msg_license">Aplikasi ini dibina menggunakan perisian berikut:</string>
+    <string name="msg_about_fork_me_on_github">Buat garpu pada GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker ialah aplikasi android yang membolehkan anda menjejaki kedudukan Stesen Angkasa Antarabangsa dan mengetahui apakah angkasawan sedang berada di angkasa lepas.</string>
+    <string name="desc_about_app">Mengenai aplikasi ini</string>
+    <string name="msg_get_it_on_play_store">Dapatkannya di Google Play</string>
+    <string name="version">Versi</string>
+    <string name="version_msg">Senarai perubahan, pembetulan dan kemas kini sebelumnya:</string>
 </resources>

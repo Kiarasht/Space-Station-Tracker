@@ -4,13 +4,13 @@
 
     
     <string name="map_activity">Maapu</string>
-    <string name="flybys_title">Flybys</string>
+    <string name="flybys_title">Ti nkọja nipasẹ</string>
     <string name="space_title">Lori Ojuse</string>
     <string name="settings_title">Ètò</string>
     <string name="help_title">Egba Mi O</string>
 
     
-    <string name="flybys_summary">Ṣayẹwo awọn iwe ISS nipasẹ ipo rẹ</string>
+    <string name="flybys_summary">Ṣayẹwo nigbati ISS yoo kọja nipasẹ ipo rẹ</string>
     <string name="space_summary">Wo tani o wa ni aaye ni bayi</string>
     <string name="settings_summary">Ṣakoso awọn eto app gbogbogbo</string>
     <string name="help_summary">Ṣe oṣuwọn tabi kọ ẹkọ nipa ohun elo naa</string>
@@ -20,38 +20,8 @@
     <string name="stream">Gbe</string>
 
     
-    
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
-    <string name="test_device" translatable="false">5DF3B748AD98E36466514C5657C0CA97</string>
-
-    
-    <string name="firstTime">igba akoko</string>
-
-    
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>Ko si</item>
-        <item>Deede</item>
-        <item>Satẹlaiti</item>
-        <item>Ilẹ̀ ilẹ̀</item>
-        <item>Arabara</item>
-    </string-array>
-
-    
-    <string name="hexEditDefault">00000000</string>
-
-    
     <string name="label_location">Flybys</string>
-    <string name="label_peopleinspace">Tani o wa ni Space\?</string>
+    <string name="label_people_in_space">Tani o wa ni Space\?</string>
     <string name="label_setting">Ètò</string>
     <string name="label_help">Egba Mi O</string>
     <string name="label_stream">Isanwo Live</string>
@@ -63,18 +33,18 @@
     <string name="startBannerAds">Awọn ipolowo asia ṣiṣẹ. O ṣeun fun atilẹyin;)</string>
 
     
-    <string name="tutorialOne">Maapu fihan ipo ISS lọwọlọwọ pẹlu laini asọtẹlẹ ti ibiti yoo jẹ.</string>
-    <string name="tutorialTwo">Drawer mu ọ lọ si awọn ẹya miiran gẹgẹbi awọn flybys, awọn eto, ati bẹbẹ lọ…</string>
+    <string name="tutorialOne">Maapu fihan ipo ISS lọwọlọwọ pẹlu laini asọtẹlẹ ti ibiti yoo wa.</string>
+    <string name="tutorialTwo">Drawer mu ọ lọ si awọn ẹya miiran gẹgẹbi awọn flybys ati awọn eto.</string>
     <string name="midAt">ni</string>
     <string name="checkerContentDescription">Aami duro pe a ti mu awọ sihin</string>
     <string name="countryFlagContentDescription">Orilẹ-ede Flag yi astronaut lati</string>
-    <string name="astronautTwitterContentDescription">Aami lati sopọ si oju-iwe twitter astronaut</string>
-    <string name="astronautWikiContentDescription">Aami lati sopọ si oju-iwe wiki astronaut</string>
-    <string name="astronautGoogleContentDescription">Aami lati sopọ si oju-iwe wiwa Google astronaut</string>
+    <string name="astronautTwitterContentDescription">Aami lati sopọ si oju-iwe twitter astronauts</string>
+    <string name="astronautWikiContentDescription">Aami lati sopọ si oju-iwe wiki astronauts</string>
+    <string name="astronautGoogleContentDescription">Aami lati sopọ si oju-iwe wiwa Google astronauts</string>
 
     
     <string name="refreshTitle">Oṣuwọn sọtun</string>
-    <string name="refreshSummary">Oṣuwọn isọdọtun lọwọlọwọ jẹ $1 iṣẹju-aaya /isọdọtun</string>
+    <string name="refreshSummary">Iye akoko ṣaaju imudojuiwọn ipo ISS lori maapu</string>
     <string name="declination_unit">iṣẹju-aaya /sọtun</string>
     <string name="refreshDialogMessage">Akoko laarin ISS ni imudojuiwọn si ipo titun rẹ.</string>
 
@@ -89,7 +59,7 @@
 
     <string name="decimalTitle">Awọn ibi eleemewa</string>
     <string name="decimalDialogMessage">Yi išedede ti gbogbo awọn iye iye</string>
-    <string name="decimalSummary">Ipele deede lọwọlọwọ wa ni awọn aaye eleemewa $1</string>
+    <string name="decimalSummary">Yi išedede ti gbogbo awọn iye iye</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Asọtẹlẹ ila awọ</string>
@@ -97,12 +67,12 @@
 
     <string name="sizeTitle">Iwọn ila asọtẹlẹ</string>
     <string name="sizeDialogMessage">Yi iwọn ila asọtẹlẹ ISS pada</string>
-    <string name="sizeSummary">Iwọn ila lọwọlọwọ jẹ $1</string>
+    <string name="sizeSummary">Yi iwọn ila asọtẹlẹ ISS pada</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Iwọn ọrọ</string>
-    <string name="textSizeDialogMessage">Yi iwọn gbogbo awọn iye ọrọ pada</string>
-    <string name="textSizeSummary">Iwọn ọrọ lọwọlọwọ jẹ $1</string>
+    <string name="textSizeDialogMessage">Yi iwọn gbogbo awọn iye ọrọ pada lori maapu</string>
+    <string name="textSizeSummary">Yi iwọn gbogbo awọn iye ọrọ pada lori maapu</string>
     <string name="textSizeUnit" />
 
     <string name="textTitle">Awọ ọrọ</string>
@@ -128,19 +98,21 @@
     <string name="errorNetwork">Aṣiṣe aimọ ti ṣẹlẹ. Aṣiṣe: 401</string>
     <string name="errorMap">Ko le lo awọn eto si maapu</string>
     <string name="errorFiveTimes">Kuna gbogbo igba 5. Boya o ko ni asopọ tabi olupin ti kojọpọ.</string>
-    <string name="errorLessFive">Ibere ​​fun olupin kuna. %1$d ninu 5. Ngbiyanju ni %2$d iṣẹju-aaya.</string>
+    <string name="errorLessFive">Ibere ​​fun olupin kuna. N gbiyanju…</string>
     <string name="errorWaitPoly">Tẹlẹ ṣiṣẹda awọn laini asọtẹlẹ</string>
     <string name="errorNotByMe">Iwifunni ISS ko da nipasẹ rẹ duro.</string>
     <string name="errorNoWiki">ko ni oju-iwe wiki</string>
-    <string name="errorNoTwitter">ko ni iroyin twitter</string>
+    <string name="errorNoTwitter">ko ni iroyin Twitter kan</string>
+    <string name="errorNoInstagram">ko ni iroyin Instagram kan</string>
+    <string name="errorNoFacebook">ko ni iroyin Facebook kan</string>
     <string name="data_corrupted">App data ti bajẹ. Ntunto!</string>
     <string name="polyError">Ko le ṣẹda laini asọtẹlẹ</string>
     <string name="calendar">Kalẹnda</string>
-    <string name="share">Pin</string>
+    <string name="share">Pinpin</string>
     <string name="image_content">Aworan maapu kan pẹlu asami fun ipo olumulo.</string>
     <string name="iss_sighting_share_title">Wiwo ISS</string>
     <string name="iss_sighting_share_description">ISS yoo han nibi. Nlọ lati ṣayẹwo!</string>
-    <string name="iss_sighting_share_body">\"Ṣayẹwo!\n\nISS yoo han ni \"</string>
+    <string name="iss_sighting_share_body">\"Ṣayẹwo rẹ! ISS yoo han ni \"</string>
     <string name="iss_sighting_share_chooser">Pinpin…</string>
     <string name="on">\"lori\"</string>
     <string name="one_day_in_space">1 ọjọ ni aaye</string>
@@ -148,7 +120,16 @@
     <string name="day">\"ọjọ\"</string>
     <string name="month">\"osu\"</string>
     <string name="year">\"odun\"</string>
-    <string name="since">\"Niwon\"</string>
+    <string name="since">\"Ti ṣe ifilọlẹ\"</string>
     <string name="tutorial_one_title">Iwo ti o wa nibe yen :)</string>
     <string name="tutorial_two_title">Akọkọ Awọn ẹya ara ẹrọ</string>
+
+    <string name="license">Ṣii awọn iwe-aṣẹ orisun</string>
+    <string name="msg_license">Ohun elo yii ni a ṣe nipa lilo sọfitiwia atẹle:</string>
+    <string name="msg_about_fork_me_on_github">Orita lori GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker jẹ ohun elo Android kan ti o fun ọ laaye lati tọpinpin ipo ti Ibusọ Oju-aye Kariaye ati rii kini awọn awòràwọ ti wa ni aaye lọwọlọwọ.</string>
+    <string name="desc_about_app">Nipa ohun elo yii</string>
+    <string name="msg_get_it_on_play_store">Gba lori Google Play</string>
+    <string name="version">Awọn ẹya</string>
+    <string name="version_msg">Akojọ ti awọn ayipada ti tẹlẹ, awọn atunṣe, ati awọn imudojuiwọn:</string>
 </resources>
