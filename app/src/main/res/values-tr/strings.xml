@@ -82,7 +82,7 @@
     <string name="textHighlightSummary">Metin değerlerinin anahat rengini değiştirme</string>
 
     <string name="notificationTitle">ISS Bildirimi</string>
-    <string name="notificationSummary">ISS\'in konumum üzerinden uçması beklendiğinde bilgilendir</string>
+    <string name="notificationSummary">ISS\'nin konumum üzerinden uçması beklendiğinde bilgilendir</string>
 
     <string name="advertisementTitle">Afiş</string>
     <string name="advertisementSummary">Uygulamadaki banner reklamları devre dışı bırakın</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Konumunuz bulunamıyor.</string>
     <string name="errorPermissionLocation">Konumunuza erişim reddedildi</string>
     <string name="errorConnection">Ya bağlantınız yok ya da sunucu aşırı yüklenmiş.</string>
+    <string name="nothing_available">Şu anda konumunuzdan ISS geçişi yok</string>
+    <string name="unable_to_get_astronauts">Astronot alınamıyor. İnternete bağlı olduğunuzdan emin olun ve daha sonra tekrar deneyin</string>
+    <string name="unable_to_get_passes">ISS geçişleri alınamıyor. İnternete bağlı olduğunuzdan emin olun ve daha sonra tekrar deneyin</string>
     <string name="errorNetwork">Bilinmeyen bir hata oluştu. Hata: 401</string>
     <string name="errorMap">Ayarlar haritaya uygulanamıyor</string>
     <string name="errorFiveTimes">5 kez de başarısız oldu. Ya bağlantınız yok ya da sunucu aşırı yüklenmiş.</string>

@@ -95,6 +95,9 @@
     <string name="errorLocation">आपका स्थान ढूंढने में असमर्थ.</string>
     <string name="errorPermissionLocation">आपके स्थान तक पहुंच से इनकार कर दिया गया</string>
     <string name="errorConnection">या तो आपके पास कोई कनेक्शन नहीं है या सर्वर अतिभारित है।</string>
+    <string name="nothing_available">इस समय आपके स्थान से कोई आईएसएस पास नहीं है</string>
+    <string name="unable_to_get_astronauts">अंतरिक्ष यात्री नहीं मिल सके. सुनिश्चित करें कि आप इंटरनेट से कनेक्ट हैं और बाद में पुनः प्रयास करें</string>
+    <string name="unable_to_get_passes">आईएसएस पास प्राप्त करने में असमर्थ. सुनिश्चित करें कि आप इंटरनेट से कनेक्ट हैं और बाद में पुनः प्रयास करें</string>
     <string name="errorNetwork">एक अज्ञात त्रुटि हुई है। त्रुटि: 401</string>
     <string name="errorMap">मानचित्र पर सेटिंग लागू नहीं कर सकते</string>
     <string name="errorFiveTimes">सभी 5 बार असफल रहे. या तो आपके पास कोई कनेक्शन नहीं है या सर्वर अतिभारित है।</string>

@@ -29,7 +29,7 @@
     
     <string name="startAlert">જ્યારે ISS નજીક હોય ત્યારે સૂચિત કરો</string>
     <string name="stopAlert">જ્યારે ISS નજીક હોય ત્યારે સૂચના આપવાનું બંધ કરો</string>
-    <string name="startFullAds">સંપૂર્ણ પૃષ્ઠ જાહેરાતો સક્ષમ. આધાર માટે આભાર;)</string>
+    <string name="startFullAds">સંપૂર્ણ પૃષ્ઠ જાહેરાતો સક્ષમ છે. આધાર માટે આભાર;)</string>
     <string name="startBannerAds">બેનર જાહેરાતો સક્ષમ. આધાર માટે આભાર;)</string>
 
     
@@ -38,7 +38,7 @@
     <string name="midAt">ખાતે</string>
     <string name="checkerContentDescription">આયકન દર્શાવે છે કે પારદર્શક રંગ પસંદ કરવામાં આવ્યો છે</string>
     <string name="countryFlagContentDescription">દેશનો ધ્વજ આ અવકાશયાત્રીનો છે</string>
-    <string name="astronautTwitterContentDescription">અવકાશયાત્રીઓ ટ્વિટર પૃષ્ઠને લિંક કરવા માટેનું ચિહ્ન</string>
+    <string name="astronautTwitterContentDescription">અવકાશયાત્રીઓના ટ્વિટર પૃષ્ઠને લિંક કરવા માટેનું ચિહ્ન</string>
     <string name="astronautWikiContentDescription">અવકાશયાત્રીઓ વિકિ પૃષ્ઠને લિંક કરવા માટેનું ચિહ્ન</string>
     <string name="astronautGoogleContentDescription">અવકાશયાત્રીઓ Google શોધ પૃષ્ઠને લિંક કરવા માટેનું ચિહ્ન</string>
 
@@ -95,6 +95,9 @@
     <string name="errorLocation">તમારું સ્થાન શોધવામાં અસમર્થ.</string>
     <string name="errorPermissionLocation">તમારા સ્થાનની ઍક્સેસ નકારી</string>
     <string name="errorConnection">કાં તો તમારી પાસે કોઈ કનેક્શન નથી અથવા સર્વર ઓવરલોડ થયેલું છે.</string>
+    <string name="nothing_available">આ સમયે તમારા સ્થાનથી કોઈ ISS પાસ નથી</string>
+    <string name="unable_to_get_astronauts">અવકાશયાત્રીઓ મેળવવામાં અસમર્થ. ખાતરી કરો કે તમે ઇન્ટરનેટ સાથે કનેક્ટેડ છો અને પછીથી ફરી પ્રયાસ કરો</string>
+    <string name="unable_to_get_passes">ISS પાસ મેળવવામાં અસમર્થ. ખાતરી કરો કે તમે ઇન્ટરનેટ સાથે કનેક્ટેડ છો અને પછીથી ફરી પ્રયાસ કરો</string>
     <string name="errorNetwork">એક અજાણી ભૂલ આવી છે. ભૂલ: 401</string>
     <string name="errorMap">નકશા પર સેટિંગ્સ લાગુ કરી શકાતી નથી</string>
     <string name="errorFiveTimes">તમામ 5 વખત નિષ્ફળ. કાં તો તમારી પાસે કોઈ કનેક્શન નથી અથવા સર્વર ઓવરલોડ થયેલું છે.</string>

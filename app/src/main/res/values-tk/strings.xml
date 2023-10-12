@@ -38,7 +38,7 @@
     <string name="midAt">at</string>
     <string name="checkerContentDescription">Nyşan, açyk reňkiň saýlanandygyny aňladýar</string>
     <string name="countryFlagContentDescription">Bu kosmonawtyň ýurt baýdagy</string>
-    <string name="astronautTwitterContentDescription">Kosmonawtlaryň twitter sahypasyna baglanyşmak üçin nyşan</string>
+    <string name="astronautTwitterContentDescription">Kosmonawtlaryň twitter sahypasyna baglanyşyk üçin nyşan</string>
     <string name="astronautWikiContentDescription">Kosmonawtlaryň wiki sahypasyna baglanyşyk nyşany</string>
     <string name="astronautGoogleContentDescription">Google gözleg sahypasyna kosmonawtlar bilen baglanyşyk üçin nyşan</string>
 
@@ -82,7 +82,7 @@
     <string name="textHighlightSummary">Tekst bahalarynyň çyzgy reňkini üýtgediň</string>
 
     <string name="notificationTitle">ISS habarnamasy</string>
-    <string name="notificationSummary">ISS-iň haçan meniň ýerleşýän ýerimden uçmagyna garaşylýandygyny habar beriň</string>
+    <string name="notificationSummary">ISS-iň haçan meniň ýerleşýän ýerimden uçjakdygyna habar beriň</string>
 
     <string name="advertisementTitle">Banner</string>
     <string name="advertisementSummary">Programmada banner mahabatlaryny öçüriň</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Locationeriňizi tapyp bilmedim</string>
     <string name="errorPermissionLocation">Locationeriňize girmekden ýüz öwürdi</string>
     <string name="errorConnection">Youa-da baglanyşyk ýok ýa-da serwer aşa ýüklenendir.</string>
+    <string name="nothing_available">Häzirki wagtda ýerleşýän ýeriňizden ISS geçişi ýok</string>
+    <string name="unable_to_get_astronauts">Kosmonawtlary alyp bolmaýar. Internete birikdirilendigiňize göz ýetiriň we soňrak synanyşyň</string>
+    <string name="unable_to_get_passes">ISS geçişini alyp bolmaýar Internete birikdirilendigiňize göz ýetiriň we soňrak synanyşyň</string>
     <string name="errorNetwork">Näbelli ýalňyşlyk ýüze çykdy. Roralňyşlyk: 401</string>
     <string name="errorMap">Sazlamalary kartada ulanyp bolmaýar</string>
     <string name="errorFiveTimes">Hemmesi 5 gezek şowsuz boldy. Youa-da baglanyşyk ýok ýa-da serwer aşa ýüklenendir.</string>

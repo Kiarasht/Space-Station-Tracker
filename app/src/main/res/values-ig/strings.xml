@@ -44,7 +44,7 @@
 
     
     <string name="refreshTitle">Ọnụego ume ọhụrụ</string>
-    <string name="refreshSummary">Ogologo oge tupu emelite ọnọdụ ISS na maapụ</string>
+    <string name="refreshSummary">Ogologo oge tupu imelite ọnọdụ ISS na maapụ</string>
     <string name="declination_unit">sk/nweta ume</string>
     <string name="refreshDialogMessage">Oge dị n\'etiti ISS na-emelite na ebe ọhụrụ ya.</string>
 
@@ -95,6 +95,9 @@
     <string name="errorLocation">Enweghị ike ịchọta ọnọdụ gị.</string>
     <string name="errorPermissionLocation">Ajụrụ gị ịnweta ọnọdụ gị</string>
     <string name="errorConnection">Ma ị nweghị njikọ ma ọ bụ ihe nkesa ebuola ibu.</string>
+    <string name="nothing_available">Enweghị ngafe ISS n\'ebe ị nọ n\'oge a</string>
+    <string name="unable_to_get_astronauts">Enweghị ike ịnweta ndị na-enyocha mbara igwe. Gbaa mbọ hụ na ejikọrọ na ịntanetị wee nwaa ọzọ ma emechaa</string>
+    <string name="unable_to_get_passes">Enweghị ike ịnweta akwụkwọ ikike ISS. Gbaa mbọ hụ na ejikọrọ na ịntanetị wee nwaa ọzọ ma emechaa</string>
     <string name="errorNetwork">Njehie amaghị ama emela. Mmehie: 401</string>
     <string name="errorMap">Enweghị ike itinye ntọala na maapụ</string>
     <string name="errorFiveTimes">Oge 5 dara ada. Ma ị nweghị njikọ ma ọ bụ ihe nkesa ebuola ibu.</string>

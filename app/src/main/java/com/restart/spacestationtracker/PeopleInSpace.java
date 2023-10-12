@@ -1,12 +1,14 @@
 package com.restart.spacestationtracker;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -26,7 +28,6 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class PeopleInSpace extends AppCompatActivity {
@@ -36,7 +37,9 @@ public class PeopleInSpace extends AppCompatActivity {
     private PeopleInSpaceAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private RequestQueue mRequestQueue;
+    private LottieAnimationView animation;
     private AdView adView;
+    private TextView errors;
     private boolean mPaddingOnce;
 
     @Override
@@ -48,6 +51,8 @@ public class PeopleInSpace extends AppCompatActivity {
         mRequestQueue = Volley.newRequestQueue(this);
         display_people();
 
+        animation = findViewById(R.id.animation_view);
+        errors = findViewById(R.id.errors);
         adView = findViewById(R.id.adView);
         adView.loadAd(new AdRequest.Builder().build());
         adView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
@@ -91,20 +96,17 @@ public class PeopleInSpace extends AppCompatActivity {
         final List<Astronaut> peopleInSpace = new ArrayList<>();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, PEOPLE_URL, null, astronautResponse -> {
-            try {
-                LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-                mRecyclerView.setLayoutManager(layoutManager);
-                mAdapter = new PeopleInSpaceAdapter(this, peopleInSpace);
-                mRecyclerView.setNestedScrollingEnabled(true);
-                mAdapter.setDataSet(peopleInSpace);
-                mRecyclerView.setAdapter(mAdapter);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+            mRecyclerView.setLayoutManager(layoutManager);
+            mAdapter = new PeopleInSpaceAdapter(this, peopleInSpace);
+            mRecyclerView.setNestedScrollingEnabled(true);
+            mAdapter.setDataSet(peopleInSpace);
+            mRecyclerView.setAdapter(mAdapter);
+            animation.setVisibility(View.GONE);
+            errors.setVisibility(View.GONE);
         }, e -> {
-            if (e != null) {
-                Log.e("PeopleInSpace Volley", " " + e.getMessage());
-            }
+            animation.setVisibility(View.VISIBLE);
+            errors.setVisibility(View.VISIBLE);
         }) {
             @Override
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
@@ -124,9 +126,8 @@ public class PeopleInSpace extends AppCompatActivity {
 
                             JsonObjectRequest wikiRequest = new JsonObjectRequest(Method.GET, bioUrl, null, wikiResponse -> {
                             }, e -> {
-                                if (e != null) {
-                                    Log.e("PeopleInSpace Volley", " " + e.getMessage());
-                                }
+                                animation.setVisibility(View.VISIBLE);
+                                errors.setVisibility(View.VISIBLE);
                             }) {
                                 @Override
                                 protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
@@ -164,7 +165,7 @@ public class PeopleInSpace extends AppCompatActivity {
                         }
 
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        return Response.error(new ParseError(e));
                     }
 
                     return Response.success(new JSONObject(jsonString), HttpHeaderParser.parseCacheHeaders(response));

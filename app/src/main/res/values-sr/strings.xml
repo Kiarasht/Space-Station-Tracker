@@ -95,6 +95,9 @@
     <string name="errorLocation">Није могуће пронаћи вашу локацију.</string>
     <string name="errorPermissionLocation">Одбијен приступ вашој локацији</string>
     <string name="errorConnection">Или немате везу или је сервер преоптерећен.</string>
+    <string name="nothing_available">Тренутно нема ИСС пролаза поред ваше локације</string>
+    <string name="unable_to_get_astronauts">Није могуће добити астронауте. Уверите се да сте повезани на интернет и покушајте поново касније</string>
+    <string name="unable_to_get_passes">Није могуће добити пропуснице за ИСС. Уверите се да сте повезани на интернет и покушајте поново касније</string>
     <string name="errorNetwork">Непозната грешка се догодила. Грешка: 401</string>
     <string name="errorMap">Не могу применити подешавања на мапу</string>
     <string name="errorFiveTimes">Неуспешно свих 5 пута. Или немате везу или је сервер преоптерећен.</string>

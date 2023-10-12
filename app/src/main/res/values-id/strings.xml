@@ -95,6 +95,9 @@
     <string name="errorLocation">Tidak dapat menemukan lokasi Anda.</string>
     <string name="errorPermissionLocation">Akses ke lokasi Anda ditolak</string>
     <string name="errorConnection">Entah Anda tidak memiliki koneksi atau server kelebihan beban.</string>
+    <string name="nothing_available">Tidak ada ISS yang melewati lokasi Anda saat ini</string>
+    <string name="unable_to_get_astronauts">Tidak bisa mendapatkan astronot. Pastikan Anda terhubung ke internet dan coba lagi nanti</string>
+    <string name="unable_to_get_passes">Tidak bisa mendapatkan tiket ISS. Pastikan Anda terhubung ke internet dan coba lagi nanti</string>
     <string name="errorNetwork">Telah terjadi kesalahan yang tidak diketahui. Kesalahan: 401</string>
     <string name="errorMap">Tidak dapat menerapkan pengaturan ke peta</string>
     <string name="errorFiveTimes">Gagal semua 5 kali. Entah Anda tidak memiliki koneksi atau server kelebihan beban.</string>

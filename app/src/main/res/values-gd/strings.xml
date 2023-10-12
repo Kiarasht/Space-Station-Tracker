@@ -95,6 +95,9 @@
     <string name="errorLocation">Cha b\' urrainn dhuinn d\' ionad a lorg.</string>
     <string name="errorPermissionLocation">Dhiùlt ruigsinneachd don àite agad</string>
     <string name="errorConnection">An dàrna cuid chan eil ceangal agad no tha am frithealaiche air a luchdachadh cus.</string>
+    <string name="nothing_available">Chan eil pasan ISS ri taobh d’ àite aig an àm seo</string>
+    <string name="unable_to_get_astronauts">Cha ghabh speuradairean fhaighinn. Dèan cinnteach gu bheil thu ceangailte ris an eadar-lìon agus feuch ris a-rithist nas fhaide air adhart</string>
+    <string name="unable_to_get_passes">Cha ghabh pasan ISS fhaighinn. Dèan cinnteach gu bheil thu ceangailte ris an eadar-lìon agus feuch ris a-rithist nas fhaide air adhart</string>
     <string name="errorNetwork">Thachair mearachd neo-aithnichte. Mearachd: 401</string>
     <string name="errorMap">Cha ghabh roghainnean a chur an sàs air mapa</string>
     <string name="errorFiveTimes">Dh\'fhàillig a h-uile 5 tursan. An dàrna cuid chan eil ceangal agad no tha am frithealaiche air a luchdachadh cus.</string>

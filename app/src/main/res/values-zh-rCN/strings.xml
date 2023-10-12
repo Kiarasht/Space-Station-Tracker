@@ -1,38 +1,38 @@
 <resources>
-    
+
     <string name="app_name">国际空间站追踪器</string>
 
-    
+
     <string name="map_activity">地图</string>
     <string name="flybys_title">经过</string>
     <string name="space_title">值班</string>
     <string name="settings_title">设置</string>
     <string name="help_title">帮助</string>
 
-    
+
     <string name="flybys_summary">检查国际空间站何时经过您所在的位置</string>
     <string name="space_summary">查看现在谁在太空中</string>
     <string name="settings_summary">管理常规应用程序设置</string>
     <string name="help_summary">评价或了解该应用程序</string>
 
-    
+
     <string name="reset">刷新预测线</string>
     <string name="stream">居住</string>
 
-    
+
     <string name="label_location">飞越</string>
     <string name="label_people_in_space">谁在太空？</string>
     <string name="label_setting">设置</string>
     <string name="label_help">帮助</string>
     <string name="label_stream">现场直播</string>
 
-    
+
     <string name="startAlert">当国际空间站靠近时通知</string>
     <string name="stopAlert">当国际空间站靠近时停止通知</string>
     <string name="startFullAds">启用全页广告。感谢您的支持 ;）</string>
     <string name="startBannerAds">横幅广告已启用。感谢您的支持 ;）</string>
 
-    
+
     <string name="tutorialOne">地图显示国际空间站当前位置以及其所在位置的预测线。</string>
     <string name="tutorialTwo">抽屉可带您进入其他功能，例如飞行和设置。</string>
     <string name="midAt">在</string>
@@ -42,7 +42,7 @@
     <string name="astronautWikiContentDescription">链接到宇航员维基页面的图标</string>
     <string name="astronautGoogleContentDescription">链接到宇航员谷歌搜索页面的图标</string>
 
-    
+
     <string name="refreshTitle">刷新率</string>
     <string name="refreshSummary">更新国际空间站在地图上的位置之前的时间量</string>
     <string name="declination_unit">秒/刷新</string>
@@ -90,11 +90,14 @@
     <string name="fullTitle">完整页面</string>
     <string name="fullSummary">禁用应用上的整页广告</string>
 
-    
+
     <string name="errorWebView">无法加载页面</string>
     <string name="errorLocation">无法找到您的位置。</string>
     <string name="errorPermissionLocation">拒绝访问您的位置</string>
     <string name="errorConnection">要么没有连接，要么服务器超载。</string>
+    <string name="nothing_available">目前您所在位置没有国际空间站通行证</string>
+    <string name="unable_to_get_astronauts">无法招募宇航员。确保您已连接到互联网并稍后重试</string>
+    <string name="unable_to_get_passes">无法获得国际空间站通行证。确保您已连接到互联网并稍后重试</string>
     <string name="errorNetwork">出现未知错误。错误：401</string>
     <string name="errorMap">无法将设置应用于地图</string>
     <string name="errorFiveTimes">5次全部失败。要么没有连接，要么服务器超载。</string>

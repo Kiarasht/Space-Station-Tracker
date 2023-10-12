@@ -16,7 +16,7 @@
     <string name="help_summary">Қолданбаны бағалаңыз немесе біліңіз</string>
 
     
-    <string name="reset">Болжау сызықтарын жаңарту</string>
+    <string name="reset">Болжам жолдарын жаңарту</string>
     <string name="stream">Тірі</string>
 
     
@@ -95,6 +95,9 @@
     <string name="errorLocation">Орналасқан жеріңізді табу мүмкін емес.</string>
     <string name="errorPermissionLocation">Орналасқан жеріңізге кіруге тыйым салынды</string>
     <string name="errorConnection">Сізде қосылым жоқ немесе сервер шамадан тыс жүктелген.</string>
+    <string name="nothing_available">Қазіргі уақытта орналасқан жеріңіздің жанында ХҒС рұқсаты жоқ</string>
+    <string name="unable_to_get_astronauts">Ғарышкерлерді алу мүмкін емес. Интернетке қосылғаныңызға көз жеткізіп, әрекетті кейінірек қайталаңыз</string>
+    <string name="unable_to_get_passes">ISS билеттерін алу мүмкін емес. Интернетке қосылғаныңызға көз жеткізіп, әрекетті кейінірек қайталаңыз</string>
     <string name="errorNetwork">Белгісіз қате орын алды. Қате: 401</string>
     <string name="errorMap">Параметрлерді картаға қолдану мүмкін емес</string>
     <string name="errorFiveTimes">Барлығы 5 рет сәтсіз болды. Сізде қосылым жоқ немесе сервер шамадан тыс жүктелген.</string>

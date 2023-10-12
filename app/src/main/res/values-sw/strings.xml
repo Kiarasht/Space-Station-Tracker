@@ -95,6 +95,9 @@
     <string name="errorLocation">Haijaweza kupata eneo lako.</string>
     <string name="errorPermissionLocation">Imenyimwa ufikiaji wa eneo lako</string>
     <string name="errorConnection">Huna muunganisho au seva imejaa kupita kiasi.</string>
+    <string name="nothing_available">Hakuna njia za ISS karibu na eneo lako kwa wakati huu</string>
+    <string name="unable_to_get_astronauts">Imeshindwa kupata wanaanga. Hakikisha kuwa umeunganishwa kwenye intaneti na ujaribu tena baadaye</string>
+    <string name="unable_to_get_passes">Imeshindwa kupata pasi za ISS. Hakikisha kuwa umeunganishwa kwenye intaneti na ujaribu tena baadaye</string>
     <string name="errorNetwork">Hitilafu isiyojulikana imetokea. Hitilafu: 401</string>
     <string name="errorMap">Haiwezi kuweka mipangilio kwenye ramani</string>
     <string name="errorFiveTimes">Imeshindwa mara 5. Huna muunganisho au seva imejaa kupita kiasi.</string>

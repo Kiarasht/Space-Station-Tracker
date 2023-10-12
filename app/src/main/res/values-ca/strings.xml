@@ -95,10 +95,13 @@
     <string name="errorLocation">No es pot trobar la teva ubicació.</string>
     <string name="errorPermissionLocation">S\'ha denegat l\'accés a la teva ubicació</string>
     <string name="errorConnection">O no teniu connexió o el servidor està sobrecarregat.</string>
+    <string name="nothing_available">En aquests moments no hi ha cap ISS per la vostra ubicació</string>
+    <string name="unable_to_get_astronauts">No es poden aconseguir astronautes. Assegureu-vos que esteu connectat a Internet i torneu-ho a provar més tard</string>
+    <string name="unable_to_get_passes">No es poden obtenir els passis de l\'ISS. Assegureu-vos que esteu connectat a Internet i torneu-ho a provar més tard</string>
     <string name="errorNetwork">Ha ocorregut un error desconegut. Error: 401</string>
     <string name="errorMap">No es pot aplicar la configuració al mapa</string>
     <string name="errorFiveTimes">Han fallat les 5 vegades. O no teniu connexió o el servidor està sobrecarregat.</string>
-    <string name="errorLessFive">La sol·licitud al servidor ha fallat. S\'està tornant a provar...</string>
+    <string name="errorLessFive">La sol·licitud al servidor ha fallat. S\'està tornant a provar…</string>
     <string name="errorWaitPoly">Ja s\'estan creant línies de predicció</string>
     <string name="errorNotByMe">La notificació ISS no l\'heu aturat.</string>
     <string name="errorNoWiki">no té una pàgina wiki</string>

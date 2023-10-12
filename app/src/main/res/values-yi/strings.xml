@@ -66,8 +66,8 @@
     <string name="colorSummary">טוישן די קאָליר פון פּראָגנאָז שורות</string>
 
     <string name="sizeTitle">פּראָגנאָז שורה גרייס</string>
-    <string name="sizeDialogMessage">טוישן די גרייס פון די פּראָגנאָז שורה פון ISS</string>
-    <string name="sizeSummary">טוישן די גרייס פון די פּראָגנאָז שורה פון ISS</string>
+    <string name="sizeDialogMessage">טוישן די גרייס פון די פאָרויסזאָגן שורה פון ISS</string>
+    <string name="sizeSummary">טוישן די גרייס פון די פאָרויסזאָגן שורה פון ISS</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">טעקסט גרייס</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">ניט געקענט געפֿינען דיין אָרט.</string>
     <string name="errorPermissionLocation">געלייקנט צוטריט צו דיין אָרט</string>
     <string name="errorConnection">אָדער איר האָבן קיין קשר אָדער סערווער איז אָוווערלאָודיד.</string>
+    <string name="nothing_available">עס זענען קיין ISS פּאַסיז דורך דיין אָרט אין דער צייט</string>
+    <string name="unable_to_get_astronauts">ניט געקענט באַקומען אַסטראַנאָץ. מאַכט זיכער אַז איר זענט קאָננעקטעד צו די אינטערנעט און פּרובירן ווידער שפּעטער</string>
+    <string name="unable_to_get_passes">ניט געקענט באַקומען ISS פּאַסיז. מאַכט זיכער אַז איר זענט קאָננעקטעד צו די אינטערנעט און פּרובירן ווידער שפּעטער</string>
     <string name="errorNetwork">אַן אומבאַקאַנט טעות איז פארגעקומען. טעות: 401</string>
     <string name="errorMap">קענען ניט צולייגן סעטטינגס צו מאַפּע</string>
     <string name="errorFiveTimes">דורכפאַל אַלע 5 מאל. אָדער איר האָבן קיין קשר אָדער סערווער איז אָוווערלאָודיד.</string>
@@ -104,7 +107,7 @@
     <string name="errorNoWiki">האט נישט קיין וויקי בלאט</string>
     <string name="errorNoTwitter">טוט נישט האָבן אַ טוויטטער חשבון</string>
     <string name="errorNoInstagram">טוט נישט האָבן אַ ינסטאַגראַם חשבון</string>
-    <string name="errorNoFacebook">טוט נישט האָבן אַ Facebook חשבון</string>
+    <string name="errorNoFacebook">טוט נישט האָבן אַ פאַסעבאָאָק חשבון</string>
     <string name="data_corrupted">אַפּ דאַטן איז פארדארבן. רעסעטטינג!</string>
     <string name="polyError">ניט געקענט צו שאַפֿן פּראָגנאָז שורה</string>
     <string name="calendar">קאַלענדאַר</string>

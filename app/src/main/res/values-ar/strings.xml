@@ -95,6 +95,9 @@
     <string name="errorLocation">غير قادر على العثور على موقعك.</string>
     <string name="errorPermissionLocation">تم رفض الوصول إلى موقعك</string>
     <string name="errorConnection">إما أنه ليس لديك اتصال أو أن الخادم مثقل.</string>
+    <string name="nothing_available">لا توجد ممرات لمحطة الفضاء الدولية بموقعك في الوقت الحالي</string>
+    <string name="unable_to_get_astronauts">غير قادر على الحصول على رواد الفضاء. تأكد من أنك متصل بالإنترنت وحاول مرة أخرى لاحقًا</string>
+    <string name="unable_to_get_passes">غير قادر على الحصول على تصاريح محطة الفضاء الدولية. تأكد من أنك متصل بالإنترنت وحاول مرة أخرى لاحقًا</string>
     <string name="errorNetwork">حدث خطأ غير معروف. خطأ: 401</string>
     <string name="errorMap">لا يمكن تطبيق الإعدادات على الخريطة</string>
     <string name="errorFiveTimes">فشل كل 5 مرات. إما أنه ليس لديك اتصال أو أن الخادم مثقل.</string>

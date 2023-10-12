@@ -47,7 +47,7 @@ import java.util.List;
 public class Locations extends AppCompatActivity {
     private final String TAG = ".Locations";
     private static final int ISS_NORAD_ID = 25544;
-    private static final int ISS_RESULT_DAYS = 5;
+    private static final int ISS_RESULT_DAYS = 10;
     private static final int ISS_MIN_VISIBILITY = 300;
     private static final String ISS_TRACKER_API = "HPD8AL-KBDGWE-JS2M48-4XH2";
 
@@ -207,32 +207,38 @@ public class Locations extends AppCompatActivity {
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             try {
-                final JSONArray results = response.getJSONArray("passes");
-                final List<SightSee> dates = new ArrayList<>();
+                final int passCount = response.getJSONObject("info").getInt("passescount");
 
-                for (int i = 0; i < results.length(); ++i) {
-                    final JSONObject aPass = results.getJSONObject(i);
-                    passes.add(new Date(Long.parseLong(aPass.getString("startUTC")) * 1000L));
-                    final SightSee aSightSee = new SightSee(aPass.getInt("duration"), aPass.getInt("startUTC"));
-                    dates.add(aSightSee);
-                }
+                if (passCount > 0) {
+                    final JSONArray results = response.getJSONArray("passes");
+                    final List<SightSee> dates = new ArrayList<>();
 
-                if (this != null) {
+                    for (int i = 0; i < results.length(); ++i) {
+                        final JSONObject aPass = results.getJSONObject(i);
+                        passes.add(new Date(Long.parseLong(aPass.getString("startUTC")) * 1000L));
+                        final SightSee aSightSee = new SightSee(aPass.getInt("duration"), aPass.getInt("startUTC"));
+                        dates.add(aSightSee);
+                    }
+
                     mAdapter = new LocationAdapter(this);
                     mAdapter.setDataSet(dates);
                     mRecyclerView.setAdapter(mAdapter);
                     mLoading.setVisibility(View.GONE);
                     mRecyclerView.setVisibility(View.VISIBLE);
+                } else {
+                    Toast.makeText(Locations.this, R.string.nothing_available, Toast.LENGTH_LONG).show();
+                    mLoading.setVisibility(View.GONE);
+                    mRecyclerView.setVisibility(View.GONE);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(Locations.this, R.string.errorConnection, Toast.LENGTH_LONG).show();
+                Toast.makeText(Locations.this, R.string.unable_to_get_passes, Toast.LENGTH_LONG).show();
                 mLoading.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.GONE);
             }
         }, e -> {
             if (latitude == null && longitude == null) {
-                Toast.makeText(Locations.this, R.string.errorConnection, Toast.LENGTH_LONG).show();
+                Toast.makeText(Locations.this, R.string.unable_to_get_passes, Toast.LENGTH_LONG).show();
                 mLoading.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.GONE);
             }

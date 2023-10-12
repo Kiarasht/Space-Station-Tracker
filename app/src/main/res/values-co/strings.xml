@@ -93,8 +93,11 @@
     
     <string name="errorWebView">Impossibile caricare a pagina</string>
     <string name="errorLocation">Impossibile di truvà u vostru locu.</string>
-    <string name="errorPermissionLocation">Denegatu l\'accessu à u vostru locu</string>
+    <string name="errorPermissionLocation">Negatu l\'accessu à u vostru locu</string>
     <string name="errorConnection">O ùn avete micca cunnessione o u servitore hè sovraccaricatu.</string>
+    <string name="nothing_available">Ùn ci hè micca un passaghju ISS da u vostru locu in questu mumentu</string>
+    <string name="unable_to_get_astronauts">Incapace di piglià astronauti. Assicuratevi chì site cunnessu à Internet è pruvate di novu dopu</string>
+    <string name="unable_to_get_passes">Impossibile d\'acquistà i pass ISS. Assicuratevi chì site cunnessu à Internet è pruvate di novu dopu</string>
     <string name="errorNetwork">Un errore scunnisciutu hè accadutu. Errore: 401</string>
     <string name="errorMap">Ùn pò micca applicà paràmetri à a mappa</string>
     <string name="errorFiveTimes">Fiascu tutte e 5 volte. O ùn avete micca cunnessione o u servitore hè sovraccaricatu.</string>

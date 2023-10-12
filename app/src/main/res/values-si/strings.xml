@@ -95,6 +95,9 @@
     <string name="errorLocation">ඔබගේ ස්ථානය සොයා ගැනීමට නොහැකි විය.</string>
     <string name="errorPermissionLocation">ඔබගේ ස්ථානයට ප්‍රවේශය ප්‍රතික්ෂේප විය</string>
     <string name="errorConnection">එක්කෝ ඔබට සම්බන්ධතාවයක් නැත, නැතහොත් සේවාදායකය අධික ලෙස පටවා ඇත.</string>
+    <string name="nothing_available">මෙම අවස්ථාවේදී ඔබගේ ස්ථානය අසල ISS අවසරපත් නොමැත</string>
+    <string name="unable_to_get_astronauts">ගගනගාමීන් ලබා ගැනීමට නොහැකි විය. ඔබ අන්තර්ජාලයට සම්බන්ධ වී ඇති බව තහවුරු කරගෙන පසුව නැවත උත්සාහ කරන්න</string>
+    <string name="unable_to_get_passes">ISS සාමාර්ථ ලබා ගැනීමට නොහැක. ඔබ අන්තර්ජාලයට සම්බන්ධ වී ඇති බව තහවුරු කරගෙන පසුව නැවත උත්සාහ කරන්න</string>
     <string name="errorNetwork">නොදන්නා දෝෂයක් සිදුවී ඇත. දෝෂය: 401</string>
     <string name="errorMap">සිතියමට සැකසීම් යෙදිය නොහැක</string>
     <string name="errorFiveTimes">5 වතාවක්ම අසාර්ථකයි. එක්කෝ ඔබට සම්බන්ධතාවයක් නැත, නැතහොත් සේවාදායකය අධික ලෙස පටවා ඇත.</string>

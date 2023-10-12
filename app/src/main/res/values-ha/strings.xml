@@ -58,8 +58,8 @@
     <string name="mapSummary">Canja nau\'in taswira daga shafin da ya gabata</string>
 
     <string name="decimalTitle">Wuraren Decimal</string>
-    <string name="decimalDialogMessage">Canza daidaiton duk ƙimar lambobi</string>
-    <string name="decimalSummary">Canza daidaiton duk ƙimar lambobi</string>
+    <string name="decimalDialogMessage">Canja daidaiton duk ƙimar lambobi</string>
+    <string name="decimalSummary">Canja daidaiton duk ƙimar lambobi</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Launin layin tsinkaya</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">An kasa gano wurin ku.</string>
     <string name="errorPermissionLocation">An hana shiga wurin ku</string>
     <string name="errorConnection">Ko dai ba ku da haɗi ko uwar garken ya yi yawa.</string>
+    <string name="nothing_available">Babu ISS wucewa ta wurin ku a wannan lokacin</string>
+    <string name="unable_to_get_astronauts">Rashin samun \'yan sama jannati. Tabbatar cewa an haɗa ku da intanit kuma a sake gwadawa daga baya</string>
+    <string name="unable_to_get_passes">An kasa samun izinin ISS. Tabbatar cewa an haɗa ku da intanit kuma a sake gwadawa daga baya</string>
     <string name="errorNetwork">An sami kuskuren da ba a sani ba. Kuskure: 401</string>
     <string name="errorMap">Ba za a iya amfani da saituna zuwa taswira ba</string>
     <string name="errorFiveTimes">An gaza duk sau 5. Ko dai ba ku da haɗi ko uwar garken ya yi yawa.</string>

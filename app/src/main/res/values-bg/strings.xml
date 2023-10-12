@@ -34,7 +34,7 @@
 
     
     <string name="tutorialOne">Картата показва текущото местоположение на ISS с прогнозна линия за това къде ще бъде.</string>
-    <string name="tutorialTwo">Чекмеджето ви отвежда до други функции, като прелитане и настройки.</string>
+    <string name="tutorialTwo">Чекмеджето ви отвежда до други функции като прелитане и настройки.</string>
     <string name="midAt">при</string>
     <string name="checkerContentDescription">Иконата показва, че е избран прозрачен цвят</string>
     <string name="countryFlagContentDescription">Знамето на държавата, от която е този астронавт</string>
@@ -48,7 +48,7 @@
     <string name="declination_unit">сек/опресняване</string>
     <string name="refreshDialogMessage">Време между актуализирането на ISS до новото местоположение.</string>
 
-    <string name="lockTitle">Заключи ISS</string>
+    <string name="lockTitle">Заключете ISS</string>
     <string name="lockSummary">Заключете ISS и го следвайте на картата</string>
 
     <string name="infoTitle">Допълнителна информация</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Не може да се намери вашето местоположение.</string>
     <string name="errorPermissionLocation">Отказан достъп до вашето местоположение</string>
     <string name="errorConnection">Или нямате връзка, или сървърът е претоварен.</string>
+    <string name="nothing_available">В момента няма преминавания на ISS до вашето местоположение</string>
+    <string name="unable_to_get_astronauts">Не може да вземе астронавти. Уверете се, че сте свързани с интернет и опитайте отново по-късно</string>
+    <string name="unable_to_get_passes">Не могат да се получат пропуски за ISS. Уверете се, че сте свързани с интернет и опитайте отново по-късно</string>
     <string name="errorNetwork">Възникна неизвестна грешка. Грешка: 401</string>
     <string name="errorMap">Не могат да се приложат настройки към картата</string>
     <string name="errorFiveTimes">Неуспешно всички 5 пъти. Или нямате връзка, или сървърът е претоварен.</string>

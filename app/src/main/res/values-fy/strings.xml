@@ -95,11 +95,14 @@
     <string name="errorLocation">Kin jo lokaasje net fine.</string>
     <string name="errorPermissionLocation">Tagong ta jo lokaasje wegere</string>
     <string name="errorConnection">Of jo hawwe gjin ferbining of tsjinner is oerladen.</string>
+    <string name="nothing_available">D\'r binne op dit stuit gjin ISS-passen troch jo lokaasje</string>
+    <string name="unable_to_get_astronauts">Net yn steat om astronauten te krijen. Soargje derfoar dat jo ferbûn binne mei it ynternet en besykje it letter nochris</string>
+    <string name="unable_to_get_passes">Net yn steat om ISS-passen te krijen. Soargje derfoar dat jo ferbûn binne mei it ynternet en besykje it letter nochris</string>
     <string name="errorNetwork">Der hat him in ûnbekende fout foardien. Flater: 401</string>
     <string name="errorMap">Kin gjin ynstellings tapasse op kaart</string>
     <string name="errorFiveTimes">Mislearre alle 5 kear. Of jo hawwe gjin ferbining of tsjinner is oerladen.</string>
     <string name="errorLessFive">Fersyk oan tsjinner mislearre. Opnij besykje...</string>
-    <string name="errorWaitPoly">Al meitsje foarsizzing rigels</string>
+    <string name="errorWaitPoly">Al meitsje foarsizzingslinen</string>
     <string name="errorNotByMe">ISS Notifikaasje waard net stoppe troch jo.</string>
     <string name="errorNoWiki">hat gjin wikiside</string>
     <string name="errorNoTwitter">hat gjin Twitter account</string>

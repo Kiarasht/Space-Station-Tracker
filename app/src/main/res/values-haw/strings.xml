@@ -36,7 +36,7 @@
     <string name="tutorialOne">Hōʻike ka palapala ʻāina iā ISS i kēia manawa me kahi laina wānana o kahi e kū ai.</string>
     <string name="tutorialTwo">Lawe ʻo Drawer iā ʻoe i nā hiʻohiʻona ʻē aʻe e like me nā lele lele a me nā hoʻonohonoho.</string>
     <string name="midAt">ma</string>
-    <string name="checkerContentDescription">Hōʻike ke kiʻi i ke koho ʻia ʻana o kahi waihoʻoluʻu akaka</string>
+    <string name="checkerContentDescription">Hōʻike ke kiʻi i ke koho ʻia ʻana o kahi waihoʻoluʻu māmā</string>
     <string name="countryFlagContentDescription">ʻO ka hae ʻāina no kēia mea hoʻokele</string>
     <string name="astronautTwitterContentDescription">Ikona e loulou i ka ʻaoʻao twitter astronauts</string>
     <string name="astronautWikiContentDescription">Ikona e loulou i ka ʻaoʻao wiki astronauts</string>
@@ -66,8 +66,8 @@
     <string name="colorSummary">E hoʻololi i ke kala o nā laina wānana</string>
 
     <string name="sizeTitle">Ka nui laina wānana</string>
-    <string name="sizeDialogMessage">Hoʻololi i ka nui o ka laina wānana ISS</string>
-    <string name="sizeSummary">Hoʻololi i ka nui o ka laina wānana ISS</string>
+    <string name="sizeDialogMessage">E hoʻololi i ka nui o ka laina wānana ISS</string>
+    <string name="sizeSummary">E hoʻololi i ka nui o ka laina wānana ISS</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Nui kikokikona</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">ʻAʻole hiki ke ʻimi i kou wahi.</string>
     <string name="errorPermissionLocation">Hōʻole ʻia ke komo ʻana i kou wahi</string>
     <string name="errorConnection">ʻAʻohe āu pilina a i ʻole ua hoʻonui ʻia ke kikowaena.</string>
+    <string name="nothing_available">ʻAʻohe ISS ma kou wahi i kēia manawa</string>
+    <string name="unable_to_get_astronauts">ʻAʻole hiki ke loaʻa i nā astronauts. E hōʻoia ua pili ʻoe i ka pūnaewele a e hoʻāʻo hou ma hope</string>
+    <string name="unable_to_get_passes">ʻAʻole hiki ke kiʻi i nā palapala ISS. E hōʻoia ua pili ʻoe i ka pūnaewele a e hoʻāʻo hou ma hope</string>
     <string name="errorNetwork">Ua loaʻa kahi hewa ʻike ʻole. Hapa: 401</string>
     <string name="errorMap">ʻAʻole hiki ke hoʻopili i nā hoʻonohonoho i ka palapala ʻāina</string>
     <string name="errorFiveTimes">Hāʻule nā ​​manawa 5 a pau. ʻAʻohe āu pilina a i ʻole ua hoʻonui ʻia ke kikowaena.</string>
@@ -131,5 +134,5 @@
     <string name="desc_about_app">E pili ana i kēia polokalamu</string>
     <string name="msg_get_it_on_play_store">E kiʻi iā ia ma Google Play</string>
     <string name="version">Nā manaʻo</string>
-    <string name="version_msg">Ka papa inoa o nā hoʻololi mua, hoʻoponopono, a me nā mea hou:</string>
+    <string name="version_msg">Papa inoa o nā hoʻololi mua, hoʻoponopono, a me nā mea hou:</string>
 </resources>

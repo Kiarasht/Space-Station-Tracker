@@ -95,10 +95,13 @@
     <string name="errorLocation">Teie asukohta ei õnnestu leida.</string>
     <string name="errorPermissionLocation">Juurdepääs teie asukohale on keelatud</string>
     <string name="errorConnection">Kas teil pole ühendust või server on ülekoormatud.</string>
+    <string name="nothing_available">Teie asukohast pole praegu ühtegi ISS-i läbipääsu</string>
+    <string name="unable_to_get_astronauts">Astronaute ei õnnestu saada. Veenduge, et teil oleks Interneti-ühendus, ja proovige hiljem uuesti</string>
+    <string name="unable_to_get_passes">ISS-i pääsmeid ei saa hankida. Veenduge, et teil oleks Interneti-ühendus, ja proovige hiljem uuesti</string>
     <string name="errorNetwork">Ilmnes tundmatu viga. Viga: 401</string>
     <string name="errorMap">Seadeid ei saa kaardile rakendada</string>
     <string name="errorFiveTimes">Kõik 5 korda ebaõnnestus. Kas teil pole ühendust või server on ülekoormatud.</string>
-    <string name="errorLessFive">Taotlus serverile nurjus. Uuesti proovimine…</string>
+    <string name="errorLessFive">Taotlus serverile ebaõnnestus. Uuesti proovimine…</string>
     <string name="errorWaitPoly">Ennustusridade loomisel juba</string>
     <string name="errorNotByMe">Te ei peatanud ISS-i teavitust.</string>
     <string name="errorNoWiki">ei oma wiki lehte</string>

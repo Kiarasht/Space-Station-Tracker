@@ -95,6 +95,9 @@
     <string name="errorLocation">Kan nie jou ligging vind nie.</string>
     <string name="errorPermissionLocation">Toegang tot jou ligging geweier</string>
     <string name="errorConnection">Óf jy het geen verbinding nie óf bediener is oorlaai.</string>
+    <string name="nothing_available">Daar is tans geen ISS-passe by jou ligging nie</string>
+    <string name="unable_to_get_astronauts">Kan nie ruimtevaarders kry nie. Maak seker dat jy aan die internet gekoppel is en probeer later weer</string>
+    <string name="unable_to_get_passes">Kan nie ISS-passe kry nie. Maak seker dat jy aan die internet gekoppel is en probeer later weer</string>
     <string name="errorNetwork">\'n Onbekende fout het voorgekom. Fout: 401</string>
     <string name="errorMap">Kan nie instellings op kaart toepas nie</string>
     <string name="errorFiveTimes">Het al 5 keer misluk. Óf jy het geen verbinding nie óf bediener is oorlaai.</string>

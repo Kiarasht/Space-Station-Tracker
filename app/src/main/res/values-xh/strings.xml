@@ -95,6 +95,9 @@
     <string name="errorLocation">Ayikwazanga ukufumana indawo yakho.</string>
     <string name="errorPermissionLocation">Waliwe ukufikelela kwindawo yakho</string>
     <string name="errorConnection">Inoba awunamdibaniso okanye iseva igcwele kakhulu.</string>
+    <string name="nothing_available">Akukho ISS idlula kwindawo okuyo ngeli xesha</string>
+    <string name="unable_to_get_astronauts">Ayikwazanga ukufumana oosomajukujuku. Qinisekisa ukuba uqhagamshelwe kwi-intanethi kwaye uzame kwakhona kamva</string>
+    <string name="unable_to_get_passes">Akukwazeki ukufumana iipasi ze-ISS. Qinisekisa ukuba uqhagamshelwe kwi-intanethi kwaye uzame kwakhona kamva</string>
     <string name="errorNetwork">Kwenzeke impazamo engaziwayo. Impazamo: 401</string>
     <string name="errorMap">Ayinakufaka iisetingi kwimephu</string>
     <string name="errorFiveTimes">Ayiphumelelanga onke amaxesha ayi-5. Inoba awunamdibaniso okanye iseva igcwele kakhulu.</string>

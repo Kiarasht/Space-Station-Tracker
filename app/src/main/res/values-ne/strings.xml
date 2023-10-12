@@ -1,6 +1,6 @@
 <resources>
     
-    <string name="app_name">ISS ट्र्याकर</string>
+    <string name="app_name">ISS ट्रयाकर</string>
 
     
     <string name="map_activity">नक्सा</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">आफ्नो स्थान फेला पार्न असमर्थ।</string>
     <string name="errorPermissionLocation">तपाईंको स्थानमा पहुँच अस्वीकार गरियो</string>
     <string name="errorConnection">या त तपाईंसँग कुनै जडान छैन वा सर्भर ओभरलोड भएको छ।</string>
+    <string name="nothing_available">यस समयमा तपाईंको स्थानबाट कुनै पनि ISS पासहरू छैनन्</string>
+    <string name="unable_to_get_astronauts">अन्तरिक्ष यात्रीहरू पाउन असमर्थ। तपाईं इन्टरनेटमा जडान भएको सुनिश्चित गर्नुहोस् र पछि फेरि प्रयास गर्नुहोस्</string>
+    <string name="unable_to_get_passes">ISS पासहरू प्राप्त गर्न असमर्थ। तपाईं इन्टरनेटमा जडान भएको सुनिश्चित गर्नुहोस् र पछि फेरि प्रयास गर्नुहोस्</string>
     <string name="errorNetwork">अज्ञात त्रुटि भएको छ। त्रुटि: 401</string>
     <string name="errorMap">नक्सामा सेटिङहरू लागू गर्न सकिँदैन</string>
     <string name="errorFiveTimes">सबै ५ पटक असफल। या त तपाईंसँग कुनै जडान छैन वा सर्भर ओभरलोड भएको छ।</string>

@@ -95,6 +95,9 @@
     <string name="errorLocation">Ihr Standort konnte nicht gefunden werden.</string>
     <string name="errorPermissionLocation">Der Zugriff auf Ihren Standort wurde verweigert</string>
     <string name="errorConnection">Entweder haben Sie keine Verbindung oder der Server ist überlastet.</string>
+    <string name="nothing_available">Derzeit gibt es keine ISS-Vorbeiflüge an Ihrem Standort</string>
+    <string name="unable_to_get_astronauts">Es können keine Astronauten aufgenommen werden. Stellen Sie sicher, dass Sie mit dem Internet verbunden sind, und versuchen Sie es später erneut</string>
+    <string name="unable_to_get_passes">Es können keine ISS-Pässe erhalten werden. Stellen Sie sicher, dass Sie mit dem Internet verbunden sind, und versuchen Sie es später erneut</string>
     <string name="errorNetwork">Ein unbekannter Fehler ist aufgetreten. Fehler: 401</string>
     <string name="errorMap">Einstellungen können nicht auf die Karte angewendet werden</string>
     <string name="errorFiveTimes">Alle 5 Mal fehlgeschlagen. Entweder haben Sie keine Verbindung oder der Server ist überlastet.</string>

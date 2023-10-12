@@ -95,6 +95,9 @@
     <string name="errorLocation">Det gick inte att hitta din plats.</string>
     <string name="errorPermissionLocation">Nekad åtkomst till din plats</string>
     <string name="errorConnection">Antingen har du ingen anslutning eller så är servern överbelastad.</string>
+    <string name="nothing_available">Det finns inga ISS-pass förbi din plats just nu</string>
+    <string name="unable_to_get_astronauts">Det går inte att få tag på astronauter. Se till att du är ansluten till internet och försök igen senare</string>
+    <string name="unable_to_get_passes">Det går inte att få ISS-kort. Se till att du är ansluten till internet och försök igen senare</string>
     <string name="errorNetwork">Ett okänt fel har uppstått. Fel: 401</string>
     <string name="errorMap">Kan inte tillämpa inställningar på kartan</string>
     <string name="errorFiveTimes">Misslyckades alla 5 gångerna. Antingen har du ingen anslutning eller så är servern överbelastad.</string>

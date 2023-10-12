@@ -82,7 +82,7 @@
     <string name="textHighlightSummary">Breyttu útlínum lit textagilda</string>
 
     <string name="notificationTitle">ISS tilkynning</string>
-    <string name="notificationSummary">Láta vita þegar ISS er gert ráð fyrir að fljúga yfir staðsetningu mína</string>
+    <string name="notificationSummary">Láta vita þegar búist er við að ISS fljúgi yfir staðsetningu mína</string>
 
     <string name="advertisementTitle">Borði</string>
     <string name="advertisementSummary">Slökktu á borðaauglýsingum í appinu</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Ekki er hægt að finna staðsetningu þína.</string>
     <string name="errorPermissionLocation">Neitað um aðgang að staðsetningu þinni</string>
     <string name="errorConnection">Annaðhvort ertu ekki með neina tengingu eða þjónninn er ofhlaðinn.</string>
+    <string name="nothing_available">Engar ISS farar fram hjá staðsetningu þinni eins og er</string>
+    <string name="unable_to_get_astronauts">Ekki hægt að ná í geimfara. Gakktu úr skugga um að þú sért tengdur við internetið og reyndu aftur síðar</string>
+    <string name="unable_to_get_passes">Ekki hægt að fá ISS passa. Gakktu úr skugga um að þú sért tengdur við internetið og reyndu aftur síðar</string>
     <string name="errorNetwork">Óþekkt villa hefur komið upp. Villa: 401</string>
     <string name="errorMap">Get ekki beitt stillingum á kort</string>
     <string name="errorFiveTimes">Misheppnaðist öll 5 skiptin. Annaðhvort ertu ekki með neina tengingu eða þjónninn er ofhlaðinn.</string>

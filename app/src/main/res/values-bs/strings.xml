@@ -27,7 +27,7 @@
     <string name="label_stream">Live Stream</string>
 
     
-    <string name="startAlert">Obavijesti kada je ISS u blizini</string>
+    <string name="startAlert">Obavijesti kada je ISS blizu</string>
     <string name="stopAlert">Prestanite obavještavati kada je ISS blizu</string>
     <string name="startFullAds">Oglasi na cijeloj stranici su omogućeni. Hvala na podršci ;)</string>
     <string name="startBannerAds">Baner oglasi su omogućeni. Hvala na podršci ;)</string>
@@ -36,7 +36,7 @@
     <string name="tutorialOne">Mapa prikazuje trenutnu lokaciju ISS-a s linijom predviđanja gdje će se nalaziti.</string>
     <string name="tutorialTwo">Ladica vas vodi do drugih funkcija kao što su preleti i postavke.</string>
     <string name="midAt">at</string>
-    <string name="checkerContentDescription">Ikona predstavlja da je odabrana prozirna boja</string>
+    <string name="checkerContentDescription">Ikona označava da je odabrana prozirna boja</string>
     <string name="countryFlagContentDescription">Zastava zemlje iz koje je ovaj astronaut</string>
     <string name="astronautTwitterContentDescription">Ikona za povezivanje sa twitter stranicom astronauta</string>
     <string name="astronautWikiContentDescription">Ikona za vezu do wiki stranice astronauta</string>
@@ -88,13 +88,16 @@
     <string name="advertisementSummary">Onemogućite baner oglase u aplikaciji</string>
 
     <string name="fullTitle">Cijela stranica</string>
-    <string name="fullSummary">Onemogućite oglase na cijeloj stranici u aplikaciji</string>
+    <string name="fullSummary">Onemogućite oglase preko cijele stranice u aplikaciji</string>
 
     
     <string name="errorWebView">Nije moguće učitati stranicu</string>
     <string name="errorLocation">Nije moguće pronaći vašu lokaciju.</string>
     <string name="errorPermissionLocation">Odbijen pristup vašoj lokaciji</string>
     <string name="errorConnection">Ili nemate vezu ili je server preopterećen.</string>
+    <string name="nothing_available">Trenutno nema prolaza ISS pored vaše lokacije</string>
+    <string name="unable_to_get_astronauts">Nije moguće dobiti astronaute. Provjerite jeste li povezani na internet i pokušajte ponovo kasnije</string>
+    <string name="unable_to_get_passes">Nije moguće dobiti propusnice za ISS. Provjerite jeste li povezani na internet i pokušajte ponovo kasnije</string>
     <string name="errorNetwork">Došlo je do nepoznate greške. Greška: 401</string>
     <string name="errorMap">Nije moguće primijeniti postavke na mapu</string>
     <string name="errorFiveTimes">Neuspješno svih 5 puta. Ili nemate vezu ili je server preopterećen.</string>

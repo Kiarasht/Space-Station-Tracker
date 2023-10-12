@@ -78,7 +78,7 @@
     <string name="textTitle">Боја на текстот</string>
     <string name="textSummary">Променете ја бојата на вредностите на текстот</string>
 
-    <string name="textHighlightTitle">Преглед на текст</string>
+    <string name="textHighlightTitle">Преглед на текстот</string>
     <string name="textHighlightSummary">Променете ја бојата на контурите на вредностите на текстот</string>
 
     <string name="notificationTitle">Известување за ISS</string>
@@ -95,8 +95,11 @@
     <string name="errorLocation">Не може да се најде вашата локација.</string>
     <string name="errorPermissionLocation">Одбиен пристап до вашата локација</string>
     <string name="errorConnection">Или немате врска или серверот е преоптоварен.</string>
+    <string name="nothing_available">Во моментов нема пропусници за ISS покрај вашата локација</string>
+    <string name="unable_to_get_astronauts">Не можам да добијам астронаути. Проверете дали сте поврзани на интернет и обидете се повторно подоцна</string>
+    <string name="unable_to_get_passes">Не можам да добијам пропусници за ISS. Проверете дали сте поврзани на интернет и обидете се повторно подоцна</string>
     <string name="errorNetwork">Настана непозната грешка. Грешка: 401</string>
-    <string name="errorMap">Не може да се применат поставки на картата</string>
+    <string name="errorMap">Не може да се применат поставките на картата</string>
     <string name="errorFiveTimes">Не успеа сите 5 пати. Или немате врска или серверот е преоптоварен.</string>
     <string name="errorLessFive">Барањето до серверот не успеа. Се обидува повторно…</string>
     <string name="errorWaitPoly">Веќе се создаваат линии за предвидување</string>
@@ -105,14 +108,14 @@
     <string name="errorNoTwitter">нема сметка на Твитер</string>
     <string name="errorNoInstagram">нема сметка на Инстаграм</string>
     <string name="errorNoFacebook">нема Фејсбук профил</string>
-    <string name="data_corrupted">Податоците од апликацијата се оштетени. Ресетирање!</string>
+    <string name="data_corrupted">Податоците од апликацијата се оштетени. Се ресетира!</string>
     <string name="polyError">Не може да се создаде линија за предвидување</string>
     <string name="calendar">Календар</string>
     <string name="share">Споделете</string>
     <string name="image_content">Слика на карта со маркер за локација на корисникот.</string>
     <string name="iss_sighting_share_title">Гледање на ISS</string>
     <string name="iss_sighting_share_description">ISS ќе биде видлив овде. Ќе го проверам!</string>
-    <string name="iss_sighting_share_body">„Проверете! ISS ќе биде видлива на“</string>
+    <string name="iss_sighting_share_body">\"Проверете го! ISS ќе биде видлив на \"</string>
     <string name="iss_sighting_share_chooser">Споделете…</string>
     <string name="on">\" на \"</string>
     <string name="one_day_in_space">1 ден во вселената</string>

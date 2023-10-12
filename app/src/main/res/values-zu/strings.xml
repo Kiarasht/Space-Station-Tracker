@@ -95,6 +95,9 @@
     <string name="errorLocation">Ayikwazi ukuthola indawo yakho.</string>
     <string name="errorPermissionLocation">Unqatshelwe ukufinyelela indawo yakho</string>
     <string name="errorConnection">Kuphakathi kokuthi awunakho uxhumano noma iseva ilayishwe kakhulu.</string>
+    <string name="nothing_available">Awekho ama-ISS adlula endaweni yakho ngalesi sikhathi</string>
+    <string name="unable_to_get_astronauts">Ayikwazi ukuthola osomkhathi. Qiniseka ukuthi uxhumeke ku-inthanethi bese uzama futhi emuva kwesikhathi</string>
+    <string name="unable_to_get_passes">Ayikwazi ukuthola amaphasi e-ISS. Qiniseka ukuthi uxhumeke ku-inthanethi bese uzama futhi emuva kwesikhathi</string>
     <string name="errorNetwork">Kwenzeke iphutha elingaziwa. Iphutha: 401</string>
     <string name="errorMap">Ayikwazi ukusebenzisa izilungiselelo kumephu</string>
     <string name="errorFiveTimes">Yehlulekile zonke izikhathi ezi-5. Kuphakathi kokuthi awunakho uxhumano noma iseva ilayishwe kakhulu.</string>

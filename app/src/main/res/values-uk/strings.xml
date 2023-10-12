@@ -39,7 +39,7 @@
     <string name="checkerContentDescription">Значок означає, що вибрано прозорий колір</string>
     <string name="countryFlagContentDescription">Прапор країни, з якої походить цей астронавт</string>
     <string name="astronautTwitterContentDescription">Піктограма для посилання на сторінку астронавтів у Twitter</string>
-    <string name="astronautWikiContentDescription">Значок для посилання на вікі-сторінку астронавтів</string>
+    <string name="astronautWikiContentDescription">Піктограма для посилання на вікі-сторінку астронавтів</string>
     <string name="astronautGoogleContentDescription">Піктограма для посилання на сторінку пошуку астронавтів Google</string>
 
     
@@ -82,7 +82,7 @@
     <string name="textHighlightSummary">Змінити колір контуру текстових значень</string>
 
     <string name="notificationTitle">Сповіщення МКС</string>
-    <string name="notificationSummary">Повідомляти, коли очікується проліт МКС над моїм місцезнаходженням</string>
+    <string name="notificationSummary">Повідомляти, коли МКС планується пролетіти над моїм місцем розташування</string>
 
     <string name="advertisementTitle">банер</string>
     <string name="advertisementSummary">Вимкніть банерну рекламу в додатку</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Не вдалося знайти ваше місцезнаходження.</string>
     <string name="errorPermissionLocation">Відмовлено в доступі до вашого місцезнаходження</string>
     <string name="errorConnection">Або у вас немає з’єднання, або сервер перевантажений.</string>
+    <string name="nothing_available">На даний момент МКС не проходить повз ваше місцезнаходження</string>
+    <string name="unable_to_get_astronauts">Не вдалося дістати астронавтів. Переконайтеся, що ви підключені до Інтернету, і повторіть спробу пізніше</string>
+    <string name="unable_to_get_passes">Не вдалося отримати перепустки ISS. Переконайтеся, що ви підключені до Інтернету, і повторіть спробу пізніше</string>
     <string name="errorNetwork">Сталася невідома помилка. Помилка: 401</string>
     <string name="errorMap">Неможливо застосувати налаштування до карти</string>
     <string name="errorFiveTimes">Не вдалося всі 5 разів. Або у вас немає з’єднання, або сервер перевантажений.</string>

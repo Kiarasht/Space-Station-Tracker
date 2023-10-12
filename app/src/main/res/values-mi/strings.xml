@@ -95,6 +95,9 @@
     <string name="errorLocation">Kaore i kitea to waahi.</string>
     <string name="errorPermissionLocation">Kua whakakorehia te uru ki to waahi</string>
     <string name="errorConnection">Karekau he hononga, kei te taumaha te tūmau.</string>
+    <string name="nothing_available">Karekau he ISS i to waahi i tenei wa</string>
+    <string name="unable_to_get_astronauts">Kaore e taea te tiki kairangirangi. Me mohio kei te hono koe ki te ipurangi ka ngana ano i muri mai</string>
+    <string name="unable_to_get_passes">Kaore e taea te tiki ISS pass. Me mohio kei te hono koe ki te ipurangi ka ngana ano i muri mai</string>
     <string name="errorNetwork">Kua puta he hapa e kore e mohiotia. Hapa: 401</string>
     <string name="errorMap">Kaore e taea te tono tautuhinga ki te mapi</string>
     <string name="errorFiveTimes">I rahua katoa e 5 nga wa. Karekau he hononga, kei te taumaha te tūmau.</string>
@@ -127,7 +130,7 @@
     <string name="license">Nga raihana puna tuwhera</string>
     <string name="msg_license">Ka hangaia tenei tono ma te whakamahi i nga raupaparorohiko e whai ake nei:</string>
     <string name="msg_about_fork_me_on_github">Marau ki GitHub</string>
-    <string name="msg_about_library_description">Ko te ISS Tracker he tono phi ka taea e koe te whai i te tuunga o te Teihana Mokowhiti o te Ao me te mohio he aha nga kairangirangi kei te waahi inaianei.</string>
+    <string name="msg_about_library_description">Ko te ISS Tracker he tono phi ka taea e koe te whai i te tuunga o te Teihana Mokowhiti o te Ao me te rapu he aha nga kairangi rererangi kei te waahi.</string>
     <string name="desc_about_app">Mō tēnei taupānga</string>
     <string name="msg_get_it_on_play_store">Tikina ki runga Google Play</string>
     <string name="version">Putanga</string>

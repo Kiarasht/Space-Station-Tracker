@@ -95,6 +95,9 @@
     <string name="errorLocation">Tsy hita ny toerana misy anao.</string>
     <string name="errorPermissionLocation">Nolavina ny fidirana amin\'ny toerana misy anao</string>
     <string name="errorConnection">Na tsy manana fifandraisana ianao na be loatra ny mpizara.</string>
+    <string name="nothing_available">Tsy misy fandalovana ISS amin\'ny toerana misy anao amin\'izao fotoana izao</string>
+    <string name="unable_to_get_astronauts">Tsy afaka mahazo mpanamory sambon-danitra. Ataovy azo antoka fa mifandray amin\'ny Internet ianao ary andramo indray avy eo</string>
+    <string name="unable_to_get_passes">Tsy afaka mahazo pass ISS. Ataovy azo antoka fa mifandray amin\'ny Internet ianao ary andramo indray avy eo</string>
     <string name="errorNetwork">Nisy hadisoana tsy fantatra nitranga. Error: 401</string>
     <string name="errorMap">Tsy azo ampiharina amin\'ny sari-tany ny kira</string>
     <string name="errorFiveTimes">In-5 tsy nahomby avokoa. Na tsy manana fifandraisana ianao na be loatra ny mpizara.</string>

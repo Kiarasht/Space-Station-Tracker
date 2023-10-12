@@ -95,6 +95,9 @@
     <string name="errorLocation">Unable to find your location.</string>
     <string name="errorPermissionLocation">Denied access to your location</string>
     <string name="errorConnection">Either you have no connection or server is overloaded.</string>
+    <string name="nothing_available">There are no ISS passes by your location at this time</string>
+    <string name="unable_to_get_astronauts">Unable to get astronauts. Make sure you are connected to the internet and try again later</string>
+    <string name="unable_to_get_passes">Unable to get ISS passes. Make sure you are connected to the internet and try again later</string>
     <string name="errorNetwork">An unknown error has occurred. Error: 401</string>
     <string name="errorMap">Can not apply settings to map</string>
     <string name="errorFiveTimes">Failed all 5 times. Either you have no connection or server is overloaded.</string>

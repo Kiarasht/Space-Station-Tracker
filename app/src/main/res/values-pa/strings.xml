@@ -95,6 +95,9 @@
     <string name="errorLocation">ਤੁਹਾਡਾ ਟਿਕਾਣਾ ਲੱਭਣ ਵਿੱਚ ਅਸਮਰੱਥ।</string>
     <string name="errorPermissionLocation">ਤੁਹਾਡੇ ਟਿਕਾਣੇ ਤੱਕ ਪਹੁੰਚ ਤੋਂ ਇਨਕਾਰ ਕੀਤਾ</string>
     <string name="errorConnection">ਜਾਂ ਤਾਂ ਤੁਹਾਡੇ ਕੋਲ ਕੋਈ ਕਨੈਕਸ਼ਨ ਨਹੀਂ ਹੈ ਜਾਂ ਸਰਵਰ ਓਵਰਲੋਡ ਹੈ।</string>
+    <string name="nothing_available">ਇਸ ਸਮੇਂ ਤੁਹਾਡੇ ਟਿਕਾਣੇ ਤੋਂ ਕੋਈ ਵੀ ISS ਪਾਸ ਨਹੀਂ ਹੈ</string>
+    <string name="unable_to_get_astronauts">ਪੁਲਾੜ ਯਾਤਰੀਆਂ ਨੂੰ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਮਰੱਥ। ਯਕੀਨੀ ਬਣਾਓ ਕਿ ਤੁਸੀਂ ਇੰਟਰਨੈੱਟ ਨਾਲ ਕਨੈਕਟ ਹੋ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
+    <string name="unable_to_get_passes">ISS ਪਾਸ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਮਰੱਥ। ਯਕੀਨੀ ਬਣਾਓ ਕਿ ਤੁਸੀਂ ਇੰਟਰਨੈੱਟ ਨਾਲ ਕਨੈਕਟ ਹੋ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
     <string name="errorNetwork">ਇੱਕ ਅਗਿਆਤ ਗਲਤੀ ਆਈ ਹੈ। ਗਲਤੀ: 401</string>
     <string name="errorMap">ਨਕਸ਼ੇ \'ਤੇ ਸੈਟਿੰਗਾਂ ਲਾਗੂ ਨਹੀਂ ਕੀਤੀਆਂ ਜਾ ਸਕਦੀਆਂ</string>
     <string name="errorFiveTimes">ਸਾਰੇ 5 ਵਾਰ ਅਸਫਲ ਰਹੇ। ਜਾਂ ਤਾਂ ਤੁਹਾਡੇ ਕੋਲ ਕੋਈ ਕਨੈਕਸ਼ਨ ਨਹੀਂ ਹੈ ਜਾਂ ਸਰਵਰ ਓਵਰਲੋਡ ਹੈ।</string>
@@ -109,7 +112,7 @@
     <string name="polyError">ਭਵਿੱਖਬਾਣੀ ਲਾਈਨ ਬਣਾਉਣ ਵਿੱਚ ਅਸਮਰੱਥ</string>
     <string name="calendar">ਕੈਲੰਡਰ</string>
     <string name="share">ਸ਼ੇਅਰ ਕਰੋ</string>
-    <string name="image_content">ਵਰਤੋਂਕਾਰ ਟਿਕਾਣੇ ਲਈ ਮਾਰਕਰ ਵਾਲੇ ਨਕਸ਼ੇ ਦਾ ਚਿੱਤਰ।</string>
+    <string name="image_content">ਉਪਭੋਗਤਾ ਟਿਕਾਣੇ ਲਈ ਮਾਰਕਰ ਵਾਲੇ ਨਕਸ਼ੇ ਦਾ ਚਿੱਤਰ।</string>
     <string name="iss_sighting_share_title">ISS ਨਜ਼ਰ</string>
     <string name="iss_sighting_share_description">ISS ਇੱਥੇ ਦਿਖਾਈ ਦੇਵੇਗਾ। ਇਸ ਨੂੰ ਬਾਹਰ ਚੈੱਕ ਕਰਨ ਲਈ ਜਾ ਰਿਹਾ ਹੈ!</string>
     <string name="iss_sighting_share_body">\"ਇਸਦੀ ਜਾਂਚ ਕਰੋ! ISS \'ਤੇ ਦਿਖਾਈ ਦੇਵੇਗਾ\"</string>

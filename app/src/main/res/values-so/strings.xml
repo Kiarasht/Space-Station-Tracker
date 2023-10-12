@@ -46,7 +46,7 @@
     <string name="refreshTitle">Heerka Cusbooneysii</string>
     <string name="refreshSummary">Qadarka wakhtiga ka hor inta aan la cusboonaysiin goobta ISS ee khariidada</string>
     <string name="declination_unit">ilbiriqsi/cusbooneysi</string>
-    <string name="refreshDialogMessage">Waqtiga u dhexeeya ISS oo la cusboonaysiinayo goobta cusub.</string>
+    <string name="refreshDialogMessage">Waqtiga u dhexeeya ISS oo la cusboonaysiinayo goobteeda cusub.</string>
 
     <string name="lockTitle">Quful ISS</string>
     <string name="lockSummary">Ku xidh ISS oo ku raac khariidada</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Ma heli karo goobtaada</string>
     <string name="errorPermissionLocation">Loo diiday gelitaanka goobtaada</string>
     <string name="errorConnection">Ama ma lihid wax xidhiidh ah ama seerfar ayaa culays ku ah.</string>
+    <string name="nothing_available">Ma jiraan wax ISS ah oo goobtaada mara wakhtigan</string>
+    <string name="unable_to_get_astronauts">Aan awoodin in la helo cirbixiyeenno Hubi inaad ku xidhan tahay intarneedka oo isku day mar kale hadhow</string>
+    <string name="unable_to_get_passes">Aan awoodin in la helo kaadhka ISS Hubi inaad ku xidhan tahay intarneedka oo isku day mar kale hadhow</string>
     <string name="errorNetwork">Khalad aan la garanayn ayaa dhacay Khaladka: 401</string>
     <string name="errorMap">Laguma dabaqi karo dejinta khariidada</string>
     <string name="errorFiveTimes">Fashilmay dhammaan 5 jeer Ama ma lihid wax xidhiidh ah ama seerfar ayaa culays ku ah.</string>

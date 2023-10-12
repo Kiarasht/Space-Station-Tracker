@@ -95,6 +95,9 @@
     <string name="errorLocation">آپ کا مقام تلاش کرنے سے قاصر۔</string>
     <string name="errorPermissionLocation">آپ کے مقام تک رسائی سے انکار کر دیا گیا۔</string>
     <string name="errorConnection">یا تو آپ کا کوئی کنکشن نہیں ہے یا سرور اوورلوڈ ہے۔</string>
+    <string name="nothing_available">اس وقت آپ کے مقام سے کوئی ISS نہیں گزرتا ہے۔</string>
+    <string name="unable_to_get_astronauts">خلاباز حاصل کرنے سے قاصر۔ یقینی بنائیں کہ آپ انٹرنیٹ سے منسلک ہیں اور بعد میں دوبارہ کوشش کریں۔</string>
+    <string name="unable_to_get_passes">ISS پاس حاصل کرنے سے قاصر۔ یقینی بنائیں کہ آپ انٹرنیٹ سے منسلک ہیں اور بعد میں دوبارہ کوشش کریں۔</string>
     <string name="errorNetwork">ایک نامعلوم خرابی پیش آ گئی ہے۔ خرابی: 401</string>
     <string name="errorMap">نقشے پر ترتیبات کا اطلاق نہیں کیا جا سکتا</string>
     <string name="errorFiveTimes">تمام 5 بار ناکام۔ یا تو آپ کا کوئی کنکشن نہیں ہے یا سرور اوورلوڈ ہے۔</string>

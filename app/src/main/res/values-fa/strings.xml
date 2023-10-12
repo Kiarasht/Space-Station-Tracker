@@ -27,7 +27,7 @@
     <string name="label_stream">پخش زنده</string>
 
     
-    <string name="startAlert">هنگامی که ISS نزدیک است اطلاع دهید</string>
+    <string name="startAlert">وقتی ISS نزدیک است، اطلاع دهید</string>
     <string name="stopAlert">وقتی ISS نزدیک است، اطلاع رسانی را متوقف کنید</string>
     <string name="startFullAds">تبلیغات تمام صفحه فعال شد. از حمایت شما ممنونم ؛)</string>
     <string name="startBannerAds">تبلیغات بنری فعال شد از حمایت شما ممنونم ؛)</string>
@@ -48,7 +48,7 @@
     <string name="declination_unit">ثانیه /تازه کردن</string>
     <string name="refreshDialogMessage">زمان بین ISS به روز رسانی به مکان جدید.</string>
 
-    <string name="lockTitle">قفل ISS</string>
+    <string name="lockTitle">ISS را قفل کنید</string>
     <string name="lockSummary">روی ISS قفل کنید و آن را روی نقشه دنبال کنید</string>
 
     <string name="infoTitle">اطلاعات اضافی</string>
@@ -82,7 +82,7 @@
     <string name="textHighlightSummary">رنگ طرح کلی مقادیر متن را تغییر دهید</string>
 
     <string name="notificationTitle">اطلاعیه ISS</string>
-    <string name="notificationSummary">زمانی که انتظار می رود ایستگاه فضایی بین المللی بر فراز مکان من پرواز کند، اطلاع دهید</string>
+    <string name="notificationSummary">زمانی که انتظار می رود ایستگاه فضایی بین المللی بر فراز موقعیت مکانی من پرواز کند، اطلاع دهید</string>
 
     <string name="advertisementTitle">بنر</string>
     <string name="advertisementSummary">تبلیغات بنری را در برنامه غیرفعال کنید</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">نمی توان مکان شما را پیدا کرد.</string>
     <string name="errorPermissionLocation">دسترسی به موقعیت مکانی شما ممنوع شد</string>
     <string name="errorConnection">یا اتصال ندارید یا سرور بیش از حد بارگذاری شده است.</string>
+    <string name="nothing_available">در حال حاضر هیچ مجوز ISS در محل شما وجود ندارد</string>
+    <string name="unable_to_get_astronauts">قادر به گرفتن فضانورد نیست. مطمئن شوید که به اینترنت متصل هستید و بعداً دوباره امتحان کنید</string>
+    <string name="unable_to_get_passes">دریافت مجوز ISS امکان پذیر نیست. مطمئن شوید که به اینترنت متصل هستید و بعداً دوباره امتحان کنید</string>
     <string name="errorNetwork">خطایی ناشناخته اتفاق افتاده است. خطا: 401</string>
     <string name="errorMap">نمی توان تنظیمات را روی نقشه اعمال کرد</string>
     <string name="errorFiveTimes">همه 5 بار ناموفق بود. یا اتصال ندارید یا سرور بیش از حد بارگذاری شده است.</string>
@@ -112,7 +115,7 @@
     <string name="image_content">تصویر نقشه با نشانگر مکان کاربر.</string>
     <string name="iss_sighting_share_title">مشاهده ISS</string>
     <string name="iss_sighting_share_description">ISS در اینجا قابل مشاهده خواهد بود. رفتن به بررسی آن!</string>
-    <string name="iss_sighting_share_body">\"آن را بررسی کنید! ISS در قابل مشاهده خواهد بود\"</string>
+    <string name="iss_sighting_share_body">\"آن را بررسی کنید! ISS در \" قابل مشاهده خواهد بود \"</string>
     <string name="iss_sighting_share_chooser">اشتراک گذاری…</string>
     <string name="on">\" بر \"</string>
     <string name="one_day_in_space">1 روز در فضا</string>

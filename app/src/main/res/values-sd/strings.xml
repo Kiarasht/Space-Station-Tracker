@@ -81,7 +81,7 @@
     <string name="textHighlightTitle">ٽيڪسٽ آئوٽ لائن</string>
     <string name="textHighlightSummary">متن جي قيمتن جو خاڪو رنگ تبديل ڪريو</string>
 
-    <string name="notificationTitle">ايس ايس ايس نوٽيفڪيشن</string>
+    <string name="notificationTitle">ISS نوٽيفڪيشن</string>
     <string name="notificationSummary">اطلاع ڏيو جڏهن ISS منهنجي جڳهه تي پرواز ڪرڻ جي توقع ڪئي وڃي</string>
 
     <string name="advertisementTitle">بينر</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">توھان جي جڳھ کي ڳولڻ ۾ ناڪام آھي.</string>
     <string name="errorPermissionLocation">توهان جي مقام تائين رسائي کان انڪار ڪيو</string>
     <string name="errorConnection">يا ته توهان وٽ ڪو ڪنيڪشن ناهي يا سرور اوور لوڊ ٿيل آهي.</string>
+    <string name="nothing_available">ھن وقت توھان جي جڳھ کان ڪو به ISS لنگھندڙ نه آھي</string>
+    <string name="unable_to_get_astronauts">astronaut حاصل ڪرڻ جي قابل نه. پڪ ڪريو ته توهان انٽرنيٽ سان ڳنڍيل آهيو ۽ بعد ۾ ٻيهر ڪوشش ڪريو</string>
+    <string name="unable_to_get_passes">ISS پاسون حاصل ڪرڻ ۾ ناڪام. پڪ ڪريو ته توهان انٽرنيٽ سان ڳنڍيل آهيو ۽ بعد ۾ ٻيهر ڪوشش ڪريو</string>
     <string name="errorNetwork">اڻڄاتل غلطي ٿي وئي آهي. غلطي: 401</string>
     <string name="errorMap">نقشي تي سيٽنگون لاڳو نه ٿو ڪري سگھجي</string>
     <string name="errorFiveTimes">سڀ 5 ڀيرا ناڪام. يا ته توهان وٽ ڪو ڪنيڪشن ناهي يا سرور اوور لوڊ ٿيل آهي.</string>

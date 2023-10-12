@@ -66,8 +66,8 @@
     <string name="colorSummary">ປ່ຽນສີຂອງເສັ້ນການຄາດຄະເນ</string>
 
     <string name="sizeTitle">ຂະໜາດເສັ້ນການຄາດເດົາ</string>
-    <string name="sizeDialogMessage">ປ່ຽນຂະຫນາດຂອງເສັ້ນການຄາດຄະເນ ISSs</string>
-    <string name="sizeSummary">ປ່ຽນຂະຫນາດຂອງເສັ້ນການຄາດຄະເນ ISSs</string>
+    <string name="sizeDialogMessage">ປ່ຽນຂະໜາດຂອງເສັ້ນການຄາດຄະເນ ISSs</string>
+    <string name="sizeSummary">ປ່ຽນຂະໜາດຂອງເສັ້ນການຄາດຄະເນ ISSs</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">ຂະໜາດຕົວໜັງສື</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">ບໍ່ສາມາດຊອກຫາສະຖານທີ່ຂອງທ່ານໄດ້.</string>
     <string name="errorPermissionLocation">ປະຕິເສດການເຂົ້າເຖິງສະຖານທີ່ຂອງທ່ານ</string>
     <string name="errorConnection">ບໍ່ວ່າເຈົ້າບໍ່ມີການເຊື່ອມຕໍ່ ຫຼືເຊີບເວີຖືກໂຫຼດເກີນ.</string>
+    <string name="nothing_available">ບໍ່ມີ ISS ຜ່ານສະຖານທີ່ຂອງເຈົ້າໃນເວລານີ້</string>
+    <string name="unable_to_get_astronauts">ບໍ່ສາມາດຮັບນັກອາວະກາດໄດ້. ໃຫ້ແນ່ໃຈວ່າທ່ານເຊື່ອມຕໍ່ອິນເຕີເນັດແລ້ວ ແລະລອງໃໝ່ໃນພາຍຫຼັງ</string>
+    <string name="unable_to_get_passes">ບໍ່ສາມາດຮັບບັດ ISS ໄດ້. ໃຫ້ແນ່ໃຈວ່າທ່ານເຊື່ອມຕໍ່ອິນເຕີເນັດແລ້ວ ແລະລອງໃໝ່ໃນພາຍຫຼັງ</string>
     <string name="errorNetwork">ເກີດຄວາມຜິດພາດທີ່ບໍ່ຮູ້ຈັກຂຶ້ນ. ຂໍ້ຜິດພາດ: 401</string>
     <string name="errorMap">ບໍ່ສາມາດນຳໃຊ້ການຕັ້ງຄ່າໃສ່ແຜນທີ່ໄດ້</string>
     <string name="errorFiveTimes">ລົ້ມເຫລວທັງໝົດ 5 ຄັ້ງ. ບໍ່ວ່າເຈົ້າບໍ່ມີການເຊື່ອມຕໍ່ ຫຼືເຊີບເວີຖືກໂຫຼດເກີນ.</string>

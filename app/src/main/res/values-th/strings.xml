@@ -95,6 +95,9 @@
     <string name="errorLocation">ไม่พบตำแหน่งของคุณ</string>
     <string name="errorPermissionLocation">ปฏิเสธการเข้าถึงตำแหน่งของคุณ</string>
     <string name="errorConnection">ไม่ว่าคุณจะไม่มีการเชื่อมต่อหรือเซิร์ฟเวอร์โอเวอร์โหลด</string>
+    <string name="nothing_available">ไม่มี ISS ผ่านตำแหน่งของคุณในขณะนี้</string>
+    <string name="unable_to_get_astronauts">ไม่สามารถรับนักบินอวกาศได้ ตรวจสอบให้แน่ใจว่าคุณเชื่อมต่ออินเทอร์เน็ตแล้วลองอีกครั้งในภายหลัง</string>
+    <string name="unable_to_get_passes">ไม่สามารถรับบัตร ISS ได้ ตรวจสอบให้แน่ใจว่าคุณเชื่อมต่ออินเทอร์เน็ตแล้วลองอีกครั้งในภายหลัง</string>
     <string name="errorNetwork">ข้อผิดพลาดที่ไม่รู้จักได้เกิดขึ้น. ข้อผิดพลาด: 401</string>
     <string name="errorMap">ไม่สามารถใช้การตั้งค่ากับแผนที่ได้</string>
     <string name="errorFiveTimes">ล้มเหลวทั้งหมด 5 ครั้ง ไม่ว่าคุณจะไม่มีการเชื่อมต่อหรือเซิร์ฟเวอร์โอเวอร์โหลด</string>

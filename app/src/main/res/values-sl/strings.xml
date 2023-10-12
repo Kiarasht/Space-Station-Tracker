@@ -37,7 +37,7 @@
     <string name="tutorialTwo">Predal vas popelje do drugih funkcij, kot so preleti in nastavitve.</string>
     <string name="midAt">pri</string>
     <string name="checkerContentDescription">Ikona pomeni, da je izbrana prozorna barva</string>
-    <string name="countryFlagContentDescription">Zastava države, iz katere prihaja ta astronavt</string>
+    <string name="countryFlagContentDescription">Zastava države, iz katere je ta astronavt</string>
     <string name="astronautTwitterContentDescription">Ikona za povezavo do strani astronavtov na Twitterju</string>
     <string name="astronautWikiContentDescription">Ikona za povezavo do wiki strani astronavtov</string>
     <string name="astronautGoogleContentDescription">Ikona za povezavo do strani za iskanje astronavtov v Googlu</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Vaše lokacije ni mogoče najti.</string>
     <string name="errorPermissionLocation">Zavrnjen dostop do vaše lokacije</string>
     <string name="errorConnection">Nimate povezave ali pa je strežnik preobremenjen.</string>
+    <string name="nothing_available">Mimo vaše lokacije trenutno ni nobenih letov ISS</string>
+    <string name="unable_to_get_astronauts">Ni mogoče dobiti astronavtov. Prepričajte se, da ste povezani v internet in poskusite znova pozneje</string>
+    <string name="unable_to_get_passes">Prepustnic za ISS ni mogoče dobiti. Prepričajte se, da ste povezani v internet in poskusite znova pozneje</string>
     <string name="errorNetwork">Prišlo je do neznane napake. Napaka: 401</string>
     <string name="errorMap">Nastavitev ni mogoče uporabiti za zemljevid</string>
     <string name="errorFiveTimes">Vseh 5-krat ni uspelo. Nimate povezave ali pa je strežnik preobremenjen.</string>

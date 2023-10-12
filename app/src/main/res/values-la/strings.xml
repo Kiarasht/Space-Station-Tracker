@@ -95,6 +95,9 @@
     <string name="errorLocation">\'Non invenire locum tuum.</string>
     <string name="errorPermissionLocation">Negavit aditus ad locum tuum</string>
     <string name="errorConnection">Aut nexum non habes, aut servo cumulatur.</string>
+    <string name="nothing_available">Nullae ISS faucibus tuis locus ad hoc tempus</string>
+    <string name="unable_to_get_astronauts">\'Non statua. Fac te penitus connexam et postea iterum conare</string>
+    <string name="unable_to_get_passes">ISS saltus nequitur. Fac te penitus connexam et postea iterum conare</string>
     <string name="errorNetwork">Error incognitus inciderunt. Error: 401</string>
     <string name="errorMap">Non applicare occasus ad map</string>
     <string name="errorFiveTimes">Defecit omnes V temporibus. Aut nexum non habes, aut servo cumulatur.</string>

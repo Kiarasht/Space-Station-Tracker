@@ -54,7 +54,7 @@
     <string name="infoTitle">Өстәмә мәгълүмат</string>
     <string name="infoSummary">Картада ISS турында өстәмә мәгълүмат бирегез</string>
 
-    <string name="mapTitle">Карта тибы</string>
+    <string name="mapTitle">Карта төре</string>
     <string name="mapSummary">Алдагы биттән карта төрен үзгәртегез</string>
 
     <string name="decimalTitle">Унлыклы урыннар</string>
@@ -66,8 +66,8 @@
     <string name="colorSummary">Фаразлау юлларының төсен үзгәртегез</string>
 
     <string name="sizeTitle">Фаразлау сызыгы</string>
-    <string name="sizeDialogMessage">ISS фаразлау сызыгын үзгәртү</string>
-    <string name="sizeSummary">ISS фаразлау сызыгын үзгәртү</string>
+    <string name="sizeDialogMessage">ISS-ны фаразлау сызыгын үзгәртү</string>
+    <string name="sizeSummary">ISS-ны фаразлау сызыгын үзгәртү</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Текст күләме</string>
@@ -79,7 +79,7 @@
     <string name="textSummary">Текст кыйммәтләренең төсен үзгәртү</string>
 
     <string name="textHighlightTitle">Текст планы</string>
-    <string name="textHighlightSummary">Текст кыйммәтләренең схемасын үзгәртегез</string>
+    <string name="textHighlightSummary">Текст кыйммәтләренең схема төсен үзгәртегез</string>
 
     <string name="notificationTitle">ISS хәбәр итү</string>
     <string name="notificationSummary">ISS кайчан минем урынымнан очыр дип көтелә</string>
@@ -95,11 +95,14 @@
     <string name="errorLocation">Сезнең урыныгызны таба алмый.</string>
     <string name="errorPermissionLocation">Сезнең урыныгызга керүдән баш тарттылар</string>
     <string name="errorConnection">Йә сезнең тоташуыгыз юк, яисә сервер артык йөкләнгән.</string>
+    <string name="nothing_available">Бу вакытта сезнең урыныгызда ISS узмый</string>
+    <string name="unable_to_get_astronauts">Космонавтлар ала алмый. Интернетка тоташканыгызны тикшерегез һәм соңрак кабатлап карагыз</string>
+    <string name="unable_to_get_passes">ISS пассаларын ала алмый. Интернетка тоташканыгызны тикшерегез һәм соңрак кабатлап карагыз</string>
     <string name="errorNetwork">Билгесез хата килеп чыкты. Хата: 401</string>
     <string name="errorMap">Картага көйләүләрне куллана алмыйм</string>
     <string name="errorFiveTimes">Барлык 5 тапкыр да уңышсыз. Йә сезнең тоташуыгыз юк, яисә сервер артык йөкләнгән.</string>
     <string name="errorLessFive">Серверга сорау үтәлмәде. Кабатлап карау…</string>
-    <string name="errorWaitPoly">Инде фаразлау юллары</string>
+    <string name="errorWaitPoly">Инде фаразлау юллары ясыйлар</string>
     <string name="errorNotByMe">ISS хәбәр итүе сезнең белән туктатылмады.</string>
     <string name="errorNoWiki">вики бите юк</string>
     <string name="errorNoTwitter">Твиттер аккаунты юк</string>

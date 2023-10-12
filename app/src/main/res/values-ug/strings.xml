@@ -95,6 +95,9 @@
     <string name="errorLocation">ئورنىڭىزنى تاپالمىدى.</string>
     <string name="errorPermissionLocation">ئورنىڭىزغا كىرىشنى رەت قىلدى</string>
     <string name="errorConnection">ياكى ئۇلىنىشىڭىز يوق ياكى مۇلازىمېتىرنىڭ يۈكى بەك كۆپ.</string>
+    <string name="nothing_available">ھازىرچە ئورنىڭىزدىن ISS ئۆتكىلى بولمايدۇ</string>
+    <string name="unable_to_get_astronauts">ئالەم ئۇچقۇچىلىرىغا ئېرىشەلمىدى. تورغا ئۇلانغانلىقىڭىزنى جەزملەشتۈرۈڭ ، كېيىن قايتا سىناڭ</string>
+    <string name="unable_to_get_passes">ISS پاسپورتىغا ئېرىشەلمىدى. تورغا ئۇلانغانلىقىڭىزنى جەزملەشتۈرۈڭ ، كېيىن قايتا سىناڭ</string>
     <string name="errorNetwork">نامەلۇم خاتالىق كۆرۈلدى. خاتالىق: 401</string>
     <string name="errorMap">خەرىتە تەڭشىكىنى ئىشلىتەلمەيدۇ</string>
     <string name="errorFiveTimes">5 قېتىم مەغلۇپ بولدى. ياكى ئۇلىنىشىڭىز يوق ياكى مۇلازىمېتىرنىڭ يۈكى بەك كۆپ.</string>

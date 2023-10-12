@@ -10,7 +10,7 @@
     <string name="help_title">Օգնություն</string>
 
     
-    <string name="flybys_summary">Ստուգեք, թե երբ ISS-ը կանցնի ձեր գտնվելու վայրով</string>
+    <string name="flybys_summary">Ստուգեք, թե երբ ISS կանցնի ձեր գտնվելու վայրով</string>
     <string name="space_summary">Տեսեք, թե ով է հենց հիմա տիեզերքում</string>
     <string name="settings_summary">Կառավարեք հավելվածի ընդհանուր կարգավորումները</string>
     <string name="help_summary">Գնահատեք կամ իմացեք հավելվածի մասին</string>
@@ -91,10 +91,13 @@
     <string name="fullSummary">Անջատել ամբողջ էջի գովազդը հավելվածում</string>
 
     
-    <string name="errorWebView">Չհաջողվեց բեռնել էջը</string>
+    <string name="errorWebView">Հնարավոր չէ բեռնել էջը</string>
     <string name="errorLocation">Չհաջողվեց գտնել ձեր գտնվելու վայրը:</string>
     <string name="errorPermissionLocation">Ձեր գտնվելու վայրի մուտքն արգելված է</string>
     <string name="errorConnection">Կամ կապ չունեք, կամ սերվերը ծանրաբեռնված է:</string>
+    <string name="nothing_available">Այս պահին ձեր գտնվելու վայրով ISS-ի կտրոններ չկան</string>
+    <string name="unable_to_get_astronauts">Անհնար է տիեզերագնացներ ձեռք բերել: Համոզվեք, որ միացած եք ինտերնետին և փորձեք ավելի ուշ</string>
+    <string name="unable_to_get_passes">Անհնար է ստանալ ISS անցագրեր: Համոզվեք, որ միացած եք ինտերնետին և փորձեք ավելի ուշ</string>
     <string name="errorNetwork">Անհայտ սխալ է հայտնվել. Սխալ՝ 401</string>
     <string name="errorMap">Հնարավոր չէ կիրառել կարգավորումներ քարտեզի վրա</string>
     <string name="errorFiveTimes">Չհաջողվեց բոլոր 5 անգամները: Կամ կապ չունեք, կամ սերվերը ծանրաբեռնված է:</string>
@@ -109,7 +112,7 @@
     <string name="polyError">Հնարավոր չէ ստեղծել կանխատեսման գիծ</string>
     <string name="calendar">Օրացույց</string>
     <string name="share">Կիսվել</string>
-    <string name="image_content">Քարտեզի պատկեր՝ օգտագործողի գտնվելու վայրի նշիչով:</string>
+    <string name="image_content">Օգտագործողի գտնվելու վայրի նշիչով քարտեզի պատկեր:</string>
     <string name="iss_sighting_share_title">ISS Sighting</string>
     <string name="iss_sighting_share_description">ISS-ը տեսանելի կլինի այստեղ: Պատրաստվում է ստուգել այն:</string>
     <string name="iss_sighting_share_body">«Ստուգեք այն: ISS-ը տեսանելի կլինի այստեղ»:</string>

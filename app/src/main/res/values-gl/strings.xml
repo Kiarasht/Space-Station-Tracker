@@ -85,7 +85,7 @@
     <string name="notificationSummary">Notificar cando se espera que a ISS sobrevoe a miña localización</string>
 
     <string name="advertisementTitle">Bandeira</string>
-    <string name="advertisementSummary">Desactiva os banners publicitarios na aplicación</string>
+    <string name="advertisementSummary">Desactivar os banners publicitarios na aplicación</string>
 
     <string name="fullTitle">Páxina completa</string>
     <string name="fullSummary">Desactiva os anuncios de páxina completa na aplicación</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Non se pode atopar a túa localización.</string>
     <string name="errorPermissionLocation">Denegóuselle o acceso á túa localización</string>
     <string name="errorConnection">Ou non tes conexión ou o servidor está sobrecargado.</string>
+    <string name="nothing_available">Non hai ningún pase ISS pola túa localización neste momento</string>
+    <string name="unable_to_get_astronauts">Non se pode conseguir astronautas. Asegúrate de estar conectado a Internet e téntao de novo máis tarde</string>
+    <string name="unable_to_get_passes">Non se poden conseguir pases da ISS. Asegúrate de estar conectado a Internet e téntao de novo máis tarde</string>
     <string name="errorNetwork">Produciuse un erro descoñecido. Erro: 401</string>
     <string name="errorMap">Non se pode aplicar a configuración ao mapa</string>
     <string name="errorFiveTimes">Fallou as 5 veces. Ou non tes conexión ou o servidor está sobrecargado.</string>

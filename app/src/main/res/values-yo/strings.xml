@@ -95,6 +95,9 @@
     <string name="errorLocation">Ko le wa ipo rẹ.</string>
     <string name="errorPermissionLocation">Ti kọ iraye si ipo rẹ</string>
     <string name="errorConnection">Boya o ko ni asopọ tabi olupin ti kojọpọ.</string>
+    <string name="nothing_available">Ko si ISS kọja nipasẹ ipo rẹ ni akoko yii</string>
+    <string name="unable_to_get_astronauts">Ko le gba awọn awòràwọ. Rii daju pe o ti sopọ si intanẹẹti ki o gbiyanju lẹẹkansi nigbamii</string>
+    <string name="unable_to_get_passes">Ko le gba awọn iwe-iwọle ISS. Rii daju pe o ti sopọ si intanẹẹti ki o gbiyanju lẹẹkansi nigbamii</string>
     <string name="errorNetwork">Aṣiṣe aimọ ti ṣẹlẹ. Aṣiṣe: 401</string>
     <string name="errorMap">Ko le lo awọn eto si maapu</string>
     <string name="errorFiveTimes">Kuna gbogbo igba 5. Boya o ko ni asopọ tabi olupin ti kojọpọ.</string>

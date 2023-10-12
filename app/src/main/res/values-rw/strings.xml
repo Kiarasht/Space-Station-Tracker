@@ -40,7 +40,7 @@
     <string name="countryFlagContentDescription">Ibendera ryigihugu uyu mucyogajuru akomoka</string>
     <string name="astronautTwitterContentDescription">Agashushondanga guhuza page ya twitter</string>
     <string name="astronautWikiContentDescription">Agashushondanga guhuza page ya wiki</string>
-    <string name="astronautGoogleContentDescription">Agashusho gahuza abahanga mubyogajuru page ya Google</string>
+    <string name="astronautGoogleContentDescription">Agashushondanga guhuza abahanga mubyogajuru page ya Google</string>
 
     
     <string name="refreshTitle">Kongera igipimo</string>
@@ -65,7 +65,7 @@
     <string name="colorTitle">Ibara ry\'umurongo</string>
     <string name="colorSummary">Hindura ibara ry\'imirongo yo guhanura</string>
 
-    <string name="sizeTitle">Ingano y\'umurongo</string>
+    <string name="sizeTitle">Ingano yumurongo</string>
     <string name="sizeDialogMessage">Hindura ingano yumurongo wo guhanura ISS</string>
     <string name="sizeSummary">Hindura ingano yumurongo wo guhanura ISS</string>
     <string name="sizeUnit" />
@@ -88,13 +88,16 @@
     <string name="advertisementSummary">Hagarika banneri yamamaza kuri porogaramu</string>
 
     <string name="fullTitle">Urupapuro rwuzuye</string>
-    <string name="fullSummary">Hagarika amatangazo yamamaza yuzuye kuri porogaramu</string>
+    <string name="fullSummary">Hagarika amatangazo yuzuye kurupapuro</string>
 
     
     <string name="errorWebView">Ntushobora gupakira page</string>
     <string name="errorLocation">Ntushobora kubona aho uherereye.</string>
     <string name="errorPermissionLocation">Wanze kugera aho uherereye</string>
     <string name="errorConnection">Waba udafite aho uhurira cyangwa seriveri irenze.</string>
+    <string name="nothing_available">Hano nta ISS inyura aho uherereye muri iki gihe</string>
+    <string name="unable_to_get_astronauts">Ntibishobora kubona icyogajuru. Menya neza ko uhujwe na enterineti hanyuma ugerageze nyuma</string>
+    <string name="unable_to_get_passes">Ntushobora kubona ISS pass. Menya neza ko uhujwe na enterineti hanyuma ugerageze nyuma</string>
     <string name="errorNetwork">Ikosa ritazwi ryabaye. Ikosa: 401</string>
     <string name="errorMap">Ntushobora gukoresha igenamiterere ku ikarita</string>
     <string name="errorFiveTimes">Byatsinzwe inshuro 5 zose. Waba udafite aho uhurira cyangwa seriveri irenze.</string>

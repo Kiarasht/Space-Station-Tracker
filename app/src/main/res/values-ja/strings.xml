@@ -95,6 +95,9 @@
     <string name="errorLocation">現在地が見つかりません。</string>
     <string name="errorPermissionLocation">あなたの位置情報へのアクセスが拒否されました</string>
     <string name="errorConnection">接続がないか、サーバーが過負荷になっています。</string>
+    <string name="nothing_available">現時点ではあなたの所在地付近に ISS パスはありません</string>
+    <string name="unable_to_get_astronauts">宇宙飛行士は来れない。インターネットに接続していることを確認して、後でもう一度お試しください</string>
+    <string name="unable_to_get_passes">ISS パスを取得できません。インターネットに接続していることを確認して、後でもう一度お試しください</string>
     <string name="errorNetwork">不明なエラーが発生しました。エラー: 401</string>
     <string name="errorMap">設定をマップに適用できません</string>
     <string name="errorFiveTimes">5回とも失敗。接続がないか、サーバーが過負荷になっています。</string>

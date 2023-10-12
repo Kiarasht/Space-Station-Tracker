@@ -33,7 +33,7 @@
     <string name="startBannerAds">የባነር ማስታወቂያዎች ነቅተዋል። ለድጋፉ እናመሰግናለን ;)</string>
 
     
-    <string name="tutorialOne">ካርታው የት እንደሚገኝ የሚገመተውን የአይኤስኤስ ቦታ ያሳያል።</string>
+    <string name="tutorialOne">ካርታው የት እንደሚሆን የትንበያ መስመር ያለው የአይኤስኤስ አካባቢ ያሳያል።</string>
     <string name="tutorialTwo">መሳቢያ ወደ ሌሎች እንደ ፍላይቢስ እና መቼት ያሉ ባህሪያት ይወስድዎታል።</string>
     <string name="midAt">በ</string>
     <string name="checkerContentDescription">አዶ ግልጽ የሆነ ቀለም መመረጡን ይወክላል</string>
@@ -44,7 +44,7 @@
 
     
     <string name="refreshTitle">የማደስ ደረጃ</string>
-    <string name="refreshSummary">በካርታው ላይ የአይኤስኤስ መገኛን ከማዘመንዎ በፊት ያለው ጊዜ</string>
+    <string name="refreshSummary">በካርታው ላይ የአይኤስኤስ አካባቢን ከማዘመንዎ በፊት ያለው ጊዜ</string>
     <string name="declination_unit">ሰከንድ/አድስ</string>
     <string name="refreshDialogMessage">በአይኤስኤስ መካከል ያለው ጊዜ ወደ አዲሱ ቦታው እየተዘመነ ነው።</string>
 
@@ -82,7 +82,7 @@
     <string name="textHighlightSummary">የጽሑፍ እሴቶችን ንድፍ ቀለም ይለውጡ</string>
 
     <string name="notificationTitle">የአይኤስኤስ ማስታወቂያ</string>
-    <string name="notificationSummary">በአከባቢዬ ላይ አይኤስኤስ እንዲበር ሲጠበቅ አሳውቅ</string>
+    <string name="notificationSummary">አይኤስኤስ በእኔ ቦታ ላይ እንዲበር ሲጠበቅ አሳውቅ</string>
 
     <string name="advertisementTitle">ባነር</string>
     <string name="advertisementSummary">በመተግበሪያው ላይ የባነር ማስታወቂያዎችን አሰናክል</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">አካባቢዎን ማግኘት አልተቻለም።</string>
     <string name="errorPermissionLocation">የእርስዎን አካባቢ መዳረሻ ተከልክሏል።</string>
     <string name="errorConnection">ምንም ግንኙነት የለህም ወይ አገልጋይ ከልክ በላይ ተጭኗል።</string>
+    <string name="nothing_available">በዚህ ጊዜ በእርስዎ አካባቢ ምንም የአይኤስኤስ ማለፊያዎች የሉም</string>
+    <string name="unable_to_get_astronauts">የጠፈር ተመራማሪዎችን ማግኘት አልተቻለም። ከበይነመረቡ ጋር መገናኘትዎን ያረጋግጡ እና ቆይተው እንደገና ይሞክሩ</string>
+    <string name="unable_to_get_passes">የአይኤስኤስ ማለፊያዎችን ማግኘት አልተቻለም። ከበይነመረቡ ጋር መገናኘትዎን ያረጋግጡ እና ቆይተው እንደገና ይሞክሩ</string>
     <string name="errorNetwork">ያልታወቀ ስህተት ተከስቷል. ስህተት፡ 401</string>
     <string name="errorMap">በካርታው ላይ ቅንብሮችን መተግበር አይቻልም</string>
     <string name="errorFiveTimes">ሁሉም 5 ጊዜ አልተሳካም። ምንም ግንኙነት የለህም ወይ አገልጋይ ከልክ በላይ ተጭኗል።</string>

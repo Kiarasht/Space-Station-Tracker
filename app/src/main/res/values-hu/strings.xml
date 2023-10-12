@@ -95,6 +95,9 @@
     <string name="errorLocation">Nem található a tartózkodási helye.</string>
     <string name="errorPermissionLocation">Megtagadva a hozzáférést a tartózkodási helyéhez</string>
     <string name="errorConnection">Vagy nincs kapcsolat, vagy a szerver túlterhelt.</string>
+    <string name="nothing_available">Jelenleg nincs ISS-bérlet az Ön tartózkodási helye mellett</string>
+    <string name="unable_to_get_astronauts">Nem sikerült űrhajósokat szerezni. Győződjön meg arról, hogy csatlakozik az internethez, és próbálkozzon újra később</string>
+    <string name="unable_to_get_passes">Nem sikerült ISS-bérleteket szerezni. Győződjön meg arról, hogy csatlakozik az internethez, és próbálkozzon újra később</string>
     <string name="errorNetwork">Ismeretlen hiba lépett fel. Hiba: 401</string>
     <string name="errorMap">Nem lehet beállításokat alkalmazni a térképen</string>
     <string name="errorFiveTimes">Mind az 5 alkalommal nem sikerült. Vagy nincs kapcsolat, vagy a szerver túlterhelt.</string>

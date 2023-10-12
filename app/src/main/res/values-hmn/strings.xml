@@ -95,6 +95,9 @@
     <string name="errorLocation">Nrhiav tsis tau koj qhov chaw.</string>
     <string name="errorPermissionLocation">Tsis kam nkag mus rau koj qhov chaw</string>
     <string name="errorConnection">Txawm hais tias koj tsis muaj kev sib txuas lossis server yog overloaded.</string>
+    <string name="nothing_available">Tsis muaj ISS ​​hla koj qhov chaw nyob rau lub sijhawm no</string>
+    <string name="unable_to_get_astronauts">Tsis tuaj yeem tau txais astronauts. Xyuas kom tseeb tias koj txuas nrog internet thiab sim dua tom qab</string>
+    <string name="unable_to_get_passes">Tsis tuaj yeem tau txais ISS hla. Xyuas kom tseeb tias koj txuas nrog internet thiab sim dua tom qab</string>
     <string name="errorNetwork">Ib qho yuam kev tsis paub tau tshwm sim. yuam kev: 401</string>
     <string name="errorMap">Tsis tuaj yeem siv qhov chaw rau daim ntawv qhia</string>
     <string name="errorFiveTimes">Ua tsis tiav 5 zaug. Txawm hais tias koj tsis muaj kev sib txuas lossis server yog overloaded.</string>
