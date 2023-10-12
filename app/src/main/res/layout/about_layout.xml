@@ -32,8 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_standard"
-            android:text="@string/msg_app_version"/>
+            android:layout_marginTop="@dimen/margin_standard" />
 
         <TextView
             android:layout_width="match_parent"

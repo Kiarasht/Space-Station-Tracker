@@ -1,7 +1,5 @@
 package com.restart.spacestationtracker;
 
-import static com.restart.spacestationtracker.util.IsRunningTestKt.isRunningTest;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -194,7 +192,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     private void initializeAds() {
         List<String> testDevices = new ArrayList<>();
-        testDevices.add(getString(R.string.test_device));
+        testDevices.add("9D8A446B53611FCE04214236159EB750");
+        testDevices.add("54686107F6B785A3B1575E1F6E4BD613");
         MobileAds.setRequestConfiguration(new RequestConfiguration.Builder()
                 .setTestDeviceIds(testDevices)
                 .build());
@@ -246,7 +245,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     /**
-     * Reread the refreshrate and update views if needed such as prediction line, texts and their
+     * Reread the refresh rate and update views if needed such as prediction line, texts and their
      * properties (Color, size, etc.).
      */
     protected void onResume() {
@@ -271,7 +270,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mTimer.purge();
                 mTimer = null;
             }
-            mTimer = new Timer();                // Track ISS based on refreshrate
+            mTimer = new Timer();                // Track ISS based on refresh rate
             mTimer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
@@ -279,7 +278,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }, 0, mRefreshRate);
 
-            mMaptype();
+            mMapType();
             // When activity is killed or created for first time
         } else {
             mStart = true;
@@ -399,7 +398,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
-        mMaptype();
+        mMapType();
 
         if (mTimer == null) {
             mTimer = new Timer();
@@ -469,7 +468,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     /**
      * Changes the map type to match the one from settings. If it's the same just return.
      */
-    private void mMaptype() {
+    private void mMapType() {
         int current = Integer.parseInt(mSharedPreferences.getString("mapType", "2"));
 
         if (mMap != null) {
@@ -550,7 +549,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }, e -> {
             // Server did not respond. Got 5 chances before stop trying.
             if (++mSuccess <= 4) {
-                Toast.makeText(MapsActivity.this, getResources().getString(R.string.errorLessFive, mSuccess, mRefreshRate), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapsActivity.this, getResources().getString(R.string.errorLessFive), Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(MapsActivity.this, R.string.errorFiveTimes, Toast.LENGTH_LONG).show();
                 if (mTimer != null) {
@@ -781,6 +780,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      *
      * @param serviceClass Class service searching for
      * @return Returns if user's phone is running the given service.
+     * @noinspection SameParameterValue notifications are disabled for now
      */
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -808,7 +808,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .fadeinTextDuration(400)
                 .headingTvColor(Color.parseColor("#6441A5"))
                 .headingTvSize(32)
-                .headingTvText("Hey There :)")
+                .headingTvText(getString(R.string.tutorial_one_title))
                 .subHeadingTvColor(Color.parseColor("#ffffff"))
                 .subHeadingTvSize(16)
                 .subHeadingTvText(getString(R.string.tutorialOne))
@@ -825,7 +825,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         .fadeinTextDuration(400)
                         .headingTvColor(Color.parseColor("#6441A5"))
                         .headingTvSize(32)
-                        .headingTvText("Main Features")
+                        .headingTvText(getString(R.string.tutorial_two_title))
                         .subHeadingTvColor(Color.parseColor("#ffffff"))
                         .subHeadingTvSize(16)
                         .subHeadingTvText(getString(R.string.tutorialTwo))

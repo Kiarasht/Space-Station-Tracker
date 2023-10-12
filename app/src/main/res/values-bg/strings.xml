@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Карта</string>
+    <string name="flybys_title">Преминаване</string>
+    <string name="space_title">На смяна</string>
+    <string name="settings_title">Настройки</string>
+    <string name="help_title">Помогне</string>
+
+    
+    <string name="flybys_summary">Проверете кога ISS ще премине покрай вашето местоположение</string>
+    <string name="space_summary">Вижте кой е в космоса в момента</string>
+    <string name="settings_summary">Управлявайте общите настройки на приложението</string>
+    <string name="help_summary">Оценете или научете за приложението</string>
+
+    
+    <string name="reset">Опресняване на редовете за прогнозиране</string>
+    <string name="stream">На живо</string>
+
+    
+    <string name="label_location">Прелети</string>
+    <string name="label_people_in_space">Кой е в космоса\?</string>
+    <string name="label_setting">Настройки</string>
+    <string name="label_help">Помогне</string>
+    <string name="label_stream">Поток на живо</string>
+
+    
+    <string name="startAlert">Уведомете, когато ISS е наблизо</string>
+    <string name="stopAlert">Спрете известяването, когато ISS е наблизо</string>
+    <string name="startFullAds">Рекламите на цяла страница са активирани. Благодаря за подкрепата ;)</string>
+    <string name="startBannerAds">Банерните реклами са активирани. Благодаря за подкрепата ;)</string>
+
+    
+    <string name="tutorialOne">Картата показва текущото местоположение на ISS с прогнозна линия за това къде ще бъде.</string>
+    <string name="tutorialTwo">Чекмеджето ви отвежда до други функции, като прелитане и настройки.</string>
+    <string name="midAt">при</string>
+    <string name="checkerContentDescription">Иконата показва, че е избран прозрачен цвят</string>
+    <string name="countryFlagContentDescription">Знамето на държавата, от която е този астронавт</string>
+    <string name="astronautTwitterContentDescription">Икона за връзка към страницата на астронавтите в Twitter</string>
+    <string name="astronautWikiContentDescription">Икона за връзка към wiki страницата на астронавтите</string>
+    <string name="astronautGoogleContentDescription">Икона за връзка към страницата за търсене на астронавти в Google</string>
+
+    
+    <string name="refreshTitle">Скорост на обновяване</string>
+    <string name="refreshSummary">Период от време преди актуализиране на местоположението на ISS на картата</string>
+    <string name="declination_unit">сек/опресняване</string>
+    <string name="refreshDialogMessage">Време между актуализирането на ISS до новото местоположение.</string>
+
+    <string name="lockTitle">Заключи ISS</string>
+    <string name="lockSummary">Заключете ISS и го следвайте на картата</string>
+
+    <string name="infoTitle">Допълнителна информация</string>
+    <string name="infoSummary">Предоставете допълнителна информация за ISS на картата</string>
+
+    <string name="mapTitle">Тип карта</string>
+    <string name="mapSummary">Променете типа карта от предишната страница</string>
+
+    <string name="decimalTitle">Десетични знаци</string>
+    <string name="decimalDialogMessage">Промяна на точността на всички числени стойности</string>
+    <string name="decimalSummary">Промяна на точността на всички числени стойности</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Цвят на прогнозната линия</string>
+    <string name="colorSummary">Промяна на цвета на прогнозните линии</string>
+
+    <string name="sizeTitle">Размер на линията за прогнозиране</string>
+    <string name="sizeDialogMessage">Променете размера на линията за прогнозиране на ISS</string>
+    <string name="sizeSummary">Променете размера на линията за прогнозиране на ISS</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Размер на текста</string>
+    <string name="textSizeDialogMessage">Променете размера на всички текстови стойности на картата</string>
+    <string name="textSizeSummary">Променете размера на всички текстови стойности на картата</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Цвят на текста</string>
+    <string name="textSummary">Промяна на цвета на текстовите стойности</string>
+
+    <string name="textHighlightTitle">Контур на текста</string>
+    <string name="textHighlightSummary">Промяна на цвета на контура на текстовите стойности</string>
+
+    <string name="notificationTitle">Уведомление за ISS</string>
+    <string name="notificationSummary">Уведомяване, когато се очаква ISS да прелети над моето местоположение</string>
+
+    <string name="advertisementTitle">Банер</string>
+    <string name="advertisementSummary">Деактивирайте банерните реклами в приложението</string>
+
+    <string name="fullTitle">Пълна страница</string>
+    <string name="fullSummary">Деактивирайте рекламите на цяла страница в приложението</string>
+
+    
+    <string name="errorWebView">Страницата не може да се зареди</string>
+    <string name="errorLocation">Не може да се намери вашето местоположение.</string>
+    <string name="errorPermissionLocation">Отказан достъп до вашето местоположение</string>
+    <string name="errorConnection">Или нямате връзка, или сървърът е претоварен.</string>
+    <string name="errorNetwork">Възникна неизвестна грешка. Грешка: 401</string>
+    <string name="errorMap">Не могат да се приложат настройки към картата</string>
+    <string name="errorFiveTimes">Неуспешно всички 5 пъти. Или нямате връзка, или сървърът е претоварен.</string>
+    <string name="errorLessFive">Неуспешна заявка към сървъра. Повторен опит...</string>
+    <string name="errorWaitPoly">Вече създавате линии за прогнозиране</string>
+    <string name="errorNotByMe">ISS Notification не е спряно от вас.</string>
+    <string name="errorNoWiki">няма wiki страница</string>
+    <string name="errorNoTwitter">няма Twitter акаунт</string>
+    <string name="errorNoInstagram">няма акаунт в Instagram</string>
+    <string name="errorNoFacebook">няма Facebook акаунт</string>
+    <string name="data_corrupted">Данните на приложението са повредени. Нулиране!</string>
+    <string name="polyError">Не може да се създаде линия за прогнозиране</string>
+    <string name="calendar">Календар</string>
+    <string name="share">Дял</string>
+    <string name="image_content">Изображение на карта с маркер за потребителско местоположение.</string>
+    <string name="iss_sighting_share_title">Наблюдение на МКС</string>
+    <string name="iss_sighting_share_description">ISS ще се вижда тук. Ще го проверя!</string>
+    <string name="iss_sighting_share_body">„Вижте го! ISS ще бъде видим на „</string>
+    <string name="iss_sighting_share_chooser">Дял…</string>
+    <string name="on">\" На \"</string>
+    <string name="one_day_in_space">1 ден в космоса</string>
+    <string name="in_space">\" в космоса\"</string>
+    <string name="day">\"ден\"</string>
+    <string name="month">\"месец\"</string>
+    <string name="year">\"година\"</string>
+    <string name="since">\"Стартиран\"</string>
+    <string name="tutorial_one_title">Здравейте :)</string>
+    <string name="tutorial_two_title">Основните функции</string>
+
+    <string name="license">Лицензи с отворен код</string>
+    <string name="msg_license">Това приложение е създадено с помощта на следния софтуер:</string>
+    <string name="msg_about_fork_me_on_github">Разклонете го в GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker е приложение за Android, което ви позволява да проследявате позицията на Международната космическа станция и да разберете какви астронавти са в момента в космоса.</string>
+    <string name="desc_about_app">Относно това приложение</string>
+    <string name="msg_get_it_on_play_store">Вземете го от Google Play</string>
+    <string name="version">Версии</string>
+    <string name="version_msg">Списък с предишни промени, поправки и актуализации:</string>
+</resources>

@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">Трекер МКС</string>
+
+    
+    <string name="map_activity">Карта</string>
+    <string name="flybys_title">Повз</string>
+    <string name="space_title">На чергуванні</string>
+    <string name="settings_title">Налаштування</string>
+    <string name="help_title">Довідка</string>
+
+    
+    <string name="flybys_summary">Перевірте, коли МКС пройде повз ваше місце розташування</string>
+    <string name="space_summary">Подивіться, хто зараз у космосі</string>
+    <string name="settings_summary">Керуйте загальними налаштуваннями програми</string>
+    <string name="help_summary">Оцініть додаток або дізнайтеся про нього</string>
+
+    
+    <string name="reset">Оновити рядки передбачення</string>
+    <string name="stream">Жити</string>
+
+    
+    <string name="label_location">Перельоти</string>
+    <string name="label_people_in_space">Хто в космосі\?</string>
+    <string name="label_setting">Налаштування</string>
+    <string name="label_help">Довідка</string>
+    <string name="label_stream">Наживо</string>
+
+    
+    <string name="startAlert">Повідомити, коли МКС буде поруч</string>
+    <string name="stopAlert">Припинити сповіщення, коли ISS поблизу</string>
+    <string name="startFullAds">Оголошення на всю сторінку ввімкнено. Дякую за підтримку ;)</string>
+    <string name="startBannerAds">Банерна реклама ввімкнена. Дякую за підтримку ;)</string>
+
+    
+    <string name="tutorialOne">Карта показує поточне місцезнаходження МКС із прогнозованою лінією, де вона буде.</string>
+    <string name="tutorialTwo">Висувний ящик веде до інших функцій, таких як обльоти та налаштування.</string>
+    <string name="midAt">в</string>
+    <string name="checkerContentDescription">Значок означає, що вибрано прозорий колір</string>
+    <string name="countryFlagContentDescription">Прапор країни, з якої походить цей астронавт</string>
+    <string name="astronautTwitterContentDescription">Піктограма для посилання на сторінку астронавтів у Twitter</string>
+    <string name="astronautWikiContentDescription">Значок для посилання на вікі-сторінку астронавтів</string>
+    <string name="astronautGoogleContentDescription">Піктограма для посилання на сторінку пошуку астронавтів Google</string>
+
+    
+    <string name="refreshTitle">Частота оновлення</string>
+    <string name="refreshSummary">Час до оновлення місцезнаходження МКС на карті</string>
+    <string name="declination_unit">сек/оновлення</string>
+    <string name="refreshDialogMessage">Час між оновленням МКС до її нового розташування.</string>
+
+    <string name="lockTitle">Замок МКС</string>
+    <string name="lockSummary">Налаштуйтеся на МКС і слідуйте за нею на карті</string>
+
+    <string name="infoTitle">Додаткова інформація</string>
+    <string name="infoSummary">Надайте додаткову інформацію про МКС на карті</string>
+
+    <string name="mapTitle">Тип карти</string>
+    <string name="mapSummary">Змініть тип карти з попередньої сторінки</string>
+
+    <string name="decimalTitle">Десяткові знаки</string>
+    <string name="decimalDialogMessage">Змінити точність усіх числових значень</string>
+    <string name="decimalSummary">Змінити точність усіх числових значень</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Колір лінії прогнозу</string>
+    <string name="colorSummary">Змінити колір ліній передбачення</string>
+
+    <string name="sizeTitle">Розмір лінії передбачення</string>
+    <string name="sizeDialogMessage">Змініть розмір лінії передбачення ISS</string>
+    <string name="sizeSummary">Змініть розмір лінії передбачення ISS</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Розмір тексту</string>
+    <string name="textSizeDialogMessage">Змінити розмір усіх текстових значень на карті</string>
+    <string name="textSizeSummary">Змінити розмір усіх текстових значень на карті</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Колір тексту</string>
+    <string name="textSummary">Змінити колір текстових значень</string>
+
+    <string name="textHighlightTitle">Схема тексту</string>
+    <string name="textHighlightSummary">Змінити колір контуру текстових значень</string>
+
+    <string name="notificationTitle">Сповіщення МКС</string>
+    <string name="notificationSummary">Повідомляти, коли очікується проліт МКС над моїм місцезнаходженням</string>
+
+    <string name="advertisementTitle">банер</string>
+    <string name="advertisementSummary">Вимкніть банерну рекламу в додатку</string>
+
+    <string name="fullTitle">Повна сторінка</string>
+    <string name="fullSummary">Вимкніть рекламу на всю сторінку в додатку</string>
+
+    
+    <string name="errorWebView">Неможливо завантажити сторінку</string>
+    <string name="errorLocation">Не вдалося знайти ваше місцезнаходження.</string>
+    <string name="errorPermissionLocation">Відмовлено в доступі до вашого місцезнаходження</string>
+    <string name="errorConnection">Або у вас немає з’єднання, або сервер перевантажений.</string>
+    <string name="errorNetwork">Сталася невідома помилка. Помилка: 401</string>
+    <string name="errorMap">Неможливо застосувати налаштування до карти</string>
+    <string name="errorFiveTimes">Не вдалося всі 5 разів. Або у вас немає з’єднання, або сервер перевантажений.</string>
+    <string name="errorLessFive">Помилка запиту до сервера. Повторна спроба…</string>
+    <string name="errorWaitPoly">Уже створені рядки прогнозів</string>
+    <string name="errorNotByMe">ISS Notification не було зупинено вами.</string>
+    <string name="errorNoWiki">не має вікі-сторінки</string>
+    <string name="errorNoTwitter">не має облікового запису Twitter</string>
+    <string name="errorNoInstagram">не має облікового запису Instagram</string>
+    <string name="errorNoFacebook">не має облікового запису Facebook</string>
+    <string name="data_corrupted">Дані програми пошкоджено. Скидання!</string>
+    <string name="polyError">Неможливо створити рядок передбачення</string>
+    <string name="calendar">Календар</string>
+    <string name="share">Поділіться</string>
+    <string name="image_content">Зображення карти з маркером місцезнаходження користувача.</string>
+    <string name="iss_sighting_share_title">Спостереження МКС</string>
+    <string name="iss_sighting_share_description">ISS буде видно тут. Збираюся перевірити це!</string>
+    <string name="iss_sighting_share_body">\"Перевірте! МКС буде видно на \"</string>
+    <string name="iss_sighting_share_chooser">Поділитися…</string>
+    <string name="on">\" на \"</string>
+    <string name="one_day_in_space">1 день у космосі</string>
+    <string name="in_space">\" в космосі\"</string>
+    <string name="day">\"день\"</string>
+    <string name="month">\"місяць\"</string>
+    <string name="year">\"рік\"</string>
+    <string name="since">\"Запущено\"</string>
+    <string name="tutorial_one_title">Привіт :)</string>
+    <string name="tutorial_two_title">Основні риси</string>
+
+    <string name="license">Ліцензії з відкритим кодом</string>
+    <string name="msg_license">Ця програма створена за допомогою наступного програмного забезпечення:</string>
+    <string name="msg_about_fork_me_on_github">Форк на GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker — програма для Android, яка дозволяє відстежувати положення Міжнародної космічної станції та дізнаватися, які астронавти зараз знаходяться в космосі.</string>
+    <string name="desc_about_app">Про цю програму</string>
+    <string name="msg_get_it_on_play_store">Отримайте в Google Play</string>
+    <string name="version">Версії</string>
+    <string name="version_msg">Список попередніх змін, виправлень і оновлень:</string>
+</resources>

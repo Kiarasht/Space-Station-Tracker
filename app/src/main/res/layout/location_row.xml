@@ -27,9 +27,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_margin="16dp"
-                app:drawableStartCompat="@drawable/ic_calendar"
-                android:drawablePadding="16dp"
+                android:drawablePadding="8dp"
                 android:textSize="14sp"
+                app:drawableStartCompat="@drawable/ic_calendar"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,9 +38,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                app:drawableStartCompat="@drawable/ic_timer"
-                android:drawablePadding="16dp"
+                android:drawablePadding="8dp"
                 android:textSize="14sp"
+                app:drawableStartCompat="@drawable/ic_timer"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/date" />
 
@@ -49,7 +49,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:text="@string/calendar"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -61,7 +61,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/share"
                 android:textColor="@color/colorPrimary"

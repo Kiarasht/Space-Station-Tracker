@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">ISS kuzatuvchisi</string>
+
+    
+    <string name="map_activity">Xarita</string>
+    <string name="flybys_title">O\'tish</string>
+    <string name="space_title">Hizmatda</string>
+    <string name="settings_title">Sozlamalar</string>
+    <string name="help_title">Yordam</string>
+
+    
+    <string name="flybys_summary">ISS sizning joylashuvingizdan qachon o\'tishini tekshiring</string>
+    <string name="space_summary">Kosmosda kim borligini ko\'ring</string>
+    <string name="settings_summary">Umumiy ilova sozlamalarini boshqaring</string>
+    <string name="help_summary">Baholang yoki ilova haqida bilib oling</string>
+
+    
+    <string name="reset">Bashorat qatorlarini yangilang</string>
+    <string name="stream">Jonli</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_people_in_space">Kosmosda kim bor\?</string>
+    <string name="label_setting">Sozlamalar</string>
+    <string name="label_help">Yordam</string>
+    <string name="label_stream">Jonli translatsiya</string>
+
+    
+    <string name="startAlert">ISS yaqin bo\'lganda xabar bering</string>
+    <string name="stopAlert">ISS yaqin bo\'lganda xabar berishni to\'xtating</string>
+    <string name="startFullAds">Toʻliq sahifa reklamalari yoqilgan. Qo\'llab-quvvatlaganingiz uchun rahmat;)</string>
+    <string name="startBannerAds">Banner reklamalari yoqilgan. Qo\'llab-quvvatlaganingiz uchun rahmat;)</string>
+
+    
+    <string name="tutorialOne">Xaritada ISSning joriy joylashuvi, uning qayerda bo‘lishini bashorat qilish chizig‘i ko‘rsatilgan.</string>
+    <string name="tutorialTwo">Drawer sizni parvozlar va sozlamalar kabi boshqa xususiyatlarga olib boradi.</string>
+    <string name="midAt">da</string>
+    <string name="checkerContentDescription">Belgisi shaffof rang tanlanganligini bildiradi</string>
+    <string name="countryFlagContentDescription">Bu kosmonavtning davlat bayrog\'i</string>
+    <string name="astronautTwitterContentDescription">Astronavtlar twitter sahifasiga havola qilish uchun belgi</string>
+    <string name="astronautWikiContentDescription">Astronavtlar wiki sahifasiga havola qilish uchun belgi</string>
+    <string name="astronautGoogleContentDescription">Kosmonavtlar Google qidiruv sahifasiga havola uchun belgi</string>
+
+    
+    <string name="refreshTitle">Yangilanish tezligi</string>
+    <string name="refreshSummary">Xaritadagi ISS manzilini yangilashdan oldingi vaqt</string>
+    <string name="declination_unit">soniya/yangilash</string>
+    <string name="refreshDialogMessage">ISS yangi manziliga yangilanishi orasidagi vaqt.</string>
+
+    <string name="lockTitle">ISSni qulflash</string>
+    <string name="lockSummary">ISSga qulflang va uni xaritada kuzatib boring</string>
+
+    <string name="infoTitle">Qo\'shimcha ma\'lumot</string>
+    <string name="infoSummary">Xaritada ISS haqida qo\'shimcha ma\'lumot bering</string>
+
+    <string name="mapTitle">Xarita turi</string>
+    <string name="mapSummary">Oldingi sahifadagi xarita turini o\'zgartiring</string>
+
+    <string name="decimalTitle">O\'nlik o\'rinlar</string>
+    <string name="decimalDialogMessage">Barcha raqamli qiymatlarning aniqligini o\'zgartiring</string>
+    <string name="decimalSummary">Barcha raqamli qiymatlarning aniqligini o\'zgartiring</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Bashorat chizig\'i rangi</string>
+    <string name="colorSummary">Bashoratli chiziqlar rangini o\'zgartiring</string>
+
+    <string name="sizeTitle">Prognoz chizig\'i o\'lchami</string>
+    <string name="sizeDialogMessage">ISS prognoz chizig\'ining hajmini o\'zgartiring</string>
+    <string name="sizeSummary">ISS prognoz chizig\'ining hajmini o\'zgartiring</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Matn hajmi</string>
+    <string name="textSizeDialogMessage">Xaritadagi barcha matn qiymatlarining hajmini o\'zgartiring</string>
+    <string name="textSizeSummary">Xaritadagi barcha matn qiymatlarining hajmini o\'zgartiring</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Matn rangi</string>
+    <string name="textSummary">Matn qiymatlarining rangini o\'zgartiring</string>
+
+    <string name="textHighlightTitle">Matn konturi</string>
+    <string name="textHighlightSummary">Matn qiymatlarining kontur rangini o\'zgartiring</string>
+
+    <string name="notificationTitle">ISS xabarnomasi</string>
+    <string name="notificationSummary">ISS mening joylashuvim ustidan uchishi kutilsa, xabar bering</string>
+
+    <string name="advertisementTitle">Banner</string>
+    <string name="advertisementSummary">Ilovada banner reklamalarini o\'chirib qo\'ying</string>
+
+    <string name="fullTitle">Toʻliq sahifa</string>
+    <string name="fullSummary">Ilovada toʻliq sahifa reklamalarini oʻchirib qoʻying</string>
+
+    
+    <string name="errorWebView">Sahifani yuklab bo‘lmadi</string>
+    <string name="errorLocation">Joylashuvingiz topilmadi.</string>
+    <string name="errorPermissionLocation">Joylashuvingizga kirish taqiqlandi</string>
+    <string name="errorConnection">Yoki sizda aloqa yo\'q yoki server haddan tashqari yuklangan.</string>
+    <string name="errorNetwork">Noma\'lum xatolik yuz berdi. Xato: 401</string>
+    <string name="errorMap">Sozlamalarni xaritaga qo‘llab bo‘lmaydi</string>
+    <string name="errorFiveTimes">Hammasi 5 marta muvaffaqiyatsiz bo\'ldi. Yoki sizda aloqa yo\'q yoki server haddan tashqari yuklangan.</string>
+    <string name="errorLessFive">Serverga so‘rov amalga oshmadi. Qayta urinish…</string>
+    <string name="errorWaitPoly">Allaqachon bashorat qilish chiziqlari yaratilmoqda</string>
+    <string name="errorNotByMe">ISS xabarnomasi siz tomonidan toʻxtatilmagan.</string>
+    <string name="errorNoWiki">wiki sahifasiga ega emas</string>
+    <string name="errorNoTwitter">Twitter akkaunti yo\'q</string>
+    <string name="errorNoInstagram">Instagram hisobiga ega emas</string>
+    <string name="errorNoFacebook">Facebook akkaunti yo\'q</string>
+    <string name="data_corrupted">Ilova maʼlumotlari buzilgan. Qayta tiklanmoqda!</string>
+    <string name="polyError">Bashorat chizig‘ini yaratib bo‘lmadi</string>
+    <string name="calendar">Kalendar</string>
+    <string name="share">Ulashish</string>
+    <string name="image_content">Foydalanuvchi joylashuvi uchun markerli xarita tasviri.</string>
+    <string name="iss_sighting_share_title">ISSni ko\'rish</string>
+    <string name="iss_sighting_share_description">ISS bu erda ko\'rinadi. Tekshirish uchun ketyapman!</string>
+    <string name="iss_sighting_share_body">\"Ko\'ring! ISS \"da ko\'rinadi</string>
+    <string name="iss_sighting_share_chooser">Ulashish…</string>
+    <string name="on">\"yoq\"</string>
+    <string name="one_day_in_space">Kosmosda 1 kun</string>
+    <string name="in_space">\"kosmosda\"</string>
+    <string name="day">\"kun\"</string>
+    <string name="month">\"oy\"</string>
+    <string name="year">\"yil\"</string>
+    <string name="since">\"Ishga tushirildi\"</string>
+    <string name="tutorial_one_title">Salom :)</string>
+    <string name="tutorial_two_title">Asosiy xususiyatlar</string>
+
+    <string name="license">Ochiq kodli litsenziyalar</string>
+    <string name="msg_license">Ushbu dastur quyidagi dasturlar yordamida yaratilgan:</string>
+    <string name="msg_about_fork_me_on_github">Uni GitHub-ga ulang</string>
+    <string name="msg_about_library_description">ISS Tracker - bu Xalqaro kosmik stansiyaning holatini kuzatish va hozirda qaysi astronavtlar koinotda ekanligini bilish imkonini beruvchi android ilovasi.</string>
+    <string name="desc_about_app">Ushbu ilova haqida</string>
+    <string name="msg_get_it_on_play_store">Uni Google Play orqali yuklab oling</string>
+    <string name="version">Versiyalar</string>
+    <string name="version_msg">Oldingi o\'zgarishlar, tuzatishlar va yangilanishlar ro\'yxati:</string>
+</resources>

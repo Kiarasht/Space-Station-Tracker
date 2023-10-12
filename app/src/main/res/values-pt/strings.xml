@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">Rastreador ISS</string>
+
+    
+    <string name="map_activity">Mapa</string>
+    <string name="flybys_title">Passando por</string>
+    <string name="space_title">Em serviço</string>
+    <string name="settings_title">Configurações</string>
+    <string name="help_title">Ajuda</string>
+
+    
+    <string name="flybys_summary">Verifique quando a ISS passará pela sua localização</string>
+    <string name="space_summary">Veja quem está no espaço agora</string>
+    <string name="settings_summary">Gerenciar configurações gerais do aplicativo</string>
+    <string name="help_summary">Avalie ou aprenda sobre o aplicativo</string>
+
+    
+    <string name="reset">Atualizar linhas de previsão</string>
+    <string name="stream">Ao vivo</string>
+
+    
+    <string name="label_location">Sobrevoos</string>
+    <string name="label_people_in_space">Quem está no espaço\?</string>
+    <string name="label_setting">Configurações</string>
+    <string name="label_help">Ajuda</string>
+    <string name="label_stream">Transmissão ao vivo</string>
+
+    
+    <string name="startAlert">Notificar quando o ISS estiver próximo</string>
+    <string name="stopAlert">Pare de notificar quando o ISS estiver próximo</string>
+    <string name="startFullAds">Anúncios de página inteira ativados. Obrigado pelo apoio ;)</string>
+    <string name="startBannerAds">Anúncios de banner ativados. Obrigado pelo apoio ;)</string>
+
+    
+    <string name="tutorialOne">O mapa mostra a localização atual da ISS com uma linha de previsão de onde ela estará.</string>
+    <string name="tutorialTwo">O Drawer leva você a outros recursos, como sobrevoos e configurações.</string>
+    <string name="midAt">no</string>
+    <string name="checkerContentDescription">O ícone representa que uma cor transparente foi escolhida</string>
+    <string name="countryFlagContentDescription">Bandeira do país de onde este astronauta é</string>
+    <string name="astronautTwitterContentDescription">Ícone para vincular à página do Twitter dos astronautas</string>
+    <string name="astronautWikiContentDescription">Ícone para vincular à página wiki dos astronautas</string>
+    <string name="astronautGoogleContentDescription">Ícone para vincular à página de pesquisa de astronautas no Google</string>
+
+    
+    <string name="refreshTitle">Taxa de atualização</string>
+    <string name="refreshSummary">Quantidade de tempo antes de atualizar a localização da ISS no mapa</string>
+    <string name="declination_unit">seg/atualizar</string>
+    <string name="refreshDialogMessage">Tempo entre a atualização da ISS para sua nova localização.</string>
+
+    <string name="lockTitle">Bloquear ISS</string>
+    <string name="lockSummary">Bloqueie a ISS e siga-a no mapa</string>
+
+    <string name="infoTitle">Informação adicional</string>
+    <string name="infoSummary">Forneça informações adicionais sobre a ISS no mapa</string>
+
+    <string name="mapTitle">Tipo de mapa</string>
+    <string name="mapSummary">Alterar o tipo de mapa da página anterior</string>
+
+    <string name="decimalTitle">Casas decimais</string>
+    <string name="decimalDialogMessage">Altere a precisão de todos os valores numéricos</string>
+    <string name="decimalSummary">Altere a precisão de todos os valores numéricos</string>
+    <string name="decimalUnit">DP</string>
+
+    <string name="colorTitle">Cor da linha de previsão</string>
+    <string name="colorSummary">Alterar a cor das linhas de previsão</string>
+
+    <string name="sizeTitle">Tamanho da linha de previsão</string>
+    <string name="sizeDialogMessage">Alterar o tamanho da linha de previsão de ISSs</string>
+    <string name="sizeSummary">Alterar o tamanho da linha de previsão de ISSs</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Tamanho do texto</string>
+    <string name="textSizeDialogMessage">Altere o tamanho de todos os valores de texto no mapa</string>
+    <string name="textSizeSummary">Altere o tamanho de todos os valores de texto no mapa</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Cor do texto</string>
+    <string name="textSummary">Alterar a cor dos valores do texto</string>
+
+    <string name="textHighlightTitle">Esboço do texto</string>
+    <string name="textHighlightSummary">Alterar a cor do contorno dos valores de texto</string>
+
+    <string name="notificationTitle">Notificação ISS</string>
+    <string name="notificationSummary">Notificar quando a ISS deverá sobrevoar minha localização</string>
+
+    <string name="advertisementTitle">Bandeira</string>
+    <string name="advertisementSummary">Desative banners no aplicativo</string>
+
+    <string name="fullTitle">Página inteira</string>
+    <string name="fullSummary">Desative anúncios de página inteira no aplicativo</string>
+
+    
+    <string name="errorWebView">Não foi possível carregar a página</string>
+    <string name="errorLocation">Não foi possível encontrar sua localização.</string>
+    <string name="errorPermissionLocation">Acesso negado à sua localização</string>
+    <string name="errorConnection">Ou você não tem conexão ou o servidor está sobrecarregado.</string>
+    <string name="errorNetwork">Um erro desconhecido ocorreu. Erro: 401</string>
+    <string name="errorMap">Não é possível aplicar configurações ao mapa</string>
+    <string name="errorFiveTimes">Falhou todas as 5 vezes. Ou você não tem conexão ou o servidor está sobrecarregado.</string>
+    <string name="errorLessFive">Falha na solicitação ao servidor. Tentando novamente…</string>
+    <string name="errorWaitPoly">Já criando linhas de previsão</string>
+    <string name="errorNotByMe">A notificação do ISS não foi interrompida por você.</string>
+    <string name="errorNoWiki">não tem uma página wiki</string>
+    <string name="errorNoTwitter">não tem uma conta no Twitter</string>
+    <string name="errorNoInstagram">não tem conta no Instagram</string>
+    <string name="errorNoFacebook">não tem conta no Facebook</string>
+    <string name="data_corrupted">Os dados do aplicativo estão corrompidos. Reiniciando!</string>
+    <string name="polyError">Não foi possível criar a linha de previsão</string>
+    <string name="calendar">Calendário</string>
+    <string name="share">Compartilhar</string>
+    <string name="image_content">Imagem de um mapa com um marcador para localização do usuário.</string>
+    <string name="iss_sighting_share_title">Avistamento da ISS</string>
+    <string name="iss_sighting_share_description">A ISS estará visível aqui. Vou conferir!</string>
+    <string name="iss_sighting_share_body">\"Confira! A ISS estará visível em \"</string>
+    <string name="iss_sighting_share_chooser">Compartilhar…</string>
+    <string name="on">\" sobre \"</string>
+    <string name="one_day_in_space">1 dia no espaço</string>
+    <string name="in_space">\" no espaço\"</string>
+    <string name="day">\" dia\"</string>
+    <string name="month">\" mês\"</string>
+    <string name="year">\" ano\"</string>
+    <string name="since">\"Lançado\"</string>
+    <string name="tutorial_one_title">Ei :)</string>
+    <string name="tutorial_two_title">Principais características</string>
+
+    <string name="license">Licenças de código aberto</string>
+    <string name="msg_license">Este aplicativo é construído usando o seguinte software:</string>
+    <string name="msg_about_fork_me_on_github">Faça um fork no GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker é um aplicativo Android que permite rastrear a posição da Estação Espacial Internacional e descobrir quais astronautas estão atualmente no espaço.</string>
+    <string name="desc_about_app">Sobre este aplicativo</string>
+    <string name="msg_get_it_on_play_store">Obtê-lo no Google Play</string>
+    <string name="version">Versões</string>
+    <string name="version_msg">Lista de alterações, correções e atualizações anteriores:</string>
+</resources>

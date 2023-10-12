@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">ISS ట్రాకర్</string>
+
+    
+    <string name="map_activity">మ్యాప్</string>
+    <string name="flybys_title">ద్వారా ప్రయాణిస్తున్న</string>
+    <string name="space_title">విధి నిర్వహణలో</string>
+    <string name="settings_title">సెట్టింగ్‌లు</string>
+    <string name="help_title">సహాయం</string>
+
+    
+    <string name="flybys_summary">ISS మీ స్థానం ద్వారా ఎప్పుడు వెళుతుందో తనిఖీ చేయండి</string>
+    <string name="space_summary">ప్రస్తుతం అంతరిక్షంలో ఉన్నవారిని చూడండి</string>
+    <string name="settings_summary">సాధారణ యాప్ సెట్టింగ్‌లను నిర్వహించండి</string>
+    <string name="help_summary">రేట్ చేయండి లేదా యాప్ గురించి తెలుసుకోండి</string>
+
+    
+    <string name="reset">ప్రిడిక్షన్ లైన్‌లను రిఫ్రెష్ చేయండి</string>
+    <string name="stream">ప్రత్యక్షం</string>
+
+    
+    <string name="label_location">ఫ్లైబైస్</string>
+    <string name="label_people_in_space">అంతరిక్షంలో ఎవరున్నారు\?</string>
+    <string name="label_setting">సెట్టింగ్‌లు</string>
+    <string name="label_help">సహాయం</string>
+    <string name="label_stream">అంతర్జాలం ద్వారా ప్రత్యక్ష ప్రసారం</string>
+
+    
+    <string name="startAlert">ISS సమీపంలో ఉన్నప్పుడు తెలియజేయండి</string>
+    <string name="stopAlert">ISS సమీపంలో ఉన్నప్పుడు తెలియజేయడం ఆపివేయండి</string>
+    <string name="startFullAds">పూర్తి పేజీ ప్రకటనలు ప్రారంభించబడ్డాయి. మద్దతు కోసం ధన్యవాదాలు;)</string>
+    <string name="startBannerAds">బ్యానర్ ప్రకటనలు ప్రారంభించబడ్డాయి. మద్దతు కోసం ధన్యవాదాలు;)</string>
+
+    
+    <string name="tutorialOne">మ్యాప్ ISS ప్రస్తుత స్థానాన్ని అది ఎక్కడ ఉంటుందో అంచనా వేసే రేఖతో చూపుతుంది.</string>
+    <string name="tutorialTwo">డ్రాయర్ మిమ్మల్ని ఫ్లైబైస్ మరియు సెట్టింగ్‌ల వంటి ఇతర ఫీచర్‌లకు తీసుకువెళుతుంది.</string>
+    <string name="midAt">వద్ద</string>
+    <string name="checkerContentDescription">పారదర్శక రంగు ఎంపిక చేయబడిందని చిహ్నం సూచిస్తుంది</string>
+    <string name="countryFlagContentDescription">ఈ వ్యోమగామి దేశ జెండా</string>
+    <string name="astronautTwitterContentDescription">వ్యోమగాములు ట్విట్టర్ పేజీకి లింక్ చేయడానికి చిహ్నం</string>
+    <string name="astronautWikiContentDescription">వ్యోమగాములు వికీ పేజీకి లింక్ చేయడానికి చిహ్నం</string>
+    <string name="astronautGoogleContentDescription">వ్యోమగాములు Google శోధన పేజీకి లింక్ చేయడానికి చిహ్నం</string>
+
+    
+    <string name="refreshTitle">రిఫ్రెష్ రేట్</string>
+    <string name="refreshSummary">మ్యాప్‌లో ISS స్థానాన్ని అప్‌డేట్ చేయడానికి ముందు ఎంత సమయం</string>
+    <string name="declination_unit">సెకను/రిఫ్రెష్</string>
+    <string name="refreshDialogMessage">ISS మధ్య సమయం దాని కొత్త స్థానానికి నవీకరించబడుతోంది.</string>
+
+    <string name="lockTitle">ISSని లాక్ చేయండి</string>
+    <string name="lockSummary">ISSలోకి లాక్ చేసి, మ్యాప్‌లో దాన్ని అనుసరించండి</string>
+
+    <string name="infoTitle">అదనపు సమాచారం</string>
+    <string name="infoSummary">మ్యాప్‌లో ISS గురించి అదనపు సమాచారాన్ని అందించండి</string>
+
+    <string name="mapTitle">మ్యాప్ రకం</string>
+    <string name="mapSummary">మునుపటి పేజీ నుండి మ్యాప్ రకాన్ని మార్చండి</string>
+
+    <string name="decimalTitle">దశాంశ స్థానాలు</string>
+    <string name="decimalDialogMessage">అన్ని సంఖ్యా విలువల ఖచ్చితత్వాన్ని మార్చండి</string>
+    <string name="decimalSummary">అన్ని సంఖ్యా విలువల ఖచ్చితత్వాన్ని మార్చండి</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">ప్రిడిక్షన్ లైన్ రంగు</string>
+    <string name="colorSummary">ప్రిడిక్షన్ లైన్ల రంగును మార్చండి</string>
+
+    <string name="sizeTitle">ప్రిడిక్షన్ లైన్ పరిమాణం</string>
+    <string name="sizeDialogMessage">ISSల ప్రిడిక్షన్ లైన్ పరిమాణాన్ని మార్చండి</string>
+    <string name="sizeSummary">ISSల ప్రిడిక్షన్ లైన్ పరిమాణాన్ని మార్చండి</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">వచన పరిమాణం</string>
+    <string name="textSizeDialogMessage">మ్యాప్‌లోని అన్ని వచన విలువల పరిమాణాన్ని మార్చండి</string>
+    <string name="textSizeSummary">మ్యాప్‌లోని అన్ని వచన విలువల పరిమాణాన్ని మార్చండి</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">టెక్స్ట్ రంగు</string>
+    <string name="textSummary">వచన విలువల రంగును మార్చండి</string>
+
+    <string name="textHighlightTitle">టెక్స్ట్ అవుట్‌లైన్</string>
+    <string name="textHighlightSummary">టెక్స్ట్ విలువల అవుట్‌లైన్ రంగును మార్చండి</string>
+
+    <string name="notificationTitle">ISS నోటిఫికేషన్</string>
+    <string name="notificationSummary">నా స్థానం మీదుగా ISS ఎప్పుడు ఎగురుతుంది అని తెలియజేయండి</string>
+
+    <string name="advertisementTitle">బ్యానర్</string>
+    <string name="advertisementSummary">యాప్‌లో బ్యానర్ ప్రకటనలను నిలిపివేయండి</string>
+
+    <string name="fullTitle">పూర్తి పేజీ</string>
+    <string name="fullSummary">యాప్‌లో పూర్తి పేజీ ప్రకటనలను నిలిపివేయండి</string>
+
+    
+    <string name="errorWebView">పేజీని లోడ్ చేయడం సాధ్యపడలేదు</string>
+    <string name="errorLocation">మీ స్థానాన్ని కనుగొనడం సాధ్యపడలేదు.</string>
+    <string name="errorPermissionLocation">మీ స్థానానికి యాక్సెస్ నిరాకరించబడింది</string>
+    <string name="errorConnection">మీకు కనెక్షన్ లేదు లేదా సర్వర్ ఓవర్‌లోడ్ చేయబడింది.</string>
+    <string name="errorNetwork">తెలియని లోపం ఏర్పడింది. లోపం: 401</string>
+    <string name="errorMap">మ్యాప్‌కు సెట్టింగ్‌లను వర్తింపజేయడం సాధ్యం కాదు</string>
+    <string name="errorFiveTimes">మొత్తం 5 సార్లు విఫలమైంది. మీకు కనెక్షన్ లేదు లేదా సర్వర్ ఓవర్‌లోడ్ చేయబడింది.</string>
+    <string name="errorLessFive">సర్వర్ అభ్యర్థన విఫలమైంది. మళ్లీ ప్రయత్నిస్తోంది...</string>
+    <string name="errorWaitPoly">ఇప్పటికే అంచనా పంక్తులను సృష్టిస్తోంది</string>
+    <string name="errorNotByMe">ISS నోటిఫికేషన్‌ను మీరు ఆపలేదు.</string>
+    <string name="errorNoWiki">వికీ పేజీ లేదు</string>
+    <string name="errorNoTwitter">ట్విట్టర్ ఖాతా లేదు</string>
+    <string name="errorNoInstagram">ఇన్‌స్టాగ్రామ్ ఖాతా లేదు</string>
+    <string name="errorNoFacebook">ఫేస్‌బుక్ ఖాతా లేదు</string>
+    <string name="data_corrupted">యాప్ డేటా పాడైంది. రీసెట్ చేస్తోంది!</string>
+    <string name="polyError">ప్రిడిక్షన్ లైన్‌ని సృష్టించడం సాధ్యపడలేదు</string>
+    <string name="calendar">క్యాలెండర్</string>
+    <string name="share">షేర్ చేయండి</string>
+    <string name="image_content">వినియోగదారు స్థానం కోసం మార్కర్‌తో మ్యాప్ యొక్క చిత్రం.</string>
+    <string name="iss_sighting_share_title">ISS వీక్షణ</string>
+    <string name="iss_sighting_share_description">ISS ఇక్కడ కనిపిస్తుంది. దాన్ని తనిఖీ చేయబోతున్నాను!</string>
+    <string name="iss_sighting_share_body">\"దీన్ని తనిఖీ చేయండి! ISS ఇక్కడ కనిపిస్తుంది \"</string>
+    <string name="iss_sighting_share_chooser">షేర్ చేయండి...</string>
+    <string name="on">\" పై \"</string>
+    <string name="one_day_in_space">అంతరిక్షంలో 1 రోజు</string>
+    <string name="in_space">\" అంతరిక్షంలో\"</string>
+    <string name="day">\"రోజు\"</string>
+    <string name="month">\"నెల\"</string>
+    <string name="year">\"సంవత్సరం\"</string>
+    <string name="since">\"ప్రారంభించబడింది\"</string>
+    <string name="tutorial_one_title">హేయ్ :)</string>
+    <string name="tutorial_two_title">ప్రధాన లక్షణాలు</string>
+
+    <string name="license">ఓపెన్ సోర్స్ లైసెన్స్‌లు</string>
+    <string name="msg_license">ఈ అప్లికేషన్ క్రింది సాఫ్ట్‌వేర్‌ను ఉపయోగించి రూపొందించబడింది:</string>
+    <string name="msg_about_fork_me_on_github">GitHubలో ఫోర్క్ చేయండి</string>
+    <string name="msg_about_library_description">ISS ట్రాకర్ అనేది అంతర్జాతీయ అంతరిక్ష కేంద్రం యొక్క స్థానాన్ని ట్రాక్ చేయడానికి మరియు ప్రస్తుతం అంతరిక్షంలో ఉన్న వ్యోమగాములు ఏమిటో తెలుసుకోవడానికి మిమ్మల్ని అనుమతించే Android అప్లికేషన్.</string>
+    <string name="desc_about_app">ఈ యాప్ గురించి</string>
+    <string name="msg_get_it_on_play_store">దీన్ని Google Playలో పొందండి</string>
+    <string name="version">సంస్కరణలు</string>
+    <string name="version_msg">మునుపటి మార్పులు, పరిష్కారాలు మరియు నవీకరణల జాబితా:</string>
+</resources>

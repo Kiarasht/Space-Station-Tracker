@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">آئی ایس ایس ٹریکر</string>
+
+    
+    <string name="map_activity">نقشہ</string>
+    <string name="flybys_title">پاس سے گزرنا</string>
+    <string name="space_title">کام پر</string>
+    <string name="settings_title">ترتیبات</string>
+    <string name="help_title">مدد</string>
+
+    
+    <string name="flybys_summary">چیک کریں کہ کب آئی ایس ایس آپ کے مقام سے گزرے گا۔</string>
+    <string name="space_summary">دیکھیں کہ اس وقت خلا میں کون ہے۔</string>
+    <string name="settings_summary">عام ایپ کی ترتیبات کا نظم کریں۔</string>
+    <string name="help_summary">درجہ بندی کریں یا ایپ کے بارے میں جانیں۔</string>
+
+    
+    <string name="reset">پیشین گوئی لائنوں کو تازہ کریں۔</string>
+    <string name="stream">جیو</string>
+
+    
+    <string name="label_location">فلائی بائیس</string>
+    <string name="label_people_in_space">خلا میں کون ہے؟</string>
+    <string name="label_setting">ترتیبات</string>
+    <string name="label_help">مدد</string>
+    <string name="label_stream">لائیو سٹریم</string>
+
+    
+    <string name="startAlert">جب آئی ایس ایس قریب ہو تو مطلع کریں۔</string>
+    <string name="stopAlert">جب ISS قریب ہو تو اطلاع دینا بند کریں۔</string>
+    <string name="startFullAds">پورے صفحے کے اشتہارات فعال ہیں۔ حمایت کے لئے شکریہ ؛)</string>
+    <string name="startBannerAds">بینر اشتہارات فعال ہیں۔ حمایت کے لئے شکریہ ؛)</string>
+
+    
+    <string name="tutorialOne">نقشہ آئی ایس ایس کا موجودہ مقام دکھاتا ہے جس کی پیشین گوئی لائن کہاں ہو گی۔</string>
+    <string name="tutorialTwo">دراز آپ کو دیگر خصوصیات جیسے فلائی بائی اور سیٹنگز تک لے جاتا ہے۔</string>
+    <string name="midAt">پر</string>
+    <string name="checkerContentDescription">آئیکن اس بات کی نمائندگی کرتا ہے کہ ایک شفاف رنگ اٹھایا گیا ہے۔</string>
+    <string name="countryFlagContentDescription">ملک کا جھنڈا اس خلاباز کا ہے۔</string>
+    <string name="astronautTwitterContentDescription">خلابازوں کے ٹویٹر پیج سے لنک کرنے کے لیے آئیکن</string>
+    <string name="astronautWikiContentDescription">خلابازوں کے ویکی پیج سے لنک کرنے کے لیے آئیکن</string>
+    <string name="astronautGoogleContentDescription">خلابازوں کے گوگل سرچ پیج سے لنک کرنے کے لیے آئیکن</string>
+
+    
+    <string name="refreshTitle">تازہ کاری کی شرح</string>
+    <string name="refreshSummary">نقشے پر ISS مقام کو اپ ڈیٹ کرنے سے پہلے وقت کی مقدار</string>
+    <string name="declination_unit">سیکنڈ/ریفریش</string>
+    <string name="refreshDialogMessage">ISS کے درمیان وقت اپنے نئے مقام پر اپ ڈیٹ ہو رہا ہے۔</string>
+
+    <string name="lockTitle">ISS کو لاک کریں۔</string>
+    <string name="lockSummary">ISS پر لاک کریں اور نقشے پر اس کی پیروی کریں۔</string>
+
+    <string name="infoTitle">اضافی معلومات</string>
+    <string name="infoSummary">نقشے پر ISS کے بارے میں اضافی معلومات فراہم کریں۔</string>
+
+    <string name="mapTitle">نقشہ کی قسم</string>
+    <string name="mapSummary">پچھلے صفحہ سے نقشے کی قسم کو تبدیل کریں۔</string>
+
+    <string name="decimalTitle">اعشاریہ مقامات</string>
+    <string name="decimalDialogMessage">تمام عددی اقدار کی درستگی کو تبدیل کریں۔</string>
+    <string name="decimalSummary">تمام عددی اقدار کی درستگی کو تبدیل کریں۔</string>
+    <string name="decimalUnit">ڈی پی</string>
+
+    <string name="colorTitle">پیشین گوئی لائن کا رنگ</string>
+    <string name="colorSummary">پیشین گوئی لائنوں کا رنگ تبدیل کریں۔</string>
+
+    <string name="sizeTitle">پیشن گوئی لائن کا سائز</string>
+    <string name="sizeDialogMessage">ISSs پیشن گوئی لائن کا سائز تبدیل کریں۔</string>
+    <string name="sizeSummary">ISSs پیشن گوئی لائن کا سائز تبدیل کریں۔</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">متن کا سائز</string>
+    <string name="textSizeDialogMessage">نقشے پر تمام متنی اقدار کا سائز تبدیل کریں۔</string>
+    <string name="textSizeSummary">نقشے پر تمام متنی اقدار کا سائز تبدیل کریں۔</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">متن کا رنگ</string>
+    <string name="textSummary">متن کی قدروں کا رنگ تبدیل کریں۔</string>
+
+    <string name="textHighlightTitle">ٹیکسٹ آؤٹ لائن</string>
+    <string name="textHighlightSummary">متن کی قدروں کا خاکہ رنگ تبدیل کریں۔</string>
+
+    <string name="notificationTitle">آئی ایس ایس نوٹیفکیشن</string>
+    <string name="notificationSummary">مطلع کریں جب ISS میرے مقام پر پرواز کرنے کی توقع کی جاتی ہے۔</string>
+
+    <string name="advertisementTitle">بینر</string>
+    <string name="advertisementSummary">ایپ پر بینر اشتہارات کو غیر فعال کریں۔</string>
+
+    <string name="fullTitle">پورا صفحہ</string>
+    <string name="fullSummary">ایپ پر پورے صفحے کے اشتہارات کو غیر فعال کریں۔</string>
+
+    
+    <string name="errorWebView">صفحہ لوڈ کرنے سے قاصر</string>
+    <string name="errorLocation">آپ کا مقام تلاش کرنے سے قاصر۔</string>
+    <string name="errorPermissionLocation">آپ کے مقام تک رسائی سے انکار کر دیا گیا۔</string>
+    <string name="errorConnection">یا تو آپ کا کوئی کنکشن نہیں ہے یا سرور اوورلوڈ ہے۔</string>
+    <string name="errorNetwork">ایک نامعلوم خرابی پیش آ گئی ہے۔ خرابی: 401</string>
+    <string name="errorMap">نقشے پر ترتیبات کا اطلاق نہیں کیا جا سکتا</string>
+    <string name="errorFiveTimes">تمام 5 بار ناکام۔ یا تو آپ کا کوئی کنکشن نہیں ہے یا سرور اوورلوڈ ہے۔</string>
+    <string name="errorLessFive">سرور کی درخواست ناکام ہوگئی۔ دوبارہ کوشش کی جا رہی ہے…</string>
+    <string name="errorWaitPoly">پہلے سے ہی پیشین گوئی لائنیں بنا رہی ہیں۔</string>
+    <string name="errorNotByMe">آئی ایس ایس نوٹیفکیشن کو آپ نے نہیں روکا تھا۔</string>
+    <string name="errorNoWiki">کوئی ویکی صفحہ نہیں ہے۔</string>
+    <string name="errorNoTwitter">ٹویٹر اکاؤنٹ نہیں ہے۔</string>
+    <string name="errorNoInstagram">انسٹاگرام اکاؤنٹ نہیں ہے۔</string>
+    <string name="errorNoFacebook">فیس بک اکاؤنٹ نہیں ہے۔</string>
+    <string name="data_corrupted">ایپ ڈیٹا کرپٹ ہے۔ دوبارہ ترتیب دے رہا ہے!</string>
+    <string name="polyError">پیشین گوئی لائن بنانے میں ناکام</string>
+    <string name="calendar">کیلنڈر</string>
+    <string name="share">بانٹیں</string>
+    <string name="image_content">صارف کے مقام کے لیے مارکر کے ساتھ نقشے کی تصویر۔</string>
+    <string name="iss_sighting_share_title">آئی ایس ایس سیٹنگ</string>
+    <string name="iss_sighting_share_description">ISS یہاں نظر آئے گا۔ اسے چیک کرنے جا رہے ہیں!</string>
+    <string name="iss_sighting_share_body">\"اسے چیک کریں! ISS پر نظر آئے گا\"</string>
+    <string name="iss_sighting_share_chooser">بانٹیں…</string>
+    <string name="on">\"پر\"</string>
+    <string name="one_day_in_space">خلا میں 1 دن</string>
+    <string name="in_space">\" خلا میں\"</string>
+    <string name="day">\"دن\"</string>
+    <string name="month">\"مہینہ\"</string>
+    <string name="year">\"سال\"</string>
+    <string name="since">\"شروع کیا گیا\"</string>
+    <string name="tutorial_one_title">ارے وہاں :)</string>
+    <string name="tutorial_two_title">اہم خصوصیات</string>
+
+    <string name="license">اوپن سورس لائسنس</string>
+    <string name="msg_license">اس ایپلی کیشن کو درج ذیل سافٹ ویئر کا استعمال کرتے ہوئے بنایا گیا ہے۔</string>
+    <string name="msg_about_fork_me_on_github">اسے GitHub پر فورک کریں۔</string>
+    <string name="msg_about_library_description">آئی ایس ایس ٹریکر ایک اینڈرائیڈ ایپلی کیشن ہے جو آپ کو بین الاقوامی خلائی اسٹیشن کی پوزیشن کو ٹریک کرنے اور یہ معلوم کرنے کی اجازت دیتی ہے کہ اس وقت خلا میں کون سے خلاباز موجود ہیں۔</string>
+    <string name="desc_about_app">اس ایپ کے بارے میں</string>
+    <string name="msg_get_it_on_play_store">اسے Google Play پر حاصل کریں۔</string>
+    <string name="version">ورژنز</string>
+    <string name="version_msg">پچھلی تبدیلیوں، اصلاحات اور اپ ڈیٹس کی فہرست:</string>
+</resources>

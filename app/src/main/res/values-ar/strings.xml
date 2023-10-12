@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">تعقب محطة الفضاء الدولية</string>
+
+    
+    <string name="map_activity">خريطة</string>
+    <string name="flybys_title">مرورا</string>
+    <string name="space_title">في الخدمة</string>
+    <string name="settings_title">إعدادات</string>
+    <string name="help_title">يساعد</string>
+
+    
+    <string name="flybys_summary">تحقق من موعد مرور محطة الفضاء الدولية بموقعك</string>
+    <string name="space_summary">معرفة من هو في الفضاء الآن</string>
+    <string name="settings_summary">إدارة إعدادات التطبيق العامة</string>
+    <string name="help_summary">معدل أو التعرف على التطبيق</string>
+
+    
+    <string name="reset">تحديث خطوط التنبؤ</string>
+    <string name="stream">يعيش</string>
+
+    
+    <string name="label_location">Flyby</string>
+    <string name="label_people_in_space">من هو في الفضاء؟</string>
+    <string name="label_setting">إعدادات</string>
+    <string name="label_help">يساعد</string>
+    <string name="label_stream">البث المباشر</string>
+
+    
+    <string name="startAlert">إعلام عندما تكون محطة الفضاء الدولية قريبة</string>
+    <string name="stopAlert">توقف عن الإخطار عندما تكون محطة الفضاء الدولية قريبة</string>
+    <string name="startFullAds">تم تمكين إعلانات الصفحة الكاملة. شكرا على الدعم ؛)</string>
+    <string name="startBannerAds">تم تمكين إعلانات البانر. شكرا على الدعم ؛)</string>
+
+    
+    <string name="tutorialOne">تُظهر الخريطة الموقع الحالي لمحطة الفضاء الدولية مع خط تنبؤ بالمكان الذي سيكون فيه.</string>
+    <string name="tutorialTwo">ينقلك الدرج إلى ميزات أخرى مثل عمليات الطيران والإعدادات.</string>
+    <string name="midAt">في</string>
+    <string name="checkerContentDescription">تمثل الأيقونة أنه تم اختيار لون شفاف</string>
+    <string name="countryFlagContentDescription">علم البلد الذي ينتمي إليه رائد الفضاء هذا</string>
+    <string name="astronautTwitterContentDescription">أيقونة للارتباط بصفحة رواد الفضاء على تويتر</string>
+    <string name="astronautWikiContentDescription">أيقونة للارتباط بصفحة ويكي رواد الفضاء</string>
+    <string name="astronautGoogleContentDescription">رمز للارتباط بصفحة بحث Google الخاصة برواد الفضاء</string>
+
+    
+    <string name="refreshTitle">معدل التحديث</string>
+    <string name="refreshSummary">مقدار الوقت قبل تحديث موقع محطة الفضاء الدولية على الخريطة</string>
+    <string name="declination_unit">ثانية/تحديث</string>
+    <string name="refreshDialogMessage">الوقت بين تحديث محطة الفضاء الدولية إلى موقعها الجديد.</string>
+
+    <string name="lockTitle">قفل محطة الفضاء الدولية</string>
+    <string name="lockSummary">قفل على محطة الفضاء الدولية واتبعه على الخريطة</string>
+
+    <string name="infoTitle">معلومات إضافية</string>
+    <string name="infoSummary">توفير معلومات إضافية حول محطة الفضاء الدولية على الخريطة</string>
+
+    <string name="mapTitle">نوع الخريطة</string>
+    <string name="mapSummary">قم بتغيير نوع الخريطة من الصفحة السابقة</string>
+
+    <string name="decimalTitle">منازل عشرية</string>
+    <string name="decimalDialogMessage">تغيير دقة كافة القيم العددية</string>
+    <string name="decimalSummary">تغيير دقة كافة القيم العددية</string>
+    <string name="decimalUnit">موانئ دبي</string>
+
+    <string name="colorTitle">لون خط التنبؤ</string>
+    <string name="colorSummary">تغيير لون خطوط التنبؤ</string>
+
+    <string name="sizeTitle">حجم خط التنبؤ</string>
+    <string name="sizeDialogMessage">تغيير حجم خط التنبؤ لمحطة الفضاء الدولية</string>
+    <string name="sizeSummary">تغيير حجم خط التنبؤ لمحطة الفضاء الدولية</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">حجم الخط</string>
+    <string name="textSizeDialogMessage">تغيير حجم كافة القيم النصية على الخريطة</string>
+    <string name="textSizeSummary">تغيير حجم كافة القيم النصية على الخريطة</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">لون الخط</string>
+    <string name="textSummary">تغيير لون القيم النصية</string>
+
+    <string name="textHighlightTitle">مخطط النص</string>
+    <string name="textHighlightSummary">تغيير لون المخطط التفصيلي لقيم النص</string>
+
+    <string name="notificationTitle">إشعار محطة الفضاء الدولية</string>
+    <string name="notificationSummary">إعلام عندما من المتوقع أن تحلق محطة الفضاء الدولية فوق موقعي</string>
+
+    <string name="advertisementTitle">راية</string>
+    <string name="advertisementSummary">تعطيل إعلانات البانر على التطبيق</string>
+
+    <string name="fullTitle">صفحة كاملة</string>
+    <string name="fullSummary">تعطيل إعلانات الصفحة الكاملة على التطبيق</string>
+
+    
+    <string name="errorWebView">غير قادر على تحميل الصفحة</string>
+    <string name="errorLocation">غير قادر على العثور على موقعك.</string>
+    <string name="errorPermissionLocation">تم رفض الوصول إلى موقعك</string>
+    <string name="errorConnection">إما أنه ليس لديك اتصال أو أن الخادم مثقل.</string>
+    <string name="errorNetwork">حدث خطأ غير معروف. خطأ: 401</string>
+    <string name="errorMap">لا يمكن تطبيق الإعدادات على الخريطة</string>
+    <string name="errorFiveTimes">فشل كل 5 مرات. إما أنه ليس لديك اتصال أو أن الخادم مثقل.</string>
+    <string name="errorLessFive">فشل الطلب إلى الخادم. جارٍ إعادة المحاولة...</string>
+    <string name="errorWaitPoly">يتم بالفعل إنشاء خطوط التنبؤ</string>
+    <string name="errorNotByMe">لم يتم إيقاف إشعار محطة الفضاء الدولية (ISS) بواسطتك.</string>
+    <string name="errorNoWiki">ليس لديه صفحة ويكي</string>
+    <string name="errorNoTwitter">ليس لديه حساب على تويتر</string>
+    <string name="errorNoInstagram">ليس لديه حساب في Instagram</string>
+    <string name="errorNoFacebook">ليس لديه حساب الفيسبوك</string>
+    <string name="data_corrupted">بيانات التطبيق تالفة. إعادة الضبط!</string>
+    <string name="polyError">غير قادر على إنشاء خط التنبؤ</string>
+    <string name="calendar">تقويم</string>
+    <string name="share">يشارك</string>
+    <string name="image_content">صورة خريطة مع علامة لموقع المستخدم.</string>
+    <string name="iss_sighting_share_title">رؤية محطة الفضاء الدولية</string>
+    <string name="iss_sighting_share_description">ستكون محطة الفضاء الدولية مرئية هنا. الذهاب للتحقق من ذلك!</string>
+    <string name="iss_sighting_share_body">\"التحقق من ذلك! ستكون محطة الفضاء الدولية مرئية على \"</string>
+    <string name="iss_sighting_share_chooser">يشارك…</string>
+    <string name="on">\" على \"</string>
+    <string name="one_day_in_space">1 يوم في الفضاء</string>
+    <string name="in_space">\" في الفضاء\"</string>
+    <string name="day">\" يوم\"</string>
+    <string name="month">\" شهر\"</string>
+    <string name="year">\" سنة\"</string>
+    <string name="since">\"تم إطلاقه\"</string>
+    <string name="tutorial_one_title">مرحبًا يا من هناك :)</string>
+    <string name="tutorial_two_title">الخصائص الرئيسية</string>
+
+    <string name="license">تراخيص مفتوحة المصدر</string>
+    <string name="msg_license">تم إنشاء هذا التطبيق باستخدام البرامج التالية:</string>
+    <string name="msg_about_fork_me_on_github">شوكة على جيثب</string>
+    <string name="msg_about_library_description">ISS Tracker هو تطبيق أندرويد يسمح لك بتتبع موقع محطة الفضاء الدولية ومعرفة رواد الفضاء الموجودين حاليًا في الفضاء.</string>
+    <string name="desc_about_app">عن هذا التطبيق</string>
+    <string name="msg_get_it_on_play_store">احصل عليه من متجر جوجل للتطبيقات</string>
+    <string name="version">الإصدارات</string>
+    <string name="version_msg">قائمة التغييرات والإصلاحات والتحديثات السابقة:</string>
+</resources>

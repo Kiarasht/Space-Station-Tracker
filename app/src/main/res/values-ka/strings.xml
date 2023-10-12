@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">ISS ტრეკერი</string>
+
+    
+    <string name="map_activity">რუკა</string>
+    <string name="flybys_title">Ავლით</string>
+    <string name="space_title">Მორიგე</string>
+    <string name="settings_title">პარამეტრები</string>
+    <string name="help_title">დახმარება</string>
+
+    
+    <string name="flybys_summary">შეამოწმეთ, როდის გაივლის ISS თქვენს მდებარეობას</string>
+    <string name="space_summary">ნახეთ ვინ არის ახლა კოსმოსში</string>
+    <string name="settings_summary">აპლიკაციის ზოგადი პარამეტრების მართვა</string>
+    <string name="help_summary">შეაფასეთ ან შეიტყვეთ აპლიკაციის შესახებ</string>
+
+    
+    <string name="reset">განაახლეთ პროგნოზის ხაზები</string>
+    <string name="stream">ცოცხალი</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_people_in_space">ვინ არის კოსმოსში\?</string>
+    <string name="label_setting">პარამეტრები</string>
+    <string name="label_help">დახმარება</string>
+    <string name="label_stream">Პირდაპირი ეთერი</string>
+
+    
+    <string name="startAlert">შეატყობინეთ, როდესაც ISS ახლოს არის</string>
+    <string name="stopAlert">შეწყვიტეთ შეტყობინება, როდესაც ISS ახლოს არის</string>
+    <string name="startFullAds">ჩართულია სრული გვერდის რეკლამა. Გმადლობთ მხარდაჭერისთვის ;)</string>
+    <string name="startBannerAds">ჩართულია ბანერი რეკლამა. Გმადლობთ მხარდაჭერისთვის ;)</string>
+
+    
+    <string name="tutorialOne">რუკა აჩვენებს ISS-ის ამჟამინდელ მდებარეობას პროგნოზირების ხაზით, თუ სად იქნება ის.</string>
+    <string name="tutorialTwo">უჯრა მიგიყვანთ სხვა ფუნქციებზე, როგორიცაა flybys და პარამეტრები.</string>
+    <string name="midAt">ზე</string>
+    <string name="checkerContentDescription">ხატულა წარმოადგენს გამჭვირვალე ფერის არჩევას</string>
+    <string name="countryFlagContentDescription">ქვეყნის დროშა საიდანაც არის ეს ასტრონავტი</string>
+    <string name="astronautTwitterContentDescription">ხატულა ასტრონავტების ტვიტერზე დასაკავშირებლად</string>
+    <string name="astronautWikiContentDescription">ხატულა ასტრონავტების ვიკი გვერდის დასაკავშირებლად</string>
+    <string name="astronautGoogleContentDescription">ხატულა ასტრონავტების Google საძიებო გვერდის დასაკავშირებლად</string>
+
+    
+    <string name="refreshTitle">განახლების სიხშირე</string>
+    <string name="refreshSummary">დრო რუკაზე ISS მდებარეობის განახლებამდე</string>
+    <string name="declination_unit">წამი/განახლება</string>
+    <string name="refreshDialogMessage">დრო ISS-ის ახალ მდებარეობაზე განახლებას შორის.</string>
+
+    <string name="lockTitle">ჩაკეტვა ISS</string>
+    <string name="lockSummary">ჩაკეტეთ ISS-ზე და მიჰყევით მას რუკაზე</string>
+
+    <string name="infoTitle">Დამატებითი ინფორმაცია</string>
+    <string name="infoSummary">მოგვაწოდეთ დამატებითი ინფორმაცია ISS-ის შესახებ რუკაზე</string>
+
+    <string name="mapTitle">რუკის ტიპი</string>
+    <string name="mapSummary">შეცვალეთ რუკის ტიპი წინა გვერდიდან</string>
+
+    <string name="decimalTitle">ათწილადი ადგილები</string>
+    <string name="decimalDialogMessage">შეცვალეთ ყველა რიცხვითი მნიშვნელობის სიზუსტე</string>
+    <string name="decimalSummary">შეცვალეთ ყველა რიცხვითი მნიშვნელობის სიზუსტე</string>
+    <string name="decimalUnit">დპ</string>
+
+    <string name="colorTitle">პროგნოზის ხაზის ფერი</string>
+    <string name="colorSummary">შეცვალეთ პროგნოზის ხაზების ფერი</string>
+
+    <string name="sizeTitle">პროგნოზის ხაზის ზომა</string>
+    <string name="sizeDialogMessage">შეცვალეთ ISS-ების პროგნოზირების ხაზის ზომა</string>
+    <string name="sizeSummary">შეცვალეთ ISS-ების პროგნოზირების ხაზის ზომა</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Ტექსტის ზომა</string>
+    <string name="textSizeDialogMessage">შეცვალეთ ყველა ტექსტის მნიშვნელობის ზომა რუკაზე</string>
+    <string name="textSizeSummary">შეცვალეთ ყველა ტექსტის მნიშვნელობის ზომა რუკაზე</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">ტექსტის ფერი</string>
+    <string name="textSummary">შეცვალეთ ტექსტის მნიშვნელობების ფერი</string>
+
+    <string name="textHighlightTitle">ტექსტის მონახაზი</string>
+    <string name="textHighlightSummary">შეცვალეთ ტექსტის მნიშვნელობების კონტურის ფერი</string>
+
+    <string name="notificationTitle">ISS შეტყობინება</string>
+    <string name="notificationSummary">შეატყობინეთ, როდესაც მოსალოდნელია ISS ფრენა ჩემს მდებარეობაზე</string>
+
+    <string name="advertisementTitle">ბანერი</string>
+    <string name="advertisementSummary">გამორთეთ ბანერი რეკლამა აპლიკაციაში</string>
+
+    <string name="fullTitle">სრული გვერდი</string>
+    <string name="fullSummary">გამორთეთ სრული გვერდის რეკლამები აპლიკაციაში</string>
+
+    
+    <string name="errorWebView">გვერდის ჩატვირთვა შეუძლებელია</string>
+    <string name="errorLocation">თქვენი მდებარეობის პოვნა შეუძლებელია.</string>
+    <string name="errorPermissionLocation">აკრძალულია თქვენს მდებარეობაზე წვდომა</string>
+    <string name="errorConnection">ან არ გაქვთ კავშირი ან სერვერი გადატვირთულია.</string>
+    <string name="errorNetwork">მოხდა გაურკვეველი შეცდომა. შეცდომა: 401</string>
+    <string name="errorMap">რუკაზე პარამეტრების გამოყენება შეუძლებელია</string>
+    <string name="errorFiveTimes">5-ჯერ ვერ მოხერხდა. ან არ გაქვთ კავშირი ან სერვერი გადატვირთულია.</string>
+    <string name="errorLessFive">სერვერზე მოთხოვნა ვერ მოხერხდა. ხელახლა მცდელობა…</string>
+    <string name="errorWaitPoly">უკვე ვქმნით პროგნოზირების ხაზებს</string>
+    <string name="errorNotByMe">ISS შეტყობინება არ შეწყვეტილა თქვენ მიერ.</string>
+    <string name="errorNoWiki">არ აქვს ვიკი გვერდი</string>
+    <string name="errorNoTwitter">არ აქვს Twitter ანგარიში</string>
+    <string name="errorNoInstagram">არ აქვს ინსტაგრამის ანგარიში</string>
+    <string name="errorNoFacebook">არ აქვს Facebook ანგარიში</string>
+    <string name="data_corrupted">აპის მონაცემები დაზიანებულია. გადაყენება!</string>
+    <string name="polyError">პროგნოზის ხაზის შექმნა შეუძლებელია</string>
+    <string name="calendar">Კალენდარი</string>
+    <string name="share">გააზიარეთ</string>
+    <string name="image_content">რუკის სურათი მომხმარებლის მდებარეობის მარკერით.</string>
+    <string name="iss_sighting_share_title">ISS Sighting</string>
+    <string name="iss_sighting_share_description">ISS აქ გამოჩნდება. ვაპირებ ამის შემოწმებას!</string>
+    <string name="iss_sighting_share_body">\"შეამოწმეთ! ISS ხილული იქნება\"</string>
+    <string name="iss_sighting_share_chooser">გააზიარე…</string>
+    <string name="on">\"ზე\"</string>
+    <string name="one_day_in_space">1 დღე კოსმოსში</string>
+    <string name="in_space">\" კოსმოსში\"</string>
+    <string name="day">\" დღეს\"</string>
+    <string name="month">\"თვე\"</string>
+    <string name="year">\"წელი\"</string>
+    <string name="since">\"Დაიწყო \"</string>
+    <string name="tutorial_one_title">Ჰეი მანდ :)</string>
+    <string name="tutorial_two_title">Ძირითადი მახასიათებლები</string>
+
+    <string name="license">ღია კოდის ლიცენზიები</string>
+    <string name="msg_license">ეს აპლიკაცია შექმნილია შემდეგი პროგრამული უზრუნველყოფის გამოყენებით:</string>
+    <string name="msg_about_fork_me_on_github">ჩანგალი ის GitHub-ზე</string>
+    <string name="msg_about_library_description">ISS Tracker არის ანდროიდის აპლიკაცია, რომელიც საშუალებას გაძლევთ თვალყური ადევნოთ საერთაშორისო კოსმოსური სადგურის პოზიციას და გაარკვიოთ რა ასტრონავტები არიან ამჟამად კოსმოსში.</string>
+    <string name="desc_about_app">ამ აპლიკაციის შესახებ</string>
+    <string name="msg_get_it_on_play_store">მიიღეთ ის Google Play-ზე</string>
+    <string name="version">ვერსიები</string>
+    <string name="version_msg">წინა ცვლილებების, შესწორებებისა და განახლებების სია:</string>
+</resources>

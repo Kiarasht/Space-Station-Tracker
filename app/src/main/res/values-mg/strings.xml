@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Sarintany</string>
+    <string name="flybys_title">Mandalo</string>
+    <string name="space_title">Amperinasa</string>
+    <string name="settings_title">Fikirana</string>
+    <string name="help_title">Vonjeo</string>
+
+    
+    <string name="flybys_summary">Jereo ny fotoana handalo ny ISS amin\'ny toerana misy anao</string>
+    <string name="space_summary">Jereo hoe iza no eny amin\'ny habakabaka amin\'izao fotoana izao</string>
+    <string name="settings_summary">Tantano ny firafitry ny fampiharana ankapobeny</string>
+    <string name="help_summary">Manome naoty na mianatra momba ny fampiharana</string>
+
+    
+    <string name="reset">Havaozy ny tsipika faminaniana</string>
+    <string name="stream">velona</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_people_in_space">Iza no ao amin\'ny Space\?</string>
+    <string name="label_setting">Fikirana</string>
+    <string name="label_help">Vonjeo</string>
+    <string name="label_stream">Live Stream</string>
+
+    
+    <string name="startAlert">Ampahafantaro rehefa akaiky ny ISS</string>
+    <string name="stopAlert">Atsaharo ny fampandrenesana rehefa akaiky ny ISS</string>
+    <string name="startFullAds">Nalefa ny doka feno pejy. Misaotra amin\'ny fanohanana ;)</string>
+    <string name="startBannerAds">Nalefa ny doka sora-baventy. Misaotra amin\'ny fanohanana ;)</string>
+
+    
+    <string name="tutorialOne">Ny sarintany dia mampiseho ny toerana misy ny ISS amin\'izao fotoana izao miaraka amin\'ny tsipika faminanian\'ny toerana misy azy.</string>
+    <string name="tutorialTwo">Drawer dia mitondra anao any amin\'ny endri-javatra hafa toy ny flybys sy ny fanovana.</string>
+    <string name="midAt">amin\'ny</string>
+    <string name="checkerContentDescription">Ny kisary dia maneho fa loko mangarahara no alaina</string>
+    <string name="countryFlagContentDescription">Sainam-pirenena niavian\'ity mpanamory sambondanitra ity</string>
+    <string name="astronautTwitterContentDescription">Kisary hampifandraisana amin\'ny pejy twitter mpanamory sambon-danitra</string>
+    <string name="astronautWikiContentDescription">Kisary hampifandraisana amin\'ny pejy wiki astronauts</string>
+    <string name="astronautGoogleContentDescription">Kisary hampifandraisana amin\'ny pejy fikarohana Google momba ny astronot</string>
+
+    
+    <string name="refreshTitle">Ny tahan\'ny fanavaozana</string>
+    <string name="refreshSummary">Fe-potoana alohan\'ny fanavaozana ny toerana misy ny ISS amin\'ny sari-tany</string>
+    <string name="declination_unit">sec/refresh</string>
+    <string name="refreshDialogMessage">Fotoana eo anelanelan\'ny ISS havaozina amin\'ny toerana misy azy vaovao.</string>
+
+    <string name="lockTitle">Hidio ny ISS</string>
+    <string name="lockSummary">Hidio ao amin\'ny ISS ary araho eo amin\'ny sarintany</string>
+
+    <string name="infoTitle">Fanampim-baovao</string>
+    <string name="infoSummary">Manomeza fampahalalana fanampiny momba ny ISS amin\'ny sarintany</string>
+
+    <string name="mapTitle">Karazana sari-tany</string>
+    <string name="mapSummary">Ovay ny karazana sari-tany avy amin\'ny pejy teo aloha</string>
+
+    <string name="decimalTitle">Toerana desimal</string>
+    <string name="decimalDialogMessage">Ovay ny fahamarinan\'ny sanda isa rehetra</string>
+    <string name="decimalSummary">Ovay ny fahamarinan\'ny sanda isa rehetra</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Loko tsipika vinavina</string>
+    <string name="colorSummary">Ovay ny lokon\'ny tsipika vinavina</string>
+
+    <string name="sizeTitle">Haben\'ny tsipika vinavina</string>
+    <string name="sizeDialogMessage">Ovay ny haben\'ny tsipika faminaniana ISS</string>
+    <string name="sizeSummary">Ovay ny haben\'ny tsipika faminaniana ISS</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Haben\'ny soratra</string>
+    <string name="textSizeDialogMessage">Ovay ny haben\'ny sanda rehetra amin\'ny sari-tany</string>
+    <string name="textSizeSummary">Ovay ny haben\'ny sanda rehetra amin\'ny sari-tany</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Loko soratra</string>
+    <string name="textSummary">Ovay ny lokon\'ny soatoavina lahatsoratra</string>
+
+    <string name="textHighlightTitle">Text Outline</string>
+    <string name="textHighlightSummary">Ovay ny lokon\'ny sandan\'ny lahatsoratra</string>
+
+    <string name="notificationTitle">Fampandrenesana ISS</string>
+    <string name="notificationSummary">Ampahafantaro hoe rahoviana no andrasana hisidina ny toerana misy ahy ny ISS</string>
+
+    <string name="advertisementTitle">Sary</string>
+    <string name="advertisementSummary">Atsaharo ny doka sora-baventy amin\'ny fampiharana</string>
+
+    <string name="fullTitle">Pejy feno</string>
+    <string name="fullSummary">Atsaharo ny doka feno pejy amin\'ny fampiharana</string>
+
+    
+    <string name="errorWebView">Tsy afaka mampiditra pejy</string>
+    <string name="errorLocation">Tsy hita ny toerana misy anao.</string>
+    <string name="errorPermissionLocation">Nolavina ny fidirana amin\'ny toerana misy anao</string>
+    <string name="errorConnection">Na tsy manana fifandraisana ianao na be loatra ny mpizara.</string>
+    <string name="errorNetwork">Nisy hadisoana tsy fantatra nitranga. Error: 401</string>
+    <string name="errorMap">Tsy azo ampiharina amin\'ny sari-tany ny kira</string>
+    <string name="errorFiveTimes">In-5 tsy nahomby avokoa. Na tsy manana fifandraisana ianao na be loatra ny mpizara.</string>
+    <string name="errorLessFive">Tsy nahomby ny fangatahana amin\'ny mpizara. Manandrana indray…</string>
+    <string name="errorWaitPoly">Efa mamorona tsipika faminaniana</string>
+    <string name="errorNotByMe">ISS Notification dia tsy nosakanao.</string>
+    <string name="errorNoWiki">tsy manana pejy wiki</string>
+    <string name="errorNoTwitter">tsy manana kaonty Twitter</string>
+    <string name="errorNoInstagram">tsy manana kaonty Instagram</string>
+    <string name="errorNoFacebook">tsy manana kaonty Facebook</string>
+    <string name="data_corrupted">Simba ny angona fampiharana. Famerenana!</string>
+    <string name="polyError">Tsy afaka mamorona tsipika vinavina</string>
+    <string name="calendar">Calendar</string>
+    <string name="share">anjara</string>
+    <string name="image_content">Sary sarintany misy marika ho an\'ny toerana misy ny mpampiasa.</string>
+    <string name="iss_sighting_share_title">ISS Sighting</string>
+    <string name="iss_sighting_share_description">Ho hita eto ny ISS. Andeha hijery izany!</string>
+    <string name="iss_sighting_share_body">\"Jereo! Ny ISS dia ho hita amin\'ny \"</string>
+    <string name="iss_sighting_share_chooser">Zarao…</string>
+    <string name="on">\"amin\'ny\"</string>
+    <string name="one_day_in_space">1 andro any an-habakabaka</string>
+    <string name="in_space">\"amin\'ny habakabaka\"</string>
+    <string name="day">\"andro\"</string>
+    <string name="month">\"volana\"</string>
+    <string name="year">\"taona\"</string>
+    <string name="since">\"Natomboka\"</string>
+    <string name="tutorial_one_title">Salama e :)</string>
+    <string name="tutorial_two_title">Endri-javatra lehibe</string>
+
+    <string name="license">Fahazoan-dàlana misokatra</string>
+    <string name="msg_license">Ity fampiharana ity dia namboarina tamin\'ny alàlan\'ny rindrambaiko manaraka:</string>
+    <string name="msg_about_fork_me_on_github">Ampidiro ao amin\'ny GitHub izany</string>
+    <string name="msg_about_library_description">ISS Tracker dia fampiharana android ahafahanao manara-maso ny toeran\'ny International Space Station ary mahita hoe inona ny mpanamory sambon-danitra amin\'izao fotoana izao.</string>
+    <string name="desc_about_app">Momba ity fampiharana ity</string>
+    <string name="msg_get_it_on_play_store">Raiso ao amin\'ny Google Play izany</string>
+    <string name="version">dikan</string>
+    <string name="version_msg">Lisitry ny fanovana, fanamboarana ary fanavaozana teo aloha:</string>
+</resources>

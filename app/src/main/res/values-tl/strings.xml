@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">Tagasubaybay ng ISS</string>
+
+    
+    <string name="map_activity">Mapa</string>
+    <string name="flybys_title">Napadaan</string>
+    <string name="space_title">Nasa trabaho</string>
+    <string name="settings_title">Mga setting</string>
+    <string name="help_title">Tulong</string>
+
+    
+    <string name="flybys_summary">Suriin kung kailan dadaan ang ISS sa iyong lokasyon</string>
+    <string name="space_summary">Tingnan kung sino ang nasa kalawakan ngayon</string>
+    <string name="settings_summary">Pamahalaan ang mga pangkalahatang setting ng app</string>
+    <string name="help_summary">I-rate o alamin ang tungkol sa app</string>
+
+    
+    <string name="reset">I-refresh ang mga linya ng hula</string>
+    <string name="stream">Mabuhay</string>
+
+    
+    <string name="label_location">Mga flyby</string>
+    <string name="label_people_in_space">Sino ang nasa Space\?</string>
+    <string name="label_setting">Mga setting</string>
+    <string name="label_help">Tulong</string>
+    <string name="label_stream">Live Stream</string>
+
+    
+    <string name="startAlert">Abisuhan kapag malapit na ang ISS</string>
+    <string name="stopAlert">Itigil ang pag-abiso kapag malapit na ang ISS</string>
+    <string name="startFullAds">Pinagana ang mga ad sa buong pahina. Salamat sa suporta ;)</string>
+    <string name="startBannerAds">Pinagana ang mga banner ad. Salamat sa suporta ;)</string>
+
+    
+    <string name="tutorialOne">Ipinapakita ng mapa ang kasalukuyang lokasyon ng ISS na may linya ng hula kung saan ito pupunta.</string>
+    <string name="tutorialTwo">Dadalhin ka ng drawer sa iba pang feature gaya ng mga flyby at setting.</string>
+    <string name="midAt">sa</string>
+    <string name="checkerContentDescription">Icon ay kumakatawan na ang isang transparent na kulay ay pinili</string>
+    <string name="countryFlagContentDescription">Flag ng bansang pinanggalingan ng astronaut na ito</string>
+    <string name="astronautTwitterContentDescription">Icon na i-link sa pahina ng twitter ng mga astronaut</string>
+    <string name="astronautWikiContentDescription">Icon na i-link sa pahina ng wiki ng mga astronaut</string>
+    <string name="astronautGoogleContentDescription">Icon upang i-link sa pahina ng paghahanap sa Google ng mga astronaut</string>
+
+    
+    <string name="refreshTitle">Rate ng Pag-refresh</string>
+    <string name="refreshSummary">Tagal ng oras bago i-update ang lokasyon ng ISS sa mapa</string>
+    <string name="declination_unit">sec/refresh</string>
+    <string name="refreshDialogMessage">Oras sa pagitan ng pag-update ng ISS sa bago nitong lokasyon.</string>
+
+    <string name="lockTitle">I-lock ang ISS</string>
+    <string name="lockSummary">I-lock sa ISS at sundan ito sa mapa</string>
+
+    <string name="infoTitle">Karagdagang impormasyon</string>
+    <string name="infoSummary">Magbigay ng karagdagang impormasyon tungkol sa ISS sa mapa</string>
+
+    <string name="mapTitle">Uri ng mapa</string>
+    <string name="mapSummary">Baguhin ang uri ng mapa mula sa nakaraang pahina</string>
+
+    <string name="decimalTitle">Mga Desimal na Lugar</string>
+    <string name="decimalDialogMessage">Baguhin ang katumpakan ng lahat ng mga numerical na halaga</string>
+    <string name="decimalSummary">Baguhin ang katumpakan ng lahat ng mga numerical na halaga</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Kulay ng linya ng hula</string>
+    <string name="colorSummary">Baguhin ang kulay ng mga linya ng hula</string>
+
+    <string name="sizeTitle">Laki ng linya ng hula</string>
+    <string name="sizeDialogMessage">Baguhin ang laki ng linya ng hula ng ISS</string>
+    <string name="sizeSummary">Baguhin ang laki ng linya ng hula ng ISS</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Laki ng text</string>
+    <string name="textSizeDialogMessage">Baguhin ang laki ng lahat ng mga halaga ng teksto sa mapa</string>
+    <string name="textSizeSummary">Baguhin ang laki ng lahat ng mga halaga ng teksto sa mapa</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Kulay ng teksto</string>
+    <string name="textSummary">Baguhin ang kulay ng mga halaga ng teksto</string>
+
+    <string name="textHighlightTitle">Balangkas ng Teksto</string>
+    <string name="textHighlightSummary">Baguhin ang kulay ng balangkas ng mga halaga ng teksto</string>
+
+    <string name="notificationTitle">Notification ng ISS</string>
+    <string name="notificationSummary">Ipaalam kung kailan inaasahang lilipad ang ISS sa aking lokasyon</string>
+
+    <string name="advertisementTitle">Banner</string>
+    <string name="advertisementSummary">Huwag paganahin ang mga banner ad sa app</string>
+
+    <string name="fullTitle">Buong pahina</string>
+    <string name="fullSummary">Huwag paganahin ang buong page na mga ad sa app</string>
+
+    
+    <string name="errorWebView">Hindi ma-load ang page</string>
+    <string name="errorLocation">Hindi mahanap ang iyong lokasyon.</string>
+    <string name="errorPermissionLocation">Tinanggihan ang pag-access sa iyong lokasyon</string>
+    <string name="errorConnection">Alinman sa wala kang koneksyon o overloaded ang server.</string>
+    <string name="errorNetwork">May naganap na hindi kilalang error. Error: 401</string>
+    <string name="errorMap">Hindi mailapat ang mga setting sa mapa</string>
+    <string name="errorFiveTimes">Nabigo lahat ng 5 beses. Alinman sa wala kang koneksyon o overloaded ang server.</string>
+    <string name="errorLessFive">Nabigo ang kahilingan sa server. Sinusubukang muli…</string>
+    <string name="errorWaitPoly">Lumilikha na ng mga linya ng hula</string>
+    <string name="errorNotByMe">Hindi mo napigilan ang Notification ng ISS.</string>
+    <string name="errorNoWiki">ay walang pahina ng wiki</string>
+    <string name="errorNoTwitter">walang Twitter account</string>
+    <string name="errorNoInstagram">walang Instagram account</string>
+    <string name="errorNoFacebook">walang Facebook account</string>
+    <string name="data_corrupted">Nasira ang data ng app. Nire-reset!</string>
+    <string name="polyError">Hindi magawa sa paggawa ng prediction line</string>
+    <string name="calendar">Kalendaryo</string>
+    <string name="share">Ibahagi</string>
+    <string name="image_content">Larawan ng isang mapa na may marker para sa lokasyon ng user.</string>
+    <string name="iss_sighting_share_title">ISS Sighting</string>
+    <string name="iss_sighting_share_description">Makikita dito ang ISS. Pagpunta upang suriin ito!</string>
+    <string name="iss_sighting_share_body">\"Tingnan mo! Makikita ang ISS sa \"</string>
+    <string name="iss_sighting_share_chooser">Ibahagi…</string>
+    <string name="on">\"on\"</string>
+    <string name="one_day_in_space">1 araw sa kalawakan</string>
+    <string name="in_space">\"sa kalawakan\"</string>
+    <string name="day">\"araw\"</string>
+    <string name="month">\"buwan\"</string>
+    <string name="year">\"taon\"</string>
+    <string name="since">\"Inilunsad\"</string>
+    <string name="tutorial_one_title">Hoy, ikaw :)</string>
+    <string name="tutorial_two_title">Pangunahing Tampok</string>
+
+    <string name="license">Mga lisensyang open source</string>
+    <string name="msg_license">Ang application na ito ay binuo gamit ang sumusunod na software:</string>
+    <string name="msg_about_fork_me_on_github">I-fork ito sa GitHub</string>
+    <string name="msg_about_library_description">Ang ISS Tracker ay isang android application na nagbibigay-daan sa iyong subaybayan ang posisyon ng International Space Station at alamin kung anong mga astronaut ang kasalukuyang nasa kalawakan.</string>
+    <string name="desc_about_app">Tungkol sa app na ito</string>
+    <string name="msg_get_it_on_play_store">Kunin sa google play</string>
+    <string name="version">Mga bersyon</string>
+    <string name="version_msg">Listahan ng mga nakaraang pagbabago, pag-aayos, at pag-update:</string>
+</resources>

@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">สถานีอวกาศนานาชาติติดตาม</string>
+
+    
+    <string name="map_activity">แผนที่</string>
+    <string name="flybys_title">ผ่าน</string>
+    <string name="space_title">กำลังปฏิบัติหน้าที่</string>
+    <string name="settings_title">การตั้งค่า</string>
+    <string name="help_title">ช่วย</string>
+
+    
+    <string name="flybys_summary">ตรวจสอบว่าสถานีอวกาศนานาชาติจะผ่านตำแหน่งของคุณเมื่อใด</string>
+    <string name="space_summary">ดูว่าใครอยู่ในอวกาศในขณะนี้</string>
+    <string name="settings_summary">จัดการการตั้งค่าแอปทั่วไป</string>
+    <string name="help_summary">ให้คะแนนหรือเรียนรู้เกี่ยวกับแอป</string>
+
+    
+    <string name="reset">รีเฟรชเส้นทำนาย</string>
+    <string name="stream">สด</string>
+
+    
+    <string name="label_location">ฟลายบาย</string>
+    <string name="label_people_in_space">ใครอยู่ในอวกาศ\?</string>
+    <string name="label_setting">การตั้งค่า</string>
+    <string name="label_help">ช่วย</string>
+    <string name="label_stream">ถ่ายทอดสด</string>
+
+    
+    <string name="startAlert">แจ้งเตือนเมื่อ ISS อยู่ใกล้ๆ</string>
+    <string name="stopAlert">หยุดแจ้งเตือนเมื่อ ISS อยู่ใกล้ๆ</string>
+    <string name="startFullAds">เปิดใช้งานโฆษณาแบบเต็มหน้า ขอบคุณสำหรับการสนับสนุน ;)</string>
+    <string name="startBannerAds">เปิดใช้งานโฆษณาแบนเนอร์แล้ว ขอบคุณสำหรับการสนับสนุน ;)</string>
+
+    
+    <string name="tutorialOne">แผนที่แสดงตำแหน่งปัจจุบันของ ISS พร้อมเส้นทำนายตำแหน่งที่จะไป</string>
+    <string name="tutorialTwo">Drawer นำคุณไปสู่คุณสมบัติอื่นๆ เช่น flybys และการตั้งค่า</string>
+    <string name="midAt">ที่</string>
+    <string name="checkerContentDescription">ไอคอนแสดงว่ามีการเลือกสีโปร่งใส</string>
+    <string name="countryFlagContentDescription">ธงชาติของนักบินอวกาศคนนี้</string>
+    <string name="astronautTwitterContentDescription">ไอคอนเพื่อเชื่อมโยงไปยังหน้าทวิตเตอร์ของนักบินอวกาศ</string>
+    <string name="astronautWikiContentDescription">ไอคอนสำหรับเชื่อมโยงไปยังหน้าวิกินักบินอวกาศ</string>
+    <string name="astronautGoogleContentDescription">ไอคอนสำหรับลิงก์ไปยังหน้าค้นหาของ Google นักบินอวกาศ</string>
+
+    
+    <string name="refreshTitle">อัตราการรีเฟรช</string>
+    <string name="refreshSummary">ระยะเวลาก่อนที่จะอัปเดตตำแหน่ง ISS บนแผนที่</string>
+    <string name="declination_unit">วินาที/รีเฟรช</string>
+    <string name="refreshDialogMessage">เวลาระหว่าง ISS ที่ได้รับการอัปเดตไปยังตำแหน่งใหม่</string>
+
+    <string name="lockTitle">ล็อคไอเอส</string>
+    <string name="lockSummary">ล็อคเข้าสู่ ISS และติดตามมันบนแผนที่</string>
+
+    <string name="infoTitle">ข้อมูลเพิ่มเติม</string>
+    <string name="infoSummary">ให้ข้อมูลเพิ่มเติมเกี่ยวกับ ISS บนแผนที่</string>
+
+    <string name="mapTitle">ประเภทแผนที่</string>
+    <string name="mapSummary">เปลี่ยนประเภทแผนที่จากหน้าก่อนหน้า</string>
+
+    <string name="decimalTitle">ตำแหน่งทศนิยม</string>
+    <string name="decimalDialogMessage">เปลี่ยนความแม่นยำของค่าตัวเลขทั้งหมด</string>
+    <string name="decimalSummary">เปลี่ยนความแม่นยำของค่าตัวเลขทั้งหมด</string>
+    <string name="decimalUnit">DP</string>
+
+    <string name="colorTitle">สีของเส้นทำนาย</string>
+    <string name="colorSummary">เปลี่ยนสีของเส้นทำนาย</string>
+
+    <string name="sizeTitle">ขนาดเส้นทำนาย</string>
+    <string name="sizeDialogMessage">เปลี่ยนขนาดของเส้นทำนายของ ISS</string>
+    <string name="sizeSummary">เปลี่ยนขนาดของเส้นทำนายของ ISS</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">ขนาดข้อความ</string>
+    <string name="textSizeDialogMessage">เปลี่ยนขนาดของค่าข้อความทั้งหมดบนแผนที่</string>
+    <string name="textSizeSummary">เปลี่ยนขนาดของค่าข้อความทั้งหมดบนแผนที่</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">สีข้อความ</string>
+    <string name="textSummary">เปลี่ยนสีของค่าข้อความ</string>
+
+    <string name="textHighlightTitle">โครงร่างข้อความ</string>
+    <string name="textHighlightSummary">เปลี่ยนสีเค้าร่างของค่าข้อความ</string>
+
+    <string name="notificationTitle">การแจ้งเตือนของสถานีอวกาศนานาชาติ</string>
+    <string name="notificationSummary">แจ้งเตือนเมื่อ ISS คาดว่าจะบินผ่านตำแหน่งของฉัน</string>
+
+    <string name="advertisementTitle">แบนเนอร์</string>
+    <string name="advertisementSummary">ปิดการใช้งานโฆษณาแบนเนอร์บนแอป</string>
+
+    <string name="fullTitle">เต็มหน้า</string>
+    <string name="fullSummary">ปิดการใช้งานโฆษณาแบบเต็มหน้าในแอป</string>
+
+    
+    <string name="errorWebView">ไม่สามารถโหลดหน้าได้</string>
+    <string name="errorLocation">ไม่พบตำแหน่งของคุณ</string>
+    <string name="errorPermissionLocation">ปฏิเสธการเข้าถึงตำแหน่งของคุณ</string>
+    <string name="errorConnection">ไม่ว่าคุณจะไม่มีการเชื่อมต่อหรือเซิร์ฟเวอร์โอเวอร์โหลด</string>
+    <string name="errorNetwork">ข้อผิดพลาดที่ไม่รู้จักได้เกิดขึ้น. ข้อผิดพลาด: 401</string>
+    <string name="errorMap">ไม่สามารถใช้การตั้งค่ากับแผนที่ได้</string>
+    <string name="errorFiveTimes">ล้มเหลวทั้งหมด 5 ครั้ง ไม่ว่าคุณจะไม่มีการเชื่อมต่อหรือเซิร์ฟเวอร์โอเวอร์โหลด</string>
+    <string name="errorLessFive">การร้องขอไปยังเซิร์ฟเวอร์ล้มเหลว กำลังลองอีกครั้ง...</string>
+    <string name="errorWaitPoly">สร้างเส้นทำนายแล้ว</string>
+    <string name="errorNotByMe">คุณไม่ได้หยุดการแจ้งเตือนของ ISS</string>
+    <string name="errorNoWiki">ไม่มีหน้าวิกิ</string>
+    <string name="errorNoTwitter">ไม่มีบัญชี Twitter</string>
+    <string name="errorNoInstagram">ไม่มีบัญชี Instagram</string>
+    <string name="errorNoFacebook">ไม่มีบัญชี Facebook</string>
+    <string name="data_corrupted">ข้อมูลแอปเสียหาย กำลังรีเซ็ต!</string>
+    <string name="polyError">ไม่สามารถสร้างเส้นทำนายได้</string>
+    <string name="calendar">ปฏิทิน</string>
+    <string name="share">แบ่งปัน</string>
+    <string name="image_content">รูปภาพแผนที่พร้อมเครื่องหมายบอกตำแหน่งของผู้ใช้</string>
+    <string name="iss_sighting_share_title">การเล็งของไอเอสเอส</string>
+    <string name="iss_sighting_share_description">ISS จะปรากฏที่นี่ จะไปลองดู!</string>
+    <string name="iss_sighting_share_body">“ลองดูสิ! ISS จะมองเห็นได้ที่”</string>
+    <string name="iss_sighting_share_chooser">แบ่งปัน…</string>
+    <string name="on">\" บน \"</string>
+    <string name="one_day_in_space">อยู่ในอวกาศ 1 วัน</string>
+    <string name="in_space">\" ในที่ว่าง\"</string>
+    <string name="day">\" วัน\"</string>
+    <string name="month">\" เดือน\"</string>
+    <string name="year">\" ปี\"</string>
+    <string name="since">\"เปิดตัว\"</string>
+    <string name="tutorial_one_title">สวัสดี :)</string>
+    <string name="tutorial_two_title">คุณสมบัติหลัก</string>
+
+    <string name="license">ใบอนุญาตโอเพ่นซอร์ส</string>
+    <string name="msg_license">แอปพลิเคชันนี้สร้างขึ้นโดยใช้ซอฟต์แวร์ต่อไปนี้:</string>
+    <string name="msg_about_fork_me_on_github">แยกมันบน GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker เป็นแอปพลิเคชั่น Android ที่ให้คุณติดตามตำแหน่งของสถานีอวกาศนานาชาติและค้นหาว่านักบินอวกาศคนใดอยู่ในอวกาศ</string>
+    <string name="desc_about_app">เกี่ยวกับแอพนี้</string>
+    <string name="msg_get_it_on_play_store">รับมันบน Google Play</string>
+    <string name="version">รุ่นต่างๆ</string>
+    <string name="version_msg">รายการการเปลี่ยนแปลง การแก้ไข และการอัปเดตก่อนหน้านี้:</string>
+</resources>

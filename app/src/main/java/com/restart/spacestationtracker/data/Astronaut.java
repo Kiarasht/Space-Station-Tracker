@@ -5,42 +5,50 @@ import androidx.annotation.NonNull;
 /**
  * Class of type Astronaut. Every single astronaut gets one.
  */
-public class Astronaut implements Comparable<Astronaut> {
+public class Astronaut {
 
     // Data needed to represent a single astronaut
     private final String name;
     private final String image;
-    private final String countryLink;
-    private final String launchDate;
+    private final boolean isIss;
+    private final String flagCode;
+    private final int launchDate;
     private final String role;
     private final String location;
     private final String bio;
     private final String wiki;
     private final String twitter;
+    private final String facebook;
+    private final String instagram;
 
     /**
      * Instantiates a new Astronaut.
      *
-     * @param name        The name of the astronaut
-     * @param image       The url to a profile image of the astronaut
-     * @param countryLink The url to a country flag the astronaut was born in
-     * @param launchDate  The date where the astronaut was launched
-     * @param role        The role the astronaut has on the aircraft
-     * @param location    The location astronaut is located at. (Often times it's ISS)
-     * @param bio         The bio associated with the astronaut
-     * @param wiki        The wiki url of the astronaut
-     * @param twitter     The twitter url of the astronaut
+     * @param name       The name of the astronaut
+     * @param image      The url to a profile image of the astronaut
+     * @param isIss      If astronaut is at ISS or Tiangong-2
+     * @param flagCode   The url to a country flag the astronaut was born in
+     * @param launchDate The date where the astronaut was launched
+     * @param role       The role the astronaut has on the aircraft
+     * @param location   The location astronaut is located at. (Often times it's ISS)
+     * @param wiki       The wiki url of the astronaut
+     * @param twitter    The twitter url of the astronaut
+     * @param facebook   The facebook url of the astronaut
+     * @param instagram  The instagram url of the astronaut
      */
-    public Astronaut(String name, String image, String countryLink, String launchDate, String role, String location, String bio, String wiki, String twitter) {
+    public Astronaut(String name, String image, boolean isIss, String flagCode, int launchDate, String role, String location, String bio, String wiki, String twitter, String facebook, String instagram) {
         this.name = name;
         this.image = image;
-        this.countryLink = countryLink;
+        this.isIss = isIss;
+        this.flagCode = flagCode;
         this.launchDate = launchDate;
         this.role = role;
         this.location = location;
         this.bio = bio;
         this.wiki = wiki;
         this.twitter = twitter;
+        this.facebook = facebook;
+        this.instagram = instagram;
     }
 
     /**
@@ -62,12 +70,21 @@ public class Astronaut implements Comparable<Astronaut> {
     }
 
     /**
+     * Gets if astronaut from Iss.
+     *
+     * @return the image
+     */
+    public boolean getIsIss() {
+        return isIss;
+    }
+
+    /**
      * Gets country link.
      *
      * @return the country link
      */
-    public String getCountryLink() {
-        return countryLink;
+    public String getFlagCode() {
+        return flagCode;
     }
 
     /**
@@ -75,7 +92,7 @@ public class Astronaut implements Comparable<Astronaut> {
      *
      * @return the launch date
      */
-    public String getLaunchDate() {
+    public int getLaunchDate() {
         return launchDate;
     }
 
@@ -125,18 +142,20 @@ public class Astronaut implements Comparable<Astronaut> {
     }
 
     /**
-     * Sorts astronauts by their location first (ISS, Tiangong-2, etc...) then by their roles
-     * (Commander, Flight Engineer, etc...)
+     * Gets facebook.
      *
-     * @param astronaut An astronaut that needs to be compared with current astronaut
-     * @return Smaller, equal, or bigger?
+     * @return the facebook
      */
-    @Override
-    public int compareTo(@NonNull Astronaut astronaut) {
-        if (this.getLocation().compareTo(astronaut.getLocation()) != 0) {
-            return this.getLocation().compareTo(astronaut.getLocation());
-        } else {
-            return this.getRole().compareTo(astronaut.getRole());
-        }
+    public String getFacebook() {
+        return facebook;
+    }
+
+    /**
+     * Gets instagram.
+     *
+     * @return the instagram
+     */
+    public String getInstagram() {
+        return instagram;
     }
 }

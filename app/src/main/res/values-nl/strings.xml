@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">ISS-tracker</string>
+
+    
+    <string name="map_activity">Kaart</string>
+    <string name="flybys_title">Langskomen</string>
+    <string name="space_title">In functie</string>
+    <string name="settings_title">Instellingen</string>
+    <string name="help_title">Hulp</string>
+
+    
+    <string name="flybys_summary">Controleer wanneer ISS uw locatie passeert</string>
+    <string name="space_summary">Kijk wie er momenteel in de ruimte is</string>
+    <string name="settings_summary">Beheer algemene app-instellingen</string>
+    <string name="help_summary">Beoordeel of leer meer over de app</string>
+
+    
+    <string name="reset">Voorspellingsregels vernieuwen</string>
+    <string name="stream">Live</string>
+
+    
+    <string name="label_location">Vliegen</string>
+    <string name="label_people_in_space">Wie is er in de ruimte\?</string>
+    <string name="label_setting">Instellingen</string>
+    <string name="label_help">Hulp</string>
+    <string name="label_stream">Livestream</string>
+
+    
+    <string name="startAlert">Waarschuw wanneer ISS dichtbij is</string>
+    <string name="stopAlert">Stop met het melden wanneer ISS dichtbij is</string>
+    <string name="startFullAds">Advertenties op volledige pagina ingeschakeld. Bedankt voor de steun ;)</string>
+    <string name="startBannerAds">Banneradvertenties ingeschakeld. Bedankt voor de steun ;)</string>
+
+    
+    <string name="tutorialOne">De kaart toont de huidige locatie van het ISS met een voorspellingslijn van waar het zal zijn.</string>
+    <string name="tutorialTwo">Drawer brengt u naar andere functies, zoals flybys en instellingen.</string>
+    <string name="midAt">bij</string>
+    <string name="checkerContentDescription">Het pictogram geeft aan dat er een transparante kleur is gekozen</string>
+    <string name="countryFlagContentDescription">Landvlag waar deze astronaut vandaan komt</string>
+    <string name="astronautTwitterContentDescription">Pictogram om te linken naar de Twitter-pagina van astronauten</string>
+    <string name="astronautWikiContentDescription">Pictogram om te linken naar de wikipagina van Astronauten</string>
+    <string name="astronautGoogleContentDescription">Pictogram om te linken naar de Google-zoekpagina voor astronauten</string>
+
+    
+    <string name="refreshTitle">Vernieuwingsfrequentie</string>
+    <string name="refreshSummary">Hoeveelheid tijd voordat de ISS-locatie op de kaart wordt bijgewerkt</string>
+    <string name="declination_unit">sec./vernieuwen</string>
+    <string name="refreshDialogMessage">Tijd tussen het moment waarop het ISS wordt bijgewerkt naar de nieuwe locatie.</string>
+
+    <string name="lockTitle">Vergrendel het ISS</string>
+    <string name="lockSummary">Vergrendel het ISS en volg het op de kaart</string>
+
+    <string name="infoTitle">Extra informatie</string>
+    <string name="infoSummary">Geef aanvullende informatie over het ISS op de kaart</string>
+
+    <string name="mapTitle">Kaartsoort</string>
+    <string name="mapSummary">Wijzig het kaarttype ten opzichte van de vorige pagina</string>
+
+    <string name="decimalTitle">Decimale plaatsen</string>
+    <string name="decimalDialogMessage">Wijzig de nauwkeurigheid van alle numerieke waarden</string>
+    <string name="decimalSummary">Wijzig de nauwkeurigheid van alle numerieke waarden</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Kleur van de voorspellingslijn</string>
+    <string name="colorSummary">Verander de kleur van voorspellingslijnen</string>
+
+    <string name="sizeTitle">Grootte van de voorspellingslijn</string>
+    <string name="sizeDialogMessage">Verander de grootte van de voorspellingslijn van het ISS</string>
+    <string name="sizeSummary">Verander de grootte van de voorspellingslijn van het ISS</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Lettergrootte</string>
+    <string name="textSizeDialogMessage">Wijzig de grootte van alle tekstwaarden op de kaart</string>
+    <string name="textSizeSummary">Wijzig de grootte van alle tekstwaarden op de kaart</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Tekst kleur</string>
+    <string name="textSummary">Wijzig de kleur van tekstwaarden</string>
+
+    <string name="textHighlightTitle">Tekstoverzicht</string>
+    <string name="textHighlightSummary">Wijzig de omtrekkleur van tekstwaarden</string>
+
+    <string name="notificationTitle">ISS-melding</string>
+    <string name="notificationSummary">Geef een seintje wanneer het ISS naar verwachting over mijn locatie zal vliegen</string>
+
+    <string name="advertisementTitle">Banier</string>
+    <string name="advertisementSummary">Schakel banneradvertenties in de app uit</string>
+
+    <string name="fullTitle">Volledige pagina</string>
+    <string name="fullSummary">Schakel advertenties op volledige pagina uit in de app</string>
+
+    
+    <string name="errorWebView">Kan pagina niet laden</string>
+    <string name="errorLocation">Kan uw locatie niet vinden.</string>
+    <string name="errorPermissionLocation">Toegang tot uw locatie geweigerd</string>
+    <string name="errorConnection">Ofwel heb je geen verbinding, ofwel is de server overbelast.</string>
+    <string name="errorNetwork">Er is een onbekende fout opgetreden. Fout: 401</string>
+    <string name="errorMap">Kan instellingen niet op de kaart toepassen</string>
+    <string name="errorFiveTimes">Alle 5 keer mislukt. Ofwel heb je geen verbinding, ofwel is de server overbelast.</string>
+    <string name="errorLessFive">Verzoek aan server mislukt. Opnieuw proberen...</string>
+    <string name="errorWaitPoly">Er zijn al voorspellingslijnen gemaakt</string>
+    <string name="errorNotByMe">ISS-melding is niet door u tegengehouden.</string>
+    <string name="errorNoWiki">heeft geen wikipagina</string>
+    <string name="errorNoTwitter">heeft geen Twitter-account</string>
+    <string name="errorNoInstagram">heeft geen Instagram-account</string>
+    <string name="errorNoFacebook">heeft geen Facebook-account</string>
+    <string name="data_corrupted">App-gegevens zijn beschadigd. Resetten!</string>
+    <string name="polyError">Kan voorspellingsregel niet maken</string>
+    <string name="calendar">Kalender</string>
+    <string name="share">Deel</string>
+    <string name="image_content">Afbeelding van een kaart met een markering voor de gebruikerslocatie.</string>
+    <string name="iss_sighting_share_title">ISS-waarneming</string>
+    <string name="iss_sighting_share_description">ISS zal hier zichtbaar zijn. Ik ga het bekijken!</string>
+    <string name="iss_sighting_share_body">\"Kijk eens! ISS zal zichtbaar zijn op \"</string>
+    <string name="iss_sighting_share_chooser">Deel…</string>
+    <string name="on">\" op \"</string>
+    <string name="one_day_in_space">1 dag in de ruimte</string>
+    <string name="in_space">\" in de ruimte\"</string>
+    <string name="day">\" dag\"</string>
+    <string name="month">\" maand\"</string>
+    <string name="year">\" jaar\"</string>
+    <string name="since">\"Gelanceerd\"</string>
+    <string name="tutorial_one_title">Hallo daar :)</string>
+    <string name="tutorial_two_title">Belangrijkste kenmerken</string>
+
+    <string name="license">Open source-licenties</string>
+    <string name="msg_license">Deze applicatie is gebouwd met behulp van de volgende software:</string>
+    <string name="msg_about_fork_me_on_github">Fork het op GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker is een Android-applicatie waarmee je de positie van het internationale ruimtestation kunt volgen en kunt ontdekken welke astronauten zich momenteel in de ruimte bevinden.</string>
+    <string name="desc_about_app">Over deze app</string>
+    <string name="msg_get_it_on_play_store">Download het op Google Play</string>
+    <string name="version">Versies</string>
+    <string name="version_msg">Lijst met eerdere wijzigingen, oplossingen en updates:</string>
+</resources>

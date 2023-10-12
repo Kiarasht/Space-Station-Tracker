@@ -1,9 +1,7 @@
 <resources>
-
-    <string name="version">Versions</string>
-    <string name="version_msg">List of previous changes, fixes, and updates:</string>
-
     <string-array name="version_title_list" translatable="false">
+        <item>Version: 5.12</item>
+        <item>Version: 5.11</item>
         <item>Version: 5.10</item>
         <item>Version: 5.01</item>
         <item>Version: 5.00</item>
@@ -32,6 +30,8 @@
     </string-array>
 
     <string-array name="version_list" translatable="false">
+        <item><![CDATA[- Fixed astronauts being outdated <br>- Translations for over 100 languages! <br>- Bug fixes & improvements]]></item>
+        <item><![CDATA[- Support for Android 14 <br>- Fixed an issue with people in space showing old astronaut list <br> - Translations for few dozen languages <br> - General UI and bug improvements]]></item>
         <item><![CDATA[- Support for Android 13 <br>- Fixed an issue with flyby page <br> - General UI and bug improvements]]></item>
         <item><![CDATA[- Support for Android 12 <br>- Few new features and improvements]]></item>
         <item><![CDATA[- Overhaul of the app to now work with Android 11 <br>- Fixed many issues making the app not work after months of no maintenance <br>- Few new features and improvements]]></item>

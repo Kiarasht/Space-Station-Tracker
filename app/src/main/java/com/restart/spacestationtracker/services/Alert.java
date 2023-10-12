@@ -237,7 +237,8 @@ public class Alert extends Service {
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        if (mNotificationManager != null)
-            mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+        // Notifications are gone for now
+ //       if (mNotificationManager != null)
+//            mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 }

@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Карта</string>
+    <string name="flybys_title">Өтіп бара жатқан</string>
+    <string name="space_title">Кезекшілікте</string>
+    <string name="settings_title">Параметрлер</string>
+    <string name="help_title">Көмектесіңдер</string>
+
+    
+    <string name="flybys_summary">ISS сіздің орналасқан жеріңізден қашан өтетінін тексеріңіз</string>
+    <string name="space_summary">Дәл қазір ғарышта кім бар екенін қараңыз</string>
+    <string name="settings_summary">Жалпы қолданба параметрлерін басқарыңыз</string>
+    <string name="help_summary">Қолданбаны бағалаңыз немесе біліңіз</string>
+
+    
+    <string name="reset">Болжау сызықтарын жаңарту</string>
+    <string name="stream">Тірі</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_people_in_space">Ғарышта кім бар\?</string>
+    <string name="label_setting">Параметрлер</string>
+    <string name="label_help">Көмектесіңдер</string>
+    <string name="label_stream">Тікелей трансляция</string>
+
+    
+    <string name="startAlert">ISS жақын болғанда хабарлаңыз</string>
+    <string name="stopAlert">ISS жақын болғанда хабарландыруды тоқтатыңыз</string>
+    <string name="startFullAds">Толық бет жарнамалары қосылды. Қолдау үшін рахмет;)</string>
+    <string name="startBannerAds">Баннерлік жарнамалар қосылды. Қолдау үшін рахмет;)</string>
+
+    
+    <string name="tutorialOne">Картада ХҒС ағымдағы орнын оның қай жерде болатынын болжау сызығы көрсетеді.</string>
+    <string name="tutorialTwo">Тартпа сізді ұшулар мен параметрлер сияқты басқа мүмкіндіктерге апарады.</string>
+    <string name="midAt">сағ</string>
+    <string name="checkerContentDescription">Белгіше мөлдір түстің таңдалғанын білдіреді</string>
+    <string name="countryFlagContentDescription">Бұл ғарышкердің ел туы</string>
+    <string name="astronautTwitterContentDescription">Ғарышкерлердің twitter бетіне сілтеме жасайтын белгіше</string>
+    <string name="astronautWikiContentDescription">Ғарышкерлер вики бетіне сілтеме жасайтын белгіше</string>
+    <string name="astronautGoogleContentDescription">Ғарышкерлердің Google іздеу бетіне сілтеме жасайтын белгіше</string>
+
+    
+    <string name="refreshTitle">Жаңарту жылдамдығы</string>
+    <string name="refreshSummary">Картадағы ХҒС орнын жаңартуға дейінгі уақыт мөлшері</string>
+    <string name="declination_unit">сек/жаңарту</string>
+    <string name="refreshDialogMessage">ХҒС жаңа орнына жаңарту арасындағы уақыт.</string>
+
+    <string name="lockTitle">ISS құлыптау</string>
+    <string name="lockSummary">ISS-ке құлыптаңыз және оны картада орындаңыз</string>
+
+    <string name="infoTitle">Қосымша ақпарат</string>
+    <string name="infoSummary">Картада ХҒС туралы қосымша ақпарат беріңіз</string>
+
+    <string name="mapTitle">Карта түрі</string>
+    <string name="mapSummary">Алдыңғы беттегі карта түрін өзгертіңіз</string>
+
+    <string name="decimalTitle">Ондық орындар</string>
+    <string name="decimalDialogMessage">Барлық сандық мәндердің дәлдігін өзгертіңіз</string>
+    <string name="decimalSummary">Барлық сандық мәндердің дәлдігін өзгертіңіз</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Болжам сызығының түсі</string>
+    <string name="colorSummary">Болжау сызықтарының түсін өзгертіңіз</string>
+
+    <string name="sizeTitle">Болжам сызығының өлшемі</string>
+    <string name="sizeDialogMessage">ISS болжау сызығының өлшемін өзгертіңіз</string>
+    <string name="sizeSummary">ISS болжау сызығының өлшемін өзгертіңіз</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Мәтін өлшемі</string>
+    <string name="textSizeDialogMessage">Картадағы барлық мәтін мәндерінің өлшемін өзгертіңіз</string>
+    <string name="textSizeSummary">Картадағы барлық мәтін мәндерінің өлшемін өзгертіңіз</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Мәтін түсі</string>
+    <string name="textSummary">Мәтін мәндерінің түсін өзгертіңіз</string>
+
+    <string name="textHighlightTitle">Мәтін контуры</string>
+    <string name="textHighlightSummary">Мәтін мәндерінің контур түсін өзгертіңіз</string>
+
+    <string name="notificationTitle">ISS хабарламасы</string>
+    <string name="notificationSummary">ХҒС менің орнымның үстінен ұшуы күтілгенде хабарлаңыз</string>
+
+    <string name="advertisementTitle">Баннер</string>
+    <string name="advertisementSummary">Қолданбадағы баннерлік жарнамаларды өшіріңіз</string>
+
+    <string name="fullTitle">Толық бет</string>
+    <string name="fullSummary">Қолданбадағы толық бет жарнамаларын өшіріңіз</string>
+
+    
+    <string name="errorWebView">Бетті жүктеу мүмкін емес</string>
+    <string name="errorLocation">Орналасқан жеріңізді табу мүмкін емес.</string>
+    <string name="errorPermissionLocation">Орналасқан жеріңізге кіруге тыйым салынды</string>
+    <string name="errorConnection">Сізде қосылым жоқ немесе сервер шамадан тыс жүктелген.</string>
+    <string name="errorNetwork">Белгісіз қате орын алды. Қате: 401</string>
+    <string name="errorMap">Параметрлерді картаға қолдану мүмкін емес</string>
+    <string name="errorFiveTimes">Барлығы 5 рет сәтсіз болды. Сізде қосылым жоқ немесе сервер шамадан тыс жүктелген.</string>
+    <string name="errorLessFive">Серверге сұрау орындалмады. Қайталануда…</string>
+    <string name="errorWaitPoly">Болжау сызықтары қазірдің өзінде жасалуда</string>
+    <string name="errorNotByMe">ISS хабарландыруын сіз тоқтатқан жоқсыз.</string>
+    <string name="errorNoWiki">вики беті жоқ</string>
+    <string name="errorNoTwitter">Twitter аккаунты жоқ</string>
+    <string name="errorNoInstagram">Instagram аккаунты жоқ</string>
+    <string name="errorNoFacebook">Facebook есептік жазбасы жоқ</string>
+    <string name="data_corrupted">Қолданба деректері бүлінген. Қалпына келтірілуде!</string>
+    <string name="polyError">Болжам жолын жасау мүмкін емес</string>
+    <string name="calendar">Күнтізбе</string>
+    <string name="share">Бөлісу</string>
+    <string name="image_content">Пайдаланушы орнының маркері бар картаның суреті.</string>
+    <string name="iss_sighting_share_title">ХҒС көру</string>
+    <string name="iss_sighting_share_description">ISS осы жерде көрінеді. Тексеруге барамын!</string>
+    <string name="iss_sighting_share_body">\"Тексеріңіз! ISS мына жерде көрінеді: \"</string>
+    <string name="iss_sighting_share_chooser">Бөлісу…</string>
+    <string name="on">\"қосу\"</string>
+    <string name="one_day_in_space">Ғарышта 1 күн</string>
+    <string name="in_space">«ғарышта»</string>
+    <string name="day">«күн»</string>
+    <string name="month">«ай»</string>
+    <string name="year">«жыл»</string>
+    <string name="since">«Іске қосылды»</string>
+    <string name="tutorial_one_title">Сәлем :)</string>
+    <string name="tutorial_two_title">Негізгі мүмкіндіктер</string>
+
+    <string name="license">Ашық бастапқы лицензиялар</string>
+    <string name="msg_license">Бұл қолданба келесі бағдарламалық жасақтаманы пайдаланып құрастырылған:</string>
+    <string name="msg_about_fork_me_on_github">Оны GitHub сайтында ашыңыз</string>
+    <string name="msg_about_library_description">ISS Tracker - бұл Халықаралық ғарыш станциясының орнын бақылауға және қазіргі уақытта ғарышта қандай астронавтар бар екенін білуге ​​мүмкіндік беретін Android қолданбасы.</string>
+    <string name="desc_about_app">Осы қолданба туралы</string>
+    <string name="msg_get_it_on_play_store">Оны Google Play дүкенінен алыңыз</string>
+    <string name="version">Нұсқалар</string>
+    <string name="version_msg">Алдыңғы өзгертулер, түзетулер және жаңартулар тізімі:</string>
+</resources>

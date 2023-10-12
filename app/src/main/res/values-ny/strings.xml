@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Mapu</string>
+    <string name="flybys_title">Kudutsa</string>
+    <string name="space_title">Pa Ntchito</string>
+    <string name="settings_title">Zokonda</string>
+    <string name="help_title">Thandizeni</string>
+
+    
+    <string name="flybys_summary">Onani nthawi yomwe ISS idzadutsa pomwe muli</string>
+    <string name="space_summary">Onani yemwe ali mumlengalenga pompano</string>
+    <string name="settings_summary">Konzani zochunira zamapulogalamu ambiri</string>
+    <string name="help_summary">Voterani kapena phunzirani za pulogalamuyi</string>
+
+    
+    <string name="reset">Tsitsaninso mizere yolosera</string>
+    <string name="stream">Khalani ndi moyo</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_people_in_space">Ndani ali mu Space\?</string>
+    <string name="label_setting">Zokonda</string>
+    <string name="label_help">Thandizeni</string>
+    <string name="label_stream">Live Stream</string>
+
+    
+    <string name="startAlert">Dziwitsani ISS ikayandikira</string>
+    <string name="stopAlert">Lekani kudziwitsa ISS ikayandikira</string>
+    <string name="startFullAds">Zotsatsa zamasamba zonse zayatsidwa. Zikomo chifukwa cha thandizo ;)</string>
+    <string name="startBannerAds">Zotsatsa zazikwangwani zayatsidwa. Zikomo chifukwa cha thandizo ;)</string>
+
+    
+    <string name="tutorialOne">Mapu akuwonetsa malo a ISS omwe ali ndi mzere wolosera wa komwe idzakhale.</string>
+    <string name="tutorialTwo">Drawer imakufikitsani kuzinthu zina monga ma flybys ndi makonda.</string>
+    <string name="midAt">ku</string>
+    <string name="checkerContentDescription">Chizindikiro chikuyimira kuti mtundu wowonekera wasankhidwa</string>
+    <string name="countryFlagContentDescription">mbendera dziko wamuthambo uyu akuchokera</string>
+    <string name="astronautTwitterContentDescription">Chizindikiro cholumikizira ku tsamba la twitter la astronaut</string>
+    <string name="astronautWikiContentDescription">Chizindikiro cholumikizira patsamba la astronauts wiki</string>
+    <string name="astronautGoogleContentDescription">Chizindikiro cholumikizira oyenda mumlengalenga patsamba losaka la Google</string>
+
+    
+    <string name="refreshTitle">Mtengo Wotsitsimutsa</string>
+    <string name="refreshSummary">Kuchuluka kwa nthawi musanasinthe malo a ISS pamapu</string>
+    <string name="declination_unit">mphindi/tsitsimutsani</string>
+    <string name="refreshDialogMessage">Nthawi pakati pa ISS kusinthidwa kupita kumalo ake atsopano.</string>
+
+    <string name="lockTitle">Tsekani ISS</string>
+    <string name="lockSummary">Tsekani pa ISS ndikutsata pamapu</string>
+
+    <string name="infoTitle">Zowonjezera Zambiri</string>
+    <string name="infoSummary">Perekani zambiri za ISS pamapu</string>
+
+    <string name="mapTitle">Mtundu wa mapu</string>
+    <string name="mapSummary">Sinthani mtundu wa mapu kuchokera patsamba lapitalo</string>
+
+    <string name="decimalTitle">Decimal Places</string>
+    <string name="decimalDialogMessage">Sinthani kulondola kwa manambala onse</string>
+    <string name="decimalSummary">Sinthani kulondola kwa manambala onse</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Mtundu wa mzere wolosera</string>
+    <string name="colorSummary">Sinthani mtundu wa mizere yolosera</string>
+
+    <string name="sizeTitle">Kukula kwa mzere wolosera</string>
+    <string name="sizeDialogMessage">Sinthani kukula kwa mzere wolosera wa ISSs</string>
+    <string name="sizeSummary">Sinthani kukula kwa mzere wolosera wa ISSs</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Kukula kwa malemba</string>
+    <string name="textSizeDialogMessage">Sinthani kukula kwa zolemba zonse pamapu</string>
+    <string name="textSizeSummary">Sinthani kukula kwa zolemba zonse pamapu</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Mtundu wa malemba</string>
+    <string name="textSummary">Sinthani mtundu wa zolemba</string>
+
+    <string name="textHighlightTitle">Mauthenga Abwino</string>
+    <string name="textHighlightSummary">Sinthani mtundu wa autilaini wamawu</string>
+
+    <string name="notificationTitle">Chidziwitso cha ISS</string>
+    <string name="notificationSummary">Dziwitsani pamene ISS ikuyembekezeka kuwuluka pomwe ndili</string>
+
+    <string name="advertisementTitle">Banner</string>
+    <string name="advertisementSummary">Letsani zotsatsa za zikwangwani pa pulogalamuyi</string>
+
+    <string name="fullTitle">Tsamba Lathunthu</string>
+    <string name="fullSummary">Letsani zotsatsa zamasamba athunthu pa pulogalamuyi</string>
+
+    
+    <string name="errorWebView">Takanika kutsegula tsamba</string>
+    <string name="errorLocation">Takanika kupeza komwe muli.</string>
+    <string name="errorPermissionLocation">Saloledwa kulowa komwe muli</string>
+    <string name="errorConnection">Mwina mulibe kulumikizana kapena seva yadzaza.</string>
+    <string name="errorNetwork">Vuto losadziwika lachitika. Zolakwika: 401</string>
+    <string name="errorMap">Sitingathe kuyika zokonda pamapu</string>
+    <string name="errorFiveTimes">Zalephera kasanu konse. Mwina mulibe kulumikizana kapena seva yadzaza.</string>
+    <string name="errorLessFive">Kupempha kwa seva kwalephera. Kuyesanso…</string>
+    <string name="errorWaitPoly">Kupanga kale mizere yolosera</string>
+    <string name="errorNotByMe">Chidziwitso cha ISS sichinayimitsidwe ndi inu.</string>
+    <string name="errorNoWiki">alibe tsamba la wiki</string>
+    <string name="errorNoTwitter">alibe akaunti ya Twitter</string>
+    <string name="errorNoInstagram">alibe akaunti ya Instagram</string>
+    <string name="errorNoFacebook">alibe akaunti ya Facebook</string>
+    <string name="data_corrupted">Deta ya pulogalamu yawonongeka. Kukhazikitsanso!</string>
+    <string name="polyError">Sitingathe kupanga mzere wolosera</string>
+    <string name="calendar">Kalendala</string>
+    <string name="share">Gawani</string>
+    <string name="image_content">Chithunzi cha mapu okhala ndi chikhomo cha malo ogwiritsa ntchito.</string>
+    <string name="iss_sighting_share_title">Kuwona kwa ISS</string>
+    <string name="iss_sighting_share_description">ISS ikuwoneka pano. Ndipita kukawona!</string>
+    <string name="iss_sighting_share_body">\"Tawonani! ISS iwoneka pa \"</string>
+    <string name="iss_sighting_share_chooser">Gawani...</string>
+    <string name="on">\"pa\"</string>
+    <string name="one_day_in_space">1 tsiku mu danga</string>
+    <string name="in_space">\"mu space\"</string>
+    <string name="day">\"tsiku\"</string>
+    <string name="month">\"mwezi\"</string>
+    <string name="year">\"chaka\"</string>
+    <string name="since">\"Anakhazikitsidwa\"</string>
+    <string name="tutorial_one_title">Moni kumeneko :)</string>
+    <string name="tutorial_two_title">Main Features</string>
+
+    <string name="license">Malayisensi otsegula</string>
+    <string name="msg_license">Pulogalamuyi imapangidwa pogwiritsa ntchito mapulogalamu otsatirawa:</string>
+    <string name="msg_about_fork_me_on_github">Ikani pa GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker ndi pulogalamu ya android yomwe imakupatsani mwayi woti muwone momwe International Space Station ilili ndikupeza zomwe astronaut ali mumlengalenga.</string>
+    <string name="desc_about_app">Za pulogalamuyi</string>
+    <string name="msg_get_it_on_play_store">Pezani pa Google Play</string>
+    <string name="version">Mabaibulo</string>
+    <string name="version_msg">Mndandanda wa zosintha zakale, zokonza, ndi zosintha:</string>
+</resources>

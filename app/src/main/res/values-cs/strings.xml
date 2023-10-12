@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Mapa</string>
+    <string name="flybys_title">Kolemjdoucí</string>
+    <string name="space_title">Ve službě</string>
+    <string name="settings_title">Nastavení</string>
+    <string name="help_title">Pomoc</string>
+
+    
+    <string name="flybys_summary">Zkontrolujte, kdy ISS projde kolem vaší polohy</string>
+    <string name="space_summary">Podívejte se, kdo je právě ve vesmíru</string>
+    <string name="settings_summary">Spravujte obecná nastavení aplikace</string>
+    <string name="help_summary">Ohodnoťte aplikaci nebo se o ní informujte</string>
+
+    
+    <string name="reset">Obnovit předpovědní řádky</string>
+    <string name="stream">Žít</string>
+
+    
+    <string name="label_location">Průlety</string>
+    <string name="label_people_in_space">Kdo je ve vesmíru\?</string>
+    <string name="label_setting">Nastavení</string>
+    <string name="label_help">Pomoc</string>
+    <string name="label_stream">Živý přenos</string>
+
+    
+    <string name="startAlert">Upozornit, když je ISS blízko</string>
+    <string name="stopAlert">Přestaňte upozorňovat, když je ISS blízko</string>
+    <string name="startFullAds">Celostránkové reklamy povoleny. Děkuji za podporu ;)</string>
+    <string name="startBannerAds">Bannerové reklamy povoleny. Děkuji za podporu ;)</string>
+
+    
+    <string name="tutorialOne">Mapa ukazuje aktuální polohu ISS s předpovědí, kde se bude nacházet.</string>
+    <string name="tutorialTwo">Zásuvka vás zavede k dalším funkcím, jako jsou průlety a nastavení.</string>
+    <string name="midAt">na</string>
+    <string name="checkerContentDescription">Ikona znamená, že je vybrána průhledná barva</string>
+    <string name="countryFlagContentDescription">Vlajka země, ze které tento astronaut pochází</string>
+    <string name="astronautTwitterContentDescription">Ikona pro odkaz na twitterovou stránku astronautů</string>
+    <string name="astronautWikiContentDescription">Ikona pro odkaz na wiki stránku astronautů</string>
+    <string name="astronautGoogleContentDescription">Ikona pro odkaz na stránku vyhledávání astronautů Google</string>
+
+    
+    <string name="refreshTitle">Obnovovací frekvence</string>
+    <string name="refreshSummary">Doba před aktualizací polohy ISS na mapě</string>
+    <string name="declination_unit">sek/obnovit</string>
+    <string name="refreshDialogMessage">Čas mezi aktualizací ISS na nové místo.</string>
+
+    <string name="lockTitle">Uzamknout ISS</string>
+    <string name="lockSummary">Zaměřte se na ISS a sledujte ji na mapě</string>
+
+    <string name="infoTitle">Doplňující informace</string>
+    <string name="infoSummary">Poskytněte další informace o ISS na mapě</string>
+
+    <string name="mapTitle">Typ mapy</string>
+    <string name="mapSummary">Změňte typ mapy z předchozí stránky</string>
+
+    <string name="decimalTitle">Desetinná místa</string>
+    <string name="decimalDialogMessage">Změňte přesnost všech číselných hodnot</string>
+    <string name="decimalSummary">Změňte přesnost všech číselných hodnot</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Barva předpovědní čáry</string>
+    <string name="colorSummary">Změňte barvu predikčních čar</string>
+
+    <string name="sizeTitle">Velikost předpovědní čáry</string>
+    <string name="sizeDialogMessage">Změňte velikost predikční čáry ISS</string>
+    <string name="sizeSummary">Změňte velikost predikční čáry ISS</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Velikost textu</string>
+    <string name="textSizeDialogMessage">Změňte velikost všech textových hodnot na mapě</string>
+    <string name="textSizeSummary">Změňte velikost všech textových hodnot na mapě</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Barva textu</string>
+    <string name="textSummary">Změňte barvu textových hodnot</string>
+
+    <string name="textHighlightTitle">Obrys textu</string>
+    <string name="textHighlightSummary">Změňte barvu obrysu textových hodnot</string>
+
+    <string name="notificationTitle">Oznámení ISS</string>
+    <string name="notificationSummary">Upozornit, když se očekává, že ISS přeletí nad mou polohou</string>
+
+    <string name="advertisementTitle">Prapor</string>
+    <string name="advertisementSummary">Zakázat bannerové reklamy v aplikaci</string>
+
+    <string name="fullTitle">Celá stránka</string>
+    <string name="fullSummary">Zakažte v aplikaci celostránkové reklamy</string>
+
+    
+    <string name="errorWebView">Stránku nelze načíst</string>
+    <string name="errorLocation">Nelze najít vaši polohu.</string>
+    <string name="errorPermissionLocation">Odepřen přístup k vaší poloze</string>
+    <string name="errorConnection">Buď nemáte připojení, nebo je server přetížený.</string>
+    <string name="errorNetwork">Nastala neznámá chyba. Chyba: 401</string>
+    <string name="errorMap">Nelze použít nastavení na mapu</string>
+    <string name="errorFiveTimes">Vše se 5krát nezdařilo. Buď nemáte připojení, nebo je server přetížený.</string>
+    <string name="errorLessFive">Požadavek na server se nezdařil. Opakování…</string>
+    <string name="errorWaitPoly">Již vytváříte predikční čáry</string>
+    <string name="errorNotByMe">Oznámení ISS jste nezastavili.</string>
+    <string name="errorNoWiki">nemá wiki stránku</string>
+    <string name="errorNoTwitter">nemá účet na Twitteru</string>
+    <string name="errorNoInstagram">nemá účet na Instagramu</string>
+    <string name="errorNoFacebook">nemá účet na Facebooku</string>
+    <string name="data_corrupted">Data aplikace jsou poškozená. Resetování!</string>
+    <string name="polyError">Nelze vytvořit předpovědní čáru</string>
+    <string name="calendar">Kalendář</string>
+    <string name="share">Podíl</string>
+    <string name="image_content">Obrázek mapy se značkou pro umístění uživatele.</string>
+    <string name="iss_sighting_share_title">Pozorování ISS</string>
+    <string name="iss_sighting_share_description">ISS zde bude vidět. Jde to zkontrolovat!</string>
+    <string name="iss_sighting_share_body">\"Podívejte se na to! ISS bude viditelná v \"</string>
+    <string name="iss_sighting_share_chooser">Podíl…</string>
+    <string name="on">\"zapnuto\"</string>
+    <string name="one_day_in_space">1 den ve vesmíru</string>
+    <string name="in_space">\" ve vesmíru\"</string>
+    <string name="day">\" den\"</string>
+    <string name="month">\" Měsíc\"</string>
+    <string name="year">\"rok\"</string>
+    <string name="since">\"Spuštěno\"</string>
+    <string name="tutorial_one_title">Nazdárek :)</string>
+    <string name="tutorial_two_title">Hlavní rysy</string>
+
+    <string name="license">Open source licence</string>
+    <string name="msg_license">Tato aplikace je vytvořena pomocí následujícího softwaru:</string>
+    <string name="msg_about_fork_me_on_github">Fork to na GitHubu</string>
+    <string name="msg_about_library_description">ISS Tracker je aplikace pro Android, která vám umožní sledovat polohu Mezinárodní vesmírné stanice a zjistit, jací astronauti jsou aktuálně ve vesmíru.</string>
+    <string name="desc_about_app">O této aplikaci</string>
+    <string name="msg_get_it_on_play_store">Získejte ji na Google Play</string>
+    <string name="version">Verze</string>
+    <string name="version_msg">Seznam předchozích změn, oprav a aktualizací:</string>
+</resources>

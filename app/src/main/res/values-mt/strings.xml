@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Mappa</string>
+    <string name="flybys_title">Għaddi minn</string>
+    <string name="space_title">On Duty</string>
+    <string name="settings_title">Settings</string>
+    <string name="help_title">Għajnuna</string>
+
+    
+    <string name="flybys_summary">Iċċekkja meta l-ISS tgħaddi mill-post tiegħek</string>
+    <string name="space_summary">Ara min qiegħed fl-ispazju bħalissa</string>
+    <string name="settings_summary">Immaniġġja s-settings ġenerali tal-app</string>
+    <string name="help_summary">Rata jew tgħallem dwar l-app</string>
+
+    
+    <string name="reset">Aġġorna l-linji tat-tbassir</string>
+    <string name="stream">Jgħix</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_people_in_space">Min hu fl-Ispazju\?</string>
+    <string name="label_setting">Settings</string>
+    <string name="label_help">Għajnuna</string>
+    <string name="label_stream">Live Stream</string>
+
+    
+    <string name="startAlert">Avża meta l-ISS tkun viċin</string>
+    <string name="stopAlert">Tieqaf tinnotifika meta l-ISS tkun viċin</string>
+    <string name="startFullAds">Reklami tal-paġna sħiħa attivati. Grazzi tal-appoġġ ;)</string>
+    <string name="startBannerAds">Banner ads attivati. Grazzi tal-appoġġ ;)</string>
+
+    
+    <string name="tutorialOne">Il-mappa turi l-post attwali tal-ISS b\'linja ta\' tbassir ta\' fejn se tkun.</string>
+    <string name="tutorialTwo">Drawer tieħdok għal karatteristiċi oħra bħal flybys u settings.</string>
+    <string name="midAt">fi</string>
+    <string name="checkerContentDescription">L-ikona tirrappreżenta li jinġabar kulur trasparenti</string>
+    <string name="countryFlagContentDescription">Bandiera tal-pajjiż minn fejn ġej dan l-astronawta</string>
+    <string name="astronautTwitterContentDescription">Ikona biex torbot mal-paġna ta\' twitter tal-astronawti</string>
+    <string name="astronautWikiContentDescription">Ikona biex tgħaqqad il-paġna tal-wiki tal-astronawti</string>
+    <string name="astronautGoogleContentDescription">Ikona biex tgħaqqad mal-paġna ta\' tfittxija ta\' l-astronawti ta\' Google</string>
+
+    
+    <string name="refreshTitle">Rata ta\' Aġġornar</string>
+    <string name="refreshSummary">Ammont ta\' ħin qabel ma taġġorna l-post tal-ISS fuq il-mappa</string>
+    <string name="declination_unit">sek/aġġornament</string>
+    <string name="refreshDialogMessage">Ħin bejn l-ISS li tiġi aġġornata għall-post il-ġdid tagħha.</string>
+
+    <string name="lockTitle">Lock ISS</string>
+    <string name="lockSummary">Lock fuq ISS u segwiha fuq il-mappa</string>
+
+    <string name="infoTitle">Informazzjoni Addizzjonali</string>
+    <string name="infoSummary">Ipprovdi informazzjoni addizzjonali dwar l-ISS fuq il-mappa</string>
+
+    <string name="mapTitle">Tip ta\' mappa</string>
+    <string name="mapSummary">Ibdel it-tip ta\' mappa mill-paġna ta\' qabel</string>
+
+    <string name="decimalTitle">Postijiet Deċimali</string>
+    <string name="decimalDialogMessage">Ibdel l-eżattezza tal-valuri numeriċi kollha</string>
+    <string name="decimalSummary">Ibdel l-eżattezza tal-valuri numeriċi kollha</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Kulur tal-linja tat-tbassir</string>
+    <string name="colorSummary">Ibdel il-kulur tal-linji tat-tbassir</string>
+
+    <string name="sizeTitle">Daqs tal-linja tat-tbassir</string>
+    <string name="sizeDialogMessage">Ibdel id-daqs tal-linja tat-tbassir tal-ISSs</string>
+    <string name="sizeSummary">Ibdel id-daqs tal-linja tat-tbassir tal-ISSs</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Daqs tat-test</string>
+    <string name="textSizeDialogMessage">Ibdel id-daqs tal-valuri kollha tat-test fuq il-mappa</string>
+    <string name="textSizeSummary">Ibdel id-daqs tal-valuri kollha tat-test fuq il-mappa</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Kulur tat-test</string>
+    <string name="textSummary">Ibdel il-kulur tal-valuri tat-test</string>
+
+    <string name="textHighlightTitle">Outline Test</string>
+    <string name="textHighlightSummary">Ibdel il-kulur tal-kontorn tal-valuri tat-test</string>
+
+    <string name="notificationTitle">Notifika tal-ISS</string>
+    <string name="notificationSummary">Avża meta l-ISS tkun mistennija li ttir fuq il-post tiegħi</string>
+
+    <string name="advertisementTitle">Banner</string>
+    <string name="advertisementSummary">Iddiżattiva banner ads fuq l-app</string>
+
+    <string name="fullTitle">Paġna Sħiħa</string>
+    <string name="fullSummary">Iddiżattiva r-reklami tal-paġna sħiħa fuq l-app</string>
+
+    
+    <string name="errorWebView">Ma tistax titgħabba l-paġna</string>
+    <string name="errorLocation">Ma tistax issib il-lokalità tiegħek.</string>
+    <string name="errorPermissionLocation">Miċħud aċċess għall-lokalità tiegħek</string>
+    <string name="errorConnection">Jew m\'għandekx konnessjoni jew is-server huwa mgħobbi żżejjed.</string>
+    <string name="errorNetwork">Sar żball mhux magħruf. Żball: 401</string>
+    <string name="errorMap">Ma tistax tapplika s-settings għall-mappa</string>
+    <string name="errorFiveTimes">Falliet il-5 darbiet kollha. Jew m\'għandekx konnessjoni jew is-server huwa mgħobbi żżejjed.</string>
+    <string name="errorLessFive">It-talba lil server falliet. Jipprova mill-ġdid...</string>
+    <string name="errorWaitPoly">Diġà qed toħloq linji ta\' tbassir</string>
+    <string name="errorNotByMe">In-Notifika ISS ma twaqqfitx minnek.</string>
+    <string name="errorNoWiki">m\'għandux paġna wiki</string>
+    <string name="errorNoTwitter">m\'għandux kont Twitter</string>
+    <string name="errorNoInstagram">m\'għandux kont Instagram</string>
+    <string name="errorNoFacebook">m\'għandux kont Facebook</string>
+    <string name="data_corrupted">Id-dejta tal-app hija korrotta. Irrisettjar!</string>
+    <string name="polyError">Ma tistax tinħoloq linja ta\' tbassir</string>
+    <string name="calendar">Kalendarju</string>
+    <string name="share">Aqsam</string>
+    <string name="image_content">Immaġni ta \'mappa b\'markatur għall-lokazzjoni tal-utent.</string>
+    <string name="iss_sighting_share_title">Lemħ tal-ISS</string>
+    <string name="iss_sighting_share_description">L-ISS se tkun viżibbli hawn. Se tivverifikah!</string>
+    <string name="iss_sighting_share_body">\"Iċċekkjah! L-ISS tkun viżibbli fi\"</string>
+    <string name="iss_sighting_share_chooser">Aqsam...</string>
+    <string name="on">\" fuq \"</string>
+    <string name="one_day_in_space">ġurnata fl-ispazju</string>
+    <string name="in_space">\"fl-ispazju\"</string>
+    <string name="day">\"jum\"</string>
+    <string name="month">\"xahar\"</string>
+    <string name="year">\"sena\"</string>
+    <string name="since">\"Mnedija\"</string>
+    <string name="tutorial_one_title">Ħej hemm :)</string>
+    <string name="tutorial_two_title">Karatteristiċi Ewlenin</string>
+
+    <string name="license">Liċenzji ta\' sors miftuħ</string>
+    <string name="msg_license">Din l-applikazzjoni hija mibnija bl-użu tas-softwer li ġej:</string>
+    <string name="msg_about_fork_me_on_github">Fork fuq GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker hija applikazzjoni android li tippermettilek issegwi l-pożizzjoni tal-Istazzjon Spazjali Internazzjonali u taf x\'inhuma l-astronawti bħalissa fl-ispazju.</string>
+    <string name="desc_about_app">Dwar din l-app</string>
+    <string name="msg_get_it_on_play_store">Ġibha fuq Google Play</string>
+    <string name="version">Verżjonijiet</string>
+    <string name="version_msg">Lista ta\' bidliet, soluzzjonijiet u aġġornamenti preċedenti:</string>
+</resources>

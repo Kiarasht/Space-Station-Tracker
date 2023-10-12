@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Taswira</string>
+    <string name="flybys_title">Wucewa</string>
+    <string name="space_title">Akan Aikin</string>
+    <string name="settings_title">Saituna</string>
+    <string name="help_title">Taimako</string>
+
+    
+    <string name="flybys_summary">Bincika lokacin da ISS za ta wuce ta wurin ku</string>
+    <string name="space_summary">Duba wanda ke sararin samaniya a yanzu</string>
+    <string name="settings_summary">Sarrafa saitunan aikace-aikacen gabaɗaya</string>
+    <string name="help_summary">Rate ko koyi game da app</string>
+
+    
+    <string name="reset">Sabunta layin tsinkaya</string>
+    <string name="stream">Rayuwa</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_people_in_space">Wanene ke cikin Space\?</string>
+    <string name="label_setting">Saituna</string>
+    <string name="label_help">Taimako</string>
+    <string name="label_stream">Rayayyar Rayayye</string>
+
+    
+    <string name="startAlert">Sanar da lokacin da ISS ke kusa</string>
+    <string name="stopAlert">Dakatar da sanarwa lokacin da ISS ke kusa</string>
+    <string name="startFullAds">An kunna cikakken tallace-tallacen shafi. Na gode da tallafin;)</string>
+    <string name="startBannerAds">An kunna tallan banner. Na gode da tallafin;)</string>
+
+    
+    <string name="tutorialOne">Taswira yana nuna wurin ISS na yanzu tare da layin tsinkaya na inda zai kasance.</string>
+    <string name="tutorialTwo">Drawer yana ɗaukar ku zuwa wasu fasalulluka kamar flybys da saituna.</string>
+    <string name="midAt">a</string>
+    <string name="checkerContentDescription">Alamar tana wakiltar cewa an ɗauki launi mai haske</string>
+    <string name="countryFlagContentDescription">Tutar ƙasa wannan ɗan sama jannatin ya fito</string>
+    <string name="astronautTwitterContentDescription">Alamar hanyar haɗi zuwa shafin \'yan sama jannati na twitter</string>
+    <string name="astronautWikiContentDescription">Alamar hanyar haɗi zuwa shafin wiki \'yan sama jannati</string>
+    <string name="astronautGoogleContentDescription">Alamar hanyar haɗi zuwa shafin bincike na Google \'yan sama jannati</string>
+
+    
+    <string name="refreshTitle">Matsakaicin Sabuntawa</string>
+    <string name="refreshSummary">Adadin lokaci kafin sabunta wurin ISS akan taswira</string>
+    <string name="declination_unit">sec/sake sabuntawa</string>
+    <string name="refreshDialogMessage">Lokaci tsakanin ISS ana sabunta shi zuwa sabon wurin sa.</string>
+
+    <string name="lockTitle">Kulle ISS</string>
+    <string name="lockSummary">Kulle kan ISS kuma ku bi ta akan taswira</string>
+
+    <string name="infoTitle">Ƙarin Bayani</string>
+    <string name="infoSummary">Bada ƙarin bayani game da ISS akan taswira</string>
+
+    <string name="mapTitle">Nau\'in taswira</string>
+    <string name="mapSummary">Canja nau\'in taswira daga shafin da ya gabata</string>
+
+    <string name="decimalTitle">Wuraren Decimal</string>
+    <string name="decimalDialogMessage">Canza daidaiton duk ƙimar lambobi</string>
+    <string name="decimalSummary">Canza daidaiton duk ƙimar lambobi</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Launin layin tsinkaya</string>
+    <string name="colorSummary">Canja launin layin tsinkaya</string>
+
+    <string name="sizeTitle">Girman layin tsinkaya</string>
+    <string name="sizeDialogMessage">Canja girman layin tsinkayar ISSs</string>
+    <string name="sizeSummary">Canja girman layin tsinkayar ISSs</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Girman rubutu</string>
+    <string name="textSizeDialogMessage">Canja girman duk ƙimar rubutu akan taswira</string>
+    <string name="textSizeSummary">Canja girman duk ƙimar rubutu akan taswira</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Launin rubutu</string>
+    <string name="textSummary">Canja launi na ƙimar rubutu</string>
+
+    <string name="textHighlightTitle">Rubutun Bayani</string>
+    <string name="textHighlightSummary">Canja zanen launi na ƙimar rubutu</string>
+
+    <string name="notificationTitle">Sanarwa ta ISS</string>
+    <string name="notificationSummary">Sanar da lokacin da ake sa ran ISS zai tashi sama da wurina</string>
+
+    <string name="advertisementTitle">Tuta</string>
+    <string name="advertisementSummary">Kashe tallan banner a kan app</string>
+
+    <string name="fullTitle">Cikakken Shafi</string>
+    <string name="fullSummary">Kashe cikakken tallace-tallacen shafi akan app</string>
+
+    
+    <string name="errorWebView">An kasa loda shafi</string>
+    <string name="errorLocation">An kasa gano wurin ku.</string>
+    <string name="errorPermissionLocation">An hana shiga wurin ku</string>
+    <string name="errorConnection">Ko dai ba ku da haɗi ko uwar garken ya yi yawa.</string>
+    <string name="errorNetwork">An sami kuskuren da ba a sani ba. Kuskure: 401</string>
+    <string name="errorMap">Ba za a iya amfani da saituna zuwa taswira ba</string>
+    <string name="errorFiveTimes">An gaza duk sau 5. Ko dai ba ku da haɗi ko uwar garken ya yi yawa.</string>
+    <string name="errorLessFive">Neman uwar garken ya kasa. Ana sake gwadawa…</string>
+    <string name="errorWaitPoly">Tuni ƙirƙirar layin tsinkaya</string>
+    <string name="errorNotByMe">Ba ku tsayar da sanarwar ISS ba.</string>
+    <string name="errorNoWiki">ba shi da shafin wiki</string>
+    <string name="errorNoTwitter">ba shi da asusun Twitter</string>
+    <string name="errorNoInstagram">ba shi da asusun Instagram</string>
+    <string name="errorNoFacebook">bashi da asusun Facebook</string>
+    <string name="data_corrupted">Bayanin App ya lalace. Sake saitin!</string>
+    <string name="polyError">Ba a iya ƙirƙirar layin tsinkaya</string>
+    <string name="calendar">Kalanda</string>
+    <string name="share">Raba</string>
+    <string name="image_content">Hoton taswira tare da alamar don wurin mai amfani.</string>
+    <string name="iss_sighting_share_title">Farashin ISS</string>
+    <string name="iss_sighting_share_description">ISS za a iya gani a nan. Za a duba shi!</string>
+    <string name="iss_sighting_share_body">\"Duba shi! ISS za a iya gani a\"</string>
+    <string name="iss_sighting_share_chooser">Raba…</string>
+    <string name="on">\"na\"</string>
+    <string name="one_day_in_space">kwana 1 a sararin samaniya</string>
+    <string name="in_space">\"a cikin sarari\"</string>
+    <string name="day">\"rana\"</string>
+    <string name="month">\"wata\"</string>
+    <string name="year">\"shekara\"</string>
+    <string name="since">\"An ƙaddamar\"</string>
+    <string name="tutorial_one_title">Sannu :)</string>
+    <string name="tutorial_two_title">Babban Siffofin</string>
+
+    <string name="license">Bude lasisin tushe</string>
+    <string name="msg_license">An gina wannan aikace-aikacen ta amfani da software mai zuwa:</string>
+    <string name="msg_about_fork_me_on_github">Cire shi akan GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker shine aikace-aikacen Android wanda ke ba ku damar bin diddigin matsayin tashar sararin samaniya ta ƙasa da gano abin da \'yan sama jannati suke a sararin samaniya a halin yanzu.</string>
+    <string name="desc_about_app">Game da wannan app</string>
+    <string name="msg_get_it_on_play_store">Samu shi akan Google Play</string>
+    <string name="version">Sigarori</string>
+    <string name="version_msg">Jerin canje-canje na baya, gyare-gyare, da sabuntawa:</string>
+</resources>

@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">خەرىتە</string>
+    <string name="flybys_title">Passing By</string>
+    <string name="space_title">ۋەزىپە ئۈستىدە</string>
+    <string name="settings_title">تەڭشەك</string>
+    <string name="help_title">ياردەم</string>
+
+    
+    <string name="flybys_summary">ISS نىڭ ئورنىڭىزدىن قاچان ئۆتىدىغانلىقىنى تەكشۈرۈڭ</string>
+    <string name="space_summary">ھازىر كىمنىڭ بوشلۇقتا ئىكەنلىكىنى كۆرۈڭ</string>
+    <string name="settings_summary">ئادەتتىكى ئەپ تەڭشىكىنى باشقۇرۇڭ</string>
+    <string name="help_summary">بۇ دېتالغا باھا بېرىڭ ياكى ئۆگىنىڭ</string>
+
+    
+    <string name="reset">ئالدىن پەرەز قىلىش لىنىيىسىنى يېڭىلاڭ</string>
+    <string name="stream">Live</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_people_in_space">ئالەمدە كىم بار؟</string>
+    <string name="label_setting">تەڭشەك</string>
+    <string name="label_help">ياردەم</string>
+    <string name="label_stream">Live Stream</string>
+
+    
+    <string name="startAlert">ISS نىڭ قاچان يېقىنلاشقانلىقىنى ئۇقتۇرۇڭ</string>
+    <string name="stopAlert">ISS قا يېقىنلاشقاندا ئۇقتۇرۇشنى توختىتىڭ</string>
+    <string name="startFullAds">تولۇق بەت ئېلانلىرى قوزغىتىلدى. قوللىغانلىقىغا رەھمەت ؛)</string>
+    <string name="startBannerAds">بايراق ئېلانى قوزغىتىلدى. قوللىغانلىقىغا رەھمەت ؛)</string>
+
+    
+    <string name="tutorialOne">خەرىتە ISS نىڭ ھازىرقى ئورنىنى كۆرسىتىپ بېرىدۇ.</string>
+    <string name="tutorialTwo">تارتما سىزنى ئۇچار تەخسە ۋە تەڭشەك قاتارلىق باشقا ئىقتىدارلارغا ئېلىپ بارىدۇ.</string>
+    <string name="midAt">at</string>
+    <string name="checkerContentDescription">سىنبەلگە سۈزۈك رەڭنىڭ تاللانغانلىقىغا ۋەكىللىك قىلىدۇ</string>
+    <string name="countryFlagContentDescription">بۇ ئالەم ئۇچقۇچىسى دۆلەت بايرىقى</string>
+    <string name="astronautTwitterContentDescription">ئالەم ئۇچقۇچىلىرىنىڭ twitter بېتىگە ئۇلىنىدىغان سىنبەلگە</string>
+    <string name="astronautWikiContentDescription">ئالەم ئۇچقۇچىلىرىنىڭ ۋىكى بېتىگە ئۇلىنىدىغان سىنبەلگە</string>
+    <string name="astronautGoogleContentDescription">ئالەم ئۇچقۇچىلىرىغا ئۇلىنىدىغان سىنبەلگە گۇگۇل ئىزدەش بېتى</string>
+
+    
+    <string name="refreshTitle">دەرىجىسىنى يېڭىلاش</string>
+    <string name="refreshSummary">خەرىتە ISS ئورنىنى يېڭىلاشتىن بۇرۇنقى ۋاقىت</string>
+    <string name="declination_unit">سېكۇنت /يېڭىلاش</string>
+    <string name="refreshDialogMessage">ISS ئارىسىدىكى ۋاقىت ئۇنىڭ يېڭى ئورنىغا يېڭىلىنىدۇ.</string>
+
+    <string name="lockTitle">قۇلۇپ ISS</string>
+    <string name="lockSummary">ISS غا قۇلۇپلاپ خەرىتە بويىچە ئەگىشىڭ</string>
+
+    <string name="infoTitle">قوشۇمچە ئۇچۇر</string>
+    <string name="infoSummary">خەرىتە ISS ھەققىدە قوشۇمچە ئۇچۇرلار بىلەن تەمىنلەڭ</string>
+
+    <string name="mapTitle">خەرىتە تىپى</string>
+    <string name="mapSummary">خەرىتە تىپىنى ئالدىنقى بەتتىن ئۆزگەرتىڭ</string>
+
+    <string name="decimalTitle">ئونلۇق ئورۇن</string>
+    <string name="decimalDialogMessage">بارلىق سانلىق قىممەتلەرنىڭ توغرىلىقىنى ئۆزگەرتىڭ</string>
+    <string name="decimalSummary">بارلىق سانلىق قىممەتلەرنىڭ توغرىلىقىنى ئۆزگەرتىڭ</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">ئالدىن پەرەز سىزىقىنىڭ رەڭگى</string>
+    <string name="colorSummary">پەرەز سىزىقىنىڭ رەڭگىنى ئۆزگەرتىڭ</string>
+
+    <string name="sizeTitle">مۆلچەر سىزىقىنىڭ چوڭلۇقى</string>
+    <string name="sizeDialogMessage">ISSs ئالدىن پەرەز سىزىقىنىڭ چوڭ-كىچىكلىكىنى ئۆزگەرتىڭ</string>
+    <string name="sizeSummary">ISSs ئالدىن پەرەز سىزىقىنىڭ چوڭ-كىچىكلىكىنى ئۆزگەرتىڭ</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">تېكىست چوڭلۇقى</string>
+    <string name="textSizeDialogMessage">خەرىتىدىكى بارلىق تېكىست قىممىتىنىڭ چوڭ-كىچىكلىكىنى ئۆزگەرتىڭ</string>
+    <string name="textSizeSummary">خەرىتىدىكى بارلىق تېكىست قىممىتىنىڭ چوڭ-كىچىكلىكىنى ئۆزگەرتىڭ</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">تېكىست رەڭگى</string>
+    <string name="textSummary">تېكىست قىممىتىنىڭ رەڭگىنى ئۆزگەرتىڭ</string>
+
+    <string name="textHighlightTitle">Text Outline</string>
+    <string name="textHighlightSummary">تېكىست قىممىتىنىڭ سىزىق رەڭگىنى ئۆزگەرتىڭ</string>
+
+    <string name="notificationTitle">ISS ئۇقتۇرۇشى</string>
+    <string name="notificationSummary">ISS نىڭ قاچان مېنىڭ ئورنۇمدىن ئۇچۇشىدىن ئۈمىد بارلىقىنى ئۇقتۇرۇڭ</string>
+
+    <string name="advertisementTitle">بايراق</string>
+    <string name="advertisementSummary">ئەپتىكى بايراق ئېلانىنى چەكلەڭ</string>
+
+    <string name="fullTitle">تولۇق بەت</string>
+    <string name="fullSummary">ئەپتىكى تولۇق بەت ئېلانىنى چەكلەڭ</string>
+
+    
+    <string name="errorWebView">بەتنى يۈكلىيەلمىدى</string>
+    <string name="errorLocation">ئورنىڭىزنى تاپالمىدى.</string>
+    <string name="errorPermissionLocation">ئورنىڭىزغا كىرىشنى رەت قىلدى</string>
+    <string name="errorConnection">ياكى ئۇلىنىشىڭىز يوق ياكى مۇلازىمېتىرنىڭ يۈكى بەك كۆپ.</string>
+    <string name="errorNetwork">نامەلۇم خاتالىق كۆرۈلدى. خاتالىق: 401</string>
+    <string name="errorMap">خەرىتە تەڭشىكىنى ئىشلىتەلمەيدۇ</string>
+    <string name="errorFiveTimes">5 قېتىم مەغلۇپ بولدى. ياكى ئۇلىنىشىڭىز يوق ياكى مۇلازىمېتىرنىڭ يۈكى بەك كۆپ.</string>
+    <string name="errorLessFive">مۇلازىمېتىرغا ئىلتىماس قىلىش مەغلۇب بولدى. قايتا سىناۋاتىدۇ…</string>
+    <string name="errorWaitPoly">ئالدىن پەرەز قۇر قۇر</string>
+    <string name="errorNotByMe">ISS ئۇقتۇرۇشى سىز تەرىپىدىن توختىتىلمىدى.</string>
+    <string name="errorNoWiki">wiki بېتى يوق</string>
+    <string name="errorNoTwitter">ئۇنىڭ Twitter ھېساباتى يوق</string>
+    <string name="errorNoInstagram">ئۇنىڭ Instagram ھېساباتى يوق</string>
+    <string name="errorNoFacebook">ئۇنىڭ Facebook ھېساباتى يوق</string>
+    <string name="data_corrupted">ئەپ سانلىق مەلۇماتلىرى بۇزۇلغان. ئەسلىگە كەلتۈرۈش!</string>
+    <string name="polyError">پەرەز سىزىقىنى قۇرالمىدى</string>
+    <string name="calendar">كالېندار</string>
+    <string name="share">ھەمبەھىرلەش</string>
+    <string name="image_content">ئىشلەتكۈچى ئورنى ئۈچۈن بەلگە قويۇلغان خەرىتىنىڭ رەسىمى.</string>
+    <string name="iss_sighting_share_title">ISS Sighting</string>
+    <string name="iss_sighting_share_description">ISS بۇ يەردە كۆرۈنىدۇ. ئۇنى تەكشۈرۈپ باقماقچى!</string>
+    <string name="iss_sighting_share_body">\"تەكشۈرۈپ بېقىڭ! ISS دا كۆرۈنىدۇ\".</string>
+    <string name="iss_sighting_share_chooser">Share…</string>
+    <string name="on">\"on\"</string>
+    <string name="one_day_in_space">ئالەم بوشلۇقىدا 1 كۈن</string>
+    <string name="in_space">\"ئالەمدە\"</string>
+    <string name="day">\"كۈن\"</string>
+    <string name="month">\"ئاي\"</string>
+    <string name="year">\"يىل\"</string>
+    <string name="since">\"قوزغىتىلدى\"</string>
+    <string name="tutorial_one_title">ھەي ئۇ يەردە :)</string>
+    <string name="tutorial_two_title">Main Features</string>
+
+    <string name="license">ئوچۇق كود ئىجازەتنامىسى</string>
+    <string name="msg_license">بۇ پروگرامما تۆۋەندىكى يۇمشاق دېتاللار ئارقىلىق ياسالغان:</string>
+    <string name="msg_about_fork_me_on_github">ئۇنى GitHub دا تاللاڭ</string>
+    <string name="msg_about_library_description">ISS Tracker ئاندىرويىد قوللىنىشچان پروگرامما بولۇپ ، ئۇ خەلقئارا ئالەم پونكىتىنىڭ ئورنىنى ئىز قوغلاپ ، ئالەم ئۇچقۇچىلىرىنىڭ ھازىر ئالەم بوشلۇقىدا ئىكەنلىكىنى بىلەلەيسىز.</string>
+    <string name="desc_about_app">بۇ ئەپ ھەققىدە</string>
+    <string name="msg_get_it_on_play_store">ئۇنى Google Play غا ئېلىڭ</string>
+    <string name="version">Versions</string>
+    <string name="version_msg">ئىلگىرىكى ئۆزگەرتىش ، تۈزىتىش ۋە يېڭىلاش تىزىملىكى:</string>
+</resources>

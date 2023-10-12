@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Kaart</string>
+    <string name="flybys_title">Möödumas</string>
+    <string name="space_title">Tööl</string>
+    <string name="settings_title">Seaded</string>
+    <string name="help_title">Abi</string>
+
+    
+    <string name="flybys_summary">Kontrollige, millal ISS teie asukohast möödub</string>
+    <string name="space_summary">Vaadake, kes on praegu kosmoses</string>
+    <string name="settings_summary">Rakenduse üldseadete haldamine</string>
+    <string name="help_summary">Hinnake rakendust või õppige selle kohta</string>
+
+    
+    <string name="reset">Värskenda ennustusridu</string>
+    <string name="stream">Otse</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_people_in_space">Kes on kosmoses\?</string>
+    <string name="label_setting">Seaded</string>
+    <string name="label_help">Abi</string>
+    <string name="label_stream">Otseülekanne</string>
+
+    
+    <string name="startAlert">Teavita, kui ISS on lähedal</string>
+    <string name="stopAlert">Lõpetage teavitamine, kui ISS on lähedal</string>
+    <string name="startFullAds">Terve lehe reklaamid on lubatud. Aitäh toetuse eest ;)</string>
+    <string name="startBannerAds">Bännerreklaamid on lubatud. Aitäh toetuse eest ;)</string>
+
+    
+    <string name="tutorialOne">Kaart näitab ISS-i praegust asukohta koos ennustusjoonega selle kohta, kus see asub.</string>
+    <string name="tutorialTwo">Sahtel viib teid muude funktsioonide juurde, nagu möödasõidud ja seaded.</string>
+    <string name="midAt">juures</string>
+    <string name="checkerContentDescription">Ikoon tähistab läbipaistva värvi valimist</string>
+    <string name="countryFlagContentDescription">Riigi lipp see astronaut on pärit</string>
+    <string name="astronautTwitterContentDescription">Ikoon astronautide Twitteri lehele linkimiseks</string>
+    <string name="astronautWikiContentDescription">Ikoon astronautide wiki lehele linkimiseks</string>
+    <string name="astronautGoogleContentDescription">Ikoon astronautide Google\'i otsingulehe linkimiseks</string>
+
+    
+    <string name="refreshTitle">Värskendamise määr</string>
+    <string name="refreshSummary">Aeg enne ISS-i asukoha värskendamist kaardil</string>
+    <string name="declination_unit">sek/värskenda</string>
+    <string name="refreshDialogMessage">Aeg ISS-i uude asukohta värskendamise vahel.</string>
+
+    <string name="lockTitle">Lukusta ISS</string>
+    <string name="lockSummary">Lukustage ISS ja järgige seda kaardil</string>
+
+    <string name="infoTitle">Lisainfo</string>
+    <string name="infoSummary">Esitage kaardil lisateavet ISS-i kohta</string>
+
+    <string name="mapTitle">Kaardi tüüp</string>
+    <string name="mapSummary">Muuda eelmise lehe kaardi tüüpi</string>
+
+    <string name="decimalTitle">Kümnendkohad</string>
+    <string name="decimalDialogMessage">Muutke kõigi arvväärtuste täpsust</string>
+    <string name="decimalSummary">Muutke kõigi arvväärtuste täpsust</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Ennustusjoone värv</string>
+    <string name="colorSummary">Muutke ennustusjoonte värvi</string>
+
+    <string name="sizeTitle">Ennustusrea suurus</string>
+    <string name="sizeDialogMessage">Muutke ISS-i ennustusrea suurust</string>
+    <string name="sizeSummary">Muutke ISS-i ennustusrea suurust</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Teksti suurus</string>
+    <string name="textSizeDialogMessage">Muutke kaardil kõigi tekstiväärtuste suurust</string>
+    <string name="textSizeSummary">Muutke kaardil kõigi tekstiväärtuste suurust</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Teksti värv</string>
+    <string name="textSummary">Muutke tekstiväärtuste värvi</string>
+
+    <string name="textHighlightTitle">Teksti kontuur</string>
+    <string name="textHighlightSummary">Muutke tekstiväärtuste kontuuri värvi</string>
+
+    <string name="notificationTitle">ISS-i teatis</string>
+    <string name="notificationSummary">Teavita, kui ISS peaks lendama üle minu asukoha</string>
+
+    <string name="advertisementTitle">Bänner</string>
+    <string name="advertisementSummary">Keelake rakenduses bännerreklaamid</string>
+
+    <string name="fullTitle">Täisleht</string>
+    <string name="fullSummary">Keelake rakenduses täislehereklaamid</string>
+
+    
+    <string name="errorWebView">Lehte ei saa laadida</string>
+    <string name="errorLocation">Teie asukohta ei õnnestu leida.</string>
+    <string name="errorPermissionLocation">Juurdepääs teie asukohale on keelatud</string>
+    <string name="errorConnection">Kas teil pole ühendust või server on ülekoormatud.</string>
+    <string name="errorNetwork">Ilmnes tundmatu viga. Viga: 401</string>
+    <string name="errorMap">Seadeid ei saa kaardile rakendada</string>
+    <string name="errorFiveTimes">Kõik 5 korda ebaõnnestus. Kas teil pole ühendust või server on ülekoormatud.</string>
+    <string name="errorLessFive">Taotlus serverile nurjus. Uuesti proovimine…</string>
+    <string name="errorWaitPoly">Ennustusridade loomisel juba</string>
+    <string name="errorNotByMe">Te ei peatanud ISS-i teavitust.</string>
+    <string name="errorNoWiki">ei oma wiki lehte</string>
+    <string name="errorNoTwitter">tal pole Twitteri kontot</string>
+    <string name="errorNoInstagram">tal pole Instagrami kontot</string>
+    <string name="errorNoFacebook">tal pole Facebooki kontot</string>
+    <string name="data_corrupted">Rakenduse andmed on rikutud. Lähtestamine!</string>
+    <string name="polyError">Ennustusrida ei saa luua</string>
+    <string name="calendar">Kalender</string>
+    <string name="share">Jaga</string>
+    <string name="image_content">Pilt kaardist, millel on kasutaja asukoha marker.</string>
+    <string name="iss_sighting_share_title">ISS-i vaatlus</string>
+    <string name="iss_sighting_share_description">ISS on siin nähtav. Läheb seda vaatama!</string>
+    <string name="iss_sighting_share_body">\"Tutvuge! ISS on nähtav aadressil \"</string>
+    <string name="iss_sighting_share_chooser">Jaga…</string>
+    <string name="on">\" peal \"</string>
+    <string name="one_day_in_space">1 päev kosmoses</string>
+    <string name="in_space">\" kosmoses\"</string>
+    <string name="day">\"päev\"</string>
+    <string name="month">\"kuu\"</string>
+    <string name="year">\"aasta\"</string>
+    <string name="since">\"Käivitatud \"</string>
+    <string name="tutorial_one_title">Tere :)</string>
+    <string name="tutorial_two_title">Põhijooned</string>
+
+    <string name="license">Avatud lähtekoodiga litsentsid</string>
+    <string name="msg_license">See rakendus on loodud järgmise tarkvara abil:</string>
+    <string name="msg_about_fork_me_on_github">Ühendage see GitHubis</string>
+    <string name="msg_about_library_description">ISS Tracker on Androidi rakendus, mis võimaldab jälgida rahvusvahelise kosmosejaama asukohta ja teada saada, millised astronaudid parajasti kosmoses viibivad.</string>
+    <string name="desc_about_app">Teave selle rakenduse kohta</string>
+    <string name="msg_get_it_on_play_store">Hankige see Google Playst</string>
+    <string name="version">Versioonid</string>
+    <string name="version_msg">Varasemate muudatuste, paranduste ja värskenduste loend:</string>
+</resources>

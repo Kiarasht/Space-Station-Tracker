@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">Traciwr ISS</string>
+
+    
+    <string name="map_activity">Map</string>
+    <string name="flybys_title">Mynd heibio</string>
+    <string name="space_title">Ar ddyletswydd</string>
+    <string name="settings_title">Gosodiadau</string>
+    <string name="help_title">Help</string>
+
+    
+    <string name="flybys_summary">Gwiriwch pryd y bydd ISS yn mynd heibio i\'ch lleoliad</string>
+    <string name="space_summary">Gweld pwy sydd yn y gofod ar hyn o bryd</string>
+    <string name="settings_summary">Rheoli gosodiadau ap cyffredinol</string>
+    <string name="help_summary">Graddiwch neu dysgwch am yr ap</string>
+
+    
+    <string name="reset">Adnewyddu llinellau rhagfynegi</string>
+    <string name="stream">Byw</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_people_in_space">Pwy sydd yn y Gofod\?</string>
+    <string name="label_setting">Gosodiadau</string>
+    <string name="label_help">Help</string>
+    <string name="label_stream">Ffrwd Fyw</string>
+
+    
+    <string name="startAlert">Rhoi gwybod pan fydd ISS gerllaw</string>
+    <string name="stopAlert">Rhoi\'r gorau i hysbysu pan fydd ISS gerllaw</string>
+    <string name="startFullAds">Hysbysebion tudalen lawn wedi\'u galluogi. Diolch am y gefnogaeth ;)</string>
+    <string name="startBannerAds">Hysbysebion baner wedi\'u galluogi. Diolch am y gefnogaeth ;)</string>
+
+    
+    <string name="tutorialOne">Mae\'r map yn dangos lleoliad presennol ISS gyda llinell ragfynegi o ble y bydd.</string>
+    <string name="tutorialTwo">Mae drôr yn mynd â chi i nodweddion eraill fel flybys a gosodiadau.</string>
+    <string name="midAt">yn</string>
+    <string name="checkerContentDescription">Mae eicon yn cynrychioli bod lliw tryloyw yn cael ei ddewis</string>
+    <string name="countryFlagContentDescription">Baner gwlad y gofodwr hwn o</string>
+    <string name="astronautTwitterContentDescription">Eicon i gysylltu â thudalen trydar gofodwyr</string>
+    <string name="astronautWikiContentDescription">Eicon i gysylltu â thudalen wiki gofodwyr</string>
+    <string name="astronautGoogleContentDescription">Eicon i gysylltu â thudalen chwilio Google gofodwyr</string>
+
+    
+    <string name="refreshTitle">Cyfradd Adnewyddu</string>
+    <string name="refreshSummary">Faint o amser cyn diweddaru lleoliad ISS ar y map</string>
+    <string name="declination_unit">eiliad/adnewyddu</string>
+    <string name="refreshDialogMessage">Amser rhwng ISS gael ei ddiweddaru i\'w leoliad newydd.</string>
+
+    <string name="lockTitle">Cloi ISS</string>
+    <string name="lockSummary">Clowch ar ISS a\'i ddilyn ar y map</string>
+
+    <string name="infoTitle">Gwybodaeth ychwanegol</string>
+    <string name="infoSummary">Darparwch wybodaeth ychwanegol am ISS ar y map</string>
+
+    <string name="mapTitle">Math o fap</string>
+    <string name="mapSummary">Newidiwch y math o fap o\'r dudalen flaenorol</string>
+
+    <string name="decimalTitle">Lleoedd Degol</string>
+    <string name="decimalDialogMessage">Newid cywirdeb yr holl werthoedd rhifiadol</string>
+    <string name="decimalSummary">Newid cywirdeb yr holl werthoedd rhifiadol</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Lliw llinell rhagfynegiad</string>
+    <string name="colorSummary">Newid lliw llinellau rhagfynegi</string>
+
+    <string name="sizeTitle">Maint llinell rhagfynegiad</string>
+    <string name="sizeDialogMessage">Newid maint llinell ragfynegi ISSs</string>
+    <string name="sizeSummary">Newid maint llinell ragfynegi ISSs</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Maint testun</string>
+    <string name="textSizeDialogMessage">Newid maint yr holl werthoedd testun ar y map</string>
+    <string name="textSizeSummary">Newid maint yr holl werthoedd testun ar y map</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Lliw testun</string>
+    <string name="textSummary">Newid lliw gwerthoedd testun</string>
+
+    <string name="textHighlightTitle">Amlinelliad Testun</string>
+    <string name="textHighlightSummary">Newid lliw amlinellol gwerthoedd testun</string>
+
+    <string name="notificationTitle">Hysbysiad ISS</string>
+    <string name="notificationSummary">Rhowch wybod pryd y disgwylir i ISS hedfan dros fy lleoliad</string>
+
+    <string name="advertisementTitle">Baner</string>
+    <string name="advertisementSummary">Analluogi hysbysebion baner ar yr ap</string>
+
+    <string name="fullTitle">Tudalen Llawn</string>
+    <string name="fullSummary">Analluogi hysbysebion tudalen lawn ar yr ap</string>
+
+    
+    <string name="errorWebView">Methu llwytho tudalen</string>
+    <string name="errorLocation">Methu dod o hyd i\'ch lleoliad.</string>
+    <string name="errorPermissionLocation">Wedi gwrthod mynediad i\'ch lleoliad</string>
+    <string name="errorConnection">Naill ai nid oes gennych unrhyw gysylltiad neu mae\'r gweinydd wedi\'i orlwytho.</string>
+    <string name="errorNetwork">Mae gwall anhysbys wedi digwydd. Gwall: 401</string>
+    <string name="errorMap">Methu â chymhwyso gosodiadau i\'r map</string>
+    <string name="errorFiveTimes">Wedi methu bob 5 gwaith. Naill ai nid oes gennych unrhyw gysylltiad neu mae\'r gweinydd wedi\'i orlwytho.</string>
+    <string name="errorLessFive">Methodd y cais i\'r gweinydd. Wrthi\'n ailgynnig…</string>
+    <string name="errorWaitPoly">Eisoes yn creu llinellau rhagfynegi</string>
+    <string name="errorNotByMe">Ni stopiodd ISS Notification gennych chi.</string>
+    <string name="errorNoWiki">nid oes ganddo dudalen wiki</string>
+    <string name="errorNoTwitter">nid oes ganddo gyfrif Twitter</string>
+    <string name="errorNoInstagram">nid oes ganddo gyfrif Instagram</string>
+    <string name="errorNoFacebook">nad oes ganddo gyfrif Facebook</string>
+    <string name="data_corrupted">Mae data app wedi\'i lygru. Yn ailosod!</string>
+    <string name="polyError">Methu creu llinell ragfynegi</string>
+    <string name="calendar">Calendr</string>
+    <string name="share">Rhannu</string>
+    <string name="image_content">Delwedd o fap gyda marciwr ar gyfer lleoliad y defnyddiwr.</string>
+    <string name="iss_sighting_share_title">Golwg ISS</string>
+    <string name="iss_sighting_share_description">Bydd ISS i\'w weld yma. Mynd i edrych arno!</string>
+    <string name="iss_sighting_share_body">msgstr \"Gwiriwch e! Bydd ISS i\'w weld yn \" \"</string>
+    <string name="iss_sighting_share_chooser">Rhannu…</string>
+    <string name="on">\" ar \"</string>
+    <string name="one_day_in_space">1 diwrnod yn y gofod</string>
+    <string name="in_space">\"yn y gofod\"</string>
+    <string name="day">\" Dydd\"</string>
+    <string name="month">\"mis\"</string>
+    <string name="year">\"blwyddyn\"</string>
+    <string name="since">\"Wedi\'i lansio\"</string>
+    <string name="tutorial_one_title">Hei Yno :)</string>
+    <string name="tutorial_two_title">Prif Nodweddion</string>
+
+    <string name="license">Trwyddedau ffynhonnell agored</string>
+    <string name="msg_license">Mae\'r cymhwysiad hwn wedi\'i adeiladu gan ddefnyddio meddalwedd a ganlyn:</string>
+    <string name="msg_about_fork_me_on_github">Fforchiwch ef ar GitHub</string>
+    <string name="msg_about_library_description">Mae ISS Tracker yn gymhwysiad android sy\'n eich galluogi i olrhain lleoliad yr Orsaf Ofod Ryngwladol a darganfod pa ofodwyr sydd yn y gofod ar hyn o bryd.</string>
+    <string name="desc_about_app">Ynglŷn â\'r app hwn</string>
+    <string name="msg_get_it_on_play_store">Ei gael ar Google Play</string>
+    <string name="version">Fersiynau</string>
+    <string name="version_msg">Rhestr o newidiadau, atgyweiriadau a diweddariadau blaenorol:</string>
+</resources>

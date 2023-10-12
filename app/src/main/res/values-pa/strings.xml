@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">ISS ਟਰੈਕਰ</string>
+
+    
+    <string name="map_activity">ਨਕਸ਼ਾ</string>
+    <string name="flybys_title">ਲੰਘਣਾ</string>
+    <string name="space_title">ਕੰਮ ਤੇ</string>
+    <string name="settings_title">ਸੈਟਿੰਗਾਂ</string>
+    <string name="help_title">ਮਦਦ ਕਰੋ</string>
+
+    
+    <string name="flybys_summary">ਜਾਂਚ ਕਰੋ ਕਿ ਕਦੋਂ ISS ਤੁਹਾਡੇ ਟਿਕਾਣੇ ਤੋਂ ਲੰਘੇਗਾ</string>
+    <string name="space_summary">ਦੇਖੋ ਕਿ ਇਸ ਸਮੇਂ ਸਪੇਸ ਵਿੱਚ ਕੌਣ ਹੈ</string>
+    <string name="settings_summary">ਆਮ ਐਪ ਸੈਟਿੰਗਾਂ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰੋ</string>
+    <string name="help_summary">ਰੇਟ ਕਰੋ ਜਾਂ ਐਪ ਬਾਰੇ ਜਾਣੋ</string>
+
+    
+    <string name="reset">ਭਵਿੱਖਬਾਣੀ ਲਾਈਨਾਂ ਨੂੰ ਤਾਜ਼ਾ ਕਰੋ</string>
+    <string name="stream">ਲਾਈਵ</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_people_in_space">ਪੁਲਾੜ ਵਿੱਚ ਕੌਣ ਹੈ\?</string>
+    <string name="label_setting">ਸੈਟਿੰਗਾਂ</string>
+    <string name="label_help">ਮਦਦ ਕਰੋ</string>
+    <string name="label_stream">ਸਿੱਧਾ ਪ੍ਰਸਾਰਣ</string>
+
+    
+    <string name="startAlert">ਜਦੋਂ ISS ਨੇੜੇ ਹੋਵੇ ਤਾਂ ਸੂਚਿਤ ਕਰੋ</string>
+    <string name="stopAlert">ਜਦੋਂ ISS ਨੇੜੇ ਹੋਵੇ ਤਾਂ ਸੂਚਨਾ ਦੇਣਾ ਬੰਦ ਕਰੋ</string>
+    <string name="startFullAds">ਪੂਰੇ ਪੰਨੇ ਦੇ ਵਿਗਿਆਪਨ ਸਮਰਥਿਤ ਹਨ। ਸਹਿਯੋਗ ਲਈ ਧੰਨਵਾਦ;)</string>
+    <string name="startBannerAds">ਬੈਨਰ ਵਿਗਿਆਪਨ ਸਮਰਥਿਤ ਹਨ। ਸਹਿਯੋਗ ਲਈ ਧੰਨਵਾਦ;)</string>
+
+    
+    <string name="tutorialOne">ਨਕਸ਼ਾ ਕਿੱਥੇ ਹੋਵੇਗਾ ਇਸਦੀ ਭਵਿੱਖਬਾਣੀ ਲਾਈਨ ਦੇ ਨਾਲ ISS ਮੌਜੂਦਾ ਸਥਾਨ ਦਿਖਾਉਂਦਾ ਹੈ।</string>
+    <string name="tutorialTwo">ਦਰਾਜ਼ ਤੁਹਾਨੂੰ ਹੋਰ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਜਿਵੇਂ ਕਿ ਫਲਾਈਬਾਈਜ਼ ਅਤੇ ਸੈਟਿੰਗਾਂ \'ਤੇ ਲੈ ਜਾਂਦਾ ਹੈ।</string>
+    <string name="midAt">\'ਤੇ</string>
+    <string name="checkerContentDescription">ਆਈਕਨ ਦਰਸਾਉਂਦਾ ਹੈ ਕਿ ਇੱਕ ਪਾਰਦਰਸ਼ੀ ਰੰਗ ਚੁਣਿਆ ਗਿਆ ਹੈ</string>
+    <string name="countryFlagContentDescription">ਦੇਸ਼ ਦਾ ਝੰਡਾ ਇਹ ਪੁਲਾੜ ਯਾਤਰੀ ਦਾ ਹੈ</string>
+    <string name="astronautTwitterContentDescription">ਪੁਲਾੜ ਯਾਤਰੀਆਂ ਦੇ ਟਵੀਟਰ ਪੰਨੇ ਨਾਲ ਲਿੰਕ ਕਰਨ ਲਈ ਆਈਕਨ</string>
+    <string name="astronautWikiContentDescription">ਪੁਲਾੜ ਯਾਤਰੀਆਂ ਦੇ ਵਿਕੀ ਪੰਨੇ ਨਾਲ ਲਿੰਕ ਕਰਨ ਲਈ ਆਈਕਨ</string>
+    <string name="astronautGoogleContentDescription">ਪੁਲਾੜ ਯਾਤਰੀਆਂ ਦੇ Google ਖੋਜ ਪੰਨੇ ਨਾਲ ਲਿੰਕ ਕਰਨ ਲਈ ਪ੍ਰਤੀਕ</string>
+
+    
+    <string name="refreshTitle">ਤਾਜ਼ਾ ਦਰ</string>
+    <string name="refreshSummary">ਨਕਸ਼ੇ \'ਤੇ ISS ਟਿਕਾਣੇ ਨੂੰ ਅੱਪਡੇਟ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਸਮੇਂ ਦੀ ਮਾਤਰਾ</string>
+    <string name="declination_unit">ਸਕਿੰਟ/ਤਾਜ਼ਾ</string>
+    <string name="refreshDialogMessage">ISS ਦੇ ਵਿਚਕਾਰ ਸਮਾਂ ਇਸਦੇ ਨਵੇਂ ਟਿਕਾਣੇ \'ਤੇ ਅੱਪਡੇਟ ਹੋ ਰਿਹਾ ਹੈ।</string>
+
+    <string name="lockTitle">ਲਾਕ ISS</string>
+    <string name="lockSummary">ISS \'ਤੇ ਲਾਕ ਕਰੋ ਅਤੇ ਨਕਸ਼ੇ \'ਤੇ ਇਸਦਾ ਅਨੁਸਰਣ ਕਰੋ</string>
+
+    <string name="infoTitle">ਵਧੀਕ ਜਾਣਕਾਰੀ</string>
+    <string name="infoSummary">ਨਕਸ਼ੇ \'ਤੇ ISS ਬਾਰੇ ਵਾਧੂ ਜਾਣਕਾਰੀ ਪ੍ਰਦਾਨ ਕਰੋ</string>
+
+    <string name="mapTitle">ਨਕਸ਼ੇ ਦੀ ਕਿਸਮ</string>
+    <string name="mapSummary">ਪਿਛਲੇ ਪੰਨੇ ਤੋਂ ਨਕਸ਼ੇ ਦੀ ਕਿਸਮ ਬਦਲੋ</string>
+
+    <string name="decimalTitle">ਦਸ਼ਮਲਵ ਸਥਾਨ</string>
+    <string name="decimalDialogMessage">ਸਾਰੇ ਸੰਖਿਆਤਮਕ ਮੁੱਲਾਂ ਦੀ ਸ਼ੁੱਧਤਾ ਨੂੰ ਬਦਲੋ</string>
+    <string name="decimalSummary">ਸਾਰੇ ਸੰਖਿਆਤਮਕ ਮੁੱਲਾਂ ਦੀ ਸ਼ੁੱਧਤਾ ਨੂੰ ਬਦਲੋ</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">ਪੂਰਵ ਅਨੁਮਾਨ ਲਾਈਨ ਦਾ ਰੰਗ</string>
+    <string name="colorSummary">ਭਵਿੱਖਬਾਣੀ ਲਾਈਨਾਂ ਦਾ ਰੰਗ ਬਦਲੋ</string>
+
+    <string name="sizeTitle">ਪੂਰਵ ਅਨੁਮਾਨ ਲਾਈਨ ਦਾ ਆਕਾਰ</string>
+    <string name="sizeDialogMessage">ISSs ਭਵਿੱਖਬਾਣੀ ਲਾਈਨ ਦਾ ਆਕਾਰ ਬਦਲੋ</string>
+    <string name="sizeSummary">ISSs ਭਵਿੱਖਬਾਣੀ ਲਾਈਨ ਦਾ ਆਕਾਰ ਬਦਲੋ</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">ਟੈਕਸਟ ਦਾ ਆਕਾਰ</string>
+    <string name="textSizeDialogMessage">ਨਕਸ਼ੇ \'ਤੇ ਸਾਰੇ ਟੈਕਸਟ ਮੁੱਲਾਂ ਦਾ ਆਕਾਰ ਬਦਲੋ</string>
+    <string name="textSizeSummary">ਨਕਸ਼ੇ \'ਤੇ ਸਾਰੇ ਟੈਕਸਟ ਮੁੱਲਾਂ ਦਾ ਆਕਾਰ ਬਦਲੋ</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">ਟੈਕਸਟ ਦਾ ਰੰਗ</string>
+    <string name="textSummary">ਟੈਕਸਟ ਮੁੱਲਾਂ ਦਾ ਰੰਗ ਬਦਲੋ</string>
+
+    <string name="textHighlightTitle">ਟੈਕਸਟ ਰੂਪਰੇਖਾ</string>
+    <string name="textHighlightSummary">ਟੈਕਸਟ ਮੁੱਲਾਂ ਦੀ ਰੂਪਰੇਖਾ ਦਾ ਰੰਗ ਬਦਲੋ</string>
+
+    <string name="notificationTitle">ISS ਸੂਚਨਾ</string>
+    <string name="notificationSummary">ਸੂਚਿਤ ਕਰੋ ਜਦੋਂ ISS ਮੇਰੇ ਟਿਕਾਣੇ \'ਤੇ ਉੱਡਣ ਦੀ ਉਮੀਦ ਕੀਤੀ ਜਾਂਦੀ ਹੈ</string>
+
+    <string name="advertisementTitle">ਬੈਨਰ</string>
+    <string name="advertisementSummary">ਐਪ \'ਤੇ ਬੈਨਰ ਵਿਗਿਆਪਨਾਂ ਨੂੰ ਅਸਮਰੱਥ ਕਰੋ</string>
+
+    <string name="fullTitle">ਪੂਰਾ ਪੰਨਾ</string>
+    <string name="fullSummary">ਐਪ \'ਤੇ ਪੂਰੇ ਪੰਨੇ ਦੇ ਇਸ਼ਤਿਹਾਰਾਂ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਓ</string>
+
+    
+    <string name="errorWebView">ਪੰਨਾ ਲੋਡ ਕਰਨ ਵਿੱਚ ਅਸਮਰੱਥ</string>
+    <string name="errorLocation">ਤੁਹਾਡਾ ਟਿਕਾਣਾ ਲੱਭਣ ਵਿੱਚ ਅਸਮਰੱਥ।</string>
+    <string name="errorPermissionLocation">ਤੁਹਾਡੇ ਟਿਕਾਣੇ ਤੱਕ ਪਹੁੰਚ ਤੋਂ ਇਨਕਾਰ ਕੀਤਾ</string>
+    <string name="errorConnection">ਜਾਂ ਤਾਂ ਤੁਹਾਡੇ ਕੋਲ ਕੋਈ ਕਨੈਕਸ਼ਨ ਨਹੀਂ ਹੈ ਜਾਂ ਸਰਵਰ ਓਵਰਲੋਡ ਹੈ।</string>
+    <string name="errorNetwork">ਇੱਕ ਅਗਿਆਤ ਗਲਤੀ ਆਈ ਹੈ। ਗਲਤੀ: 401</string>
+    <string name="errorMap">ਨਕਸ਼ੇ \'ਤੇ ਸੈਟਿੰਗਾਂ ਲਾਗੂ ਨਹੀਂ ਕੀਤੀਆਂ ਜਾ ਸਕਦੀਆਂ</string>
+    <string name="errorFiveTimes">ਸਾਰੇ 5 ਵਾਰ ਅਸਫਲ ਰਹੇ। ਜਾਂ ਤਾਂ ਤੁਹਾਡੇ ਕੋਲ ਕੋਈ ਕਨੈਕਸ਼ਨ ਨਹੀਂ ਹੈ ਜਾਂ ਸਰਵਰ ਓਵਰਲੋਡ ਹੈ।</string>
+    <string name="errorLessFive">ਸਰਵਰ ਲਈ ਬੇਨਤੀ ਅਸਫਲ ਰਹੀ। ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ...</string>
+    <string name="errorWaitPoly">ਪਹਿਲਾਂ ਹੀ ਪੂਰਵ-ਅਨੁਮਾਨ ਦੀਆਂ ਲਾਈਨਾਂ ਬਣ ਰਹੀਆਂ ਹਨ</string>
+    <string name="errorNotByMe">ਤੁਹਾਡੇ ਦੁਆਰਾ ISS ਸੂਚਨਾ ਨੂੰ ਰੋਕਿਆ ਨਹੀਂ ਗਿਆ ਸੀ।</string>
+    <string name="errorNoWiki">ਦਾ ਕੋਈ ਵਿਕੀ ਪੰਨਾ ਨਹੀਂ ਹੈ</string>
+    <string name="errorNoTwitter">ਦਾ ਕੋਈ ਟਵਿੱਟਰ ਖਾਤਾ ਨਹੀਂ ਹੈ</string>
+    <string name="errorNoInstagram">ਦਾ ਕੋਈ Instagram ਖਾਤਾ ਨਹੀਂ ਹੈ</string>
+    <string name="errorNoFacebook">ਦਾ ਕੋਈ ਫੇਸਬੁੱਕ ਖਾਤਾ ਨਹੀਂ ਹੈ</string>
+    <string name="data_corrupted">ਐਪ ਡਾਟਾ ਖਰਾਬ ਹੈ। ਰੀਸੈੱਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ!</string>
+    <string name="polyError">ਭਵਿੱਖਬਾਣੀ ਲਾਈਨ ਬਣਾਉਣ ਵਿੱਚ ਅਸਮਰੱਥ</string>
+    <string name="calendar">ਕੈਲੰਡਰ</string>
+    <string name="share">ਸ਼ੇਅਰ ਕਰੋ</string>
+    <string name="image_content">ਵਰਤੋਂਕਾਰ ਟਿਕਾਣੇ ਲਈ ਮਾਰਕਰ ਵਾਲੇ ਨਕਸ਼ੇ ਦਾ ਚਿੱਤਰ।</string>
+    <string name="iss_sighting_share_title">ISS ਨਜ਼ਰ</string>
+    <string name="iss_sighting_share_description">ISS ਇੱਥੇ ਦਿਖਾਈ ਦੇਵੇਗਾ। ਇਸ ਨੂੰ ਬਾਹਰ ਚੈੱਕ ਕਰਨ ਲਈ ਜਾ ਰਿਹਾ ਹੈ!</string>
+    <string name="iss_sighting_share_body">\"ਇਸਦੀ ਜਾਂਚ ਕਰੋ! ISS \'ਤੇ ਦਿਖਾਈ ਦੇਵੇਗਾ\"</string>
+    <string name="iss_sighting_share_chooser">ਸਾਂਝਾ ਕਰੋ...</string>
+    <string name="on">\"ਤੇ\"</string>
+    <string name="one_day_in_space">ਸਪੇਸ ਵਿੱਚ 1 ਦਿਨ</string>
+    <string name="in_space">\"ਪੁਲਾੜ ਵਿੱਚ\"</string>
+    <string name="day">\" ਦਿਨ\"</string>
+    <string name="month">\"ਮਹੀਨਾ\"</string>
+    <string name="year">\"ਸਾਲ\"</string>
+    <string name="since">\"ਸ਼ੁਰੂ ਕੀਤਾ\"</string>
+    <string name="tutorial_one_title">ਹਾਏ ਓਏ :)</string>
+    <string name="tutorial_two_title">ਮੁੱਖ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ</string>
+
+    <string name="license">ਓਪਨ ਸੋਰਸ ਲਾਇਸੰਸ</string>
+    <string name="msg_license">ਇਹ ਐਪਲੀਕੇਸ਼ਨ ਹੇਠਾਂ ਦਿੱਤੇ ਸੌਫਟਵੇਅਰ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਬਣਾਈ ਗਈ ਹੈ:</string>
+    <string name="msg_about_fork_me_on_github">ਇਸਨੂੰ GitHub \'ਤੇ ਫੋਰਕ ਕਰੋ</string>
+    <string name="msg_about_library_description">ISS ਟਰੈਕਰ ਇੱਕ ਐਂਡਰੌਇਡ ਐਪਲੀਕੇਸ਼ਨ ਹੈ ਜੋ ਤੁਹਾਨੂੰ ਅੰਤਰਰਾਸ਼ਟਰੀ ਪੁਲਾੜ ਸਟੇਸ਼ਨ ਦੀ ਸਥਿਤੀ ਨੂੰ ਟਰੈਕ ਕਰਨ ਅਤੇ ਇਹ ਪਤਾ ਲਗਾਉਣ ਦੀ ਆਗਿਆ ਦਿੰਦੀ ਹੈ ਕਿ ਇਸ ਸਮੇਂ ਸਪੇਸ ਵਿੱਚ ਕਿਹੜੇ ਪੁਲਾੜ ਯਾਤਰੀ ਹਨ।</string>
+    <string name="desc_about_app">ਇਸ ਐਪ ਬਾਰੇ</string>
+    <string name="msg_get_it_on_play_store">ਇਸਨੂੰ Google Play \'ਤੇ ਪ੍ਰਾਪਤ ਕਰੋ</string>
+    <string name="version">ਸੰਸਕਰਣ</string>
+    <string name="version_msg">ਪਿਛਲੀਆਂ ਤਬਦੀਲੀਆਂ, ਸੁਧਾਰਾਂ ਅਤੇ ਅੱਪਡੇਟਾਂ ਦੀ ਸੂਚੀ:</string>
+</resources>

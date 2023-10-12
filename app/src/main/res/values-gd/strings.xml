@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">Lorgaire ISS</string>
+
+    
+    <string name="map_activity">Mapa</string>
+    <string name="flybys_title">A\' dol seachad</string>
+    <string name="space_title">Air Dleasdanas</string>
+    <string name="settings_title">Suidhichidhean</string>
+    <string name="help_title">Cuideachadh</string>
+
+    
+    <string name="flybys_summary">Thoir sùil nuair a thèid ISS seachad air d’ àite</string>
+    <string name="space_summary">Faic cò tha san fhànais an-dràsta</string>
+    <string name="settings_summary">Stiùirich roghainnean app coitcheann</string>
+    <string name="help_summary">Dèan measadh air no ionnsaich mun aplacaid</string>
+
+    
+    <string name="reset">Luchdaich a-nuas an t-sreath ro-innse</string>
+    <string name="stream">Beò</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_people_in_space">Cò tha anns an Space\?</string>
+    <string name="label_setting">Suidhichidhean</string>
+    <string name="label_help">Cuideachadh</string>
+    <string name="label_stream">Sruth beò</string>
+
+    
+    <string name="startAlert">Cuir fios nuair a tha ISS faisg air làimh</string>
+    <string name="stopAlert">Na cuir fios nuair a tha ISS faisg air làimh</string>
+    <string name="startFullAds">Sanasan làn-dhuilleag air a chomasachadh. Tapadh leibh airson an taic ;)</string>
+    <string name="startBannerAds">Sanasan bratach air a chomasachadh. Tapadh leibh airson an taic ;)</string>
+
+    
+    <string name="tutorialOne">Tha am mapa a’ sealltainn suidheachadh làithreach ISS le loidhne ro-innse air far am bi e.</string>
+    <string name="tutorialTwo">Bidh drathair gad thoirt gu feartan eile leithid flybys agus suidheachaidhean.</string>
+    <string name="midAt">aig</string>
+    <string name="checkerContentDescription">Tha an ìomhaigh a’ riochdachadh gu bheil dath follaiseach air a thaghadh</string>
+    <string name="countryFlagContentDescription">Bratach na dùthcha às an tàinig an speuradair seo</string>
+    <string name="astronautTwitterContentDescription">An ìomhaigheag airson ceangal gu duilleag twitter speuradairean</string>
+    <string name="astronautWikiContentDescription">An ìomhaigheag airson ceangal gu duilleag wiki speuradairean</string>
+    <string name="astronautGoogleContentDescription">An ìomhaigheag airson ceangal gu duilleag rannsachaidh speuradairean Google</string>
+
+    
+    <string name="refreshTitle">Ìre Ath-nuadhachaidh</string>
+    <string name="refreshSummary">An ùine mus ùraich thu àite ISS air a’ mhapa</string>
+    <string name="declination_unit">diog/ùrachadh</string>
+    <string name="refreshDialogMessage">An ùine eadar ISS a’ faighinn ùrachadh chun àite ùr aige.</string>
+
+    <string name="lockTitle">Glasadh ISS</string>
+    <string name="lockSummary">Glasadh air ISS agus lean e air a’ mhapa</string>
+
+    <string name="infoTitle">Fiosrachadh a bharrachd</string>
+    <string name="infoSummary">Thoir seachad fiosrachadh a bharrachd mu ISS air a’ mhapa</string>
+
+    <string name="mapTitle">Seòrsa mapa</string>
+    <string name="mapSummary">Atharraich an seòrsa mapa bhon duilleag roimhe</string>
+
+    <string name="decimalTitle">Àiteachan Deicheach</string>
+    <string name="decimalDialogMessage">Atharraich cruinneas gach luach àireamhach</string>
+    <string name="decimalSummary">Atharraich cruinneas gach luach àireamhach</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Dath loidhne ro-innse</string>
+    <string name="colorSummary">Atharraich dath nan loidhnichean ro-innse</string>
+
+    <string name="sizeTitle">Meud loidhne ro-innse</string>
+    <string name="sizeDialogMessage">Atharraich meud loidhne ro-innse ISSs</string>
+    <string name="sizeSummary">Atharraich meud loidhne ro-innse ISSs</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Meud teacsa</string>
+    <string name="textSizeDialogMessage">Atharraich meud gach luach teacsa air mapa</string>
+    <string name="textSizeSummary">Atharraich meud gach luach teacsa air mapa</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Dath teacsa</string>
+    <string name="textSummary">Atharraich dath luachan teacsa</string>
+
+    <string name="textHighlightTitle">Geàrr-chunntas Teacs</string>
+    <string name="textHighlightSummary">Atharraich dath geàrr-chunntas luachan teacsa</string>
+
+    <string name="notificationTitle">Fios ISS</string>
+    <string name="notificationSummary">Cuir fios nuair a thathar an dùil gun sgèith ISS thairis air an àite agam</string>
+
+    <string name="advertisementTitle">Bratach</string>
+    <string name="advertisementSummary">Cuir à comas sanasan bratach air an aplacaid</string>
+
+    <string name="fullTitle">Duilleag slàn</string>
+    <string name="fullSummary">Cuir dheth sanasan làn-dhuilleag air an aplacaid</string>
+
+    
+    <string name="errorWebView">Cha ghabh an duilleag a luchdadh</string>
+    <string name="errorLocation">Cha b\' urrainn dhuinn d\' ionad a lorg.</string>
+    <string name="errorPermissionLocation">Dhiùlt ruigsinneachd don àite agad</string>
+    <string name="errorConnection">An dàrna cuid chan eil ceangal agad no tha am frithealaiche air a luchdachadh cus.</string>
+    <string name="errorNetwork">Thachair mearachd neo-aithnichte. Mearachd: 401</string>
+    <string name="errorMap">Cha ghabh roghainnean a chur an sàs air mapa</string>
+    <string name="errorFiveTimes">Dh\'fhàillig a h-uile 5 tursan. An dàrna cuid chan eil ceangal agad no tha am frithealaiche air a luchdachadh cus.</string>
+    <string name="errorLessFive">Dh\'fhàillig an t-iarrtas dhan fhrithealaiche. A’ feuchainn a-rithist…</string>
+    <string name="errorWaitPoly">A-cheana a’ cruthachadh loidhnichean ro-innse</string>
+    <string name="errorNotByMe">Cha do chuir thu stad air fios ISS.</string>
+    <string name="errorNoWiki">chan eil duilleag wiki aige</string>
+    <string name="errorNoTwitter">chan eil cunntas Twitter aige</string>
+    <string name="errorNoInstagram">chan eil cunntas Instagram aige</string>
+    <string name="errorNoFacebook">chan eil cunntas Facebook aige</string>
+    <string name="data_corrupted">Tha dàta app truaillte. Ath-shuidheachadh!</string>
+    <string name="polyError">Cha ghabh loidhne ro-innse a chruthachadh</string>
+    <string name="calendar">Mìosachan</string>
+    <string name="share">Roinn</string>
+    <string name="image_content">Ìomhaigh de mhapa le comharra airson àite neach-cleachdaidh.</string>
+    <string name="iss_sighting_share_title">Sealladh ISS</string>
+    <string name="iss_sighting_share_description">Bidh ISS ri fhaicinn an seo. A’ dol a thoirt sùil air!</string>
+    <string name="iss_sighting_share_body">msgstr \"Thoir sùil air! Bidh ISS ri fhaicinn aig \"</string>
+    <string name="iss_sighting_share_chooser">Roinn…</string>
+    <string name="on">\"air\"</string>
+    <string name="one_day_in_space">1 latha san fhànais</string>
+    <string name="in_space">\"anns an fhànais\"</string>
+    <string name="day">\" latha\"</string>
+    <string name="month">\" mìos\"</string>
+    <string name="year">\" bliadhna\"</string>
+    <string name="since">\"Air a chur air bhog\"</string>
+    <string name="tutorial_one_title">Hi ann :)</string>
+    <string name="tutorial_two_title">Prìomh fheartan</string>
+
+    <string name="license">Ceadan còd fosgailte</string>
+    <string name="msg_license">Tha an tagradh seo air a thogail a’ cleachdadh bathar-bog a leanas:</string>
+    <string name="msg_about_fork_me_on_github">Fork e air GitHub</string>
+    <string name="msg_about_library_description">Is e aplacaid android a th’ ann an ISS Tracker a leigeas leat sùil a chumail air suidheachadh an Stèisean Fànais Eadar-nàiseanta agus faighinn a-mach dè na speuradairean a tha san fhànais an-dràsta.</string>
+    <string name="desc_about_app">Mu dheidhinn an aplacaid seo</string>
+    <string name="msg_get_it_on_play_store">Faigh e air Google Play</string>
+    <string name="version">Tionndaidhean</string>
+    <string name="version_msg">Liosta de dh\'atharrachaidhean, rèiteachaidhean agus ùrachaidhean roimhe:</string>
+</resources>

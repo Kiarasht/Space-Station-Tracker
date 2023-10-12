@@ -20,10 +20,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup JDK 11
+      - name: Setup JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'temurin'
           cache: gradle
 
@@ -42,10 +42,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup JDK 11
+      - name: Setup JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'temurin'
           cache: gradle
 
@@ -53,7 +53,7 @@ jobs:
         run: ./gradlew testDebugUnitTest
 
   build-and-test:
-    name: Build and test
+    name: Instrumentation Test
     continue-on-error: false
     timeout-minutes: 20
     runs-on: macos-latest
@@ -65,13 +65,13 @@ jobs:
       - unit-test
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up JDK 11
+      - name: Setup JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'temurin'
           cache: gradle
 
@@ -84,20 +84,20 @@ jobs:
           script: ./gradlew connectedDebugAndroidTest
 
   generate-debug-apk:
-    name: Generate debug APK
+    name: Debug APK
     timeout-minutes: 20
     runs-on: macos-latest
     needs:
       - build-and-test
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up JDK 11
+      - name: Setup JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'temurin'
           cache: gradle
 
@@ -111,27 +111,27 @@ jobs:
           path: app/build/outputs/apk/debug/app-debug.apk
 
   generate-release-apk:
-    name: Generate release APK
+    name: Release APK
     timeout-minutes: 20
     runs-on: macos-latest
     needs:
-      - build-and-test
+      - generate-debug-apk
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up JDK 11
+      - name: Setup JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'temurin'
           cache: gradle
 
       - name: Build with gradle
         run: ./gradlew assembleRelease
 
-      - uses: ilharp/sign-android-release@v1.0.4
+      - uses: r0adkll/sign-android-release@v1
         name: Sign app APK
         id: sign_app
         with:

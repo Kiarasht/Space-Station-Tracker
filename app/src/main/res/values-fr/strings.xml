@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">Traqueur de l\'ISS</string>
+
+    
+    <string name="map_activity">Carte</string>
+    <string name="flybys_title">En passant par</string>
+    <string name="space_title">En service</string>
+    <string name="settings_title">Paramètres</string>
+    <string name="help_title">Aide</string>
+
+    
+    <string name="flybys_summary">Vérifiez quand l\'ISS passera par votre emplacement</string>
+    <string name="space_summary">Découvrez qui est dans l\'espace en ce moment</string>
+    <string name="settings_summary">Gérer les paramètres généraux de l\'application</string>
+    <string name="help_summary">Évaluez ou découvrez l\'application</string>
+
+    
+    <string name="reset">Actualiser les lignes de prédiction</string>
+    <string name="stream">En direct</string>
+
+    
+    <string name="label_location">Survols</string>
+    <string name="label_people_in_space">Qui est dans l’espace \?</string>
+    <string name="label_setting">Paramètres</string>
+    <string name="label_help">Aide</string>
+    <string name="label_stream">Direct</string>
+
+    
+    <string name="startAlert">Avertir lorsque l\'ISS est à proximité</string>
+    <string name="stopAlert">Arrêtez de notifier lorsque l\'ISS est à proximité</string>
+    <string name="startFullAds">Annonces pleine page activées. Merci pour le soutien ;)</string>
+    <string name="startBannerAds">Bannières publicitaires activées. Merci pour le soutien ;)</string>
+
+    
+    <string name="tutorialOne">La carte montre l\'emplacement actuel de l\'ISS avec une ligne de prédiction de l\'endroit où il se trouvera.</string>
+    <string name="tutorialTwo">Drawer vous amène à d’autres fonctionnalités telles que les survols et les paramètres.</string>
+    <string name="midAt">à</string>
+    <string name="checkerContentDescription">L\'icône représente qu\'une couleur transparente est sélectionnée</string>
+    <string name="countryFlagContentDescription">Drapeau du pays d\'où vient cet astronaute</string>
+    <string name="astronautTwitterContentDescription">Icône pour créer un lien vers la page Twitter des astronautes</string>
+    <string name="astronautWikiContentDescription">Icône pour créer un lien vers la page wiki des astronautes</string>
+    <string name="astronautGoogleContentDescription">Icône permettant de créer un lien vers la page de recherche Google des astronautes</string>
+
+    
+    <string name="refreshTitle">Fréquence de rafraîchissement</string>
+    <string name="refreshSummary">Délai avant la mise à jour de la position de l\'ISS sur la carte</string>
+    <string name="declination_unit">seconde/rafraîchir</string>
+    <string name="refreshDialogMessage">Temps écoulé entre la mise à jour de l\'ISS vers son nouvel emplacement.</string>
+
+    <string name="lockTitle">Verrouiller l\'ISS</string>
+    <string name="lockSummary">Verrouillez l\'ISS et suivez-le sur la carte</string>
+
+    <string name="infoTitle">Information additionnelle</string>
+    <string name="infoSummary">Fournir des informations supplémentaires sur l\'ISS sur la carte</string>
+
+    <string name="mapTitle">Type de carte</string>
+    <string name="mapSummary">Changer le type de carte de la page précédente</string>
+
+    <string name="decimalTitle">Décimales</string>
+    <string name="decimalDialogMessage">Changer la précision de toutes les valeurs numériques</string>
+    <string name="decimalSummary">Changer la précision de toutes les valeurs numériques</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Couleur de la ligne de prédiction</string>
+    <string name="colorSummary">Changer la couleur des lignes de prédiction</string>
+
+    <string name="sizeTitle">Taille de la ligne de prédiction</string>
+    <string name="sizeDialogMessage">Changer la taille de la ligne de prédiction de l\'ISS</string>
+    <string name="sizeSummary">Changer la taille de la ligne de prédiction de l\'ISS</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Taille du texte</string>
+    <string name="textSizeDialogMessage">Changer la taille de toutes les valeurs de texte sur la carte</string>
+    <string name="textSizeSummary">Changer la taille de toutes les valeurs de texte sur la carte</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Couleur du texte</string>
+    <string name="textSummary">Changer la couleur des valeurs de texte</string>
+
+    <string name="textHighlightTitle">Aperçu du texte</string>
+    <string name="textHighlightSummary">Changer la couleur du contour des valeurs de texte</string>
+
+    <string name="notificationTitle">Notification de l\'ISS</string>
+    <string name="notificationSummary">Avertir lorsque l\'ISS devrait survoler ma position</string>
+
+    <string name="advertisementTitle">Bannière</string>
+    <string name="advertisementSummary">Désactiver les bannières publicitaires sur l\'application</string>
+
+    <string name="fullTitle">Page entière</string>
+    <string name="fullSummary">Désactiver les annonces pleine page sur l\'application</string>
+
+    
+    <string name="errorWebView">Impossible de charger la page</string>
+    <string name="errorLocation">Impossible de trouver votre emplacement.</string>
+    <string name="errorPermissionLocation">Accès refusé à votre emplacement</string>
+    <string name="errorConnection">Soit vous n\'avez pas de connexion, soit le serveur est surchargé.</string>
+    <string name="errorNetwork">Une erreur inconnue s\'est produite. Erreur : 401</string>
+    <string name="errorMap">Impossible d\'appliquer les paramètres à la carte</string>
+    <string name="errorFiveTimes">J\'ai échoué 5 fois. Soit vous n\'avez pas de connexion, soit le serveur est surchargé.</string>
+    <string name="errorLessFive">La requête au serveur a échoué. Nouvelle tentative…</string>
+    <string name="errorWaitPoly">Création déjà de lignes de prédiction</string>
+    <string name="errorNotByMe">La notification ISS n\'a pas été arrêtée par vous.</string>
+    <string name="errorNoWiki">n\'a pas de page wiki</string>
+    <string name="errorNoTwitter">n\'a pas de compte Twitter</string>
+    <string name="errorNoInstagram">n\'a pas de compte Instagram</string>
+    <string name="errorNoFacebook">n\'a pas de compte Facebook</string>
+    <string name="data_corrupted">Les données de l\'application sont corrompues. Réinitialisation !</string>
+    <string name="polyError">Impossible de créer une ligne de prédiction</string>
+    <string name="calendar">Calendrier</string>
+    <string name="share">Partager</string>
+    <string name="image_content">Image d\'une carte avec un marqueur pour la localisation de l\'utilisateur.</string>
+    <string name="iss_sighting_share_title">Observation de l\'ISS</string>
+    <string name="iss_sighting_share_description">L\'ISS sera visible ici. Je vais aller tester!</string>
+    <string name="iss_sighting_share_body">\"Regardez-le ! L\'ISS sera visible à \"</string>
+    <string name="iss_sighting_share_chooser">Partager…</string>
+    <string name="on">\" sur \"</string>
+    <string name="one_day_in_space">1 journée dans l\'espace</string>
+    <string name="in_space">\" dans l\'espace\"</string>
+    <string name="day">\" jour\"</string>
+    <string name="month">\" mois\"</string>
+    <string name="year">\" année\"</string>
+    <string name="since">\"Lancé\"</string>
+    <string name="tutorial_one_title">Salut :)</string>
+    <string name="tutorial_two_title">Caractéristiques principales</string>
+
+    <string name="license">Licences open source</string>
+    <string name="msg_license">Cette application est construite à l\'aide des logiciels suivants :</string>
+    <string name="msg_about_fork_me_on_github">Forkez-le sur GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker est une application Android qui vous permet de suivre la position de la Station spatiale internationale et de savoir quels astronautes se trouvent actuellement dans l\'espace.</string>
+    <string name="desc_about_app">À propos de cette application</string>
+    <string name="msg_get_it_on_play_store">Obtenez le sur Google Play</string>
+    <string name="version">Versions</string>
+    <string name="version_msg">Liste des modifications, correctifs et mises à jour précédents :</string>
+</resources>

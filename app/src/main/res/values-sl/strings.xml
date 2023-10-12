@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">ISS sledilnik</string>
+
+    
+    <string name="map_activity">Zemljevid</string>
+    <string name="flybys_title">Mimo</string>
+    <string name="space_title">Na dolžnosti</string>
+    <string name="settings_title">nastavitve</string>
+    <string name="help_title">pomoč</string>
+
+    
+    <string name="flybys_summary">Preverite, kdaj bo ISS šel mimo vaše lokacije</string>
+    <string name="space_summary">Poglejte, kdo je trenutno v vesolju</string>
+    <string name="settings_summary">Upravljanje splošnih nastavitev aplikacije</string>
+    <string name="help_summary">Ocenite aplikacijo ali se poučite o njej</string>
+
+    
+    <string name="reset">Osveži predvidene vrstice</string>
+    <string name="stream">V živo</string>
+
+    
+    <string name="label_location">Preleti</string>
+    <string name="label_people_in_space">Kdo je v vesolju\?</string>
+    <string name="label_setting">nastavitve</string>
+    <string name="label_help">pomoč</string>
+    <string name="label_stream">Prenos v živo</string>
+
+    
+    <string name="startAlert">Obvesti, ko je ISS blizu</string>
+    <string name="stopAlert">Nehaj obveščati, ko je ISS blizu</string>
+    <string name="startFullAds">Celostranski oglasi so omogočeni. Hvala za podporo ;)</string>
+    <string name="startBannerAds">Oglasne pasice so omogočene. Hvala za podporo ;)</string>
+
+    
+    <string name="tutorialOne">Zemljevid prikazuje trenutno lokacijo ISS z napovedjo, kje bo.</string>
+    <string name="tutorialTwo">Predal vas popelje do drugih funkcij, kot so preleti in nastavitve.</string>
+    <string name="midAt">pri</string>
+    <string name="checkerContentDescription">Ikona pomeni, da je izbrana prozorna barva</string>
+    <string name="countryFlagContentDescription">Zastava države, iz katere prihaja ta astronavt</string>
+    <string name="astronautTwitterContentDescription">Ikona za povezavo do strani astronavtov na Twitterju</string>
+    <string name="astronautWikiContentDescription">Ikona za povezavo do wiki strani astronavtov</string>
+    <string name="astronautGoogleContentDescription">Ikona za povezavo do strani za iskanje astronavtov v Googlu</string>
+
+    
+    <string name="refreshTitle">Hitrost osveževanja</string>
+    <string name="refreshSummary">Količina časa pred posodobitvijo lokacije ISS na zemljevidu</string>
+    <string name="declination_unit">sek/osveži</string>
+    <string name="refreshDialogMessage">Čas med posodobitvijo ISS na novo lokacijo.</string>
+
+    <string name="lockTitle">Zakleni ISS</string>
+    <string name="lockSummary">Zaklenite se na ISS in mu sledite na zemljevidu</string>
+
+    <string name="infoTitle">Dodatne informacije</string>
+    <string name="infoSummary">Na zemljevidu navedite dodatne informacije o ISS</string>
+
+    <string name="mapTitle">Vrsta zemljevida</string>
+    <string name="mapSummary">Spremenite vrsto zemljevida s prejšnje strani</string>
+
+    <string name="decimalTitle">Decimalna mesta</string>
+    <string name="decimalDialogMessage">Spremenite natančnost vseh številskih vrednosti</string>
+    <string name="decimalSummary">Spremenite natančnost vseh številskih vrednosti</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Barva črte napovedi</string>
+    <string name="colorSummary">Spremenite barvo predvidenih črt</string>
+
+    <string name="sizeTitle">Velikost vrstice napovedi</string>
+    <string name="sizeDialogMessage">Spremenite velikost črte napovedi ISS</string>
+    <string name="sizeSummary">Spremenite velikost črte napovedi ISS</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Velikost besedila</string>
+    <string name="textSizeDialogMessage">Spremenite velikost vseh besedilnih vrednosti na zemljevidu</string>
+    <string name="textSizeSummary">Spremenite velikost vseh besedilnih vrednosti na zemljevidu</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Barva besedila</string>
+    <string name="textSummary">Spremenite barvo besedilnih vrednosti</string>
+
+    <string name="textHighlightTitle">Oris besedila</string>
+    <string name="textHighlightSummary">Spremenite barvo obrisa besedilnih vrednosti</string>
+
+    <string name="notificationTitle">Obvestilo ISS</string>
+    <string name="notificationSummary">Obvesti, ko naj bi ISS preletel mojo lokacijo</string>
+
+    <string name="advertisementTitle">Pasica</string>
+    <string name="advertisementSummary">Onemogočite oglasne pasice v aplikaciji</string>
+
+    <string name="fullTitle">Celotna stran</string>
+    <string name="fullSummary">Onemogočite celostranske oglase v aplikaciji</string>
+
+    
+    <string name="errorWebView">Strani ni mogoče naložiti</string>
+    <string name="errorLocation">Vaše lokacije ni mogoče najti.</string>
+    <string name="errorPermissionLocation">Zavrnjen dostop do vaše lokacije</string>
+    <string name="errorConnection">Nimate povezave ali pa je strežnik preobremenjen.</string>
+    <string name="errorNetwork">Prišlo je do neznane napake. Napaka: 401</string>
+    <string name="errorMap">Nastavitev ni mogoče uporabiti za zemljevid</string>
+    <string name="errorFiveTimes">Vseh 5-krat ni uspelo. Nimate povezave ali pa je strežnik preobremenjen.</string>
+    <string name="errorLessFive">Zahteva strežniku ni uspela. Ponovni poskus ...</string>
+    <string name="errorWaitPoly">Že ustvarja napovedne vrstice</string>
+    <string name="errorNotByMe">Obvestila ISS niste ustavili vi.</string>
+    <string name="errorNoWiki">nima wiki strani</string>
+    <string name="errorNoTwitter">nima Twitter računa</string>
+    <string name="errorNoInstagram">nima Instagram računa</string>
+    <string name="errorNoFacebook">nima Facebook računa</string>
+    <string name="data_corrupted">Podatki aplikacije so poškodovani. Ponastavitev!</string>
+    <string name="polyError">Ni mogoče ustvariti predvidene vrstice</string>
+    <string name="calendar">Koledar</string>
+    <string name="share">Deliti</string>
+    <string name="image_content">Slika zemljevida z oznako za lokacijo uporabnika.</string>
+    <string name="iss_sighting_share_title">Opazovanje ISS</string>
+    <string name="iss_sighting_share_description">ISS bo viden tukaj. Grem preverit!</string>
+    <string name="iss_sighting_share_body">\"Preverite! ISS bo viden ob \"</string>
+    <string name="iss_sighting_share_chooser">Deliti…</string>
+    <string name="on">\" na \"</string>
+    <string name="one_day_in_space">1 dan v vesolju</string>
+    <string name="in_space">\" v vesolju\"</string>
+    <string name="day">\"dan\"</string>
+    <string name="month">\"mesec\"</string>
+    <string name="year">\"leto\"</string>
+    <string name="since">\"Zagnano\"</string>
+    <string name="tutorial_one_title">Živijo :)</string>
+    <string name="tutorial_two_title">Glavne značilnosti</string>
+
+    <string name="license">Odprtokodne licence</string>
+    <string name="msg_license">Ta aplikacija je izdelana z naslednjo programsko opremo:</string>
+    <string name="msg_about_fork_me_on_github">Fork it na GitHub</string>
+    <string name="msg_about_library_description">ISS Tracker je aplikacija za android, ki vam omogoča spremljanje položaja Mednarodne vesoljske postaje in ugotavljanje, kateri astronavti so trenutno v vesolju.</string>
+    <string name="desc_about_app">O tej aplikaciji</string>
+    <string name="msg_get_it_on_play_store">Prenesite ga v Google Play</string>
+    <string name="version">Različice</string>
+    <string name="version_msg">Seznam prejšnjih sprememb, popravkov in posodobitev:</string>
+</resources>

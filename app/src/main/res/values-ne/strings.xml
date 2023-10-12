@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">ISS ट्र्याकर</string>
+
+    
+    <string name="map_activity">नक्सा</string>
+    <string name="flybys_title">पास हुँदै</string>
+    <string name="space_title">काममा</string>
+    <string name="settings_title">सेटिङहरू</string>
+    <string name="help_title">मद्दत गर्नुहोस्</string>
+
+    
+    <string name="flybys_summary">ISS तपाईंको स्थानबाट कहिले जान्छ भनेर जाँच गर्नुहोस्</string>
+    <string name="space_summary">अहिले अन्तरिक्षमा को हुनुहुन्छ हेर्नुहोस्</string>
+    <string name="settings_summary">सामान्य एप सेटिङहरू प्रबन्ध गर्नुहोस्</string>
+    <string name="help_summary">मूल्याङ्कन गर्नुहोस् वा एप बारे जान्नुहोस्</string>
+
+    
+    <string name="reset">भविष्यवाणी रेखाहरू ताजा गर्नुहोस्</string>
+    <string name="stream">लाइभ</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_people_in_space">अन्तरिक्षमा को छ\?</string>
+    <string name="label_setting">सेटिङहरू</string>
+    <string name="label_help">मद्दत गर्नुहोस्</string>
+    <string name="label_stream">प्रत्यक्ष प्रसारण</string>
+
+    
+    <string name="startAlert">ISS नजिक हुँदा सूचित गर्नुहोस्</string>
+    <string name="stopAlert">ISS नजिक हुँदा सूचित गर्न रोक्नुहोस्</string>
+    <string name="startFullAds">पूर्ण पृष्ठ विज्ञापनहरू सक्षम गरियो। सहयोगको लागि धन्यवाद ;)</string>
+    <string name="startBannerAds">ब्यानर विज्ञापनहरू सक्षम गरियो। सहयोगको लागि धन्यवाद ;)</string>
+
+    
+    <string name="tutorialOne">नक्साले ISS हालको स्थान देखाउँछ जहाँ यो हुनेछ भन्ने भविष्यवाणी लाइनको साथ।</string>
+    <string name="tutorialTwo">ड्रअरले तपाईंलाई अन्य सुविधाहरू जस्तै flybys र सेटिङहरूमा लैजान्छ।</string>
+    <string name="midAt">मा</string>
+    <string name="checkerContentDescription">आइकनले पारदर्शी रङ छनोट भएको देखाउँछ</string>
+    <string name="countryFlagContentDescription">देश झण्डा यो अन्तरिक्ष यात्री को हो</string>
+    <string name="astronautTwitterContentDescription">अन्तरिक्ष यात्री ट्विटर पृष्ठमा लिङ्क गर्न आइकन</string>
+    <string name="astronautWikiContentDescription">अन्तरिक्ष यात्री विकि पृष्ठमा लिङ्क गर्न आइकन</string>
+    <string name="astronautGoogleContentDescription">अन्तरिक्ष यात्री Google खोज पृष्ठमा लिङ्क गर्न आइकन</string>
+
+    
+    <string name="refreshTitle">ताजा दर</string>
+    <string name="refreshSummary">नक्सामा ISS स्थान अद्यावधिक गर्नु अघि समयको मात्रा</string>
+    <string name="declination_unit">सेकेन्ड/ताजा गर्नुहोस्</string>
+    <string name="refreshDialogMessage">ISS बीचको समय यसको नयाँ स्थानमा अद्यावधिक हुँदैछ।</string>
+
+    <string name="lockTitle">ISS लक गर्नुहोस्</string>
+    <string name="lockSummary">ISS मा लक गर्नुहोस् र यसलाई नक्सामा पछ्याउनुहोस्</string>
+
+    <string name="infoTitle">थप जानकारी</string>
+    <string name="infoSummary">नक्सामा ISS बारे थप जानकारी प्रदान गर्नुहोस्</string>
+
+    <string name="mapTitle">नक्सा प्रकार</string>
+    <string name="mapSummary">अघिल्लो पृष्ठबाट नक्सा प्रकार परिवर्तन गर्नुहोस्</string>
+
+    <string name="decimalTitle">दशमलव स्थानहरू</string>
+    <string name="decimalDialogMessage">सबै संख्यात्मक मानहरूको शुद्धता परिवर्तन गर्नुहोस्</string>
+    <string name="decimalSummary">सबै संख्यात्मक मानहरूको शुद्धता परिवर्तन गर्नुहोस्</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">भविष्यवाणी रेखा रंग</string>
+    <string name="colorSummary">भविष्यवाणी रेखाहरूको रंग परिवर्तन गर्नुहोस्</string>
+
+    <string name="sizeTitle">भविष्यवाणी रेखा आकार</string>
+    <string name="sizeDialogMessage">ISSs भविष्यवाणी रेखाको आकार परिवर्तन गर्नुहोस्</string>
+    <string name="sizeSummary">ISSs भविष्यवाणी रेखाको आकार परिवर्तन गर्नुहोस्</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">पाठ आकार</string>
+    <string name="textSizeDialogMessage">नक्सामा सबै पाठ मानहरूको आकार परिवर्तन गर्नुहोस्</string>
+    <string name="textSizeSummary">नक्सामा सबै पाठ मानहरूको आकार परिवर्तन गर्नुहोस्</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">पाठ रङ</string>
+    <string name="textSummary">पाठ मानहरूको रंग परिवर्तन गर्नुहोस्</string>
+
+    <string name="textHighlightTitle">पाठ रूपरेखा</string>
+    <string name="textHighlightSummary">पाठ मानहरूको रूपरेखा रंग परिवर्तन गर्नुहोस्</string>
+
+    <string name="notificationTitle">ISS सूचना</string>
+    <string name="notificationSummary">ISS मेरो स्थान माथि उडान गर्ने अपेक्षा गरिएको बेला सूचित गर्नुहोस्</string>
+
+    <string name="advertisementTitle">ब्यानर</string>
+    <string name="advertisementSummary">एपमा ब्यानर विज्ञापनहरू असक्षम गर्नुहोस्</string>
+
+    <string name="fullTitle">पूरा पृष्ठ</string>
+    <string name="fullSummary">एपमा पूर्ण पृष्ठ विज्ञापनहरू असक्षम गर्नुहोस्</string>
+
+    
+    <string name="errorWebView">पृष्ठ लोड गर्न असमर्थ</string>
+    <string name="errorLocation">आफ्नो स्थान फेला पार्न असमर्थ।</string>
+    <string name="errorPermissionLocation">तपाईंको स्थानमा पहुँच अस्वीकार गरियो</string>
+    <string name="errorConnection">या त तपाईंसँग कुनै जडान छैन वा सर्भर ओभरलोड भएको छ।</string>
+    <string name="errorNetwork">अज्ञात त्रुटि भएको छ। त्रुटि: 401</string>
+    <string name="errorMap">नक्सामा सेटिङहरू लागू गर्न सकिँदैन</string>
+    <string name="errorFiveTimes">सबै ५ पटक असफल। या त तपाईंसँग कुनै जडान छैन वा सर्भर ओभरलोड भएको छ।</string>
+    <string name="errorLessFive">सर्भरमा अनुरोध असफल भयो। पुन: प्रयास गर्दै...</string>
+    <string name="errorWaitPoly">पहिले नै भविष्यवाणी रेखाहरू सिर्जना गर्दै</string>
+    <string name="errorNotByMe">ISS अधिसूचना तपाईं द्वारा रोकिएको थिएन।</string>
+    <string name="errorNoWiki">विकि पृष्ठ छैन</string>
+    <string name="errorNoTwitter">ट्विटर खाता छैन</string>
+    <string name="errorNoInstagram">Instagram खाता छैन</string>
+    <string name="errorNoFacebook">फेसबुक खाता छैन</string>
+    <string name="data_corrupted">एप डाटा बिग्रिएको छ। रिसेट गर्दै!</string>
+    <string name="polyError">भविष्यवाणी रेखा सिर्जना गर्न असमर्थ</string>
+    <string name="calendar">पात्रो</string>
+    <string name="share">सेयर गर्नुहोस्</string>
+    <string name="image_content">प्रयोगकर्ता स्थानको लागि मार्कर भएको नक्साको छवि।</string>
+    <string name="iss_sighting_share_title">ISS दर्शन</string>
+    <string name="iss_sighting_share_description">ISS यहाँ देखिने छ। यसलाई जाँच गर्न जाँदै हुनुहुन्छ!</string>
+    <string name="iss_sighting_share_body">\"यसलाई हेर्नुहोस्! ISS मा देखिने छ \"</string>
+    <string name="iss_sighting_share_chooser">सेयर…</string>
+    <string name="on">\"मा\"</string>
+    <string name="one_day_in_space">अन्तरिक्षमा १ दिन</string>
+    <string name="in_space">\"अन्तरिक्षमा\"</string>
+    <string name="day">\"दिन\"</string>
+    <string name="month">\"महिना\"</string>
+    <string name="year">\"वर्ष\"</string>
+    <string name="since">\"सुरु भयो\"</string>
+    <string name="tutorial_one_title">नमस्ते :)</string>
+    <string name="tutorial_two_title">मुख्य विशेषताहरु</string>
+
+    <string name="license">खुला स्रोत इजाजतपत्रहरू</string>
+    <string name="msg_license">यो अनुप्रयोग निम्न सफ्टवेयर प्रयोग गरेर निर्माण गरिएको छ:</string>
+    <string name="msg_about_fork_me_on_github">यसलाई GitHub मा फोर्क गर्नुहोस्</string>
+    <string name="msg_about_library_description">ISS Tracker एक एन्ड्रोइड अनुप्रयोग हो जसले तपाईंलाई अन्तर्राष्ट्रिय अन्तरिक्ष स्टेशनको स्थिति ट्र्याक गर्न र अन्तरिक्षमा हाल के अन्तरिक्ष यात्रीहरू छन् भनेर पत्ता लगाउन अनुमति दिन्छ।</string>
+    <string name="desc_about_app">यस एपको बारेमा</string>
+    <string name="msg_get_it_on_play_store">Google Play मा प्राप्त गर्नुहोस्</string>
+    <string name="version">संस्करणहरू</string>
+    <string name="version_msg">अघिल्लो परिवर्तन, समाधान र अद्यावधिकहरूको सूची:</string>
+</resources>

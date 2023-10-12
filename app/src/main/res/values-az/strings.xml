@@ -1,0 +1,135 @@
+<resources>
+    
+    <string name="app_name">ISS Tracker</string>
+
+    
+    <string name="map_activity">Xəritə</string>
+    <string name="flybys_title">Yanından keçən</string>
+    <string name="space_title">Növbətçi</string>
+    <string name="settings_title">Parametrlər</string>
+    <string name="help_title">Kömək edin</string>
+
+    
+    <string name="flybys_summary">ISS-nin yerləşdiyiniz yerdən nə vaxt keçəcəyini yoxlayın</string>
+    <string name="space_summary">Görün indi kosmosda kim var</string>
+    <string name="settings_summary">Ümumi proqram parametrlərini idarə edin</string>
+    <string name="help_summary">Proqramı qiymətləndirin və ya öyrənin</string>
+
+    
+    <string name="reset">Proqnoz xətlərini yeniləyin</string>
+    <string name="stream">Canlı</string>
+
+    
+    <string name="label_location">Flybys</string>
+    <string name="label_people_in_space">Kosmosda kim var\?</string>
+    <string name="label_setting">Parametrlər</string>
+    <string name="label_help">Kömək edin</string>
+    <string name="label_stream">Canlı Yayım</string>
+
+    
+    <string name="startAlert">ISS yaxın olduqda bildirin</string>
+    <string name="stopAlert">ISS yaxın olduqda bildiriş verməyi dayandırın</string>
+    <string name="startFullAds">Tam səhifə reklamları aktivləşdirildi. dəstəyə görə təşəkkürlər ;)</string>
+    <string name="startBannerAds">Banner reklamları aktivləşdirildi. dəstəyə görə təşəkkürlər ;)</string>
+
+    
+    <string name="tutorialOne">Xəritə ISS-in cari yerini, harada olacağına dair proqnoz xətti ilə göstərir.</string>
+    <string name="tutorialTwo">Çekmece sizi uçuşlar və parametrlər kimi digər xüsusiyyətlərə aparır.</string>
+    <string name="midAt">saat</string>
+    <string name="checkerContentDescription">İşarə şəffaf rəngin seçildiyini bildirir</string>
+    <string name="countryFlagContentDescription">Bu astronavtın olduğu ölkə bayrağı</string>
+    <string name="astronautTwitterContentDescription">Astronavtların twitter səhifəsinə keçid üçün işarə</string>
+    <string name="astronautWikiContentDescription">Astronavtlar viki səhifəsinə keçid üçün işarə</string>
+    <string name="astronautGoogleContentDescription">Astronavtların Google axtarış səhifəsinə keçid üçün ikon</string>
+
+    
+    <string name="refreshTitle">Yeniləmə dərəcəsi</string>
+    <string name="refreshSummary">ISS yerini xəritədə yeniləməzdən əvvəl vaxtın miqdarı</string>
+    <string name="declination_unit">saniyə/təzələyin</string>
+    <string name="refreshDialogMessage">ISS-nin yeni məkanına yenilənməsi arasındakı vaxt.</string>
+
+    <string name="lockTitle">ISS-i kilidləyin</string>
+    <string name="lockSummary">ISS-ə kilidləyin və onu xəritədə izləyin</string>
+
+    <string name="infoTitle">Əlavə məlumat</string>
+    <string name="infoSummary">Xəritədə ISS haqqında əlavə məlumat verin</string>
+
+    <string name="mapTitle">Xəritə növü</string>
+    <string name="mapSummary">Əvvəlki səhifədən xəritə növünü dəyişdirin</string>
+
+    <string name="decimalTitle">Ondalıq yerlər</string>
+    <string name="decimalDialogMessage">Bütün ədədi dəyərlərin düzgünlüyünü dəyişdirin</string>
+    <string name="decimalSummary">Bütün ədədi dəyərlərin düzgünlüyünü dəyişdirin</string>
+    <string name="decimalUnit">dp</string>
+
+    <string name="colorTitle">Proqnoz xətti rəngi</string>
+    <string name="colorSummary">Proqnoz xətlərinin rəngini dəyişdirin</string>
+
+    <string name="sizeTitle">Proqnoz xəttinin ölçüsü</string>
+    <string name="sizeDialogMessage">ISS-lərin proqnoz xəttinin ölçüsünü dəyişdirin</string>
+    <string name="sizeSummary">ISS-lərin proqnoz xəttinin ölçüsünü dəyişdirin</string>
+    <string name="sizeUnit" />
+
+    <string name="textSizeTitle">Mətn ölçüsü</string>
+    <string name="textSizeDialogMessage">Xəritədəki bütün mətn dəyərlərinin ölçüsünü dəyişdirin</string>
+    <string name="textSizeSummary">Xəritədəki bütün mətn dəyərlərinin ölçüsünü dəyişdirin</string>
+    <string name="textSizeUnit" />
+
+    <string name="textTitle">Mətnin rəngi</string>
+    <string name="textSummary">Mətn dəyərlərinin rəngini dəyişdirin</string>
+
+    <string name="textHighlightTitle">Mətn kontur</string>
+    <string name="textHighlightSummary">Mətn dəyərlərinin kontur rəngini dəyişdirin</string>
+
+    <string name="notificationTitle">ISS bildirişi</string>
+    <string name="notificationSummary">ISS-nin mənim yerim üzərində uçması gözlənilən zaman bildirin</string>
+
+    <string name="advertisementTitle">Banner</string>
+    <string name="advertisementSummary">Tətbiqdə banner reklamlarını deaktiv edin</string>
+
+    <string name="fullTitle">Tam Səhifə</string>
+    <string name="fullSummary">Tətbiqdə tam səhifə reklamlarını deaktiv edin</string>
+
+    
+    <string name="errorWebView">Səhifəni yükləmək mümkün deyil</string>
+    <string name="errorLocation">Məkanınızı tapmaq mümkün deyil.</string>
+    <string name="errorPermissionLocation">Məkanınıza giriş qadağan edildi</string>
+    <string name="errorConnection">Ya əlaqəniz yoxdur, ya da server həddən artıq yüklənib.</string>
+    <string name="errorNetwork">Naməlum xəta baş verib. Səhv: 401</string>
+    <string name="errorMap">Parametrləri xəritəyə tətbiq etmək mümkün deyil</string>
+    <string name="errorFiveTimes">Bütün 5 dəfə uğursuz oldu. Ya əlaqəniz yoxdur, ya da server həddən artıq yüklənib.</string>
+    <string name="errorLessFive">Serverə sorğu alınmadı. Yenidən cəhd edilir...</string>
+    <string name="errorWaitPoly">Artıq proqnoz xətləri yaradılır</string>
+    <string name="errorNotByMe">ISS Bildirişi sizin tərəfinizdən dayandırılmadı.</string>
+    <string name="errorNoWiki">wiki səhifəsi yoxdur</string>
+    <string name="errorNoTwitter">Twitter hesabı yoxdur</string>
+    <string name="errorNoInstagram">Instagram hesabı yoxdur</string>
+    <string name="errorNoFacebook">Facebook hesabı yoxdur</string>
+    <string name="data_corrupted">Tətbiq məlumatları pozulub. Sıfırlanır!</string>
+    <string name="polyError">Proqnoz xətti yaratmaq mümkün deyil</string>
+    <string name="calendar">Təqvim</string>
+    <string name="share">Paylaşın</string>
+    <string name="image_content">İstifadəçi yeri üçün marker olan xəritənin şəkli.</string>
+    <string name="iss_sighting_share_title">ISS Nişanı</string>
+    <string name="iss_sighting_share_description">ISS burada görünəcək. Yoxlamağa gedirəm!</string>
+    <string name="iss_sighting_share_body">\"Yoxlayın! ISS \"də görünəcək</string>
+    <string name="iss_sighting_share_chooser">Paylaşın...</string>
+    <string name="on">\"haqqında\"</string>
+    <string name="one_day_in_space">Kosmosda 1 gün</string>
+    <string name="in_space">\"kosmosda\"</string>
+    <string name="day">\" gün\"</string>
+    <string name="month">\"ay\"</string>
+    <string name="year">\"il\"</string>
+    <string name="since">\"Başladı\"</string>
+    <string name="tutorial_one_title">Salam :)</string>
+    <string name="tutorial_two_title">Əsas xüsusiyyətləri</string>
+
+    <string name="license">Açıq mənbə lisenziyaları</string>
+    <string name="msg_license">Bu proqram aşağıdakı proqram təminatı ilə qurulur:</string>
+    <string name="msg_about_fork_me_on_github">GitHub-da çəngəlləyin</string>
+    <string name="msg_about_library_description">ISS Tracker, Beynəlxalq Kosmik Stansiyanın mövqeyini izləməyə və hazırda kosmosda hansı astronavtların olduğunu öyrənməyə imkan verən Android proqramıdır.</string>
+    <string name="desc_about_app">Bu proqram haqqında</string>
+    <string name="msg_get_it_on_play_store">Google Play-də əldə edin</string>
+    <string name="version">Versiyalar</string>
+    <string name="version_msg">Əvvəlki dəyişikliklərin, düzəlişlərin və yeniləmələrin siyahısı:</string>
+</resources>
