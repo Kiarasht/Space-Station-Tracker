@@ -20,6 +20,7 @@
         android:id="@+id/animation_view"
         android:layout_width="350dp"
         android:layout_height="250dp"
+        android:visibility="gone"
         ads:layout_constraintBottom_toTopOf="@+id/adView"
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintStart_toStartOf="parent"

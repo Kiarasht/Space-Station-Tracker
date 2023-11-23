@@ -1,5 +1,7 @@
 package com.restart.spacestationtracker;
 
+import static com.android.volley.toolbox.HttpHeaderParser.parseCharset;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -89,6 +91,24 @@ public class PeopleInSpace extends AppCompatActivity {
         super.onDestroy();
     }
 
+    private void onSuccessResult(List<Astronaut> peopleInSpace) {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mAdapter = new PeopleInSpaceAdapter(this, peopleInSpace);
+        mRecyclerView.setNestedScrollingEnabled(true);
+        mAdapter.setDataSet(peopleInSpace);
+        mRecyclerView.setAdapter(mAdapter);
+        animation.setVisibility(View.GONE);
+        errors.setVisibility(View.GONE);
+    }
+
+    private void onFailure(List<Astronaut> peopleInSpace) {
+        if (peopleInSpace.isEmpty()) {
+            animation.setVisibility(View.VISIBLE);
+            errors.setVisibility(View.VISIBLE);
+        }
+    }
+
     /**
      * Displays a list of astronauts in a RecyclerView
      */
@@ -96,76 +116,36 @@ public class PeopleInSpace extends AppCompatActivity {
         final List<Astronaut> peopleInSpace = new ArrayList<>();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, PEOPLE_URL, null, astronautResponse -> {
-            LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-            mRecyclerView.setLayoutManager(layoutManager);
-            mAdapter = new PeopleInSpaceAdapter(this, peopleInSpace);
-            mRecyclerView.setNestedScrollingEnabled(true);
-            mAdapter.setDataSet(peopleInSpace);
-            mRecyclerView.setAdapter(mAdapter);
-            animation.setVisibility(View.GONE);
-            errors.setVisibility(View.GONE);
+            onSuccessResult(peopleInSpace);
+            requestWiki(peopleInSpace);
         }, e -> {
-            animation.setVisibility(View.VISIBLE);
-            errors.setVisibility(View.VISIBLE);
+            onFailure(peopleInSpace);
         }) {
             @Override
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
                 try {
-                    String jsonString = new String(response.data,
-                            HttpHeaderParser.parseCharset(response.headers, PROTOCOL_CHARSET));
+                    String jsonString = new String(response.data, parseCharset(response.headers, PROTOCOL_CHARSET));
+                    JSONObject astronautJson = new JSONObject(jsonString);
 
-                    JSONObject jsonResponse = new JSONObject(jsonString);
-                    try {
-                        JSONArray astronauts = jsonResponse.getJSONArray("people");
+                    JSONArray astronauts = astronautJson.getJSONArray("people");
 
-                        for (int i = 0; i < astronauts.length(); ++i) {
-                            JSONObject anAstronaut = astronauts.getJSONObject(i);
-                            final String wiki = anAstronaut.getString("url");
-                            final String[] wikiPage = wiki.split("/");
-                            final String bioUrl = BIO_URL + wikiPage[wikiPage.length - 1];
+                    for (int i = 0; i < astronauts.length(); ++i) {
+                        JSONObject anAstronaut = astronauts.getJSONObject(i);
 
-                            JsonObjectRequest wikiRequest = new JsonObjectRequest(Method.GET, bioUrl, null, wikiResponse -> {
-                            }, e -> {
-                                animation.setVisibility(View.VISIBLE);
-                                errors.setVisibility(View.VISIBLE);
-                            }) {
-                                @Override
-                                protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
-                                    try {
-                                        final String name = anAstronaut.getString("name");
-                                        final String image = anAstronaut.getString("image");
-                                        final boolean isIss = anAstronaut.getBoolean("iss");
-                                        final String flagCode = anAstronaut.getString("flag_code").toUpperCase();
-                                        final int launchDate = anAstronaut.getInt("launched");
-                                        final String role = anAstronaut.getString("position");
-                                        final String location = anAstronaut.getString("spacecraft");
-                                        final String twitter = anAstronaut.getString("twitter");
-                                        final String facebook = anAstronaut.getString("facebook");
-                                        final String instagram = anAstronaut.getString("instagram");
+                        final String name = anAstronaut.getString("name");
+                        final String image = anAstronaut.getString("image");
+                        final boolean isIss = anAstronaut.getBoolean("iss");
+                        final String flagCode = anAstronaut.getString("flag_code").toUpperCase();
+                        final int launchDate = anAstronaut.getInt("launched");
+                        final String role = anAstronaut.getString("position");
+                        final String location = anAstronaut.getString("spacecraft");
+                        final String twitter = anAstronaut.getString("twitter");
+                        final String facebook = anAstronaut.getString("facebook");
+                        final String instagram = anAstronaut.getString("instagram");
+                        final String wiki = anAstronaut.getString("url");
 
-                                        String jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers, PROTOCOL_CHARSET));
-                                        JSONObject pages = new JSONObject(jsonString).getJSONObject("query").getJSONObject("pages");
-                                        JSONObject innerObject = pages.getJSONObject(pages.keys().next());
-                                        String bio = innerObject.getString("extract");
-
-                                        while (bio.endsWith("\n"))
-                                            bio = bio.substring(0, bio.length() - 2);
-
-                                        Astronaut storeAnAstronaut = new Astronaut(name, image, isIss, flagCode, launchDate, role, location, bio, wiki, twitter, facebook, instagram);
-                                        peopleInSpace.add(storeAnAstronaut);
-
-                                        return Response.success(new JSONObject(jsonString), HttpHeaderParser.parseCacheHeaders(response));
-                                    } catch (UnsupportedEncodingException | JSONException e) {
-                                        return Response.error(new ParseError(e));
-                                    }
-                                }
-                            };
-
-                            mRequestQueue.add(wikiRequest);
-                        }
-
-                    } catch (Exception e) {
-                        return Response.error(new ParseError(e));
+                        Astronaut storeAnAstronaut = new Astronaut(name, image, isIss, flagCode, launchDate, role, location, "", wiki, twitter, facebook, instagram);
+                        peopleInSpace.add(storeAnAstronaut);
                     }
 
                     return Response.success(new JSONObject(jsonString), HttpHeaderParser.parseCacheHeaders(response));
@@ -176,5 +156,46 @@ public class PeopleInSpace extends AppCompatActivity {
         };
 
         mRequestQueue.add(jsonObjectRequest);
+    }
+
+    private void requestWiki(List<Astronaut> astronauts) {
+        for (int i = 0; i < astronauts.size(); ++i) {
+            final String wiki = astronauts.get(i).getWiki();
+            final String[] wikiPage = wiki.split("/");
+            final String bioUrl = BIO_URL + wikiPage[wikiPage.length - 1];
+
+            JsonObjectRequest wikiRequest = new JsonObjectRequest(Request.Method.GET, bioUrl, null, wikiResponse -> {
+                int index = 0;
+                for (Astronaut astronaut: astronauts) {
+                    if (astronaut.getWiki().equals(wiki)) {
+                        try {
+                            JSONObject pages = wikiResponse.getJSONObject("query").getJSONObject("pages");
+                            JSONObject innerObject = pages.getJSONObject(pages.keys().next());
+                            String bio = innerObject.getString("extract");
+                            while (bio.endsWith("\n"))
+                                bio = bio.substring(0, bio.length() - 2);
+                            astronaut.setBio(bio);
+                            mAdapter.notifyItemChanged(index);
+                        } catch (JSONException e) {
+                            astronaut.setBio("");
+                        }
+                    }
+                    ++index;
+                }
+            }, e -> {
+            }) {
+                @Override
+                protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+                    try {
+                        String bioJson = new String(response.data, parseCharset(response.headers, PROTOCOL_CHARSET));
+                        return Response.success(new JSONObject(bioJson), HttpHeaderParser.parseCacheHeaders(response));
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        return Response.error(new ParseError(e));
+                    }
+                }
+            };
+
+            mRequestQueue.add(wikiRequest);
+        }
     }
 }
