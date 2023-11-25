@@ -33,7 +33,7 @@
     <string name="startBannerAds">Banner oglasi omogućeni. Hvala na podršci ;)</string>
 
     
-    <string name="tutorialOne">Karta prikazuje trenutnu lokaciju ISS-a s linijom predviđanja gdje će biti.</string>
+    <string name="tutorialOne">Karta prikazuje trenutnu lokaciju ISS-a s predviđanjem gdje će biti.</string>
     <string name="tutorialTwo">Ladica vas vodi do drugih značajki kao što su preleti i postavke.</string>
     <string name="midAt">na</string>
     <string name="checkerContentDescription">Ikona predstavlja da je odabrana prozirna boja</string>
@@ -58,8 +58,8 @@
     <string name="mapSummary">Promijenite vrstu karte s prethodne stranice</string>
 
     <string name="decimalTitle">Decimalna mjesta</string>
-    <string name="decimalDialogMessage">Promijenite točnost svih numeričkih vrijednosti</string>
-    <string name="decimalSummary">Promijenite točnost svih numeričkih vrijednosti</string>
+    <string name="decimalDialogMessage">Promijenite točnost svih brojčanih vrijednosti</string>
+    <string name="decimalSummary">Promijenite točnost svih brojčanih vrijednosti</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Boja linije predviđanja</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Ne mogu pronaći vašu lokaciju.</string>
     <string name="errorPermissionLocation">Odbijen pristup vašoj lokaciji</string>
     <string name="errorConnection">Ili nemate vezu ili je poslužitelj preopterećen.</string>
+    <string name="nothing_available">Trenutno nema prolaska ISS-a pokraj vaše lokacije</string>
+    <string name="unable_to_get_astronauts">Ne mogu dobiti astronaute. Provjerite jeste li spojeni na internet i pokušajte ponovno kasnije</string>
+    <string name="unable_to_get_passes">Ne mogu dobiti ISS propusnice. Provjerite jeste li spojeni na internet i pokušajte ponovno kasnije</string>
     <string name="errorNetwork">Došlo je do nepoznate pogreške. Pogreška: 401</string>
     <string name="errorMap">Nije moguće primijeniti postavke na kartu</string>
     <string name="errorFiveTimes">Nije uspjelo svih 5 puta. Ili nemate vezu ili je poslužitelj preopterećen.</string>

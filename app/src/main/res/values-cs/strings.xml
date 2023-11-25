@@ -95,6 +95,9 @@
     <string name="errorLocation">Nelze najít vaši polohu.</string>
     <string name="errorPermissionLocation">Odepřen přístup k vaší poloze</string>
     <string name="errorConnection">Buď nemáte připojení, nebo je server přetížený.</string>
+    <string name="nothing_available">V tuto chvíli nejsou kolem vaší polohy žádné průlety ISS</string>
+    <string name="unable_to_get_astronauts">Nepodařilo se získat astronauty. Ujistěte se, že jste připojeni k internetu, a zkuste to znovu později</string>
+    <string name="unable_to_get_passes">Nelze získat průkazy ISS. Ujistěte se, že jste připojeni k internetu, a zkuste to znovu později</string>
     <string name="errorNetwork">Nastala neznámá chyba. Chyba: 401</string>
     <string name="errorMap">Nelze použít nastavení na mapu</string>
     <string name="errorFiveTimes">Vše se 5krát nezdařilo. Buď nemáte připojení, nebo je server přetížený.</string>

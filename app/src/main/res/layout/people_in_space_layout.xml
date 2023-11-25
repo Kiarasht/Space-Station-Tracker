@@ -1,5 +1,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -13,6 +15,36 @@
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintStart_toStartOf="parent"
         ads:layout_constraintTop_toTopOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="350dp"
+        android:layout_height="250dp"
+        android:visibility="gone"
+        ads:layout_constraintBottom_toTopOf="@+id/adView"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toTopOf="parent"
+        ads:layout_constraintVertical_bias="0.30"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="animation_astronaut.json"
+        app:lottie_loop="true" />
+
+    <TextView
+        android:id="@+id/errors"
+        style="@style/TextAppearance.Material3.TitleSmall"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="@string/unable_to_get_astronauts"
+        android:visibility="gone"
+        ads:layout_constraintEnd_toEndOf="@id/animation_view"
+        ads:layout_constraintStart_toStartOf="@id/animation_view"
+        ads:layout_constraintTop_toBottomOf="@id/animation_view"
+        tools:visibility="visible" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"

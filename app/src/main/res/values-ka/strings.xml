@@ -95,6 +95,9 @@
     <string name="errorLocation">თქვენი მდებარეობის პოვნა შეუძლებელია.</string>
     <string name="errorPermissionLocation">აკრძალულია თქვენს მდებარეობაზე წვდომა</string>
     <string name="errorConnection">ან არ გაქვთ კავშირი ან სერვერი გადატვირთულია.</string>
+    <string name="nothing_available">თქვენს მდებარეობასთან ISS არ არის ამ დროისთვის</string>
+    <string name="unable_to_get_astronauts">ასტრონავტების მიღება ვერ ხერხდება. დარწმუნდით, რომ დაკავშირებული ხართ ინტერნეტთან და სცადეთ მოგვიანებით</string>
+    <string name="unable_to_get_passes">ISS საშვის მიღება შეუძლებელია. დარწმუნდით, რომ დაკავშირებული ხართ ინტერნეტთან და სცადეთ მოგვიანებით</string>
     <string name="errorNetwork">მოხდა გაურკვეველი შეცდომა. შეცდომა: 401</string>
     <string name="errorMap">რუკაზე პარამეტრების გამოყენება შეუძლებელია</string>
     <string name="errorFiveTimes">5-ჯერ ვერ მოხერხდა. ან არ გაქვთ კავშირი ან სერვერი გადატვირთულია.</string>

@@ -95,6 +95,9 @@
     <string name="errorLocation">Tidak dapat mencari lokasi anda.</string>
     <string name="errorPermissionLocation">Menafikan akses ke lokasi anda</string>
     <string name="errorConnection">Sama ada anda tiada sambungan atau pelayan terlebih beban.</string>
+    <string name="nothing_available">Tiada pas ISS mengikut lokasi anda pada masa ini</string>
+    <string name="unable_to_get_astronauts">Tidak dapat mendapatkan angkasawan. Pastikan anda disambungkan ke Internet dan cuba lagi kemudian</string>
+    <string name="unable_to_get_passes">Tidak dapat mendapatkan pas ISS. Pastikan anda disambungkan ke Internet dan cuba lagi kemudian</string>
     <string name="errorNetwork">Ralat yang tidak diketahui telah berlaku. Ralat: 401</string>
     <string name="errorMap">Tidak boleh menggunakan tetapan pada peta</string>
     <string name="errorFiveTimes">Gagal semua 5 kali. Sama ada anda tiada sambungan atau pelayan terlebih beban.</string>
@@ -112,7 +115,7 @@
     <string name="image_content">Imej peta dengan penanda untuk lokasi pengguna.</string>
     <string name="iss_sighting_share_title">Penglihatan ISS</string>
     <string name="iss_sighting_share_description">ISS akan kelihatan di sini. Akan menyemaknya!</string>
-    <string name="iss_sighting_share_body">\"Lihatlah! ISS akan kelihatan di \"</string>
+    <string name="iss_sighting_share_body">\"Lihat! ISS akan kelihatan di \"</string>
     <string name="iss_sighting_share_chooser">Kongsi…</string>
     <string name="on">\"pada\"</string>
     <string name="one_day_in_space">1 hari di angkasa</string>

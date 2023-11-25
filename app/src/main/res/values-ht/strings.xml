@@ -13,7 +13,7 @@
     <string name="flybys_summary">Tcheke ki lè ISS ap pase bò kote ou a</string>
     <string name="space_summary">Gade ki moun ki nan espas kounye a</string>
     <string name="settings_summary">Jere anviwònman jeneral aplikasyon an</string>
-    <string name="help_summary">Vote oswa aprann sou aplikasyon an</string>
+    <string name="help_summary">Voye oswa aprann sou aplikasyon an</string>
 
     
     <string name="reset">Rafrechi liy prediksyon yo</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Pa kapab jwenn kote ou ye a.</string>
     <string name="errorPermissionLocation">Yo refize jwenn aksè nan kote w ye a</string>
     <string name="errorConnection">Swa ou pa gen okenn koneksyon oswa sèvè twò chaje.</string>
+    <string name="nothing_available">Pa gen okenn pas ISS nan kote ou ye nan moman sa a</string>
+    <string name="unable_to_get_astronauts">Pa kapab jwenn astwonòt. Asire w ou konekte ak entènèt la epi eseye ankò pita</string>
+    <string name="unable_to_get_passes">Pa kapab jwenn pas ISS. Asire w ou konekte ak entènèt la epi eseye ankò pita</string>
     <string name="errorNetwork">Yon erè enkoni te fèt. Erè: 401</string>
     <string name="errorMap">Pa ka aplike paramèt pou kat</string>
     <string name="errorFiveTimes">Echwe tout 5 fwa. Swa ou pa gen okenn koneksyon oswa sèvè twò chaje.</string>

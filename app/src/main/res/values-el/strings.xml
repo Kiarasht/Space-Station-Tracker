@@ -13,7 +13,7 @@
     <string name="flybys_summary">Ελέγξτε πότε θα περάσει ο ISS από την τοποθεσία σας</string>
     <string name="space_summary">Δείτε ποιος είναι στο διάστημα αυτή τη στιγμή</string>
     <string name="settings_summary">Διαχειριστείτε τις γενικές ρυθμίσεις της εφαρμογής</string>
-    <string name="help_summary">Βαθμολογήστε ή μάθετε για την εφαρμογή</string>
+    <string name="help_summary">Αξιολογήστε ή μάθετε για την εφαρμογή</string>
 
     
     <string name="reset">Ανανεώστε τις γραμμές πρόβλεψης</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Δεν είναι δυνατή η εύρεση της τοποθεσίας σας.</string>
     <string name="errorPermissionLocation">Δεν επιτρέπεται η πρόσβαση στην τοποθεσία σας</string>
     <string name="errorConnection">Είτε δεν έχετε σύνδεση είτε ο διακομιστής είναι υπερφορτωμένος.</string>
+    <string name="nothing_available">Δεν υπάρχουν πάσο ISS από την τοποθεσία σας αυτήν τη στιγμή</string>
+    <string name="unable_to_get_astronauts">Δεν μπορώ να βρω αστροναύτες. Βεβαιωθείτε ότι είστε συνδεδεμένοι στο διαδίκτυο και δοκιμάστε ξανά αργότερα</string>
+    <string name="unable_to_get_passes">Δεν είναι δυνατή η λήψη καρτών ISS. Βεβαιωθείτε ότι είστε συνδεδεμένοι στο διαδίκτυο και δοκιμάστε ξανά αργότερα</string>
     <string name="errorNetwork">Προέκυψε ένα άγνωστο σφάλμα. Σφάλμα: 401</string>
     <string name="errorMap">Δεν είναι δυνατή η εφαρμογή ρυθμίσεων στον χάρτη</string>
     <string name="errorFiveTimes">Απέτυχε και τις 5 φορές. Είτε δεν έχετε σύνδεση είτε ο διακομιστής είναι υπερφορτωμένος.</string>
@@ -111,7 +114,7 @@
     <string name="share">Μερίδιο</string>
     <string name="image_content">Εικόνα χάρτη με δείκτη για την τοποθεσία του χρήστη.</string>
     <string name="iss_sighting_share_title">Παρατήρηση ISS</string>
-    <string name="iss_sighting_share_description">Το ISS θα είναι ορατό εδώ. Πάω να το τσεκάρω!</string>
+    <string name="iss_sighting_share_description">Το ISS θα είναι ορατό εδώ. Πάω να το ελέγξω!</string>
     <string name="iss_sighting_share_body">\"Δείτε το! Το ISS θα είναι ορατό στο \"</string>
     <string name="iss_sighting_share_chooser">Μερίδιο…</string>
     <string name="on">\" επί \"</string>

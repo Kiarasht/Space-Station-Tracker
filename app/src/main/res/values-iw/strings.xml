@@ -95,6 +95,9 @@
     <string name="errorLocation">לא ניתן למצוא את המיקום שלך.</string>
     <string name="errorPermissionLocation">נדחתה גישה למיקום שלך</string>
     <string name="errorConnection">או שאין לך חיבור או שהשרת עמוס יתר על המידה.</string>
+    <string name="nothing_available">בשלב זה אין מעברי ISS ליד מיקומך</string>
+    <string name="unable_to_get_astronauts">לא מצליח להשיג אסטרונאוטים. ודא שאתה מחובר לאינטרנט ונסה שוב מאוחר יותר</string>
+    <string name="unable_to_get_passes">לא ניתן להשיג אישורי ISS. ודא שאתה מחובר לאינטרנט ונסה שוב מאוחר יותר</string>
     <string name="errorNetwork">אירעה שגיאה לא ידועה. שגיאה: 401</string>
     <string name="errorMap">לא ניתן להחיל הגדרות על המפה</string>
     <string name="errorFiveTimes">נכשל כל 5 הפעמים. או שאין לך חיבור או שהשרת עמוס יתר על המידה.</string>

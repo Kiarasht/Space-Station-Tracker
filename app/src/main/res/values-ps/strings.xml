@@ -82,7 +82,7 @@
     <string name="textHighlightSummary">د متن ارزښتونو د بڼې رنګ بدل کړئ</string>
 
     <string name="notificationTitle">د ISS خبرتیا</string>
-    <string name="notificationSummary">خبر کړئ کله چې ISS تمه کیږي زما د ځای څخه الوتنه وکړي</string>
+    <string name="notificationSummary">خبر کړئ کله چې ISS تمه کیږي زما ځای ته الوتنه وکړي</string>
 
     <string name="advertisementTitle">بینر</string>
     <string name="advertisementSummary">په ایپ کې د بینر اعلانونه غیر فعال کړئ</string>
@@ -94,10 +94,13 @@
     <string name="errorWebView">د پاڼې د پورته کولو توان نلري</string>
     <string name="errorLocation">ستاسو د ځای موندلو توان نلري.</string>
     <string name="errorPermissionLocation">ستاسو ځای ته د لاسرسي مخه ونیول شوه</string>
-    <string name="errorConnection">یا تاسو هیڅ اړیکه نلرئ یا سرور ډیر بار شوی دی.</string>
+    <string name="errorConnection">یا تاسو هیڅ اړیکه نلرئ یا سرور ډیر بار شوی.</string>
+    <string name="nothing_available">پدې وخت کې ستاسو د ځای څخه هیڅ ISS نه تیریږي</string>
+    <string name="unable_to_get_astronauts">د فضانوردانو د ترلاسه کولو توان نلري. ډاډ ترلاسه کړئ چې تاسو انټرنیټ سره وصل یاست او وروسته بیا هڅه وکړئ</string>
+    <string name="unable_to_get_passes">د ISS پاسونو ترلاسه کولو توان نلري. ډاډ ترلاسه کړئ چې تاسو انټرنیټ سره وصل یاست او وروسته بیا هڅه وکړئ</string>
     <string name="errorNetwork">یوه نامعلومه تېروتنه رامنځته شوه. تېروتنه: 401</string>
     <string name="errorMap">په نقشه کې ترتیبات نشي پلي کولی</string>
-    <string name="errorFiveTimes">ټول 5 ځله ناکام شو. یا تاسو هیڅ اړیکه نلرئ یا سرور ډیر بار شوی دی.</string>
+    <string name="errorFiveTimes">ټول 5 ځله ناکام شو. یا تاسو هیڅ اړیکه نلرئ یا سرور ډیر بار شوی.</string>
     <string name="errorLessFive">د سرور غوښتنه ناکامه شوه. بیا هڅه کول…</string>
     <string name="errorWaitPoly">دمخه د وړاندوینې کرښې رامینځته کول</string>
     <string name="errorNotByMe">د ISS خبرتیا ستاسو لخوا نه وه بنده شوې.</string>
@@ -107,7 +110,7 @@
     <string name="errorNoFacebook">د فیسبوک حساب نه لري</string>
     <string name="data_corrupted">د اپلیکیشن ډاټا فاسد شوې. بیا تنظیم کول!</string>
     <string name="polyError">د وړاندوینې کرښې په جوړولو کې ناتواني</string>
-    <string name="calendar">کیلنڈر</string>
+    <string name="calendar">جنتري</string>
     <string name="share">شریکول</string>
     <string name="image_content">د کارونکي موقعیت لپاره د مارکر سره د نقشې عکس.</string>
     <string name="iss_sighting_share_title">د ISS لید</string>

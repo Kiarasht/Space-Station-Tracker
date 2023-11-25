@@ -95,6 +95,9 @@
     <string name="errorLocation">Ne eblas trovi vian lokon.</string>
     <string name="errorPermissionLocation">Neita aliro al via loko</string>
     <string name="errorConnection">Aŭ vi ne havas konekton aŭ servilo estas troŝarĝita.</string>
+    <string name="nothing_available">Ne ekzistas ISS-enirpermesiloj ĉe via loko nuntempe</string>
+    <string name="unable_to_get_astronauts">Ne eblas akiri astronaŭtojn. Certiĝu, ke vi estas konektita al la interreto kaj provu denove poste</string>
+    <string name="unable_to_get_passes">Ne eblas akiri ISS-enirpermesilojn. Certiĝu, ke vi estas konektita al la interreto kaj provu denove poste</string>
     <string name="errorNetwork">Nekonata eraro okazis. Eraro: 401</string>
     <string name="errorMap">Ne povas apliki agordojn al mapo</string>
     <string name="errorFiveTimes">Malsukcesis ĉiujn 5 fojojn. Aŭ vi ne havas konekton aŭ servilo estas troŝarĝita.</string>

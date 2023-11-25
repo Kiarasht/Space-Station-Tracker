@@ -93,8 +93,11 @@
     
     <string name="errorWebView">Ma tistax titgħabba l-paġna</string>
     <string name="errorLocation">Ma tistax issib il-lokalità tiegħek.</string>
-    <string name="errorPermissionLocation">Miċħud aċċess għall-lokalità tiegħek</string>
+    <string name="errorPermissionLocation">Miċħud aċċess għal-lokalità tiegħek</string>
     <string name="errorConnection">Jew m\'għandekx konnessjoni jew is-server huwa mgħobbi żżejjed.</string>
+    <string name="nothing_available">F\'dan il-ħin m\'hemm l-ebda pass tal-ISS mill-post tiegħek</string>
+    <string name="unable_to_get_astronauts">Ma tistax tikseb astronawti. Kun żgur li tkun konness mal-internet u erġa\' pprova aktar tard</string>
+    <string name="unable_to_get_passes">Ma tistax tikseb il-passes tal-ISS. Kun żgur li tkun konness mal-internet u erġa\' pprova aktar tard</string>
     <string name="errorNetwork">Sar żball mhux magħruf. Żball: 401</string>
     <string name="errorMap">Ma tistax tapplika s-settings għall-mappa</string>
     <string name="errorFiveTimes">Falliet il-5 darbiet kollha. Jew m\'għandekx konnessjoni jew is-server huwa mgħobbi żżejjed.</string>
@@ -112,7 +115,7 @@
     <string name="image_content">Immaġni ta \'mappa b\'markatur għall-lokazzjoni tal-utent.</string>
     <string name="iss_sighting_share_title">Lemħ tal-ISS</string>
     <string name="iss_sighting_share_description">L-ISS se tkun viżibbli hawn. Se tivverifikah!</string>
-    <string name="iss_sighting_share_body">\"Iċċekkjah! L-ISS tkun viżibbli fi\"</string>
+    <string name="iss_sighting_share_body">\"Iċċekkjah! L-ISS se tkun viżibbli fi\"</string>
     <string name="iss_sighting_share_chooser">Aqsam...</string>
     <string name="on">\" fuq \"</string>
     <string name="one_day_in_space">ġurnata fl-ispazju</string>

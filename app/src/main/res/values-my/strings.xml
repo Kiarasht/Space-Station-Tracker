@@ -95,6 +95,9 @@
     <string name="errorLocation">သင့်တည်နေရာကို ရှာမတွေ့ပါ။</string>
     <string name="errorPermissionLocation">သင့်တည်နေရာကို အသုံးပြုခွင့် ငြင်းပယ်ထားသည်။</string>
     <string name="errorConnection">သင့်တွင် အချိတ်အဆက်မရှိသော သို့မဟုတ် ဆာဗာသည် ဝန်ပိုနေပါသည်။</string>
+    <string name="nothing_available">သင့်တည်နေရာကို ယခုအချိန်တွင် ISS ဖြတ်သန်းခွင့်မရှိပါ။</string>
+    <string name="unable_to_get_astronauts">အာကာသယာဉ်မှူးများ မရနိုင်ပါ။ သင်သည် အင်တာနက်သို့ ချိတ်ဆက်ထားကြောင်း သေချာစေပြီး နောက်မှ ထပ်စမ်းကြည့်ပါ။</string>
+    <string name="unable_to_get_passes">ISS ဖြတ်သန်းခွင့်များ မရပါ။ သင်သည် အင်တာနက်သို့ ချိတ်ဆက်ထားကြောင်း သေချာစေပြီး နောက်မှ ထပ်စမ်းကြည့်ပါ။</string>
     <string name="errorNetwork">အမည်မသိ အမှားတစ်ခု ဖြစ်ပွားခဲ့သည်။ အမှား- ၄၀၁</string>
     <string name="errorMap">မြေပုံတွင် ဆက်တင်များကို မသုံးနိုင်ပါ။</string>
     <string name="errorFiveTimes">၅ ကြိမ်စလုံး ပျက်ကွက်ခဲ့ပါတယ်။ သင့်တွင် အချိတ်အဆက်မရှိသော သို့မဟုတ် ဆာဗာသည် ဝန်ပိုနေပါသည်။</string>
@@ -112,7 +115,7 @@
     <string name="image_content">အသုံးပြုသူတည်နေရာအတွက် အမှတ်အသားပါရှိသော မြေပုံတစ်ခု၏ပုံ။</string>
     <string name="iss_sighting_share_title">ISS မြင်ကွင်း</string>
     <string name="iss_sighting_share_description">ISS ကို ဤနေရာတွင် မြင်ရပါမည်။ အဲဒါကို စစ်ဆေးဖို့ သွားမယ်။</string>
-    <string name="iss_sighting_share_body">\"စစ်ဆေးကြည့်ပါ၊ ISS ကိုမြင်နိုင်လိမ့်မည်\"</string>
+    <string name="iss_sighting_share_body">\"စစ်ဆေးကြည့်ပါ ISS ကိုမြင်ရလိမ့်မည်\"</string>
     <string name="iss_sighting_share_chooser">မျှဝေပါ…</string>
     <string name="on">\"ပေါ်\"</string>
     <string name="one_day_in_space">အာကာသထဲတွင် ၁ ရက်</string>

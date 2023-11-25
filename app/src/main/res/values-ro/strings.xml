@@ -45,7 +45,7 @@
     
     <string name="refreshTitle">Rată de reîmprospătare</string>
     <string name="refreshSummary">Perioada de timp înainte de a actualiza locația ISS pe hartă</string>
-    <string name="declination_unit">sec/refresh</string>
+    <string name="declination_unit">sec/reîmprospătare</string>
     <string name="refreshDialogMessage">Timp între actualizarea ISS la noua sa locație.</string>
 
     <string name="lockTitle">Blocați ISS</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Imposibil de găsit locația dvs.</string>
     <string name="errorPermissionLocation">Accesul interzis la locația dvs</string>
     <string name="errorConnection">Fie nu aveți conexiune, fie serverul este supraîncărcat.</string>
+    <string name="nothing_available">Nu există permise ISS pe lângă locația dvs. în acest moment</string>
+    <string name="unable_to_get_astronauts">Nu se poate obține astronauți. Asigurați-vă că sunteți conectat la internet și încercați din nou mai târziu</string>
+    <string name="unable_to_get_passes">Nu se pot obține permise ISS. Asigurați-vă că sunteți conectat la internet și încercați din nou mai târziu</string>
     <string name="errorNetwork">A apărut o eroare necunoscută. Eroare: 401</string>
     <string name="errorMap">Nu se pot aplica setările hărții</string>
     <string name="errorFiveTimes">A eșuat de toate de 5 ori. Fie nu aveți conexiune, fie serverul este supraîncărcat.</string>

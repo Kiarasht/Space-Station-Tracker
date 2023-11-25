@@ -52,7 +52,7 @@
     <string name="lockSummary">Zamknite na ISS a nasledujte ju na mape</string>
 
     <string name="infoTitle">Dodatočné informácie</string>
-    <string name="infoSummary">Poskytnite ďalšie informácie o ISS na mape</string>
+    <string name="infoSummary">Poskytnite dodatočné informácie o ISS na mape</string>
 
     <string name="mapTitle">Typ mapy</string>
     <string name="mapSummary">Zmeňte typ mapy z predchádzajúcej stránky</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Nepodarilo sa nájsť vašu polohu.</string>
     <string name="errorPermissionLocation">Prístup k vašej polohe bol odmietnutý</string>
     <string name="errorConnection">Buď nemáte žiadne pripojenie, alebo je server preťažený.</string>
+    <string name="nothing_available">Momentálne nie sú okolo vašej polohy žiadne prelety ISS</string>
+    <string name="unable_to_get_astronauts">Nepodarilo sa získať astronautov. Uistite sa, že ste pripojení na internet a skúste to znova neskôr</string>
+    <string name="unable_to_get_passes">Nepodarilo sa získať preukazy ISS. Uistite sa, že ste pripojení na internet a skúste to znova neskôr</string>
     <string name="errorNetwork">Vyskytla sa neznáma chyba. Chyba: 401</string>
     <string name="errorMap">Nie je možné použiť nastavenia na mapu</string>
     <string name="errorFiveTimes">Všetko zlyhalo 5 krát. Buď nemáte žiadne pripojenie, alebo je server preťažený.</string>

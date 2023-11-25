@@ -11,7 +11,7 @@
 
     
     <string name="flybys_summary">আইএসএস কখন আপনার অবস্থানের পাশ দিয়ে যাবে তা পরীক্ষা করুন</string>
-    <string name="space_summary">এই মুহূর্তে মহাকাশে কে আছে দেখুন</string>
+    <string name="space_summary">এই মুহূর্তে মহাকাশে কারা আছে দেখুন</string>
     <string name="settings_summary">সাধারণ অ্যাপ সেটিংস পরিচালনা করুন</string>
     <string name="help_summary">অ্যাপ সম্পর্কে রেট দিন বা জানুন</string>
 
@@ -33,7 +33,7 @@
     <string name="startBannerAds">ব্যানার বিজ্ঞাপন সক্রিয়. সমর্থনের জন্য ধন্যবাদ ;)</string>
 
     
-    <string name="tutorialOne">মানচিত্রটি কোথায় হবে তার একটি পূর্বাভাস লাইন সহ ISS বর্তমান অবস্থান দেখায়।</string>
+    <string name="tutorialOne">মানচিত্র ISS বর্তমান অবস্থান দেখায় যেখানে এটি হবে তার একটি ভবিষ্যদ্বাণী লাইন সহ।</string>
     <string name="tutorialTwo">ড্রয়ার আপনাকে অন্যান্য বৈশিষ্ট্য যেমন ফ্লাইবাই এবং সেটিংসে নিয়ে যায়।</string>
     <string name="midAt">এ</string>
     <string name="checkerContentDescription">আইকন প্রতিনিধিত্ব করে যে একটি স্বচ্ছ রঙ বাছাই করা হয়েছে</string>
@@ -52,7 +52,7 @@
     <string name="lockSummary">ISS-এ লক করুন এবং মানচিত্রে এটি অনুসরণ করুন</string>
 
     <string name="infoTitle">অতিরিক্ত তথ্য</string>
-    <string name="infoSummary">মানচিত্রে আইএসএস সম্পর্কে অতিরিক্ত তথ্য প্রদান করুন</string>
+    <string name="infoSummary">মানচিত্রে ISS সম্পর্কে অতিরিক্ত তথ্য প্রদান করুন</string>
 
     <string name="mapTitle">মানচিত্রের ধরণ</string>
     <string name="mapSummary">আগের পৃষ্ঠা থেকে মানচিত্রের ধরন পরিবর্তন করুন</string>
@@ -95,9 +95,12 @@
     <string name="errorLocation">আপনার অবস্থান খুঁজে পেতে অক্ষম.</string>
     <string name="errorPermissionLocation">আপনার অবস্থানে অ্যাক্সেস অস্বীকার করা হয়েছে৷</string>
     <string name="errorConnection">হয় আপনার কোন সংযোগ নেই বা সার্ভার ওভারলোড হয়েছে।</string>
+    <string name="nothing_available">এই সময়ে আপনার অবস্থানের পাশ দিয়ে কোনো আইএসএস পাস নেই</string>
+    <string name="unable_to_get_astronauts">মহাকাশচারী পেতে অক্ষম। আপনি ইন্টারনেটের সাথে সংযুক্ত আছেন তা নিশ্চিত করুন এবং পরে আবার চেষ্টা করুন</string>
+    <string name="unable_to_get_passes">ISS পাস পেতে অক্ষম. আপনি ইন্টারনেটের সাথে সংযুক্ত আছেন তা নিশ্চিত করুন এবং পরে আবার চেষ্টা করুন</string>
     <string name="errorNetwork">একটি অজানা ত্রুটি ঘটেছে। ত্রুটি: 401</string>
     <string name="errorMap">ম্যাপে সেটিংস প্রয়োগ করা যাবে না</string>
-    <string name="errorFiveTimes">সব 5 বার ব্যর্থ. হয় আপনার কোন সংযোগ নেই বা সার্ভার ওভারলোড হয়েছে।</string>
+    <string name="errorFiveTimes">৫ বারই ব্যর্থ। হয় আপনার কোন সংযোগ নেই বা সার্ভার ওভারলোড হয়েছে।</string>
     <string name="errorLessFive">সার্ভারে অনুরোধ ব্যর্থ হয়েছে৷ আবার চেষ্টা করা হচ্ছে...</string>
     <string name="errorWaitPoly">ইতিমধ্যে ভবিষ্যদ্বাণী লাইন তৈরি</string>
     <string name="errorNotByMe">আইএসএস বিজ্ঞপ্তি আপনার দ্বারা বন্ধ করা হয়নি.</string>

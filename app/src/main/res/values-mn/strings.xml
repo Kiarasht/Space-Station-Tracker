@@ -10,7 +10,7 @@
     <string name="help_title">Туслаач</string>
 
     
-    <string name="flybys_summary">ОУСС хэзээ таны байршлаар өнгөрөхийг шалгана уу</string>
+    <string name="flybys_summary">ОУСС хэзээ таны байршлын хажуугаар өнгөрөхийг шалгана уу</string>
     <string name="space_summary">Яг одоо сансарт хэн байгааг хараарай</string>
     <string name="settings_summary">Програмын ерөнхий тохиргоог удирдах</string>
     <string name="help_summary">Аппликешныг үнэлэх эсвэл сурах</string>
@@ -66,8 +66,8 @@
     <string name="colorSummary">Урьдчилан таамаглах шугамын өнгийг өөрчлөх</string>
 
     <string name="sizeTitle">Урьдчилан таамаглах шугамын хэмжээ</string>
-    <string name="sizeDialogMessage">ОУСС-ын таамаглах шугамын хэмжээг өөрчлөх</string>
-    <string name="sizeSummary">ОУСС-ын таамаглах шугамын хэмжээг өөрчлөх</string>
+    <string name="sizeDialogMessage">ОУСС-ын таамаглалын шугамын хэмжээг өөрчлөх</string>
+    <string name="sizeSummary">ОУСС-ын таамаглалын шугамын хэмжээг өөрчлөх</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Текстийн хэмжээ</string>
@@ -91,10 +91,13 @@
     <string name="fullSummary">Аппликешн дээрх бүтэн хуудасны зарыг идэвхгүй болгох</string>
 
     
-    <string name="errorWebView">Хуудсыг ачаалах боломжгүй байна</string>
+    <string name="errorWebView">Хуудсыг ачаалах боломжгүй</string>
     <string name="errorLocation">Таны байршлыг олох боломжгүй байна.</string>
     <string name="errorPermissionLocation">Таны байршилд хандахыг хориглосон</string>
     <string name="errorConnection">Танд холболт байхгүй эсвэл сервер хэт ачаалалтай байна.</string>
+    <string name="nothing_available">Одоогоор таны байршилд ОУСС-ын гарц алга</string>
+    <string name="unable_to_get_astronauts">Сансрын нисгэгч авах боломжгүй. Та интернетэд холбогдсон эсэхээ шалгаад дараа дахин оролдоно уу</string>
+    <string name="unable_to_get_passes">ОУСС-ын тасалбар авах боломжгүй. Та интернетэд холбогдсон эсэхээ шалгаад дараа дахин оролдоно уу</string>
     <string name="errorNetwork">Үл мэдэгдэх алдаа гарлаа. Алдаа: 401</string>
     <string name="errorMap">Газрын зурагт тохиргоог ашиглах боломжгүй</string>
     <string name="errorFiveTimes">Бүх 5 удаа бүтэлгүйтсэн. Танд холболт байхгүй эсвэл сервер хэт ачаалалтай байна.</string>

@@ -95,6 +95,9 @@
     <string name="errorLocation">Tatadza kuwana nzvimbo yako.</string>
     <string name="errorPermissionLocation">Warambidzwa kuwana nzvimbo yako</string>
     <string name="errorConnection">Pamwe hauna chinongedzo kana server yakawandisa.</string>
+    <string name="nothing_available">Iko hakuna ISS inopfuura nenzvimbo yako panguva ino</string>
+    <string name="unable_to_get_astronauts">Hatina kukwanisa kuwana vazivi vemuchadenga. Ita shuwa kuti wakabatana neinternet woedza zvakare gare gare</string>
+    <string name="unable_to_get_passes">Hatikwanisi kuwana mapasi eISS. Ita shuwa kuti wakabatana neinternet woedza zvakare gare gare</string>
     <string name="errorNetwork">Pane chikanganiso chisingazivikanwe chaitika. Kukanganisa: 401</string>
     <string name="errorMap">Haikwanise kuisa marongero kumepu</string>
     <string name="errorFiveTimes">Akundikana zvese ka5. Pamwe hauna chinongedzo kana server yakawandisa.</string>
@@ -112,7 +115,7 @@
     <string name="image_content">Mufananidzo wemepu ine chiratidzo chenzvimbo yemushandisi.</string>
     <string name="iss_sighting_share_title">ISS Kuona</string>
     <string name="iss_sighting_share_description">ISS ichaonekwa pano. Kuenda kunozviongorora!</string>
-    <string name="iss_sighting_share_body">\"Itarise! ISS ichaonekwa pa\"</string>
+    <string name="iss_sighting_share_body">\"Itarise! ISS ichaonekwa pa \"</string>
     <string name="iss_sighting_share_chooser">Goverana...</string>
     <string name="on">\"pa\"</string>
     <string name="one_day_in_space">1 zuva munzvimbo</string>

@@ -20,7 +20,7 @@
     <string name="stream">ଲାଇଭ୍ |</string>
 
     
-    <string name="label_location">ଫ୍ଲାଇବିସ୍</string>
+    <string name="label_location">ଫ୍ଲାଇବିସ୍ |</string>
     <string name="label_people_in_space">ମହାକାଶରେ କିଏ ଅଛନ୍ତି\?</string>
     <string name="label_setting">ସେଟିଂସମୂହ</string>
     <string name="label_help">ସାହାଯ୍ୟ</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">ତୁମର ଅବସ୍ଥାନ ଖୋଜିବାରେ ଅସମର୍ଥ |</string>
     <string name="errorPermissionLocation">ତୁମର ଅବସ୍ଥାନକୁ ପ୍ରବେଶ ପ୍ରତ୍ୟାଖ୍ୟାନ |</string>
     <string name="errorConnection">ନା ଆପଣଙ୍କର କ connection ଣସି ସଂଯୋଗ ନାହିଁ କିମ୍ବା ସର୍ଭର ଓଭରଲୋଡ୍ ହୋଇଛି |</string>
+    <string name="nothing_available">ଏହି ସମୟରେ ଆପଣଙ୍କ ଅବସ୍ଥାନ ଦ୍ୱାରା କ IS ଣସି ISS ପାସ୍ ନାହିଁ |</string>
+    <string name="unable_to_get_astronauts">ମହାକାଶଚାରୀ ପାଇବାକୁ ଅସମର୍ଥ | ନିଶ୍ଚିତ କରନ୍ତୁ ଯେ ଆପଣ ଇଣ୍ଟରନେଟ୍ ସହିତ ସଂଯୁକ୍ତ ଏବଂ ପରେ ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ |</string>
+    <string name="unable_to_get_passes">ISS ପାସ୍ ପାଇବାରେ ଅସମର୍ଥ | ନିଶ୍ଚିତ କରନ୍ତୁ ଯେ ଆପଣ ଇଣ୍ଟରନେଟ୍ ସହିତ ସଂଯୁକ୍ତ ଏବଂ ପରେ ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ |</string>
     <string name="errorNetwork">ଏକ ଅଜ୍ଞାତ ତ୍ରୁଟି ଘଟିଛି | ତ୍ରୁଟି: 401</string>
     <string name="errorMap">ମାନଚିତ୍ରରେ ସେଟିଂସମୂହ ପ୍ରୟୋଗ କରିପାରିବ ନାହିଁ |</string>
     <string name="errorFiveTimes">ସମସ୍ତ 5 ଥର ବିଫଳ ହେଲା | ନା ଆପଣଙ୍କର କ connection ଣସି ସଂଯୋଗ ନାହିଁ କିମ୍ବା ସର୍ଭର ଓଭରଲୋଡ୍ ହୋଇଛି |</string>
@@ -127,7 +130,7 @@
     <string name="license">ମୁକ୍ତ ଉତ୍ସ ଲାଇସେନ୍ସ |</string>
     <string name="msg_license">ଏହି ଅନୁପ୍ରୟୋଗ ନିମ୍ନଲିଖିତ ସଫ୍ଟୱେର୍ ବ୍ୟବହାର କରି ନିର୍ମିତ:</string>
     <string name="msg_about_fork_me_on_github">ଏହାକୁ GitHub ରେ ଛାଡିଦିଅ |</string>
-    <string name="msg_about_library_description">ISS ଟ୍ରାକର୍ ହେଉଛି ଏକ ଆଣ୍ଡ୍ରଏଡ୍ ପ୍ରୟୋଗ ଯାହା ଆପଣଙ୍କୁ ଆନ୍ତର୍ଜାତୀୟ ସ୍ପେସ୍ ଷ୍ଟେସନର ସ୍ଥିତିକୁ ଟ୍ରାକ୍ କରିବାକୁ ଏବଂ ମହାକାଶଚାରୀମାନେ ବର୍ତ୍ତମାନ ମହାକାଶରେ କ’ଣ ଅଛି ତାହା ଜାଣିବାକୁ ଅନୁମତି ଦିଏ |</string>
+    <string name="msg_about_library_description">ISS ଟ୍ରାକର୍ ହେଉଛି ଏକ ଆଣ୍ଡ୍ରଏଡ୍ ପ୍ରୟୋଗ ଯାହା ଆପଣଙ୍କୁ ଆନ୍ତର୍ଜାତୀୟ ସ୍ପେସ୍ ଷ୍ଟେସନର ସ୍ଥିତିକୁ ଟ୍ରାକ୍ କରିବାକୁ ଏବଂ ବର୍ତ୍ତମାନ ମହାକାଶଚାରୀମାନେ ମହାକାଶରେ କ’ଣ ଅଛି ତାହା ଜାଣିବାକୁ ଅନୁମତି ଦେଇଥାଏ |</string>
     <string name="desc_about_app">ଏହି ଆପ୍ ବିଷୟରେ |</string>
     <string name="msg_get_it_on_play_store">ଏହାକୁ ଗୁଗୁଲ୍ ପ୍ଲେରେ ପାଆନ୍ତୁ |</string>
     <string name="version">ସଂସ୍କରଣ |</string>

@@ -17,7 +17,7 @@
 
     
     <string name="reset">പ്രവചന വരികൾ പുതുക്കുക</string>
-    <string name="stream">ലൈവ്</string>
+    <string name="stream">തത്സമയം</string>
 
     
     <string name="label_location">ഫ്ലൈബൈസ്</string>
@@ -75,7 +75,7 @@
     <string name="textSizeSummary">മാപ്പിലെ എല്ലാ ടെക്സ്റ്റ് മൂല്യങ്ങളുടെയും വലുപ്പം മാറ്റുക</string>
     <string name="textSizeUnit" />
 
-    <string name="textTitle">വാചക നിറം</string>
+    <string name="textTitle">ടെക്സ്റ്റ് നിറം</string>
     <string name="textSummary">ടെക്സ്റ്റ് മൂല്യങ്ങളുടെ നിറം മാറ്റുക</string>
 
     <string name="textHighlightTitle">ടെക്സ്റ്റ് ഔട്ട്ലൈൻ</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">നിങ്ങളുടെ സ്ഥാനം കണ്ടെത്താനായില്ല.</string>
     <string name="errorPermissionLocation">നിങ്ങളുടെ ലൊക്കേഷനിലേക്കുള്ള പ്രവേശനം നിഷേധിച്ചു</string>
     <string name="errorConnection">ഒന്നുകിൽ നിങ്ങൾക്ക് കണക്ഷനില്ല അല്ലെങ്കിൽ സെർവർ ഓവർലോഡ് ആണ്.</string>
+    <string name="nothing_available">നിങ്ങളുടെ ലൊക്കേഷനിൽ ഇപ്പോൾ ISS പാസുകളൊന്നുമില്ല</string>
+    <string name="unable_to_get_astronauts">ബഹിരാകാശയാത്രികരെ ലഭിക്കില്ല. നിങ്ങൾ ഇന്റർനെറ്റിൽ കണക്‌റ്റ് ചെയ്‌തിട്ടുണ്ടെന്ന് ഉറപ്പുവരുത്തി പിന്നീട് വീണ്ടും ശ്രമിക്കുക</string>
+    <string name="unable_to_get_passes">ISS പാസുകൾ നേടാനായില്ല. നിങ്ങൾ ഇന്റർനെറ്റിൽ കണക്‌റ്റ് ചെയ്‌തിട്ടുണ്ടെന്ന് ഉറപ്പുവരുത്തി പിന്നീട് വീണ്ടും ശ്രമിക്കുക</string>
     <string name="errorNetwork">അവ്യക്തമായ പിഴവ് സംഭവിച്ചിരിക്കുന്നു. പിശക്: 401</string>
     <string name="errorMap">മാപ്പിൽ ക്രമീകരണം പ്രയോഗിക്കാൻ കഴിയില്ല</string>
     <string name="errorFiveTimes">5 തവണയും പരാജയപ്പെട്ടു. ഒന്നുകിൽ നിങ്ങൾക്ക് കണക്ഷനില്ല അല്ലെങ്കിൽ സെർവർ ഓവർലോഡ് ആണ്.</string>

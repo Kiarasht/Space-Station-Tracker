@@ -82,7 +82,7 @@
     <string name="textHighlightSummary">मजकूर मूल्यांचा बाह्यरेखा रंग बदला</string>
 
     <string name="notificationTitle">ISS सूचना</string>
-    <string name="notificationSummary">माझ्या स्थानावरून ISS उड्डाण करणे अपेक्षित असताना सूचित करा</string>
+    <string name="notificationSummary">माझ्या स्थानावरून ISS उडणे अपेक्षित असताना सूचित करा</string>
 
     <string name="advertisementTitle">बॅनर</string>
     <string name="advertisementSummary">अॅपवरील बॅनर जाहिराती अक्षम करा</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">तुमचे स्थान शोधण्यात अक्षम.</string>
     <string name="errorPermissionLocation">तुमच्या स्थानावर प्रवेश नाकारला</string>
     <string name="errorConnection">एकतर तुमच्याकडे कनेक्शन नाही किंवा सर्व्हर ओव्हरलोड झाला आहे.</string>
+    <string name="nothing_available">यावेळी तुमच्या स्थानाजवळून कोणतेही ISS पास नाहीत</string>
+    <string name="unable_to_get_astronauts">अंतराळवीर मिळविण्यात अक्षम. तुम्ही इंटरनेटशी कनेक्ट असल्याची खात्री करा आणि नंतर पुन्हा प्रयत्न करा</string>
+    <string name="unable_to_get_passes">ISS पास मिळवण्यात अक्षम. तुम्ही इंटरनेटशी कनेक्ट असल्याची खात्री करा आणि नंतर पुन्हा प्रयत्न करा</string>
     <string name="errorNetwork">एक अज्ञात त्रुटी आली आहे. त्रुटी: 401</string>
     <string name="errorMap">नकाशावर सेटिंग्ज लागू करू शकत नाही</string>
     <string name="errorFiveTimes">सर्व 5 वेळा अयशस्वी. एकतर तुमच्याकडे कनेक्शन नाही किंवा सर्व्हर ओव्हरलोड झाला आहे.</string>

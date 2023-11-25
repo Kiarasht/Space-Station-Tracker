@@ -95,6 +95,9 @@
     <string name="errorLocation">Ezin da zure kokapena aurkitu.</string>
     <string name="errorPermissionLocation">Zure kokapenerako sarbidea ukatu zaio</string>
     <string name="errorConnection">Edo ez duzu konexiorik edo zerbitzaria gainkargatuta dago.</string>
+    <string name="nothing_available">Une honetan ez dago zure kokapenaren ISS abonamendurik</string>
+    <string name="unable_to_get_astronauts">Ezin astronautak lortu. Ziurtatu Internetera konektatuta zaudela eta saiatu berriro geroago</string>
+    <string name="unable_to_get_passes">Ezin dira lortu ISS txartelak. Ziurtatu Internetera konektatuta zaudela eta saiatu berriro geroago</string>
     <string name="errorNetwork">Errore ezezagun bat gertatu da. Errorea: 401</string>
     <string name="errorMap">Ezin dira ezarri ezarpenak mapan</string>
     <string name="errorFiveTimes">5 aldiz huts egin du. Edo ez duzu konexiorik edo zerbitzaria gainkargatuta dago.</string>

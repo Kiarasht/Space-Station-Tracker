@@ -95,6 +95,9 @@
     <string name="errorLocation">Sijaintiasi ei löydy.</string>
     <string name="errorPermissionLocation">Sijaintisi käyttö estetty</string>
     <string name="errorConnection">Joko sinulla ei ole yhteyttä tai palvelin on ylikuormitettu.</string>
+    <string name="nothing_available">Sijaintisi ohi ei ole tällä hetkellä ISS-kulkuja</string>
+    <string name="unable_to_get_astronauts">Astronautien saaminen ei onnistu. Varmista, että olet yhteydessä Internetiin, ja yritä myöhemmin uudelleen</string>
+    <string name="unable_to_get_passes">ISS-passeja ei voi saada. Varmista, että olet yhteydessä Internetiin, ja yritä myöhemmin uudelleen</string>
     <string name="errorNetwork">Tuntematon virhe on tapahtunut. Virhe: 401</string>
     <string name="errorMap">Asetuksia ei voi käyttää kartassa</string>
     <string name="errorFiveTimes">Epäonnistui kaikki 5 kertaa. Joko sinulla ei ole yhteyttä tai palvelin on ylikuormitettu.</string>

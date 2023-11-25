@@ -39,7 +39,7 @@
     <string name="checkerContentDescription">Icon ay kumakatawan na ang isang transparent na kulay ay pinili</string>
     <string name="countryFlagContentDescription">Flag ng bansang pinanggalingan ng astronaut na ito</string>
     <string name="astronautTwitterContentDescription">Icon na i-link sa pahina ng twitter ng mga astronaut</string>
-    <string name="astronautWikiContentDescription">Icon na i-link sa pahina ng wiki ng mga astronaut</string>
+    <string name="astronautWikiContentDescription">Icon upang i-link sa pahina ng wiki ng mga astronaut</string>
     <string name="astronautGoogleContentDescription">Icon upang i-link sa pahina ng paghahanap sa Google ng mga astronaut</string>
 
     
@@ -95,6 +95,9 @@
     <string name="errorLocation">Hindi mahanap ang iyong lokasyon.</string>
     <string name="errorPermissionLocation">Tinanggihan ang pag-access sa iyong lokasyon</string>
     <string name="errorConnection">Alinman sa wala kang koneksyon o overloaded ang server.</string>
+    <string name="nothing_available">Walang ISS pass sa iyong lokasyon sa ngayon</string>
+    <string name="unable_to_get_astronauts">Hindi makakuha ng mga astronaut. Tiyaking nakakonekta ka sa internet at subukang muli sa ibang pagkakataon</string>
+    <string name="unable_to_get_passes">Hindi makakuha ng ISS pass. Tiyaking nakakonekta ka sa internet at subukang muli sa ibang pagkakataon</string>
     <string name="errorNetwork">May naganap na hindi kilalang error. Error: 401</string>
     <string name="errorMap">Hindi mailapat ang mga setting sa mapa</string>
     <string name="errorFiveTimes">Nabigo lahat ng 5 beses. Alinman sa wala kang koneksyon o overloaded ang server.</string>

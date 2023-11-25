@@ -95,6 +95,9 @@
     <string name="errorLocation">Methu dod o hyd i\'ch lleoliad.</string>
     <string name="errorPermissionLocation">Wedi gwrthod mynediad i\'ch lleoliad</string>
     <string name="errorConnection">Naill ai nid oes gennych unrhyw gysylltiad neu mae\'r gweinydd wedi\'i orlwytho.</string>
+    <string name="nothing_available">Nid oes unrhyw docynnau ISS gan eich lleoliad ar hyn o bryd</string>
+    <string name="unable_to_get_astronauts">Methu cael gofodwyr. Gwnewch yn siŵr eich bod wedi\'ch cysylltu â\'r rhyngrwyd a rhowch gynnig arall arni\'n nes ymlaen</string>
+    <string name="unable_to_get_passes">Methu cael tocynnau ISS. Gwnewch yn siŵr eich bod wedi\'ch cysylltu â\'r rhyngrwyd a rhowch gynnig arall arni\'n nes ymlaen</string>
     <string name="errorNetwork">Mae gwall anhysbys wedi digwydd. Gwall: 401</string>
     <string name="errorMap">Methu â chymhwyso gosodiadau i\'r map</string>
     <string name="errorFiveTimes">Wedi methu bob 5 gwaith. Naill ai nid oes gennych unrhyw gysylltiad neu mae\'r gweinydd wedi\'i orlwytho.</string>

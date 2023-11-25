@@ -95,6 +95,9 @@
     <string name="errorLocation">Không thể tìm thấy vị trí của bạn.</string>
     <string name="errorPermissionLocation">Bị từ chối truy cập vào vị trí của bạn</string>
     <string name="errorConnection">Hoặc bạn không có kết nối hoặc máy chủ bị quá tải.</string>
+    <string name="nothing_available">Không có ISS nào đi ngang qua vị trí của bạn vào thời điểm này</string>
+    <string name="unable_to_get_astronauts">Không thể có được phi hành gia. Hãy đảm bảo bạn đã kết nối với Internet và thử lại sau</string>
+    <string name="unable_to_get_passes">Không thể nhận được thẻ ISS. Hãy đảm bảo bạn đã kết nối với Internet và thử lại sau</string>
     <string name="errorNetwork">Một lỗi không rõ đã xảy ra. Lỗi: 401</string>
     <string name="errorMap">Không thể áp dụng cài đặt cho bản đồ</string>
     <string name="errorFiveTimes">Thất bại cả 5 lần. Hoặc bạn không có kết nối hoặc máy chủ bị quá tải.</string>

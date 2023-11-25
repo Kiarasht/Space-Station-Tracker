@@ -4,7 +4,7 @@
 
     
     <string name="map_activity">Fa\'afanua</string>
-    <string name="flybys_title">Pasia e</string>
+    <string name="flybys_title">Pasia</string>
     <string name="space_title">I le Tiute</string>
     <string name="settings_title">Fa\'atonu</string>
     <string name="help_title">Fesoasoani</string>
@@ -12,7 +12,7 @@
     
     <string name="flybys_summary">Siaki pe o afea e pasi ai le ISS i lou nofoaga</string>
     <string name="space_summary">Va\'ai po\'o ai o lo\'o i le vanimonimo i le taimi nei</string>
-    <string name="settings_summary">Pulea fa\'atonuga fa\'aoga lautele</string>
+    <string name="settings_summary">Puleaina tulaga lautele o le app</string>
     <string name="help_summary">Fa\'ailoga pe a\'oa\'o e uiga i le app</string>
 
     
@@ -33,7 +33,7 @@
     <string name="startBannerAds">Fa\'aola fa\'asalalauga fa\'asalalau. Faafetai mo le lagolago ;)</string>
 
     
-    <string name="tutorialOne">Fa\'afanua o lo\'o fa\'aalia ai le nofoaga o lo\'o iai nei le ISS ma se laina vavalo o le mea o le a iai.</string>
+    <string name="tutorialOne">Fa\'afanua o lo\'o fa\'aalia ai le nofoaga o lo\'o iai nei le ISS ma se laina va\'ai po\'o fea o iai.</string>
     <string name="tutorialTwo">E ave oe e Drawer i isi vaega e pei o lele ma fa\'atulagaga.</string>
     <string name="midAt">i</string>
     <string name="checkerContentDescription">O lo\'o fa\'atusalia le fa\'ailoga o se lanu manino ua filifilia</string>
@@ -58,8 +58,8 @@
     <string name="mapSummary">Suia le ituaiga faafanua mai le itulau muamua</string>
 
     <string name="decimalTitle">Nofoaga Desimal</string>
-    <string name="decimalDialogMessage">Suia le sa\'o o mea tau numera uma</string>
-    <string name="decimalSummary">Suia le sa\'o o mea tau numera uma</string>
+    <string name="decimalDialogMessage">Suia le sa\'o o tau numera uma</string>
+    <string name="decimalSummary">Suia le sa\'o o tau numera uma</string>
     <string name="decimalUnit">dp</string>
 
     <string name="colorTitle">Lanu laina vavalo</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Le mafai ona maua lou nofoaga.</string>
     <string name="errorPermissionLocation">Te\'ena le avanoa i lou nofoaga</string>
     <string name="errorConnection">Pe leai sau feso\'ota\'iga po\'o le \'au\'aunaga ua ova le uta.</string>
+    <string name="nothing_available">E leai ni pasi ISS i lou nofoaga i le taimi nei</string>
+    <string name="unable_to_get_astronauts">Le mafai ona maua ni tagata vaalele. Ia mautinoa o lo\'o e feso\'ota\'i ile initaneti ma toe taumafai mulimuli ane</string>
+    <string name="unable_to_get_passes">Le mafai ona maua pasi ISS. Ia mautinoa o lo\'o e feso\'ota\'i ile initaneti ma toe taumafai mulimuli ane</string>
     <string name="errorNetwork">Ua tupu se mea sese e le iloa. Sese: 401</string>
     <string name="errorMap">E le mafai ona fa\'aoga tulaga ile faafanua</string>
     <string name="errorFiveTimes">Le manuia uma 5 taimi. Pe leai sau feso\'ota\'iga po\'o le \'au\'aunaga ua ova le uta.</string>
@@ -127,7 +130,7 @@
     <string name="license">Laisene tatala puna</string>
     <string name="msg_license">O lenei talosaga e fausia i le faʻaogaina o polokalame nei:</string>
     <string name="msg_about_fork_me_on_github">Tu\'u i luga ole GitHub</string>
-    <string name="msg_about_library_description">ISS Tracker o se faʻaoga Android e mafai ai e oe ona siaki le tulaga o le International Space Station ma suʻe poʻo a tagata vaalele o loʻo i ai nei i le vanimonimo.</string>
+    <string name="msg_about_library_description">ISS Tracker o se faʻaoga Android e mafai ai e oe ona siaki le tulaga o le International Space Station ma saili poʻo a tagata vaalele o loʻo i ai nei i le vanimonimo.</string>
     <string name="desc_about_app">E uiga i lenei app</string>
     <string name="msg_get_it_on_play_store">Maua ile Google Play</string>
     <string name="version">Fa\'aliliuga</string>

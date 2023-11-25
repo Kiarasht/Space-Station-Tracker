@@ -27,7 +27,7 @@
     <string name="label_stream">Jonli translatsiya</string>
 
     
-    <string name="startAlert">ISS yaqin bo\'lganda xabar bering</string>
+    <string name="startAlert">ISS yaqinida bo\'lganda xabar bering</string>
     <string name="stopAlert">ISS yaqin bo\'lganda xabar berishni to\'xtating</string>
     <string name="startFullAds">Toʻliq sahifa reklamalari yoqilgan. Qo\'llab-quvvatlaganingiz uchun rahmat;)</string>
     <string name="startBannerAds">Banner reklamalari yoqilgan. Qo\'llab-quvvatlaganingiz uchun rahmat;)</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Joylashuvingiz topilmadi.</string>
     <string name="errorPermissionLocation">Joylashuvingizga kirish taqiqlandi</string>
     <string name="errorConnection">Yoki sizda aloqa yo\'q yoki server haddan tashqari yuklangan.</string>
+    <string name="nothing_available">Hozirda joylashgan joyingiz yonida ISS yo‘laklari yo‘q</string>
+    <string name="unable_to_get_astronauts">Astronavtlarni olishning iloji yo\'q. Internetga ulanganingizga ishonch hosil qiling va keyinroq qayta urinib ko\'ring</string>
+    <string name="unable_to_get_passes">ISS chiptalarini olish imkonsiz. Internetga ulanganingizga ishonch hosil qiling va keyinroq qayta urinib ko\'ring</string>
     <string name="errorNetwork">Noma\'lum xatolik yuz berdi. Xato: 401</string>
     <string name="errorMap">Sozlamalarni xaritaga qo‘llab bo‘lmaydi</string>
     <string name="errorFiveTimes">Hammasi 5 marta muvaffaqiyatsiz bo\'ldi. Yoki sizda aloqa yo\'q yoki server haddan tashqari yuklangan.</string>
@@ -103,7 +106,7 @@
     <string name="errorNotByMe">ISS xabarnomasi siz tomonidan toʻxtatilmagan.</string>
     <string name="errorNoWiki">wiki sahifasiga ega emas</string>
     <string name="errorNoTwitter">Twitter akkaunti yo\'q</string>
-    <string name="errorNoInstagram">Instagram hisobiga ega emas</string>
+    <string name="errorNoInstagram">Instagram akkauntiga ega emas</string>
     <string name="errorNoFacebook">Facebook akkaunti yo\'q</string>
     <string name="data_corrupted">Ilova maʼlumotlari buzilgan. Qayta tiklanmoqda!</string>
     <string name="polyError">Bashorat chizig‘ini yaratib bo‘lmadi</string>

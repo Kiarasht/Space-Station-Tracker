@@ -82,7 +82,7 @@
     <string name="textHighlightSummary">Wijzig de omtrekkleur van tekstwaarden</string>
 
     <string name="notificationTitle">ISS-melding</string>
-    <string name="notificationSummary">Geef een seintje wanneer het ISS naar verwachting over mijn locatie zal vliegen</string>
+    <string name="notificationSummary">Geef een seintje wanneer ISS naar verwachting over mijn locatie zal vliegen</string>
 
     <string name="advertisementTitle">Banier</string>
     <string name="advertisementSummary">Schakel banneradvertenties in de app uit</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Kan uw locatie niet vinden.</string>
     <string name="errorPermissionLocation">Toegang tot uw locatie geweigerd</string>
     <string name="errorConnection">Ofwel heb je geen verbinding, ofwel is de server overbelast.</string>
+    <string name="nothing_available">Er zijn momenteel geen ISS-passen langs uw locatie</string>
+    <string name="unable_to_get_astronauts">Kan geen astronauten krijgen. Zorg ervoor dat je verbonden bent met internet en probeer het later opnieuw</string>
+    <string name="unable_to_get_passes">Kan geen ISS-pasjes krijgen. Zorg ervoor dat je verbonden bent met internet en probeer het later opnieuw</string>
     <string name="errorNetwork">Er is een onbekende fout opgetreden. Fout: 401</string>
     <string name="errorMap">Kan instellingen niet op de kaart toepassen</string>
     <string name="errorFiveTimes">Alle 5 keer mislukt. Ofwel heb je geen verbinding, ofwel is de server overbelast.</string>

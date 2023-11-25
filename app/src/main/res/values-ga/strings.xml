@@ -95,6 +95,9 @@
     <string name="errorLocation">Ní féidir do shuíomh a aimsiú.</string>
     <string name="errorPermissionLocation">Diúltaíodh rochtain ar do shuíomh</string>
     <string name="errorConnection">Níl aon nasc agat nó tá an freastalaí ró-ualaithe.</string>
+    <string name="nothing_available">Níl aon phasanna ISS ag do shuíomh faoi láthair</string>
+    <string name="unable_to_get_astronauts">Ní féidir spásairí a fháil. Déan cinnte go bhfuil tú ceangailte leis an idirlíon agus bain triail eile as ar ball</string>
+    <string name="unable_to_get_passes">Ní féidir pasanna ISS a fháil. Déan cinnte go bhfuil tú ceangailte leis an idirlíon agus bain triail eile as ar ball</string>
     <string name="errorNetwork">Tharla earráid anaithnid. Earráid: 401</string>
     <string name="errorMap">Ní féidir socruithe a chur i bhfeidhm ar an léarscáil</string>
     <string name="errorFiveTimes">Theip ar gach 5 huaire. Níl aon nasc agat nó tá an freastalaí ró-ualaithe.</string>

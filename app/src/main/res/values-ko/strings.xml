@@ -10,7 +10,7 @@
     <string name="help_title">돕다</string>
 
     
-    <string name="flybys_summary">ISS가 언제 당신의 위치를 ​​지나갈지 확인하세요</string>
+    <string name="flybys_summary">ISS가 언제 당신의 위치를 ​​지나갈지 확인하세요.</string>
     <string name="space_summary">지금 우주에 누가 있는지 확인하세요</string>
     <string name="settings_summary">일반 앱 설정 관리</string>
     <string name="help_summary">앱을 평가하거나 앱에 대해 알아보세요.</string>
@@ -95,12 +95,15 @@
     <string name="errorLocation">귀하의 위치를 ​​찾을 수 없습니다.</string>
     <string name="errorPermissionLocation">귀하의 위치에 대한 액세스가 거부되었습니다.</string>
     <string name="errorConnection">연결이 없거나 서버가 과부하되었습니다.</string>
+    <string name="nothing_available">현재 귀하의 위치에는 ISS 패스가 없습니다.</string>
+    <string name="unable_to_get_astronauts">우주비행사를 구할 수 없습니다. 인터넷에 연결되어 있는지 확인하고 나중에 다시 시도하세요.</string>
+    <string name="unable_to_get_passes">ISS 패스를 얻을 수 없습니다. 인터넷에 연결되어 있는지 확인하고 나중에 다시 시도하세요.</string>
     <string name="errorNetwork">알 수 없는 오류가 발생했습니다. 오류: 401</string>
     <string name="errorMap">지도에 설정을 적용할 수 없습니다.</string>
     <string name="errorFiveTimes">5번 모두 실패했습니다. 연결이 없거나 서버가 과부하되었습니다.</string>
     <string name="errorLessFive">서버에 대한 요청이 실패했습니다. 재시도 중…</string>
     <string name="errorWaitPoly">이미 예측선을 생성 중입니다.</string>
-    <string name="errorNotByMe">ISS 알림은 귀하에 의해 중지되지 않았습니다.</string>
+    <string name="errorNotByMe">ISS 알림은 귀하에 의해 중단되지 않았습니다.</string>
     <string name="errorNoWiki">위키 페이지가 없습니다</string>
     <string name="errorNoTwitter">트위터 계정이 없습니다</string>
     <string name="errorNoInstagram">인스타그램 계정이 없습니다</string>

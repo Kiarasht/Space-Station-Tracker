@@ -1,6 +1,6 @@
 <resources>
     
-    <string name="app_name">Gjurmuesi ISS</string>
+    <string name="app_name">Gjurmues ISS</string>
 
     
     <string name="map_activity">Harta</string>
@@ -79,7 +79,7 @@
     <string name="textSummary">Ndryshoni ngjyrën e vlerave të tekstit</string>
 
     <string name="textHighlightTitle">Përvijimi i tekstit</string>
-    <string name="textHighlightSummary">Ndryshoni ngjyrën e konturit të vlerave të tekstit</string>
+    <string name="textHighlightSummary">Ndryshoni ngjyrën e skicës së vlerave të tekstit</string>
 
     <string name="notificationTitle">Njoftimi ISS</string>
     <string name="notificationSummary">Njoftoni kur ISS pritet të fluturojë mbi vendndodhjen time</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Vendndodhja juaj nuk mund të gjendet.</string>
     <string name="errorPermissionLocation">U refuzua qasja në vendndodhjen tuaj</string>
     <string name="errorConnection">Ose nuk keni lidhje ose serveri është i mbingarkuar.</string>
+    <string name="nothing_available">Nuk ka leje ISS pranë vendndodhjes tuaj në këtë moment</string>
+    <string name="unable_to_get_astronauts">Në pamundësi për të marrë astronautë. Sigurohuni që jeni lidhur me internetin dhe provoni përsëri më vonë</string>
+    <string name="unable_to_get_passes">Në pamundësi për të marrë lejet e ISS. Sigurohuni që jeni lidhur me internetin dhe provoni përsëri më vonë</string>
     <string name="errorNetwork">Një gabim i panjohur ka ndodhur. Gabim: 401</string>
     <string name="errorMap">Nuk mund të aplikohen cilësimet në hartë</string>
     <string name="errorFiveTimes">Dështoi të gjitha 5 herë. Ose nuk keni lidhje ose serveri është i mbingarkuar.</string>

@@ -15,7 +15,7 @@ public class Astronaut {
     private final int launchDate;
     private final String role;
     private final String location;
-    private final String bio;
+    private String bio;
     private final String wiki;
     private final String twitter;
     private final String facebook;
@@ -121,6 +121,13 @@ public class Astronaut {
      */
     public String getBio() {
         return bio;
+    }
+
+    /**
+     * Sets bio.
+     */
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     /**

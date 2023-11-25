@@ -95,6 +95,9 @@
     <string name="errorLocation">Ha re khone ho fumana sebaka sa hau.</string>
     <string name="errorPermissionLocation">E hanetsoe ho fumana sebaka sa hau</string>
     <string name="errorConnection">Mohlomong ha u na khokahanyo kapa seva e tletse.</string>
+    <string name="nothing_available">Ha ho na ISS e fetang sebakeng sa hau ka nako ena</string>
+    <string name="unable_to_get_astronauts">Ha e khone ho fumana litsebi tsa linaleli. Netefatsa hore o hoketswe inthaneteng mme o leke hape hamorao</string>
+    <string name="unable_to_get_passes">Ha e khone ho fumana lipasa tsa ISS. Netefatsa hore o hoketswe inthaneteng mme o leke hape hamorao</string>
     <string name="errorNetwork">Phoso e sa tsejoeng e etsahetse. Phoso: 401</string>
     <string name="errorMap">Ha e khone ho kenya litlhophiso \'mapeng</string>
     <string name="errorFiveTimes">E hlotsoe makhetlo a 5 kaofela. Mohlomong ha u na khokahanyo kapa seva e tletse.</string>

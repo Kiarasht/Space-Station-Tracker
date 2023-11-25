@@ -95,6 +95,9 @@
     <string name="errorLocation">Kan ikke finde din placering.</string>
     <string name="errorPermissionLocation">Nægtet adgang til din placering</string>
     <string name="errorConnection">Enten har du ingen forbindelse, eller også er serveren overbelastet.</string>
+    <string name="nothing_available">Der er ingen ISS-pas forbi din placering på nuværende tidspunkt</string>
+    <string name="unable_to_get_astronauts">Ude af stand til at få fat i astronauter. Sørg for, at du har forbindelse til internettet, og prøv igen senere</string>
+    <string name="unable_to_get_passes">Kan ikke få ISS-pas. Sørg for, at du har forbindelse til internettet, og prøv igen senere</string>
     <string name="errorNetwork">En ukendt fejl er sket. Fejl: 401</string>
     <string name="errorMap">Kan ikke anvende indstillinger på kortet</string>
     <string name="errorFiveTimes">Mislykkedes alle 5 gange. Enten har du ingen forbindelse, eller også er serveren overbelastet.</string>

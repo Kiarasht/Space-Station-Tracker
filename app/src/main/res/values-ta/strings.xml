@@ -29,7 +29,7 @@
     
     <string name="startAlert">ISS அருகில் இருக்கும்போது தெரிவிக்கவும்</string>
     <string name="stopAlert">ISS அருகில் இருக்கும்போது அறிவிப்பதை நிறுத்துங்கள்</string>
-    <string name="startFullAds">முழுப் பக்க விளம்பரங்கள் இயக்கப்பட்டன. ஆதரவுக்கு நன்றி ;)</string>
+    <string name="startFullAds">முழு பக்க விளம்பரங்கள் இயக்கப்பட்டன. ஆதரவுக்கு நன்றி ;)</string>
     <string name="startBannerAds">பேனர் விளம்பரங்கள் இயக்கப்பட்டன. ஆதரவுக்கு நன்றி ;)</string>
 
     
@@ -39,7 +39,7 @@
     <string name="checkerContentDescription">ஐகான் ஒரு வெளிப்படையான நிறம் தேர்ந்தெடுக்கப்பட்டதைக் குறிக்கிறது</string>
     <string name="countryFlagContentDescription">இந்த விண்வெளி வீரர் நாட்டுக் கொடியை சேர்ந்தவர்</string>
     <string name="astronautTwitterContentDescription">விண்வெளி வீரர்களின் ட்விட்டர் பக்கத்துடன் இணைக்கும் ஐகான்</string>
-    <string name="astronautWikiContentDescription">விண்வெளி வீரர்களின் விக்கி பக்கத்தை இணைக்கும் ஐகான்</string>
+    <string name="astronautWikiContentDescription">விண்வெளி வீரர்களின் விக்கி பக்கத்துடன் இணைக்கும் ஐகான்</string>
     <string name="astronautGoogleContentDescription">விண்வெளி வீரர்களின் கூகுள் தேடல் பக்கத்துடன் இணைப்பதற்கான ஐகான்</string>
 
     
@@ -95,6 +95,9 @@
     <string name="errorLocation">உங்கள் இருப்பிடத்தைக் கண்டறிய முடியவில்லை.</string>
     <string name="errorPermissionLocation">உங்கள் இருப்பிடத்திற்கான அணுகல் மறுக்கப்பட்டது</string>
     <string name="errorConnection">உங்களிடம் இணைப்பு இல்லை அல்லது சர்வர் ஓவர்லோட் ஆக உள்ளது.</string>
+    <string name="nothing_available">இந்த நேரத்தில் உங்கள் இருப்பிடத்தில் ISS பாஸ்கள் எதுவும் இல்லை</string>
+    <string name="unable_to_get_astronauts">விண்வெளி வீரர்களைப் பெற முடியவில்லை. நீங்கள் இணையத்துடன் இணைக்கப்பட்டுள்ளதை உறுதிசெய்து, பிறகு மீண்டும் முயற்சிக்கவும்</string>
+    <string name="unable_to_get_passes">ISS பாஸ்களைப் பெற முடியவில்லை. நீங்கள் இணையத்துடன் இணைக்கப்பட்டுள்ளதை உறுதிசெய்து, பிறகு மீண்டும் முயற்சிக்கவும்</string>
     <string name="errorNetwork">அறியாத தவறு ஒன்று நிகழ்ந்து உள்ளது. பிழை: 401</string>
     <string name="errorMap">வரைபடத்தில் அமைப்புகளைப் பயன்படுத்த முடியாது</string>
     <string name="errorFiveTimes">5 முறையும் தோல்வி. உங்களிடம் இணைப்பு இல்லை அல்லது சர்வர் ஓவர்லோட் ஆக உள்ளது.</string>
@@ -126,7 +129,7 @@
 
     <string name="license">திறந்த மூல உரிமங்கள்</string>
     <string name="msg_license">இந்தப் பயன்பாடு பின்வரும் மென்பொருளைப் பயன்படுத்தி உருவாக்கப்பட்டுள்ளது:</string>
-    <string name="msg_about_fork_me_on_github">அதை கிட்ஹப்பில் ஃபோர்க் செய்யவும்</string>
+    <string name="msg_about_fork_me_on_github">GitHub இல் ஃபோர்க் செய்யவும்</string>
     <string name="msg_about_library_description">ISS டிராக்கர் என்பது ஒரு ஆண்ட்ராய்டு பயன்பாடாகும், இது சர்வதேச விண்வெளி நிலையத்தின் நிலையைக் கண்காணிக்கவும், விண்வெளியில் தற்போது விண்வெளி வீரர்கள் என்ன என்பதைக் கண்டறியவும் உங்களை அனுமதிக்கிறது.</string>
     <string name="desc_about_app">இந்த பயன்பாட்டைப் பற்றி</string>
     <string name="msg_get_it_on_play_store">அதை Google Play இல் பெறவும்</string>

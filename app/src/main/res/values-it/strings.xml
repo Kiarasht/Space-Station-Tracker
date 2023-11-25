@@ -95,6 +95,9 @@
     <string name="errorLocation">Impossibile trovare la tua posizione.</string>
     <string name="errorPermissionLocation">Accesso negato alla tua posizione</string>
     <string name="errorConnection">O non hai connessione o il server è sovraccarico.</string>
+    <string name="nothing_available">Al momento non sono disponibili pass ISS per la tua posizione</string>
+    <string name="unable_to_get_astronauts">Impossibile ottenere gli astronauti. Assicurati di essere connesso a Internet e riprova più tardi</string>
+    <string name="unable_to_get_passes">Impossibile ottenere i pass ISS. Assicurati di essere connesso a Internet e riprova più tardi</string>
     <string name="errorNetwork">Si è verificato un errore sconosciuto. Errore: 401</string>
     <string name="errorMap">Impossibile applicare le impostazioni alla mappa</string>
     <string name="errorFiveTimes">Fallito tutte e 5 le volte. O non hai connessione o il server è sovraccarico.</string>

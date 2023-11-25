@@ -10,7 +10,7 @@
     <string name="help_title">ಸಹಾಯ</string>
 
     
-    <string name="flybys_summary">ನಿಮ್ಮ ಸ್ಥಳದಿಂದ ISS ಯಾವಾಗ ಹಾದುಹೋಗುತ್ತದೆ ಎಂಬುದನ್ನು ಪರಿಶೀಲಿಸಿ</string>
+    <string name="flybys_summary">ISS ನಿಮ್ಮ ಸ್ಥಳದಿಂದ ಯಾವಾಗ ಹಾದುಹೋಗುತ್ತದೆ ಎಂಬುದನ್ನು ಪರಿಶೀಲಿಸಿ</string>
     <string name="space_summary">ಇದೀಗ ಬಾಹ್ಯಾಕಾಶದಲ್ಲಿ ಯಾರಿದ್ದಾರೆ ಎಂಬುದನ್ನು ನೋಡಿ</string>
     <string name="settings_summary">ಸಾಮಾನ್ಯ ಅಪ್ಲಿಕೇಶನ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ನಿರ್ವಹಿಸಿ</string>
     <string name="help_summary">ರೇಟ್ ಮಾಡಿ ಅಥವಾ ಅಪ್ಲಿಕೇಶನ್ ಬಗ್ಗೆ ತಿಳಿಯಿರಿ</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಹುಡುಕಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.</string>
     <string name="errorPermissionLocation">ನಿಮ್ಮ ಸ್ಥಳಕ್ಕೆ ಪ್ರವೇಶವನ್ನು ನಿರಾಕರಿಸಲಾಗಿದೆ</string>
     <string name="errorConnection">ನೀವು ಯಾವುದೇ ಸಂಪರ್ಕವನ್ನು ಹೊಂದಿಲ್ಲ ಅಥವಾ ಸರ್ವರ್ ಓವರ್‌ಲೋಡ್ ಆಗಿದೆ.</string>
+    <string name="nothing_available">ಈ ಸಮಯದಲ್ಲಿ ನಿಮ್ಮ ಸ್ಥಳದಿಂದ ಯಾವುದೇ ISS ಪಾಸ್‌ಗಳಿಲ್ಲ</string>
+    <string name="unable_to_get_astronauts">ಗಗನಯಾತ್ರಿಗಳನ್ನು ಪಡೆಯಲು ಸಾಧ್ಯವಿಲ್ಲ. ನೀವು ಇಂಟರ್ನೆಟ್‌ಗೆ ಸಂಪರ್ಕ ಹೊಂದಿರುವಿರಾ ಎಂಬುದನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ ಮತ್ತು ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
+    <string name="unable_to_get_passes">ISS ಪಾಸ್‌ಗಳನ್ನು ಪಡೆಯಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ. ನೀವು ಇಂಟರ್ನೆಟ್‌ಗೆ ಸಂಪರ್ಕ ಹೊಂದಿರುವಿರಾ ಎಂಬುದನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ ಮತ್ತು ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
     <string name="errorNetwork">ಅಜ್ಞಾತ ದೋಷ ಸಂಭವಿಸಿದೆ. ದೋಷ: 401</string>
     <string name="errorMap">ನಕ್ಷೆಗೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಅನ್ವಯಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ</string>
     <string name="errorFiveTimes">ಎಲ್ಲಾ 5 ಬಾರಿ ವಿಫಲವಾಗಿದೆ. ನೀವು ಯಾವುದೇ ಸಂಪರ್ಕವನ್ನು ಹೊಂದಿಲ್ಲ ಅಥವಾ ಸರ್ವರ್ ಓವರ್‌ಲೋಡ್ ಆಗಿದೆ.</string>

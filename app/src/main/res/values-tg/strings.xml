@@ -39,7 +39,7 @@
     <string name="checkerContentDescription">Нишона нишон медиҳад, ки ранги шаффоф интихоб шудааст</string>
     <string name="countryFlagContentDescription">Парчами кишвар ин астронавт аз</string>
     <string name="astronautTwitterContentDescription">Нишона барои истинод ба саҳифаи кайҳоннавардон дар Твиттер</string>
-    <string name="astronautWikiContentDescription">Нишона барои истинод ба саҳифаи викии кайҳоннавардон</string>
+    <string name="astronautWikiContentDescription">Нишона барои истинод ба саҳифаи вики астронавтҳо</string>
     <string name="astronautGoogleContentDescription">Нишона барои истинод ба саҳифаи ҷустуҷӯи кайҳоннавардон дар Google</string>
 
     
@@ -95,6 +95,9 @@
     <string name="errorLocation">Ҷойгиршавии шуморо пайдо карда натавонист.</string>
     <string name="errorPermissionLocation">Дастрасӣ ба макони шумо рад карда шуд</string>
     <string name="errorConnection">Ё шумо пайваст надоред ё сервер пурбор шудааст.</string>
+    <string name="nothing_available">Дар айни замон дар назди макони шумо гузаргоҳи ISS вуҷуд надорад</string>
+    <string name="unable_to_get_astronauts">Кайхоннавардонро гирифтан мумкин нест. Боварӣ ҳосил кунед, ки шумо ба интернет пайвастед ва дертар аз нав кӯшиш кунед</string>
+    <string name="unable_to_get_passes">Тавассути ISS гирифтан имконнопазир аст. Боварӣ ҳосил кунед, ки шумо ба интернет пайвастед ва дертар аз нав кӯшиш кунед</string>
     <string name="errorNetwork">Хатогии номаълум рух дод. Хатогӣ: 401</string>
     <string name="errorMap">Танзимотҳоро ба харита татбиқ кардан мумкин нест</string>
     <string name="errorFiveTimes">Ҳама 5 маротиба ноком шуд. Ё шумо пайваст надоред ё сервер пурбор шудааст.</string>
@@ -109,7 +112,7 @@
     <string name="polyError">Дар сохтани хати пешгӯӣ имконнопазир аст</string>
     <string name="calendar">Тақвим</string>
     <string name="share">Мубодила</string>
-    <string name="image_content">Тасвири харита бо аломати ҷойгиршавии корбар.</string>
+    <string name="image_content">Тасвири харита бо маркер барои ҷойгиршавии корбар.</string>
     <string name="iss_sighting_share_title">Нигоҳдории ISS</string>
     <string name="iss_sighting_share_description">ISS дар ин ҷо намоён хоҳад шуд. Меравед онро тафтиш кунед!</string>
     <string name="iss_sighting_share_body">\"Инро санҷед! ISS дар он намоён хоҳад шуд \"</string>

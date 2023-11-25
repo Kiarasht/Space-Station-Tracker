@@ -27,7 +27,7 @@
     <string name="label_stream">Tiesiogiai</string>
 
     
-    <string name="startAlert">Pranešti, kai ISS yra arti</string>
+    <string name="startAlert">Pranešti, kai ISS yra šalia</string>
     <string name="stopAlert">Nustokite pranešti, kai ISS yra arti</string>
     <string name="startFullAds">Viso puslapio skelbimai įjungti. Ačiū už palaikymą ;)</string>
     <string name="startBannerAds">Reklamjuostės įjungtos. Ačiū už palaikymą ;)</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Nepavyko rasti jūsų vietos.</string>
     <string name="errorPermissionLocation">Prieiga prie jūsų vietos uždrausta</string>
     <string name="errorConnection">Arba neturite ryšio, arba serveris perkrautas.</string>
+    <string name="nothing_available">Šiuo metu nėra TKS leidimų pro jūsų vietą</string>
+    <string name="unable_to_get_astronauts">Nepavyko gauti astronautų. Įsitikinkite, kad esate prisijungę prie interneto, ir vėliau bandykite dar kartą</string>
+    <string name="unable_to_get_passes">Nepavyko gauti ISS leidimų. Įsitikinkite, kad esate prisijungę prie interneto, ir vėliau bandykite dar kartą</string>
     <string name="errorNetwork">Įvyko nežinoma klaida. Klaida: 401</string>
     <string name="errorMap">Žemėlapiui negalima pritaikyti nustatymų</string>
     <string name="errorFiveTimes">Nepavyko visus 5 kartus. Arba neturite ryšio, arba serveris perkrautas.</string>

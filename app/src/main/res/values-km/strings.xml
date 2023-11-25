@@ -95,6 +95,9 @@
     <string name="errorLocation">មិនអាចស្វែងរកទីតាំងរបស់អ្នកបានទេ។</string>
     <string name="errorPermissionLocation">បានបដិសេធការចូលទៅកាន់ទីតាំងរបស់អ្នក។</string>
     <string name="errorConnection">ទាំងអ្នកមិនមានការតភ្ជាប់ ឬម៉ាស៊ីនមេផ្ទុកលើសទម្ងន់។</string>
+    <string name="nothing_available">មិនមាន ISS ឆ្លងកាត់ទីតាំងរបស់អ្នកនៅពេលនេះទេ។</string>
+    <string name="unable_to_get_astronauts">មិនអាចទទួលបានអវកាសយានិក។ ត្រូវប្រាកដថាអ្នកបានភ្ជាប់អ៊ីនធឺណិត ហើយព្យាយាមម្តងទៀតនៅពេលក្រោយ</string>
+    <string name="unable_to_get_passes">មិនអាចទទួលបានសំបុត្រ ISS បានទេ។ ត្រូវប្រាកដថាអ្នកបានភ្ជាប់អ៊ីនធឺណិត ហើយព្យាយាមម្តងទៀតនៅពេលក្រោយ</string>
     <string name="errorNetwork">កំហុសមិនស្គាល់បានកើតឡើង។ កំហុស៖ ៤០១</string>
     <string name="errorMap">មិនអាចអនុវត្តការកំណត់ទៅផែនទីបានទេ។</string>
     <string name="errorFiveTimes">បរាជ័យ​ទាំង​៥​លើក។ ទាំងអ្នកមិនមានការតភ្ជាប់ ឬម៉ាស៊ីនមេផ្ទុកលើសទម្ងន់។</string>
@@ -105,7 +108,7 @@
     <string name="errorNoTwitter">មិនមានគណនី Twitter ទេ។</string>
     <string name="errorNoInstagram">មិនមានគណនី Instagram ទេ។</string>
     <string name="errorNoFacebook">មិនមានគណនី Facebook ទេ។</string>
-    <string name="data_corrupted">ទិន្នន័យកម្មវិធីត្រូវបានខូច។ កំណត់ឡើងវិញ!</string>
+    <string name="data_corrupted">ទិន្នន័យកម្មវិធីខូច។ កំណត់ឡើងវិញ!</string>
     <string name="polyError">មិនអាចបង្កើតបន្ទាត់ទស្សន៍ទាយបានទេ។</string>
     <string name="calendar">ប្រតិទិន</string>
     <string name="share">ចែករំលែក</string>
@@ -120,7 +123,7 @@
     <string name="day">\"ថ្ងៃ\"</string>
     <string name="month">\"ខែ\"</string>
     <string name="year">\"ឆ្នាំ\"</string>
-    <string name="since">\"បើកដំណើរការ\"</string>
+    <string name="since">\"បានបើកដំណើរការ\"</string>
     <string name="tutorial_one_title">ហេ៎ :)</string>
     <string name="tutorial_two_title">លក្ខណៈ​ពិសេស​ចម្បង</string>
 

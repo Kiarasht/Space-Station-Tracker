@@ -95,6 +95,9 @@
     <string name="errorLocation">Teu tiasa mendakan lokasi anjeun.</string>
     <string name="errorPermissionLocation">Ditampik aksés ka lokasi anjeun</string>
     <string name="errorConnection">Boh anjeun teu boga sambungan atawa server overloaded.</string>
+    <string name="nothing_available">Henteu aya ISS anu ngalangkungan lokasi anjeun ayeuna</string>
+    <string name="unable_to_get_astronauts">Teu bisa meunang astronot. Pastikeun anjeun nyambung ka internét sareng cobian deui engké</string>
+    <string name="unable_to_get_passes">Henteu tiasa kéngingkeun ISS pas. Pastikeun anjeun nyambung ka internét sareng cobian deui engké</string>
     <string name="errorNetwork">Aya kasalahan anu teu dipikanyaho. Kasalahan: 401</string>
     <string name="errorMap">Teu tiasa nerapkeun setélan kana peta</string>
     <string name="errorFiveTimes">Gagal sadayana 5 kali. Boh anjeun teu boga sambungan atawa server overloaded.</string>

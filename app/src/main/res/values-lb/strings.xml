@@ -95,6 +95,9 @@
     <string name="errorLocation">Kann Är Plaz net fannen.</string>
     <string name="errorPermissionLocation">Den Zougang zu Ärer Plaz verweigert</string>
     <string name="errorConnection">Entweder Dir hutt keng Verbindung oder de Server ass iwwerlaascht.</string>
+    <string name="nothing_available">Et gi keng ISS Passë vun Ärer Positioun zu dësem Zäitpunkt</string>
+    <string name="unable_to_get_astronauts">Kann net Astronauten kréien. Vergewëssert Iech datt Dir mam Internet verbonne sidd a probéiert spéider nach eng Kéier</string>
+    <string name="unable_to_get_passes">Kann net ISS Passë kréien. Vergewëssert Iech datt Dir mam Internet verbonne sidd a probéiert spéider nach eng Kéier</string>
     <string name="errorNetwork">En onbekannte Feeler ass geschitt. Feeler: 401</string>
     <string name="errorMap">Kann net Astellunge fir Kaart uwenden</string>
     <string name="errorFiveTimes">Ausgefall all 5 Mol. Entweder Dir hutt keng Verbindung oder de Server ass iwwerlaascht.</string>
@@ -103,7 +106,7 @@
     <string name="errorNotByMe">ISS Notifikatioun gouf net vun Iech gestoppt.</string>
     <string name="errorNoWiki">huet keng Wiki Säit</string>
     <string name="errorNoTwitter">huet keen Twitter Kont</string>
-    <string name="errorNoInstagram">huet keen Instagram Kont</string>
+    <string name="errorNoInstagram">huet keen Instagram Konto</string>
     <string name="errorNoFacebook">huet kee Facebook Kont</string>
     <string name="data_corrupted">App Daten sinn beschiedegt. Zerécksetzen!</string>
     <string name="polyError">Kann net eng Prognoselinn erstellen</string>

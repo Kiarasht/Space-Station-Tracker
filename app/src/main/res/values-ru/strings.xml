@@ -95,6 +95,9 @@
     <string name="errorLocation">Не удалось найти ваше местоположение.</string>
     <string name="errorPermissionLocation">Отказано в доступе к вашему местоположению</string>
     <string name="errorConnection">Либо у вас нет соединения, либо сервер перегружен.</string>
+    <string name="nothing_available">В настоящее время рядом с вашим местоположением нет проходов на МКС.</string>
+    <string name="unable_to_get_astronauts">Невозможно достать космонавтов. Убедитесь, что вы подключены к Интернету, и повторите попытку позже.</string>
+    <string name="unable_to_get_passes">Не удалось получить пропуска на МКС. Убедитесь, что вы подключены к Интернету, и повторите попытку позже.</string>
     <string name="errorNetwork">Произошла неизвестная ошибка. Ошибка: 401</string>
     <string name="errorMap">Невозможно применить настройки к карте</string>
     <string name="errorFiveTimes">Все 5 раз не получилось. Либо у вас нет соединения, либо сервер перегружен.</string>

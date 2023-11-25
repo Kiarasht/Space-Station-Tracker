@@ -33,7 +33,7 @@
     <string name="startBannerAds">Баннердик жарнамалар иштетилди. Колдоо үчүн рахмат;)</string>
 
     
-    <string name="tutorialOne">Картада ISSтин учурдагы жайгашкан жери анын кайда болоорун болжолдоо сызыгы менен көрсөтөт.</string>
+    <string name="tutorialOne">Картада ISS учурдагы жайгашкан жери анын кайда болоорун болжолдоо сызыгы менен көрсөтөт.</string>
     <string name="tutorialTwo">тартма сизди учуу жана жөндөөлөр сыяктуу башка функцияларга алып барат.</string>
     <string name="midAt">саат</string>
     <string name="checkerContentDescription">Белги тунук түс тандалып алынганын билдирет</string>
@@ -55,7 +55,7 @@
     <string name="infoSummary">Картада ISS жөнүндө кошумча маалымат бериңиз</string>
 
     <string name="mapTitle">Карта түрү</string>
-    <string name="mapSummary">Мурунку барактан картанын түрүн өзгөртүңүз</string>
+    <string name="mapSummary">Мурунку беттеги картанын түрүн өзгөртүңүз</string>
 
     <string name="decimalTitle">Ондук орундар</string>
     <string name="decimalDialogMessage">Бардык сандык маанилердин тактыгын өзгөртүү</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Жайгашкан жериңиз табылбай жатат.</string>
     <string name="errorPermissionLocation">Жайгашкан жериңизге кирүүгө тыюу салынды</string>
     <string name="errorConnection">Же сизде байланыш жок же сервер ашыкча жүктөлгөн.</string>
+    <string name="nothing_available">Учурда жайгашкан жериңиздин жанында ISS өтмөктөрү жок</string>
+    <string name="unable_to_get_astronauts">Космонавттарды ала албайбыз. Интернетке туташып турганыңызды текшерип, кийинчерээк кайра аракет кылыңыз</string>
+    <string name="unable_to_get_passes">ISS билеттерин алуу мүмкүн эмес. Интернетке туташып турганыңызды текшерип, кийинчерээк кайра аракет кылыңыз</string>
     <string name="errorNetwork">Белгисиз ката кетти. Ката: 401</string>
     <string name="errorMap">Картага орнотууларды колдонуу мүмкүн эмес</string>
     <string name="errorFiveTimes">Бардык 5 жолу ийгиликсиз болду. Же сизде байланыш жок же сервер ашыкча жүктөлгөн.</string>
@@ -106,7 +109,7 @@
     <string name="errorNoInstagram">Instagram аккаунту жок</string>
     <string name="errorNoFacebook">Facebook аккаунту жок</string>
     <string name="data_corrupted">Колдонмонун дайындары бузулган. Баштапкы абалга келтирилүүдө!</string>
-    <string name="polyError">Божомолдоо линиясын түзүү мүмкүн эмес</string>
+    <string name="polyError">Болжолдоо сызыгын түзүү мүмкүн эмес</string>
     <string name="calendar">Календар</string>
     <string name="share">Бөлүшүү</string>
     <string name="image_content">Колдонуучунун жайгашкан жери үчүн маркер менен картанын сүрөтү.</string>

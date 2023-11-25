@@ -95,6 +95,9 @@
     <string name="errorLocation">Nevar atrast jūsu atrašanās vietu.</string>
     <string name="errorPermissionLocation">Ir liegta piekļuve jūsu atrašanās vietai</string>
     <string name="errorConnection">Vai nu jums nav savienojuma, vai arī serveris ir pārslogots.</string>
+    <string name="nothing_available">Pašlaik jūsu atrašanās vietai nav ISS caurlaides</string>
+    <string name="unable_to_get_astronauts">Nevar dabūt astronautus. Pārliecinieties, vai ir izveidots savienojums ar internetu, un vēlāk mēģiniet vēlreiz</string>
+    <string name="unable_to_get_passes">Nevar iegūt ISS caurlaides. Pārliecinieties, vai ir izveidots savienojums ar internetu, un vēlāk mēģiniet vēlreiz</string>
     <string name="errorNetwork">Radās nezināma kļūda. Kļūda: 401</string>
     <string name="errorMap">Kartei nevar piemērot iestatījumus</string>
     <string name="errorFiveTimes">Visas 5 reizes neizdevās. Vai nu jums nav savienojuma, vai arī serveris ir pārslogots.</string>

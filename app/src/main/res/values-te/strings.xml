@@ -33,7 +33,7 @@
     <string name="startBannerAds">బ్యానర్ ప్రకటనలు ప్రారంభించబడ్డాయి. మద్దతు కోసం ధన్యవాదాలు;)</string>
 
     
-    <string name="tutorialOne">మ్యాప్ ISS ప్రస్తుత స్థానాన్ని అది ఎక్కడ ఉంటుందో అంచనా వేసే రేఖతో చూపుతుంది.</string>
+    <string name="tutorialOne">మ్యాప్ ISS ప్రస్తుత స్థానాన్ని అది ఎక్కడ ఉంటుందో అంచనా రేఖతో చూపుతుంది.</string>
     <string name="tutorialTwo">డ్రాయర్ మిమ్మల్ని ఫ్లైబైస్ మరియు సెట్టింగ్‌ల వంటి ఇతర ఫీచర్‌లకు తీసుకువెళుతుంది.</string>
     <string name="midAt">వద్ద</string>
     <string name="checkerContentDescription">పారదర్శక రంగు ఎంపిక చేయబడిందని చిహ్నం సూచిస్తుంది</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">మీ స్థానాన్ని కనుగొనడం సాధ్యపడలేదు.</string>
     <string name="errorPermissionLocation">మీ స్థానానికి యాక్సెస్ నిరాకరించబడింది</string>
     <string name="errorConnection">మీకు కనెక్షన్ లేదు లేదా సర్వర్ ఓవర్‌లోడ్ చేయబడింది.</string>
+    <string name="nothing_available">ఈ సమయంలో మీ స్థానానికి ISS పాస్‌లు లేవు</string>
+    <string name="unable_to_get_astronauts">వ్యోమగాములను పొందడం సాధ్యం కాలేదు. మీరు ఇంటర్నెట్‌కి కనెక్ట్ అయ్యారని నిర్ధారించుకోండి మరియు తర్వాత మళ్లీ ప్రయత్నించండి</string>
+    <string name="unable_to_get_passes">ISS పాస్‌లను పొందడం సాధ్యం కాలేదు. మీరు ఇంటర్నెట్‌కి కనెక్ట్ అయ్యారని నిర్ధారించుకోండి మరియు తర్వాత మళ్లీ ప్రయత్నించండి</string>
     <string name="errorNetwork">తెలియని లోపం ఏర్పడింది. లోపం: 401</string>
     <string name="errorMap">మ్యాప్‌కు సెట్టింగ్‌లను వర్తింపజేయడం సాధ్యం కాదు</string>
     <string name="errorFiveTimes">మొత్తం 5 సార్లు విఫలమైంది. మీకు కనెక్షన్ లేదు లేదా సర్వర్ ఓవర్‌లోడ్ చేయబడింది.</string>
@@ -106,7 +109,7 @@
     <string name="errorNoInstagram">ఇన్‌స్టాగ్రామ్ ఖాతా లేదు</string>
     <string name="errorNoFacebook">ఫేస్‌బుక్ ఖాతా లేదు</string>
     <string name="data_corrupted">యాప్ డేటా పాడైంది. రీసెట్ చేస్తోంది!</string>
-    <string name="polyError">ప్రిడిక్షన్ లైన్‌ని సృష్టించడం సాధ్యపడలేదు</string>
+    <string name="polyError">ప్రిడిక్షన్ లైన్‌ని సృష్టించడంలో సాధ్యపడలేదు</string>
     <string name="calendar">క్యాలెండర్</string>
     <string name="share">షేర్ చేయండి</string>
     <string name="image_content">వినియోగదారు స్థానం కోసం మార్కర్‌తో మ్యాప్ యొక్క చిత్రం.</string>

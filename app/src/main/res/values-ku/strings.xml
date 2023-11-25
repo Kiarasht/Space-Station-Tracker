@@ -38,7 +38,7 @@
     <string name="midAt">ba</string>
     <string name="checkerContentDescription">Icon destnîşan dike ku rengek zelal tê hilbijartin</string>
     <string name="countryFlagContentDescription">Ala welat ev astronot jê ye</string>
-    <string name="astronautTwitterContentDescription">Icon ji bo girêdana rûpela twitterê ya astronotan</string>
+    <string name="astronautTwitterContentDescription">Icon ji bo girêdana bi rûpela twitterê ya astronotan</string>
     <string name="astronautWikiContentDescription">Icon ji bo girêdana bi rûpela wiki astronotan</string>
     <string name="astronautGoogleContentDescription">Îkona ji bo girêdana bi rûpela lêgerîna astronotan a Google re</string>
 
@@ -48,8 +48,8 @@
     <string name="declination_unit">sek /nûvekirin</string>
     <string name="refreshDialogMessage">Demê di navbera ISS de ku li cîhê xwe yê nû nûve dibe.</string>
 
-    <string name="lockTitle">Girtina ISS</string>
-    <string name="lockSummary">ISS-ê kilît bikin û li ser nexşeyê bişopînin</string>
+    <string name="lockTitle">Lock ISS</string>
+    <string name="lockSummary">Li ser ISS-ê kilît bikin û li ser nexşeyê bişopînin</string>
 
     <string name="infoTitle">Additional Info</string>
     <string name="infoSummary">Li ser nexşeyê agahdariya bêtir li ser ISS peyda bikin</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Nikarin cîhê xwe bibînin.</string>
     <string name="errorPermissionLocation">Gihîştina cîhê we hate red kirin</string>
     <string name="errorConnection">An pêwendiya we tune an jî server zêde barkirî ye.</string>
+    <string name="nothing_available">Di vê demê de ti derbasgehên ISS li cihê we tune</string>
+    <string name="unable_to_get_astronauts">Nikarin astronotan bigirin. Piştrast bike ku hûn bi înternetê ve girêdayî ne û paşê dîsa biceribînin</string>
+    <string name="unable_to_get_passes">Nikarin destûrnameyên ISS bistînin. Piştrast bike ku hûn bi înternetê ve girêdayî ne û paşê dîsa biceribînin</string>
     <string name="errorNetwork">Çewtiyek nenas derket. Çewtî: 401</string>
     <string name="errorMap">Nikare mîhengan li nexşeyê bicîh bike</string>
     <string name="errorFiveTimes">Her 5 caran têk çû. An pêwendiya we tune an jî server zêde barkirî ye.</string>
@@ -106,7 +109,7 @@
     <string name="errorNoInstagram">hesabek Instagram tune</string>
     <string name="errorNoFacebook">hesabek Facebookê tune</string>
     <string name="data_corrupted">Daneyên sepanê xera bûne. Resetting!</string>
-    <string name="polyError">Di afirandina xeta pêşbîniyê de nekare</string>
+    <string name="polyError">Di afirandina xeta pêşbîniyê de nikarî</string>
     <string name="calendar">Salname</string>
     <string name="share">Par</string>
     <string name="image_content">Wêneyê nexşeyek bi nîşankerek ji bo cîhê bikarhêner.</string>
@@ -129,7 +132,7 @@
     <string name="msg_about_fork_me_on_github">Wê li ser GitHub bişkînin</string>
     <string name="msg_about_library_description">ISS Tracker serîlêdanek androidê ye ku dihêle hûn pozîsyona Stasyona Fezayê ya Navneteweyî bişopînin û fêr bibin ka astronot niha li fezayê çi ne.</string>
     <string name="desc_about_app">Li ser vê sepanê</string>
-    <string name="msg_get_it_on_play_store">Wê li Google Play-ê bistînin</string>
+    <string name="msg_get_it_on_play_store">Li Google Play-ê bistînin</string>
     <string name="version">Guhertoyên</string>
     <string name="version_msg">Lîsteya guhertin, rastkirin û nûvekirinên berê:</string>
 </resources>

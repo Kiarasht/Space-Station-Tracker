@@ -33,8 +33,8 @@
     <string name="startBannerAds">Banner reklamları aktivləşdirildi. dəstəyə görə təşəkkürlər ;)</string>
 
     
-    <string name="tutorialOne">Xəritə ISS-in cari yerini, harada olacağına dair proqnoz xətti ilə göstərir.</string>
-    <string name="tutorialTwo">Çekmece sizi uçuşlar və parametrlər kimi digər xüsusiyyətlərə aparır.</string>
+    <string name="tutorialOne">Xəritə ISS-in cari yerini, harada olacağını proqnozlaşdırma xətti ilə göstərir.</string>
+    <string name="tutorialTwo">Çekmece sizi uçuşlar və parametrlər kimi digər funksiyalara aparır.</string>
     <string name="midAt">saat</string>
     <string name="checkerContentDescription">İşarə şəffaf rəngin seçildiyini bildirir</string>
     <string name="countryFlagContentDescription">Bu astronavtın olduğu ölkə bayrağı</string>
@@ -66,8 +66,8 @@
     <string name="colorSummary">Proqnoz xətlərinin rəngini dəyişdirin</string>
 
     <string name="sizeTitle">Proqnoz xəttinin ölçüsü</string>
-    <string name="sizeDialogMessage">ISS-lərin proqnoz xəttinin ölçüsünü dəyişdirin</string>
-    <string name="sizeSummary">ISS-lərin proqnoz xəttinin ölçüsünü dəyişdirin</string>
+    <string name="sizeDialogMessage">ISS-lərin proqnozlaşdırma xəttinin ölçüsünü dəyişdirin</string>
+    <string name="sizeSummary">ISS-lərin proqnozlaşdırma xəttinin ölçüsünü dəyişdirin</string>
     <string name="sizeUnit" />
 
     <string name="textSizeTitle">Mətn ölçüsü</string>
@@ -95,6 +95,9 @@
     <string name="errorLocation">Məkanınızı tapmaq mümkün deyil.</string>
     <string name="errorPermissionLocation">Məkanınıza giriş qadağan edildi</string>
     <string name="errorConnection">Ya əlaqəniz yoxdur, ya da server həddən artıq yüklənib.</string>
+    <string name="nothing_available">Hazırda yerləşdiyiniz yerdə heç bir ISS keçidi yoxdur</string>
+    <string name="unable_to_get_astronauts">Astronavt almaq mümkün deyil. İnternetə qoşulduğunuzdan əmin olun və sonra yenidən cəhd edin</string>
+    <string name="unable_to_get_passes">ISS biletlərini əldə etmək mümkün deyil. İnternetə qoşulduğunuzdan əmin olun və sonra yenidən cəhd edin</string>
     <string name="errorNetwork">Naməlum xəta baş verib. Səhv: 401</string>
     <string name="errorMap">Parametrləri xəritəyə tətbiq etmək mümkün deyil</string>
     <string name="errorFiveTimes">Bütün 5 dəfə uğursuz oldu. Ya əlaqəniz yoxdur, ya da server həddən artıq yüklənib.</string>
