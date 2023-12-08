@@ -2,9 +2,9 @@
 <resources>
     <!-- String that are not translatable -->
     <!-- Admob -->
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~7037607031</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/8514340237</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/7680127834</string>
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~8939815838</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/4298913050</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/1377236244</string>
 
     <!-- Shared Pref -->
     <string name="firstTime" translatable="false">firstTime</string>

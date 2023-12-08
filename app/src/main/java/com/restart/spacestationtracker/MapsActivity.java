@@ -33,6 +33,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.FullScreenContentCallback;
@@ -52,7 +53,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.firebase.crash.FirebaseCrash;
+import com.google.android.ump.ConsentForm;
+import com.google.android.ump.ConsentInformation;
+import com.google.android.ump.ConsentRequestParameters;
+import com.google.android.ump.UserMessagingPlatform;
 import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomMenuButton;
@@ -66,6 +70,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Contains the google map and uses volley to grab JSON objects and display
@@ -76,6 +81,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public static final String CHANNEL_ID = "iss_notification"; // Notification for Android 8.0 and higher
     private static final String TAG = ".MapsActivity";  // Used for volley and occasional Log
 
+    private final AtomicBoolean isMobileAdsInitializeCalled = new AtomicBoolean(false);
+    private ConsentInformation consentInformation;      // Need privacy consent before showing ads
     private SharedPreferences mSharedPreferences;       // Managing options from Settings
     private BoomMenuButton mBoomMenu;                   // Manages the drawer pop menu
     private InterstitialAd mInterstitialAd;             // Managing interstitial ads with AdMob sdk
@@ -118,8 +125,47 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
         initializeVariables();
         initiateBoomMenu();
-        initializeAds();
-        //initializeNotificationChannel();
+
+        if (!mSharedPreferences.getBoolean(getString(R.string.firstTime), true)) {
+            initializeConsent();
+            if (consentInformation.canRequestAds()) {
+                initializeAds();
+            }
+        }
+    }
+
+    private void initializeConsent() {
+        ConsentRequestParameters params = new ConsentRequestParameters.Builder()
+                .setTagForUnderAgeOfConsent(false)
+                .build();
+
+        consentInformation = UserMessagingPlatform.getConsentInformation(this);
+        consentInformation.requestConsentInfoUpdate(
+                this,
+                params,
+                (ConsentInformation.OnConsentInfoUpdateSuccessListener) () -> {
+                    UserMessagingPlatform.loadAndShowConsentFormIfRequired(
+                            this,
+                            (ConsentForm.OnConsentFormDismissedListener) loadAndShowError -> {
+                                if (loadAndShowError != null) {
+                                    // Consent gathering failed.
+                                    // TODO: Report
+                                }
+
+                                if (consentInformation.canRequestAds()) {
+                                    initializeAds();
+                                }
+                            }
+                    );
+                },
+                (ConsentInformation.OnConsentInfoUpdateFailureListener) requestConsentError -> {
+                    // Consent gathering failed.
+                    // TODO: Report
+                });
+
+        if (consentInformation.canRequestAds()) {
+            initializeAds();
+        }
     }
 
     /**
@@ -191,9 +237,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      * Initialize ads when the activity is started for the first time
      */
     private void initializeAds() {
+        if (isMobileAdsInitializeCalled.getAndSet(true)) {
+            return;
+        }
+
         List<String> testDevices = new ArrayList<>();
-        testDevices.add("9D8A446B53611FCE04214236159EB750");
-        testDevices.add("54686107F6B785A3B1575E1F6E4BD613");
+        //testDevices.add("54686107F6B785A3B1575E1F6E4BD613");
         MobileAds.setRequestConfiguration(new RequestConfiguration.Builder()
                 .setTestDeviceIds(testDevices)
                 .build());
@@ -241,7 +290,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 });
 
         mAdView = findViewById(R.id.adView);
-        mAdView.loadAd(new AdRequest.Builder().build());
+        Bundle extras = new Bundle();
+        extras.putString("collapsible", "bottom");
+        mAdView.loadAd(new AdRequest.Builder().addNetworkExtrasBundle(AdMobAdapter.class, extras).build());
     }
 
     /**
@@ -284,9 +335,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mStart = true;
             mTimer = new Timer();
         }
-
-        mAdView = findViewById(R.id.adView);
-        mAdView.loadAd(new AdRequest.Builder().build());
 
         // Update the color and size of polylines if they are different in settings than what they are right now
         mCurrentColor = Color.YELLOW;
@@ -623,7 +671,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 });
             } catch (Exception e) {
                 if (mLast == null) {
-                    FirebaseCrash.report(new Exception("mLast was null"));
+                    // TODO: Report crash
                 }
                 e.printStackTrace();
             }
@@ -763,7 +811,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            if (mInterstitialAd != null && !mSharedPreferences.getBoolean("fullPage", false)) {
+            if (mInterstitialAd != null) {
                 mInterstitialAd.show(MapsActivity.this);
                 mInterstitialAdActivity = 0;
             } else {
@@ -834,7 +882,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         .lineAnimDuration(400)
                         .lineAndArcColor(Color.parseColor("#6441A5"))
                         .dismissOnTouch(true)
-                        .usageId("2").show()).show();
+                        .usageId("2")
+                        .setListener(s1 -> initializeConsent()).show()).show();
     }
 
     /**
@@ -879,40 +928,41 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      * Request for a new interstitial ad
      */
     private void requestNewInterstitial() {
-        if (!mSharedPreferences.getBoolean("fullPage", false)) {
-            // Initiate the interstitial ad and onAdClosed listener
-            InterstitialAd.load(this, getString(R.string.interstitial_ad_unit_id), new AdRequest.Builder().build(),
-                    new InterstitialAdLoadCallback() {
-                        @Override
-                        public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                            mInterstitialAd = interstitialAd;
-                            mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-                                @Override
-                                public void onAdDismissedFullScreenContent() {
-                                    requestNewInterstitial();
-                                    switch (mInterstitialAdActivity) {
-                                        case 0:
-                                            startActivity(new Intent(mContext, Locations.class));
-                                            break;
-                                        case 1:
-                                            startActivity(new Intent(mContext, PeopleInSpace.class));
-                                            break;
-                                    }
-                                }
-
-                                @Override
-                                public void onAdShowedFullScreenContent() {
-                                    mInterstitialAd = null;
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                            mInterstitialAd = null;
-                        }
-                    });
+        if (consentInformation == null || !consentInformation.canRequestAds()) {
+            return;
         }
+
+        // Initiate the interstitial ad and onAdClosed listener
+        InterstitialAd.load(this, getString(R.string.interstitial_ad_unit_id), new AdRequest.Builder().build(),
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        mInterstitialAd = interstitialAd;
+                        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                switch (mInterstitialAdActivity) {
+                                    case 0:
+                                        startActivity(new Intent(mContext, Locations.class));
+                                        break;
+                                    case 1:
+                                        startActivity(new Intent(mContext, PeopleInSpace.class));
+                                        break;
+                                }
+                            }
+
+                            @Override
+                            public void onAdShowedFullScreenContent() {
+                                mInterstitialAd = null;
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        mInterstitialAd = null;
+                    }
+                });
     }
 
     @Override
