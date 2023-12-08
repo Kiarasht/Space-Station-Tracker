@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "199927822810",
-    "project_id": "iss-tracker-3c17a",
-    "storage_bucket": "iss-tracker-3c17a.appspot.com"
+    "project_number": "689771934258",
+    "project_id": "titanium-gadget-112205",
+    "storage_bucket": "titanium-gadget-112205.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:199927822810:android:37f1c0bef15b7c93e568e3",
+        "mobilesdk_app_id": "1:689771934258:android:5940bdea7ae875001a022b",
         "android_client_info": {
           "package_name": "com.restart.spacestationtracker"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "199927822810-uqhc0m4o5jin8n8lmsvgqi4pgdulqql9.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyACiaZ5RL3bYP6sY_SL0hRqXijRZyPTOBc"
+          "current_key": "AIzaSyAtpWPhzhbtqTgofnQhAHjiG12MmrY2AAE"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "199927822810-uqhc0m4o5jin8n8lmsvgqi4pgdulqql9.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
