@@ -1,5 +1,7 @@
 <resources>
     <string-array name="version_title_list" translatable="false">
+        <item>Version: 5.15</item>
+        <item>Version: 5.14</item>
         <item>Version: 5.13</item>
         <item>Version: 5.12</item>
         <item>Version: 5.11</item>
@@ -31,6 +33,8 @@
     </string-array>
 
     <string-array name="version_list" translatable="false">
+        <item><![CDATA[- Even more general bug fixes and improvements]]></item>
+        <item><![CDATA[- More general bug fixes and improvements]]></item>
         <item><![CDATA[- General bug fixes and improvements]]></item>
         <item><![CDATA[- Fixed astronauts being outdated <br>- Translations for over 100 languages! <br>- Bug fixes & improvements]]></item>
         <item><![CDATA[- Support for Android 14 <br>- Fixed an issue with people in space showing old astronaut list <br> - Translations for few dozen languages <br> - General UI and bug improvements]]></item>
