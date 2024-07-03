@@ -1,5 +1,6 @@
 <resources>
     <string-array name="version_title_list" translatable="false">
+        <item>Version: 5.16</item>
         <item>Version: 5.15</item>
         <item>Version: 5.14</item>
         <item>Version: 5.13</item>
@@ -33,6 +34,7 @@
     </string-array>
 
     <string-array name="version_list" translatable="false">
+        <item><![CDATA[- Updated to latest libraries for better performance! ]]></item>
         <item><![CDATA[- Even more general bug fixes and improvements]]></item>
         <item><![CDATA[- More general bug fixes and improvements]]></item>
         <item><![CDATA[- General bug fixes and improvements]]></item>
