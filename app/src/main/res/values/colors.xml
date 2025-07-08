@@ -10,4 +10,5 @@
     <color name="gray600">#757575</color>
     <color name="light_gray">#EAEAEA</color>
     <color name="locationBar">#CC6441A5</color>
+    <color name="transparent">#00000000</color>
 </resources>

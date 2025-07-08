@@ -19,8 +19,6 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.restart.spacestationtracker.adapter.PeopleInSpaceAdapter;
 import com.restart.spacestationtracker.data.Astronaut;
 
@@ -34,15 +32,12 @@ import java.util.List;
 
 public class PeopleInSpace extends AppCompatActivity {
     private final String PEOPLE_URL = "https://corquaid.github.io/international-space-station-APIs/JSON/people-in-space.json";
-    //private final String PEOPLE_URL = "https://raw.githubusercontent.com/Kiarasht/international-space-station-APIs/main/JSON/people-in-space.json";
     private final String BIO_URL = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=";
     private PeopleInSpaceAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private RequestQueue mRequestQueue;
     private LottieAnimationView animation;
-    private AdView adView;
     private TextView errors;
-    private boolean mPaddingOnce;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,40 +50,6 @@ public class PeopleInSpace extends AppCompatActivity {
 
         animation = findViewById(R.id.animation_view);
         errors = findViewById(R.id.errors);
-        adView = findViewById(R.id.adView);
-        adView.loadAd(new AdRequest.Builder().build());
-        adView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            if (!mPaddingOnce) {
-                mPaddingOnce = true;
-                mRecyclerView.setPadding(mRecyclerView.getPaddingLeft(), mRecyclerView.getPaddingTop(), mRecyclerView.getPaddingRight(), mRecyclerView.getPaddingBottom() + adView.getHeight());
-            }
-        });
-    }
-
-    /**
-     * Cancel any request on Volley after user goes to another activity.
-     */
-    protected void onPause() {
-        super.onPause();
-        if (adView != null) {
-            adView.pause();
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (adView != null) {
-            adView.resume();
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        if (adView != null) {
-            adView.destroy();
-        }
-        super.onDestroy();
     }
 
     private void onSuccessResult(List<Astronaut> peopleInSpace) {

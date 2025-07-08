@@ -53,6 +53,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.ump.ConsentDebugSettings;
 import com.google.android.ump.ConsentForm;
 import com.google.android.ump.ConsentInformation;
 import com.google.android.ump.ConsentRequestParameters;
@@ -290,9 +291,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 });
 
         mAdView = findViewById(R.id.adView);
-        Bundle extras = new Bundle();
-        extras.putString("collapsible", "bottom");
-        mAdView.loadAd(new AdRequest.Builder().addNetworkExtrasBundle(AdMobAdapter.class, extras).build());
+        mAdView.loadAd(new AdRequest.Builder().build());
     }
 
     /**
