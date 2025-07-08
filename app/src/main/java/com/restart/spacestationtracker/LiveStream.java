@@ -24,7 +24,7 @@ public class LiveStream extends Activity {
         mWebView = findViewById(R.id.webView);
 
         if (mWebView != null) {
-            mWebView.loadUrl("https://www.youtube.com/embed/P9C25Un7xaM");
+            mWebView.loadUrl("https://www.youtube.com/embed/DIgkvm2nmHc");
             mWebView.getSettings().setJavaScriptEnabled(true);
             mWebView.setVerticalScrollBarEnabled(false);
 

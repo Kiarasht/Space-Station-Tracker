@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.restart.spacestationtracker.R;
@@ -51,8 +53,8 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(view);
             mDate = view.findViewById(R.id.date);
             mDuration = view.findViewById(R.id.duration);
-            Button mCalendar = view.findViewById(R.id.calendarButton);
-            Button mShare = view.findViewById(R.id.shareButton);
+            ImageButton mCalendar = view.findViewById(R.id.calendarButton);
+            ImageButton mShare = view.findViewById(R.id.shareButton);
             mCalendar.setOnClickListener(this);
             mShare.setOnClickListener(this);
         }

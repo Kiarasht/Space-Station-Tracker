@@ -45,7 +45,7 @@
         ads:layout_constraintStart_toStartOf="@id/animation_view"
         ads:layout_constraintTop_toBottomOf="@id/animation_view"
         tools:visibility="visible" />
-
+<!--
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="match_parent"
@@ -56,6 +56,6 @@
         ads:adUnitId="@string/banner_ad_unit_id"
         ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintStart_toStartOf="parent" />
+        ads:layout_constraintStart_toStartOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

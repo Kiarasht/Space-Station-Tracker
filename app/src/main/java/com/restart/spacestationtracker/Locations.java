@@ -8,7 +8,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -25,8 +24,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.restart.spacestationtracker.adapter.LocationAdapter;
 import com.restart.spacestationtracker.data.SightSee;
@@ -60,7 +57,6 @@ public class Locations extends AppCompatActivity {
     private String mElevation;
     private CollapsingToolbarLayout mCollapsingToolbar;
     private ProgressBar mLoading;
-    private boolean mPaddingOnce;
 
     /**
      * Assign simple widgets while also use the Google API to get user's location.
@@ -78,16 +74,6 @@ public class Locations extends AppCompatActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView = findViewById(R.id.recycler);
-
-        AdView mAdView = findViewById(R.id.adView);
-        mAdView.loadAd(new AdRequest.Builder().build());
-        mAdView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            if (!mPaddingOnce) {
-                mPaddingOnce = true;
-                DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
-                mRecyclerView.setPadding(mRecyclerView.getPaddingLeft(), mRecyclerView.getPaddingTop(), mRecyclerView.getPaddingRight(), mRecyclerView.getPaddingBottom() + mAdView.getHeight() + mToolbar.getHeight() + (int) ((48 * displayMetrics.density) + 0.5));
-            }
-        });
 
         mImageView = findViewById(R.id.image);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -134,6 +120,10 @@ public class Locations extends AppCompatActivity {
 
         // If we got something back start parsing
         if (location != null) {
+            mLatitude = String.valueOf(location.getLatitude());
+            mLongitude = String.valueOf(location.getLongitude());
+            mElevation = String.valueOf(location.getAltitude());
+
             String url = "https://maps.googleapis.com/maps/api/staticmap?" +
                     "center=LAT,LNG&" +
                     "zoom=10&" +
@@ -146,11 +136,9 @@ public class Locations extends AppCompatActivity {
                     "style=feature:transit|visibility:off&" +
                     "style=feature:administrative.province|visibility:off&" +
                     "style=feature:administrative.neighborhood|visibility:off&" +
+                    "markers=color:red%7C" + mLatitude + "," + mLongitude + "&markers=size:tiny&" +
                     "key=AIzaSyAtpWPhzhbtqTgofnQhAHjiG12MmrY2AAE";
 
-            mLatitude = String.valueOf(location.getLatitude());
-            mLongitude = String.valueOf(location.getLongitude());
-            mElevation = String.valueOf(location.getAltitude());
             url = url.replace("LAT", mLatitude);
             url = url.replace("LNG", mLongitude);
 
