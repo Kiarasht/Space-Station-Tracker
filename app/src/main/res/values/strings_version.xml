@@ -36,7 +36,7 @@
     </string-array>
 
     <string-array name="version_list" translatable="false">
-        <item><![CDATA[- Fixed live stream link <br>- Reduced ads interruptions <br>- Bug fixes & improvements]]></item>
+        <item><![CDATA[- Fixed live stream link <br>- Fix for Android 15 <br>- Reduced ads interruptions <br>- Bug fixes & improvements]]></item>
         <item><![CDATA[- Few bugs & improvements! ]]></item>
         <item><![CDATA[- Updated to latest libraries for better performance! ]]></item>
         <item><![CDATA[- Even more general bug fixes and improvements]]></item>
