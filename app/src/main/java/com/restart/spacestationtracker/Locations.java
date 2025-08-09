@@ -3,6 +3,7 @@ package com.restart.spacestationtracker;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -13,9 +14,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +30,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.appbar.AppBarLayout;
 import com.restart.spacestationtracker.adapter.LocationAdapter;
 import com.restart.spacestationtracker.data.SightSee;
 
@@ -55,7 +61,6 @@ public class Locations extends AppCompatActivity {
     private String mLongitude;
     private String mLatitude;
     private String mElevation;
-    private CollapsingToolbarLayout mCollapsingToolbar;
     private ProgressBar mLoading;
 
     /**
@@ -65,26 +70,39 @@ public class Locations extends AppCompatActivity {
      */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        boolean isNightMode = currentNightMode == Configuration.UI_MODE_NIGHT_YES;
+
+        WindowInsetsControllerCompat windowInsetsController = WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+        windowInsetsController.setAppearanceLightStatusBars(!isNightMode);
         setContentView(R.layout.locations_layout);
-        Toolbar mToolbar = findViewById(R.id.toolbar);
-        mToolbar.setNavigationIcon(R.drawable.ic_menu_home);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+        View container = findViewById(R.id.container);
+        mImageView = findViewById(R.id.image);
+        mRecyclerView = findViewById(R.id.recycler);
+        mLoading = findViewById(R.id.location_loading);
+        AppBarLayout appBarLayout = findViewById(R.id.app_bar);
+
+        ViewCompat.setOnApplyWindowInsetsListener(container, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+
+            appBarLayout.setPadding(insets.left, 0, insets.right, 0);
+
+            mRecyclerView.setPadding(mRecyclerView.getPaddingLeft(),
+                    mRecyclerView.getPaddingTop(),
+                    mRecyclerView.getPaddingRight(),
+                    insets.bottom);
+
+            return WindowInsetsCompat.CONSUMED;
+        });
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mRecyclerView = findViewById(R.id.recycler);
-
-        mImageView = findViewById(R.id.image);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setNestedScrollingEnabled(true);
         mRecyclerView.setVisibility(View.GONE);
-        mCollapsingToolbar = findViewById(R.id.collapsing_toolbar);
-        mCollapsingToolbar.setTitle(getString(R.string.flybys_title));
 
-        mLoading = findViewById(R.id.location_loading);
-
-        // mRecyclerViewBackground makes RecyclerView's background except header view.
         requestQueue = Volley.newRequestQueue(this);
         Connected();
     }
@@ -124,48 +142,15 @@ public class Locations extends AppCompatActivity {
             mLongitude = String.valueOf(location.getLongitude());
             mElevation = String.valueOf(location.getAltitude());
 
-            String url = "https://maps.googleapis.com/maps/api/staticmap?" +
-                    "center=LAT,LNG&" +
-                    "zoom=10&" +
-                    "scale=1&" +
-                    "size=640x640&" +
-                    "maptype=terrain&" +
-                    "style=feature:road|visibility:off&" +
-                    "style=feature:poi|visibility:off&" +
-                    "style=feature:landscape|visibility:off&" +
-                    "style=feature:transit|visibility:off&" +
-                    "style=feature:administrative.province|visibility:off&" +
-                    "style=feature:administrative.neighborhood|visibility:off&" +
-                    "markers=color:red%7C" + mLatitude + "," + mLongitude + "&markers=size:tiny&" +
-                    "key=AIzaSyAtpWPhzhbtqTgofnQhAHjiG12MmrY2AAE";
-
-            url = url.replace("LAT", mLatitude);
-            url = url.replace("LNG", mLongitude);
+            String url = getString();
 
             try {
                 List<Address> matches = new Geocoder(this).getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                 final Address bestMatch = (matches.isEmpty() ? null : matches.get(0));
                 if (bestMatch != null) {
-                    String locationFormat = "";
-
-                    if (!"null".equals(bestMatch.getLocality())) {
-                        locationFormat += bestMatch.getLocality() + ", ";
-                    }
-
-                    if (!"null".equals(bestMatch.getAdminArea())) {
-                        locationFormat += bestMatch.getAdminArea() + " ";
-                    }
-
-                    if (!"null".equals(bestMatch.getCountryCode())) {
-                        locationFormat += bestMatch.getCountryCode() + " ";
-                    }
-
-                    if (!"null".equals(bestMatch.getPostalCode())) {
-                        locationFormat += bestMatch.getPostalCode();
-                    }
+                    String locationFormat = getString(bestMatch);
 
                     SightSee.setLocation(locationFormat);
-                    mCollapsingToolbar.setTitle(bestMatch.getLocality() + ", " + bestMatch.getAdminArea());
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -179,19 +164,57 @@ public class Locations extends AppCompatActivity {
         }
     }
 
+    @NonNull
+    private static String getString(Address bestMatch) {
+        String locationFormat = "";
+
+        if (!"null".equals(bestMatch.getLocality())) {
+            locationFormat += bestMatch.getLocality() + ", ";
+        }
+
+        if (!"null".equals(bestMatch.getAdminArea())) {
+            locationFormat += bestMatch.getAdminArea() + " ";
+        }
+
+        if (!"null".equals(bestMatch.getCountryCode())) {
+            locationFormat += bestMatch.getCountryCode() + " ";
+        }
+
+        if (!"null".equals(bestMatch.getPostalCode())) {
+            locationFormat += bestMatch.getPostalCode();
+        }
+        return locationFormat;
+    }
+
+    @NonNull
+    private String getString() {
+        String url = "https://maps.googleapis.com/maps/api/staticmap?" +
+                "center=LAT,LNG&" +
+                "zoom=11&" +
+                "scale=1&" +
+                "size=640x640&" +
+                "maptype=terrain&" +
+                "style=feature:road|visibility:off&" +
+                "style=feature:poi|visibility:off&" +
+                "style=feature:landscape|visibility:off&" +
+                "style=feature:transit|visibility:off&" +
+                "style=feature:administrative.province|visibility:off&" +
+                "style=feature:administrative.neighborhood|visibility:off&" +
+                "markers=color:red%7C" + mLatitude + "," + mLongitude + "&markers=size:tiny&" +
+                "key=AIzaSyAtpWPhzhbtqTgofnQhAHjiG12MmrY2AAE";
+
+        url = url.replace("LAT", mLatitude);
+        url = url.replace("LNG", mLongitude);
+        return url;
+    }
+
     /**
      * After successfully getting a city and country from the last JSON parsing, search a database
      * to see when ISS will pass by this city, country.
      */
     public List<Date> displayPasses(final String latitude, final String longitude, final Context applicationContext) {
         final List<Date> passes = new ArrayList<>(); // Used for Alert service
-        final String url;
-
-        if (latitude == null && longitude == null) { // Location.java is calling this method
-            url = "https://api.n2yo.com/rest/v1/satellite/visualpasses/" + ISS_NORAD_ID + "/" + mLatitude + "/" + mLongitude + "/" + mElevation + "/" + ISS_RESULT_DAYS + "/" + ISS_MIN_VISIBILITY + "/&apiKey=" + ISS_TRACKER_API;
-        } else { // Alert.java is calling this method
-            url = "http://api.open-notify.org/iss-pass.json?lat=" + latitude + "&lon=" + longitude;
-        }
+        final String url = getString(latitude, longitude);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             try {
@@ -242,5 +265,17 @@ public class Locations extends AppCompatActivity {
         }
 
         return passes; // Only Alert.java benefits from this return
+    }
+
+    @NonNull
+    private String getString(String latitude, String longitude) {
+        final String url;
+
+        if (latitude == null && longitude == null) { // Location.java is calling this method
+            url = "https://api.n2yo.com/rest/v1/satellite/visualpasses/" + ISS_NORAD_ID + "/" + mLatitude + "/" + mLongitude + "/" + mElevation + "/" + ISS_RESULT_DAYS + "/" + ISS_MIN_VISIBILITY + "/&apiKey=" + ISS_TRACKER_API;
+        } else { // Alert.java is calling this method
+            url = "http://api.open-notify.org/iss-pass.json?lat=" + latitude + "&lon=" + longitude;
+        }
+        return url;
     }
 }

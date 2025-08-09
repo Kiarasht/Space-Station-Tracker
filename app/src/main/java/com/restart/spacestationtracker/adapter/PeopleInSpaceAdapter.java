@@ -1,15 +1,6 @@
 package com.restart.spacestationtracker.adapter;
 
 import android.annotation.SuppressLint;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.browser.customtabs.CustomTabColorSchemeParams;
-import androidx.browser.customtabs.CustomTabsIntent;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -20,12 +11,21 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.browser.customtabs.CustomTabColorSchemeParams;
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.restart.spacestationtracker.R;
+import com.restart.spacestationtracker.TopCrop;
 import com.restart.spacestationtracker.data.Astronaut;
 
 import java.text.SimpleDateFormat;
@@ -57,7 +57,7 @@ public class PeopleInSpaceAdapter extends RecyclerView.Adapter<PeopleInSpaceAdap
     /**
      * The type People in space adapter view holder.
      */
-    static class PeopleInSpaceAdapterViewHolder extends RecyclerView.ViewHolder {
+    public static class PeopleInSpaceAdapterViewHolder extends RecyclerView.ViewHolder {
         /**
          * All widgets that will hold values unique to an astronaut
          */
@@ -174,9 +174,16 @@ public class PeopleInSpaceAdapter extends RecyclerView.Adapter<PeopleInSpaceAdap
                 }
             });
 
+            // Does the astronaut have a facebook handle?
+            if (!astronaut.getWiki().isEmpty()) {
+                holder.mAstronautWiki.setImageDrawable(ContextCompat.getDrawable(mActivity, R.drawable.ic_wikipedia));
+            } else {
+                holder.mAstronautWiki.setImageDrawable(ContextCompat.getDrawable(mActivity, R.drawable.ic_wikipedia_gray));
+            }
+
             // Does the astronaut have a wiki handle?
             holder.mAstronautWiki.setOnClickListener(view -> {
-                if (astronaut.getWiki().length() != 0) {
+                if (!astronaut.getWiki().isEmpty()) {
                     startCustomTab(astronaut.getWiki());
                 } else {
                     Toast.makeText(mActivity, astronaut.getName().split(" ")[0] + " " + mActivity.getString(R.string.errorNoWiki), Toast.LENGTH_SHORT).show();
@@ -197,7 +204,7 @@ public class PeopleInSpaceAdapter extends RecyclerView.Adapter<PeopleInSpaceAdap
                 holder.mDate.setVisibility(View.INVISIBLE);
             }
 
-            Glide.with(mActivity).load(astronaut.getImage()).listener(new RequestListener<Drawable>() {
+            Glide.with(mActivity).load(astronaut.getImage()).listener(new RequestListener<>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, @Nullable Object model, @NonNull Target<Drawable> target, boolean isFirstResource) {
                     holder.mAstronautPictureProgress.setVisibility(View.GONE);
@@ -209,7 +216,7 @@ public class PeopleInSpaceAdapter extends RecyclerView.Adapter<PeopleInSpaceAdap
                     holder.mAstronautPictureProgress.setVisibility(View.GONE);
                     return false;
                 }
-            }).centerCrop().error(R.drawable.ic_failure_profile).into(holder.mProfileImage);
+            }).transform(new TopCrop()).error(R.drawable.ic_failure_profile).into(holder.mProfileImage);
 
             Glide.with(mActivity).load("https://flagsapi.com/" + astronaut.getFlagCode() + "/flat/64.png").into(holder.mCountryFlag);
         }

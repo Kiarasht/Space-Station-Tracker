@@ -1,5 +1,6 @@
 <resources>
     <string-array name="version_title_list" translatable="false">
+        <item>Version: 6.01</item>
         <item>Version: 6.00</item>
         <item>Version: 5.17</item>
         <item>Version: 5.16</item>
@@ -36,6 +37,7 @@
     </string-array>
 
     <string-array name="version_list" translatable="false">
+        <item><![CDATA[- Updated for Android 16 <br>- Full screen (edge to edge) experience <br>- Removed some functionalities since the responsible libraries were deprecated]]></item>
         <item><![CDATA[- Fixed live stream link <br>- Fix for Android 15 <br>- Reduced ads interruptions <br>- Bug fixes & improvements]]></item>
         <item><![CDATA[- Few bugs & improvements! ]]></item>
         <item><![CDATA[- Updated to latest libraries for better performance! ]]></item>

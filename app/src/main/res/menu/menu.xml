@@ -1,5 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_flybys"
+        android:title="@string/flybys_title"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_people_in_space"
+        android:title="@string/space_title"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_live_stream"
+        android:title="@string/stream"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_reset_polyline"
+        android:title="@string/reset"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/settings_title"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_about"
+        android:title="@string/help_title"
+        app:showAsAction="never" />
+
     <item
         android:id="@+id/reset"
         android:icon="@drawable/ic_refresh"
