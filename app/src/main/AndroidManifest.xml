@@ -52,7 +52,7 @@
             android:name=".Locations"
             android:exported="false"
             android:label="@string/label_location"
-            android:theme="@style/AppTheme.Toolbar">
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.restart.spacestationtracker.MapsActivity" />
@@ -73,18 +73,6 @@
             android:name=".AboutActivity"
             android:exported="false"
             android:label="@string/label_help">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.restart.spacestationtracker.MapsActivity" />
-        </activity>
-
-        <!-- Live Stream -->
-        <activity
-            android:name=".LiveStream"
-            android:configChanges="orientation|screenSize"
-            android:exported="false"
-            android:label="@string/label_stream"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.restart.spacestationtracker.MapsActivity" />

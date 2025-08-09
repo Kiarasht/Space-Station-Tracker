@@ -2,11 +2,17 @@ package com.restart.spacestationtracker;
 
 import static com.android.volley.toolbox.HttpHeaderParser.parseCharset;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,8 +37,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PeopleInSpace extends AppCompatActivity {
-    private final String PEOPLE_URL = "https://corquaid.github.io/international-space-station-APIs/JSON/people-in-space.json";
-    private final String BIO_URL = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=";
     private PeopleInSpaceAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private RequestQueue mRequestQueue;
@@ -42,9 +46,28 @@ public class PeopleInSpace extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        boolean isNightMode = currentNightMode == Configuration.UI_MODE_NIGHT_YES;
+
+        WindowInsetsControllerCompat windowInsetsController = WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+        windowInsetsController.setAppearanceLightStatusBars(!isNightMode);
         setContentView(R.layout.people_in_space_layout);
 
+        View mainLayout = findViewById(R.id.main_layout);
         mRecyclerView = findViewById(R.id.recycler);
+
+        ViewCompat.setOnApplyWindowInsetsListener(mainLayout, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+
+            mRecyclerView.setPadding(mRecyclerView.getPaddingLeft(), insets.top, mRecyclerView.getPaddingRight(), insets.bottom);
+
+            return WindowInsetsCompat.CONSUMED;
+        });
+
+        mRecyclerView.setClipToPadding(false);
+
         mRequestQueue = Volley.newRequestQueue(this);
         display_people();
 
@@ -76,6 +99,7 @@ public class PeopleInSpace extends AppCompatActivity {
     private void display_people() {
         final List<Astronaut> peopleInSpace = new ArrayList<>();
 
+        String PEOPLE_URL = "https://corquaid.github.io/international-space-station-APIs/JSON/people-in-space.json";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, PEOPLE_URL, null, astronautResponse -> {
             onSuccessResult(peopleInSpace);
             requestWiki(peopleInSpace);
@@ -123,11 +147,12 @@ public class PeopleInSpace extends AppCompatActivity {
         for (int i = 0; i < astronauts.size(); ++i) {
             final String wiki = astronauts.get(i).getWiki();
             final String[] wikiPage = wiki.split("/");
+            String BIO_URL = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=";
             final String bioUrl = BIO_URL + wikiPage[wikiPage.length - 1];
 
             JsonObjectRequest wikiRequest = new JsonObjectRequest(Request.Method.GET, bioUrl, null, wikiResponse -> {
                 int index = 0;
-                for (Astronaut astronaut: astronauts) {
+                for (Astronaut astronaut : astronauts) {
                     if (astronaut.getWiki().equals(wiki)) {
                         try {
                             JSONObject pages = wikiResponse.getJSONObject("query").getJSONObject("pages");

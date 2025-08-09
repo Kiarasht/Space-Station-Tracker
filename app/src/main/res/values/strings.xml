@@ -21,10 +21,10 @@
 
     <!-- Activities -->
     <string name="label_location">Flybys</string>
-    <string name="label_people_in_space">Who is in Space?</string>
+    <string name="label_people_in_space">On Duty</string>
     <string name="label_setting">Settings</string>
     <string name="label_help">Help</string>
-    <string name="label_stream">Live Stream</string>
+    <string name="label_stream">Live!</string>
 
     <!-- Preference Longer ones -->
     <string name="startAlert">Notify when ISS is close by</string>
