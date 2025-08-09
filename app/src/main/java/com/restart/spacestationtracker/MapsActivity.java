@@ -1,7 +1,5 @@
 package com.restart.spacestationtracker;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -10,36 +8,38 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.preference.PreferenceManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.RequestConfiguration;
+import com.google.android.gms.ads.admanager.AdManagerAdRequest;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -53,22 +53,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.ump.ConsentDebugSettings;
-import com.google.android.ump.ConsentForm;
 import com.google.android.ump.ConsentInformation;
 import com.google.android.ump.ConsentRequestParameters;
 import com.google.android.ump.UserMessagingPlatform;
-import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
-import com.nightonke.boommenu.BoomButtons.HamButton;
-import com.nightonke.boommenu.BoomMenuButton;
-import com.nightonke.boommenu.ButtonEnum;
-import com.nightonke.boommenu.Piece.PiecePlaceEnum;
-import com.wooplr.spotlight.SpotlightView;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -79,13 +69,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
 
-    public static final String CHANNEL_ID = "iss_notification"; // Notification for Android 8.0 and higher
-    private static final String TAG = ".MapsActivity";  // Used for volley and occasional Log
+    public static final String CHANNEL_ID = "iss_notification";     // Notification for Android 8.0 and higher
+    private static final String TAG = ".MapsActivity";              // Used for volley and occasional Log
 
     private final AtomicBoolean isMobileAdsInitializeCalled = new AtomicBoolean(false);
     private ConsentInformation consentInformation;      // Need privacy consent before showing ads
     private SharedPreferences mSharedPreferences;       // Managing options from Settings
-    private BoomMenuButton mBoomMenu;                   // Manages the drawer pop menu
     private InterstitialAd mInterstitialAd;             // Managing interstitial ads with AdMob sdk
     private MarkerOptions mMarkerOptions;               // Marker options, uses ISS drawable
     private DecimalFormat mDecimalFormat;               // For number decimal places
@@ -112,7 +101,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private int mProgress;                              // Progress on polylines, make sure we finish one before moving on to next
 
     private boolean mThreadManager;                     // Checks if polyLines are already being created.
-    private boolean mFirstTime;                         // Menu Tutorial
     private boolean mStart;                             // Opened app or returned to activity?
     private boolean mOnce;                              // Move map to ISS's location on start
 
@@ -122,16 +110,40 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        initializeVariables();
-        initiateBoomMenu();
 
-        if (!mSharedPreferences.getBoolean(getString(R.string.firstTime), true)) {
-            initializeConsent();
-            if (consentInformation.canRequestAds()) {
-                initializeAds();
-            }
+        View mainLayout = findViewById(R.id.main);
+        View adContainer = findViewById(R.id.ad_view_container);
+        View topTextView = findViewById(R.id.textView);
+
+        ViewCompat.setOnApplyWindowInsetsListener(mainLayout, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+
+            topTextView.setPadding(
+                    topTextView.getPaddingLeft(),
+                    insets.top,
+                    topTextView.getPaddingRight(),
+                    topTextView.getPaddingBottom()
+            );
+
+            ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) adContainer.getLayoutParams();
+
+            lp.leftMargin = insets.left;
+            lp.rightMargin = insets.right;
+            lp.bottomMargin = insets.bottom;
+
+            adContainer.setLayoutParams(lp);
+
+            return WindowInsetsCompat.CONSUMED;
+        });
+
+        initializeVariables();
+        initializeConsent();
+        if (consentInformation.canRequestAds()) {
+            initializeAds();
         }
     }
 
@@ -144,24 +156,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         consentInformation.requestConsentInfoUpdate(
                 this,
                 params,
-                (ConsentInformation.OnConsentInfoUpdateSuccessListener) () -> {
-                    UserMessagingPlatform.loadAndShowConsentFormIfRequired(
-                            this,
-                            (ConsentForm.OnConsentFormDismissedListener) loadAndShowError -> {
-                                if (loadAndShowError != null) {
-                                    // Consent gathering failed.
-                                    // TODO: Report
-                                }
-
-                                if (consentInformation.canRequestAds()) {
-                                    initializeAds();
-                                }
+                () -> UserMessagingPlatform.loadAndShowConsentFormIfRequired(
+                        this,
+                        loadAndShowError -> {
+                            if (consentInformation.canRequestAds()) {
+                                initializeAds();
                             }
-                    );
-                },
-                (ConsentInformation.OnConsentInfoUpdateFailureListener) requestConsentError -> {
-                    // Consent gathering failed.
-                    // TODO: Report
+                        }
+                ),
+                requestConsentError -> {
                 });
 
         if (consentInformation.canRequestAds()) {
@@ -182,7 +185,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
-            // Register the channel with the system
+
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             if (notificationManager != null)
                 notificationManager.createNotificationChannel(channel);
@@ -195,20 +198,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void initializeVariables() {
         MapsInitializer.initialize(getApplicationContext());
 
-        // Title on the action bar next to the BoomMenu drawer which we will initialize later
-        ActionBar mActionBar = getSupportActionBar();
-        assert mActionBar != null;
-        mActionBar.setDisplayShowHomeEnabled(false);
-        mActionBar.setDisplayShowTitleEnabled(false);
-        LayoutInflater mInflater = LayoutInflater.from(this);
-        @SuppressLint("InflateParams") View actionBar = mInflater.inflate(R.layout.custom_actionbar, null);
-        final TextView mTitleTextView = actionBar.findViewById(R.id.title_text);
-        mTitleTextView.setText(R.string.map_activity);
-        mActionBar.setCustomView(actionBar);
-        mActionBar.setDisplayShowCustomEnabled(true);
-        ((Toolbar) actionBar.getParent()).setContentInsetsAbsolute(0, 0);
-
-        // Other variables to make the activity start and function
         mPoly = 0;
         mOnce = true;
         mAdView = null;
@@ -222,16 +211,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         PreferenceManager.setDefaultValues(this, R.xml.app_preferences, false);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mRefreshRate = 1000 * (mSharedPreferences.getInt("refresh_Rate", 9) + 1);
-        mFirstTime = mSharedPreferences.getBoolean(getString(R.string.firstTime), true);
 
-        // Animation process for first time users. Skip if not first time (mFirstTime)
-        final Activity activity = this;
-        //  When view is shown, start our animations for first time users
-        mLatLong.post(() -> {
-            if (mFirstTime) {
-                startAnimation(mTitleTextView, activity);
-            }
-        });
+        findViewById(R.id.fab_flybys).setOnClickListener(this);
+        findViewById(R.id.fab_on_duty).setOnClickListener(this);
+        findViewById(R.id.fab_settings).setOnClickListener(this);
+        findViewById(R.id.fab_help).setOnClickListener(this);
+        findViewById(R.id.fab_live).setOnClickListener(this);
     }
 
     /**
@@ -242,12 +227,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             return;
         }
 
-        List<String> testDevices = new ArrayList<>();
-        //testDevices.add("54686107F6B785A3B1575E1F6E4BD613");
-        MobileAds.setRequestConfiguration(new RequestConfiguration.Builder()
-                .setTestDeviceIds(testDevices)
-                .build());
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         if (mapFragment != null) {
@@ -257,7 +236,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         MobileAds.initialize(this, initializationStatus -> {
         });
 
-        // Initiate the interstitial ad and onAdClosed listener
         InterstitialAd.load(this, getString(R.string.interstitial_ad_unit_id), new AdRequest.Builder().build(),
                 new InterstitialAdLoadCallback() {
                     @Override
@@ -290,8 +268,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 });
 
-        mAdView = findViewById(R.id.adView);
-        mAdView.loadAd(new AdRequest.Builder().build());
+        FrameLayout mAdViewContainer = findViewById(R.id.ad_view_container);
+        mAdView = new AdView(this);
+        mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id));
+        mAdViewContainer.addView(mAdView);
+
+        mAdViewContainer.post(() -> {
+            DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+            int adWidth = (int) (mAdViewContainer.getWidth() / displayMetrics.density);
+            AdSize adSize = AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
+            mAdView.setAdSize(adSize);
+
+            AdManagerAdRequest adRequest = new AdManagerAdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
+        });
     }
 
     /**
@@ -301,10 +291,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onResume() {
         super.onResume();
 
-        // Asks for a interstitial ad now so next time user starts a new activity we have it ready
         requestNewInterstitial();
 
-        // Update decimal format
         StringBuilder format = new StringBuilder("0");
         for (int i = 0; i < mSharedPreferences.getInt("decimalType", 3); ++i) {
             if (i == 0) format.append(".");
@@ -312,7 +300,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         mDecimalFormat = new DecimalFormat(format.toString());
 
-        // When activity was just paused
         if (mStart) {
             mRefreshRate = 1000 * (mSharedPreferences.getInt("refresh_Rate", 9) + 1);
             if (mTimer != null) {
@@ -479,10 +466,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     private void asyncTaskPolyline() {
         runOnUiThread(() -> {
-            mMap.clear();
-            trackISS();
-            mPoly = 0;
-            mPolyCounter = 0;
+            try {
+                mMap.clear();
+                trackISS();
+                mPoly = 0;
+                mPolyCounter = 0;
+            } catch (Exception e) {
+                Toast.makeText(mContext, R.string.polyError, Toast.LENGTH_SHORT).show();
+            }
         });
 
         AsyncTask.execute(() -> {
@@ -621,18 +612,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             futureTen[i] = currentLong + (30L * mPoly++);
         }
 
-        final StringBuilder urlBuilder = new StringBuilder();
-        for (long aFutureTen : futureTen) {
-            urlBuilder.append(aFutureTen).append(",");
-        }
-        urlBuilder.setLength(urlBuilder.length() - 1);
-
-        //TODO: As a user, I would like the option of changing the units from metric to imperial
-        final String units = "miles";
-        final String url = "https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=" +
-                urlBuilder +
-                "&units=" +
-                units;
+        final String url = getString(futureTen);
 
         final int finalStart = mPoly;
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, response -> {
@@ -669,10 +649,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     ++mProgress;
                 });
             } catch (Exception e) {
-                if (mLast == null) {
-                    // TODO: Report crash
-                }
-                e.printStackTrace();
+
             }
         }, e -> {
 
@@ -680,108 +657,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mRequestQueue.add(jsonArrayRequest);
     }
 
-    /**
-     * Initiate the drawer library by giving each of them their properties such as color, texts, and
-     * onClickListeners
-     */
-    private void initiateBoomMenu() {
-        mBoomMenu = findViewById(R.id.action_bar_right_bmb);
-        mBoomMenu.setButtonEnum(ButtonEnum.Ham);
-        mBoomMenu.setPiecePlaceEnum(PiecePlaceEnum.HAM_4);
-        mBoomMenu.setButtonPlaceEnum(ButtonPlaceEnum.HAM_4);
-        mBoomMenu.setDuration(850);
-
-        for (int i = 0; i < mBoomMenu.getPiecePlaceEnum().pieceNumber(); i++) {
-            HamButton.Builder builder;
-            switch (i) {
-                case 0:
-                    builder = new HamButton.Builder()
-                            .listener(index -> {
-                                Intent intent;
-                                if (isLocationPermissionGranted()) {
-                                    getLocationPermission();
-                                } else {
-                                    if (mInterstitialAd != null) {
-                                        mInterstitialAd.show(MapsActivity.this);
-                                        mInterstitialAdActivity = 0;
-                                    } else {
-                                        intent = new Intent(mContext, Locations.class);
-                                        startActivity(intent);
-                                    }
-                                }
-                            })
-                            .normalImageRes(R.drawable.iss)
-                            .normalTextRes(R.string.flybys_title)
-                            .subNormalTextRes(R.string.flybys_summary)
-                            .normalColor(Color.parseColor("#807E57C2"))
-                            .highlightedColor(Color.parseColor("#807E57C2"))
-                            .unableColor(Color.parseColor("#807E57C2"))
-                            .rotateImage(false);
-                    break;
-                case 1:
-                    builder = new HamButton.Builder()
-                            .listener(index -> {
-                                Intent intent;
-                                if (mInterstitialAd != null) {
-                                    mInterstitialAd.show(MapsActivity.this);
-                                    mInterstitialAdActivity = 1;
-                                } else {
-                                    intent = new Intent(mContext, PeopleInSpace.class);
-                                    startActivity(intent);
-                                }
-                            })
-                            .normalImageRes(R.drawable.astronaut)
-                            .normalTextRes(R.string.space_title)
-                            .subNormalTextRes(R.string.space_summary)
-                            .normalColor(Color.parseColor("#80EF5350"))
-                            .highlightedColor(Color.parseColor("#80EF5350"))
-                            .unableColor(Color.parseColor("#80EF5350"))
-                            .rotateImage(false);
-                    break;
-                case 2:
-                    builder = new HamButton.Builder()
-                            .listener(index -> {
-                                Intent intent;
-                                /* Update the check box representing the app's service. If for example the service
-                                 exited not by the app, it shouldn't be checked. */
-                                boolean Alert = isMyServiceRunning(com.restart.spacestationtracker.services.Alert.class);
-
-                                if (Alert != mSharedPreferences.getBoolean("notification_ISS", false)) {
-                                    Toast.makeText(MapsActivity.this, R.string.errorNotByMe, Toast.LENGTH_LONG).show();
-                                    mSharedPreferences.edit().putBoolean("notification_ISS", Alert).apply();
-                                }
-
-                                intent = new Intent(mContext, Preferences.class);
-                                startActivity(intent);
-                            })
-                            .normalImageRes(R.drawable.ic_settings)
-                            .normalTextRes(R.string.settings_title)
-                            .subNormalTextRes(R.string.settings_summary)
-                            .normalColor(Color.parseColor("#8066BB6A"))
-                            .highlightedColor(Color.parseColor("#8066BB6A"))
-                            .unableColor(Color.parseColor("#8066BB6A"))
-                            .rotateImage(false);
-                    break;
-                case 3:
-                    builder = new HamButton.Builder()
-                            .listener(index -> {
-                                Intent intent;
-                                intent = new Intent(mContext, AboutActivity.class);
-                                startActivity(intent);
-                            })
-                            .normalImageRes(R.drawable.ic_help_outline)
-                            .normalTextRes(R.string.help_title)
-                            .subNormalTextRes(R.string.help_summary)
-                            .normalColor(Color.parseColor("#8029B6F6"))
-                            .highlightedColor(Color.parseColor("#8029B6F6"))
-                            .unableColor(Color.parseColor("#8029B6F6"))
-                            .rotateImage(false);
-                    break;
-                default:
-                    return;
-            }
-            mBoomMenu.addBuilder(builder);
+    @NonNull
+    private static String getString(long[] futureTen) {
+        final StringBuilder urlBuilder = new StringBuilder();
+        for (long aFutureTen : futureTen) {
+            urlBuilder.append(aFutureTen).append(",");
         }
+        urlBuilder.setLength(urlBuilder.length() - 1);
+
+        //TODO: As a user, I would like the option of changing the units from metric to imperial
+        final String units = "miles";
+        return "https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=" +
+                urlBuilder +
+                "&units=" +
+                units;
     }
 
     /**
@@ -790,7 +679,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      * @return True or false
      */
     private boolean isLocationPermissionGranted() {
-        return Build.VERSION.SDK_INT >= 23 && mContext.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED;
+        return mContext.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED;
     }
 
     /**
@@ -840,90 +729,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     /**
-     * Starts a two step animation process. One gets executed after another.
-     *
-     * @param mTitleTextView A view to the top text widget
-     * @param activity       MapsActivity.java
-     */
-    private void startAnimation(final View mTitleTextView, final Activity activity) {
-        mSharedPreferences.edit().putBoolean(getString(R.string.firstTime), false).apply();
-        mFirstTime = false;
-        new SpotlightView.Builder(activity)
-                .introAnimationDuration(400)
-                .enableRevealAnimation(true)
-                .performClick(true)
-                .fadeinTextDuration(400)
-                .headingTvColor(Color.parseColor("#6441A5"))
-                .headingTvSize(32)
-                .headingTvText(getString(R.string.tutorial_one_title))
-                .subHeadingTvColor(Color.parseColor("#ffffff"))
-                .subHeadingTvSize(16)
-                .subHeadingTvText(getString(R.string.tutorialOne))
-                .maskColor(Color.parseColor("#dc000000"))
-                .target(mTitleTextView)
-                .lineAnimDuration(400)
-                .lineAndArcColor(Color.parseColor("#6441A5"))
-                .dismissOnTouch(true)
-                .usageId("1")
-                .setListener(s -> new SpotlightView.Builder(activity)
-                        .introAnimationDuration(400)
-                        .enableRevealAnimation(true)
-                        .performClick(true)
-                        .fadeinTextDuration(400)
-                        .headingTvColor(Color.parseColor("#6441A5"))
-                        .headingTvSize(32)
-                        .headingTvText(getString(R.string.tutorial_two_title))
-                        .subHeadingTvColor(Color.parseColor("#ffffff"))
-                        .subHeadingTvSize(16)
-                        .subHeadingTvText(getString(R.string.tutorialTwo))
-                        .maskColor(Color.parseColor("#dc000000"))
-                        .target(mBoomMenu)
-                        .lineAnimDuration(400)
-                        .lineAndArcColor(Color.parseColor("#6441A5"))
-                        .dismissOnTouch(true)
-                        .usageId("2")
-                        .setListener(s1 -> initializeConsent()).show()).show();
-    }
-
-    /**
-     * Creates switch case for action bar icons
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.reset:
-                if (!mThreadManager) {
-                    asyncTaskPolyline();
-                } else {
-                    Toast.makeText(mContext, R.string.errorWaitPoly, Toast.LENGTH_SHORT).show();
-                }
-                return true;
-            case R.id.stream:
-                onISS();
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    /**
-     * Creates the icons in the action bar
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    /**
-     * Start the LiveStream activity
-     */
-    private void onISS() {
-        Intent intent = new Intent(mContext, LiveStream.class);
-        startActivity(intent);
-    }
-
-    /**
      * Request for a new interstitial ad
      */
     private void requestNewInterstitial() {
@@ -966,5 +771,45 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onClick(View v) {
+        Intent intent;
+        final int id = v.getId();
+
+        if (id == R.id.fab_flybys) {
+            if (isLocationPermissionGranted()) {
+                getLocationPermission();
+            } else {
+                if (mInterstitialAd != null) {
+                    mInterstitialAd.show(MapsActivity.this);
+                    mInterstitialAdActivity = 0;
+                } else {
+                    intent = new Intent(mContext, Locations.class);
+                    startActivity(intent);
+                }
+            }
+        } else if (id == R.id.fab_on_duty) {
+            if (mInterstitialAd != null) {
+                mInterstitialAd.show(MapsActivity.this);
+                mInterstitialAdActivity = 1;
+            } else {
+                intent = new Intent(mContext, PeopleInSpace.class);
+                startActivity(intent);
+            }
+        } else if (id == R.id.fab_settings) {
+            intent = new Intent(mContext, Preferences.class);
+            startActivity(intent);
+        } else if (id == R.id.fab_help) {
+            intent = new Intent(mContext, AboutActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.fab_live) {
+            String videoId = "DIgkvm2nmHc";
+
+            Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + videoId));
+            Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + videoId));
+            try {
+                startActivity(appIntent);
+            } catch (android.content.ActivityNotFoundException ex) {
+                startActivity(webIntent);
+            }
+        }
     }
 }

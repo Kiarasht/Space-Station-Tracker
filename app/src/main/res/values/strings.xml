@@ -1,109 +1,42 @@
 <resources>
-    <!-- App name -->
     <string name="app_name">ISS Tracker</string>
-
-    <!-- Main Drawer Strings -->
     <string name="map_activity">Map</string>
     <string name="flybys_title">Passing By</string>
-    <string name="space_title">On Duty</string>
-    <string name="settings_title">Settings</string>
-    <string name="help_title">Help</string>
-
-    <!-- Description of those drawers -->
-    <string name="flybys_summary">Check when ISS will pass by your location</string>
-    <string name="space_summary">See who is in space right now</string>
-    <string name="settings_summary">Manage general app settings</string>
-    <string name="help_summary">Rate or learn about the app</string>
-
-    <!-- Extras... -->
-    <string name="reset">Refresh prediction lines</string>
-    <string name="stream">Live</string>
-
-    <!-- Activities -->
+    <string name="help_title">About</string>
     <string name="label_location">Flybys</string>
-    <string name="label_people_in_space">Who is in Space?</string>
+    <string name="label_people_in_space">On Duty</string>
     <string name="label_setting">Settings</string>
     <string name="label_help">Help</string>
-    <string name="label_stream">Live Stream</string>
-
-    <!-- Preference Longer ones -->
-    <string name="startAlert">Notify when ISS is close by</string>
-    <string name="stopAlert">Stop notifying when ISS is close by</string>
-    <string name="startFullAds">Full page ads enabled. Thanks for the support ;)</string>
-    <string name="startBannerAds">Banner ads enabled. Thanks for the support ;)</string>
-
-    <!-- Extra in app strings here and there -->
-    <string name="tutorialOne">Map shows ISS current location with a prediction line of where it will be.</string>
-    <string name="tutorialTwo">Drawer takes you to other features such as flybys and settings.</string>
+    <string name="label_stream">Live!</string>
     <string name="midAt"> at </string>
-    <string name="checkerContentDescription">Icon represents that a transparent color is picked</string>
     <string name="countryFlagContentDescription">Country flag this astronaut is from</string>
     <string name="astronautTwitterContentDescription">Icon to link to astronauts twitter page</string>
     <string name="astronautWikiContentDescription">Icon to link to astronauts wiki page</string>
     <string name="astronautGoogleContentDescription">Icon to link to astronauts Google search page</string>
-
-    <!-- Setting strings in the preferences -->
     <string name="refreshTitle">Refresh Rate</string>
     <string name="refreshSummary">Amount of time before updating ISS location on map</string>
-    <string name="declination_unit"> sec/refresh</string>
-    <string name="refreshDialogMessage">Time between ISS getting updated to its new location.</string>
-
     <string name="lockTitle">Lock ISS</string>
     <string name="lockSummary">Lock onto ISS and follow it on the map</string>
-
     <string name="infoTitle">Additional Info</string>
     <string name="infoSummary">Provide additional information about ISS on the map</string>
-
     <string name="mapTitle">Map type</string>
-    <string name="mapSummary">Change the map type from the previous page</string>
-
+    <string name="mapSummary">Change the map type</string>
     <string name="decimalTitle">Decimal Places</string>
-    <string name="decimalDialogMessage">Change the accuracy of all numerical values</string>
     <string name="decimalSummary">Change the accuracy of all numerical values</string>
-    <string name="decimalUnit"> dp</string>
-
-    <string name="colorTitle">Prediction line color</string>
-    <string name="colorSummary">Change the color of prediction lines</string>
-
     <string name="sizeTitle">Prediction line size</string>
-    <string name="sizeDialogMessage">Change the size of ISSs prediction line</string>
     <string name="sizeSummary">Change the size of ISSs prediction line</string>
-    <string name="sizeUnit"> </string>
-
     <string name="textSizeTitle">Text size</string>
-    <string name="textSizeDialogMessage">Change the size of all text values on map</string>
     <string name="textSizeSummary">Change the size of all text values on map</string>
-    <string name="textSizeUnit"> </string>
-
-    <string name="textTitle">Text color</string>
-    <string name="textSummary">Change the color of text values</string>
-
-    <string name="textHighlightTitle">Text Outline</string>
-    <string name="textHighlightSummary">Change the outline color of text values</string>
-
     <string name="notificationTitle">ISS Notification</string>
     <string name="notificationSummary">Notify when ISS is expected to fly over my location</string>
-
-    <string name="advertisementTitle">Banner</string>
-    <string name="advertisementSummary">Disable banner ads on the app</string>
-
-    <string name="fullTitle">Full Page</string>
-    <string name="fullSummary">Disable full page ads on the app</string>
-
-    <!-- Errors that are typically in toast messages -->
-    <string name="errorWebView">Unable to load page</string>
     <string name="errorLocation">Unable to find your location.</string>
     <string name="errorPermissionLocation">Denied access to your location</string>
-    <string name="errorConnection">Either you have no connection or server is overloaded.</string>
     <string name="nothing_available">There are no ISS passes by your location at this time</string>
     <string name="unable_to_get_astronauts">Unable to get astronauts. Make sure you are connected to the internet and try again later</string>
     <string name="unable_to_get_passes">Unable to get ISS passes. Make sure you are connected to the internet and try again later</string>
-    <string name="errorNetwork">An unknown error has occurred. Error: 401</string>
     <string name="errorMap">Can not apply settings to map</string>
     <string name="errorFiveTimes">Failed all 5 times. Either you have no connection or server is overloaded.</string>
     <string name="errorLessFive">Request to server failed. Retrying…</string>
-    <string name="errorWaitPoly">Already creating prediction lines</string>
-    <string name="errorNotByMe">ISS Notification was not stopped by you.</string>
     <string name="errorNoWiki"> does not have a wiki page</string>
     <string name="errorNoTwitter"> does not have a Twitter account</string>
     <string name="errorNoInstagram"> does not have a Instagram account</string>
@@ -118,21 +51,17 @@
     <string name="iss_sighting_share_body">"Check it out! ISS will be visible at "</string>
     <string name="iss_sighting_share_chooser">Share…</string>
     <string name="on">" on "</string>
-    <string name="one_day_in_space">1 day in space</string>
-    <string name="in_space">" in space"</string>
-    <string name="day">" day"</string>
-    <string name="month">" month"</string>
-    <string name="year">" year"</string>
     <string name="since">"Launched "</string>
-    <string name="tutorial_one_title">Hey There :)</string>
-    <string name="tutorial_two_title">Main Features</string>
-
     <string name="license">Open source licenses</string>
     <string name="msg_license">This application is constructed using following software:</string>
-    <string name="msg_about_fork_me_on_github">Fork it on GitHub</string>
     <string name="msg_about_library_description">ISS Tracker is an android application that allows you to track the position of the International Space Station and find out what astronauts are currently in space.</string>
     <string name="desc_about_app">About this app</string>
-    <string name="msg_get_it_on_play_store">Get it on Google Play</string>
     <string name="version">Versions</string>
     <string name="version_msg">List of previous changes, fixes, and updates:</string>
+    <string name="refresh_stats_every_seconds">Refresh stats every %1$d seconds</string>
+    <string name="change_the_thickness_of_the_prediction_line">Change the thickness of the prediction line</string>
+    <string name="starts">Starts: %1$s</string>
+    <string name="duration">Duration: %1$s</string>
+    <string name="ad_attribution">Ad</string>
+    <string name="ad_icon">Ad Icon</string>
 </resources>
