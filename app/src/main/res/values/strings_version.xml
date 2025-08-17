@@ -1,5 +1,6 @@
 <resources>
     <string-array name="version_title_list" translatable="false">
+        <item>Version: 6.01</item>
         <item>Version: 6.00</item>
         <item>Version: 5.17</item>
         <item>Version: 5.16</item>
@@ -36,6 +37,7 @@
     </string-array>
 
     <string-array name="version_list" translatable="false">
+        <item><![CDATA[- Updated for Android 16 <br>- Full screen (edge to edge) experience <br>- Removed some functionalities since the responsible libraries were deprecated]]></item>
         <item><![CDATA[- Fixed live stream link <br>- Fix for Android 15 <br>- Reduced ads interruptions <br>- Bug fixes & improvements]]></item>
         <item><![CDATA[- Few bugs & improvements! ]]></item>
         <item><![CDATA[- Updated to latest libraries for better performance! ]]></item>
@@ -62,7 +64,7 @@
         <item><![CDATA[- Updated Help page<br>- New Icon<br>- Improved layout throughout the app<br>- General improvements]]></item>
         <item><![CDATA[- Improved Who\'s in Space<br>- Click Astros for more info<br>- Fix service crashing when having connectivity problems<br>- General improvements]]></item>
         <item><![CDATA[- General bug fixes and improvements]]></item>
-        <item><![CDATA[- Can now access ISS\'s live feed<br>- Improved layout through the app<br>- A small guide for new users<br>- Fixed an issue where services in settings weren\'t updating correctly<br>- General bug fixes and improvements]]></item>
+        <item><![CDATA[- Can now access ISS\'s live feed<br>- Improved layout through the app<br>- A small guide for new users<br>- Fixed an issue where services in settings were not updating correctly<br>- General bug fixes and improvements]]></item>
         <item><![CDATA[- App should respond much faster<br>- Supports API 14 instead of 17<br>- Removed two permissions<br>- General bugs and library updates]]></item>
         <item><![CDATA[- Significantly reduced the app\'s size<br>- Across app visual change<br>- Added more features]]></item>
         <item><![CDATA[- Fixed the layout of loading icon<br>- Fixed a issue where the map would not have loaded on some instances]]></item>

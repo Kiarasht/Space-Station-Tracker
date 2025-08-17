@@ -10,6 +10,7 @@
 
     <application
         android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -52,7 +53,7 @@
             android:name=".Locations"
             android:exported="false"
             android:label="@string/label_location"
-            android:theme="@style/AppTheme.Toolbar">
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.restart.spacestationtracker.MapsActivity" />
@@ -62,7 +63,8 @@
         <activity
             android:name=".PeopleInSpace"
             android:exported="false"
-            android:label="@string/label_people_in_space">
+            android:label="@string/label_people_in_space"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.restart.spacestationtracker.MapsActivity" />
@@ -72,19 +74,8 @@
         <activity
             android:name=".AboutActivity"
             android:exported="false"
-            android:label="@string/label_help">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.restart.spacestationtracker.MapsActivity" />
-        </activity>
-
-        <!-- Live Stream -->
-        <activity
-            android:name=".LiveStream"
-            android:configChanges="orientation|screenSize"
-            android:exported="false"
-            android:label="@string/label_stream"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:label="@string/label_help"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.restart.spacestationtracker.MapsActivity" />

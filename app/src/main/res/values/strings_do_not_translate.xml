@@ -5,9 +5,8 @@
     <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~8939815838</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/4298913050</string>
     <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/1377236244</string>
-
-    <!-- Shared Pref -->
-    <string name="firstTime" translatable="false">firstTime</string>
+    <string name="locations_native_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/9845698217</string>
+    <string name="on_duty_native_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/4740210185</string>
 
     <!-- Preferences -->
     <string-array name="entryValues">
@@ -25,7 +24,4 @@
         <item>Terrain</item>
         <item>Hybrid</item>
     </string-array>
-
-    <!-- Color Picker -->
-    <string name="hexEditDefault" translatable="false">00000000</string>
 </resources>

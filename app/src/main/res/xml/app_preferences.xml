@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory android:title="Map">
-        <com.restart.spacestationtracker.view.SeekBarPreference
-            android:defaultValue="9"
-            android:dialogMessage="@string/refreshDialogMessage"
+        <androidx.preference.SeekBarPreference
+            android:defaultValue="15"
             android:key="refresh_Rate"
-            android:max="29"
+            android:max="30"
             android:summary="@string/refreshSummary"
-            android:text="@string/declination_unit"
-            android:title="@string/refreshTitle"/>
+            android:title="@string/refreshTitle"
+            app:min="5"
+            app:showSeekBarValue="true"
+            app:updatesContinuously="true" />
 
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="lock_ISS"
             android:summary="@string/lockSummary"
-            android:title="@string/lockTitle"/>
+            android:title="@string/lockTitle" />
 
         <CheckBoxPreference
             android:defaultValue="true"
@@ -31,70 +31,35 @@
             android:key="mapType"
             android:summary="@string/mapSummary"
             android:title="@string/mapTitle"/>
-
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="Customization">
-        <com.restart.spacestationtracker.view.SeekBarPreference
+    <PreferenceCategory android:title="Customization">
+        <androidx.preference.SeekBarPreference
             android:defaultValue="3"
-            android:dialogMessage="@string/decimalDialogMessage"
             android:key="decimalType"
-            android:max="10"
             android:summary="@string/decimalSummary"
-            android:text="@string/decimalUnit"
-            android:title="@string/decimalTitle"/>
+            android:title="@string/decimalTitle"
+            android:max="10"
+            app:showSeekBarValue="true"
+            app:updatesContinuously="true" />
 
-        <com.restart.spacestationtracker.view.SeekBarPreference
+        <androidx.preference.SeekBarPreference
             android:defaultValue="5"
-            android:dialogMessage="@string/sizeDialogMessage"
             android:key="sizeType"
-            android:max="30"
             android:summary="@string/sizeSummary"
-            android:text="@string/sizeUnit"
-            android:title="@string/sizeTitle"/>
-
-        <com.restart.spacestationtracker.colorpicker.ColorPreference
-            android:defaultValue="#FFEA00"
-            android:key="colorType"
-            android:summary="@string/colorSummary"
-            android:title="@string/colorTitle"
-            app:colorpicker_showHex="false"/>
-
-        <com.restart.spacestationtracker.view.SeekBarPreference
-            android:defaultValue="12"
-            android:dialogMessage="@string/textSizeDialogMessage"
-            android:key="textSizeType"
+            android:title="@string/sizeTitle"
             android:max="30"
+            app:showSeekBarValue="true"
+            app:updatesContinuously="true" />
+
+        <androidx.preference.SeekBarPreference
+            android:defaultValue="12"
+            android:key="textSizeType"
             android:summary="@string/textSizeSummary"
-            android:text="@string/textSizeUnit"
-            android:title="@string/textSizeTitle"/>
+            android:title="@string/textSizeTitle"
+            android:max="30"
+            app:showSeekBarValue="true"
+            app:updatesContinuously="true" />
 
-        <com.restart.spacestationtracker.colorpicker.ColorPreference
-            android:defaultValue="#FFEA00"
-            android:key="colorText"
-            android:summary="@string/textSummary"
-            android:title="@string/textTitle"
-            app:colorpicker_showHex="false"/>
-
-        <com.restart.spacestationtracker.colorpicker.ColorPreference
-            android:defaultValue="#000000"
-            android:key="colorHighlightText"
-            android:summary="@string/textHighlightSummary"
-            android:title="@string/textHighlightTitle"
-            app:colorpicker_showHex="false"/>
     </PreferenceCategory>
-
-<!--    <PreferenceCategory
-        android:key="Notification"
-        android:title="Notification">
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="notification_ISS"
-            android:summary="@string/notificationSummary"
-            android:title="@string/notificationTitle"/>
-
-    </PreferenceCategory>-->
-
 </PreferenceScreen>

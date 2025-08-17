@@ -1,138 +1,67 @@
 <resources>
-    
-    <string name="app_name">ISS-Tracker</string>
-
-    
+    <string name="app_name">ISS Tracker</string>
     <string name="map_activity">Karte</string>
-    <string name="flybys_title">Vorbeigehen</string>
-    <string name="space_title">Im Dienst</string>
-    <string name="settings_title">Einstellungen</string>
-    <string name="help_title">Helfen</string>
-
-    
-    <string name="flybys_summary">Prüfen Sie, wann die ISS an Ihrem Standort vorbeifliegt</string>
-    <string name="space_summary">Sehen Sie, wer sich gerade im Weltraum befindet</string>
-    <string name="settings_summary">Allgemeine App-Einstellungen verwalten</string>
-    <string name="help_summary">Bewerten oder erfahren Sie mehr über die App</string>
-
-    
-    <string name="reset">Vorhersagezeilen aktualisieren</string>
-    <string name="stream">Live</string>
-
-    
-    <string name="label_location">Vorbeiflüge</string>
-    <string name="label_people_in_space">Wer ist im Weltraum\?</string>
+    <string name="flybys_title">Überflüge</string>
+    <string name="help_title">Über</string>
+    <string name="label_location">Überflüge</string>
+    <string name="label_people_in_space">Im Dienst</string>
     <string name="label_setting">Einstellungen</string>
-    <string name="label_help">Helfen</string>
-    <string name="label_stream">Liveübertragung</string>
-
-    
-    <string name="startAlert">Benachrichtigen Sie, wenn die ISS in der Nähe ist</string>
-    <string name="stopAlert">Hören Sie auf zu benachrichtigen, wenn die ISS in der Nähe ist</string>
-    <string name="startFullAds">Ganzseitige Anzeigen aktiviert. Danke für die Unterstützung ;)</string>
-    <string name="startBannerAds">Bannerwerbung aktiviert. Danke für die Unterstützung ;)</string>
-
-    
-    <string name="tutorialOne">Die Karte zeigt den aktuellen Standort der ISS mit einer Vorhersagelinie, wo sie sich befinden wird.</string>
-    <string name="tutorialTwo">Mit der Schublade gelangen Sie zu anderen Funktionen wie Vorbeiflügen und Einstellungen.</string>
-    <string name="midAt">bei</string>
-    <string name="checkerContentDescription">Das Symbol zeigt an, dass eine transparente Farbe ausgewählt wurde</string>
+    <string name="label_help">Hilfe</string>
+    <string name="label_stream">Live!</string>
+    <string name="midAt"> um </string>
     <string name="countryFlagContentDescription">Landesflagge, aus der dieser Astronaut stammt</string>
-    <string name="astronautTwitterContentDescription">Symbol zum Verlinken zur Twitter-Seite der Astronauten</string>
-    <string name="astronautWikiContentDescription">Symbol zum Verlinken zur Astronauten-Wiki-Seite</string>
-    <string name="astronautGoogleContentDescription">Symbol zum Verlinken zur Google-Suchseite für Astronauten</string>
-
-    
+    <string name="astronautTwitterContentDescription">Symbol zum Verlinken auf die Twitter-Seite des Astronauten</string>
+    <string name="astronautWikiContentDescription">Symbol zum Verlinken auf die Wiki-Seite des Astronauten</string>
+    <string name="astronautGoogleContentDescription">Symbol zum Verlinken auf die Google-Suchseite des Astronauten</string>
     <string name="refreshTitle">Aktualisierungsrate</string>
-    <string name="refreshSummary">Zeit bis zur Aktualisierung des ISS-Standorts auf der Karte</string>
-    <string name="declination_unit">Sek./Aktualisierung</string>
-    <string name="refreshDialogMessage">Zeit zwischen der Aktualisierung der ISS an ihrem neuen Standort.</string>
-
+    <string name="refreshSummary">Zeitspanne vor der Aktualisierung des ISS-Standorts auf der Karte</string>
     <string name="lockTitle">ISS sperren</string>
-    <string name="lockSummary">Zielen Sie auf die ISS und folgen Sie ihr auf der Karte</string>
-
-    <string name="infoTitle">Zusätzliche Information</string>
-    <string name="infoSummary">Geben Sie auf der Karte zusätzliche Informationen zur ISS an</string>
-
+    <string name="lockSummary">Auf die ISS fixieren und ihr auf der Karte folgen</string>
+    <string name="infoTitle">Zusätzliche Informationen</string>
+    <string name="infoSummary">Zusätzliche Informationen über die ISS auf der Karte bereitstellen</string>
     <string name="mapTitle">Kartentyp</string>
-    <string name="mapSummary">Ändern Sie den Kartentyp gegenüber der vorherigen Seite</string>
-
-    <string name="decimalTitle">Nachkommastellen</string>
-    <string name="decimalDialogMessage">Ändern Sie die Genauigkeit aller numerischen Werte</string>
-    <string name="decimalSummary">Ändern Sie die Genauigkeit aller numerischen Werte</string>
-    <string name="decimalUnit">dp</string>
-
-    <string name="colorTitle">Farbe der Vorhersagelinie</string>
-    <string name="colorSummary">Ändern Sie die Farbe der Vorhersagelinien</string>
-
+    <string name="mapSummary">Den Kartentyp ändern</string>
+    <string name="decimalTitle">Dezimalstellen</string>
+    <string name="decimalSummary">Die Genauigkeit aller numerischen Werte ändern</string>
     <string name="sizeTitle">Größe der Vorhersagelinie</string>
-    <string name="sizeDialogMessage">Ändern Sie die Größe der ISS-Vorhersagelinie</string>
-    <string name="sizeSummary">Ändern Sie die Größe der ISS-Vorhersagelinie</string>
-    <string name="sizeUnit" />
-
+    <string name="sizeSummary">Die Größe der Vorhersagelinie der ISS ändern</string>
     <string name="textSizeTitle">Textgröße</string>
-    <string name="textSizeDialogMessage">Ändern Sie die Größe aller Textwerte auf der Karte</string>
-    <string name="textSizeSummary">Ändern Sie die Größe aller Textwerte auf der Karte</string>
-    <string name="textSizeUnit" />
-
-    <string name="textTitle">Textfarbe</string>
-    <string name="textSummary">Ändern Sie die Farbe von Textwerten</string>
-
-    <string name="textHighlightTitle">Textgliederung</string>
-    <string name="textHighlightSummary">Ändern Sie die Umrissfarbe von Textwerten</string>
-
+    <string name="textSizeSummary">Die Größe aller Textwerte auf der Karte ändern</string>
     <string name="notificationTitle">ISS-Benachrichtigung</string>
-    <string name="notificationSummary">Benachrichtigen, wenn die ISS voraussichtlich meinen Standort überfliegen wird</string>
-
-    <string name="advertisementTitle">Banner</string>
-    <string name="advertisementSummary">Deaktivieren Sie Bannerwerbung in der App</string>
-
-    <string name="fullTitle">Volle Seite</string>
-    <string name="fullSummary">Deaktivieren Sie ganzseitige Anzeigen in der App</string>
-
-    
-    <string name="errorWebView">Seite kann nicht geladen werden</string>
+    <string name="notificationSummary">Benachrichtigen, wenn die ISS voraussichtlich über meinen Standort fliegt</string>
     <string name="errorLocation">Ihr Standort konnte nicht gefunden werden.</string>
-    <string name="errorPermissionLocation">Der Zugriff auf Ihren Standort wurde verweigert</string>
-    <string name="errorConnection">Entweder haben Sie keine Verbindung oder der Server ist überlastet.</string>
-    <string name="nothing_available">Derzeit gibt es keine ISS-Vorbeiflüge an Ihrem Standort</string>
-    <string name="unable_to_get_astronauts">Es können keine Astronauten aufgenommen werden. Stellen Sie sicher, dass Sie mit dem Internet verbunden sind, und versuchen Sie es später erneut</string>
-    <string name="unable_to_get_passes">Es können keine ISS-Pässe erhalten werden. Stellen Sie sicher, dass Sie mit dem Internet verbunden sind, und versuchen Sie es später erneut</string>
-    <string name="errorNetwork">Ein unbekannter Fehler ist aufgetreten. Fehler: 401</string>
+    <string name="errorPermissionLocation">Zugriff auf Ihren Standort verweigert</string>
+    <string name="nothing_available">Derzeit gibt es keine ISS-Überflüge an Ihrem Standort</string>
+    <string name="unable_to_get_astronauts">Astronauten konnten nicht abgerufen werden. Stellen Sie sicher, dass Sie mit dem Internet verbunden sind und versuchen Sie es später erneut</string>
+    <string name="unable_to_get_passes">ISS-Überflüge konnten nicht abgerufen werden. Stellen Sie sicher, dass Sie mit dem Internet verbunden sind und versuchen Sie es später erneut</string>
     <string name="errorMap">Einstellungen können nicht auf die Karte angewendet werden</string>
-    <string name="errorFiveTimes">Alle 5 Mal fehlgeschlagen. Entweder haben Sie keine Verbindung oder der Server ist überlastet.</string>
-    <string name="errorLessFive">Die Anfrage an den Server ist fehlgeschlagen. Erneuter Versuch…</string>
-    <string name="errorWaitPoly">Es werden bereits Vorhersagelinien erstellt</string>
-    <string name="errorNotByMe">Die ISS-Benachrichtigung wurde von Ihnen nicht gestoppt.</string>
-    <string name="errorNoWiki">hat keine Wiki-Seite</string>
-    <string name="errorNoTwitter">hat keinen Twitter-Account</string>
-    <string name="errorNoInstagram">hat keinen Instagram-Account</string>
-    <string name="errorNoFacebook">hat kein Facebook-Konto</string>
-    <string name="data_corrupted">App-Daten sind beschädigt. Zurücksetzen!</string>
+    <string name="errorFiveTimes">Alle 5 Versuche fehlgeschlagen. Entweder haben Sie keine Verbindung oder der Server ist überlastet.</string>
+    <string name="errorLessFive">Anfrage an den Server fehlgeschlagen. Erneuter Versuch…</string>
+    <string name="errorNoWiki"> hat keine Wiki-Seite</string>
+    <string name="errorNoTwitter"> hat kein Twitter-Konto</string>
+    <string name="errorNoInstagram"> hat kein Instagram-Konto</string>
+    <string name="errorNoFacebook"> hat kein Facebook-Konto</string>
+    <string name="data_corrupted">App-Daten sind beschädigt. Wird zurückgesetzt!</string>
     <string name="polyError">Vorhersagelinie konnte nicht erstellt werden</string>
     <string name="calendar">Kalender</string>
-    <string name="share">Aktie</string>
+    <string name="share">Teilen</string>
     <string name="image_content">Bild einer Karte mit einer Markierung für den Benutzerstandort.</string>
     <string name="iss_sighting_share_title">ISS-Sichtung</string>
-    <string name="iss_sighting_share_description">ISS wird hier sichtbar sein. Werde es mir ansehen!</string>
-    <string name="iss_sighting_share_body">„Schauen Sie es sich an! Die ISS wird sichtbar sein“</string>
-    <string name="iss_sighting_share_chooser">Aktie…</string>
-    <string name="on">\" An \"</string>
-    <string name="one_day_in_space">1 Tag im Weltraum</string>
-    <string name="in_space">\" im Weltraum\"</string>
-    <string name="day">\" Tag\"</string>
-    <string name="month">\" Monat\"</string>
-    <string name="year">\" Jahr\"</string>
-    <string name="since">„Gestartet“</string>
-    <string name="tutorial_one_title">Hallo :)</string>
-    <string name="tutorial_two_title">Haupteigenschaften</string>
-
+    <string name="iss_sighting_share_description">Die ISS wird hier sichtbar sein. Werde es mir ansehen!</string>
+    <string name="iss_sighting_share_body">"Schau mal! Die ISS wird sichtbar sein bei "</string>
+    <string name="iss_sighting_share_chooser">Teilen…</string>
+    <string name="on">" am "</string>
+    <string name="since">"Gestartet am "</string>
     <string name="license">Open-Source-Lizenzen</string>
-    <string name="msg_license">Diese Anwendung wurde mit der folgenden Software erstellt:</string>
-    <string name="msg_about_fork_me_on_github">Forken Sie es auf GitHub</string>
-    <string name="msg_about_library_description">ISS Tracker ist eine Android-Anwendung, mit der Sie die Position der Internationalen Raumstation verfolgen und herausfinden können, welche Astronauten sich derzeit im Weltraum befinden.</string>
+    <string name="msg_license">Diese Anwendung wurde mit folgender Software erstellt:</string>
+    <string name="msg_about_library_description">ISS Tracker ist eine Android-Anwendung, mit der Sie die Position der Internationalen Raumstation verfolgen und herausfinden können, welche Astronauten sich gerade im Weltraum befinden.</string>
     <string name="desc_about_app">Über diese App</string>
-    <string name="msg_get_it_on_play_store">Bekomm es auf Google Play</string>
     <string name="version">Versionen</string>
     <string name="version_msg">Liste früherer Änderungen, Korrekturen und Updates:</string>
+    <string name="refresh_stats_every_seconds">Statistiken alle %1$d Sekunden aktualisieren</string>
+    <string name="change_the_thickness_of_the_prediction_line">Die Dicke der Vorhersagelinie ändern</string>
+    <string name="starts">Startet: %1$s</string>
+    <string name="duration">Dauer: %1$s</string>
+    <string name="ad_attribution">Anzeige</string>
+    <string name="ad_icon">Anzeigensymbol</string>
 </resources>

@@ -1,138 +1,67 @@
 <resources>
-    
-    <string name="app_name">Rastreador de la ISS</string>
-
-    
+    <string name="app_name">Rastreador de la EEI</string>
     <string name="map_activity">Mapa</string>
-    <string name="flybys_title">Pasando por</string>
-    <string name="space_title">De servicio</string>
-    <string name="settings_title">Ajustes</string>
-    <string name="help_title">Ayuda</string>
-
-    
-    <string name="flybys_summary">Compruebe cuándo pasará la ISS por su ubicación</string>
-    <string name="space_summary">Mira quién está en el espacio ahora mismo.</string>
-    <string name="settings_summary">Administrar la configuración general de la aplicación</string>
-    <string name="help_summary">Califica o aprende sobre la aplicación</string>
-
-    
-    <string name="reset">Actualizar líneas de predicción</string>
-    <string name="stream">Vivir</string>
-
-    
-    <string name="label_location">Sobrevuelos</string>
-    <string name="label_people_in_space">¿Quién está en el espacio\?</string>
-    <string name="label_setting">Ajustes</string>
+    <string name="flybys_title">Pasando Cerca</string>
+    <string name="help_title">Acerca de</string>
+    <string name="label_location">Pasadas</string>
+    <string name="label_people_in_space">De servicio</string>
+    <string name="label_setting">Configuración</string>
     <string name="label_help">Ayuda</string>
-    <string name="label_stream">Transmisión en vivo</string>
-
-    
-    <string name="startAlert">Notificar cuando la ISS esté cerca</string>
-    <string name="stopAlert">Deja de notificar cuando la ISS esté cerca</string>
-    <string name="startFullAds">Anuncios de página completa habilitados. Gracias por el apoyo ;)</string>
-    <string name="startBannerAds">Anuncios de banner habilitados. Gracias por el apoyo ;)</string>
-
-    
-    <string name="tutorialOne">El mapa muestra la ubicación actual de la ISS con una línea de predicción de dónde estará.</string>
-    <string name="tutorialTwo">El cajón lo lleva a otras funciones, como sobrevuelos y configuraciones.</string>
-    <string name="midAt">en</string>
-    <string name="checkerContentDescription">El icono representa que se ha elegido un color transparente.</string>
-    <string name="countryFlagContentDescription">Bandera del país de donde es este astronauta</string>
-    <string name="astronautTwitterContentDescription">Icono para enlazar a la página de Twitter de los astronautas.</string>
-    <string name="astronautWikiContentDescription">Ícono para vincular a la página wiki de astronautas</string>
-    <string name="astronautGoogleContentDescription">Ícono para vincular a la página de búsqueda de Google sobre astronautas</string>
-
-    
-    <string name="refreshTitle">Frecuencia de actualización</string>
-    <string name="refreshSummary">Cantidad de tiempo antes de actualizar la ubicación de la ISS en el mapa</string>
-    <string name="declination_unit">seg/actualizar</string>
-    <string name="refreshDialogMessage">Tiempo entre la actualización de la ISS a su nueva ubicación.</string>
-
-    <string name="lockTitle">Bloquear ISS</string>
-    <string name="lockSummary">Fijate en la ISS y síguela en el mapa.</string>
-
-    <string name="infoTitle">Información adicional</string>
-    <string name="infoSummary">Proporcionar información adicional sobre la ISS en el mapa.</string>
-
+    <string name="label_stream">¡En vivo!</string>
+    <string name="midAt"> a las </string>
+    <string name="countryFlagContentDescription">Bandera del país de este astronauta</string>
+    <string name="astronautTwitterContentDescription">Ícono para enlazar a la página de Twitter del astronauta</string>
+    <string name="astronautWikiContentDescription">Ícono para enlazar a la página de Wikipedia del astronauta</string>
+    <string name="astronautGoogleContentDescription">Ícono para enlazar a la página de búsqueda de Google del astronauta</string>
+    <string name="refreshTitle">Tasa de Refresco</string>
+    <string name="refreshSummary">Tiempo antes de actualizar la ubicación de la EEI en el mapa</string>
+    <string name="lockTitle">Fijar en la EEI</string>
+    <string name="lockSummary">Fijar la vista en la EEI y seguirla en el mapa</string>
+    <string name="infoTitle">Información Adicional</string>
+    <string name="infoSummary">Proporcionar información adicional sobre la EEI en el mapa</string>
     <string name="mapTitle">Tipo de mapa</string>
-    <string name="mapSummary">Cambiar el tipo de mapa de la página anterior</string>
-
-    <string name="decimalTitle">Lugares decimales</string>
-    <string name="decimalDialogMessage">Cambiar la precisión de todos los valores numéricos.</string>
-    <string name="decimalSummary">Cambiar la precisión de todos los valores numéricos.</string>
-    <string name="decimalUnit">dp</string>
-
-    <string name="colorTitle">Color de la línea de predicción</string>
-    <string name="colorSummary">Cambiar el color de las líneas de predicción.</string>
-
-    <string name="sizeTitle">Tamaño de línea de predicción</string>
-    <string name="sizeDialogMessage">Cambiar el tamaño de la línea de predicción de la ISS</string>
-    <string name="sizeSummary">Cambiar el tamaño de la línea de predicción de la ISS</string>
-    <string name="sizeUnit" />
-
-    <string name="textSizeTitle">Tamano del texto</string>
-    <string name="textSizeDialogMessage">Cambiar el tamaño de todos los valores de texto en el mapa</string>
+    <string name="mapSummary">Cambiar el tipo de mapa</string>
+    <string name="decimalTitle">Posiciones Decimales</string>
+    <string name="decimalSummary">Cambiar la precisión de todos los valores numéricos</string>
+    <string name="sizeTitle">Tamaño de la línea de predicción</string>
+    <string name="sizeSummary">Cambiar el tamaño de la línea de predicción de la EEI</string>
+    <string name="textSizeTitle">Tamaño del texto</string>
     <string name="textSizeSummary">Cambiar el tamaño de todos los valores de texto en el mapa</string>
-    <string name="textSizeUnit" />
-
-    <string name="textTitle">Color de texto</string>
-    <string name="textSummary">Cambiar el color de los valores del texto.</string>
-
-    <string name="textHighlightTitle">Esquema del texto</string>
-    <string name="textHighlightSummary">Cambiar el color del contorno de los valores del texto</string>
-
-    <string name="notificationTitle">Notificación de la ISS</string>
-    <string name="notificationSummary">Notificar cuando se espera que la ISS sobrevuele mi ubicación</string>
-
-    <string name="advertisementTitle">Bandera</string>
-    <string name="advertisementSummary">Deshabilitar anuncios publicitarios en la aplicación</string>
-
-    <string name="fullTitle">Página completa</string>
-    <string name="fullSummary">Deshabilite los anuncios de página completa en la aplicación</string>
-
-    
-    <string name="errorWebView">No se puede cargar la página</string>
+    <string name="notificationTitle">Notificación de la EEI</string>
+    <string name="notificationSummary">Notificar cuando se espere que la EEI pase sobre mi ubicación</string>
     <string name="errorLocation">No se puede encontrar tu ubicación.</string>
-    <string name="errorPermissionLocation">Acceso denegado a su ubicación</string>
-    <string name="errorConnection">O no tienes conexión o el servidor está sobrecargado.</string>
-    <string name="nothing_available">No hay pases ISS cerca de su ubicación en este momento</string>
-    <string name="unable_to_get_astronauts">No se pueden conseguir astronautas. Asegúrate de estar conectado a Internet y vuelve a intentarlo más tarde.</string>
-    <string name="unable_to_get_passes">No se pueden obtener pases ISS. Asegúrate de estar conectado a Internet y vuelve a intentarlo más tarde.</string>
-    <string name="errorNetwork">Un error desconocido a ocurrido. Error: 401</string>
-    <string name="errorMap">No se pueden aplicar configuraciones al mapa</string>
-    <string name="errorFiveTimes">Falló las 5 veces. O no tienes conexión o el servidor está sobrecargado.</string>
+    <string name="errorPermissionLocation">Acceso denegado a tu ubicación</string>
+    <string name="nothing_available">No hay pasadas de la EEI por tu ubicación en este momento</string>
+    <string name="unable_to_get_astronauts">No se pudieron obtener los astronautas. Asegúrate de estar conectado a internet e inténtalo de nuevo más tarde</string>
+    <string name="unable_to_get_passes">No se pudieron obtener las pasadas de la EEI. Asegúrate de estar conectado a internet e inténtalo de nuevo más tarde</string>
+    <string name="errorMap">No se pueden aplicar los ajustes al mapa</string>
+    <string name="errorFiveTimes">Fallaron los 5 intentos. O no tienes conexión o el servidor está sobrecargado.</string>
     <string name="errorLessFive">La solicitud al servidor falló. Reintentando…</string>
-    <string name="errorWaitPoly">Ya creando líneas de predicción</string>
-    <string name="errorNotByMe">Usted no detuvo la notificación ISS.</string>
-    <string name="errorNoWiki">no tiene una página wiki</string>
-    <string name="errorNoTwitter">no tiene una cuenta de Twitter</string>
-    <string name="errorNoInstagram">no tiene una cuenta de instagram</string>
-    <string name="errorNoFacebook">no tiene una cuenta de facebook</string>
-    <string name="data_corrupted">Los datos de la aplicación están dañados. ¡Reiniciando!</string>
-    <string name="polyError">No se puede crear una línea de predicción</string>
+    <string name="errorNoWiki"> no tiene una página de Wikipedia</string>
+    <string name="errorNoTwitter"> no tiene una cuenta de Twitter</string>
+    <string name="errorNoInstagram"> no tiene una cuenta de Instagram</string>
+    <string name="errorNoFacebook"> no tiene una cuenta de Facebook</string>
+    <string name="data_corrupted">Los datos de la aplicación están corruptos. ¡Restableciendo!</string>
+    <string name="polyError">No se pudo crear la línea de predicción</string>
     <string name="calendar">Calendario</string>
     <string name="share">Compartir</string>
     <string name="image_content">Imagen de un mapa con un marcador para la ubicación del usuario.</string>
-    <string name="iss_sighting_share_title">Avistamiento de la ISS</string>
-    <string name="iss_sighting_share_description">La ISS será visible aquí. ¡Voy a comprobarlo!</string>
-    <string name="iss_sighting_share_body">\"¡Compruébalo! La ISS será visible en \"</string>
+    <string name="iss_sighting_share_title">Avistamiento de la EEI</string>
+    <string name="iss_sighting_share_description">La EEI será visible aquí. ¡Voy a verlo!</string>
+    <string name="iss_sighting_share_body">"¡Mira esto! La EEI será visible en "</string>
     <string name="iss_sighting_share_chooser">Compartir…</string>
-    <string name="on">\" en \"</string>
-    <string name="one_day_in_space">1 día en el espacio</string>
-    <string name="in_space">\" en el espacio\"</string>
-    <string name="day">\" día\"</string>
-    <string name="month">\" mes\"</string>
-    <string name="year">\" año\"</string>
-    <string name="since">\"Lanzado \"</string>
-    <string name="tutorial_one_title">Hola :)</string>
-    <string name="tutorial_two_title">Principales características</string>
-
+    <string name="on">" el "</string>
+    <string name="since">"Lanzado el "</string>
     <string name="license">Licencias de código abierto</string>
-    <string name="msg_license">Esta aplicación se construye utilizando el siguiente software:</string>
-    <string name="msg_about_fork_me_on_github">Bifurcarlo en GitHub</string>
-    <string name="msg_about_library_description">ISS Tracker es una aplicación de Android que te permite rastrear la posición de la Estación Espacial Internacional y descubrir qué astronautas se encuentran actualmente en el espacio.</string>
+    <string name="msg_license">Esta aplicación está construida usando el siguiente software:</string>
+    <string name="msg_about_library_description">ISS Tracker es una aplicación de Android que te permite seguir la posición de la Estación Espacial Internacional y descubrir qué astronautas están actualmente en el espacio.</string>
     <string name="desc_about_app">Acerca de esta aplicación</string>
-    <string name="msg_get_it_on_play_store">Consiguelo en google play</string>
     <string name="version">Versiones</string>
     <string name="version_msg">Lista de cambios, correcciones y actualizaciones anteriores:</string>
+    <string name="refresh_stats_every_seconds">Actualizar estadísticas cada %1$d segundos</string>
+    <string name="change_the_thickness_of_the_prediction_line">Cambiar el grosor de la línea de predicción</string>
+    <string name="starts">Comienza: %1$s</string>
+    <string name="duration">Duración: %1$s</string>
+    <string name="ad_attribution">Anuncio</string>
+    <string name="ad_icon">Ícono de Anuncio</string>
 </resources>
