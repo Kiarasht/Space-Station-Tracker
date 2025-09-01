@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -95,9 +96,9 @@ fun AboutAppCard(versionName: String) {
                 color = MaterialTheme.colorScheme.onSurface
             )
             Image(
-                painter = painterResource(id = R.mipmap.ic_launcher),
+                painter = painterResource(id = R.drawable.app_icon),
                 contentDescription = stringResource(id = R.string.desc_about_app),
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.size(36.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
