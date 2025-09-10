@@ -33,17 +33,18 @@ class PeopleInSpaceViewModel @Inject constructor(
     private fun loadPeopleInSpace() {
         viewModelScope.launch {
             _uiState.value = PeopleInSpaceUiState(isLoading = true)
-            getPeopleInSpaceUseCase().onSuccess { astronauts ->
-                val ad = loadNativeAd()
+            getPeopleInSpaceUseCase().onSuccess { (expedition, astronauts) ->
                 val feedItems: MutableList<FeedItem> = mutableListOf()
+                feedItems.add(FeedItem.ExpeditionItem(expedition))
+
                 var astronautIndex = 0
                 while (astronautIndex < astronauts.size) {
                     feedItems.add(FeedItem.AstronautItem(astronauts[astronautIndex]))
                     astronautIndex++
                     if (astronautIndex == 2) {
-                        ad?.let { feedItems.add(FeedItem.AdItem(it)) }
+                        loadNativeAd()?.let { feedItems.add(FeedItem.AdItem(it)) }
                     } else if (astronautIndex > 2 && (astronautIndex - 2) % 3 == 0) {
-                        ad?.let { feedItems.add(FeedItem.AdItem(it)) }
+                        loadNativeAd()?.let { feedItems.add(FeedItem.AdItem(it)) }
                     }
                 }
                 _uiState.value = PeopleInSpaceUiState(feedItems = feedItems)
@@ -54,7 +55,7 @@ class PeopleInSpaceViewModel @Inject constructor(
     }
 
     private suspend fun loadNativeAd(): NativeAd? {
-        val adUnitId = application.getString(R.string.locations_native_ad_unit_id)
+        val adUnitId = application.getString(R.string.on_duty_native_ad_unit_id)
         return suspendCoroutine { continuation ->
             val adLoader = AdLoader.Builder(application, adUnitId)
                 .forNativeAd { nativeAd ->

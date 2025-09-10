@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -26,7 +25,7 @@ fun NativeAdCard(modifier: Modifier = Modifier, nativeAd: NativeAd) {
         modifier = modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        shape = MaterialTheme.shapes.medium.copy(topEnd = CornerSize(0.dp))
+        shape = MaterialTheme.shapes.medium
     ) {
         val textColor = MaterialTheme.colorScheme.onSurface.toArgb()
         val bodyTextColor = MaterialTheme.colorScheme.onSurfaceVariant.toArgb()

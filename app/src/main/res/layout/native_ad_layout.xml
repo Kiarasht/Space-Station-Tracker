@@ -45,7 +45,8 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/ad_app_icon"
-            app:layout_constraintTop_toTopOf="@id/ad_app_icon" />
+            app:layout_constraintTop_toTopOf="@id/ad_app_icon"
+            app:layout_goneMarginStart="0dp" />
 
         <TextView
             android:id="@+id/ad_advertiser"

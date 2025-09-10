@@ -11,7 +11,7 @@ object DateUtils {
         val formattedDate = sdf.format(date)
 
         val day = SimpleDateFormat("d", Locale.getDefault()).format(date).toInt()
-        return "Launched ${formattedDate.replaceFirst(day.toString(), getDayWithSuffix(day))}"
+        return formattedDate.replaceFirst(day.toString(), getDayWithSuffix(day))
     }
 
     private fun getDayWithSuffix(day: Int): String {

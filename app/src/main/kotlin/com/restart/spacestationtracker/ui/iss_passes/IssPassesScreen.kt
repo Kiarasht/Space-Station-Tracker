@@ -1,13 +1,23 @@
 package com.restart.spacestationtracker.ui.iss_passes
 
 import android.Manifest
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material3.*
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,12 +47,15 @@ import kotlin.math.cos
 import kotlin.math.min
 import kotlin.math.sin
 
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun IssPassesScreen(
     viewModel: IssPassesViewModel = hiltViewModel(),
     contentPadding: PaddingValues
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val activity = LocalContext.current.findActivity()
+    val windowSizeClass = calculateWindowSizeClass(activity)
     val screenPadding = PaddingValues(
         start = contentPadding.calculateStartPadding(LayoutDirection.Ltr) + 16.dp,
         end = contentPadding.calculateEndPadding(LayoutDirection.Ltr) + 16.dp,
@@ -75,32 +88,69 @@ fun IssPassesScreen(
             )
 
             else -> {
-                LazyColumn(
-                    contentPadding = screenPadding,
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    item {
-                        Text(
-                            text = "Showing passes for ${uiState.location?.name}",
-                            style = MaterialTheme.typography.headlineSmall
-                        )
-                    }
-                    items(
-                        items = uiState.feedItems,
-                        contentType = { item ->
-                            when (item) {
-                                is FeedItem.PassItem -> "pass"
-                                is FeedItem.AdItem -> "ad"
+                when (windowSizeClass.widthSizeClass) {
+                    WindowWidthSizeClass.Compact -> {
+                        LazyColumn(
+                            contentPadding = screenPadding,
+                            verticalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            item {
+                                Text(
+                                    text = "Showing passes for ${uiState.location?.name}",
+                                    style = MaterialTheme.typography.headlineSmall
+                                )
+                            }
+                            items(
+                                items = uiState.feedItems,
+                                contentType = { item ->
+                                    when (item) {
+                                        is FeedItem.PassItem -> "pass"
+                                        is FeedItem.AdItem -> "ad"
+                                    }
+                                }
+                            ) { item ->
+                                when (item) {
+                                    is FeedItem.PassItem -> IssPassCard(pass = item.pass)
+                                    is FeedItem.AdItem -> NativeAdCard(nativeAd = item.ad)
+                                }
+                            }
+                            item {
+                                Spacer(modifier = Modifier.height(32.dp))
                             }
                         }
-                    ) { item ->
-                        when (item) {
-                            is FeedItem.PassItem -> IssPassCard(pass = item.pass)
-                            is FeedItem.AdItem -> NativeAdCard(nativeAd = item.ad)
-                        }
                     }
-                    item {
-                        Spacer(modifier = Modifier.height(32.dp))
+                    else -> {
+                        LazyVerticalStaggeredGrid(
+                            columns = StaggeredGridCells.Fixed(2),
+                            modifier = Modifier.fillMaxSize(),
+                            contentPadding = screenPadding,
+                            horizontalArrangement = Arrangement.spacedBy(16.dp),
+                            verticalItemSpacing = 16.dp
+                        ) {
+                            item(span = StaggeredGridItemSpan.FullLine) {
+                                Text(
+                                    text = "Showing passes for ${uiState.location?.name}",
+                                    style = MaterialTheme.typography.headlineSmall
+                                )
+                            }
+                            items(
+                                items = uiState.feedItems,
+                                contentType = { item ->
+                                    when (item) {
+                                        is FeedItem.PassItem -> "pass"
+                                        is FeedItem.AdItem -> "ad"
+                                    }
+                                }
+                            ) { item ->
+                                when (item) {
+                                    is FeedItem.PassItem -> IssPassCard(pass = item.pass)
+                                    is FeedItem.AdItem -> NativeAdCard(nativeAd = item.ad)
+                                }
+                            }
+                            item(span = StaggeredGridItemSpan.FullLine) {
+                                Spacer(modifier = Modifier.height(48.dp))
+                            }
+                        }
                     }
                 }
             }
@@ -252,10 +302,19 @@ fun SkyPathComposable(startCompass: String, endCompass: String, maxElevation: Fl
 
 fun getBrightnessRating(magnitude: Double): String {
     return when {
-        magnitude < -3.5 -> "Very Bright"
-        magnitude < -2.0 -> "Bright"
-        magnitude < -0.5 -> "Moderate"
-        magnitude < 1.5 -> "Faint"
+        magnitude < -2.0 -> "Very Bright"
+        magnitude < -1.5 -> "Bright"
+        magnitude < -1.0 -> "Moderate"
+        magnitude < 0.0 -> "Faint"
         else -> "Very Faint"
     }
+}
+
+private fun Context.findActivity(): Activity {
+    var context = this
+    while (context is ContextWrapper) {
+        if (context is Activity) return context
+        context = context.baseContext
+    }
+    throw IllegalStateException("no activity")
 }
