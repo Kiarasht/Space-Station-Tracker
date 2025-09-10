@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6441A5</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
-    <color name="yellow">#FFEB3B</color>
-    <color name="gray600">#757575</color>
-    <color name="transparent">#00000000</color>
+    <color name="colorPrimary">#005792</color>
+    <color name="onPrimary">#FFFFFF</color>
+    <color name="primaryVariant">#FFFFFF</color>
+    <color name="onSurface">#1C1C1E</color>
 </resources>
