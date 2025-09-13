@@ -2,12 +2,30 @@ package com.restart.spacestationtracker.data.people_in_space.remote
 
 import com.google.gson.annotations.SerializedName
 import com.restart.spacestationtracker.domain.people_in_space.model.Astronaut
+import com.restart.spacestationtracker.domain.people_in_space.model.Expedition
 
 data class PeopleInSpaceResponseDto(
     val number: Int,
     val people: List<PersonDto>,
     @SerializedName("iss_expedition") val issExpedition: Int,
-)
+    @SerializedName("expedition_patch") val expeditionPatch: String,
+    @SerializedName("expedition_url") val expeditionUrl: String,
+    @SerializedName("expedition_image") val expeditionImage: String,
+    @SerializedName("expedition_start_date") val expeditionStartDate: Long,
+    @SerializedName("expedition_end_date") val expeditionEndDate: Long,
+) {
+    fun toExpedition(): Expedition {
+        return Expedition(
+            number = issExpedition,
+            patchUrl = expeditionPatch,
+            url = expeditionUrl,
+            imageUrl = expeditionImage,
+            startDate = expeditionStartDate,
+            endDate = expeditionEndDate,
+            bio = "" // Bio will be fetched separately
+        )
+    }
+}
 
 data class PersonDto(
     val id: Int,

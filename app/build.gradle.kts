@@ -18,8 +18,8 @@ android {
         applicationId = "com.restart.spacestationtracker"
         minSdk = 24
         targetSdk = 36
-        versionCode = 45
-        versionName = "7.00"
+        versionCode = 46
+        versionName = "7.01"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -53,7 +53,7 @@ android {
             signingConfig = signingConfigs.getByName("release")
         }
         debug {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -93,6 +93,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.compose.material3:material3-window-size-class:1.2.1")
     implementation("com.google.android.material:material:1.12.0")
     implementation(project(":compose-util"))
 

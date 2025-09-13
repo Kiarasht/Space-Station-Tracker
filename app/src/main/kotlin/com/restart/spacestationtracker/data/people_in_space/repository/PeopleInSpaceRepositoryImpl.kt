@@ -2,6 +2,7 @@ package com.restart.spacestationtracker.data.people_in_space.repository
 
 import com.restart.spacestationtracker.data.people_in_space.remote.PeopleInSpaceApiService
 import com.restart.spacestationtracker.domain.people_in_space.model.Astronaut
+import com.restart.spacestationtracker.domain.people_in_space.model.Expedition
 import com.restart.spacestationtracker.domain.people_in_space.repository.PeopleInSpaceRepository
 import javax.inject.Inject
 
@@ -9,10 +10,12 @@ class PeopleInSpaceRepositoryImpl @Inject constructor(
     private val api: PeopleInSpaceApiService
 ) : PeopleInSpaceRepository {
 
-    override suspend fun getPeopleInSpace(): Result<List<Astronaut>> {
+    override suspend fun getPeopleInSpace(): Result<Pair<Expedition, List<Astronaut>>> {
         return try {
             val response = api.getPeopleInSpace()
-            Result.success(response.people.map { it.toAstronaut() })
+            val expedition = response.toExpedition()
+            val astronauts = response.people.map { it.toAstronaut() }
+            Result.success(Pair(expedition, astronauts))
         } catch (e: Exception) {
             Result.failure(e)
         }

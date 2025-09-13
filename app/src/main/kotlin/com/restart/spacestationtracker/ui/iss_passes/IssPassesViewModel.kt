@@ -4,8 +4,11 @@ import android.Manifest
 import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Address
 import android.location.Geocoder
+import android.location.Location
 import android.location.LocationManager
+import android.os.Build
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,6 +26,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
 import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 @HiltViewModel
@@ -43,7 +47,8 @@ class IssPassesViewModel @Inject constructor(
         if (isGranted) {
             fetchLocationAndPasses()
         } else {
-            _uiState.value = _uiState.value.copy(error = "Location permission is required to show ISS passes.")
+            _uiState.value =
+                _uiState.value.copy(error = "Location permission is required to show ISS passes.")
         }
     }
 
@@ -62,52 +67,90 @@ class IssPassesViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
             try {
-                val locationManager = application.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-                val location = locationManager.getProviders(true).asReversed().firstNotNullOfOrNull { provider ->
-                    try {
-                        locationManager.getLastKnownLocation(provider)
-                    } catch (e: SecurityException) {
-                        null
+                val locationManager =
+                    application.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                val location =
+                    locationManager.getProviders(true).asReversed().firstNotNullOfOrNull { provider ->
+                        try {
+                            locationManager.getLastKnownLocation(provider)
+                        } catch (_: SecurityException) {
+                            null
+                        }
                     }
-                }
 
                 if (location != null) {
                     val geocoder = Geocoder(application)
-                    val address = try {
-                        geocoder.getFromLocation(location.latitude, location.longitude, 1)?.firstOrNull()
-                    } catch (e: IOException) {
-                        null
-                    }
-                    val locationName = address?.let { "${it.locality}, ${it.adminArea}" } ?: "Current Location"
-                    val userLocation = UserLocation(location.latitude, location.longitude, location.altitude, locationName)
+                    val address = getAddressFromLocation(geocoder, location)
+
+                    val locationName =
+                        address?.let { "${it.locality}, ${it.adminArea}" } ?: "Current Location"
+                    val userLocation = UserLocation(
+                        location.latitude,
+                        location.longitude,
+                        location.altitude,
+                        locationName
+                    )
 
                     _uiState.value = _uiState.value.copy(location = userLocation)
 
                     getIssPassesUseCase(userLocation).onSuccess { passes ->
-                        val ad = loadNativeAd()
-                        val feedItems: MutableList<FeedItem> = passes.map { FeedItem.PassItem(it) }.toMutableList()
-                        ad?.let { adItem ->
-                            val adPosition = 2
-                            val adInterval = 4 // 3 items + 1 ad
-                            var insertionIndex = adPosition
+                        val feedItems: MutableList<FeedItem> =
+                            passes.map { FeedItem.PassItem(it) }.toMutableList()
+                        val adPosition = 2
+                        val adInterval = 4
+                        var insertionIndex = adPosition
 
-                            while (insertionIndex <= feedItems.size) {
+                        while (insertionIndex <= feedItems.size) {
+                            loadNativeAd()?.let { adItem ->
                                 feedItems.add(insertionIndex, FeedItem.AdItem(adItem))
-                                insertionIndex += adInterval
                             }
+                            insertionIndex += adInterval
                         }
-                        _uiState.value = _uiState.value.copy(feedItems = feedItems, isLoading = false, error = null)
+                        _uiState.value = _uiState.value.copy(
+                            feedItems = feedItems,
+                            isLoading = false,
+                            error = null
+                        )
                     }.onFailure {
-                        _uiState.value = _uiState.value.copy(isLoading = false, error = it.localizedMessage)
+                        _uiState.value =
+                            _uiState.value.copy(isLoading = false, error = it.localizedMessage)
                     }
                 } else {
-                    _uiState.value = _uiState.value.copy(isLoading = false, error = "Could not retrieve location.")
+                    _uiState.value =
+                        _uiState.value.copy(isLoading = false, error = "Could not retrieve location.")
                 }
-            } catch (e: SecurityException) {
-                _uiState.value = _uiState.value.copy(isLoading = false, error = "Location permission denied.")
+            } catch (_: SecurityException) {
+                _uiState.value =
+                    _uiState.value.copy(isLoading = false, error = "Location permission denied.")
             }
         }
     }
+
+    private suspend fun getAddressFromLocation(geocoder: Geocoder, location: Location): Address? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            suspendCoroutine { continuation ->
+                try {
+                    geocoder.getFromLocation(
+                        location.latitude,
+                        location.longitude,
+                        1
+                    ) { addresses ->
+                        continuation.resume(addresses.firstOrNull())
+                    }
+                } catch (e: IOException) {
+                    continuation.resumeWithException(e)
+                }
+            }
+        } else {
+            try {
+                @Suppress("DEPRECATION")
+                geocoder.getFromLocation(location.latitude, location.longitude, 1)?.firstOrNull()
+            } catch (_: IOException) {
+                null
+            }
+        }
+    }
+
 
     private suspend fun loadNativeAd(): NativeAd? {
         val adUnitId = application.getString(R.string.locations_native_ad_unit_id)
