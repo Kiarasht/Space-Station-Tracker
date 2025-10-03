@@ -439,13 +439,12 @@ fun IssPassCard(pass: IssPass, onNotificationClick: (IssPass) -> Unit) {
                 bottom = 24.dp
             )
         ) {
-            Row {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    modifier = Modifier.align(Alignment.CenterVertically),
+                    modifier = Modifier.weight(1f),
                     text = dateFormat.format(pass.startTime).uppercase(),
                     style = MaterialTheme.typography.titleMedium
                 )
-                Spacer(modifier = Modifier.weight(1f))
                 IconButton(onClick = { onNotificationClick(pass) }) {
                     Icon(
                         imageVector = Icons.Default.Notifications,
