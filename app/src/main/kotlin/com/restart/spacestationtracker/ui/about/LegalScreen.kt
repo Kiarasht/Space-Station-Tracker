@@ -3,8 +3,10 @@ package com.restart.spacestationtracker.ui.about
 import android.graphics.Typeface
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -78,6 +80,9 @@ fun LegalScreen(
             item {
                 val htmlContent = stringResource(id = contentResId)
                 HtmlText(html = htmlContent)
+            }
+            item {
+                Spacer(modifier = Modifier.height(72.dp))
             }
         }
     }

@@ -15,4 +15,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Space Station Tracker"
 include(":app")
-include(":compose-util")

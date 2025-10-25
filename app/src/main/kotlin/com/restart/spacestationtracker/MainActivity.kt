@@ -5,11 +5,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
@@ -43,6 +46,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -143,6 +147,12 @@ fun MainScreen() {
         label = "Bottom bar translation"
     )
 
+    val bottomPadding = WindowInsets.navigationBars.getBottom(LocalDensity.current)
+    val animatedBottomPadding by animateDpAsState(
+        targetValue = if (isBottomBarVisible) 0.dp else (bottomPadding / LocalDensity.current.density).dp,
+        label = "animated bottom padding"
+    )
+
     Scaffold(
         modifier = Modifier.nestedScroll(nestedScrollConnection),
         bottomBar = {
@@ -150,7 +160,11 @@ fun MainScreen() {
                 modifier = Modifier
                     .graphicsLayer { translationY = bottomBarTranslationY }
             ) {
-                AdmobBanner(modifier = Modifier.fillMaxWidth())
+                AdmobBanner(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = animatedBottomPadding)
+                )
                 NavigationBar(
                     modifier = Modifier.onSizeChanged { navBarHeight = it.height.toFloat() },
                     containerColor = MaterialTheme.colorScheme.surface
@@ -256,7 +270,7 @@ fun AdmobBanner(modifier: Modifier = Modifier) {
 
 sealed class Screen(val route: String, val icon: ImageVector? = null) {
     object Map : Screen("Map", Icons.Filled.Map)
-    object IssPasses : Screen("Flybys", Icons.Filled.Public)
+    object IssPasses : Screen("Sky Path", Icons.Filled.Public)
     object PeopleInSpace : Screen("On Duty", Icons.Filled.People)
     object Settings : Screen("Settings", Icons.Filled.Settings)
     object About : Screen("About", Icons.Filled.Info)

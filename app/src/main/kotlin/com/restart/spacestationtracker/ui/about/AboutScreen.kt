@@ -72,7 +72,7 @@ fun AboutScreen(
                 LicensesCard(softwareList = softwareList, softwareUrlList = softwareUrlList)
             }
             item {
-                Spacer(modifier = Modifier.height(64.dp))
+                Spacer(modifier = Modifier.height(108.dp))
             }
         }
     }
