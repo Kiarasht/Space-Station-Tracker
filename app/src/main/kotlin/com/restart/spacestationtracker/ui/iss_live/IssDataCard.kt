@@ -33,7 +33,7 @@ fun IssDataCard(location: IssLocation) {
         modifier = Modifier
             .clip(RoundedCornerShape(8.dp))
             .background(Color.Black.copy(alpha = 0.6f))
-            .padding(16.dp)
+            .padding(all = 16.dp)
     ) {
         val lat =
             if (location.latitude < 0) "${decimalFormat.format(location.latitude)}° S" else "${

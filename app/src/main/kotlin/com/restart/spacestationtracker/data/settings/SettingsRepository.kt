@@ -11,7 +11,9 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
@@ -27,6 +29,7 @@ data class AppSettings(
     val mapType: String,
     val units: String,
     val theme: String,
+    val adFreeExpiry: Long
 )
 
 val defaultAppSettings = AppSettings(
@@ -36,7 +39,8 @@ val defaultAppSettings = AppSettings(
     showOrbit = true,
     mapType = "Normal",
     units = "Metric",
-    theme = "Follow System"
+    theme = "Follow System",
+    adFreeExpiry = 0L
 )
 
 
@@ -44,6 +48,7 @@ val defaultAppSettings = AppSettings(
 class SettingsRepository @Inject constructor(@ApplicationContext context: Context) {
 
     private val dataStore = context.dataStore
+    private val _adFreeExpiryFlow = MutableStateFlow(0L)
 
     private object Keys {
         val MIN_ALTITUDE = intPreferencesKey("min_altitude")
@@ -55,24 +60,26 @@ class SettingsRepository @Inject constructor(@ApplicationContext context: Contex
         val THEME = stringPreferencesKey("theme")
     }
 
-    val appSettingsFlow: Flow<AppSettings> = dataStore.data
-        .catch { exception ->
+    val appSettingsFlow: Flow<AppSettings> = combine(
+        dataStore.data.catch { exception ->
             if (exception is IOException) {
                 emit(emptyPreferences())
             } else {
                 throw exception
             }
-        }
-        .map { preferences ->
-            val minAltitude = preferences[Keys.MIN_ALTITUDE] ?: defaultAppSettings.minAltitude
-            val minMagnitude = preferences[Keys.MIN_MAGNITUDE] ?: defaultAppSettings.minMagnitude
-            val showEvents = preferences[Keys.SHOW_EVENTS] ?: defaultAppSettings.showEvents
-            val showOrbit = preferences[Keys.SHOW_ORBIT] ?: defaultAppSettings.showOrbit
-            val mapType = preferences[Keys.MAP_TYPE] ?: defaultAppSettings.mapType
-            val units = preferences[Keys.UNITS] ?: defaultAppSettings.units
-            val theme = preferences[Keys.THEME] ?: defaultAppSettings.theme
-            AppSettings(minAltitude, minMagnitude, showEvents, showOrbit, mapType, units, theme)
-        }
+        },
+        _adFreeExpiryFlow
+    ) { preferences, adFreeExpiry ->
+        val minAltitude = preferences[Keys.MIN_ALTITUDE] ?: defaultAppSettings.minAltitude
+        val minMagnitude = preferences[Keys.MIN_MAGNITUDE] ?: defaultAppSettings.minMagnitude
+        val showEvents = preferences[Keys.SHOW_EVENTS] ?: defaultAppSettings.showEvents
+        val showOrbit = preferences[Keys.SHOW_ORBIT] ?: defaultAppSettings.showOrbit
+        val mapType = preferences[Keys.MAP_TYPE] ?: defaultAppSettings.mapType
+        val units = preferences[Keys.UNITS] ?: defaultAppSettings.units
+        val theme = preferences[Keys.THEME] ?: defaultAppSettings.theme
+        
+        AppSettings(minAltitude, minMagnitude, showEvents, showOrbit, mapType, units, theme, adFreeExpiry)
+    }
 
     suspend fun setMapType(value: String) {
         dataStore.edit { preferences ->
@@ -90,5 +97,9 @@ class SettingsRepository @Inject constructor(@ApplicationContext context: Contex
         dataStore.edit { preferences ->
             preferences[Keys.THEME] = value
         }
+    }
+
+    fun setAdFreeExpiry(timestamp: Long) {
+        _adFreeExpiryFlow.value = timestamp
     }
 }

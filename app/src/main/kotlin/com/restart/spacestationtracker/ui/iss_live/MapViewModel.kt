@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.maps.android.compose.MapType
 import com.restart.spacestationtracker.data.settings.SettingsRepository
 import com.restart.spacestationtracker.domain.iss_live.use_case.GetFutureIssLocationsUseCase
+import com.restart.spacestationtracker.domain.youtube.use_case.GetNasaLiveStreamStatusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,6 +22,7 @@ import javax.inject.Inject
 class MapViewModel @Inject constructor(
     private val getFutureIssLocationsUseCase: GetFutureIssLocationsUseCase,
     private val settingsRepository: SettingsRepository,
+    private val getNasaLiveStreamStatusUseCase: GetNasaLiveStreamStatusUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MapUiState())
@@ -32,18 +35,21 @@ class MapViewModel @Inject constructor(
     init {
         startIssTracking()
         observeSettings()
+        checkNasaLiveStatus()
     }
 
     private fun observeSettings() {
         settingsRepository.appSettingsFlow
             .onEach { settings ->
+                val isAdFree = System.currentTimeMillis() < settings.adFreeExpiry
                 _uiState.value = _uiState.value.copy(
                     mapType = when (settings.mapType) {
                         "Satellite" -> MapType.SATELLITE
                         "Hybrid" -> MapType.HYBRID
                         "Terrain" -> MapType.TERRAIN
                         else -> MapType.NORMAL
-                    }
+                    },
+                    isAdFree = isAdFree
                 )
             }.launchIn(viewModelScope)
     }
@@ -51,20 +57,36 @@ class MapViewModel @Inject constructor(
     private fun startIssTracking() {
         issTrackingJob?.cancel()
         issTrackingJob = viewModelScope.launch {
-            while (lineCount < 19) {
-                ++lineCount
-                getFutureIssLocations()
+            if (_uiState.value.issLocation == null) {
+                _uiState.value = _uiState.value.copy(isLoading = true)
+            }
+            while (isActive) {
+                // Fetch current location always.
+                // Fetch future locations only for the first ~2 hours (15 batches * 9 mins = 135 mins)
+                // to prevent infinite line growth.
+                val shouldFetchFuture = lineCount < 15
+                val success = fetchIssLocations(fetchFuture = shouldFetchFuture)
+                if (success && shouldFetchFuture) {
+                    ++lineCount
+                }
                 delay(5000)
             }
         }
     }
 
-    private fun getFutureIssLocations() {
-        viewModelScope.launch {
-            val timestamps = (0..9).map { minute ->
-                System.currentTimeMillis() / 1000 + (futureTimeOffset + minute) * 60
+    private suspend fun fetchIssLocations(fetchFuture: Boolean): Boolean {
+        val currentTime = System.currentTimeMillis() / 1000
+        val timestamps = if (fetchFuture) {
+            (0..9).map { minute ->
+                currentTime + (futureTimeOffset + minute) * 60
             }
-            getFutureIssLocationsUseCase(listOf(System.currentTimeMillis() / 1000) + timestamps).onSuccess { newLocations ->
+        } else {
+            emptyList()
+        }
+        
+        var isSuccess = false
+        getFutureIssLocationsUseCase(listOf(currentTime) + timestamps)
+            .onSuccess { newLocations ->
                 val currentLocation = newLocations.first()
                 val futureLocations = newLocations.drop(1)
 
@@ -74,13 +96,31 @@ class MapViewModel @Inject constructor(
                     isLoading = false,
                     error = null
                 )
-                futureTimeOffset += 9
+                if (fetchFuture) {
+                    futureTimeOffset += 9
+                }
+                isSuccess = true
             }.onFailure { throwable ->
                 _uiState.value = _uiState.value.copy(
                     error = throwable.localizedMessage ?: "An unknown error occurred"
                 )
+                isSuccess = false
             }
+        return isSuccess
+    }
+
+    private fun checkNasaLiveStatus() {
+        viewModelScope.launch {
+            val streams = getNasaLiveStreamStatusUseCase()
+            _uiState.value = _uiState.value.copy(liveStreams = streams)
         }
+    }
+
+    fun grantAdFreeAccess() {
+        // 6 hours = 6 * 60 * 60 * 1000 milliseconds
+        val durationInMillis = 6L * 60 * 60 * 1000
+        val expiryTime = System.currentTimeMillis() + durationInMillis
+        settingsRepository.setAdFreeExpiry(expiryTime)
     }
 
 

@@ -16,12 +16,17 @@ import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.nativead.NativeAd
 import com.restart.spacestationtracker.R
+import com.restart.spacestationtracker.data.settings.SettingsRepository
+import com.restart.spacestationtracker.domain.iss_passes.model.IssPass
 import com.restart.spacestationtracker.domain.iss_passes.use_case.GetIssPassesUseCase
 import com.restart.spacestationtracker.domain.iss_passes.use_case.UserLocation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
@@ -32,14 +37,18 @@ import kotlin.coroutines.suspendCoroutine
 @HiltViewModel
 class IssPassesViewModel @Inject constructor(
     private val getIssPassesUseCase: GetIssPassesUseCase,
+    private val settingsRepository: SettingsRepository,
     private val application: Application
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(IssPassesUiState())
     val uiState: StateFlow<IssPassesUiState> = _uiState.asStateFlow()
 
+    private var rawPasses: List<IssPass>? = null
+
     init {
         checkPermission()
+        observeAdFreeStatus()
     }
 
     fun onPermissionResult(isGranted: Boolean) {
@@ -60,6 +69,19 @@ class IssPassesViewModel @Inject constructor(
         _uiState.value = _uiState.value.copy(permissionGranted = hasPermission)
         if (hasPermission) {
             fetchLocationAndPasses()
+        }
+    }
+
+    private fun observeAdFreeStatus() {
+        viewModelScope.launch {
+            settingsRepository.appSettingsFlow
+                .map { System.currentTimeMillis() < it.adFreeExpiry }
+                .distinctUntilChanged()
+                .collect { isAdFree ->
+                    rawPasses?.let { passes ->
+                        buildFeed(passes, isAdFree)
+                    }
+                }
         }
     }
 
@@ -94,23 +116,10 @@ class IssPassesViewModel @Inject constructor(
                     _uiState.value = _uiState.value.copy(location = userLocation)
 
                     getIssPassesUseCase(userLocation).onSuccess { passes ->
-                        val feedItems: MutableList<FeedItem> =
-                            passes.map { FeedItem.PassItem(it) }.toMutableList()
-                        val adPosition = 2
-                        val adInterval = 4
-                        var insertionIndex = adPosition
-
-                        while (insertionIndex <= feedItems.size) {
-                            loadNativeAd()?.let { adItem ->
-                                feedItems.add(insertionIndex, FeedItem.AdItem(adItem))
-                            }
-                            insertionIndex += adInterval
-                        }
-                        _uiState.value = _uiState.value.copy(
-                            feedItems = feedItems,
-                            isLoading = false,
-                            error = null
-                        )
+                        rawPasses = passes
+                        val settings = settingsRepository.appSettingsFlow.first()
+                        val isAdFree = System.currentTimeMillis() < settings.adFreeExpiry
+                        buildFeed(passes, isAdFree)
                     }.onFailure {
                         _uiState.value =
                             _uiState.value.copy(isLoading = false, error = it.localizedMessage)
@@ -124,6 +133,30 @@ class IssPassesViewModel @Inject constructor(
                     _uiState.value.copy(isLoading = false, error = "Location permission denied.")
             }
         }
+    }
+
+    private suspend fun buildFeed(passes: List<IssPass>, isAdFree: Boolean) {
+        val feedItems: MutableList<FeedItem> =
+            passes.map { FeedItem.PassItem(it) }.toMutableList()
+
+        if (!isAdFree) {
+            val adPosition = 2
+            val adInterval = 4
+            var insertionIndex = adPosition
+
+            while (insertionIndex <= feedItems.size) {
+                loadNativeAd()?.let { adItem ->
+                    feedItems.add(insertionIndex, FeedItem.AdItem(adItem))
+                }
+                insertionIndex += adInterval
+            }
+        }
+
+        _uiState.value = _uiState.value.copy(
+            feedItems = feedItems,
+            isLoading = false,
+            error = null
+        )
     }
 
     private suspend fun getAddressFromLocation(geocoder: Geocoder, location: Location): Address? {

@@ -20,7 +20,7 @@ class SettingsViewModel @Inject constructor(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = AppSettings(9, 5, false, true, "Normal", "Metric", "Follow System")
+            initialValue = AppSettings(9, 5, false, true, "Normal", "Metric", "Follow System", 0L)
         )
 
     fun onMapTypeChanged(mapType: String) {
