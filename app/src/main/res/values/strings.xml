@@ -64,6 +64,24 @@
     <string name="duration">Duration: %1$s</string>
     <string name="ad_attribution">Ad</string>
     <string name="ad_icon">Ad Icon</string>
+    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~8939815838</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/4298913050</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/1377236244</string>
+    <string name="locations_native_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/9845698217</string>
+    <string name="on_duty_native_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/4740210185</string>
+    <string name="rewarded_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/9671547864</string>
+    <string name="legal_title">Legal Jibber Jabber</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_of_use">Terms of Use</string>
+    <string name="nasa_live">NASA Live</string>
+    <string name="live_stream">Live Stream</string>
+    <string name="stream_offline">Stream Offline</string>
+    <string name="remove_ads">Remove Ads</string>
+    <string name="remove_ads_description">Watch a short video to remove ads for the current session?</string>
+    <string name="failed_to_load_ad">Failed to load ad</string>
+    <string name="watch_video">Watch Video</string>
+    <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
 
     <string name="msg_get_it_on_play_store_url" translatable="false">https://play.google.com/store/apps/details?id=com.restart.spacestationtracker</string>
     <string name="apache_open_source_url" translatable="false">http://www.apache.org/licenses/LICENSE-2.0</string>
@@ -77,33 +95,6 @@
         <item>https://github.com/airbnb/lottie-android.git</item>
         <item>https://github.com/bumptech/glide</item>
     </string-array>
-
-    <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~8939815838</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/4298913050</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/1377236244</string>
-    <string name="locations_native_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/9845698217</string>
-    <string name="on_duty_native_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/4740210185</string>
-
-    <string-array name="entryValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="entry">
-        <item>None</item>
-        <item>Normal</item>
-        <item>Satellite</item>
-        <item>Terrain</item>
-        <item>Hybrid</item>
-    </string-array>
-
-
-    <string name="legal_title">Legal Jibber Jabber</string>
-    <string name="privacy_policy">Privacy Policy</string>
-    <string name="terms_of_use">Terms of Use</string>
 
     <string name="privacy_policy_content" translatable="false"><![CDATA[
         <h2>Privacy Policy</h2>

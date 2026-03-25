@@ -89,15 +89,17 @@ class MainActivity : ComponentActivity() {
                 "Dark" -> true
                 else -> isSystemInDarkTheme()
             }
+            val isAdFree = System.currentTimeMillis() < settings.adFreeExpiry
+            
             SpaceStationTrackerTheme(darkTheme = useDarkTheme) {
-                MainScreen()
+                MainScreen(isAdFree = isAdFree)
             }
         }
     }
 }
 
 @Composable
-fun MainScreen() {
+fun MainScreen(isAdFree: Boolean) {
     val navController = rememberNavController()
     val bottomNavItems = listOf(
         Screen.Map,
@@ -160,11 +162,13 @@ fun MainScreen() {
                 modifier = Modifier
                     .graphicsLayer { translationY = bottomBarTranslationY }
             ) {
-                AdmobBanner(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = animatedBottomPadding)
-                )
+                if (!isAdFree) {
+                    AdmobBanner(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = animatedBottomPadding)
+                    )
+                }
                 NavigationBar(
                     modifier = Modifier.onSizeChanged { navBarHeight = it.height.toFloat() },
                     containerColor = MaterialTheme.colorScheme.surface

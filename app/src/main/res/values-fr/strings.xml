@@ -64,4 +64,16 @@
     <string name="duration">Durée : %1$s</string>
     <string name="ad_attribution">Annonce</string>
     <string name="ad_icon">Icône d\'annonce</string>
+    <string name="legal_title">Mentions Légales</string>
+    <string name="privacy_policy">Politique de Confidentialité</string>
+    <string name="terms_of_use">Conditions d\'Utilisation</string>
+    <string name="nasa_live">NASA en Direct</string>
+    <string name="live_stream">Diffusion en Direct</string>
+    <string name="stream_offline">Hors Ligne</string>
+    <string name="remove_ads">Supprimer les pubs</string>
+    <string name="remove_ads_description">Regarder une courte vidéo pour supprimer les publicités pour la session actuelle ?</string>
+    <string name="failed_to_load_ad">Échec du chargement de l\'annonce</string>
+    <string name="watch_video">Regarder la vidéo</string>
+    <string name="cancel">Annuler</string>
+    <string name="close">Fermer</string>
 </resources>
