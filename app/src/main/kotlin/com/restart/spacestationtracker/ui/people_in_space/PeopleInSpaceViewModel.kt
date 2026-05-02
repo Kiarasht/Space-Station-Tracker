@@ -11,10 +11,12 @@ import com.restart.spacestationtracker.data.settings.SettingsRepository
 import com.restart.spacestationtracker.domain.people_in_space.model.Astronaut
 import com.restart.spacestationtracker.domain.people_in_space.model.Expedition
 import com.restart.spacestationtracker.domain.people_in_space.use_case.GetPeopleInSpaceUseCase
+import com.restart.spacestationtracker.ui.ads.AdsConsentManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -27,6 +29,7 @@ import kotlin.coroutines.suspendCoroutine
 class PeopleInSpaceViewModel @Inject constructor(
     private val getPeopleInSpaceUseCase: GetPeopleInSpaceUseCase,
     private val settingsRepository: SettingsRepository,
+    private val adsConsentManager: AdsConsentManager,
     private val application: Application
 ) : ViewModel() {
 
@@ -47,7 +50,7 @@ class PeopleInSpaceViewModel @Inject constructor(
                 rawData = expedition to astronauts
                 val settings = settingsRepository.appSettingsFlow.first()
                 val isAdFree = System.currentTimeMillis() < settings.adFreeExpiry
-                buildFeed(expedition, astronauts, isAdFree)
+                buildFeed(expedition, astronauts, isAdFree, adsConsentManager.canRequestAds.value)
             }.onFailure { throwable ->
                 _uiState.value = PeopleInSpaceUiState(error = throwable.localizedMessage ?: "An unknown error occurred")
             }
@@ -58,16 +61,24 @@ class PeopleInSpaceViewModel @Inject constructor(
         viewModelScope.launch {
             settingsRepository.appSettingsFlow
                 .map { System.currentTimeMillis() < it.adFreeExpiry }
+                .combine(adsConsentManager.canRequestAds) { isAdFree, canRequestAds ->
+                    isAdFree to canRequestAds
+                }
                 .distinctUntilChanged()
-                .collect { isAdFree ->
+                .collect { (isAdFree, canRequestAds) ->
                     rawData?.let { (expedition, astronauts) ->
-                        buildFeed(expedition, astronauts, isAdFree)
+                        buildFeed(expedition, astronauts, isAdFree, canRequestAds)
                     }
                 }
         }
     }
 
-    private suspend fun buildFeed(expedition: Expedition, astronauts: List<Astronaut>, isAdFree: Boolean) {
+    private suspend fun buildFeed(
+        expedition: Expedition,
+        astronauts: List<Astronaut>,
+        isAdFree: Boolean,
+        canRequestAds: Boolean
+    ) {
         val feedItems: MutableList<FeedItem> = mutableListOf()
         feedItems.add(FeedItem.ExpeditionItem(expedition))
 
@@ -76,7 +87,7 @@ class PeopleInSpaceViewModel @Inject constructor(
             feedItems.add(FeedItem.AstronautItem(astronauts[astronautIndex]))
             astronautIndex++
 
-            if (!isAdFree) {
+            if (!isAdFree && canRequestAds) {
                 if (astronautIndex == 2) {
                     loadNativeAd()?.let { feedItems.add(FeedItem.AdItem(it)) }
                 } else if (astronautIndex > 2 && (astronautIndex - 2) % 3 == 0) {

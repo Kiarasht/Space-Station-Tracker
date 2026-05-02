@@ -20,10 +20,12 @@ import com.restart.spacestationtracker.data.settings.SettingsRepository
 import com.restart.spacestationtracker.domain.iss_passes.model.IssPass
 import com.restart.spacestationtracker.domain.iss_passes.use_case.GetIssPassesUseCase
 import com.restart.spacestationtracker.domain.iss_passes.use_case.UserLocation
+import com.restart.spacestationtracker.ui.ads.AdsConsentManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -38,6 +40,7 @@ import kotlin.coroutines.suspendCoroutine
 class IssPassesViewModel @Inject constructor(
     private val getIssPassesUseCase: GetIssPassesUseCase,
     private val settingsRepository: SettingsRepository,
+    private val adsConsentManager: AdsConsentManager,
     private val application: Application
 ) : ViewModel() {
 
@@ -76,10 +79,13 @@ class IssPassesViewModel @Inject constructor(
         viewModelScope.launch {
             settingsRepository.appSettingsFlow
                 .map { System.currentTimeMillis() < it.adFreeExpiry }
+                .combine(adsConsentManager.canRequestAds) { isAdFree, canRequestAds ->
+                    isAdFree to canRequestAds
+                }
                 .distinctUntilChanged()
-                .collect { isAdFree ->
+                .collect { (isAdFree, canRequestAds) ->
                     rawPasses?.let { passes ->
-                        buildFeed(passes, isAdFree)
+                        buildFeed(passes, isAdFree, canRequestAds)
                     }
                 }
         }
@@ -119,7 +125,7 @@ class IssPassesViewModel @Inject constructor(
                         rawPasses = passes
                         val settings = settingsRepository.appSettingsFlow.first()
                         val isAdFree = System.currentTimeMillis() < settings.adFreeExpiry
-                        buildFeed(passes, isAdFree)
+                        buildFeed(passes, isAdFree, adsConsentManager.canRequestAds.value)
                     }.onFailure {
                         _uiState.value =
                             _uiState.value.copy(isLoading = false, error = it.localizedMessage)
@@ -135,11 +141,11 @@ class IssPassesViewModel @Inject constructor(
         }
     }
 
-    private suspend fun buildFeed(passes: List<IssPass>, isAdFree: Boolean) {
+    private suspend fun buildFeed(passes: List<IssPass>, isAdFree: Boolean, canRequestAds: Boolean) {
         val feedItems: MutableList<FeedItem> =
             passes.map { FeedItem.PassItem(it) }.toMutableList()
 
-        if (!isAdFree) {
+        if (!isAdFree && canRequestAds) {
             val adPosition = 2
             val adInterval = 4
             var insertionIndex = adPosition

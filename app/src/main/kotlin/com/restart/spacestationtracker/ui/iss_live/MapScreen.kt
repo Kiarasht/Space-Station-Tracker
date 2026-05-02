@@ -76,7 +76,8 @@ import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 @Composable
 fun MapScreen(
     viewModel: MapViewModel = hiltViewModel(),
-    contentPadding: PaddingValues
+    contentPadding: PaddingValues,
+    canRequestAds: Boolean
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val screenPadding = PaddingValues(
@@ -169,7 +170,7 @@ fun MapScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalAlignment = Alignment.End
             ) {
-                if (!uiState.isAdFree) {
+                if (!uiState.isAdFree && canRequestAds) {
                     RemoveAdsButton(
                         modifier = Modifier.fillMaxWidth(),
                         onRewardEarned = {

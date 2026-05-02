@@ -12,6 +12,7 @@ class MainApplication : Application(), ImageLoaderFactory {
 
     @Inject
     lateinit var okHttpClient: OkHttpClient
+
     override fun newImageLoader(): ImageLoader {
         return ImageLoader.Builder(this)
             .okHttpClient(okHttpClient)

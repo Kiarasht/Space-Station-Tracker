@@ -61,10 +61,13 @@ import androidx.navigation.navArgument
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.restart.spacestationtracker.data.settings.SettingsRepository
 import com.restart.spacestationtracker.data.settings.defaultAppSettings
 import com.restart.spacestationtracker.ui.about.AboutScreen
 import com.restart.spacestationtracker.ui.about.LegalScreen
+import com.restart.spacestationtracker.ui.ads.AdsConsentManager
+import com.restart.spacestationtracker.ui.ads.AppOpenAdManager
 import com.restart.spacestationtracker.ui.iss_live.MapScreen
 import com.restart.spacestationtracker.ui.iss_passes.IssPassesScreen
 import com.restart.spacestationtracker.ui.people_in_space.PeopleInSpaceScreen
@@ -78,11 +81,27 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var settingsRepository: SettingsRepository
+
+    @Inject
+    lateinit var adsConsentManager: AdsConsentManager
+
+    @Inject
+    lateinit var appOpenAdManager: AppOpenAdManager
+
+    private var isMobileAdsInitialized = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        adsConsentManager.gatherConsent(this) { canRequestAds ->
+            if (canRequestAds) {
+                initializeMobileAds()
+            }
+        }
         setContent {
             val settings by settingsRepository.appSettingsFlow.collectAsState(initial = defaultAppSettings)
+            val canRequestAds by adsConsentManager.canRequestAds.collectAsState()
+            val isPrivacyOptionsRequired by adsConsentManager.isPrivacyOptionsRequired.collectAsState()
             val useDarkTheme = when (settings.theme) {
                 "Follow System" -> isSystemInDarkTheme()
                 "Light" -> false
@@ -92,14 +111,37 @@ class MainActivity : ComponentActivity() {
             val isAdFree = System.currentTimeMillis() < settings.adFreeExpiry
             
             SpaceStationTrackerTheme(darkTheme = useDarkTheme) {
-                MainScreen(isAdFree = isAdFree)
+                MainScreen(
+                    isAdFree = isAdFree,
+                    canRequestAds = canRequestAds,
+                    isPrivacyOptionsRequired = isPrivacyOptionsRequired,
+                    onPrivacyOptionsClick = {
+                        adsConsentManager.showPrivacyOptionsForm(this)
+                    }
+                )
             }
+        }
+    }
+
+    private fun initializeMobileAds() {
+        if (isMobileAdsInitialized) {
+            return
+        }
+        isMobileAdsInitialized = true
+        MobileAds.initialize(this) {
+            appOpenAdManager.register(application)
+            appOpenAdManager.onAdsReady(this)
         }
     }
 }
 
 @Composable
-fun MainScreen(isAdFree: Boolean) {
+fun MainScreen(
+    isAdFree: Boolean,
+    canRequestAds: Boolean,
+    isPrivacyOptionsRequired: Boolean,
+    onPrivacyOptionsClick: () -> Unit
+) {
     val navController = rememberNavController()
     val bottomNavItems = listOf(
         Screen.Map,
@@ -162,7 +204,7 @@ fun MainScreen(isAdFree: Boolean) {
                 modifier = Modifier
                     .graphicsLayer { translationY = bottomBarTranslationY }
             ) {
-                if (!isAdFree) {
+                if (!isAdFree && canRequestAds) {
                     AdmobBanner(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -216,14 +258,25 @@ fun MainScreen(isAdFree: Boolean) {
                 navController,
                 startDestination = Screen.Map.route,
             ) {
-                composable(Screen.Map.route) { MapScreen(contentPadding = innerPadding) }
+                composable(Screen.Map.route) {
+                    MapScreen(
+                        contentPadding = innerPadding,
+                        canRequestAds = canRequestAds
+                    )
+                }
                 composable(Screen.IssPasses.route) { IssPassesScreen(contentPadding = innerPadding) }
                 composable(Screen.PeopleInSpace.route) {
                     PeopleInSpaceScreen(
                         contentPadding = innerPadding
                     )
                 }
-                composable(Screen.Settings.route) { SettingsScreen(contentPadding = innerPadding) }
+                composable(Screen.Settings.route) {
+                    SettingsScreen(
+                        contentPadding = innerPadding,
+                        isPrivacyOptionsRequired = isPrivacyOptionsRequired,
+                        onPrivacyOptionsClick = onPrivacyOptionsClick
+                    )
+                }
                 composable(Screen.About.route) {
                     AboutScreen(
                         contentPadding = innerPadding,
