@@ -22,13 +22,14 @@ class AppOpenAdManager @Inject constructor(
 
     private var appOpenAd: AppOpenAd? = null
     private var currentActivity: Activity? = null
+    private var isAppInForeground = false
     private var isLoadingAd = false
     private var isShowingAd = false
     private var loadTimeMillis = 0L
     private var pendingForegroundOpen = false
     private var pendingShowForCurrentForeground = false
     private var isRegistered = false
-    private var suppressNextForegroundAfterAd = false
+    private var suppressNextResumeAfterAd = false
     private var shownForCurrentForeground = false
     private var startedActivityCount = 0
 
@@ -38,16 +39,14 @@ class AppOpenAdManager @Inject constructor(
         }
         isRegistered = true
         application.registerActivityLifecycleCallbacks(this)
-        loadAd(application)
     }
 
     fun onAdsReady(activity: Activity) {
         currentActivity = activity
+        isAppInForeground = true
         Log.d(TAG, "Ads ready for current activity.")
         if (!shownForCurrentForeground && !pendingShowForCurrentForeground) {
             onAppForegrounded(activity)
-        } else {
-            loadAd(activity.application)
         }
     }
 
@@ -56,13 +55,9 @@ class AppOpenAdManager @Inject constructor(
             return
         }
 
+        isAppInForeground = true
         if (startedActivityCount == 0) {
-            if (suppressNextForegroundAfterAd) {
-                suppressNextForegroundAfterAd = false
-                pendingForegroundOpen = false
-            } else {
-                pendingForegroundOpen = true
-            }
+            pendingForegroundOpen = true
             pendingShowForCurrentForeground = false
             shownForCurrentForeground = false
         }
@@ -76,6 +71,9 @@ class AppOpenAdManager @Inject constructor(
         }
 
         startedActivityCount = (startedActivityCount - 1).coerceAtLeast(0)
+        if (startedActivityCount == 0) {
+            isAppInForeground = false
+        }
     }
 
     override fun onActivityResumed(activity: Activity) {
@@ -84,6 +82,11 @@ class AppOpenAdManager @Inject constructor(
         }
 
         currentActivity = activity
+        if (suppressNextResumeAfterAd) {
+            suppressNextResumeAfterAd = false
+            pendingForegroundOpen = false
+            return
+        }
         if (pendingForegroundOpen) {
             pendingForegroundOpen = false
             onAppForegrounded(activity)
@@ -115,16 +118,16 @@ class AppOpenAdManager @Inject constructor(
         val foregroundOpenCount = incrementForegroundOpenCount(activity.application)
         if (foregroundOpenCount >= FOREGROUND_OPENS_BEFORE_SHOWING) {
             pendingShowForCurrentForeground = true
-            showAdIfAvailable(activity)
-        } else {
-            loadAd(activity.application)
+            loadAndShowAd(activity)
         }
     }
 
-    private fun loadAd(application: Application) {
+    private fun loadAndShowAd(activity: Activity) {
+        val application = activity.application
         if (
             isLoadingAd ||
-            isAdAvailable() ||
+            isShowingAd ||
+            shownForCurrentForeground ||
             settingsRepository.isAdFreeNow() ||
             !adsConsentManager.canRequestAds.value
         ) {
@@ -143,12 +146,12 @@ class AppOpenAdManager @Inject constructor(
                     loadTimeMillis = System.currentTimeMillis()
                     isLoadingAd = false
                     Log.d(TAG, "App open ad loaded.")
-                    currentActivity?.let { activity ->
-                        if (pendingShowForCurrentForeground &&
-                            getForegroundOpenCount(activity.application) >= FOREGROUND_OPENS_BEFORE_SHOWING
-                        ) {
-                            showAdIfAvailable(activity)
-                        }
+                    if (
+                        currentActivity == activity &&
+                        isAppInForeground &&
+                        pendingShowForCurrentForeground
+                    ) {
+                        showAdIfAvailable(activity)
                     }
                 }
 
@@ -173,7 +176,6 @@ class AppOpenAdManager @Inject constructor(
         val ad = appOpenAd.takeIf { isAdAvailable() }
         if (ad == null) {
             appOpenAd = null
-            loadAd(activity.application)
             Log.d(TAG, "App open ad was not ready to show.")
             return
         }
@@ -182,15 +184,13 @@ class AppOpenAdManager @Inject constructor(
             override fun onAdDismissedFullScreenContent() {
                 appOpenAd = null
                 isShowingAd = false
-                suppressNextForegroundAfterAd = true
-                currentActivity?.application?.let(::loadAd)
+                suppressNextResumeAfterAd = true
             }
 
             override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                 appOpenAd = null
                 isShowingAd = false
                 Log.d(TAG, "App open ad failed to show: ${adError.message}")
-                loadAd(activity.application)
             }
 
             override fun onAdShowedFullScreenContent() {

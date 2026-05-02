@@ -93,6 +93,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        appOpenAdManager.register(application)
         adsConsentManager.gatherConsent(this) { canRequestAds ->
             if (canRequestAds) {
                 initializeMobileAds()
