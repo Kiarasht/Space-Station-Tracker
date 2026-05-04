@@ -102,4 +102,8 @@ class SettingsRepository @Inject constructor(@ApplicationContext context: Contex
     fun setAdFreeExpiry(timestamp: Long) {
         _adFreeExpiryFlow.value = timestamp
     }
+
+    fun isAdFreeNow(): Boolean {
+        return System.currentTimeMillis() < _adFreeExpiryFlow.value
+    }
 }

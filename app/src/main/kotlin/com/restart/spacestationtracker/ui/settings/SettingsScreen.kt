@@ -16,7 +16,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Brightness6
 import androidx.compose.material.icons.filled.Layers
+import androidx.compose.material.icons.filled.PrivacyTip
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -39,12 +41,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.compose.material.icons.filled.Brightness6
 
 @Composable
 fun SettingsScreen(
     viewModel: SettingsViewModel = hiltViewModel(),
-    contentPadding: PaddingValues
+    contentPadding: PaddingValues,
+    isPrivacyOptionsRequired: Boolean = false,
+    onPrivacyOptionsClick: () -> Unit = {}
 ) {
     val settings by viewModel.settingsState.collectAsState()
     val screenPadding = PaddingValues(
@@ -113,6 +116,14 @@ fun SettingsScreen(
             )
             Spacer(modifier = Modifier.height(16.dp))
         }
+        if (isPrivacyOptionsRequired) {
+            item {
+                SettingsHeader(title = "Privacy")
+            }
+            item {
+                PrivacyOptionsSetting(onClick = onPrivacyOptionsClick)
+            }
+        }
     }
 }
 
@@ -123,6 +134,36 @@ fun SettingsHeader(title: String) {
         style = MaterialTheme.typography.bodyLarge,
         color = MaterialTheme.colorScheme.primary,
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
+    )
+}
+
+@Composable
+fun PrivacyOptionsSetting(onClick: () -> Unit) {
+    ListItem(
+        leadingContent = {
+            Icon(
+                imageVector = Icons.Default.PrivacyTip,
+                contentDescription = "Privacy choices",
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        },
+        headlineContent = {
+            Text(
+                text = "Privacy choices",
+                style = MaterialTheme.typography.titleLarge.copy(fontSize = 16.sp)
+            )
+        },
+        supportingContent = {
+            Text(
+                text = "Manage ad consent preferences",
+                style = MaterialTheme.typography.bodyMedium
+            )
+        },
+        trailingContent = {
+            OutlinedButton(onClick = onClick) {
+                Text("Manage")
+            }
+        }
     )
 }
 
