@@ -9,6 +9,7 @@ import com.restart.spacestationtracker.data.iss_passes.remote.IssPassesApiServic
 import com.restart.spacestationtracker.data.iss_passes.repository.IssPassesRepositoryImpl
 import com.restart.spacestationtracker.data.people_in_space.remote.PeopleInSpaceApiService
 import com.restart.spacestationtracker.data.people_in_space.repository.PeopleInSpaceRepositoryImpl
+import com.restart.spacestationtracker.data.youtube.remote.NasaLiveStreamsApiService
 import com.restart.spacestationtracker.data.youtube.remote.YouTubeApiService
 import com.restart.spacestationtracker.data.youtube.repository.YouTubeRepositoryImpl
 import com.restart.spacestationtracker.domain.iss_live.repository.IssRepository
@@ -164,6 +165,25 @@ object DataModule {
 
     @Provides
     @Singleton
+    @Named("NasaLiveStreamsApi")
+    fun provideNasaLiveStreamsRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("https://raw.githubusercontent.com/")
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideNasaLiveStreamsApiService(
+        @Named("NasaLiveStreamsApi") retrofit: Retrofit
+    ): NasaLiveStreamsApiService {
+        return retrofit.create(NasaLiveStreamsApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
     fun provideIssApiService(@Named("IssApi") retrofit: Retrofit): IssApiService {
         return retrofit.create(IssApiService::class.java)
     }
@@ -182,8 +202,11 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun provideYouTubeRepository(api: YouTubeApiService): YouTubeRepository {
-        return YouTubeRepositoryImpl(api)
+    fun provideYouTubeRepository(
+        api: YouTubeApiService,
+        nasaLiveStreamsApiService: NasaLiveStreamsApiService
+    ): YouTubeRepository {
+        return YouTubeRepositoryImpl(api, nasaLiveStreamsApiService)
     }
 
     @Provides

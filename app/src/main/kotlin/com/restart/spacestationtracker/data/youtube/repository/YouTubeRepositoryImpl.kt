@@ -2,6 +2,7 @@ package com.restart.spacestationtracker.data.youtube.repository
 
 import android.util.Log
 import com.restart.spacestationtracker.BuildConfig
+import com.restart.spacestationtracker.data.youtube.remote.NasaLiveStreamsApiService
 import com.restart.spacestationtracker.data.youtube.remote.YouTubeApiService
 import com.restart.spacestationtracker.domain.youtube.model.LiveStream
 import com.restart.spacestationtracker.domain.youtube.repository.YouTubeRepository
@@ -11,7 +12,8 @@ import javax.inject.Inject
 const val NASA_CHANNEL_ID = "UCLA_DiR1FfKNvjuUpBHmylQ"
 
 class YouTubeRepositoryImpl @Inject constructor(
-    private val youTubeApiService: YouTubeApiService
+    private val youTubeApiService: YouTubeApiService,
+    private val nasaLiveStreamsApiService: NasaLiveStreamsApiService
 ) : YouTubeRepository {
 
     private var cachedLiveStreams: List<LiveStream>? = null
@@ -22,6 +24,13 @@ class YouTubeRepositoryImpl @Inject constructor(
         cachedLiveStreams?.takeIf { now - cacheTimestampMillis < CACHE_DURATION_MILLIS }?.let {
             return it
         }
+
+        fetchFromBackend()
+            ?.also { liveStreams ->
+                cachedLiveStreams = liveStreams
+                cacheTimestampMillis = now
+                return liveStreams
+            }
 
         val apiKey = BuildConfig.YOUTUBE_API_KEY
         return try {
@@ -53,6 +62,26 @@ class YouTubeRepositoryImpl @Inject constructor(
             cachedLiveStreams = emptyList()
             cacheTimestampMillis = now
             emptyList()
+        }
+    }
+
+    private suspend fun fetchFromBackend(): List<LiveStream>? {
+        if (BuildConfig.YOUTUBE_LIVE_STREAMS_URL.isBlank()) {
+            return null
+        }
+
+        return try {
+            nasaLiveStreamsApiService.getNasaLiveStreams(BuildConfig.YOUTUBE_LIVE_STREAMS_URL)
+                .streams
+                .map { stream ->
+                    LiveStream(
+                        videoId = stream.videoId,
+                        title = stream.title
+                    )
+                }
+        } catch (e: Exception) {
+            Log.e("YouTubeRepository", "Error fetching live streams from backend", e)
+            null
         }
     }
 

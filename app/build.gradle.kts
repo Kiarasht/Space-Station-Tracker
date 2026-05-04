@@ -24,8 +24,8 @@ android {
         applicationId = "com.restart.spacestationtracker"
         minSdk = 24
         targetSdk = 36
-        versionCode = 49
-        versionName = "7.04"
+        versionCode = 50
+        versionName = "7.05"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -33,6 +33,10 @@ android {
 
         val youtubeApiKey = localProperties.getProperty("YOUTUBE_API_KEY") ?: ""
         buildConfigField("String", "YOUTUBE_API_KEY", "\"$youtubeApiKey\"")
+
+        val youtubeLiveStreamsUrl = localProperties.getProperty("YOUTUBE_LIVE_STREAMS_URL")
+            ?: "https://raw.githubusercontent.com/Kiarasht/Space-Station-Tracker/master/docs/nasa-live-streams.json"
+        buildConfigField("String", "YOUTUBE_LIVE_STREAMS_URL", "\"$youtubeLiveStreamsUrl\"")
 
         val mapsApiKey = localProperties.getProperty("MAPS_API_KEY") ?: ""
         resValue("string", "google_maps_key", mapsApiKey)
@@ -140,6 +144,7 @@ dependencies {
     // Settings
     implementation("androidx.preference:preference:1.2.1")
     implementation("androidx.datastore:datastore-preferences:1.2.1")
+    implementation("androidx.work:work-runtime-ktx:2.11.0")
 
     // Testing
     testImplementation("junit:junit:4.13.2")

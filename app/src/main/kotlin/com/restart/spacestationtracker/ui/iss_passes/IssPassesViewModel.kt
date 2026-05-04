@@ -1,15 +1,10 @@
 package com.restart.spacestationtracker.ui.iss_passes
 
-import android.Manifest
 import android.app.Application
-import android.content.Context
-import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
-import android.location.LocationManager
 import android.os.Build
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.ads.AdLoader
@@ -21,6 +16,7 @@ import com.restart.spacestationtracker.domain.iss_passes.model.IssPass
 import com.restart.spacestationtracker.domain.iss_passes.use_case.GetIssPassesUseCase
 import com.restart.spacestationtracker.domain.iss_passes.use_case.UserLocation
 import com.restart.spacestationtracker.ui.ads.AdsConsentManager
+import com.restart.spacestationtracker.util.ForegroundLocationProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -64,11 +60,21 @@ class IssPassesViewModel @Inject constructor(
         }
     }
 
+    fun retryLocationAndPasses() {
+        if (ForegroundLocationProvider.hasLocationPermission(application)) {
+            _uiState.value = _uiState.value.copy(permissionGranted = true, error = null)
+            fetchLocationAndPasses()
+        } else {
+            _uiState.value = _uiState.value.copy(
+                permissionGranted = false,
+                isLoading = false,
+                error = "Location permission is required to show ISS passes."
+            )
+        }
+    }
+
     private fun checkPermission() {
-        val hasPermission = ContextCompat.checkSelfPermission(
-            application,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
+        val hasPermission = ForegroundLocationProvider.hasLocationPermission(application)
         _uiState.value = _uiState.value.copy(permissionGranted = hasPermission)
         if (hasPermission) {
             fetchLocationAndPasses()
@@ -95,16 +101,7 @@ class IssPassesViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
             try {
-                val locationManager =
-                    application.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-                val location =
-                    locationManager.getProviders(true).asReversed().firstNotNullOfOrNull { provider ->
-                        try {
-                            locationManager.getLastKnownLocation(provider)
-                        } catch (_: SecurityException) {
-                            null
-                        }
-                    }
+                val location = ForegroundLocationProvider.getBestLocation(application)
 
                 if (location != null) {
                     val geocoder = Geocoder(application)

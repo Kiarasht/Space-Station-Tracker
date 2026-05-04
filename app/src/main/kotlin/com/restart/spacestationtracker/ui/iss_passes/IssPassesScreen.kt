@@ -59,11 +59,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.app.ActivityCompat
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.restart.spacestationtracker.R
 import com.restart.spacestationtracker.domain.iss_passes.model.IssPass
 import com.restart.spacestationtracker.ui.ads.NativeAdCard
+import com.restart.spacestationtracker.util.IssPassVisibility
 import com.restart.spacestationtracker.util.NotificationScheduler
+import com.restart.spacestationtracker.util.openAppSettings
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.cos
@@ -102,28 +105,43 @@ fun IssPassesScreen(
 
 
     val permissionLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission(),
-        onResult = { isGranted ->
+        contract = ActivityResultContracts.RequestMultiplePermissions(),
+        onResult = { permissions ->
+            val isGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true ||
+                permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true
             viewModel.onPermissionResult(isGranted)
         }
     )
 
     LaunchedEffect(Unit) {
         if (!uiState.permissionGranted) {
-            permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            permissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
         }
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
         when {
             uiState.isLoading -> CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-            uiState.error != null -> Text(
-                text = "Error: ${uiState.error}",
+            uiState.error != null -> Column(
                 modifier = Modifier
                     .align(Alignment.Center)
                     .padding(16.dp),
-                textAlign = TextAlign.Center
-            )
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Text(
+                    text = "Error: ${uiState.error}",
+                    textAlign = TextAlign.Center
+                )
+                Button(onClick = viewModel::retryLocationAndPasses) {
+                    Text("Retry")
+                }
+            }
 
             else -> {
                 val annotatedString = buildAnnotatedString {
@@ -236,6 +254,7 @@ fun IssPassesScreen(
 @Composable
 fun NotificationSchedulerDialog(pass: IssPass, onDismiss: () -> Unit) {
     val context = LocalContext.current
+    val activity = context.findActivity()
     val dateFormat = remember { SimpleDateFormat("MMMM d, h:mm a", Locale.getDefault()) }
     val notificationScheduler = remember { NotificationScheduler(context) }
     val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -262,6 +281,7 @@ fun NotificationSchedulerDialog(pass: IssPass, onDismiss: () -> Unit) {
             }
         )
     }
+    var notificationPermissionDeniedCount by rememberSaveable { mutableIntStateOf(0) }
 
     val notificationPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission(),
@@ -273,9 +293,41 @@ fun NotificationSchedulerDialog(pass: IssPass, onDismiss: () -> Unit) {
                     "Permission granted! You can now schedule notifications.",
                     Toast.LENGTH_SHORT
                 ).show()
+            } else {
+                notificationPermissionDeniedCount += 1
+            }
+
+            if (!isGranted && notificationPermissionDeniedCount >= 2) {
+                Toast.makeText(
+                    context,
+                    "Enable notifications in app settings to schedule ISS pass alerts.",
+                    Toast.LENGTH_LONG
+                ).show()
+                context.openAppSettings()
             }
         }
     )
+
+    fun shouldOpenSettingsForNotificationPermission(): Boolean {
+        return notificationPermissionDeniedCount > 0 &&
+            !ActivityCompat.shouldShowRequestPermissionRationale(
+                activity,
+                Manifest.permission.POST_NOTIFICATIONS
+            )
+    }
+
+    fun requestNotificationPermissionOrOpenSettings() {
+        if (shouldOpenSettingsForNotificationPermission()) {
+            Toast.makeText(
+                context,
+                "Enable notifications in app settings to schedule ISS pass alerts.",
+                Toast.LENGTH_LONG
+            ).show()
+            context.openAppSettings()
+        } else {
+            notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
+    }
 
     val notificationOptions = remember {
         listOf(
@@ -367,7 +419,7 @@ fun NotificationSchedulerDialog(pass: IssPass, onDismiss: () -> Unit) {
                             onDismiss()
                         } else {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                                notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                                requestNotificationPermissionOrOpenSettings()
                             }
                         }
                     },
@@ -623,13 +675,7 @@ fun SkyPathComposable(startCompass: String, endCompass: String, maxElevation: Fl
 }
 
 fun getBrightnessRating(magnitude: Double): String {
-    return when {
-        magnitude < -2.0 -> "Very Bright"
-        magnitude < -1.5 -> "Bright"
-        magnitude < -1.0 -> "Moderate"
-        magnitude < 0.0 -> "Faint"
-        else -> "Very Faint"
-    }
+    return IssPassVisibility.labelForMagnitude(magnitude)
 }
 
 private fun Context.findActivity(): Activity {
