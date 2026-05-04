@@ -9,7 +9,6 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.restart.spacestationtracker.R
-import com.restart.spacestationtracker.ui.iss_passes.getBrightnessRating
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -47,7 +46,7 @@ class NotificationReceiver : BroadcastReceiver() {
         val notification = NotificationCompat.Builder(context, "iss_pass_channel")
             .setSmallIcon(R.drawable.ic_iss)
             .setContentTitle("ISS Pass Alert")
-            .setContentText("A pass is starting at $startTimeStr for $durationInMinutes min. Visibility is ${getBrightnessRating(passMagnitude)}")
+            .setContentText("A pass is starting at $startTimeStr for $durationInMinutes min. Visibility is ${IssPassVisibility.labelForMagnitude(passMagnitude)}")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)

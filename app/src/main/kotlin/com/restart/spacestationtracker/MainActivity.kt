@@ -21,13 +21,16 @@ import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Public
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -73,6 +76,7 @@ import com.restart.spacestationtracker.ui.iss_passes.IssPassesScreen
 import com.restart.spacestationtracker.ui.people_in_space.PeopleInSpaceScreen
 import com.restart.spacestationtracker.ui.settings.SettingsScreen
 import com.restart.spacestationtracker.ui.theme.SpaceStationTrackerTheme
+import com.restart.spacestationtracker.util.AppRatingManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -93,6 +97,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        AppRatingManager(applicationContext).recordAppLaunch()
         appOpenAdManager.register(application)
         adsConsentManager.gatherConsent(this) { canRequestAds ->
             if (canRequestAds) {
@@ -143,7 +148,9 @@ fun MainScreen(
     isPrivacyOptionsRequired: Boolean,
     onPrivacyOptionsClick: () -> Unit
 ) {
+    val context = LocalContext.current
     val navController = rememberNavController()
+    val appRatingManager = remember { AppRatingManager(context.applicationContext) }
     val bottomNavItems = listOf(
         Screen.Map,
         Screen.IssPasses,
@@ -153,6 +160,7 @@ fun MainScreen(
     )
 
     val bottomBarState = rememberSaveable { mutableStateOf(true) }
+    var showRatingPrompt by rememberSaveable { mutableStateOf(false) }
 
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
@@ -178,6 +186,14 @@ fun MainScreen(
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
+    val currentRoute = currentDestination?.route
+
+    LaunchedEffect(currentRoute) {
+        appRatingManager.recordScreenVisit(currentRoute)
+        if (appRatingManager.shouldShowPrompt()) {
+            showRatingPrompt = true
+        }
+    }
 
     val isBottomBarVisible = when {
         currentDestination?.route == Screen.Map.route -> true
@@ -303,6 +319,41 @@ fun MainScreen(
                 }
             }
         }
+    }
+
+    if (showRatingPrompt) {
+        AlertDialog(
+            onDismissRequest = {
+                showRatingPrompt = false
+                appRatingManager.snoozePrompt()
+            },
+            title = {
+                Text("Enjoying ISS Tracker?")
+            },
+            text = {
+                Text("If the app has been useful, would you like to rate it?")
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showRatingPrompt = false
+                        appRatingManager.markRatedAndOpenStore()
+                    }
+                ) {
+                    Text("Yes")
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showRatingPrompt = false
+                        appRatingManager.snoozePrompt()
+                    }
+                ) {
+                    Text("Not yet")
+                }
+            }
+        )
     }
 }
 

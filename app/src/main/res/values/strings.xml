@@ -54,7 +54,7 @@
     <string name="since">"Launched "</string>
     <string name="license">Open source licenses</string>
     <string name="msg_license">This application is constructed using following software:</string>
-    <string name="msg_about_library_description">ISS Tracker is an android application that allows you to track the position of the International Space Station and find out what astronauts are currently in space.</string>
+    <string name="msg_about_library_description">Track the International Space Station in real time, view upcoming visible passes and sky paths for your location, follow the current crew, watch live streams, and enable alerts for the best viewing opportunities.</string>
     <string name="desc_about_app">About this app</string>
     <string name="version">Versions</string>
     <string name="version_msg">List of previous changes, fixes, and updates:</string>
@@ -88,13 +88,35 @@
     <string name="apache_open_source_url" translatable="false">http://www.apache.org/licenses/LICENSE-2.0</string>
 
     <string-array name="software_list" translatable="false">
-        <item>Lottie</item>
+        <item>AndroidX</item>
+        <item>Coil</item>
+        <item>Dagger Hilt</item>
+        <item>Firebase Android SDK</item>
         <item>Glide</item>
+        <item>Google Maps Compose</item>
+        <item>Gson</item>
+        <item>Jetpack Compose</item>
+        <item>Kotlin</item>
+        <item>Kotlinx Coroutines</item>
+        <item>Material Components for Android</item>
+        <item>OkHttp</item>
+        <item>Retrofit</item>
     </string-array>
 
     <string-array name="software_url_list" translatable="false">
-        <item>https://github.com/airbnb/lottie-android.git</item>
+        <item>https://github.com/androidx/androidx</item>
+        <item>https://github.com/coil-kt/coil</item>
+        <item>https://github.com/google/dagger</item>
+        <item>https://github.com/firebase/firebase-android-sdk</item>
         <item>https://github.com/bumptech/glide</item>
+        <item>https://github.com/googlemaps/android-maps-compose</item>
+        <item>https://github.com/google/gson</item>
+        <item>https://github.com/androidx/androidx</item>
+        <item>https://github.com/JetBrains/kotlin</item>
+        <item>https://github.com/Kotlin/kotlinx.coroutines</item>
+        <item>https://github.com/material-components/material-components-android</item>
+        <item>https://github.com/square/okhttp</item>
+        <item>https://github.com/square/retrofit</item>
     </string-array>
 
     <string name="privacy_policy_content" translatable="false"><![CDATA[
@@ -134,8 +156,8 @@
 
         <h3>Third-Party Libraries</h3>
         <p>Our Application uses the following third-party libraries to enhance its functionality:</p>
-        <p><b>Glide:</b> An image loading and caching library for Android. Glide may cache images on your device for performance but does not collect personal data.</p>
-        <p><b>Lottie:</b> A library for displaying animations. Lottie does not collect personal data.</p>
+        <p><b>Coil and Glide:</b> Image loading and caching libraries for Android. These libraries may cache images on your device for performance but do not collect personal data by themselves.</p>
+        <p><b>AndroidX, Jetpack Compose, Retrofit, OkHttp, Hilt, and related libraries:</b> These libraries support app UI, networking, dependency injection, local settings, and background scheduling. They do not collect personal data by themselves.</p>
 
         <h3>Data Security</h3>
         <p>We value your trust in providing us your information, thus we are striving to use commercially acceptable means of protecting it. However, remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and we cannot guarantee its absolute security.</p>
