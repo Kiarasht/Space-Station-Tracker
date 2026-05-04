@@ -47,6 +47,8 @@ jobs:
           cache_file="docs/nasa-live-streams.json"
           temp_json="$(mktemp)"
           cp "$cache_file" "$temp_json"
+          git reset --hard
+          git clean -fd
 
           if git show-ref --verify --quiet "refs/remotes/origin/$cache_branch"; then
             git switch "$cache_branch"
