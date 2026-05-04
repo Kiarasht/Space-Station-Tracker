@@ -27,14 +27,37 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Restore previous live stream JSON
+        run: |
+          git fetch origin live-stream-cache || true
+          if git show origin/live-stream-cache:docs/nasa-live-streams.json > docs/nasa-live-streams.json 2>/dev/null; then
+            echo "Restored previous live stream JSON from live-stream-cache."
+          else
+            echo "No previous live stream JSON found."
+          fi
+
       - name: Fetch YouTube live stream status
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: node .github/scripts/update-youtube-live-streams.js
-        continue-on-error: true
 
       - name: Commit live stream JSON
         run: |
+          cache_branch="live-stream-cache"
+          cache_file="docs/nasa-live-streams.json"
+          temp_json="$(mktemp)"
+          cp "$cache_file" "$temp_json"
+
+          if git show-ref --verify --quiet "refs/remotes/origin/$cache_branch"; then
+            git switch "$cache_branch"
+          else
+            git switch --orphan "$cache_branch"
+            git rm -rf . || true
+          fi
+
+          mkdir -p "$(dirname "$cache_file")"
+          cp "$temp_json" "$cache_file"
+
           if git diff --quiet -- docs/nasa-live-streams.json; then
             echo "No live stream status changes to commit."
             exit 0
@@ -44,4 +67,4 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add docs/nasa-live-streams.json
           git commit -m "Update NASA live stream status [skip ci]"
-          git push
+          git push origin "$cache_branch"
