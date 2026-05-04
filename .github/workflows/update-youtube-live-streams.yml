@@ -2,7 +2,7 @@ name: Update YouTube Live Streams
 
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "7,22,37,52 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -29,7 +29,7 @@ jobs:
 
       - name: Restore previous live stream JSON
         run: |
-          git fetch origin live-stream-cache || true
+          git fetch origin refs/heads/live-stream-cache:refs/remotes/origin/live-stream-cache || true
           if git show origin/live-stream-cache:docs/nasa-live-streams.json > docs/nasa-live-streams.json 2>/dev/null; then
             echo "Restored previous live stream JSON from live-stream-cache."
           else
@@ -46,12 +46,15 @@ jobs:
           cache_branch="live-stream-cache"
           cache_file="docs/nasa-live-streams.json"
           temp_json="$(mktemp)"
+          remote_branch_exists="false"
+
           cp "$cache_file" "$temp_json"
           git reset --hard
           git clean -fd
 
           if git show-ref --verify --quiet "refs/remotes/origin/$cache_branch"; then
-            git switch "$cache_branch"
+            remote_branch_exists="true"
+            git switch --track "origin/$cache_branch"
           else
             git switch --orphan "$cache_branch"
             git rm -rf . || true
@@ -60,13 +63,13 @@ jobs:
           mkdir -p "$(dirname "$cache_file")"
           cp "$temp_json" "$cache_file"
 
-          if git diff --quiet -- docs/nasa-live-streams.json; then
+          if [ "$remote_branch_exists" = "true" ] && git diff --quiet -- "$cache_file"; then
             echo "No live stream status changes to commit."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/nasa-live-streams.json
+          git add "$cache_file"
           git commit -m "Update NASA live stream status [skip ci]"
-          git push origin "$cache_branch"
+          git push -u origin "$cache_branch"
