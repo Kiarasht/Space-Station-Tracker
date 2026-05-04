@@ -18,7 +18,6 @@ async function main() {
         message: "Missing YOUTUBE_API_KEY secret"
       }
     });
-    process.exitCode = 1;
     return;
   }
 
@@ -39,7 +38,6 @@ async function main() {
         message: error.message
       }
     });
-    process.exitCode = 1;
   }
 }
 

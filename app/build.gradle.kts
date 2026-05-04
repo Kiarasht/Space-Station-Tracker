@@ -35,7 +35,7 @@ android {
         buildConfigField("String", "YOUTUBE_API_KEY", "\"$youtubeApiKey\"")
 
         val youtubeLiveStreamsUrl = localProperties.getProperty("YOUTUBE_LIVE_STREAMS_URL")
-            ?: "https://raw.githubusercontent.com/Kiarasht/Space-Station-Tracker/master/docs/nasa-live-streams.json"
+            ?: "https://raw.githubusercontent.com/Kiarasht/Space-Station-Tracker/live-stream-cache/docs/nasa-live-streams.json"
         buildConfigField("String", "YOUTUBE_LIVE_STREAMS_URL", "\"$youtubeLiveStreamsUrl\"")
 
         val mapsApiKey = localProperties.getProperty("MAPS_API_KEY") ?: ""
