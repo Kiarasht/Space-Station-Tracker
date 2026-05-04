@@ -42,6 +42,11 @@ class MapViewModel @Inject constructor(
         settingsRepository.appSettingsFlow
             .onEach { settings ->
                 val isAdFree = System.currentTimeMillis() < settings.adFreeExpiry
+                val shouldResetOrbitPath = settings.showOrbit != _uiState.value.showOrbit
+                if (shouldResetOrbitPath) {
+                    futureTimeOffset = 0
+                    lineCount = 0
+                }
                 _uiState.value = _uiState.value.copy(
                     mapType = when (settings.mapType) {
                         "Satellite" -> MapType.SATELLITE
@@ -49,7 +54,13 @@ class MapViewModel @Inject constructor(
                         "Terrain" -> MapType.TERRAIN
                         else -> MapType.NORMAL
                     },
-                    isAdFree = isAdFree
+                    isAdFree = isAdFree,
+                    showOrbit = settings.showOrbit,
+                    futureIssLocations = if (shouldResetOrbitPath) {
+                        emptyList()
+                    } else {
+                        _uiState.value.futureIssLocations
+                    }
                 )
             }.launchIn(viewModelScope)
     }
@@ -64,7 +75,7 @@ class MapViewModel @Inject constructor(
                 // Fetch current location always.
                 // Fetch future locations only for the first ~2 hours (15 batches * 9 mins = 135 mins)
                 // to prevent infinite line growth.
-                val shouldFetchFuture = lineCount < 15
+                val shouldFetchFuture = _uiState.value.showOrbit && lineCount < 15
                 val success = fetchIssLocations(fetchFuture = shouldFetchFuture)
                 if (success && shouldFetchFuture) {
                     ++lineCount

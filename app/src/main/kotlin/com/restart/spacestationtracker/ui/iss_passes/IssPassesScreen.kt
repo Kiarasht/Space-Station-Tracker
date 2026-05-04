@@ -14,6 +14,9 @@ import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -28,8 +31,11 @@ import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.LocationOff
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
@@ -53,6 +59,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -67,11 +74,21 @@ import com.restart.spacestationtracker.ui.ads.NativeAdCard
 import com.restart.spacestationtracker.util.IssPassVisibility
 import com.restart.spacestationtracker.util.NotificationScheduler
 import com.restart.spacestationtracker.util.openAppSettings
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.cos
 import kotlin.math.min
 import kotlin.math.sin
+
+private const val SKY_PATH_SPARKLE_COUNT = 7
+
+private data class SkyPathSparkle(
+    val xFraction: Float,
+    val yFraction: Float,
+    val radiusDp: Float
+)
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
@@ -127,23 +144,45 @@ fun IssPassesScreen(
     Box(modifier = Modifier.fillMaxSize()) {
         when {
             uiState.isLoading -> CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-            uiState.error != null -> Column(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Text(
-                    text = "Error: ${uiState.error}",
-                    textAlign = TextAlign.Center
+            uiState.error != null -> {
+                val isLocationError = uiState.error?.contains("location", ignoreCase = true) == true
+                SkyPathStateMessage(
+                    title = if (isLocationError) {
+                        "Location needed"
+                    } else {
+                        "Unable to load passes"
+                    },
+                    message = if (isLocationError) {
+                        "Sky Path needs your current location to find visible ISS passes near you."
+                    } else {
+                        "We could not get upcoming ISS passes. Check your connection and try again."
+                    },
+                    icon = if (isLocationError) Icons.Default.LocationOff else Icons.Default.VisibilityOff,
+                    primaryActionText = "Try again",
+                    onPrimaryActionClick = viewModel::retryLocationAndPasses,
+                    secondaryActionText = if (isLocationError) "Open settings" else null,
+                    onSecondaryActionClick = if (isLocationError) {
+                        { activity.openAppSettings() }
+                    } else {
+                        null
+                    },
+                    modifier = Modifier.align(Alignment.Center)
                 )
-                Button(onClick = viewModel::retryLocationAndPasses) {
-                    Text("Retry")
-                }
             }
 
             else -> {
+                if (uiState.feedItems.isEmpty()) {
+                    SkyPathStateMessage(
+                        title = "No visible passes found",
+                        message = "There are no visible ISS passes for your location right now. Try refreshing later or checking alerts for future opportunities.",
+                        icon = Icons.Default.VisibilityOff,
+                        primaryActionText = "Refresh",
+                        onPrimaryActionClick = viewModel::retryLocationAndPasses,
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                    return@Box
+                }
+
                 val annotatedString = buildAnnotatedString {
                     append("${uiState.location?.name} ")
                     appendInlineContent("infoIcon")
@@ -245,6 +284,61 @@ fun IssPassesScreen(
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun SkyPathStateMessage(
+    title: String,
+    message: String,
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    primaryActionText: String,
+    onPrimaryActionClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    secondaryActionText: String? = null,
+    onSecondaryActionClick: (() -> Unit)? = null
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(32.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.size(48.dp)
+        )
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.SemiBold,
+            textAlign = TextAlign.Center
+        )
+        Text(
+            text = message,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center
+        )
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Button(onClick = onPrimaryActionClick) {
+                Icon(
+                    imageVector = Icons.Default.Refresh,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(primaryActionText)
+            }
+            if (secondaryActionText != null && onSecondaryActionClick != null) {
+                OutlinedButton(onClick = onSecondaryActionClick) {
+                    Text(secondaryActionText)
                 }
             }
         }
@@ -483,56 +577,162 @@ fun IssPassCard(pass: IssPass, onNotificationClick: (IssPass) -> Unit) {
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
-        Column(
-            modifier = Modifier.padding(
-                top = 16.dp,
-                start = 24.dp,
-                end = 24.dp,
-                bottom = 24.dp
+        Box(modifier = Modifier.fillMaxWidth()) {
+            SkyPathCardSparkles(
+                seed = pass.startTime.time,
+                modifier = Modifier.matchParentSize()
             )
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    modifier = Modifier.weight(1f),
-                    text = dateFormat.format(pass.startTime).uppercase(),
-                    style = MaterialTheme.typography.titleMedium
+            Column(
+                modifier = Modifier.padding(
+                    top = 16.dp,
+                    start = 24.dp,
+                    end = 24.dp,
+                    bottom = 24.dp
                 )
-                IconButton(onClick = { onNotificationClick(pass) }) {
-                    Icon(
-                        imageVector = Icons.Default.Notifications,
-                        contentDescription = "Schedule Notification"
-                    )
-                }
-                IconButton(onClick = { addPassToCalendar(context, pass) }) {
-                    Icon(
-                        imageVector = Icons.Default.CalendarToday,
-                        contentDescription = "Add to Calendar"
-                    )
-                }
-                IconButton(onClick = { sharePassDetails(context, pass) }) {
-                    Icon(imageVector = Icons.Default.Share, contentDescription = "Share")
-                }
-            }
-            Spacer(modifier = Modifier.height(24.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                InfoColumn("Starts", timeFormat.format(pass.startTime))
-                InfoColumn(
-                    "Duration",
-                    "${pass.durationInSeconds / 60} min ${pass.durationInSeconds % 60} sec"
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        modifier = Modifier.weight(1f),
+                        text = dateFormat.format(pass.startTime).uppercase(),
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    IconButton(onClick = { onNotificationClick(pass) }) {
+                        Icon(
+                            imageVector = Icons.Default.Notifications,
+                            contentDescription = "Schedule Notification"
+                        )
+                    }
+                    IconButton(onClick = { addPassToCalendar(context, pass) }) {
+                        Icon(
+                            imageVector = Icons.Default.CalendarToday,
+                            contentDescription = "Add to Calendar"
+                        )
+                    }
+                    IconButton(onClick = { sharePassDetails(context, pass) }) {
+                        Icon(imageVector = Icons.Default.Share, contentDescription = "Share")
+                    }
+                }
+                Spacer(modifier = Modifier.height(24.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    InfoColumn("Starts", timeFormat.format(pass.startTime))
+                    InfoColumn(
+                        "Duration",
+                        "${pass.durationInSeconds / 60} min ${pass.durationInSeconds % 60} sec"
+                    )
+                    InfoColumn("Visibility", getBrightnessRating(pass.magnitude))
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+                SkyPathComposable(
+                    startCompass = pass.startAzimuthCompass,
+                    endCompass = pass.endAzimuthCompass,
+                    maxElevation = pass.maxElevation.toFloat()
                 )
-                InfoColumn("Visibility", getBrightnessRating(pass.magnitude))
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            SkyPathComposable(
-                startCompass = pass.startAzimuthCompass,
-                endCompass = pass.endAzimuthCompass,
-                maxElevation = pass.maxElevation.toFloat()
+        }
+    }
+}
+
+@Composable
+private fun SkyPathCardSparkles(
+    seed: Long,
+    modifier: Modifier = Modifier
+) {
+    Box(modifier = modifier) {
+        repeat(SKY_PATH_SPARKLE_COUNT) { index ->
+            RandomSkyPathSparkle(
+                seed = seed + index * 1_103_515_245L,
+                startDelayMillis = index * 220L
             )
         }
     }
+}
+
+@Composable
+private fun RandomSkyPathSparkle(
+    seed: Long,
+    startDelayMillis: Long
+) {
+    val random = remember(seed) { Random(seed) }
+    var sparkle by remember(seed) { mutableStateOf(randomSkyPathSparkle(random, previous = null)) }
+    val alpha = remember { Animatable(0f) }
+    val sparkleColor = Color(0xFFFFD166)
+
+    LaunchedEffect(seed) {
+        delay(startDelayMillis)
+        while (isActive) {
+            sparkle = randomSkyPathSparkle(random, previous = sparkle)
+            alpha.animateTo(
+                targetValue = 1f,
+                animationSpec = tween(durationMillis = 520, easing = LinearEasing)
+            )
+            alpha.animateTo(
+                targetValue = 0f,
+                animationSpec = tween(durationMillis = 1_250, easing = LinearEasing)
+            )
+            delay((260 + random.nextInt(680)).toLong())
+        }
+    }
+
+    Canvas(modifier = Modifier.fillMaxSize()) {
+        val pulse = alpha.value
+
+        val center = Offset(
+            x = size.width * sparkle.xFraction,
+            y = size.height * sparkle.yFraction
+        )
+        val radius = sparkle.radiusDp.dp.toPx() * (0.75f + pulse * 0.45f)
+        val starAlpha = pulse * 0.28f
+        val starColor = sparkleColor.copy(alpha = starAlpha)
+
+        drawCircle(
+            color = starColor.copy(alpha = starAlpha * 0.45f),
+            radius = radius * 1.8f,
+            center = center
+        )
+        drawLine(
+            color = starColor,
+            start = Offset(center.x - radius * 2.2f, center.y),
+            end = Offset(center.x + radius * 2.2f, center.y),
+            strokeWidth = 1.dp.toPx()
+        )
+        drawLine(
+            color = starColor,
+            start = Offset(center.x, center.y - radius * 2.2f),
+            end = Offset(center.x, center.y + radius * 2.2f),
+            strokeWidth = 1.dp.toPx()
+        )
+    }
+}
+
+private fun randomSkyPathSparkle(
+    random: Random,
+    previous: SkyPathSparkle?
+): SkyPathSparkle {
+    repeat(8) {
+        val candidate = SkyPathSparkle(
+            xFraction = 0.06f + random.nextFloat() * 0.88f,
+            yFraction = 0.08f + random.nextFloat() * 0.78f,
+            radiusDp = 1.0f + random.nextFloat() * 1.0f
+        )
+        if (previous == null || distanceSquared(candidate, previous) > 0.025f) {
+            return candidate
+        }
+    }
+
+    return SkyPathSparkle(
+        xFraction = 0.06f + random.nextFloat() * 0.88f,
+        yFraction = 0.08f + random.nextFloat() * 0.78f,
+        radiusDp = 1.0f + random.nextFloat() * 1.0f
+    )
+}
+
+private fun distanceSquared(first: SkyPathSparkle, second: SkyPathSparkle): Float {
+    val xDistance = first.xFraction - second.xFraction
+    val yDistance = first.yFraction - second.yFraction
+    return xDistance * xDistance + yDistance * yDistance
 }
 
 private fun sharePassDetails(context: Context, pass: IssPass) {

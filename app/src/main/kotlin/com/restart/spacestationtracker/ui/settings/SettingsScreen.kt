@@ -22,27 +22,33 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Brightness6
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Layers
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.NotificationsActive
 import androidx.compose.material.icons.filled.PrivacyTip
+import androidx.compose.material.icons.filled.Route
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
@@ -290,6 +296,9 @@ fun SettingsScreen(
                 minVisibility = settings.automaticPassAlertMinVisibility,
                 notificationTimes = settings.automaticPassAlertNotificationTimes,
                 locationName = settings.automaticPassAlertLocationName,
+                hasNotificationPermission = hasNotificationPermission(),
+                hasSavedAlertLocation = settings.automaticPassAlertLatitude != null &&
+                    settings.automaticPassAlertLongitude != null,
                 isLocationLookupInProgress = isAlertLocationLookupInProgress,
                 isIgnoringBatteryOptimizations = isIgnoringBatteryOptimizations,
                 onEnabledChange = { enabled ->
@@ -331,6 +340,15 @@ fun SettingsScreen(
                 options = listOf("Normal", "Satellite", "Hybrid", "Terrain"),
                 selectedOption = settings.mapType,
                 onOptionSelected = viewModel::onMapTypeChanged
+            )
+        }
+        item {
+            SwitchSetting(
+                icon = Icons.Default.Route,
+                title = "Show orbit path",
+                subtitle = "Show the predicted ISS path on the map",
+                checked = settings.showOrbit,
+                onCheckedChange = viewModel::onShowOrbitChanged
             )
         }
         item {
@@ -387,6 +405,8 @@ fun AutomaticPassAlertsSetting(
     minVisibility: String,
     notificationTimes: Set<String>,
     locationName: String?,
+    hasNotificationPermission: Boolean,
+    hasSavedAlertLocation: Boolean,
     isLocationLookupInProgress: Boolean,
     isIgnoringBatteryOptimizations: Boolean,
     onEnabledChange: (Boolean) -> Unit,
@@ -405,8 +425,15 @@ fun AutomaticPassAlertsSetting(
         else ->
             "Notify when a good ISS pass is coming"
     }
+    var showVisibilityInfoDialog by rememberSaveable { mutableStateOf(false) }
 
     Column {
+        if (showVisibilityInfoDialog) {
+            VisibilityInfoDialog(
+                onDismiss = { showVisibilityInfoDialog = false }
+            )
+        }
+
         SwitchSetting(
             icon = Icons.Default.NotificationsActive,
             title = "Automatic good pass alerts",
@@ -417,20 +444,41 @@ fun AutomaticPassAlertsSetting(
         )
 
         if (enabled) {
+            AlertHealthSetting(
+                hasNotificationPermission = hasNotificationPermission,
+                hasSavedAlertLocation = hasSavedAlertLocation,
+                isIgnoringBatteryOptimizations = isIgnoringBatteryOptimizations
+            )
+
             SegmentedControlSetting(
-                modifier = Modifier.padding(vertical = 8.dp),
+                modifier = Modifier.padding(top = 4.dp, bottom = 2.dp),
                 leadingContent = null,
                 title = "Minimum visibility",
                 options = IssPassVisibility.options,
                 selectedOption = minVisibility,
-                onOptionSelected = onMinVisibilityChanged
+                onOptionSelected = onMinVisibilityChanged,
+                compact = true,
+                titleAction = {
+                    IconButton(
+                        onClick = { showVisibilityInfoDialog = true },
+                        modifier = Modifier.size(32.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Info,
+                            contentDescription = "Minimum visibility info",
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                }
             )
 
             MultiSelectSetting(
                 title = "Alert times",
                 options = automaticPassAlertNotificationOptions,
                 selectedOptions = notificationTimes,
-                onSelectionChanged = onNotificationTimesChanged
+                onSelectionChanged = onNotificationTimesChanged,
+                compact = true
             )
 
             NotificationReliabilitySetting(
@@ -466,6 +514,141 @@ fun AutomaticPassAlertsSetting(
                 }
             )
         }
+    }
+}
+
+@Composable
+fun VisibilityInfoDialog(onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            Text("Minimum visibility")
+        },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                VisibilityInfoLine(
+                    label = "Very Bright",
+                    description = "The easiest passes to notice, often brighter than planets."
+                )
+                VisibilityInfoLine(
+                    label = "Bright",
+                    description = "Strong passes that should stand out in the sky."
+                )
+                VisibilityInfoLine(
+                    label = "Moderate",
+                    description = "Visible, but easier to miss in city light or haze."
+                )
+                VisibilityInfoLine(
+                    label = "Faint",
+                    description = "Possible to see, but best with darker skies and clear weather."
+                )
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Got it")
+            }
+        }
+    )
+}
+
+@Composable
+private fun VisibilityInfoLine(
+    label: String,
+    description: String
+) {
+    Column {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.SemiBold
+        )
+        Text(
+            text = description,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(top = 2.dp)
+        )
+    }
+}
+
+@Composable
+fun AlertHealthSetting(
+    hasNotificationPermission: Boolean,
+    hasSavedAlertLocation: Boolean,
+    isIgnoringBatteryOptimizations: Boolean
+) {
+    val isHealthy = hasNotificationPermission && hasSavedAlertLocation && isIgnoringBatteryOptimizations
+    val statusIcon = if (isHealthy) Icons.Default.CheckCircle else Icons.Default.Warning
+    val statusColor = if (isHealthy) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
+
+    ListItem(
+        leadingContent = {
+            Icon(
+                imageVector = statusIcon,
+                contentDescription = "Alert health",
+                tint = statusColor
+            )
+        },
+        headlineContent = {
+            Text(
+                text = "Alert health",
+                style = MaterialTheme.typography.titleLarge.copy(fontSize = 16.sp)
+            )
+        },
+        supportingContent = {
+            Column(
+                modifier = Modifier.padding(top = 4.dp),
+                verticalArrangement = Arrangement.spacedBy(2.dp)
+            ) {
+                HealthStatusLine(
+                    isHealthy = hasNotificationPermission,
+                    text = if (hasNotificationPermission) {
+                        "Notifications allowed"
+                    } else {
+                        "Notifications need permission"
+                    }
+                )
+                HealthStatusLine(
+                    isHealthy = hasSavedAlertLocation,
+                    text = if (hasSavedAlertLocation) {
+                        "Alert location saved"
+                    } else {
+                        "Alert location needs update"
+                    }
+                )
+                HealthStatusLine(
+                    isHealthy = isIgnoringBatteryOptimizations,
+                    text = if (isIgnoringBatteryOptimizations) {
+                        "Battery unrestricted"
+                    } else {
+                        "Battery may pause alerts"
+                    }
+                )
+            }
+        }
+    )
+}
+
+@Composable
+private fun HealthStatusLine(
+    isHealthy: Boolean,
+    text: String
+) {
+    val color = if (isHealthy) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Icon(
+            imageVector = if (isHealthy) Icons.Default.CheckCircle else Icons.Default.Warning,
+            contentDescription = null,
+            tint = color,
+            modifier = Modifier.size(18.dp)
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
     }
 }
 
@@ -507,7 +690,7 @@ fun NotificationReliabilitySetting(
                     "Android may pause alerts after days of inactivity. Open Battery and choose Unrestricted."
                 },
                 style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(top = 8.dp)
+                modifier = Modifier.padding(top = 4.dp)
             )
         },
         trailingContent = if (isIgnoringBatteryOptimizations) {
@@ -527,18 +710,24 @@ fun MultiSelectSetting(
     title: String,
     options: List<String>,
     selectedOptions: Set<String>,
-    onSelectionChanged: (Set<String>) -> Unit
+    onSelectionChanged: (Set<String>) -> Unit,
+    compact: Boolean = false
 ) {
     ListItem(
         headlineContent = {
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleLarge.copy(fontSize = 16.sp),
-                modifier = Modifier.padding(top = 8.dp)
+                modifier = Modifier.padding(top = if (compact) 0.dp else 8.dp)
             )
         },
         supportingContent = {
-            Column(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)) {
+            Column(
+                modifier = Modifier.padding(
+                    top = if (compact) 4.dp else 8.dp,
+                    bottom = if (compact) 4.dp else 8.dp
+                )
+            ) {
                 options.forEach { option ->
                     val checked = option in selectedOptions
                     Row(
@@ -557,7 +746,7 @@ fun MultiSelectSetting(
                                     onSelectionChanged(nextSelection)
                                 }
                             )
-                            .padding(vertical = 4.dp),
+                            .padding(vertical = if (compact) 2.dp else 4.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Checkbox(
@@ -622,12 +811,14 @@ fun SegmentedControlSetting(
     title: String,
     options: List<String>,
     selectedOption: String,
-    onOptionSelected: (String) -> Unit
+    onOptionSelected: (String) -> Unit,
+    compact: Boolean = false,
+    titleAction: @Composable (() -> Unit)? = null
 ) {
     ListItem(
         headlineContent = {
             Row(
-                modifier = Modifier.padding(top = 16.dp),
+                modifier = Modifier.padding(top = if (compact) 4.dp else 16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 leadingContent?.let {
@@ -638,6 +829,10 @@ fun SegmentedControlSetting(
                     text = title,
                     style = MaterialTheme.typography.titleLarge.copy(fontSize = 16.sp)
                 )
+                titleAction?.let {
+                    Spacer(modifier = Modifier.width(4.dp))
+                    it()
+                }
             }
         },
         supportingContent = {

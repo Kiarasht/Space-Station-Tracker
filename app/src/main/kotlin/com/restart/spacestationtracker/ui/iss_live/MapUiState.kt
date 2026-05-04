@@ -11,5 +11,6 @@ data class MapUiState(
     val error: String? = null,
     val mapType: MapType = MapType.NORMAL,
     val liveStreams: List<LiveStream>? = null,
-    val isAdFree: Boolean = false
+    val isAdFree: Boolean = false,
+    val showOrbit: Boolean = true
 )

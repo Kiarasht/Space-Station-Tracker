@@ -43,6 +43,10 @@ class PeopleInSpaceViewModel @Inject constructor(
         observeAdFreeStatus()
     }
 
+    fun retry() {
+        loadPeopleInSpace()
+    }
+
     private fun loadPeopleInSpace() {
         viewModelScope.launch {
             _uiState.value = PeopleInSpaceUiState(isLoading = true)

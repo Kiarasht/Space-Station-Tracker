@@ -14,6 +14,9 @@ import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.SentimentDissatisfied
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
@@ -61,11 +64,20 @@ fun PeopleInSpaceScreen(
         if (uiState.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         } else if (uiState.error != null) {
-            Text(
-                text = "Error: ${uiState.error}",
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .padding(16.dp)
+            OnDutyStateMessage(
+                title = "Unable to load crew",
+                message = "We could not get the latest astronaut and expedition details. Check your connection and try again.",
+                actionText = "Try again",
+                onActionClick = viewModel::retry,
+                modifier = Modifier.align(Alignment.Center)
+            )
+        } else if (uiState.feedItems.isEmpty()) {
+            OnDutyStateMessage(
+                title = "No crew data available",
+                message = "Crew information is not available right now. Please check again later.",
+                actionText = "Refresh",
+                onActionClick = viewModel::retry,
+                modifier = Modifier.align(Alignment.Center)
             )
         } else {
             when (windowSizeClass.widthSizeClass) {
@@ -140,6 +152,51 @@ fun PeopleInSpaceScreen(
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun OnDutyStateMessage(
+    title: String,
+    message: String,
+    actionText: String,
+    onActionClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(32.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Icon(
+            imageVector = Icons.Default.SentimentDissatisfied,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.size(48.dp)
+        )
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.SemiBold,
+            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+        )
+        Text(
+            text = message,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+        )
+        Button(onClick = onActionClick) {
+            Icon(
+                imageVector = Icons.Default.Refresh,
+                contentDescription = null,
+                modifier = Modifier.size(18.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(actionText)
         }
     }
 }

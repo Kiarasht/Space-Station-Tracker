@@ -72,6 +72,19 @@
     <string name="on_duty_native_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/4740210185</string>
     <string name="rewarded_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/9671547864</string>
     <string name="legal_title">Legal Jibber Jabber</string>
+    <string name="support_title">Support</string>
+    <string name="contact_support">Contact support</string>
+    <string name="contact_support_description">Report pass predictions, notifications, ads, or other issues</string>
+    <string name="support_email" translatable="false">restartapplication@gmail.com</string>
+    <string name="support_email_subject">ISS Tracker support</string>
+    <string name="support_email_body">Hi,\n\nI need help with ISS Tracker.\n\nApp version: %1$s\n\n</string>
+    <string name="no_email_app_available">No email app available</string>
+    <string name="rate_app">Rate ISS Tracker</string>
+    <string name="rate_app_description">Open the store listing for this app</string>
+    <string name="share_app">Share ISS Tracker</string>
+    <string name="share_app_description">Send the app link to someone else</string>
+    <string name="share_app_text">Track the International Space Station with ISS Tracker: %1$s</string>
+    <string name="no_share_app_available">No share app available</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="terms_of_use">Terms of Use</string>
     <string name="nasa_live">NASA Live</string>

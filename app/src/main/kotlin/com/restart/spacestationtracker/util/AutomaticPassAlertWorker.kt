@@ -32,8 +32,16 @@ class AutomaticPassAlertWorker(
             return Result.success()
         }
 
-        val latitude = settings.automaticPassAlertLatitude ?: return Result.success()
-        val longitude = settings.automaticPassAlertLongitude ?: return Result.success()
+        val latitude = settings.automaticPassAlertLatitude
+        val longitude = settings.automaticPassAlertLongitude
+        if (latitude == null || longitude == null) {
+            settingsRepository.setAutomaticPassAlertSyncStatus(
+                timestampMillis = System.currentTimeMillis(),
+                result = "Needs location",
+                message = "Update the alert location in Settings."
+            )
+            return Result.success()
+        }
         val altitude = settings.automaticPassAlertAltitude ?: 0.0
 
         val userLocation = UserLocation(
@@ -47,13 +55,14 @@ class AutomaticPassAlertWorker(
             .fold(
                 onSuccess = { passes ->
                     notificationScheduler.cancelAutomaticNotifications(settings.automaticPassAlertScheduledIds)
-                    val scheduledIds = passes
+                    val matchingPasses = passes
                         .filter {
                             IssPassVisibility.matchesMinimum(
                                 magnitude = it.magnitude,
                                 minimumVisibility = settings.automaticPassAlertMinVisibility
                             )
                         }
+                    val scheduledIds = matchingPasses
                         .flatMap {
                             notificationScheduler.scheduleAutomaticNotifications(
                                 pass = it,
@@ -63,9 +72,23 @@ class AutomaticPassAlertWorker(
                         .toSet()
 
                     settingsRepository.setAutomaticPassAlertScheduledIds(scheduledIds)
+                    settingsRepository.setAutomaticPassAlertSyncStatus(
+                        timestampMillis = System.currentTimeMillis(),
+                        result = "Success",
+                        message = if (scheduledIds.isEmpty()) {
+                            "No matching ISS passes found."
+                        } else {
+                            "Found ${matchingPasses.size} matching passes and scheduled ${scheduledIds.size} notifications."
+                        }
+                    )
                     Result.success()
                 },
-                onFailure = {
+                onFailure = { throwable ->
+                    settingsRepository.setAutomaticPassAlertSyncStatus(
+                        timestampMillis = System.currentTimeMillis(),
+                        result = "Failed",
+                        message = throwable.localizedMessage ?: "Unable to check ISS passes. Will retry."
+                    )
                     Result.retry()
                 }
             )

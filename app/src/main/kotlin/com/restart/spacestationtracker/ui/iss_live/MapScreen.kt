@@ -126,7 +126,7 @@ fun MapScreen(
                     )
                 }
 
-                if (uiState.futureIssLocations.isNotEmpty()) {
+                if (uiState.showOrbit && uiState.futureIssLocations.isNotEmpty()) {
                     val points = uiState.futureIssLocations.map {
                         LatLng(it.latitude, it.longitude)
                     }

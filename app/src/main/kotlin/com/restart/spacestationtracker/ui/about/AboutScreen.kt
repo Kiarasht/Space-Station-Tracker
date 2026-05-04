@@ -1,8 +1,11 @@
 package com.restart.spacestationtracker.ui.about
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,12 +27,15 @@ import androidx.compose.material.icons.automirrored.filled.Article
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Code
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Groups
 import androidx.compose.material.icons.filled.LiveTv
 import androidx.compose.material.icons.filled.NotificationsActive
 import androidx.compose.material.icons.filled.PrivacyTip
 import androidx.compose.material.icons.filled.Public
 import androidx.compose.material.icons.filled.Route
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.StarRate
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
@@ -51,7 +57,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.core.net.toUri
+import com.restart.spacestationtracker.BuildConfig
 import com.restart.spacestationtracker.R
+import com.restart.spacestationtracker.util.AppRatingManager
 
 @Composable
 fun AboutScreen(
@@ -59,9 +67,13 @@ fun AboutScreen(
     onNavigateToLegal: (titleResId: Int, contentResId: Int) -> Unit
 ) {
     val context = LocalContext.current
-    val versionName = getVersionName(context)
+    val versionDetails = getVersionDetails(context)
     val softwareList = stringArrayResource(id = R.array.software_list)
     val softwareUrlList = stringArrayResource(id = R.array.software_url_list)
+    val shareText = stringResource(
+        id = R.string.share_app_text,
+        stringResource(id = R.string.msg_get_it_on_play_store_url)
+    )
 
     val screenPadding = PaddingValues(
         start = contentPadding.calculateStartPadding(LayoutDirection.Ltr) + 16.dp,
@@ -79,10 +91,34 @@ fun AboutScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             item {
-                AboutAppHeader(versionName = versionName)
+                AboutAppHeader(versionDetails = versionDetails)
             }
             item {
                 AboutFeatureHighlights()
+            }
+            item {
+                AboutSection(title = stringResource(id = R.string.support_title)) {
+                    AboutNavRow(
+                        icon = Icons.Default.Email,
+                        title = stringResource(id = R.string.contact_support),
+                        supportingText = stringResource(id = R.string.contact_support_description),
+                        onClick = { contactSupport(context, versionDetails) }
+                    )
+                    HorizontalDivider()
+                    AboutNavRow(
+                        icon = Icons.Default.StarRate,
+                        title = stringResource(id = R.string.rate_app),
+                        supportingText = stringResource(id = R.string.rate_app_description),
+                        onClick = { AppRatingManager(context).markRatedAndOpenStore() }
+                    )
+                    HorizontalDivider()
+                    AboutNavRow(
+                        icon = Icons.Default.Share,
+                        title = stringResource(id = R.string.share_app),
+                        supportingText = stringResource(id = R.string.share_app_description),
+                        onClick = { shareApp(context, shareText) }
+                    )
+                }
             }
             item {
                 AboutSection(title = stringResource(id = R.string.legal_title)) {
@@ -130,7 +166,7 @@ fun AboutScreen(
 }
 
 @Composable
-fun AboutAppHeader(versionName: String) {
+fun AboutAppHeader(versionDetails: String) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(8.dp),
@@ -155,7 +191,7 @@ fun AboutAppHeader(versionName: String) {
             )
             Spacer(modifier = Modifier.height(12.dp))
             Text(
-                text = "Version $versionName",
+                text = versionDetails,
                 style = MaterialTheme.typography.labelLarge,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.primary
@@ -323,6 +359,7 @@ private fun LicenseRow(software: String, url: String) {
 private fun AboutNavRow(
     icon: ImageVector,
     title: String,
+    supportingText: String? = null,
     onClick: () -> Unit
 ) {
     ListItem(
@@ -342,6 +379,16 @@ private fun AboutNavRow(
                 fontWeight = FontWeight.SemiBold
             )
         },
+        supportingContent = supportingText?.let {
+            {
+                Text(
+                    text = it,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+            }
+        },
         trailingContent = {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.OpenInNew,
@@ -352,11 +399,48 @@ private fun AboutNavRow(
     )
 }
 
-private fun getVersionName(context: Context): String {
+private fun getVersionDetails(context: Context): String {
     return try {
         val pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-        pInfo.versionName ?: ""
+        val versionName = pInfo.versionName ?: ""
+        val versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            pInfo.longVersionCode
+        } else {
+            @Suppress("DEPRECATION")
+            pInfo.versionCode.toLong()
+        }
+        "Version $versionName ($versionCode)"
     } catch (_: PackageManager.NameNotFoundException) {
-        ""
+        "Version ${BuildConfig.VERSION_NAME}"
+    }
+}
+
+private fun contactSupport(context: Context, versionDetails: String) {
+    val emailUri = "mailto:${context.getString(R.string.support_email)}".toUri()
+    val intent = Intent(Intent.ACTION_SENDTO, emailUri).apply {
+        putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.support_email_subject))
+        putExtra(
+            Intent.EXTRA_TEXT,
+            context.getString(R.string.support_email_body, versionDetails)
+        )
+    }
+    try {
+        context.startActivity(intent)
+    } catch (_: ActivityNotFoundException) {
+        Toast.makeText(context, R.string.no_email_app_available, Toast.LENGTH_SHORT).show()
+    }
+}
+
+private fun shareApp(context: Context, shareText: String) {
+    val intent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, shareText)
+    }
+    try {
+        context.startActivity(
+            Intent.createChooser(intent, context.getString(R.string.share_app))
+        )
+    } catch (_: ActivityNotFoundException) {
+        Toast.makeText(context, R.string.no_share_app_available, Toast.LENGTH_SHORT).show()
     }
 }
