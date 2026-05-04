@@ -222,31 +222,31 @@ fun AboutFeatureHighlights() {
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 FeatureHighlight(
                     icon = Icons.Default.Public,
-                    title = "Live map",
+                    title = stringResource(id = R.string.about_feature_live_map),
                     modifier = Modifier.weight(1f)
                 )
                 FeatureHighlight(
                     icon = Icons.Default.Route,
-                    title = "Sky paths",
+                    title = stringResource(id = R.string.about_feature_sky_paths),
                     modifier = Modifier.weight(1f)
                 )
             }
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 FeatureHighlight(
                     icon = Icons.Default.NotificationsActive,
-                    title = "Pass alerts",
+                    title = stringResource(id = R.string.about_feature_pass_alerts),
                     modifier = Modifier.weight(1f)
                 )
                 FeatureHighlight(
                     icon = Icons.Default.LiveTv,
-                    title = "Live streams",
+                    title = stringResource(id = R.string.about_feature_live_streams),
                     modifier = Modifier.weight(1f)
                 )
             }
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 FeatureHighlight(
                     icon = Icons.Default.Groups,
-                    title = "Crew info",
+                    title = stringResource(id = R.string.about_feature_crew_info),
                     modifier = Modifier.weight(1f)
                 )
             }
@@ -409,9 +409,9 @@ private fun getVersionDetails(context: Context): String {
             @Suppress("DEPRECATION")
             pInfo.versionCode.toLong()
         }
-        "Version $versionName ($versionCode)"
+        context.getString(R.string.version_details_format, versionName, versionCode)
     } catch (_: PackageManager.NameNotFoundException) {
-        "Version ${BuildConfig.VERSION_NAME}"
+        context.getString(R.string.version_details_name_only_format, BuildConfig.VERSION_NAME)
     }
 }
 

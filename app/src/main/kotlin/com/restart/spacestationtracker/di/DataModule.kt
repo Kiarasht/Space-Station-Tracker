@@ -217,8 +217,11 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun providePeopleInSpaceRepository(api: PeopleInSpaceApiService): PeopleInSpaceRepository {
-        return PeopleInSpaceRepositoryImpl(api)
+    fun providePeopleInSpaceRepository(
+        api: PeopleInSpaceApiService,
+        @ApplicationContext context: Context
+    ): PeopleInSpaceRepository {
+        return PeopleInSpaceRepositoryImpl(api, context)
     }
 
     @Provides

@@ -63,6 +63,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.LayoutDirection
@@ -75,13 +76,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.restart.spacestationtracker.R
 import com.restart.spacestationtracker.util.ForegroundLocationProvider
 import com.restart.spacestationtracker.util.IssPassVisibility
 import com.restart.spacestationtracker.util.isIgnoringBatteryOptimizations
 import com.restart.spacestationtracker.util.openAppSettings
 import com.restart.spacestationtracker.util.openBatteryOptimizationSettings
 import kotlinx.coroutines.launch
-import java.util.Locale
 
 @Composable
 fun SettingsScreen(
@@ -136,7 +137,7 @@ fun SettingsScreen(
                     altitude = location.altitude,
                     locationName = location.name
                 )
-                Toast.makeText(context, "Automatic ISS pass alerts enabled.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.automatic_alerts_enabled_toast, Toast.LENGTH_SHORT).show()
             }
 
             AutomaticPassAlertLocationAction.Update -> {
@@ -146,7 +147,7 @@ fun SettingsScreen(
                     altitude = location.altitude,
                     locationName = location.name
                 )
-                Toast.makeText(context, "Alert location updated.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.alert_location_updated_toast, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -155,7 +156,7 @@ fun SettingsScreen(
         if (isAlertLocationLookupInProgress) return
 
         isAlertLocationLookupInProgress = true
-        Toast.makeText(context, "Getting your current location...", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, R.string.getting_current_location_toast, Toast.LENGTH_SHORT).show()
 
         coroutineScope.launch {
             try {
@@ -165,7 +166,7 @@ fun SettingsScreen(
                 } else {
                     Toast.makeText(
                         context,
-                        "Could not get your current location. Please try again.",
+                        R.string.could_not_get_current_location_toast,
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -202,13 +203,13 @@ fun SettingsScreen(
             }
 
             if (!isGranted && locationPermissionDeniedCount >= 2) {
-                Toast.makeText(context, "Enable location in app settings to use ISS pass alerts.", Toast.LENGTH_LONG)
+                Toast.makeText(context, R.string.enable_location_in_settings_toast, Toast.LENGTH_LONG)
                     .show()
                 context.openAppSettings()
             } else if (!isGranted) {
                 Toast.makeText(
                     context,
-                    "Location permission is required for ISS pass alerts.",
+                    R.string.location_permission_required_toast,
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -221,7 +222,7 @@ fun SettingsScreen(
         } else {
             pendingLocationAction = action
             if (shouldOpenSettingsForLocationPermission()) {
-                Toast.makeText(context, "Enable location in app settings to use ISS pass alerts.", Toast.LENGTH_LONG)
+                Toast.makeText(context, R.string.enable_location_in_settings_toast, Toast.LENGTH_LONG)
                     .show()
                 context.openAppSettings()
             } else {
@@ -245,13 +246,13 @@ fun SettingsScreen(
             }
 
             if (!isGranted && notificationPermissionDeniedCount >= 2) {
-                Toast.makeText(context, "Enable notifications in app settings to use ISS pass alerts.", Toast.LENGTH_LONG)
+                Toast.makeText(context, R.string.enable_notifications_in_settings_toast, Toast.LENGTH_LONG)
                     .show()
                 context.openAppSettings()
             } else if (!isGranted) {
                 Toast.makeText(
                     context,
-                    "Notification permission is required for ISS pass alerts.",
+                    R.string.notification_permission_required_toast,
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -268,7 +269,7 @@ fun SettingsScreen(
                     Manifest.permission.POST_NOTIFICATIONS
                 )
             ) {
-                Toast.makeText(context, "Enable notifications in app settings to use ISS pass alerts.", Toast.LENGTH_LONG)
+                Toast.makeText(context, R.string.enable_notifications_in_settings_toast, Toast.LENGTH_LONG)
                     .show()
                 context.openAppSettings()
             } else {
@@ -288,7 +289,7 @@ fun SettingsScreen(
         contentPadding = screenPadding,
     ) {
         item {
-            SettingsHeader(title = "ISS Pass Alerts")
+            SettingsHeader(title = stringResource(id = R.string.settings_iss_pass_alerts))
         }
         item {
             AutomaticPassAlertsSetting(
@@ -316,7 +317,7 @@ fun SettingsScreen(
                 onOpenBatterySettings = {
                     Toast.makeText(
                         context,
-                        "Open Battery, then set background usage to Unrestricted.",
+                        R.string.battery_unrestricted_guidance_toast,
                         Toast.LENGTH_LONG
                     ).show()
                     context.openBatteryOptimizationSettings()
@@ -324,7 +325,7 @@ fun SettingsScreen(
             )
         }
         item {
-            SettingsHeader(title = "Map Settings")
+            SettingsHeader(title = stringResource(id = R.string.settings_map_settings))
         }
         item {
             SegmentedControlSetting(
@@ -332,12 +333,17 @@ fun SettingsScreen(
                 leadingContent = {
                     Icon(
                         imageVector = Icons.Default.Layers,
-                        contentDescription = "Units",
+                        contentDescription = stringResource(id = R.string.map_type),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 },
-                title = "Map Type",
-                options = listOf("Normal", "Satellite", "Hybrid", "Terrain"),
+                title = stringResource(id = R.string.map_type),
+                options = listOf(
+                    SettingOption("Normal", stringResource(id = R.string.map_type_normal)),
+                    SettingOption("Satellite", stringResource(id = R.string.map_type_satellite)),
+                    SettingOption("Hybrid", stringResource(id = R.string.map_type_hybrid)),
+                    SettingOption("Terrain", stringResource(id = R.string.map_type_terrain))
+                ),
                 selectedOption = settings.mapType,
                 onOptionSelected = viewModel::onMapTypeChanged
             )
@@ -345,44 +351,31 @@ fun SettingsScreen(
         item {
             SwitchSetting(
                 icon = Icons.Default.Route,
-                title = "Show orbit path",
-                subtitle = "Show the predicted ISS path on the map",
+                title = stringResource(id = R.string.show_orbit_path),
+                subtitle = stringResource(id = R.string.show_orbit_path_description),
                 checked = settings.showOrbit,
                 onCheckedChange = viewModel::onShowOrbitChanged
             )
         }
         item {
-            SettingsHeader(title = "General Settings")
+            SettingsHeader(title = stringResource(id = R.string.settings_general_settings))
         }
-/*        item {
-            SegmentedControlSetting(
-                modifier = Modifier.padding(top = 16.dp),
-                leadingContent = {
-                    Icon(
-                        imageVector = Icons.Default.Language,
-                        contentDescription = "Units",
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.size(24.dp)
-                    )
-                },
-                title = "Units",
-                options = listOf("Metric", "Imperial"),
-                selectedOption = settings.units,
-                onOptionSelected = viewModel::onUnitsChanged
-            )
-        }*/
         item {
             SegmentedControlSetting(
                 modifier = Modifier.padding(vertical = 8.dp),
                 leadingContent = {
                     Icon(
                         imageVector = Icons.Default.Brightness6,
-                        contentDescription = "Theme",
+                        contentDescription = stringResource(id = R.string.theme),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 },
-                title = "Theme",
-                options = listOf("Follow System", "Light", "Dark"),
+                title = stringResource(id = R.string.theme),
+                options = listOf(
+                    SettingOption("Follow System", stringResource(id = R.string.theme_follow_system)),
+                    SettingOption("Light", stringResource(id = R.string.theme_light)),
+                    SettingOption("Dark", stringResource(id = R.string.theme_dark))
+                ),
                 selectedOption = settings.theme,
                 onOptionSelected = viewModel::onThemeChanged,
             )
@@ -390,7 +383,7 @@ fun SettingsScreen(
         }
         if (isPrivacyOptionsRequired) {
             item {
-                SettingsHeader(title = "Privacy")
+                SettingsHeader(title = stringResource(id = R.string.settings_privacy))
             }
             item {
                 PrivacyOptionsSetting(onClick = onPrivacyOptionsClick)
@@ -415,16 +408,26 @@ fun AutomaticPassAlertsSetting(
     onUpdateLocation: () -> Unit,
     onOpenBatterySettings: () -> Unit
 ) {
+    val selectedVisibilityLabel = stringResource(
+        id = IssPassVisibility.labelResForVisibility(minVisibility)
+    )
     val alertSubtitle = when {
         enabled && minVisibility == IssPassVisibility.VERY_BRIGHT ->
-            "Watching for Very Bright ISS passes only"
+            stringResource(id = R.string.watching_very_bright_passes_only)
         enabled ->
-            "Watching for $minVisibility or better ISS passes"
+            stringResource(id = R.string.watching_visibility_or_better_format, selectedVisibilityLabel)
         isLocationLookupInProgress ->
-            "Getting your current location"
+            stringResource(id = R.string.getting_your_current_location)
         else ->
-            "Notify when a good ISS pass is coming"
+            stringResource(id = R.string.automatic_good_pass_alerts_description)
     }
+    val visibilityOptions = listOf(
+        SettingOption(IssPassVisibility.FAINT, stringResource(id = R.string.visibility_faint)),
+        SettingOption(IssPassVisibility.MODERATE, stringResource(id = R.string.visibility_moderate)),
+        SettingOption(IssPassVisibility.BRIGHT, stringResource(id = R.string.visibility_bright)),
+        SettingOption(IssPassVisibility.VERY_BRIGHT, stringResource(id = R.string.visibility_very_bright))
+    )
+    val alertTimeOptions = automaticPassAlertNotificationOptions()
     var showVisibilityInfoDialog by rememberSaveable { mutableStateOf(false) }
 
     Column {
@@ -436,7 +439,7 @@ fun AutomaticPassAlertsSetting(
 
         SwitchSetting(
             icon = Icons.Default.NotificationsActive,
-            title = "Automatic good pass alerts",
+            title = stringResource(id = R.string.automatic_good_pass_alerts),
             subtitle = alertSubtitle,
             checked = enabled,
             enabled = !isLocationLookupInProgress,
@@ -453,8 +456,8 @@ fun AutomaticPassAlertsSetting(
             SegmentedControlSetting(
                 modifier = Modifier.padding(top = 4.dp, bottom = 2.dp),
                 leadingContent = null,
-                title = "Minimum visibility",
-                options = IssPassVisibility.options,
+                title = stringResource(id = R.string.minimum_visibility),
+                options = visibilityOptions,
                 selectedOption = minVisibility,
                 onOptionSelected = onMinVisibilityChanged,
                 compact = true,
@@ -465,7 +468,7 @@ fun AutomaticPassAlertsSetting(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Info,
-                            contentDescription = "Minimum visibility info",
+                            contentDescription = stringResource(id = R.string.minimum_visibility_info),
                             tint = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.size(20.dp)
                         )
@@ -474,8 +477,8 @@ fun AutomaticPassAlertsSetting(
             )
 
             MultiSelectSetting(
-                title = "Alert times",
-                options = automaticPassAlertNotificationOptions,
+                title = stringResource(id = R.string.alert_times),
+                options = alertTimeOptions,
                 selectedOptions = notificationTimes,
                 onSelectionChanged = onNotificationTimesChanged,
                 compact = true
@@ -490,26 +493,26 @@ fun AutomaticPassAlertsSetting(
                 leadingContent = {
                     Icon(
                         imageVector = Icons.Default.LocationOn,
-                        contentDescription = "Alert location",
+                        contentDescription = stringResource(id = R.string.alert_location),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 },
                 headlineContent = {
                     Text(
-                        text = "Alert location",
+                        text = stringResource(id = R.string.alert_location),
                         style = MaterialTheme.typography.titleLarge.copy(fontSize = 16.sp)
                     )
                 },
                 supportingContent = {
                     Text(
-                        text = locationName ?: "No location saved",
+                        text = locationName ?: stringResource(id = R.string.no_location_saved),
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(top = 8.dp)
                     )
                 },
                 trailingContent = {
                     OutlinedButton(onClick = onUpdateLocation) {
-                        Text("Update")
+                        Text(stringResource(id = R.string.update))
                     }
                 }
             )
@@ -522,31 +525,31 @@ fun VisibilityInfoDialog(onDismiss: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {
-            Text("Minimum visibility")
+            Text(stringResource(id = R.string.minimum_visibility))
         },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 VisibilityInfoLine(
-                    label = "Very Bright",
-                    description = "The easiest passes to notice, often brighter than planets."
+                    label = stringResource(id = R.string.visibility_very_bright),
+                    description = stringResource(id = R.string.visibility_info_very_bright_description)
                 )
                 VisibilityInfoLine(
-                    label = "Bright",
-                    description = "Strong passes that should stand out in the sky."
+                    label = stringResource(id = R.string.visibility_bright),
+                    description = stringResource(id = R.string.visibility_info_bright_description)
                 )
                 VisibilityInfoLine(
-                    label = "Moderate",
-                    description = "Visible, but easier to miss in city light or haze."
+                    label = stringResource(id = R.string.visibility_moderate),
+                    description = stringResource(id = R.string.visibility_info_moderate_description)
                 )
                 VisibilityInfoLine(
-                    label = "Faint",
-                    description = "Possible to see, but best with darker skies and clear weather."
+                    label = stringResource(id = R.string.visibility_faint),
+                    description = stringResource(id = R.string.visibility_info_faint_description)
                 )
             }
         },
         confirmButton = {
             TextButton(onClick = onDismiss) {
-                Text("Got it")
+                Text(stringResource(id = R.string.got_it))
             }
         }
     )
@@ -586,13 +589,13 @@ fun AlertHealthSetting(
         leadingContent = {
             Icon(
                 imageVector = statusIcon,
-                contentDescription = "Alert health",
+                contentDescription = stringResource(id = R.string.alert_health),
                 tint = statusColor
             )
         },
         headlineContent = {
             Text(
-                text = "Alert health",
+                text = stringResource(id = R.string.alert_health),
                 style = MaterialTheme.typography.titleLarge.copy(fontSize = 16.sp)
             )
         },
@@ -604,25 +607,25 @@ fun AlertHealthSetting(
                 HealthStatusLine(
                     isHealthy = hasNotificationPermission,
                     text = if (hasNotificationPermission) {
-                        "Notifications allowed"
+                        stringResource(id = R.string.notifications_allowed)
                     } else {
-                        "Notifications need permission"
+                        stringResource(id = R.string.notifications_need_permission)
                     }
                 )
                 HealthStatusLine(
                     isHealthy = hasSavedAlertLocation,
                     text = if (hasSavedAlertLocation) {
-                        "Alert location saved"
+                        stringResource(id = R.string.alert_location_saved)
                     } else {
-                        "Alert location needs update"
+                        stringResource(id = R.string.alert_location_needs_update)
                     }
                 )
                 HealthStatusLine(
                     isHealthy = isIgnoringBatteryOptimizations,
                     text = if (isIgnoringBatteryOptimizations) {
-                        "Battery unrestricted"
+                        stringResource(id = R.string.battery_unrestricted)
                     } else {
-                        "Battery may pause alerts"
+                        stringResource(id = R.string.battery_may_pause_alerts)
                     }
                 )
             }
@@ -672,22 +675,22 @@ fun NotificationReliabilitySetting(
         leadingContent = {
             Icon(
                 imageVector = statusIcon,
-                contentDescription = "Notification reliability",
+                contentDescription = stringResource(id = R.string.notification_reliability),
                 tint = statusColor
             )
         },
         headlineContent = {
             Text(
-                text = "Improve notification reliability",
+                text = stringResource(id = R.string.improve_notification_reliability),
                 style = MaterialTheme.typography.titleLarge.copy(fontSize = 16.sp)
             )
         },
         supportingContent = {
             Text(
                 text = if (isIgnoringBatteryOptimizations) {
-                    "Battery optimization is off for this app."
+                    stringResource(id = R.string.battery_optimization_off)
                 } else {
-                    "Android may pause alerts after days of inactivity. Open Battery and choose Unrestricted."
+                    stringResource(id = R.string.battery_may_pause_alerts_description)
                 },
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(top = 4.dp)
@@ -698,7 +701,7 @@ fun NotificationReliabilitySetting(
         } else {
             {
                 OutlinedButton(onClick = onOpenBatterySettings) {
-                    Text("Open")
+                    Text(stringResource(id = R.string.open))
                 }
             }
         }
@@ -708,7 +711,7 @@ fun NotificationReliabilitySetting(
 @Composable
 fun MultiSelectSetting(
     title: String,
-    options: List<String>,
+    options: List<SettingOption>,
     selectedOptions: Set<String>,
     onSelectionChanged: (Set<String>) -> Unit,
     compact: Boolean = false
@@ -729,7 +732,7 @@ fun MultiSelectSetting(
                 )
             ) {
                 options.forEach { option ->
-                    val checked = option in selectedOptions
+                    val checked = option.value in selectedOptions
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -739,9 +742,9 @@ fun MultiSelectSetting(
                                 onValueChange = { isChecked ->
                                     val nextSelection = selectedOptions.toMutableSet()
                                     if (isChecked) {
-                                        nextSelection.add(option)
+                                        nextSelection.add(option.value)
                                     } else if (selectedOptions.size > 1) {
-                                        nextSelection.remove(option)
+                                        nextSelection.remove(option.value)
                                     }
                                     onSelectionChanged(nextSelection)
                                 }
@@ -754,7 +757,7 @@ fun MultiSelectSetting(
                             onCheckedChange = null
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(option)
+                        Text(option.label)
                     }
                 }
             }
@@ -778,26 +781,26 @@ fun PrivacyOptionsSetting(onClick: () -> Unit) {
         leadingContent = {
             Icon(
                 imageVector = Icons.Default.PrivacyTip,
-                contentDescription = "Privacy choices",
+                contentDescription = stringResource(id = R.string.privacy_choices),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
         },
         headlineContent = {
             Text(
-                text = "Privacy choices",
+                text = stringResource(id = R.string.privacy_choices),
                 style = MaterialTheme.typography.titleLarge.copy(fontSize = 16.sp)
             )
         },
         supportingContent = {
             Text(
-                text = "Manage ad consent preferences",
+                text = stringResource(id = R.string.privacy_choices_description),
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(top = 8.dp)
             )
         },
         trailingContent = {
             OutlinedButton(onClick = onClick) {
-                Text("Manage")
+                Text(stringResource(id = R.string.manage))
             }
         }
     )
@@ -809,7 +812,7 @@ fun SegmentedControlSetting(
     modifier: Modifier = Modifier,
     leadingContent: @Composable (() -> Unit)? = null,
     title: String,
-    options: List<String>,
+    options: List<SettingOption>,
     selectedOption: String,
     onOptionSelected: (String) -> Unit,
     compact: Boolean = false,
@@ -841,9 +844,9 @@ fun SegmentedControlSetting(
                 horizontalArrangement = Arrangement.Start
             ) {
                 options.forEachIndexed { index, option ->
-                    val isSelected = selectedOption == option
+                    val isSelected = selectedOption == option.value
                     OutlinedButton(
-                        onClick = { onOptionSelected(option) },
+                        onClick = { onOptionSelected(option.value) },
                         shape = when (index) {
                             0 -> RoundedCornerShape(topStartPercent = 50, bottomStartPercent = 50)
                             options.lastIndex -> RoundedCornerShape(
@@ -863,7 +866,7 @@ fun SegmentedControlSetting(
                             .zIndex(if (isSelected) 1f else 0f)
                     ) {
                         Text(
-                            text = option,
+                            text = option.label,
                             style = MaterialTheme.typography.bodyMedium,
                             fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
                         )
@@ -960,14 +963,29 @@ fun SliderSetting(
     )
 }
 
-private val automaticPassAlertNotificationOptions = listOf(
-    "At time of event",
-    "10 minutes before",
-    "1 hour before",
-    "12 hours before",
-    "1 day before",
-    "1 week before"
+data class SettingOption(
+    val value: String,
+    val label: String
 )
+
+@Composable
+private fun automaticPassAlertNotificationOptions(): List<SettingOption> {
+    return listOf(
+        SettingOption(ALERT_TIME_AT_EVENT, stringResource(id = R.string.alert_time_at_event)),
+        SettingOption(ALERT_TIME_10_MINUTES_BEFORE, stringResource(id = R.string.alert_time_10_minutes_before)),
+        SettingOption(ALERT_TIME_1_HOUR_BEFORE, stringResource(id = R.string.alert_time_1_hour_before)),
+        SettingOption(ALERT_TIME_12_HOURS_BEFORE, stringResource(id = R.string.alert_time_12_hours_before)),
+        SettingOption(ALERT_TIME_1_DAY_BEFORE, stringResource(id = R.string.alert_time_1_day_before)),
+        SettingOption(ALERT_TIME_1_WEEK_BEFORE, stringResource(id = R.string.alert_time_1_week_before))
+    )
+}
+
+private const val ALERT_TIME_AT_EVENT = "At time of event"
+private const val ALERT_TIME_10_MINUTES_BEFORE = "10 minutes before"
+private const val ALERT_TIME_1_HOUR_BEFORE = "1 hour before"
+private const val ALERT_TIME_12_HOURS_BEFORE = "12 hours before"
+private const val ALERT_TIME_1_DAY_BEFORE = "1 day before"
+private const val ALERT_TIME_1_WEEK_BEFORE = "1 week before"
 
 private enum class AutomaticPassAlertLocationAction {
     Enable,
@@ -990,12 +1008,7 @@ private suspend fun fetchCurrentAlertLocation(context: Context): AlertLocation? 
         latitude = latitude,
         longitude = longitude,
         altitude = location.altitude,
-        name = String.format(
-            Locale.getDefault(),
-            "Current Location (%.2f, %.2f)",
-            latitude,
-            longitude
-        )
+        name = context.getString(R.string.current_location_format, latitude, longitude)
     )
 }
 

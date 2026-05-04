@@ -119,8 +119,8 @@ fun MapScreen(
 
                     Marker(
                         state = markerState,
-                        title = "ISS",
-                        snippet = "International Space Station",
+                        title = stringResource(id = R.string.iss_marker_title),
+                        snippet = stringResource(id = R.string.iss_marker_snippet),
                         icon = BitmapDescriptorFactory.fromResource(R.drawable.iss_2011),
                         anchor = Offset(0.5f, 0.5f)
                     )
@@ -145,7 +145,7 @@ fun MapScreen(
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             } else if (uiState.error != null) {
                 Text(
-                    text = "Error: ${uiState.error}",
+                    text = stringResource(id = R.string.map_error_format, uiState.error ?: ""),
                     modifier = Modifier
                         .align(Alignment.Center)
                         .padding(16.dp)
@@ -314,7 +314,7 @@ fun LiveIndicator(
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { showDialog = false },
-            title = { Text(text = "Select Stream") },
+            title = { Text(text = stringResource(id = R.string.select_stream)) },
             text = {
                 Column {
                     liveStreams.forEach { stream ->

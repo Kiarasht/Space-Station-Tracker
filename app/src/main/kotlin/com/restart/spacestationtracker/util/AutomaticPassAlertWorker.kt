@@ -3,6 +3,7 @@ package com.restart.spacestationtracker.util
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.restart.spacestationtracker.R
 import com.restart.spacestationtracker.data.settings.SettingsRepository
 import com.restart.spacestationtracker.domain.iss_passes.use_case.GetIssPassesUseCase
 import com.restart.spacestationtracker.domain.iss_passes.use_case.UserLocation
@@ -37,8 +38,8 @@ class AutomaticPassAlertWorker(
         if (latitude == null || longitude == null) {
             settingsRepository.setAutomaticPassAlertSyncStatus(
                 timestampMillis = System.currentTimeMillis(),
-                result = "Needs location",
-                message = "Update the alert location in Settings."
+                result = appContext.getString(R.string.auto_alert_sync_needs_location),
+                message = appContext.getString(R.string.auto_alert_sync_needs_location_message)
             )
             return Result.success()
         }
@@ -48,7 +49,8 @@ class AutomaticPassAlertWorker(
             latitude = latitude,
             longitude = longitude,
             altitude = altitude,
-            name = settings.automaticPassAlertLocationName ?: "Saved Location"
+            name = settings.automaticPassAlertLocationName
+                ?: appContext.getString(R.string.auto_alert_saved_location)
         )
 
         return entryPoint.getIssPassesUseCase()(userLocation)
@@ -74,11 +76,15 @@ class AutomaticPassAlertWorker(
                     settingsRepository.setAutomaticPassAlertScheduledIds(scheduledIds)
                     settingsRepository.setAutomaticPassAlertSyncStatus(
                         timestampMillis = System.currentTimeMillis(),
-                        result = "Success",
+                        result = appContext.getString(R.string.auto_alert_sync_success),
                         message = if (scheduledIds.isEmpty()) {
-                            "No matching ISS passes found."
+                            appContext.getString(R.string.auto_alert_sync_no_matches)
                         } else {
-                            "Found ${matchingPasses.size} matching passes and scheduled ${scheduledIds.size} notifications."
+                            appContext.getString(
+                                R.string.auto_alert_sync_scheduled_format,
+                                matchingPasses.size,
+                                scheduledIds.size
+                            )
                         }
                     )
                     Result.success()
@@ -86,8 +92,9 @@ class AutomaticPassAlertWorker(
                 onFailure = { throwable ->
                     settingsRepository.setAutomaticPassAlertSyncStatus(
                         timestampMillis = System.currentTimeMillis(),
-                        result = "Failed",
-                        message = throwable.localizedMessage ?: "Unable to check ISS passes. Will retry."
+                        result = appContext.getString(R.string.auto_alert_sync_failed),
+                        message = throwable.localizedMessage
+                            ?: appContext.getString(R.string.auto_alert_sync_retry_message)
                     )
                     Result.retry()
                 }

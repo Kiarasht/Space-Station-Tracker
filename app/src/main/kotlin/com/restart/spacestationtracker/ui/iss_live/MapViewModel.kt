@@ -1,8 +1,10 @@
 package com.restart.spacestationtracker.ui.iss_live
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.maps.android.compose.MapType
+import com.restart.spacestationtracker.R
 import com.restart.spacestationtracker.data.settings.SettingsRepository
 import com.restart.spacestationtracker.domain.iss_live.use_case.GetFutureIssLocationsUseCase
 import com.restart.spacestationtracker.domain.youtube.use_case.GetNasaLiveStreamStatusUseCase
@@ -23,6 +25,7 @@ class MapViewModel @Inject constructor(
     private val getFutureIssLocationsUseCase: GetFutureIssLocationsUseCase,
     private val settingsRepository: SettingsRepository,
     private val getNasaLiveStreamStatusUseCase: GetNasaLiveStreamStatusUseCase,
+    private val application: Application
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MapUiState())
@@ -113,7 +116,7 @@ class MapViewModel @Inject constructor(
                 isSuccess = true
             }.onFailure { throwable ->
                 _uiState.value = _uiState.value.copy(
-                    error = throwable.localizedMessage ?: "An unknown error occurred"
+                    error = throwable.localizedMessage ?: application.getString(R.string.unknown_error)
                 )
                 isSuccess = false
             }

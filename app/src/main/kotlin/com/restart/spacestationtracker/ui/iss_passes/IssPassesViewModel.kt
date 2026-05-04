@@ -56,7 +56,9 @@ class IssPassesViewModel @Inject constructor(
             fetchLocationAndPasses()
         } else {
             _uiState.value =
-                _uiState.value.copy(error = "Location permission is required to show ISS passes.")
+                _uiState.value.copy(
+                    error = application.getString(R.string.sky_path_location_permission_required)
+                )
         }
     }
 
@@ -68,7 +70,7 @@ class IssPassesViewModel @Inject constructor(
             _uiState.value = _uiState.value.copy(
                 permissionGranted = false,
                 isLoading = false,
-                error = "Location permission is required to show ISS passes."
+                error = application.getString(R.string.sky_path_location_permission_required)
             )
         }
     }
@@ -108,7 +110,8 @@ class IssPassesViewModel @Inject constructor(
                     val address = getAddressFromLocation(geocoder, location)
 
                     val locationName =
-                        address?.let { "${it.locality}, ${it.adminArea}" } ?: "Current Location"
+                        address?.let { "${it.locality}, ${it.adminArea}" }
+                            ?: application.getString(R.string.current_location)
                     val userLocation = UserLocation(
                         location.latitude,
                         location.longitude,
@@ -129,11 +132,17 @@ class IssPassesViewModel @Inject constructor(
                     }
                 } else {
                     _uiState.value =
-                        _uiState.value.copy(isLoading = false, error = "Could not retrieve location.")
+                        _uiState.value.copy(
+                            isLoading = false,
+                            error = application.getString(R.string.could_not_retrieve_location)
+                        )
                 }
             } catch (_: SecurityException) {
                 _uiState.value =
-                    _uiState.value.copy(isLoading = false, error = "Location permission denied.")
+                    _uiState.value.copy(
+                        isLoading = false,
+                        error = application.getString(R.string.location_permission_denied)
+                    )
             }
         }
     }

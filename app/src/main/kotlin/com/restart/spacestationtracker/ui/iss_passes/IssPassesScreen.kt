@@ -55,6 +55,7 @@ import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
@@ -76,6 +77,7 @@ import com.restart.spacestationtracker.util.NotificationScheduler
 import com.restart.spacestationtracker.util.openAppSettings
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.cos
@@ -89,6 +91,32 @@ private data class SkyPathSparkle(
     val yFraction: Float,
     val radiusDp: Float
 )
+
+private data class NotificationTimeOption(
+    val value: String,
+    val label: String
+)
+
+@Composable
+private fun notificationTimeOptions(): List<NotificationTimeOption> {
+    return listOf(
+        NotificationTimeOption(ALERT_TIME_AT_EVENT, stringResource(id = R.string.alert_time_at_event)),
+        NotificationTimeOption(ALERT_TIME_10_MINUTES_BEFORE, stringResource(id = R.string.alert_time_10_minutes_before)),
+        NotificationTimeOption(ALERT_TIME_1_HOUR_BEFORE, stringResource(id = R.string.alert_time_1_hour_before)),
+        NotificationTimeOption(ALERT_TIME_12_HOURS_BEFORE, stringResource(id = R.string.alert_time_12_hours_before)),
+        NotificationTimeOption(ALERT_TIME_1_DAY_BEFORE, stringResource(id = R.string.alert_time_1_day_before)),
+        NotificationTimeOption(ALERT_TIME_1_WEEK_BEFORE, stringResource(id = R.string.alert_time_1_week_before))
+    )
+}
+
+private fun bulletedText(text: String): String = "\t\u2022 $text"
+
+private const val ALERT_TIME_AT_EVENT = "At time of event"
+private const val ALERT_TIME_10_MINUTES_BEFORE = "10 minutes before"
+private const val ALERT_TIME_1_HOUR_BEFORE = "1 hour before"
+private const val ALERT_TIME_12_HOURS_BEFORE = "12 hours before"
+private const val ALERT_TIME_1_DAY_BEFORE = "1 day before"
+private const val ALERT_TIME_1_WEEK_BEFORE = "1 week before"
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
@@ -148,19 +176,23 @@ fun IssPassesScreen(
                 val isLocationError = uiState.error?.contains("location", ignoreCase = true) == true
                 SkyPathStateMessage(
                     title = if (isLocationError) {
-                        "Location needed"
+                        stringResource(id = R.string.sky_path_location_needed)
                     } else {
-                        "Unable to load passes"
+                        stringResource(id = R.string.sky_path_unable_to_load_passes)
                     },
                     message = if (isLocationError) {
-                        "Sky Path needs your current location to find visible ISS passes near you."
+                        stringResource(id = R.string.sky_path_location_needed_message)
                     } else {
-                        "We could not get upcoming ISS passes. Check your connection and try again."
+                        stringResource(id = R.string.sky_path_unable_to_load_passes_message)
                     },
                     icon = if (isLocationError) Icons.Default.LocationOff else Icons.Default.VisibilityOff,
-                    primaryActionText = "Try again",
+                    primaryActionText = stringResource(id = R.string.try_again),
                     onPrimaryActionClick = viewModel::retryLocationAndPasses,
-                    secondaryActionText = if (isLocationError) "Open settings" else null,
+                    secondaryActionText = if (isLocationError) {
+                        stringResource(id = R.string.open_settings_lowercase)
+                    } else {
+                        null
+                    },
                     onSecondaryActionClick = if (isLocationError) {
                         { activity.openAppSettings() }
                     } else {
@@ -173,10 +205,10 @@ fun IssPassesScreen(
             else -> {
                 if (uiState.feedItems.isEmpty()) {
                     SkyPathStateMessage(
-                        title = "No visible passes found",
-                        message = "There are no visible ISS passes for your location right now. Try refreshing later or checking alerts for future opportunities.",
+                        title = stringResource(id = R.string.sky_path_no_visible_passes),
+                        message = stringResource(id = R.string.sky_path_no_visible_passes_message),
                         icon = Icons.Default.VisibilityOff,
-                        primaryActionText = "Refresh",
+                        primaryActionText = stringResource(id = R.string.refresh),
                         onPrimaryActionClick = viewModel::retryLocationAndPasses,
                         modifier = Modifier.align(Alignment.Center)
                     )
@@ -199,7 +231,7 @@ fun IssPassesScreen(
                         IconButton(onClick = { showInfoDialog = true }) {
                             Icon(
                                 imageVector = Icons.Default.Info,
-                                contentDescription = "Info"
+                                contentDescription = stringResource(id = R.string.info)
                             )
                         }
                     }
@@ -384,7 +416,7 @@ fun NotificationSchedulerDialog(pass: IssPass, onDismiss: () -> Unit) {
             if (isGranted) {
                 Toast.makeText(
                     context,
-                    "Permission granted! You can now schedule notifications.",
+                    R.string.permission_granted_schedule_notifications,
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
@@ -394,7 +426,7 @@ fun NotificationSchedulerDialog(pass: IssPass, onDismiss: () -> Unit) {
             if (!isGranted && notificationPermissionDeniedCount >= 2) {
                 Toast.makeText(
                     context,
-                    "Enable notifications in app settings to schedule ISS pass alerts.",
+                    R.string.enable_notifications_for_pass_alerts,
                     Toast.LENGTH_LONG
                 ).show()
                 context.openAppSettings()
@@ -414,7 +446,7 @@ fun NotificationSchedulerDialog(pass: IssPass, onDismiss: () -> Unit) {
         if (shouldOpenSettingsForNotificationPermission()) {
             Toast.makeText(
                 context,
-                "Enable notifications in app settings to schedule ISS pass alerts.",
+                R.string.enable_notifications_for_pass_alerts,
                 Toast.LENGTH_LONG
             ).show()
             context.openAppSettings()
@@ -423,24 +455,15 @@ fun NotificationSchedulerDialog(pass: IssPass, onDismiss: () -> Unit) {
         }
     }
 
-    val notificationOptions = remember {
-        listOf(
-            "At time of event",
-            "10 minutes before",
-            "1 hour before",
-            "12 hours before",
-            "1 day before",
-            "1 week before"
-        )
-    }
+    val notificationOptions = notificationTimeOptions()
 
     val selectedOptions = remember { mutableStateListOf<String>() }
 
     if (!canScheduleExactAlarms) {
         AlertDialog(
             onDismissRequest = onDismiss,
-            title = { Text("Permission Required") },
-            text = { Text("To schedule notifications accurately, please grant the 'Alarms & reminders' permission in your phone's settings.") },
+            title = { Text(stringResource(id = R.string.permission_required)) },
+            text = { Text(stringResource(id = R.string.exact_alarm_permission_message)) },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -455,24 +478,27 @@ fun NotificationSchedulerDialog(pass: IssPass, onDismiss: () -> Unit) {
                         onDismiss()
                     }
                 ) {
-                    Text("Open Settings")
+                    Text(stringResource(id = R.string.open_settings))
                 }
             },
             dismissButton = {
                 TextButton(onClick = onDismiss) {
-                    Text("Cancel")
+                    Text(stringResource(id = R.string.cancel))
                 }
             }
         )
     } else {
         AlertDialog(
             onDismissRequest = onDismiss,
-            title = { Text("Schedule Notification") },
+            title = { Text(stringResource(id = R.string.schedule_notification_title)) },
             text = {
                 LazyColumn {
                     item {
                         Text(
-                            "Schedule a notification for the ISS pass on ${dateFormat.format(pass.startTime)}.",
+                            stringResource(
+                                id = R.string.schedule_notification_message_format,
+                                dateFormat.format(pass.startTime)
+                            ),
                             style = MaterialTheme.typography.bodyMedium
                         )
                         Spacer(Modifier.height(16.dp))
@@ -481,10 +507,10 @@ fun NotificationSchedulerDialog(pass: IssPass, onDismiss: () -> Unit) {
                                 Modifier
                                     .fillMaxWidth()
                                     .toggleable(
-                                        value = option in selectedOptions,
+                                        value = option.value in selectedOptions,
                                         onValueChange = {
-                                            if (it) selectedOptions.add(option) else selectedOptions.remove(
-                                                option
+                                            if (it) selectedOptions.add(option.value) else selectedOptions.remove(
+                                                option.value
                                             )
                                         },
                                         role = Role.Checkbox
@@ -493,11 +519,11 @@ fun NotificationSchedulerDialog(pass: IssPass, onDismiss: () -> Unit) {
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Checkbox(
-                                    checked = option in selectedOptions,
+                                    checked = option.value in selectedOptions,
                                     onCheckedChange = null
                                 )
                                 Spacer(Modifier.width(8.dp))
-                                Text(option)
+                                Text(option.label)
                             }
                         }
                     }
@@ -508,7 +534,7 @@ fun NotificationSchedulerDialog(pass: IssPass, onDismiss: () -> Unit) {
                     onClick = {
                         if (hasNotificationPermission) {
                             notificationScheduler.scheduleNotifications(pass, selectedOptions)
-                            Toast.makeText(context, "Notification scheduled!", Toast.LENGTH_SHORT)
+                            Toast.makeText(context, R.string.notification_scheduled, Toast.LENGTH_SHORT)
                                 .show()
                             onDismiss()
                         } else {
@@ -519,12 +545,12 @@ fun NotificationSchedulerDialog(pass: IssPass, onDismiss: () -> Unit) {
                     },
                     enabled = selectedOptions.isNotEmpty()
                 ) {
-                    Text("Schedule")
+                    Text(stringResource(id = R.string.schedule))
                 }
             },
             dismissButton = {
                 TextButton(onClick = onDismiss) {
-                    Text("Cancel")
+                    Text(stringResource(id = R.string.cancel))
                 }
             }
         )
@@ -536,31 +562,31 @@ fun NotificationSchedulerDialog(pass: IssPass, onDismiss: () -> Unit) {
 fun InfoDialog(onDismiss: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Sky Path") },
+        title = { Text(stringResource(id = R.string.nav_sky_path)) },
         text = {
             LazyColumn(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 item {
-                    Text("The chart visualizes the ISS pass across the sky from your perspective:")
+                    Text(stringResource(id = R.string.sky_path_info_intro))
                     Spacer(modifier = Modifier.height(16.dp))
                     Column {
-                        Text("\t• The straight line is the horizon")
+                        Text(bulletedText(stringResource(id = R.string.sky_path_info_horizon)))
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text("\t• The arc represents the sky")
+                        Text(bulletedText(stringResource(id = R.string.sky_path_info_arc)))
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text("\t• The ISS icon shows the highest point the station will reach")
+                        Text(bulletedText(stringResource(id = R.string.sky_path_info_iss_icon)))
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text("\t• If the icon is at the very top of the arc, it means the ISS will pass almost directly overhead.")
+                        Text(bulletedText(stringResource(id = R.string.sky_path_info_overhead)))
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text("\t• If the icon is lower on the arc, closer to the horizon line, it means the ISS will appear lower in the sky and won't climb as high during its pass.")
+                        Text(bulletedText(stringResource(id = R.string.sky_path_info_lower)))
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text("\t• The labels (e.g., NW, SE) show the start and end directions of the pass")
+                        Text(bulletedText(stringResource(id = R.string.sky_path_info_labels)))
                     }
                 }
             }
         },
         confirmButton = {
             TextButton(onClick = onDismiss) {
-                Text("Got It")
+                Text(stringResource(id = R.string.got_it))
             }
         }
     )
@@ -599,17 +625,20 @@ fun IssPassCard(pass: IssPass, onNotificationClick: (IssPass) -> Unit) {
                     IconButton(onClick = { onNotificationClick(pass) }) {
                         Icon(
                             imageVector = Icons.Default.Notifications,
-                            contentDescription = "Schedule Notification"
+                            contentDescription = stringResource(id = R.string.schedule_notification)
                         )
                     }
                     IconButton(onClick = { addPassToCalendar(context, pass) }) {
                         Icon(
                             imageVector = Icons.Default.CalendarToday,
-                            contentDescription = "Add to Calendar"
+                            contentDescription = stringResource(id = R.string.add_to_calendar)
                         )
                     }
                     IconButton(onClick = { sharePassDetails(context, pass) }) {
-                        Icon(imageVector = Icons.Default.Share, contentDescription = "Share")
+                        Icon(
+                            imageVector = Icons.Default.Share,
+                            contentDescription = stringResource(id = R.string.share)
+                        )
                     }
                 }
                 Spacer(modifier = Modifier.height(24.dp))
@@ -617,12 +646,22 @@ fun IssPassCard(pass: IssPass, onNotificationClick: (IssPass) -> Unit) {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    InfoColumn("Starts", timeFormat.format(pass.startTime))
                     InfoColumn(
-                        "Duration",
-                        "${pass.durationInSeconds / 60} min ${pass.durationInSeconds % 60} sec"
+                        stringResource(id = R.string.starts_label),
+                        timeFormat.format(pass.startTime)
                     )
-                    InfoColumn("Visibility", getBrightnessRating(pass.magnitude))
+                    InfoColumn(
+                        stringResource(id = R.string.duration_label),
+                        stringResource(
+                            id = R.string.duration_min_sec_format,
+                            pass.durationInSeconds / 60,
+                            pass.durationInSeconds % 60
+                        )
+                    )
+                    InfoColumn(
+                        stringResource(id = R.string.visibility),
+                        stringResource(id = IssPassVisibility.labelResForMagnitude(pass.magnitude))
+                    )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 SkyPathComposable(
@@ -736,19 +775,25 @@ private fun distanceSquared(first: SkyPathSparkle, second: SkyPathSparkle): Floa
 }
 
 private fun sharePassDetails(context: Context, pass: IssPass) {
-    val dateFormat = SimpleDateFormat("EEEE, MMMM d 'at' h:mm a", Locale.getDefault())
-    val shareText = """
-        Check out this ISS pass!
-        Date: ${dateFormat.format(pass.startTime)}
-        Duration: ${pass.durationInSeconds / 60} min ${pass.durationInSeconds % 60} sec
-        Visibility: ${getBrightnessRating(pass.magnitude)}
-    """.trimIndent()
+    val dateFormat = DateFormat.getDateTimeInstance(
+        DateFormat.FULL,
+        DateFormat.SHORT,
+        Locale.getDefault()
+    )
+    val visibility = context.getString(IssPassVisibility.labelResForMagnitude(pass.magnitude))
+    val shareText = context.getString(
+        R.string.iss_pass_share_text_format,
+        dateFormat.format(pass.startTime),
+        pass.durationInSeconds / 60,
+        pass.durationInSeconds % 60,
+        visibility
+    )
 
     val intent = Intent(Intent.ACTION_SEND).apply {
         type = "text/plain"
         putExtra(Intent.EXTRA_TEXT, shareText)
     }
-    context.startActivity(Intent.createChooser(intent, "Share ISS Pass"))
+    context.startActivity(Intent.createChooser(intent, context.getString(R.string.iss_pass_share_chooser)))
 }
 
 private fun addPassToCalendar(context: Context, pass: IssPass) {
@@ -757,12 +802,15 @@ private fun addPassToCalendar(context: Context, pass: IssPass) {
 
     val intent = Intent(Intent.ACTION_INSERT).apply {
         data = CalendarContract.Events.CONTENT_URI
-        putExtra(CalendarContract.Events.TITLE, "ISS Pass Overhead")
+        putExtra(CalendarContract.Events.TITLE, context.getString(R.string.iss_pass_calendar_title))
         putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTimeMillis)
         putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTimeMillis)
         putExtra(
             CalendarContract.Events.DESCRIPTION,
-            "An ISS pass with a visibility of ${getBrightnessRating(pass.magnitude)} will be visible."
+            context.getString(
+                R.string.iss_pass_calendar_description_format,
+                context.getString(IssPassVisibility.labelResForMagnitude(pass.magnitude))
+            )
         )
     }
     context.startActivity(intent)
@@ -783,6 +831,7 @@ fun SkyPathComposable(startCompass: String, endCompass: String, maxElevation: Fl
     val satellitePainter = painterResource(id = R.drawable.ic_iss)
     val userPainter = painterResource(id = R.drawable.ic_man)
     val onSurface = MaterialTheme.colorScheme.onSurface
+    val youLabel = stringResource(id = R.string.you)
     val textPaint = Paint().asFrameworkPaint().apply {
         isAntiAlias = true
         textSize = 56.sp.value
@@ -850,7 +899,7 @@ fun SkyPathComposable(startCompass: String, endCompass: String, maxElevation: Fl
 
         drawIntoCanvas {
             it.nativeCanvas.drawText(
-                "You",
+                youLabel,
                 center.x,
                 userIconY - 8.dp.toPx(),
                 youTextPaint
@@ -872,10 +921,6 @@ fun SkyPathComposable(startCompass: String, endCompass: String, maxElevation: Fl
             }
         }
     }
-}
-
-fun getBrightnessRating(magnitude: Double): String {
-    return IssPassVisibility.labelForMagnitude(magnitude)
 }
 
 private fun Context.findActivity(): Activity {
