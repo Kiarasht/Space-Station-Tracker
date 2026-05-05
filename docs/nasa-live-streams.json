@@ -1,7 +1,7 @@
 {
-  "status": "error",
-  "updatedAt": "2026-05-05T06:37:40.329Z",
-  "updatedAtMillis": 1777963060329,
+  "status": "ok",
+  "updatedAt": "2026-05-05T09:02:46.976Z",
+  "updatedAtMillis": 1777971766976,
   "source": "github-actions",
   "streams": [
     {
@@ -13,7 +13,5 @@
       "title": "Live Video from the International Space Station (Official NASA Stream)"
     }
   ],
-  "error": {
-    "message": "YouTube API 403: {\n  \"error\": {\n    \"code\": 403,\n    \"message\": \"The request cannot be completed because you have exceeded your \\u003ca href=\\\"/youtube/v3/getting-started#quota\\\"\\u003equota\\u003c/a\\u003e.\",\n    \"errors\": [\n      {\n        \"message\": \"The request cannot be completed because you have exceeded your \\u003ca href=\\\"/youtube/v3/getting-started#quota\\\"\\u003equota\\u003c/a\\u003e.\",\n        \"domain\": \"youtube.quota\",\n        \"reason\": \"quotaExceeded\"\n      }\n    ]\n  }\n}\n"
-  }
+  "error": null
 }
