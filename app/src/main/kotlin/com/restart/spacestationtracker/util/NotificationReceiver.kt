@@ -31,7 +31,7 @@ class NotificationReceiver : BroadcastReceiver() {
 
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        createNotificationChannel(notificationManager)
+        createNotificationChannel(context, notificationManager)
 
         val launchIntent = context.packageManager.getLaunchIntentForPackage(context.packageName)
         val pendingIntent = PendingIntent.getActivity(
@@ -45,8 +45,15 @@ class NotificationReceiver : BroadcastReceiver() {
 
         val notification = NotificationCompat.Builder(context, "iss_pass_channel")
             .setSmallIcon(R.drawable.ic_iss)
-            .setContentTitle("ISS Pass Alert")
-            .setContentText("A pass is starting at $startTimeStr for $durationInMinutes min. Visibility is ${IssPassVisibility.labelForMagnitude(passMagnitude)}")
+            .setContentTitle(context.getString(R.string.notification_iss_pass_alert_title))
+            .setContentText(
+                context.getString(
+                    R.string.notification_iss_pass_alert_text_format,
+                    startTimeStr,
+                    durationInMinutes,
+                    context.getString(IssPassVisibility.labelResForMagnitude(passMagnitude))
+                )
+            )
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
@@ -55,14 +62,17 @@ class NotificationReceiver : BroadcastReceiver() {
         notificationManager.notify(passStartTime.toInt(), notification)
     }
 
-    private fun createNotificationChannel(notificationManager: NotificationManager) {
+    private fun createNotificationChannel(
+        context: Context,
+        notificationManager: NotificationManager
+    ) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 "iss_pass_channel",
-                "ISS Pass Alerts",
+                context.getString(R.string.notification_channel_iss_pass_alerts),
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
-                description = "Notifications for upcoming ISS passes"
+                description = context.getString(R.string.notification_channel_iss_pass_alerts_description)
             }
             notificationManager.createNotificationChannel(channel)
         }

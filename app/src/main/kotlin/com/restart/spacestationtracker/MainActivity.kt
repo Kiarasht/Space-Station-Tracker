@@ -51,6 +51,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -253,7 +254,7 @@ fun MainScreen(
                                     modifier = Modifier.size(24.dp)
                                 )
                             },
-                            label = { Text(screen.route.split("/").first()) },
+                            label = { Text(stringResource(id = screen.labelResId)) },
                             selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                             onClick = {
                                 navController.navigate(screen.route) {
@@ -328,10 +329,10 @@ fun MainScreen(
                 appRatingManager.snoozePrompt()
             },
             title = {
-                Text("Enjoying ISS Tracker?")
+                Text(stringResource(id = R.string.rating_prompt_title))
             },
             text = {
-                Text("If the app has been useful, would you like to rate it?")
+                Text(stringResource(id = R.string.rating_prompt_message))
             },
             confirmButton = {
                 TextButton(
@@ -340,7 +341,7 @@ fun MainScreen(
                         appRatingManager.markRatedAndOpenStore()
                     }
                 ) {
-                    Text("Yes")
+                    Text(stringResource(id = R.string.yes))
                 }
             },
             dismissButton = {
@@ -350,7 +351,7 @@ fun MainScreen(
                         appRatingManager.snoozePrompt()
                     }
                 ) {
-                    Text("Not yet")
+                    Text(stringResource(id = R.string.not_yet))
                 }
             }
         )
@@ -377,11 +378,11 @@ fun AdmobBanner(modifier: Modifier = Modifier) {
     )
 }
 
-sealed class Screen(val route: String, val icon: ImageVector? = null) {
-    object Map : Screen("Map", Icons.Filled.Map)
-    object IssPasses : Screen("Sky Path", Icons.Filled.Public)
-    object PeopleInSpace : Screen("On Duty", Icons.Filled.People)
-    object Settings : Screen("Settings", Icons.Filled.Settings)
-    object About : Screen("About", Icons.Filled.Info)
-    object Legal : Screen("legal/{titleResId}/{contentResId}")
+sealed class Screen(val route: String, val labelResId: Int, val icon: ImageVector? = null) {
+    object Map : Screen("Map", R.string.nav_map, Icons.Filled.Map)
+    object IssPasses : Screen("Sky Path", R.string.nav_sky_path, Icons.Filled.Public)
+    object PeopleInSpace : Screen("On Duty", R.string.nav_on_duty, Icons.Filled.People)
+    object Settings : Screen("Settings", R.string.nav_settings, Icons.Filled.Settings)
+    object About : Screen("About", R.string.nav_about, Icons.Filled.Info)
+    object Legal : Screen("legal/{titleResId}/{contentResId}", R.string.nav_about)
 }

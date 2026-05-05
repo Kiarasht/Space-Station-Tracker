@@ -21,9 +21,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.restart.spacestationtracker.R
 import com.restart.spacestationtracker.domain.iss_live.model.IssLocation
 import java.text.DecimalFormat
+import java.util.Locale
 
 @Composable
 fun IssDataCard(location: IssLocation) {
@@ -43,6 +46,11 @@ fun IssDataCard(location: IssLocation) {
             if (location.longitude < 0) "${decimalFormat.format(location.longitude)}° W" else "${
                 decimalFormat.format(location.longitude)
             }° E"
+        val visibilityText = when (location.visibility.lowercase(Locale.ROOT)) {
+            "eclipsed" -> stringResource(id = R.string.visibility_eclipsed)
+            "daylight" -> stringResource(id = R.string.visibility_daylight)
+            else -> location.visibility.replaceFirstChar { it.uppercase() }
+        }
 
         Text(text = "$lat, $lon", color = Color.White, style = MaterialTheme.typography.titleMedium)
         Spacer(modifier = Modifier.height(8.dp))
@@ -50,12 +58,15 @@ fun IssDataCard(location: IssLocation) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 imageVector = Icons.Filled.ArrowUpward,
-                contentDescription = "Altitude",
+                contentDescription = stringResource(id = R.string.altitude),
                 tint = Color.White,
                 modifier = Modifier.size(24.dp)
             )
             Text(
-                text = "Altitude: ${decimalFormat.format(location.altitude)} km",
+                text = stringResource(
+                    id = R.string.altitude_km_format,
+                    decimalFormat.format(location.altitude)
+                ),
                 color = Color.White,
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(start = 8.dp)
@@ -66,12 +77,15 @@ fun IssDataCard(location: IssLocation) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 imageVector = Icons.Filled.Speed,
-                contentDescription = "Velocity",
+                contentDescription = stringResource(id = R.string.velocity),
                 tint = Color.White,
                 modifier = Modifier.size(24.dp)
             )
             Text(
-                text = "Velocity: ${decimalFormat.format(location.velocity)} kph",
+                text = stringResource(
+                    id = R.string.velocity_kph_format,
+                    decimalFormat.format(location.velocity)
+                ),
                 color = Color.White,
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(start = 8.dp)
@@ -87,12 +101,12 @@ fun IssDataCard(location: IssLocation) {
             ) Icons.Filled.Nightlight else Icons.Filled.WbSunny
             Icon(
                 imageVector = visibilityIcon,
-                contentDescription = "Visibility",
+                contentDescription = stringResource(id = R.string.visibility),
                 tint = Color.White,
                 modifier = Modifier.size(24.dp)
             )
             Text(
-                text = "Visibility: ${location.visibility.replaceFirstChar { it.uppercase() }}",
+                text = stringResource(id = R.string.visibility_format, visibilityText),
                 color = Color.White,
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(start = 8.dp)

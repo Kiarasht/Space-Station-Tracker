@@ -32,6 +32,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.core.text.HtmlCompat
+import com.restart.spacestationtracker.R
 import com.restart.spacestationtracker.ui.theme.SpaceDarkBlue
 import com.restart.spacestationtracker.ui.theme.SpaceLightBlue
 import com.restart.spacestationtracker.ui.theme.SpaceTextWhite
@@ -56,7 +57,7 @@ fun LegalScreen(
                     IconButton(onClick = onNavigateUp) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = ""
+                            contentDescription = stringResource(id = R.string.back)
                         )
                     }
                 },

@@ -14,6 +14,9 @@ import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.SentimentDissatisfied
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
@@ -26,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -61,11 +65,20 @@ fun PeopleInSpaceScreen(
         if (uiState.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         } else if (uiState.error != null) {
-            Text(
-                text = "Error: ${uiState.error}",
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .padding(16.dp)
+            OnDutyStateMessage(
+                title = stringResource(id = R.string.unable_to_load_crew),
+                message = stringResource(id = R.string.unable_to_load_crew_message),
+                actionText = stringResource(id = R.string.try_again),
+                onActionClick = viewModel::retry,
+                modifier = Modifier.align(Alignment.Center)
+            )
+        } else if (uiState.feedItems.isEmpty()) {
+            OnDutyStateMessage(
+                title = stringResource(id = R.string.no_crew_data_available),
+                message = stringResource(id = R.string.no_crew_data_available_message),
+                actionText = stringResource(id = R.string.refresh),
+                onActionClick = viewModel::retry,
+                modifier = Modifier.align(Alignment.Center)
             )
         } else {
             when (windowSizeClass.widthSizeClass) {
@@ -145,6 +158,51 @@ fun PeopleInSpaceScreen(
 }
 
 @Composable
+private fun OnDutyStateMessage(
+    title: String,
+    message: String,
+    actionText: String,
+    onActionClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(32.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Icon(
+            imageVector = Icons.Default.SentimentDissatisfied,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.size(48.dp)
+        )
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.SemiBold,
+            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+        )
+        Text(
+            text = message,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+        )
+        Button(onClick = onActionClick) {
+            Icon(
+                imageVector = Icons.Default.Refresh,
+                contentDescription = null,
+                modifier = Modifier.size(18.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(actionText)
+        }
+    }
+}
+
+@Composable
 fun ExpeditionCard(expedition: Expedition) {
     val context = LocalContext.current
     Card(
@@ -165,7 +223,7 @@ fun ExpeditionCard(expedition: Expedition) {
                         .transformations(TopCropTransformation())
                         .build()
                 ),
-                contentDescription = "Expedition ${expedition.number}",
+                contentDescription = stringResource(id = R.string.expedition_format, expedition.number),
                 modifier = Modifier
                     .fillMaxWidth()
                     .aspectRatio(16f / 9f),
@@ -176,25 +234,31 @@ fun ExpeditionCard(expedition: Expedition) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Image(
                         painter = rememberAsyncImagePainter(model = expedition.patchUrl),
-                        contentDescription = "Expedition Patch",
+                        contentDescription = stringResource(id = R.string.expedition_patch),
                         modifier = Modifier
                             .size(48.dp)
                     )
                     Spacer(modifier = Modifier.width(16.dp))
                     Text(
-                        text = "Expedition ${expedition.number}",
+                        text = stringResource(id = R.string.expedition_format, expedition.number),
                         style = MaterialTheme.typography.headlineSmall,
                         fontWeight = FontWeight.Bold
                     )
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Launched on ${DateUtils.formatLaunchDate(expedition.startDate)}",
+                    text = stringResource(
+                        id = R.string.launched_on_format,
+                        DateUtils.formatLaunchDate(expedition.startDate)
+                    ),
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "Return on ${DateUtils.formatLaunchDate(expedition.endDate)}",
+                    text = stringResource(
+                        id = R.string.return_on_format,
+                        DateUtils.formatLaunchDate(expedition.endDate)
+                    ),
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Spacer(modifier = Modifier.height(16.dp))
@@ -275,7 +339,7 @@ fun AstronautCard(astronaut: Astronaut) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Image(
                         painter = rememberAsyncImagePainter(model = "https://flagcdn.com/w320/${astronaut.flagCode.lowercase()}.png"),
-                        contentDescription = "Flag",
+                        contentDescription = stringResource(id = R.string.country_flag),
                         modifier = Modifier
                             .size(32.dp)
                             .clip(RoundedCornerShape(8.dp))
@@ -289,12 +353,19 @@ fun AstronautCard(astronaut: Astronaut) {
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = "${astronaut.role} on ${astronaut.craft}",
+                    text = stringResource(
+                        id = R.string.astronaut_role_on_craft_format,
+                        astronaut.role,
+                        astronaut.craft
+                    ),
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "Launched on ${DateUtils.formatLaunchDate(astronaut.launchDate)}",
+                    text = stringResource(
+                        id = R.string.launched_on_format,
+                        DateUtils.formatLaunchDate(astronaut.launchDate)
+                    ),
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Spacer(modifier = Modifier.height(16.dp))

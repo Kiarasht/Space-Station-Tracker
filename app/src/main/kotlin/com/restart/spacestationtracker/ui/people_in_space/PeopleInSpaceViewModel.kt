@@ -43,6 +43,10 @@ class PeopleInSpaceViewModel @Inject constructor(
         observeAdFreeStatus()
     }
 
+    fun retry() {
+        loadPeopleInSpace()
+    }
+
     private fun loadPeopleInSpace() {
         viewModelScope.launch {
             _uiState.value = PeopleInSpaceUiState(isLoading = true)
@@ -52,7 +56,9 @@ class PeopleInSpaceViewModel @Inject constructor(
                 val isAdFree = System.currentTimeMillis() < settings.adFreeExpiry
                 buildFeed(expedition, astronauts, isAdFree, adsConsentManager.canRequestAds.value)
             }.onFailure { throwable ->
-                _uiState.value = PeopleInSpaceUiState(error = throwable.localizedMessage ?: "An unknown error occurred")
+                _uiState.value = PeopleInSpaceUiState(
+                    error = throwable.localizedMessage ?: application.getString(R.string.unknown_error)
+                )
             }
         }
     }

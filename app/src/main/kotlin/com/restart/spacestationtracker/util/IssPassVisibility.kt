@@ -1,5 +1,8 @@
 package com.restart.spacestationtracker.util
 
+import androidx.annotation.StringRes
+import com.restart.spacestationtracker.R
+
 object IssPassVisibility {
     const val FAINT = "Faint"
     const val MODERATE = "Moderate"
@@ -15,6 +18,28 @@ object IssPassVisibility {
             magnitude < -1.0 -> MODERATE
             magnitude < 0.0 -> FAINT
             else -> "Very Faint"
+        }
+    }
+
+    @StringRes
+    fun labelResForVisibility(visibility: String): Int {
+        return when (visibility) {
+            VERY_BRIGHT -> R.string.visibility_very_bright
+            BRIGHT -> R.string.visibility_bright
+            MODERATE -> R.string.visibility_moderate
+            FAINT -> R.string.visibility_faint
+            else -> R.string.visibility_very_faint
+        }
+    }
+
+    @StringRes
+    fun labelResForMagnitude(magnitude: Double): Int {
+        return when {
+            magnitude < -2.0 -> R.string.visibility_very_bright
+            magnitude < -1.5 -> R.string.visibility_bright
+            magnitude < -1.0 -> R.string.visibility_moderate
+            magnitude < 0.0 -> R.string.visibility_faint
+            else -> R.string.visibility_very_faint
         }
     }
 

@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -17,7 +18,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -40,7 +40,10 @@ data class AppSettings(
     val automaticPassAlertLongitude: Double?,
     val automaticPassAlertAltitude: Double?,
     val automaticPassAlertLocationName: String?,
-    val automaticPassAlertScheduledIds: Set<String>
+    val automaticPassAlertScheduledIds: Set<String>,
+    val automaticPassAlertLastSyncTimeMillis: Long?,
+    val automaticPassAlertLastSyncResult: String?,
+    val automaticPassAlertLastSyncMessage: String?
 )
 
 val defaultAutomaticPassAlertNotificationTimes = setOf("10 minutes before")
@@ -61,7 +64,10 @@ val defaultAppSettings = AppSettings(
     automaticPassAlertLongitude = null,
     automaticPassAlertAltitude = null,
     automaticPassAlertLocationName = null,
-    automaticPassAlertScheduledIds = emptySet()
+    automaticPassAlertScheduledIds = emptySet(),
+    automaticPassAlertLastSyncTimeMillis = null,
+    automaticPassAlertLastSyncResult = null,
+    automaticPassAlertLastSyncMessage = null
 )
 
 
@@ -87,6 +93,9 @@ class SettingsRepository @Inject constructor(@ApplicationContext context: Contex
         val AUTO_PASS_ALERT_ALTITUDE = doublePreferencesKey("auto_pass_alert_altitude")
         val AUTO_PASS_ALERT_LOCATION_NAME = stringPreferencesKey("auto_pass_alert_location_name")
         val AUTO_PASS_ALERT_SCHEDULED_IDS = stringSetPreferencesKey("auto_pass_alert_scheduled_ids")
+        val AUTO_PASS_ALERT_LAST_SYNC_TIME = longPreferencesKey("auto_pass_alert_last_sync_time")
+        val AUTO_PASS_ALERT_LAST_SYNC_RESULT = stringPreferencesKey("auto_pass_alert_last_sync_result")
+        val AUTO_PASS_ALERT_LAST_SYNC_MESSAGE = stringPreferencesKey("auto_pass_alert_last_sync_message")
     }
 
     val appSettingsFlow: Flow<AppSettings> = combine(
@@ -118,6 +127,9 @@ class SettingsRepository @Inject constructor(@ApplicationContext context: Contex
         val automaticPassAlertLocationName = preferences[Keys.AUTO_PASS_ALERT_LOCATION_NAME]
         val automaticPassAlertScheduledIds =
             preferences[Keys.AUTO_PASS_ALERT_SCHEDULED_IDS] ?: defaultAppSettings.automaticPassAlertScheduledIds
+        val automaticPassAlertLastSyncTimeMillis = preferences[Keys.AUTO_PASS_ALERT_LAST_SYNC_TIME]
+        val automaticPassAlertLastSyncResult = preferences[Keys.AUTO_PASS_ALERT_LAST_SYNC_RESULT]
+        val automaticPassAlertLastSyncMessage = preferences[Keys.AUTO_PASS_ALERT_LAST_SYNC_MESSAGE]
         
         AppSettings(
             minAltitude = minAltitude,
@@ -135,13 +147,22 @@ class SettingsRepository @Inject constructor(@ApplicationContext context: Contex
             automaticPassAlertLongitude = automaticPassAlertLongitude,
             automaticPassAlertAltitude = automaticPassAlertAltitude,
             automaticPassAlertLocationName = automaticPassAlertLocationName,
-            automaticPassAlertScheduledIds = automaticPassAlertScheduledIds
+            automaticPassAlertScheduledIds = automaticPassAlertScheduledIds,
+            automaticPassAlertLastSyncTimeMillis = automaticPassAlertLastSyncTimeMillis,
+            automaticPassAlertLastSyncResult = automaticPassAlertLastSyncResult,
+            automaticPassAlertLastSyncMessage = automaticPassAlertLastSyncMessage
         )
     }
 
     suspend fun setMapType(value: String) {
         dataStore.edit { preferences ->
             preferences[Keys.MAP_TYPE] = value
+        }
+    }
+
+    suspend fun setShowOrbit(value: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[Keys.SHOW_ORBIT] = value
         }
     }
 
@@ -199,6 +220,18 @@ class SettingsRepository @Inject constructor(@ApplicationContext context: Contex
     suspend fun clearAutomaticPassAlertScheduledIds() {
         dataStore.edit { preferences ->
             preferences.remove(Keys.AUTO_PASS_ALERT_SCHEDULED_IDS)
+        }
+    }
+
+    suspend fun setAutomaticPassAlertSyncStatus(
+        timestampMillis: Long,
+        result: String,
+        message: String
+    ) {
+        dataStore.edit { preferences ->
+            preferences[Keys.AUTO_PASS_ALERT_LAST_SYNC_TIME] = timestampMillis
+            preferences[Keys.AUTO_PASS_ALERT_LAST_SYNC_RESULT] = result
+            preferences[Keys.AUTO_PASS_ALERT_LAST_SYNC_MESSAGE] = message
         }
     }
 
