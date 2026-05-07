@@ -1,12 +1,16 @@
 {
   "status": "ok",
-  "updatedAt": "2026-05-07T15:08:07.062Z",
-  "updatedAtMillis": 1778166487062,
+  "updatedAt": "2026-05-07T17:12:07.802Z",
+  "updatedAtMillis": 1778173927802,
   "source": "github-actions",
   "streams": [
     {
       "videoId": "uwXgcTc8oY8",
       "title": "Live Video from the International Space Station (Official NASA Stream)"
+    },
+    {
+      "videoId": "FuuC4dpSQ1M",
+      "title": "Live High-Definition Views from the International Space Station (Official NASA Stream)"
     }
   ],
   "error": null
