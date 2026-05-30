@@ -5,8 +5,12 @@ import java.util.Date
 
 data class IssPassesResponseDto(
     val info: InfoDto,
-    val passes: List<PassDto>
-)
+    val passes: List<PassDto>?
+) {
+    fun toIssPasses(): List<IssPass> {
+        return passes.orEmpty().map { it.toIssPass() }
+    }
+}
 
 data class InfoDto(
     val satid: Int,

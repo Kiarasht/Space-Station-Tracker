@@ -19,7 +19,7 @@ class IssPassesRepositoryImpl @Inject constructor(
                 longitude = longitude,
                 altitude = altitude
             )
-            Result.success(response.passes.map { it.toIssPass() })
+            Result.success(response.toIssPasses())
         } catch (e: Exception) {
             Result.failure(e)
         }
