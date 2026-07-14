@@ -1,13 +1,9 @@
 {
   "status": "ok",
-  "updatedAt": "2026-07-14T17:46:12.649Z",
-  "updatedAtMillis": 1784051172649,
+  "updatedAt": "2026-07-14T18:53:25.151Z",
+  "updatedAtMillis": 1784055205151,
   "source": "github-actions",
   "streams": [
-    {
-      "videoId": "NtwdIIutp3M",
-      "title": "NASA Astronaut Anil Menon Soyuz MS-29 Docking"
-    },
     {
       "videoId": "awQzjn72bI0",
       "title": "Live High-Definition Views from the International Space Station (Official NASA Stream)"
