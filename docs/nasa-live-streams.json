@@ -1,13 +1,9 @@
 {
   "status": "ok",
-  "updatedAt": "2026-07-14T15:05:18.938Z",
-  "updatedAtMillis": 1784041518938,
+  "updatedAt": "2026-07-14T16:36:00.448Z",
+  "updatedAtMillis": 1784046960448,
   "source": "github-actions",
   "streams": [
-    {
-      "videoId": "SwhPXxNtdoc",
-      "title": "NASA Astronaut Anil Menon Soyuz MS-29 Launch"
-    },
     {
       "videoId": "awQzjn72bI0",
       "title": "Live High-Definition Views from the International Space Station (Official NASA Stream)"
