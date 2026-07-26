@@ -1,13 +1,9 @@
 {
   "status": "ok",
-  "updatedAt": "2026-07-26T09:36:49.094Z",
-  "updatedAtMillis": 1785058609094,
+  "updatedAt": "2026-07-26T11:07:48.906Z",
+  "updatedAtMillis": 1785064068906,
   "source": "github-actions",
   "streams": [
-    {
-      "videoId": "4h884umjihw",
-      "title": "NASA Astronaut Chris Williams Soyuz MS-28 Re-entry and Landing"
-    },
     {
       "videoId": "awQzjn72bI0",
       "title": "Live High-Definition Views from the International Space Station (Official NASA Stream)"
