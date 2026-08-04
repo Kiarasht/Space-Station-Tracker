@@ -1,16 +1,12 @@
 {
   "status": "ok",
-  "updatedAt": "2026-08-04T19:10:20.885Z",
-  "updatedAtMillis": 1785870620885,
+  "updatedAt": "2026-08-04T20:46:26.432Z",
+  "updatedAtMillis": 1785876386432,
   "source": "github-actions",
   "streams": [
     {
       "videoId": "M3HKLzjvKPc",
       "title": "Live Video from the International Space Station (Official NASA Stream)"
-    },
-    {
-      "videoId": "mpWTcLv72oE",
-      "title": "NASA Astronaut Chris Williams Postflight News Conference (Aug. 4, 2026)"
     },
     {
       "videoId": "awQzjn72bI0",
