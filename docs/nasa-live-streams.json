@@ -1,16 +1,12 @@
 {
   "status": "ok",
-  "updatedAt": "2026-08-06T15:36:11.112Z",
-  "updatedAtMillis": 1786030571112,
+  "updatedAt": "2026-08-07T00:34:05.642Z",
+  "updatedAtMillis": 1786062845642,
   "source": "github-actions",
   "streams": [
     {
       "videoId": "M3HKLzjvKPc",
       "title": "Live Video from the International Space Station (Official NASA Stream)"
-    },
-    {
-      "videoId": "XNKdYbmPKJ8",
-      "title": "U.S. Spacewalk 96"
     },
     {
       "videoId": "awQzjn72bI0",
