@@ -1,9 +1,13 @@
 {
   "status": "ok",
-  "updatedAt": "2026-08-12T16:41:30.337Z",
-  "updatedAtMillis": 1786552890337,
+  "updatedAt": "2026-08-12T17:45:37.241Z",
+  "updatedAtMillis": 1786556737241,
   "source": "github-actions",
   "streams": [
+    {
+      "videoId": "rSvCuSQhC3w",
+      "title": "2026 Total Solar Eclipse"
+    },
     {
       "videoId": "M3HKLzjvKPc",
       "title": "Live Video from the International Space Station (Official NASA Stream)"
