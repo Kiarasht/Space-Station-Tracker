@@ -52,8 +52,6 @@
     <string name="iss_sighting_share_chooser">Compartir…</string>
     <string name="on">" el "</string>
     <string name="since">"Lanzado el "</string>
-    <string name="license">Licencias de código abierto</string>
-    <string name="msg_license">Esta aplicación está construida usando el siguiente software:</string>
     <string name="msg_about_library_description">Sigue la Estación Espacial Internacional en tiempo real, consulta próximos pasos visibles y rutas celestes para tu ubicación, conoce a la tripulación actual, mira transmisiones en vivo y activa alertas para las mejores oportunidades de observación.</string>
     <string name="desc_about_app">Acerca de esta aplicación</string>
     <string name="version">Versiones</string>
@@ -71,9 +69,9 @@
     <string name="live_stream">Transmisión en Vivo</string>
     <string name="stream_offline">Transmisión Desconectada</string>
     <string name="remove_ads">Eliminar Anuncios</string>
-    <string name="remove_ads_description">¿Ver un video corto para eliminar anuncios por la sesión actual?</string>
-    <string name="failed_to_load_ad">Error al cargar anuncio</string>
-    <string name="watch_video">Ver Video</string>
+    <string name="remove_ads_lifetime_description">Elimina todos los anuncios de forma permanente por %1$s. Es una compra única, no una suscripción.</string>
+    <string name="buy_for_price">Comprar por %1$s</string>
+    <string name="restore_purchase">Restaurar compra</string>
     <string name="cancel">Cancelar</string>
     <string name="close">Cerrar</string>
     <string name="support_title">Soporte</string>
@@ -106,11 +104,6 @@
     <string name="nav_about">Acerca de</string>
     <string name="rating_prompt_title">¿Te gusta ISS Tracker?</string>
     <string name="rating_prompt_message">Si la app te ha resultado útil, ¿te gustaría calificarla?</string>
-    <string name="about_feature_live_map">Mapa en vivo</string>
-    <string name="about_feature_sky_paths">Rutas celestes</string>
-    <string name="about_feature_pass_alerts">Alertas de pasos</string>
-    <string name="about_feature_live_streams">Transmisiones en vivo</string>
-    <string name="about_feature_crew_info">Info de la tripulación</string>
     <string name="version_details_format">Versión %1$s (%2$d)</string>
     <string name="version_details_name_only_format">Versión %1$s</string>
     <string name="iss_marker_title">EEI</string>

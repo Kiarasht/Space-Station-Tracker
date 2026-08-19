@@ -1,19 +1,22 @@
 package com.restart.spacestationtracker
 
-import android.annotation.SuppressLint
+import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.lifecycle.lifecycleScope
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Map
@@ -21,15 +24,14 @@ import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Public
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -39,6 +41,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -47,7 +50,6 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -66,20 +68,27 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import com.restart.spacestationtracker.analytics.AppAnalytics
 import com.restart.spacestationtracker.data.settings.SettingsRepository
 import com.restart.spacestationtracker.data.settings.defaultAppSettings
-import com.restart.spacestationtracker.ui.about.AboutScreen
 import com.restart.spacestationtracker.ui.about.LegalScreen
+import com.restart.spacestationtracker.ui.about.SharedAboutRoute
+import com.restart.spacestationtracker.ui.ads.AdMobIds
 import com.restart.spacestationtracker.ui.ads.AdsConsentManager
 import com.restart.spacestationtracker.ui.ads.AppOpenAdManager
-import com.restart.spacestationtracker.ui.iss_live.MapScreen
+import com.restart.spacestationtracker.ui.iss_live.SharedMapRoute
 import com.restart.spacestationtracker.ui.iss_passes.IssPassesScreen
 import com.restart.spacestationtracker.ui.people_in_space.PeopleInSpaceScreen
+import com.restart.spacestationtracker.ui.purchase.AdRemovalPurchaseUiState
+import com.restart.spacestationtracker.ui.purchase.AndroidAdRemovalBillingController
 import com.restart.spacestationtracker.ui.settings.SettingsScreen
 import com.restart.spacestationtracker.ui.theme.SpaceStationTrackerTheme
 import com.restart.spacestationtracker.util.AppRatingManager
+import com.restart.spacestationtracker.util.AppReviewRequester
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -93,20 +102,37 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var appOpenAdManager: AppOpenAdManager
 
+    private lateinit var adRemovalBillingController: AndroidAdRemovalBillingController
     private var isMobileAdsInitialized = false
+    private var consentAllowsAdRequests = false
+    private var purchaseEntitlementChecked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        adRemovalBillingController = AndroidAdRemovalBillingController(
+            context = this,
+            settingsRepository = settingsRepository
+        )
+        lifecycleScope.launch {
+            adRemovalBillingController.state.collect { purchaseState ->
+                purchaseEntitlementChecked = purchaseState.isEntitlementCheckComplete
+                maybeInitializeMobileAds()
+            }
+        }
+        lifecycleScope.launch {
+            settingsRepository.awaitInitialLoad()
+            adRemovalBillingController.start()
+        }
         AppRatingManager(applicationContext).recordAppLaunch()
         appOpenAdManager.register(application)
         adsConsentManager.gatherConsent(this) { canRequestAds ->
-            if (canRequestAds) {
-                initializeMobileAds()
-            }
+            consentAllowsAdRequests = canRequestAds
+            maybeInitializeMobileAds()
         }
         setContent {
             val settings by settingsRepository.appSettingsFlow.collectAsState(initial = defaultAppSettings)
+            val purchaseState by adRemovalBillingController.state.collectAsState()
             val canRequestAds by adsConsentManager.canRequestAds.collectAsState()
             val isPrivacyOptionsRequired by adsConsentManager.isPrivacyOptionsRequired.collectAsState()
             val useDarkTheme = when (settings.theme) {
@@ -115,18 +141,40 @@ class MainActivity : ComponentActivity() {
                 "Dark" -> true
                 else -> isSystemInDarkTheme()
             }
-            val isAdFree = System.currentTimeMillis() < settings.adFreeExpiry
+            val isAdFree = settings.hasLifetimeAdRemoval
             
             SpaceStationTrackerTheme(darkTheme = useDarkTheme) {
                 MainScreen(
                     isAdFree = isAdFree,
-                    canRequestAds = canRequestAds,
+                    canRequestAds =
+                        canRequestAds && purchaseState.isEntitlementCheckComplete,
+                    purchaseState = purchaseState,
                     isPrivacyOptionsRequired = isPrivacyOptionsRequired,
+                    onPurchaseAdRemoval = {
+                        AppAnalytics.trackInteraction("start_ad_removal_purchase", "map")
+                        adRemovalBillingController.purchase(this)
+                    },
+                    onRestoreAdRemoval = {
+                        AppAnalytics.trackInteraction("restore_ad_removal_purchase", "map")
+                        adRemovalBillingController.restore()
+                    },
                     onPrivacyOptionsClick = {
+                        AppAnalytics.trackInteraction("open_privacy_choices", "settings")
                         adsConsentManager.showPrivacyOptionsForm(this)
                     }
                 )
             }
+        }
+    }
+
+    override fun onDestroy() {
+        adRemovalBillingController.stop()
+        super.onDestroy()
+    }
+
+    private fun maybeInitializeMobileAds() {
+        if (consentAllowsAdRequests && purchaseEntitlementChecked) {
+            initializeMobileAds()
         }
     }
 
@@ -146,7 +194,10 @@ class MainActivity : ComponentActivity() {
 fun MainScreen(
     isAdFree: Boolean,
     canRequestAds: Boolean,
+    purchaseState: AdRemovalPurchaseUiState,
     isPrivacyOptionsRequired: Boolean,
+    onPurchaseAdRemoval: () -> Unit,
+    onRestoreAdRemoval: () -> Unit,
     onPrivacyOptionsClick: () -> Unit
 ) {
     val context = LocalContext.current
@@ -161,8 +212,6 @@ fun MainScreen(
     )
 
     val bottomBarState = rememberSaveable { mutableStateOf(true) }
-    var showRatingPrompt by rememberSaveable { mutableStateOf(false) }
-
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
@@ -190,10 +239,15 @@ fun MainScreen(
     val currentRoute = currentDestination?.route
 
     LaunchedEffect(currentRoute) {
+        AppAnalytics.trackScreen(currentRoute)
         appRatingManager.recordScreenVisit(currentRoute)
-        if (appRatingManager.shouldShowPrompt()) {
-            showRatingPrompt = true
+        (context as? Activity)?.let { activity ->
+            AppReviewRequester.maybeRequestReview(activity, appRatingManager)
         }
+    }
+
+    LaunchedEffect(isAdFree) {
+        AppAnalytics.updateAdFreeState(isAdFree)
     }
 
     val isBottomBarVisible = when {
@@ -257,6 +311,7 @@ fun MainScreen(
                             label = { Text(stringResource(id = screen.labelResId)) },
                             selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                             onClick = {
+                                AppAnalytics.trackInteraction("navigate_${screen.route}")
                                 navController.navigate(screen.route) {
                                     popUpTo(navController.graph.findStartDestination().id) {
                                         saveState = true
@@ -277,9 +332,12 @@ fun MainScreen(
                 startDestination = Screen.Map.route,
             ) {
                 composable(Screen.Map.route) {
-                    MapScreen(
+                    SharedMapRoute(
                         contentPadding = innerPadding,
-                        canRequestAds = canRequestAds
+                        canRequestAds = canRequestAds,
+                        purchaseState = purchaseState,
+                        onPurchaseAdRemoval = onPurchaseAdRemoval,
+                        onRestoreAdRemoval = onRestoreAdRemoval
                     )
                 }
                 composable(Screen.IssPasses.route) { IssPassesScreen(contentPadding = innerPadding) }
@@ -296,7 +354,7 @@ fun MainScreen(
                     )
                 }
                 composable(Screen.About.route) {
-                    AboutScreen(
+                    SharedAboutRoute(
                         contentPadding = innerPadding,
                         onNavigateToLegal = { titleResId, contentResId ->
                             navController.navigate("legal/$titleResId/$contentResId")
@@ -322,61 +380,48 @@ fun MainScreen(
         }
     }
 
-    if (showRatingPrompt) {
-        AlertDialog(
-            onDismissRequest = {
-                showRatingPrompt = false
-                appRatingManager.snoozePrompt()
-            },
-            title = {
-                Text(stringResource(id = R.string.rating_prompt_title))
-            },
-            text = {
-                Text(stringResource(id = R.string.rating_prompt_message))
-            },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        showRatingPrompt = false
-                        appRatingManager.markRatedAndOpenStore()
-                    }
-                ) {
-                    Text(stringResource(id = R.string.yes))
-                }
-            },
-            dismissButton = {
-                TextButton(
-                    onClick = {
-                        showRatingPrompt = false
-                        appRatingManager.snoozePrompt()
-                    }
-                ) {
-                    Text(stringResource(id = R.string.not_yet))
-                }
+}
+
+@Composable
+fun AdmobBanner(modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    BoxWithConstraints(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(MAX_BANNER_HEIGHT_DP.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        val availableWidthDp = maxWidth.value.roundToInt().coerceAtLeast(1)
+        val adSize = remember(context, availableWidthDp) {
+            AdSize.getInlineAdaptiveBannerAdSize(
+                availableWidthDp,
+                MAX_BANNER_HEIGHT_DP
+            )
+        }
+        val adView = remember(context) {
+            AdView(context).apply {
+                adUnitId = AdMobIds.banner(context)
             }
+        }
+
+        LaunchedEffect(adView, adSize) {
+            adView.setAdSize(adSize)
+            adView.loadAd(AdRequest.Builder().build())
+        }
+        DisposableEffect(adView) {
+            onDispose(adView::destroy)
+        }
+
+        AndroidView(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(MAX_BANNER_HEIGHT_DP.dp),
+            factory = { adView }
         )
     }
 }
 
-@SuppressLint("ConfigurationScreenWidthHeight")
-@Composable
-fun AdmobBanner(modifier: Modifier = Modifier) {
-    val context = LocalContext.current
-    val screenWidth = LocalConfiguration.current.screenWidthDp
-    AndroidView(
-        modifier = modifier.fillMaxWidth(),
-        factory = {
-            AdView(it).apply {
-                adUnitId = context.getString(R.string.banner_ad_unit_id)
-            }
-        },
-        update = {
-            val adSize = AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context, screenWidth)
-            it.setAdSize(adSize)
-            it.loadAd(AdRequest.Builder().build())
-        }
-    )
-}
+private const val MAX_BANNER_HEIGHT_DP = 50
 
 sealed class Screen(val route: String, val labelResId: Int, val icon: ImageVector? = null) {
     object Map : Screen("Map", R.string.nav_map, Icons.Filled.Map)

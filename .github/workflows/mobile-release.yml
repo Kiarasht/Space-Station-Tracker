@@ -1,0 +1,361 @@
+name: Mobile Production Release
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+concurrency:
+  group: mobile-release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  GOOGLE_PLAY_TRACK: alpha
+
+jobs:
+  android-release:
+    name: Android closed-testing release
+    runs-on: macos-15
+    timeout-minutes: 30
+    env:
+      SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+      KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+      ALIAS: ${{ secrets.ALIAS }}
+      KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+      YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+      N2YO_API_KEY: ${{ secrets.N2YO_API_KEY }}
+      MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
+      GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+
+      - name: Load app version
+        run: bash tools/ci/load-app-version.sh
+
+      - name: Validate Android release secrets
+        shell: bash
+        run: |
+          missing=()
+          [ -n "$SIGNING_KEY" ] || missing+=("SIGNING_KEY")
+          [ -n "$KEY_STORE_PASSWORD" ] || missing+=("KEY_STORE_PASSWORD")
+          [ -n "$ALIAS" ] || missing+=("ALIAS")
+          [ -n "$KEY_PASSWORD" ] || missing+=("KEY_PASSWORD")
+          [ -n "$YOUTUBE_API_KEY" ] || missing+=("YOUTUBE_API_KEY")
+          [ -n "$N2YO_API_KEY" ] || missing+=("N2YO_API_KEY")
+          [ -n "$MAPS_API_KEY" ] || missing+=("MAPS_API_KEY")
+          [ -n "$GOOGLE_PLAY_SERVICE_ACCOUNT_JSON" ] || missing+=("GOOGLE_PLAY_SERVICE_ACCOUNT_JSON")
+          if [ "${#missing[@]}" -gt 0 ]; then
+            printf 'Missing required GitHub secrets: %s\n' "${missing[*]}"
+            exit 1
+          fi
+
+      - name: Prepare Android release configuration
+        shell: bash
+        run: |
+          printf '%s' "$SIGNING_KEY" | base64 --decode > "$GITHUB_WORKSPACE/release.keystore"
+          {
+            echo "storeFile=$GITHUB_WORKSPACE/release.keystore"
+            echo "storePassword=$KEY_STORE_PASSWORD"
+            echo "keyAlias=$ALIAS"
+            echo "keyPassword=$KEY_PASSWORD"
+          } > "$GITHUB_WORKSPACE/keystore.properties"
+          {
+            echo "YOUTUBE_API_KEY=$YOUTUBE_API_KEY"
+            echo "N2YO_API_KEY=$N2YO_API_KEY"
+            echo "MAPS_API_KEY=$MAPS_API_KEY"
+            echo "USE_ADMOB_TEST_ADS=false"
+          } > "$GITHUB_WORKSPACE/local.properties"
+
+      - name: Build signed Android release AAB
+        run: ./gradlew :app:bundleRelease --console=plain
+
+      - name: Upload signed AAB artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: iss-tracker-${{ env.APP_VERSION_NAME }}-${{ env.APP_VERSION_CODE }}-release-aab
+          path: app/build/outputs/bundle/release/app-release.aab
+          if-no-files-found: error
+
+      - name: Upload AAB to Google Play closed testing
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: com.restart.spacestationtracker
+          releaseFiles: app/build/outputs/bundle/release/app-release.aab
+          tracks: ${{ env.GOOGLE_PLAY_TRACK }}
+          status: completed
+          releaseName: ${{ env.APP_VERSION_NAME }} (${{ env.APP_VERSION_CODE }})
+          whatsNewDirectory: distribution/whatsnew
+          mappingFile: app/build/outputs/mapping/release/mapping.txt
+
+  ios-release:
+    name: iOS TestFlight release
+    runs-on: macos-15
+    timeout-minutes: 90
+    env:
+      APP_STORE_CONNECT_API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+      APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+      APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      IOS_APP_STORE_PROVISIONING_PROFILE_BASE64: ${{ secrets.IOS_APP_STORE_PROVISIONING_PROFILE_BASE64 }}
+      IOS_DISTRIBUTION_CERTIFICATE_BASE64: ${{ secrets.IOS_DISTRIBUTION_CERTIFICATE_BASE64 }}
+      IOS_DISTRIBUTION_CERTIFICATE_PASSWORD: ${{ secrets.IOS_DISTRIBUTION_CERTIFICATE_PASSWORD }}
+      IOS_SIGNING_KEYCHAIN_PASSWORD: ${{ secrets.IOS_SIGNING_KEYCHAIN_PASSWORD }}
+      N2YO_API_KEY: ${{ secrets.N2YO_API_KEY }}
+      IOS_BUNDLE_ID: com.restart.spacestationtracker.ios
+      IOS_PROJECT_PATH: iosApp/ISSTrackerIOS.xcodeproj
+      IOS_SCHEME: ISSTrackerIOS
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Load app version
+        run: bash tools/ci/load-app-version.sh
+
+      - name: Validate iOS release secrets
+        shell: bash
+        run: |
+          missing=()
+          [ -n "$APP_STORE_CONNECT_API_KEY_BASE64" ] || missing+=("APP_STORE_CONNECT_API_KEY_BASE64")
+          [ -n "$APP_STORE_CONNECT_API_KEY_ID" ] || missing+=("APP_STORE_CONNECT_API_KEY_ID")
+          [ -n "$APP_STORE_CONNECT_ISSUER_ID" ] || missing+=("APP_STORE_CONNECT_ISSUER_ID")
+          [ -n "$APPLE_TEAM_ID" ] || missing+=("APPLE_TEAM_ID")
+          [ -n "$IOS_APP_STORE_PROVISIONING_PROFILE_BASE64" ] || missing+=("IOS_APP_STORE_PROVISIONING_PROFILE_BASE64")
+          [ -n "$IOS_DISTRIBUTION_CERTIFICATE_BASE64" ] || missing+=("IOS_DISTRIBUTION_CERTIFICATE_BASE64")
+          [ -n "$IOS_DISTRIBUTION_CERTIFICATE_PASSWORD" ] || missing+=("IOS_DISTRIBUTION_CERTIFICATE_PASSWORD")
+          [ -n "$IOS_SIGNING_KEYCHAIN_PASSWORD" ] || missing+=("IOS_SIGNING_KEYCHAIN_PASSWORD")
+          [ -n "$N2YO_API_KEY" ] || missing+=("N2YO_API_KEY")
+          if [ "${#missing[@]}" -gt 0 ]; then
+            printf 'Missing required GitHub secrets: %s\n' "${missing[*]}"
+            exit 1
+          fi
+
+      - name: Configure iOS release values
+        shell: bash
+        run: |
+          printf 'ISS_TRACKER_N2YO_API_KEY = %s\n' "$N2YO_API_KEY" > iosApp/Configuration/Local.xcconfig
+
+      - name: Install Apple signing assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          certificate_path="$RUNNER_TEMP/ios_distribution.p12"
+          provisioning_profile_path="$RUNNER_TEMP/ios_app_store.mobileprovision"
+          profile_plist_path="$RUNNER_TEMP/ios_app_store_profile.plist"
+          keychain_path="$RUNNER_TEMP/iss-tracker-signing.keychain-db"
+          apple_certificates_dir="$RUNNER_TEMP/apple-certificates"
+
+          printf '%s' "$IOS_DISTRIBUTION_CERTIFICATE_BASE64" | base64 --decode > "$certificate_path"
+          printf '%s' "$IOS_APP_STORE_PROVISIONING_PROFILE_BASE64" | base64 --decode > "$provisioning_profile_path"
+
+          security create-keychain -p "$IOS_SIGNING_KEYCHAIN_PASSWORD" "$keychain_path"
+          security set-keychain-settings -lut 21600 "$keychain_path"
+          security unlock-keychain -p "$IOS_SIGNING_KEYCHAIN_PASSWORD" "$keychain_path"
+          echo "IOS_KEYCHAIN_PATH=$keychain_path" >> "$GITHUB_ENV"
+
+          mkdir -p "$apple_certificates_dir"
+          for apple_certificate_url in \
+            "https://www.apple.com/certificateauthority/AppleWWDRCAG3.cer" \
+            "https://www.apple.com/certificateauthority/AppleWWDRCAG4.cer" \
+            "https://www.apple.com/certificateauthority/AppleWWDRCAG6.cer"; do
+            apple_certificate_path="$apple_certificates_dir/$(basename "$apple_certificate_url")"
+            curl --fail --location --retry 3 --show-error --silent \
+              --output "$apple_certificate_path" \
+              "$apple_certificate_url"
+            security import "$apple_certificate_path" -k "$keychain_path" -A -t cert
+          done
+
+          security import "$certificate_path" \
+            -P "$IOS_DISTRIBUTION_CERTIFICATE_PASSWORD" \
+            -A \
+            -t cert \
+            -f pkcs12 \
+            -k "$keychain_path"
+          security set-key-partition-list \
+            -S apple-tool:,apple: \
+            -s \
+            -k "$IOS_SIGNING_KEYCHAIN_PASSWORD" \
+            "$keychain_path"
+          security find-identity -v -p codesigning "$keychain_path"
+
+          security cms -D -i "$provisioning_profile_path" > "$profile_plist_path"
+          profile_uuid=$(/usr/libexec/PlistBuddy -c 'Print UUID' "$profile_plist_path")
+          profile_name=$(/usr/libexec/PlistBuddy -c 'Print Name' "$profile_plist_path")
+          profile_app_identifier=$(/usr/libexec/PlistBuddy -c 'Print Entitlements:application-identifier' "$profile_plist_path")
+          expected_app_identifier="$APPLE_TEAM_ID.$IOS_BUNDLE_ID"
+          if [ "$profile_app_identifier" != "$expected_app_identifier" ]; then
+            echo "Provisioning profile is for $profile_app_identifier; expected $expected_app_identifier."
+            exit 1
+          fi
+
+          legacy_profiles_dir="$HOME/Library/MobileDevice/Provisioning Profiles"
+          xcode_profiles_dir="$HOME/Library/Developer/Xcode/UserData/Provisioning Profiles"
+          mkdir -p "$legacy_profiles_dir" "$xcode_profiles_dir"
+          cp "$provisioning_profile_path" "$legacy_profiles_dir/$profile_uuid.mobileprovision"
+          cp "$provisioning_profile_path" "$xcode_profiles_dir/$profile_uuid.mobileprovision"
+
+          echo "IOS_PROVISIONING_PROFILE_NAME=$profile_name" >> "$GITHUB_ENV"
+          echo "IOS_PROVISIONING_PROFILE_UUID=$profile_uuid" >> "$GITHUB_ENV"
+
+          cat > iosApp/Configuration/CiSigning.xcconfig <<EOF
+          DEVELOPMENT_TEAM = $APPLE_TEAM_ID
+          CODE_SIGN_STYLE = Manual
+          CODE_SIGN_IDENTITY = Apple Distribution
+          CODE_SIGN_IDENTITY[sdk=iphoneos*] = Apple Distribution
+          PROVISIONING_PROFILE_SPECIFIER = $profile_name
+          OTHER_CODE_SIGN_FLAGS = --keychain $keychain_path
+          EOF
+
+      - name: Install App Store Connect API key
+        shell: bash
+        run: |
+          set -euo pipefail
+          api_key_path="$RUNNER_TEMP/AuthKey_${APP_STORE_CONNECT_API_KEY_ID}.p8"
+          private_keys_dir="$HOME/.appstoreconnect/private_keys"
+          printf '%s' "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 --decode > "$api_key_path"
+          chmod 600 "$api_key_path"
+          mkdir -p "$private_keys_dir"
+          cp "$api_key_path" "$private_keys_dir/AuthKey_${APP_STORE_CONNECT_API_KEY_ID}.p8"
+          chmod 600 "$private_keys_dir/AuthKey_${APP_STORE_CONNECT_API_KEY_ID}.p8"
+          echo "APP_STORE_CONNECT_API_KEY_PATH=$api_key_path" >> "$GITHUB_ENV"
+          echo "APP_STORE_CONNECT_PRIVATE_KEYS_DIR=$private_keys_dir" >> "$GITHUB_ENV"
+
+      - name: Generate Xcode project
+        run: xcodegen generate --spec iosApp/project.yml
+
+      - name: Resolve Swift packages
+        run: |
+          xcodebuild \
+            -project "$IOS_PROJECT_PATH" \
+            -scheme "$IOS_SCHEME" \
+            -resolvePackageDependencies
+
+      - name: Archive signed iOS app
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p .ci/ios-logs
+          xcodebuild archive \
+            -project "$IOS_PROJECT_PATH" \
+            -scheme "$IOS_SCHEME" \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$RUNNER_TEMP/$IOS_SCHEME.xcarchive" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$APP_STORE_CONNECT_API_KEY_PATH" \
+            -authenticationKeyID "$APP_STORE_CONNECT_API_KEY_ID" \
+            -authenticationKeyIssuerID "$APP_STORE_CONNECT_ISSUER_ID" \
+            2>&1 | tee .ci/ios-logs/xcode-archive.log
+
+      - name: Export signed iOS IPA
+        shell: bash
+        run: |
+          set -euo pipefail
+          export_options_path="$RUNNER_TEMP/ExportOptions.plist"
+          cat > "$export_options_path" <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>destination</key>
+            <string>export</string>
+            <key>manageAppVersionAndBuildNumber</key>
+            <false/>
+            <key>method</key>
+            <string>app-store-connect</string>
+            <key>provisioningProfiles</key>
+            <dict>
+              <key>$IOS_BUNDLE_ID</key>
+              <string>$IOS_PROVISIONING_PROFILE_NAME</string>
+            </dict>
+            <key>signingCertificate</key>
+            <string>Apple Distribution</string>
+            <key>signingStyle</key>
+            <string>manual</string>
+            <key>teamID</key>
+            <string>$APPLE_TEAM_ID</string>
+            <key>uploadSymbols</key>
+            <true/>
+          </dict>
+          </plist>
+          EOF
+
+          xcodebuild -exportArchive \
+            -archivePath "$RUNNER_TEMP/$IOS_SCHEME.xcarchive" \
+            -exportPath "$RUNNER_TEMP/ios-export" \
+            -exportOptionsPlist "$export_options_path" \
+            2>&1 | tee .ci/ios-logs/xcode-export-ipa.log
+
+          ipa_path="$(find "$RUNNER_TEMP/ios-export" -maxdepth 1 -name '*.ipa' -print -quit)"
+          test -f "$ipa_path"
+          echo "IOS_IPA_PATH=$ipa_path" >> "$GITHUB_ENV"
+
+      - name: Upload iOS release artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: iss-tracker-${{ env.APP_VERSION_NAME }}-${{ env.APP_VERSION_CODE }}-ios-release
+          path: |
+            ${{ runner.temp }}/ios-export/*.ipa
+            ${{ runner.temp }}/ISSTrackerIOS.xcarchive/dSYMs
+          if-no-files-found: error
+
+      - name: Upload iOS app to App Store Connect
+        shell: bash
+        run: |
+          set -o pipefail
+          xcrun altool \
+            --upload-app \
+            -f "$IOS_IPA_PATH" \
+            --type ios \
+            --apiKey "$APP_STORE_CONNECT_API_KEY_ID" \
+            --apiIssuer "$APP_STORE_CONNECT_ISSUER_ID" \
+            --output-format json \
+            --verbose \
+            2>&1 | tee .ci/ios-logs/altool-upload-app-store-connect.log
+
+      - name: Upload iOS diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ios-release-diagnostics-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .ci/ios-logs
+          if-no-files-found: ignore
+
+      - name: Clean up Apple signing assets
+        if: always()
+        shell: bash
+        run: |
+          if [ -n "${IOS_KEYCHAIN_PATH:-}" ]; then
+            security delete-keychain "$IOS_KEYCHAIN_PATH" || true
+          fi
+          if [ -n "${IOS_PROVISIONING_PROFILE_UUID:-}" ]; then
+            rm -f "$HOME/Library/MobileDevice/Provisioning Profiles/$IOS_PROVISIONING_PROFILE_UUID.mobileprovision"
+            rm -f "$HOME/Library/Developer/Xcode/UserData/Provisioning Profiles/$IOS_PROVISIONING_PROFILE_UUID.mobileprovision"
+          fi
+          if [ -n "${APP_STORE_CONNECT_PRIVATE_KEYS_DIR:-}" ]; then
+            rm -f "$APP_STORE_CONNECT_PRIVATE_KEYS_DIR/AuthKey_${APP_STORE_CONNECT_API_KEY_ID}.p8"
+          fi

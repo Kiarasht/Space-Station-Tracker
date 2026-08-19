@@ -52,8 +52,6 @@
     <string name="iss_sighting_share_chooser">Share…</string>
     <string name="on">" on "</string>
     <string name="since">"Launched "</string>
-    <string name="license">Open source licenses</string>
-    <string name="msg_license">This application is constructed using following software:</string>
     <string name="msg_about_library_description">Track the International Space Station in real time, view upcoming visible passes and sky paths for your location, follow the current crew, watch live streams, and enable alerts for the best viewing opportunities.</string>
     <string name="desc_about_app">About this app</string>
     <string name="version">Versions</string>
@@ -70,7 +68,6 @@
     <string name="app_open_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/9402033285</string>
     <string name="locations_native_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/9845698217</string>
     <string name="on_duty_native_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/4740210185</string>
-    <string name="rewarded_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/9671547864</string>
     <string name="legal_title">Legal Jibber Jabber</string>
     <string name="support_title">Support</string>
     <string name="contact_support">Contact support</string>
@@ -91,9 +88,9 @@
     <string name="live_stream">Live Stream</string>
     <string name="stream_offline">Stream Offline</string>
     <string name="remove_ads">Remove Ads</string>
-    <string name="remove_ads_description">Watch a short video to remove ads for the current session?</string>
-    <string name="failed_to_load_ad">Failed to load ad</string>
-    <string name="watch_video">Watch Video</string>
+    <string name="remove_ads_lifetime_description">Permanently remove all ads for %1$s. This is one purchase, not a subscription.</string>
+    <string name="buy_for_price">Buy for %1$s</string>
+    <string name="restore_purchase">Restore Purchase</string>
     <string name="cancel">Cancel</string>
     <string name="close">Close</string>
     <string name="yes">Yes</string>
@@ -117,11 +114,6 @@
     <string name="rating_prompt_title">Enjoying ISS Tracker?</string>
     <string name="rating_prompt_message">If the app has been useful, would you like to rate it?</string>
 
-    <string name="about_feature_live_map">Live map</string>
-    <string name="about_feature_sky_paths">Sky paths</string>
-    <string name="about_feature_pass_alerts">Pass alerts</string>
-    <string name="about_feature_live_streams">Live streams</string>
-    <string name="about_feature_crew_info">Crew info</string>
     <string name="version_details_format">Version %1$s (%2$d)</string>
     <string name="version_details_name_only_format">Version %1$s</string>
 
@@ -270,91 +262,43 @@
     <string name="auto_alert_sync_retry_message">Unable to check ISS passes. Will retry.</string>
 
     <string name="msg_get_it_on_play_store_url" translatable="false">https://play.google.com/store/apps/details?id=com.restart.spacestationtracker</string>
-    <string name="apache_open_source_url" translatable="false">http://www.apache.org/licenses/LICENSE-2.0</string>
-
-    <string-array name="software_list" translatable="false">
-        <item>AndroidX</item>
-        <item>Coil</item>
-        <item>Dagger Hilt</item>
-        <item>Firebase Android SDK</item>
-        <item>Glide</item>
-        <item>Google Maps Compose</item>
-        <item>Gson</item>
-        <item>Jetpack Compose</item>
-        <item>Kotlin</item>
-        <item>Kotlinx Coroutines</item>
-        <item>Material Components for Android</item>
-        <item>OkHttp</item>
-        <item>Retrofit</item>
-    </string-array>
-
-    <string-array name="software_url_list" translatable="false">
-        <item>https://github.com/androidx/androidx</item>
-        <item>https://github.com/coil-kt/coil</item>
-        <item>https://github.com/google/dagger</item>
-        <item>https://github.com/firebase/firebase-android-sdk</item>
-        <item>https://github.com/bumptech/glide</item>
-        <item>https://github.com/googlemaps/android-maps-compose</item>
-        <item>https://github.com/google/gson</item>
-        <item>https://github.com/androidx/androidx</item>
-        <item>https://github.com/JetBrains/kotlin</item>
-        <item>https://github.com/Kotlin/kotlinx.coroutines</item>
-        <item>https://github.com/material-components/material-components-android</item>
-        <item>https://github.com/square/okhttp</item>
-        <item>https://github.com/square/retrofit</item>
-    </string-array>
-
     <string name="privacy_policy_content" translatable="false"><![CDATA[
         <h2>Privacy Policy</h2>
-        <p><b>Effective Date:</b> August 28, 2025</p>
-        <p>This Privacy Policy describes Our policies and procedures on the collection, use, and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
-        <p>We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy.</p>
+        <p><b>Effective Date:</b> August 12, 2026</p>
+        <p>This policy applies to ISS Tracker on Android and iOS. The app does not require an account and does not ask you to provide your name, email address, or phone number.</p>
 
-        <h3>Interpretation and Definitions</h3>
-        <h4>Interpretation</h4>
-        <p>The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.</p>
-        <h4>Definitions</h4>
-        <p>For the purposes of this Privacy Policy:</p>
-        <p><b>"Application"</b> means the software program provided by the Company downloaded by You on any electronic device, named Space Station Tracker.</p>
-        <p><b>"Company"</b> (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to the developer of the Application.</p>
-        <p><b>"Device"</b> means any device that can access the Service such as a computer, a cellphone, or a digital tablet.</p>
-        <p><b>"Personal Data"</b> is any information that relates to an identified or identifiable individual.</p>
-        <p><b>"Service"</b> refers to the Application.</p>
-        <p><b>"Usage Data"</b> refers to data collected automatically, either generated by the use of the Service or from the Service infrastructure itself (for example, the duration of a page visit).</p>
-        <p><b>"You"</b> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</p>
+        <h3>Location</h3>
+        <p>ISS Tracker requests location permission only for features that need your position, such as finding visible ISS passes and configuring pass alerts. Location coordinates may be sent to the pass-prediction provider to return results for that location. Alert coordinates and settings may be stored locally on your device. ISS Tracker does not operate a developer-owned server that stores your location history.</p>
 
-        <h3>Information We Do Not Collect</h3>
-        <p>We do not require you to create an account or provide any personally identifiable information, such as your name, email address, or phone number, to use our Application.</p>
+        <h3>Local App Data</h3>
+        <p>Your theme, map preferences, alert configuration, scheduled notification identifiers, review eligibility, and advertising launch count are stored locally using platform storage. Existing Android storage names and keys are retained during the multiplatform migration so an app update does not reset these choices.</p>
 
-        <h3>Information We Collect and Use</h3>
-        <h4>Location Data</h4>
-        <p>With your explicit permission, we may collect your device\'s location data (latitude and longitude).</p>
-        <p><b>Purpose of Collection:</b> This information is used solely to provide the core functionality of the Application, such as calculating the position of the International Space Station (ISS) relative to you and predicting fly-over times for your specific location. This data is processed on your device and is not stored on our servers. You can enable or disable location services at any time through your Device\'s settings.</p>
-        <h4>Usage Data & Advertising</h4>
-        <p>We use Google AdMob to display advertisements within the Application. AdMob is a third-party service that may collect and use information to provide personalized ads.</p>
-        <p><b>Data Collected by AdMob:</b> AdMob may collect Usage Data, which can include your device\'s unique advertising identifier, IP address, device type, operating system, and information about your interaction with ads. This data is used by Google to serve relevant ads and to measure ad performance.</p>
-        <p>We do not have access to or control over the data collected by Google AdMob. We encourage you to review Google\'s Privacy Policy: https://policies.google.com/privacy</p>
+        <h3>Notifications and Calendar</h3>
+        <p>Notification, exact-alarm, background refresh, and calendar actions are used only when you enable or invoke the related feature. You can revoke platform permissions in system settings.</p>
 
-        <h3>Permissions Required</h3>
-        <p><b>INTERNET:</b> Necessary to fetch data from third-party APIs (e.g., ISS location, astronaut information) and for AdMob to serve advertisements.</p>
-        <p><b>ACCESS_FINE_LOCATION / ACCESS_COARSE_LOCATION:</b> Required to access your device\'s location to provide location-specific features, as described above. This permission is optional and only used if you grant it.</p>
+        <h3>Advertising and Consent</h3>
+        <p>ISS Tracker uses Google AdMob and Google User Messaging Platform. Advertising requests begin only when Google\'s consent status says ads may be requested. Depending on your region and choices, Google and its partners may process device information, IP address, advertising identifiers, approximate location, and ad interactions to deliver and measure ads.</p>
+        <p>On iOS, App Tracking Transparency may present Apple\'s system permission when tracking permission is applicable. The app remains usable if you decline. A Privacy Choices entry is shown when Google requires one.</p>
+        <p>Google\'s privacy policy is available at https://policies.google.com/privacy.</p>
 
-        <h3>Third-Party Libraries</h3>
-        <p>Our Application uses the following third-party libraries to enhance its functionality:</p>
-        <p><b>Coil and Glide:</b> Image loading and caching libraries for Android. These libraries may cache images on your device for performance but do not collect personal data by themselves.</p>
-        <p><b>AndroidX, Jetpack Compose, Retrofit, OkHttp, Hilt, and related libraries:</b> These libraries support app UI, networking, dependency injection, local settings, and background scheduling. They do not collect personal data by themselves.</p>
+        <h3>Purchases</h3>
+        <p>The optional lifetime ad-removal purchase is processed by Google Play or the Apple App Store. ISS Tracker receives the resulting entitlement status and stores an ad-removal flag locally, but does not receive or store your payment-card details.</p>
 
-        <h3>Data Security</h3>
-        <p>We value your trust in providing us your information, thus we are striving to use commercially acceptable means of protecting it. However, remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and we cannot guarantee its absolute security.</p>
+        <h3>Analytics and Diagnostics</h3>
+        <p>ISS Tracker uses Google Analytics for Firebase to measure app launches, sessions, active users, screen views, feature interactions, settings changes, and purchase-flow outcomes. This helps understand general usage and improve the app. ISS Tracker does not send precise coordinates, saved location names, astronaut names, live-stream URLs, calendar or notification contents, support-email contents, payment-card details, transaction identifiers, or raw diagnostic messages as custom analytics parameters. The Analytics SDK uses an app-instance identifier and may derive approximate location and device information as described by Google. Advertising personalization signals from Analytics are disabled by default.</p>
+        <p>Developer diagnostic logs are limited to debug builds. Release builds remove app-authored Android logs that may contain SDK error details; analytics events remain enabled because they are structured usage measurements rather than diagnostic logs.</p>
 
-        <h3>Children\'s Privacy</h3>
-        <p>This Service does not address anyone under the age of 13. We do not knowingly collect personally identifiable information from children under 13. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact us so that we will be able to take necessary actions.</p>
+        <h3>Third-Party Data Providers</h3>
+        <p>The app retrieves ISS position, pass prediction, crew, biography, image, map, and live-stream information from third-party services. Requests may expose standard network information such as your IP address and device networking metadata to those providers.</p>
 
-        <h3>Changes to This Privacy Policy</h3>
-        <p>We may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. We will notify you of any changes by posting the new Privacy Policy on this page. These changes are effective immediately after they are posted.</p>
+        <h3>Children</h3>
+        <p>ISS Tracker is not directed to children under 13 and does not knowingly collect account information from children. Advertising configuration and store audience declarations must remain consistent with the audiences selected for each release.</p>
 
-        <h3>Contact Us</h3>
-        <p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at: restartapplication@gmail.com</p>
+        <h3>Your Choices</h3>
+        <p>You can deny location, notification, tracking, or advertising consent where offered. You can reset locally stored app data and the Analytics app-instance identifier by uninstalling the app or using the platform\'s storage controls.</p>
+
+        <h3>Changes and Contact</h3>
+        <p>This policy may be updated when app features or third-party services change. Questions can be sent to restartapplication@gmail.com.</p>
     ]]>
     </string>
 

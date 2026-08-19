@@ -2,6 +2,8 @@ package com.restart.spacestationtracker.util
 
 import androidx.annotation.StringRes
 import com.restart.spacestationtracker.R
+import com.restart.spacestationtracker.shared.passes.PassAlertPolicy
+import com.restart.spacestationtracker.shared.passes.PassVisibility
 
 object IssPassVisibility {
     const val FAINT = "Faint"
@@ -12,12 +14,12 @@ object IssPassVisibility {
     val options = listOf(FAINT, MODERATE, BRIGHT, VERY_BRIGHT)
 
     fun labelForMagnitude(magnitude: Double): String {
-        return when {
-            magnitude < -2.0 -> VERY_BRIGHT
-            magnitude < -1.5 -> BRIGHT
-            magnitude < -1.0 -> MODERATE
-            magnitude < 0.0 -> FAINT
-            else -> "Very Faint"
+        return when (PassVisibility.fromMagnitude(magnitude)) {
+            PassVisibility.VERY_BRIGHT -> VERY_BRIGHT
+            PassVisibility.BRIGHT -> BRIGHT
+            PassVisibility.MODERATE -> MODERATE
+            PassVisibility.FAINT -> FAINT
+            PassVisibility.VERY_FAINT -> "Very Faint"
         }
     }
 
@@ -34,26 +36,16 @@ object IssPassVisibility {
 
     @StringRes
     fun labelResForMagnitude(magnitude: Double): Int {
-        return when {
-            magnitude < -2.0 -> R.string.visibility_very_bright
-            magnitude < -1.5 -> R.string.visibility_bright
-            magnitude < -1.0 -> R.string.visibility_moderate
-            magnitude < 0.0 -> R.string.visibility_faint
-            else -> R.string.visibility_very_faint
+        return when (PassVisibility.fromMagnitude(magnitude)) {
+            PassVisibility.VERY_BRIGHT -> R.string.visibility_very_bright
+            PassVisibility.BRIGHT -> R.string.visibility_bright
+            PassVisibility.MODERATE -> R.string.visibility_moderate
+            PassVisibility.FAINT -> R.string.visibility_faint
+            PassVisibility.VERY_FAINT -> R.string.visibility_very_faint
         }
     }
 
     fun matchesMinimum(magnitude: Double, minimumVisibility: String): Boolean {
-        return magnitude < thresholdFor(minimumVisibility)
-    }
-
-    private fun thresholdFor(minimumVisibility: String): Double {
-        return when (minimumVisibility) {
-            VERY_BRIGHT -> -2.0
-            BRIGHT -> -1.5
-            MODERATE -> -1.0
-            FAINT -> 0.0
-            else -> -1.5
-        }
+        return PassAlertPolicy.matchesMinimumVisibility(magnitude, minimumVisibility)
     }
 }

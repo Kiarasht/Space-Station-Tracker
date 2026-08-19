@@ -52,8 +52,6 @@
     <string name="iss_sighting_share_chooser">साझा करें...</string>
     <string name="on">" को "</string>
     <string name="since">"लॉन्च किया गया "</string>
-    <string name="license">ओपन सोर्स लाइसेंस</string>
-    <string name="msg_license">यह एप्लिकेशन निम्नलिखित सॉफ़्टवेयर का उपयोग करके बनाया गया है:</string>
     <string name="msg_about_library_description">अंतरराष्ट्रीय अंतरिक्ष स्टेशन को रीयल टाइम में ट्रैक करें, अपनी जगह के लिए आने वाले दिखाई देने वाले पास और स्काई पाथ देखें, मौजूदा क्रू को फॉलो करें, लाइव स्ट्रीम देखें, और सबसे अच्छे देखने के मौकों के लिए अलर्ट चालू करें।</string>
     <string name="desc_about_app">इस ऐप के बारे में</string>
     <string name="version">संस्करण</string>
@@ -71,9 +69,9 @@
     <string name="live_stream">लाइव स्ट्रीम</string>
     <string name="stream_offline">स्ट्रीम ऑफ़लाइन</string>
     <string name="remove_ads">विज्ञापन हटाएं</string>
-    <string name="remove_ads_description">वर्तमान सत्र के लिए विज्ञापन हटाने के लिए एक छोटा वीडियो देखें?</string>
-    <string name="failed_to_load_ad">विज्ञापन लोड करने में विफल</string>
-    <string name="watch_video">वीडियो देखें</string>
+    <string name="remove_ads_lifetime_description">%1$s में सभी विज्ञापनों को स्थायी रूप से हटाएँ। यह एक बार की खरीदारी है, सदस्यता नहीं।</string>
+    <string name="buy_for_price">%1$s में खरीदें</string>
+    <string name="restore_purchase">खरीदारी पुनर्स्थापित करें</string>
     <string name="cancel">रद्द करें</string>
     <string name="close">बंद करें</string>
     <string name="support_title">सहायता</string>
@@ -106,11 +104,6 @@
     <string name="nav_about">परिचय</string>
     <string name="rating_prompt_title">ISS Tracker पसंद आ रहा है?</string>
     <string name="rating_prompt_message">अगर ऐप उपयोगी रहा है, तो क्या आप इसे रेट करना चाहेंगे?</string>
-    <string name="about_feature_live_map">लाइव मैप</string>
-    <string name="about_feature_sky_paths">स्काई पाथ</string>
-    <string name="about_feature_pass_alerts">पास अलर्ट</string>
-    <string name="about_feature_live_streams">लाइव स्ट्रीम</string>
-    <string name="about_feature_crew_info">क्रू जानकारी</string>
     <string name="version_details_format">वर्शन %1$s (%2$d)</string>
     <string name="version_details_name_only_format">वर्शन %1$s</string>
     <string name="iss_marker_title">ISS</string>

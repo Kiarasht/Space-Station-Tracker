@@ -52,8 +52,6 @@
     <string name="iss_sighting_share_chooser">共有…</string>
     <string name="on">" 日付 "</string>
     <string name="since">"打ち上げ "</string>
-    <string name="license">オープンソースライセンス</string>
-    <string name="msg_license">このアプリケーションは、以下のソフトウェアを使用して構築されています：</string>
     <string name="msg_about_library_description">国際宇宙ステーションをリアルタイムで追跡し、現在地で今後見える通過と空の経路を確認できます。現在のクルー、ライブ配信、見頃の通知にも対応しています。</string>
     <string name="desc_about_app">このアプリについて</string>
     <string name="version">バージョン</string>
@@ -71,9 +69,9 @@
     <string name="live_stream">ライブストリーム</string>
     <string name="stream_offline">ストリームオフライン</string>
     <string name="remove_ads">広告を削除</string>
-    <string name="remove_ads_description">短い動画を見て、現在のセッションの広告を削除しますか？</string>
-    <string name="failed_to_load_ad">広告の読み込みに失敗しました</string>
-    <string name="watch_video">動画を見る</string>
+    <string name="remove_ads_lifetime_description">%1$sですべての広告を永久に削除します。1回限りの購入で、サブスクリプションではありません。</string>
+    <string name="buy_for_price">%1$sで購入</string>
+    <string name="restore_purchase">購入を復元</string>
     <string name="cancel">キャンセル</string>
     <string name="close">閉じる</string>
     <string name="support_title">サポート</string>
@@ -106,11 +104,6 @@
     <string name="nav_about">概要</string>
     <string name="rating_prompt_title">ISS Tracker は気に入りましたか？</string>
     <string name="rating_prompt_message">このアプリが役に立ったなら、評価していただけますか？</string>
-    <string name="about_feature_live_map">ライブマップ</string>
-    <string name="about_feature_sky_paths">空の経路</string>
-    <string name="about_feature_pass_alerts">通過通知</string>
-    <string name="about_feature_live_streams">ライブ配信</string>
-    <string name="about_feature_crew_info">クルー情報</string>
     <string name="version_details_format">バージョン %1$s（%2$d）</string>
     <string name="version_details_name_only_format">バージョン %1$s</string>
     <string name="iss_marker_title">ISS</string>

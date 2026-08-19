@@ -1,0 +1,12 @@
+// Copy this file to Local.xcconfig for local signing or production ad overrides.
+// Local.xcconfig is intentionally git-ignored.
+
+DEVELOPMENT_TEAM =
+ISS_TRACKER_APP_STORE_URL =
+ISS_TRACKER_N2YO_API_KEY =
+ISS_TRACKER_ADS_ENABLED = YES
+ISS_TRACKER_ADMOB_APP_ID =
+ISS_TRACKER_BANNER_AD_UNIT_ID =
+ISS_TRACKER_APP_OPEN_AD_UNIT_ID =
+ISS_TRACKER_PASSES_NATIVE_AD_UNIT_ID =
+ISS_TRACKER_CREW_NATIVE_AD_UNIT_ID =

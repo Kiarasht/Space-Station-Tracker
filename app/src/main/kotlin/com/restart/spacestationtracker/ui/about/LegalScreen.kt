@@ -33,9 +33,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.core.text.HtmlCompat
 import com.restart.spacestationtracker.R
-import com.restart.spacestationtracker.ui.theme.SpaceDarkBlue
-import com.restart.spacestationtracker.ui.theme.SpaceLightBlue
-import com.restart.spacestationtracker.ui.theme.SpaceTextWhite
+import com.restart.spacestationtracker.shared.ui.SpaceDarkBlue
+import com.restart.spacestationtracker.shared.ui.SpaceLightBlue
+import com.restart.spacestationtracker.shared.ui.SpaceTextWhite
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

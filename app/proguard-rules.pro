@@ -16,13 +16,15 @@
 #   public *;
 #}
 
--keep class org.eclipse.mat.** { *; }
--keep class com.squareup.leakcanary.** { *; }
--keep class com.squareup.haha.** { *; }
--dontwarn com.squareup.haha.guava.**
--dontwarn com.squareup.haha.perflib.**
--dontwarn com.squareup.haha.trove.**
--dontwarn com.squareup.leakcanary.**
+# Keep diagnostic logging in debug builds while removing it from minified
+# production builds, including messages that may contain SDK error details.
+-assumenosideeffects class android.util.Log {
+    public static *** v(...);
+    public static *** d(...);
+    public static *** i(...);
+    public static *** w(...);
+    public static *** e(...);
+}
 
 # Hilt / Dagger
 -keep class dagger.hilt.internal.aggregatedroot.codegen.*
@@ -31,20 +33,11 @@
 -keep class * { @dagger.hilt.android.AndroidEntryPoint *; }
 -keep class * { @dagger.hilt.android.HiltAndroidApp *; }
 
-# Retrofit
--dontwarn retrofit2.Platform$Java8
--keepclassmembers interface * {
-    @retrofit2.http.* <methods>;
-}
-
-# Gson (for Retrofit converter)
--keep class com.restart.spacestationtracker.data.**.remote.** { *; }
--keep class com.google.gson.annotations.** { *; }
 -keepattributes Signature
 -keepattributes *Annotation*
 
-# Glide
--keep public class * implements com.bumptech.glide.module.GlideModule
--keep public class * extends com.bumptech.glide.module.AppGlideModule
--keep public enum com.bumptech.glide.load.ImageHeaderParser$ImageType { public *; }
--keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder { }
+# Ktor's debugger detector checks these desktop JVM management APIs when they
+# are available. Android does not provide them, and the guarded references are
+# safe to remove during R8 optimization.
+-dontwarn java.lang.management.ManagementFactory
+-dontwarn java.lang.management.RuntimeMXBean

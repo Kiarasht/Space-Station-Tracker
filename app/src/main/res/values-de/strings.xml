@@ -52,8 +52,6 @@
     <string name="iss_sighting_share_chooser">Teilen…</string>
     <string name="on">" am "</string>
     <string name="since">"Gestartet am "</string>
-    <string name="license">Open-Source-Lizenzen</string>
-    <string name="msg_license">Diese Anwendung wurde mit folgender Software erstellt:</string>
     <string name="msg_about_library_description">Verfolge die Internationale Raumstation in Echtzeit, sieh kommende sichtbare Überflüge und Himmelspfade für deinen Standort, folge der aktuellen Besatzung, schaue Livestreams und aktiviere Benachrichtigungen für die besten Beobachtungsmöglichkeiten.</string>
     <string name="desc_about_app">Über diese App</string>
     <string name="version">Versionen</string>
@@ -71,9 +69,9 @@
     <string name="live_stream">Live-Stream</string>
     <string name="stream_offline">Stream Offline</string>
     <string name="remove_ads">Werbung entfernen</string>
-    <string name="remove_ads_description">Kurzes Video ansehen, um Werbung für die aktuelle Sitzung zu entfernen?</string>
-    <string name="failed_to_load_ad">Laden der Werbung fehlgeschlagen</string>
-    <string name="watch_video">Video ansehen</string>
+    <string name="remove_ads_lifetime_description">Entferne alle Werbung dauerhaft für %1$s. Dies ist ein einmaliger Kauf, kein Abonnement.</string>
+    <string name="buy_for_price">Für %1$s kaufen</string>
+    <string name="restore_purchase">Kauf wiederherstellen</string>
     <string name="cancel">Abbrechen</string>
     <string name="close">Schließen</string>
     <string name="support_title">Support</string>
@@ -106,11 +104,6 @@
     <string name="nav_about">Über</string>
     <string name="rating_prompt_title">Gefällt dir ISS Tracker?</string>
     <string name="rating_prompt_message">Wenn die App hilfreich war, möchtest du sie bewerten?</string>
-    <string name="about_feature_live_map">Live-Karte</string>
-    <string name="about_feature_sky_paths">Himmelspfade</string>
-    <string name="about_feature_pass_alerts">Überflugalarme</string>
-    <string name="about_feature_live_streams">Livestreams</string>
-    <string name="about_feature_crew_info">Crew-Info</string>
     <string name="version_details_format">Version %1$s (%2$d)</string>
     <string name="version_details_name_only_format">Version %1$s</string>
     <string name="iss_marker_title">ISS</string>
