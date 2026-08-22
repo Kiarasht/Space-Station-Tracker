@@ -51,6 +51,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -77,6 +78,9 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.restart.spacestationtracker.R
+import com.restart.spacestationtracker.analytics.AppAnalytics
+import com.restart.spacestationtracker.shared.ui.SharedFullSettingsScreen
+import com.restart.spacestationtracker.shared.ui.SharedSettingsPlatformState
 import com.restart.spacestationtracker.util.ForegroundLocationProvider
 import com.restart.spacestationtracker.util.IssPassVisibility
 import com.restart.spacestationtracker.util.isIgnoringBatteryOptimizations
@@ -103,11 +107,13 @@ fun SettingsScreen(
     }
     var locationPermissionDeniedCount by rememberSaveable { mutableStateOf(0) }
     var notificationPermissionDeniedCount by rememberSaveable { mutableStateOf(0) }
+    var permissionRefreshCounter by remember { mutableStateOf(0) }
 
     DisposableEffect(lifecycleOwner, context) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
                 isIgnoringBatteryOptimizations = context.isIgnoringBatteryOptimizations()
+                permissionRefreshCounter += 1
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
@@ -278,118 +284,59 @@ fun SettingsScreen(
         }
     }
 
-    val screenPadding = PaddingValues(
-        start = contentPadding.calculateStartPadding(LayoutDirection.Ltr),
-        end = contentPadding.calculateEndPadding(LayoutDirection.Ltr),
-        top = contentPadding.calculateTopPadding(),
-        bottom = contentPadding.calculateBottomPadding()
-    )
-
-    LazyColumn(
-        contentPadding = screenPadding,
-    ) {
-        item {
-            SettingsHeader(title = stringResource(id = R.string.settings_iss_pass_alerts))
-        }
-        item {
-            AutomaticPassAlertsSetting(
-                enabled = settings.automaticPassAlertsEnabled,
-                minVisibility = settings.automaticPassAlertMinVisibility,
-                notificationTimes = settings.automaticPassAlertNotificationTimes,
-                locationName = settings.automaticPassAlertLocationName,
-                hasNotificationPermission = hasNotificationPermission(),
-                hasSavedAlertLocation = settings.automaticPassAlertLatitude != null &&
-                    settings.automaticPassAlertLongitude != null,
-                isLocationLookupInProgress = isAlertLocationLookupInProgress,
-                isIgnoringBatteryOptimizations = isIgnoringBatteryOptimizations,
-                onEnabledChange = { enabled ->
-                    if (enabled) {
-                        startEnableAutomaticAlerts()
-                    } else {
-                        viewModel.disableAutomaticPassAlerts()
-                    }
-                },
-                onMinVisibilityChanged = viewModel::onAutomaticPassAlertMinVisibilityChanged,
-                onNotificationTimesChanged = viewModel::onAutomaticPassAlertNotificationTimesChanged,
-                onUpdateLocation = {
-                    requestLocationForAction(AutomaticPassAlertLocationAction.Update)
-                },
-                onOpenBatterySettings = {
-                    Toast.makeText(
-                        context,
-                        R.string.battery_unrestricted_guidance_toast,
-                        Toast.LENGTH_LONG
-                    ).show()
-                    context.openBatteryOptimizationSettings()
-                }
-            )
-        }
-        item {
-            SettingsHeader(title = stringResource(id = R.string.settings_map_settings))
-        }
-        item {
-            SegmentedControlSetting(
-                modifier = Modifier.padding(vertical = 8.dp),
-                leadingContent = {
-                    Icon(
-                        imageVector = Icons.Default.Layers,
-                        contentDescription = stringResource(id = R.string.map_type),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                },
-                title = stringResource(id = R.string.map_type),
-                options = listOf(
-                    SettingOption("Normal", stringResource(id = R.string.map_type_normal)),
-                    SettingOption("Satellite", stringResource(id = R.string.map_type_satellite)),
-                    SettingOption("Hybrid", stringResource(id = R.string.map_type_hybrid)),
-                    SettingOption("Terrain", stringResource(id = R.string.map_type_terrain))
-                ),
-                selectedOption = settings.mapType,
-                onOptionSelected = viewModel::onMapTypeChanged
-            )
-        }
-        item {
-            SwitchSetting(
-                icon = Icons.Default.Route,
-                title = stringResource(id = R.string.show_orbit_path),
-                subtitle = stringResource(id = R.string.show_orbit_path_description),
-                checked = settings.showOrbit,
-                onCheckedChange = viewModel::onShowOrbitChanged
-            )
-        }
-        item {
-            SettingsHeader(title = stringResource(id = R.string.settings_general_settings))
-        }
-        item {
-            SegmentedControlSetting(
-                modifier = Modifier.padding(vertical = 8.dp),
-                leadingContent = {
-                    Icon(
-                        imageVector = Icons.Default.Brightness6,
-                        contentDescription = stringResource(id = R.string.theme),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                },
-                title = stringResource(id = R.string.theme),
-                options = listOf(
-                    SettingOption("Follow System", stringResource(id = R.string.theme_follow_system)),
-                    SettingOption("Light", stringResource(id = R.string.theme_light)),
-                    SettingOption("Dark", stringResource(id = R.string.theme_dark))
-                ),
-                selectedOption = settings.theme,
-                onOptionSelected = viewModel::onThemeChanged,
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-        }
-        if (isPrivacyOptionsRequired) {
-            item {
-                SettingsHeader(title = stringResource(id = R.string.settings_privacy))
-            }
-            item {
-                PrivacyOptionsSetting(onClick = onPrivacyOptionsClick)
-            }
+    LaunchedEffect(settings.automaticPassAlertsEnabled, permissionRefreshCounter) {
+        if (settings.automaticPassAlertsEnabled &&
+            (!hasNotificationPermission() || !hasLocationPermission())
+        ) {
+            viewModel.disableAutomaticPassAlerts()
         }
     }
+
+    SharedFullSettingsScreen(
+        settings = settings,
+        platformState = SharedSettingsPlatformState(
+            hasNotificationPermission = hasNotificationPermission(),
+            hasLocationPermission = hasLocationPermission(),
+            isBackgroundUnrestricted = isIgnoringBatteryOptimizations,
+            isLocationLookupInProgress = isAlertLocationLookupInProgress,
+            showPrivacyChoices = isPrivacyOptionsRequired
+        ),
+        contentPadding = contentPadding,
+        onAutomaticAlertsChanged = { enabled ->
+            AppAnalytics.trackSetting("automatic_pass_alerts", enabled.toString())
+            if (enabled) startEnableAutomaticAlerts() else viewModel.disableAutomaticPassAlerts()
+        },
+        onMinVisibilityChanged = { value ->
+            AppAnalytics.trackSetting("minimum_visibility", value)
+            viewModel.onAutomaticPassAlertMinVisibilityChanged(value)
+        },
+        onNotificationTimesChanged = { value ->
+            AppAnalytics.trackSetting("notification_times", "changed")
+            viewModel.onAutomaticPassAlertNotificationTimesChanged(value)
+        },
+        onUpdateLocation = {
+            AppAnalytics.trackInteraction("update_alert_location", "settings")
+            requestLocationForAction(AutomaticPassAlertLocationAction.Update)
+        },
+        onOpenBackgroundSettings = {
+            AppAnalytics.trackInteraction("open_background_settings", "settings")
+            Toast.makeText(context, R.string.battery_unrestricted_guidance_toast, Toast.LENGTH_LONG).show()
+            context.openBatteryOptimizationSettings()
+        },
+        onMapTypeChanged = { value ->
+            AppAnalytics.trackSetting("map_type", value)
+            viewModel.onMapTypeChanged(value)
+        },
+        onShowOrbitChanged = { value ->
+            AppAnalytics.trackSetting("show_orbit", value.toString())
+            viewModel.onShowOrbitChanged(value)
+        },
+        onThemeChanged = { value ->
+            AppAnalytics.trackSetting("theme", value)
+            viewModel.onThemeChanged(value)
+        },
+        onPrivacyChoices = onPrivacyOptionsClick
+    )
 }
 
 @Composable

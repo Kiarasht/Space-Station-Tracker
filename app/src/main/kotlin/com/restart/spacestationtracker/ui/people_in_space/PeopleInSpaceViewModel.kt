@@ -11,6 +11,7 @@ import com.restart.spacestationtracker.data.settings.SettingsRepository
 import com.restart.spacestationtracker.domain.people_in_space.model.Astronaut
 import com.restart.spacestationtracker.domain.people_in_space.model.Expedition
 import com.restart.spacestationtracker.domain.people_in_space.use_case.GetPeopleInSpaceUseCase
+import com.restart.spacestationtracker.ui.ads.AdMobIds
 import com.restart.spacestationtracker.ui.ads.AdsConsentManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -53,7 +54,7 @@ class PeopleInSpaceViewModel @Inject constructor(
             getPeopleInSpaceUseCase().onSuccess { (expedition, astronauts) ->
                 rawData = expedition to astronauts
                 val settings = settingsRepository.appSettingsFlow.first()
-                val isAdFree = System.currentTimeMillis() < settings.adFreeExpiry
+                val isAdFree = settings.hasLifetimeAdRemoval
                 buildFeed(expedition, astronauts, isAdFree, adsConsentManager.canRequestAds.value)
             }.onFailure { throwable ->
                 _uiState.value = PeopleInSpaceUiState(
@@ -66,7 +67,7 @@ class PeopleInSpaceViewModel @Inject constructor(
     private fun observeAdFreeStatus() {
         viewModelScope.launch {
             settingsRepository.appSettingsFlow
-                .map { System.currentTimeMillis() < it.adFreeExpiry }
+                .map { it.hasLifetimeAdRemoval }
                 .combine(adsConsentManager.canRequestAds) { isAdFree, canRequestAds ->
                     isAdFree to canRequestAds
                 }
@@ -105,7 +106,7 @@ class PeopleInSpaceViewModel @Inject constructor(
     }
 
     private suspend fun loadNativeAd(): NativeAd? {
-        val adUnitId = application.getString(R.string.on_duty_native_ad_unit_id)
+        val adUnitId = AdMobIds.nativeForCrew(application)
         return suspendCoroutine { continuation ->
             val adLoader = AdLoader.Builder(application, adUnitId)
                 .forNativeAd { nativeAd ->

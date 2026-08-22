@@ -12,102 +12,94 @@ import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.restart.spacestationtracker.util.IssPassVisibility
+import com.restart.spacestationtracker.shared.settings.AppSettingsKeys
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
-data class AppSettings(
-    val minAltitude: Int,
-    val minMagnitude: Int,
-    val showEvents: Boolean,
-    val showOrbit: Boolean,
-    val mapType: String,
-    val units: String,
-    val theme: String,
-    val adFreeExpiry: Long,
-    val automaticPassAlertsEnabled: Boolean,
-    val automaticPassAlertMinVisibility: String,
-    val automaticPassAlertNotificationTimes: Set<String>,
-    val automaticPassAlertLatitude: Double?,
-    val automaticPassAlertLongitude: Double?,
-    val automaticPassAlertAltitude: Double?,
-    val automaticPassAlertLocationName: String?,
-    val automaticPassAlertScheduledIds: Set<String>,
-    val automaticPassAlertLastSyncTimeMillis: Long?,
-    val automaticPassAlertLastSyncResult: String?,
-    val automaticPassAlertLastSyncMessage: String?
-)
-
-val defaultAutomaticPassAlertNotificationTimes = setOf("10 minutes before")
-
-val defaultAppSettings = AppSettings(
-    minAltitude = 10,
-    minMagnitude = 4,
-    showEvents = true,
-    showOrbit = true,
-    mapType = "Normal",
-    units = "Metric",
-    theme = "Follow System",
-    adFreeExpiry = 0L,
-    automaticPassAlertsEnabled = false,
-    automaticPassAlertMinVisibility = IssPassVisibility.BRIGHT,
-    automaticPassAlertNotificationTimes = defaultAutomaticPassAlertNotificationTimes,
-    automaticPassAlertLatitude = null,
-    automaticPassAlertLongitude = null,
-    automaticPassAlertAltitude = null,
-    automaticPassAlertLocationName = null,
-    automaticPassAlertScheduledIds = emptySet(),
-    automaticPassAlertLastSyncTimeMillis = null,
-    automaticPassAlertLastSyncResult = null,
-    automaticPassAlertLastSyncMessage = null
-)
-
-
 @Singleton
 class SettingsRepository @Inject constructor(@ApplicationContext context: Context) {
 
     private val dataStore = context.dataStore
-    private val _adFreeExpiryFlow = MutableStateFlow(0L)
+    private val _initialSettingsLoaded = MutableStateFlow(false)
+    private val repositoryScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    @Volatile
+    private var hasLifetimeAdRemovalCache = false
 
     private object Keys {
-        val MIN_ALTITUDE = intPreferencesKey("min_altitude")
-        val MIN_MAGNITUDE = intPreferencesKey("min_magnitude")
-        val SHOW_EVENTS = booleanPreferencesKey("show_events")
-        val SHOW_ORBIT = booleanPreferencesKey("show_orbit")
-        val MAP_TYPE = stringPreferencesKey("map_type")
-        val UNITS = stringPreferencesKey("units")
-        val THEME = stringPreferencesKey("theme")
-        val AUTO_PASS_ALERTS_ENABLED = booleanPreferencesKey("auto_pass_alerts_enabled")
-        val AUTO_PASS_ALERT_MIN_VISIBILITY = stringPreferencesKey("auto_pass_alert_min_visibility")
-        val AUTO_PASS_ALERT_NOTIFICATION_TIMES = stringSetPreferencesKey("auto_pass_alert_notification_times")
-        val AUTO_PASS_ALERT_LATITUDE = doublePreferencesKey("auto_pass_alert_latitude")
-        val AUTO_PASS_ALERT_LONGITUDE = doublePreferencesKey("auto_pass_alert_longitude")
-        val AUTO_PASS_ALERT_ALTITUDE = doublePreferencesKey("auto_pass_alert_altitude")
-        val AUTO_PASS_ALERT_LOCATION_NAME = stringPreferencesKey("auto_pass_alert_location_name")
-        val AUTO_PASS_ALERT_SCHEDULED_IDS = stringSetPreferencesKey("auto_pass_alert_scheduled_ids")
-        val AUTO_PASS_ALERT_LAST_SYNC_TIME = longPreferencesKey("auto_pass_alert_last_sync_time")
-        val AUTO_PASS_ALERT_LAST_SYNC_RESULT = stringPreferencesKey("auto_pass_alert_last_sync_result")
-        val AUTO_PASS_ALERT_LAST_SYNC_MESSAGE = stringPreferencesKey("auto_pass_alert_last_sync_message")
+        val MIN_ALTITUDE = intPreferencesKey(AppSettingsKeys.MIN_ALTITUDE)
+        val MIN_MAGNITUDE = intPreferencesKey(AppSettingsKeys.MIN_MAGNITUDE)
+        val SHOW_EVENTS = booleanPreferencesKey(AppSettingsKeys.SHOW_EVENTS)
+        val SHOW_ORBIT = booleanPreferencesKey(AppSettingsKeys.SHOW_ORBIT)
+        val MAP_TYPE = stringPreferencesKey(AppSettingsKeys.MAP_TYPE)
+        val UNITS = stringPreferencesKey(AppSettingsKeys.UNITS)
+        val THEME = stringPreferencesKey(AppSettingsKeys.THEME)
+        val LEGACY_AD_FREE_EXPIRY = longPreferencesKey("ad_free_expiry")
+        val LIFETIME_AD_REMOVAL = booleanPreferencesKey(AppSettingsKeys.LIFETIME_AD_REMOVAL)
+        val AUTO_PASS_ALERTS_ENABLED =
+            booleanPreferencesKey(AppSettingsKeys.AUTO_PASS_ALERTS_ENABLED)
+        val AUTO_PASS_ALERT_MIN_VISIBILITY =
+            stringPreferencesKey(AppSettingsKeys.AUTO_PASS_ALERT_MIN_VISIBILITY)
+        val AUTO_PASS_ALERT_NOTIFICATION_TIMES =
+            stringSetPreferencesKey(AppSettingsKeys.AUTO_PASS_ALERT_NOTIFICATION_TIMES)
+        val AUTO_PASS_ALERT_LATITUDE =
+            doublePreferencesKey(AppSettingsKeys.AUTO_PASS_ALERT_LATITUDE)
+        val AUTO_PASS_ALERT_LONGITUDE =
+            doublePreferencesKey(AppSettingsKeys.AUTO_PASS_ALERT_LONGITUDE)
+        val AUTO_PASS_ALERT_ALTITUDE =
+            doublePreferencesKey(AppSettingsKeys.AUTO_PASS_ALERT_ALTITUDE)
+        val AUTO_PASS_ALERT_LOCATION_NAME =
+            stringPreferencesKey(AppSettingsKeys.AUTO_PASS_ALERT_LOCATION_NAME)
+        val AUTO_PASS_ALERT_SCHEDULED_IDS =
+            stringSetPreferencesKey(AppSettingsKeys.AUTO_PASS_ALERT_SCHEDULED_IDS)
+        val AUTO_PASS_ALERT_LAST_SYNC_TIME =
+            longPreferencesKey(AppSettingsKeys.AUTO_PASS_ALERT_LAST_SYNC_TIME)
+        val AUTO_PASS_ALERT_LAST_SYNC_RESULT =
+            stringPreferencesKey(AppSettingsKeys.AUTO_PASS_ALERT_LAST_SYNC_RESULT)
+        val AUTO_PASS_ALERT_LAST_SYNC_MESSAGE =
+            stringPreferencesKey(AppSettingsKeys.AUTO_PASS_ALERT_LAST_SYNC_MESSAGE)
     }
 
-    val appSettingsFlow: Flow<AppSettings> = combine(
-        dataStore.data.catch { exception ->
+    init {
+        repositoryScope.launch {
+            dataStore.edit { preferences ->
+                preferences.remove(Keys.LEGACY_AD_FREE_EXPIRY)
+            }
+            dataStore.data
+                .catch { exception ->
+                    if (exception is IOException) emit(emptyPreferences()) else throw exception
+                }
+                .map { preferences -> preferences[Keys.LIFETIME_AD_REMOVAL] ?: false }
+                .distinctUntilChanged()
+                .collect { enabled ->
+                    hasLifetimeAdRemovalCache = enabled
+                    _initialSettingsLoaded.value = true
+                }
+        }
+    }
+
+    val appSettingsFlow: Flow<AppSettings> = dataStore.data
+        .catch { exception ->
             if (exception is IOException) {
                 emit(emptyPreferences())
             } else {
                 throw exception
             }
-        },
-        _adFreeExpiryFlow
-    ) { preferences, adFreeExpiry ->
+        }
+        .map { preferences ->
         val minAltitude = preferences[Keys.MIN_ALTITUDE] ?: defaultAppSettings.minAltitude
         val minMagnitude = preferences[Keys.MIN_MAGNITUDE] ?: defaultAppSettings.minMagnitude
         val showEvents = preferences[Keys.SHOW_EVENTS] ?: defaultAppSettings.showEvents
@@ -115,6 +107,9 @@ class SettingsRepository @Inject constructor(@ApplicationContext context: Contex
         val mapType = preferences[Keys.MAP_TYPE] ?: defaultAppSettings.mapType
         val units = preferences[Keys.UNITS] ?: defaultAppSettings.units
         val theme = preferences[Keys.THEME] ?: defaultAppSettings.theme
+        val hasLifetimeAdRemoval =
+            (preferences[Keys.LIFETIME_AD_REMOVAL] ?: false)
+                .also { hasLifetimeAdRemovalCache = it }
         val automaticPassAlertsEnabled =
             preferences[Keys.AUTO_PASS_ALERTS_ENABLED] ?: defaultAppSettings.automaticPassAlertsEnabled
         val automaticPassAlertMinVisibility =
@@ -139,7 +134,7 @@ class SettingsRepository @Inject constructor(@ApplicationContext context: Contex
             mapType = mapType,
             units = units,
             theme = theme,
-            adFreeExpiry = adFreeExpiry,
+            hasLifetimeAdRemoval = hasLifetimeAdRemoval,
             automaticPassAlertsEnabled = automaticPassAlertsEnabled,
             automaticPassAlertMinVisibility = automaticPassAlertMinVisibility,
             automaticPassAlertNotificationTimes = automaticPassAlertNotificationTimes,
@@ -235,11 +230,24 @@ class SettingsRepository @Inject constructor(@ApplicationContext context: Contex
         }
     }
 
-    fun setAdFreeExpiry(timestamp: Long) {
-        _adFreeExpiryFlow.value = timestamp
+    suspend fun awaitInitialLoad() {
+        _initialSettingsLoaded.first { it }
+    }
+
+    fun setLifetimeAdRemoval(enabled: Boolean) {
+        hasLifetimeAdRemovalCache = enabled
+        repositoryScope.launch {
+            dataStore.edit { preferences ->
+                preferences[Keys.LIFETIME_AD_REMOVAL] = enabled
+            }
+        }
+    }
+
+    fun hasLifetimeAdRemoval(): Boolean {
+        return hasLifetimeAdRemovalCache
     }
 
     fun isAdFreeNow(): Boolean {
-        return System.currentTimeMillis() < _adFreeExpiryFlow.value
+        return hasLifetimeAdRemovalCache
     }
 }

@@ -52,8 +52,6 @@
     <string name="iss_sighting_share_chooser">Поделиться…</string>
     <string name="on">" в "</string>
     <string name="since">"Запущен "</string>
-    <string name="license">Лицензии с открытым исходным кодом</string>
-    <string name="msg_license">Это приложение создано с использованием следующего программного обеспечения:</string>
     <string name="msg_about_library_description">Отслеживайте Международную космическую станцию в реальном времени, смотрите ближайшие видимые пролеты и путь по небу для вашего местоположения, следите за текущим экипажем, смотрите прямые трансляции и включайте оповещения для лучших возможностей наблюдения.</string>
     <string name="desc_about_app">Об этом приложении</string>
     <string name="version">Версии</string>
@@ -71,9 +69,9 @@
     <string name="live_stream">Прямая трансляция</string>
     <string name="stream_offline">Трансляция оффлайн</string>
     <string name="remove_ads">Убрать рекламу</string>
-    <string name="remove_ads_description">Посмотреть короткое видео, чтобы убрать рекламу на текущую сессию?</string>
-    <string name="failed_to_load_ad">Не удалось загрузить рекламу</string>
-    <string name="watch_video">Смотреть видео</string>
+    <string name="remove_ads_lifetime_description">Навсегда удалите всю рекламу за %1$s. Это разовая покупка, а не подписка.</string>
+    <string name="buy_for_price">Купить за %1$s</string>
+    <string name="restore_purchase">Восстановить покупку</string>
     <string name="cancel">Отмена</string>
     <string name="close">Закрыть</string>
     <string name="support_title">Поддержка</string>
@@ -106,11 +104,6 @@
     <string name="nav_about">О приложении</string>
     <string name="rating_prompt_title">Нравится ISS Tracker?</string>
     <string name="rating_prompt_message">Если приложение было полезным, хотите оценить его?</string>
-    <string name="about_feature_live_map">Карта онлайн</string>
-    <string name="about_feature_sky_paths">Пути в небе</string>
-    <string name="about_feature_pass_alerts">Оповещения о пролетах</string>
-    <string name="about_feature_live_streams">Прямые трансляции</string>
-    <string name="about_feature_crew_info">Информация об экипаже</string>
     <string name="version_details_format">Версия %1$s (%2$d)</string>
     <string name="version_details_name_only_format">Версия %1$s</string>
     <string name="iss_marker_title">МКС</string>

@@ -1,0 +1,124 @@
+name: ISSTrackerIOS
+
+options:
+  bundleIdPrefix: com.restart
+  deploymentTarget:
+    iOS: "16.0"
+
+packages:
+  Firebase:
+    url: https://github.com/firebase/firebase-ios-sdk.git
+    from: 12.11.0
+  GoogleMobileAds:
+    url: https://github.com/googleads/swift-package-manager-google-mobile-ads.git
+    from: 13.1.0
+  GoogleUserMessagingPlatform:
+    url: https://github.com/googleads/swift-package-manager-google-user-messaging-platform.git
+    from: 3.1.0
+
+configs:
+  Debug: debug
+  Release: release
+
+settings:
+  base:
+    SWIFT_VERSION: 5.10
+    IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+    TARGETED_DEVICE_FAMILY: "1,2"
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_USER_SCRIPT_SANDBOXING: NO
+
+targets:
+  ISSTrackerIOS:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    configFiles:
+      Debug: Configuration/Debug.xcconfig
+      Release: Configuration/Release.xcconfig
+    info:
+      path: iosApp/Info.plist
+      properties:
+        CFBundleDevelopmentRegion: $(DEVELOPMENT_LANGUAGE)
+        CFBundleExecutable: $(EXECUTABLE_NAME)
+        CFBundleIdentifier: $(PRODUCT_BUNDLE_IDENTIFIER)
+        CFBundleInfoDictionaryVersion: "6.0"
+        CFBundleName: $(PRODUCT_NAME)
+        CFBundlePackageType: APPL
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CADisableMinimumFrameDurationOnPhone: true
+        BGTaskSchedulerPermittedIdentifiers:
+          - com.restart.spacestationtracker.pass-refresh
+        GADApplicationIdentifier: $(ISS_TRACKER_ADMOB_APP_ID)
+        ITSAppUsesNonExemptEncryption: false
+        NSLocationWhenInUseUsageDescription: Your location is used only when you ask to find visible ISS passes near you.
+        NSCalendarsUsageDescription: ISS Tracker uses Calendar only when you choose to add an upcoming ISS pass.
+        NSCalendarsWriteOnlyAccessUsageDescription: ISS Tracker uses Calendar only when you choose to add an upcoming ISS pass.
+        NSUserTrackingUsageDescription: This permission helps support ad measurement when advertising is enabled.
+        ISSTrackerAdsEnabled: $(ISS_TRACKER_ADS_ENABLED)
+        ISSTrackerBannerAdUnitId: $(ISS_TRACKER_BANNER_AD_UNIT_ID)
+        ISSTrackerAppOpenAdUnitId: $(ISS_TRACKER_APP_OPEN_AD_UNIT_ID)
+        ISSTrackerPassesNativeAdUnitId: $(ISS_TRACKER_PASSES_NATIVE_AD_UNIT_ID)
+        ISSTrackerCrewNativeAdUnitId: $(ISS_TRACKER_CREW_NATIVE_AD_UNIT_ID)
+        ISSTrackerAppStoreUrl: $(ISS_TRACKER_APP_STORE_URL)
+        ISSTrackerN2yoApiKey: $(ISS_TRACKER_N2YO_API_KEY)
+        GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_PERSONALIZATION_SIGNALS: false
+        UILaunchScreen: {}
+        UIBackgroundModes:
+          - fetch
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+    sources:
+      - path: iosApp
+        excludes:
+          - Info.plist
+    settings:
+      base:
+        PRODUCT_NAME: ISS Tracker
+        INFOPLIST_FILE: iosApp/Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        OTHER_LDFLAGS:
+          - $(inherited)
+          - -ObjC
+        FRAMEWORK_SEARCH_PATHS:
+          - $(inherited)
+          - $(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)
+        LD_RUNPATH_SEARCH_PATHS:
+          - $(inherited)
+          - "@executable_path/Frameworks"
+      configs:
+        Release:
+          DEVELOPMENT_TEAM: UT45N57AJ6
+          CODE_SIGN_IDENTITY[sdk=iphoneos*]: Apple Distribution
+    dependencies:
+      - framework: $(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)/ISSTrackerShared.framework
+        embed: true
+      - package: Firebase
+        product: FirebaseAnalytics
+      - package: GoogleMobileAds
+        product: GoogleMobileAds
+      - package: GoogleUserMessagingPlatform
+        product: GoogleUserMessagingPlatform
+    preBuildScripts:
+      - name: Build ISSTrackerShared
+        basedOnDependencyAnalysis: false
+        script: |
+          if [ "${ISS_TRACKER_SKIP_SHARED_FRAMEWORK_BUILD:-}" = "1" ]; then
+            echo "Skipping ISSTrackerShared Gradle build; CI prepared the framework."
+            exit 0
+          fi
+          cd "$SRCROOT/.."
+          ./gradlew \
+            :shared:embedAndSignAppleFrameworkForXcode \
+            :shared:syncComposeResourcesForIos
+    scheme:
+      gatherCoverageData: false

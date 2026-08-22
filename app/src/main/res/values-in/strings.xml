@@ -52,8 +52,6 @@
     <string name="iss_sighting_share_chooser">Bagikan…</string>
     <string name="on">" pada "</string>
     <string name="since">"Diluncurkan "</string>
-    <string name="license">Lisensi sumber terbuka</string>
-    <string name="msg_license">Aplikasi ini dibangun menggunakan perangkat lunak berikut:</string>
     <string name="msg_about_library_description">Lacak Stasiun Luar Angkasa Internasional secara real time, lihat lintasan terlihat dan jalur langit mendatang untuk lokasi Anda, ikuti kru saat ini, tonton siaran langsung, dan aktifkan peringatan untuk peluang pengamatan terbaik.</string>
     <string name="desc_about_app">Tentang aplikasi ini</string>
     <string name="version">Versi</string>
@@ -71,9 +69,9 @@
     <string name="live_stream">Siaran Langsung</string>
     <string name="stream_offline">Siaran Offline</string>
     <string name="remove_ads">Hapus Iklan</string>
-    <string name="remove_ads_description">Tonton video pendek untuk menghapus iklan untuk sesi saat ini?</string>
-    <string name="failed_to_load_ad">Gagal memuat iklan</string>
-    <string name="watch_video">Tonton Video</string>
+    <string name="remove_ads_lifetime_description">Hapus semua iklan secara permanen seharga %1$s. Ini pembelian satu kali, bukan langganan.</string>
+    <string name="buy_for_price">Beli seharga %1$s</string>
+    <string name="restore_purchase">Pulihkan Pembelian</string>
     <string name="cancel">Batal</string>
     <string name="close">Tutup</string>
     <string name="support_title">Dukungan</string>
@@ -106,11 +104,6 @@
     <string name="nav_about">Tentang</string>
     <string name="rating_prompt_title">Suka ISS Tracker?</string>
     <string name="rating_prompt_message">Jika app ini berguna, apakah Anda ingin memberi rating?</string>
-    <string name="about_feature_live_map">Peta langsung</string>
-    <string name="about_feature_sky_paths">Jalur langit</string>
-    <string name="about_feature_pass_alerts">Peringatan lintasan</string>
-    <string name="about_feature_live_streams">Siaran langsung</string>
-    <string name="about_feature_crew_info">Info kru</string>
     <string name="version_details_format">Versi %1$s (%2$d)</string>
     <string name="version_details_name_only_format">Versi %1$s</string>
     <string name="iss_marker_title">ISS</string>

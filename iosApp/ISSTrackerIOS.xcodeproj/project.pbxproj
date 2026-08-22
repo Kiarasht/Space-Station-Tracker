@@ -1,0 +1,493 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		291DA3AD2808278D708F3FF3 /* GoogleService-Info-Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E69E8B1E49FBE9BBF6F04E6 /* GoogleService-Info-Debug.plist */; };
+		3AF24B4716BF43EF275D0678 /* ISSTrackerShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E13391BAAC59CFFCA6C7AAA2 /* ISSTrackerShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		48814893FCA314DB183A2DD8 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE64AB4177A2357DB6CFB467 /* RootView.swift */; };
+		6B2F22E7B5312BC5A5995BC3 /* AppAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F95250940DE4A762904CBDB /* AppAnalyticsService.swift */; };
+		7E10728D5A657AA82F2B911A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41BEE4A656AA1FBA6D960332 /* GoogleService-Info.plist */; };
+		7E508BEF012D35137CEE0EB8 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = EFEC752F34F44CE3B0DEC8D3 /* GoogleMobileAds */; };
+		AA527B3F172BCCD592AEC0E5 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 1D2772B984DF271DD7B375ED /* PrivacyInfo.xcprivacy */; };
+		D0717C1F8A7883A28A566401 /* GoogleUserMessagingPlatform in Frameworks */ = {isa = PBXBuildFile; productRef = 2286855AF4A3534EA3E91F93 /* GoogleUserMessagingPlatform */; };
+		D07E8BF06EA5D415F54F3427 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4657DB7A645C484740893CCE /* AppModel.swift */; };
+		E55A960ADCFB53FC56CDF7F2 /* ISSTrackerShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E13391BAAC59CFFCA6C7AAA2 /* ISSTrackerShared.framework */; };
+		EDDBA0649BA241611F8C73A2 /* AdsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B118C1B736EA7F09D8F8 /* AdsService.swift */; };
+		F394239BAB35B80D9B8049D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33167A1A3DDB85815E2CCB7C /* Assets.xcassets */; };
+		F42AB4CC721861DF59CB3161 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2221D67805EDA1BCD2C7CAA8 /* FirebaseAnalytics */; };
+		F81435FB071B44DD4B6355FD /* ISSTrackerIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125165E12BE2003602759594 /* ISSTrackerIOSApp.swift */; };
+		F9A772AE7D03AF77A367B945 /* AdRemovalPurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A306F752B4C977A9EA6A3D /* AdRemovalPurchaseService.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		07CD721397371C71BC3BC12A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3AF24B4716BF43EF275D0678 /* ISSTrackerShared.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0F57D368E3212A253C486B84 /* ISSTrackerIOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ISSTrackerIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		125165E12BE2003602759594 /* ISSTrackerIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSTrackerIOSApp.swift; sourceTree = "<group>"; };
+		1D2772B984DF271DD7B375ED /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		33167A1A3DDB85815E2CCB7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3322285E60C30AFEB3DCE09F /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		41BEE4A656AA1FBA6D960332 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4657DB7A645C484740893CCE /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		4F95250940DE4A762904CBDB /* AppAnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAnalyticsService.swift; sourceTree = "<group>"; };
+		9E69E8B1E49FBE9BBF6F04E6 /* GoogleService-Info-Debug.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info-Debug.plist"; sourceTree = "<group>"; };
+		AE64AB4177A2357DB6CFB467 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		B7A306F752B4C977A9EA6A3D /* AdRemovalPurchaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdRemovalPurchaseService.swift; sourceTree = "<group>"; };
+		DC5F34050A189BF4254173BA /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		E13391BAAC59CFFCA6C7AAA2 /* ISSTrackerShared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ISSTrackerShared.framework; path = "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)/ISSTrackerShared.framework"; sourceTree = "<group>"; };
+		EDD3B118C1B736EA7F09D8F8 /* AdsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsService.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		83557A9EAFFEB392F8B46E81 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E55A960ADCFB53FC56CDF7F2 /* ISSTrackerShared.framework in Frameworks */,
+				F42AB4CC721861DF59CB3161 /* FirebaseAnalytics in Frameworks */,
+				7E508BEF012D35137CEE0EB8 /* GoogleMobileAds in Frameworks */,
+				D0717C1F8A7883A28A566401 /* GoogleUserMessagingPlatform in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1BF6B254E510FFA803E520BF = {
+			isa = PBXGroup;
+			children = (
+				A354B805D12A4C791231C37F /* Configuration */,
+				7E0B4B86B8058A049BD40597 /* iosApp */,
+				D985CAC9D9C0148F1CC4FF7B /* Frameworks */,
+				58274F5DBF9D8EDBB3E3B67E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		58274F5DBF9D8EDBB3E3B67E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0F57D368E3212A253C486B84 /* ISSTrackerIOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7E0B4B86B8058A049BD40597 /* iosApp */ = {
+			isa = PBXGroup;
+			children = (
+				B7A306F752B4C977A9EA6A3D /* AdRemovalPurchaseService.swift */,
+				EDD3B118C1B736EA7F09D8F8 /* AdsService.swift */,
+				4F95250940DE4A762904CBDB /* AppAnalyticsService.swift */,
+				4657DB7A645C484740893CCE /* AppModel.swift */,
+				33167A1A3DDB85815E2CCB7C /* Assets.xcassets */,
+				9E69E8B1E49FBE9BBF6F04E6 /* GoogleService-Info-Debug.plist */,
+				41BEE4A656AA1FBA6D960332 /* GoogleService-Info.plist */,
+				125165E12BE2003602759594 /* ISSTrackerIOSApp.swift */,
+				1D2772B984DF271DD7B375ED /* PrivacyInfo.xcprivacy */,
+				AE64AB4177A2357DB6CFB467 /* RootView.swift */,
+			);
+			path = iosApp;
+			sourceTree = "<group>";
+		};
+		A354B805D12A4C791231C37F /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				DC5F34050A189BF4254173BA /* Debug.xcconfig */,
+				3322285E60C30AFEB3DCE09F /* Release.xcconfig */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		D985CAC9D9C0148F1CC4FF7B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E13391BAAC59CFFCA6C7AAA2 /* ISSTrackerShared.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A5FED7FDEE003DF7B7954F02 /* ISSTrackerIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83942520ACE1CB073481B1A5 /* Build configuration list for PBXNativeTarget "ISSTrackerIOS" */;
+			buildPhases = (
+				DE08BE13C5923F08BA8B0780 /* Build ISSTrackerShared */,
+				8A5F8951055578A36110583B /* Sources */,
+				4285BE547AAC8B755184F029 /* Resources */,
+				83557A9EAFFEB392F8B46E81 /* Frameworks */,
+				07CD721397371C71BC3BC12A /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ISSTrackerIOS;
+			packageProductDependencies = (
+				2221D67805EDA1BCD2C7CAA8 /* FirebaseAnalytics */,
+				EFEC752F34F44CE3B0DEC8D3 /* GoogleMobileAds */,
+				2286855AF4A3534EA3E91F93 /* GoogleUserMessagingPlatform */,
+			);
+			productName = ISSTrackerIOS;
+			productReference = 0F57D368E3212A253C486B84 /* ISSTrackerIOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A97A3A24976DB48E1DF77EDC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					A5FED7FDEE003DF7B7954F02 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 1C50D2A7685C613C9434BCEE /* Build configuration list for PBXProject "ISSTrackerIOS" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 1BF6B254E510FFA803E520BF;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				35FF0F4AF86951718866D947 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				EA8EB6B961CF5086BE8B9685 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+				2D1F0F86518827C6B085A597 /* XCRemoteSwiftPackageReference "swift-package-manager-google-user-messaging-platform" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 58274F5DBF9D8EDBB3E3B67E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A5FED7FDEE003DF7B7954F02 /* ISSTrackerIOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4285BE547AAC8B755184F029 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F394239BAB35B80D9B8049D7 /* Assets.xcassets in Resources */,
+				291DA3AD2808278D708F3FF3 /* GoogleService-Info-Debug.plist in Resources */,
+				7E10728D5A657AA82F2B911A /* GoogleService-Info.plist in Resources */,
+				AA527B3F172BCCD592AEC0E5 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DE08BE13C5923F08BA8B0780 /* Build ISSTrackerShared */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Build ISSTrackerShared";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${ISS_TRACKER_SKIP_SHARED_FRAMEWORK_BUILD:-}\" = \"1\" ]; then\n  echo \"Skipping ISSTrackerShared Gradle build; CI prepared the framework.\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew \\\n  :shared:embedAndSignAppleFrameworkForXcode \\\n  :shared:syncComposeResourcesForIos\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8A5F8951055578A36110583B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F9A772AE7D03AF77A367B945 /* AdRemovalPurchaseService.swift in Sources */,
+				EDDBA0649BA241611F8C73A2 /* AdsService.swift in Sources */,
+				6B2F22E7B5312BC5A5995BC3 /* AppAnalyticsService.swift in Sources */,
+				D07E8BF06EA5D415F54F3427 /* AppModel.swift in Sources */,
+				F81435FB071B44DD4B6355FD /* ISSTrackerIOSApp.swift in Sources */,
+				48814893FCA314DB183A2DD8 /* RootView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0827BC99D84F74167BC47817 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3322285E60C30AFEB3DCE09F /* Release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
+				DEVELOPMENT_TEAM = UT45N57AJ6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+					"\"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)\"",
+				);
+				INFOPLIST_FILE = iosApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_NAME = "ISS Tracker";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		47BF4ABED8AEC34B980470C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.1;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5A4F60645224D617B0A1B1CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.1;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F57AE4773DA04796702C48E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC5F34050A189BF4254173BA /* Debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+					"\"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)\"",
+				);
+				INFOPLIST_FILE = iosApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_NAME = "ISS Tracker";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1C50D2A7685C613C9434BCEE /* Build configuration list for PBXProject "ISSTrackerIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A4F60645224D617B0A1B1CB /* Debug */,
+				47BF4ABED8AEC34B980470C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		83942520ACE1CB073481B1A5 /* Build configuration list for PBXNativeTarget "ISSTrackerIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F57AE4773DA04796702C48E2 /* Debug */,
+				0827BC99D84F74167BC47817 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2D1F0F86518827C6B085A597 /* XCRemoteSwiftPackageReference "swift-package-manager-google-user-messaging-platform" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-user-messaging-platform.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.0;
+			};
+		};
+		35FF0F4AF86951718866D947 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.11.0;
+			};
+		};
+		EA8EB6B961CF5086BE8B9685 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2221D67805EDA1BCD2C7CAA8 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35FF0F4AF86951718866D947 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		2286855AF4A3534EA3E91F93 /* GoogleUserMessagingPlatform */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D1F0F86518827C6B085A597 /* XCRemoteSwiftPackageReference "swift-package-manager-google-user-messaging-platform" */;
+			productName = GoogleUserMessagingPlatform;
+		};
+		EFEC752F34F44CE3B0DEC8D3 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA8EB6B961CF5086BE8B9685 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = A97A3A24976DB48E1DF77EDC /* Project object */;
+}

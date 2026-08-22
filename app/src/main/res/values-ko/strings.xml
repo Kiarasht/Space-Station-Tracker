@@ -52,8 +52,6 @@
     <string name="iss_sighting_share_chooser">공유…</string>
     <string name="on">" 날짜 "</string>
     <string name="since">"발사 "</string>
-    <string name="license">오픈 소스 라이선스</string>
-    <string name="msg_license">이 애플리케이션은 다음 소프트웨어를 사용하여 제작되었습니다:</string>
     <string name="msg_about_library_description">국제우주정거장을 실시간으로 추적하고, 현재 위치에서 볼 수 있는 다음 통과와 하늘 경로를 확인하며, 현재 승무원과 라이브 스트림을 보고 최고의 관측 기회를 위한 알림을 켤 수 있습니다.</string>
     <string name="desc_about_app">이 앱에 대하여</string>
     <string name="version">버전</string>
@@ -71,9 +69,9 @@
     <string name="live_stream">라이브 스트림</string>
     <string name="stream_offline">스트림 오프라인</string>
     <string name="remove_ads">광고 제거</string>
-    <string name="remove_ads_description">짧은 동영상을 보고 현재 세션 동안 광고를 제거하시겠습니까?</string>
-    <string name="failed_to_load_ad">광고 로드 실패</string>
-    <string name="watch_video">동영상 보기</string>
+    <string name="remove_ads_lifetime_description">%1$s에 모든 광고를 영구적으로 제거합니다. 구독이 아닌 일회성 구매입니다.</string>
+    <string name="buy_for_price">%1$s에 구매</string>
+    <string name="restore_purchase">구매 복원</string>
     <string name="cancel">취소</string>
     <string name="close">닫기</string>
     <string name="support_title">지원</string>
@@ -106,11 +104,6 @@
     <string name="nav_about">정보</string>
     <string name="rating_prompt_title">ISS Tracker가 마음에 드시나요?</string>
     <string name="rating_prompt_message">앱이 유용했다면 평가해 주시겠어요?</string>
-    <string name="about_feature_live_map">실시간 지도</string>
-    <string name="about_feature_sky_paths">하늘 경로</string>
-    <string name="about_feature_pass_alerts">통과 알림</string>
-    <string name="about_feature_live_streams">라이브 스트림</string>
-    <string name="about_feature_crew_info">승무원 정보</string>
     <string name="version_details_format">버전 %1$s (%2$d)</string>
     <string name="version_details_name_only_format">버전 %1$s</string>
     <string name="iss_marker_title">ISS</string>

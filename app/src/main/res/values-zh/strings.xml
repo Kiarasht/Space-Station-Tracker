@@ -52,8 +52,6 @@
     <string name="iss_sighting_share_chooser">分享…</string>
     <string name="on">" 于 "</string>
     <string name="since">"发射于 "</string>
-    <string name="license">开源许可证</string>
-    <string name="msg_license">此应用程序是使用以下软件构建的：</string>
     <string name="msg_about_library_description">实时跟踪国际空间站，查看你所在位置即将出现的可见过境和天空轨迹，关注当前机组人员，观看直播，并为最佳观测机会启用提醒。</string>
     <string name="desc_about_app">关于此应用</string>
     <string name="version">版本</string>
@@ -71,9 +69,9 @@
     <string name="live_stream">直播流</string>
     <string name="stream_offline">直播离线</string>
     <string name="remove_ads">移除广告</string>
-    <string name="remove_ads_description">观看短视频以移除当前会话的广告？</string>
-    <string name="failed_to_load_ad">加载广告失败</string>
-    <string name="watch_video">观看视频</string>
+    <string name="remove_ads_lifetime_description">只需 %1$s 即可永久移除所有广告。这是一次性购买，并非订阅。</string>
+    <string name="buy_for_price">以 %1$s 购买</string>
+    <string name="restore_purchase">恢复购买</string>
     <string name="cancel">取消</string>
     <string name="close">关闭</string>
     <string name="support_title">支持</string>
@@ -106,11 +104,6 @@
     <string name="nav_about">关于</string>
     <string name="rating_prompt_title">喜欢 ISS Tracker 吗？</string>
     <string name="rating_prompt_message">如果这个应用对你有帮助，愿意给它评分吗？</string>
-    <string name="about_feature_live_map">实时地图</string>
-    <string name="about_feature_sky_paths">天空轨迹</string>
-    <string name="about_feature_pass_alerts">过境提醒</string>
-    <string name="about_feature_live_streams">直播</string>
-    <string name="about_feature_crew_info">机组信息</string>
     <string name="version_details_format">版本 %1$s（%2$d）</string>
     <string name="version_details_name_only_format">版本 %1$s</string>
     <string name="iss_marker_title">国际空间站</string>

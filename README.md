@@ -1,19 +1,59 @@
-Space Station Tracker
-===================
+# ISS Tracker
 
-## Introduction
-An Android application that keeps track of the International Space Station and notifies you if it's determined to pass by your location in the future (~hour). Given a clear sky, you should be able to see the station without any types of equipment. So keep an eye for it. :)
+ISS Tracker follows the International Space Station in real time, finds visible passes, schedules pass alerts, shows the current crew, and links to NASA live streams.
 
-Not counting minor features and helper classes, the app is mostly present through these four activities and their respective java files.
+## Project status
 
-| [MapsActivity](https://github.com/Kiarasht/Space-Station-Tracker/blob/master/app/src/main/java/com/restart/spacestationtracker/MapsActivity.java) | [Locations](https://github.com/Kiarasht/Space-Station-Tracker/blob/master/app/src/main/java/com/restart/spacestationtracker/Locations.java) | [PeopleinSpace](https://github.com/Kiarasht/Space-Station-Tracker/blob/master/app/src/main/java/com/restart/spacestationtracker/PeopleinSpace.java) | [Preferences](https://github.com/Kiarasht/Space-Station-Tracker/blob/master/app/src/main/java/com/restart/spacestationtracker/Preferences.java) |
-|---------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| <img src="5.png" width="200"/>                                                                                                                    | <img src="4.png" width="200"/>                                                                                                              | <img src="3.png" width="200"/>                                                                                                                      | <img src="2.png" width="200"/>                                                                                                                  |
+Version `7.08` completes the main Kotlin Multiplatform product migration.
 
-This project has come a long way for me. Here is how it was back on [Mar 28, 2016](https://github.com/Kiarasht/Space-Station-Tracker/tree/d7b6d48a4ebcdae9383a428d30a880a652ff3480) and [Apr 2, 2016](https://github.com/Kiarasht/Space-Station-Tracker/tree/05b99d5d8c8298230356caa6153452f77452059d).
+- `app`: Android navigation and platform integrations around shared Compose screens
+- `shared`: KMP networking, models, policies, presentation state, resources, theme, and Compose UI
+- `iosApp`: SwiftUI platform host backed by the same `ISSTrackerShared` product UI
+- `version.properties`: single version name and build number source for Gradle and Xcode
 
-<p align="center">
-<a href="https://play.google.com/store/apps/details?id=com.restart.spacestationtracker"><img src="https://raw.githubusercontent.com/evgenyneu/aes-crypto-android/master/Graphics/github/google_play_badge.png" height="70" width="200"></a>
-</p>
+Android retains its existing DataStore and SharedPreferences file/key contracts so upgrades preserve settings, alerts, review state, and app-open counts. Legacy rewarded ad-free timers are removed during upgrade. The lifetime ad-removal purchase is restored from Google Play or the App Store. iOS uses `NSUserDefaults` with matching shared settings models.
 
+## Build
 
+Compile/package checks used by CI:
+
+```sh
+./gradlew :app:assembleDebug :shared:compileKotlinIosSimulatorArm64
+```
+
+Generate the iOS project after editing `iosApp/project.yml`:
+
+```sh
+cd iosApp
+xcodegen generate --spec project.yml
+```
+
+Build the iOS simulator app:
+
+```sh
+xcodebuild \
+  -project iosApp/ISSTrackerIOS.xcodeproj \
+  -scheme ISSTrackerIOS \
+  -configuration Debug \
+  -sdk iphonesimulator \
+  -destination 'generic/platform=iOS Simulator' \
+  CODE_SIGNING_ALLOWED=NO \
+  build
+```
+
+## Versioning
+
+Update only `version.properties`:
+
+```properties
+APP_VERSION_NAME=7.08
+APP_VERSION_CODE=52
+```
+
+Android reads it during Gradle configuration. Both Xcode configurations include the same file directly.
+
+See [docs/kmp-migration.md](docs/kmp-migration.md) for the phased migration plan and [docs/privacy-release-checklist.md](docs/privacy-release-checklist.md) for required store and consent checks.
+
+Android closed-testing publishing is documented in [docs/android-play-publishing.md](docs/android-play-publishing.md).
+
+iOS signing, production configuration, and archiving are documented in [docs/ios-release-setup.md](docs/ios-release-setup.md).

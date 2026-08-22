@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.restart.spacestationtracker.pass-refresh</string>
+	</array>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>GADApplicationIdentifier</key>
+	<string>$(ISS_TRACKER_ADMOB_APP_ID)</string>
+	<key>GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_PERSONALIZATION_SIGNALS</key>
+	<false/>
+	<key>ISSTrackerAdsEnabled</key>
+	<string>$(ISS_TRACKER_ADS_ENABLED)</string>
+	<key>ISSTrackerAppOpenAdUnitId</key>
+	<string>$(ISS_TRACKER_APP_OPEN_AD_UNIT_ID)</string>
+	<key>ISSTrackerAppStoreUrl</key>
+	<string>$(ISS_TRACKER_APP_STORE_URL)</string>
+	<key>ISSTrackerBannerAdUnitId</key>
+	<string>$(ISS_TRACKER_BANNER_AD_UNIT_ID)</string>
+	<key>ISSTrackerCrewNativeAdUnitId</key>
+	<string>$(ISS_TRACKER_CREW_NATIVE_AD_UNIT_ID)</string>
+	<key>ISSTrackerN2yoApiKey</key>
+	<string>$(ISS_TRACKER_N2YO_API_KEY)</string>
+	<key>ISSTrackerPassesNativeAdUnitId</key>
+	<string>$(ISS_TRACKER_PASSES_NATIVE_AD_UNIT_ID)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>NSCalendarsUsageDescription</key>
+	<string>ISS Tracker uses Calendar only when you choose to add an upcoming ISS pass.</string>
+	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
+	<string>ISS Tracker uses Calendar only when you choose to add an upcoming ISS pass.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your location is used only when you ask to find visible ISS passes near you.</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>This permission helps support ad measurement when advertising is enabled.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+	</array>
+	<key>UILaunchScreen</key>
+	<dict/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+</dict>
+</plist>

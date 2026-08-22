@@ -3,14 +3,18 @@ package com.restart.spacestationtracker.ui.ads
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
-import com.restart.spacestationtracker.R
+import com.restart.spacestationtracker.BuildConfig
 import com.restart.spacestationtracker.data.settings.SettingsRepository
+import com.restart.spacestationtracker.shared.preferences.AndroidPreferenceStore
+import com.restart.spacestationtracker.shared.policy.AppOpenRepository
+import com.restart.spacestationtracker.shared.policy.MonetizationPolicy
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -25,12 +29,14 @@ class AppOpenAdManager @Inject constructor(
     private var isAppInForeground = false
     private var isLoadingAd = false
     private var isShowingAd = false
-    private var loadTimeMillis = 0L
+    private var loadTimeElapsedRealtime = 0L
     private var pendingForegroundOpen = false
     private var pendingShowForCurrentForeground = false
     private var isRegistered = false
+    private var areAdsReady = false
     private var suppressNextResumeAfterAd = false
     private var shownForCurrentForeground = false
+    private var handledCurrentForeground = false
     private var startedActivityCount = 0
 
     fun register(application: Application) {
@@ -43,10 +49,13 @@ class AppOpenAdManager @Inject constructor(
 
     fun onAdsReady(activity: Activity) {
         currentActivity = activity
-        isAppInForeground = true
-        Log.d(TAG, "Ads ready for current activity.")
-        if (!shownForCurrentForeground && !pendingShowForCurrentForeground) {
+        areAdsReady = true
+        if (BuildConfig.DEBUG) Log.d(TAG, "Ads ready for current activity.")
+        if (startedActivityCount > 0) {
+            isAppInForeground = true
             onAppForegrounded(activity)
+        } else {
+            loadAdIfNeeded(activity.application)
         }
     }
 
@@ -60,6 +69,7 @@ class AppOpenAdManager @Inject constructor(
             pendingForegroundOpen = true
             pendingShowForCurrentForeground = false
             shownForCurrentForeground = false
+            handledCurrentForeground = false
         }
         startedActivityCount++
         currentActivity = activity
@@ -106,28 +116,39 @@ class AppOpenAdManager @Inject constructor(
     }
 
     private fun onAppForegrounded(activity: Activity) {
-        if (settingsRepository.isAdFreeNow()) {
-            Log.d(TAG, "Skipping app open ad because current session is ad-free.")
+        if (handledCurrentForeground) {
             return
         }
-        if (!adsConsentManager.canRequestAds.value) {
-            Log.d(TAG, "Skipping app open ad because consent does not allow ad requests yet.")
+        if (settingsRepository.isAdFreeNow()) {
+            handledCurrentForeground = true
+            if (BuildConfig.DEBUG) {
+                Log.d(TAG, "Skipping app open ad because current session is ad-free.")
+            }
+            return
+        }
+        if (!areAdsReady || !adsConsentManager.canRequestAds.value) {
+            if (BuildConfig.DEBUG) {
+                Log.d(TAG, "Skipping app open ad because consent does not allow ad requests yet.")
+            }
             return
         }
 
+        handledCurrentForeground = true
         val foregroundOpenCount = incrementForegroundOpenCount(activity.application)
-        if (foregroundOpenCount >= FOREGROUND_OPENS_BEFORE_SHOWING) {
+        if (foregroundOpenCount >= MonetizationPolicy.APP_OPEN_START_THRESHOLD) {
             pendingShowForCurrentForeground = true
-            loadAndShowAd(activity)
+            showAdIfAvailable(activity)
+        } else {
+            loadAdIfNeeded(activity.application)
         }
     }
 
-    private fun loadAndShowAd(activity: Activity) {
-        val application = activity.application
+    private fun loadAdIfNeeded(application: Application) {
         if (
             isLoadingAd ||
             isShowingAd ||
-            shownForCurrentForeground ||
+            isAdAvailable() ||
+            !areAdsReady ||
             settingsRepository.isAdFreeNow() ||
             !adsConsentManager.canRequestAds.value
         ) {
@@ -138,26 +159,26 @@ class AppOpenAdManager @Inject constructor(
         isLoadingAd = true
         AppOpenAd.load(
             application,
-            application.getString(R.string.app_open_ad_unit_id),
+            AdMobIds.appOpen(application),
             AdRequest.Builder().build(),
             object : AppOpenAd.AppOpenAdLoadCallback() {
                 override fun onAdLoaded(ad: AppOpenAd) {
                     appOpenAd = ad
-                    loadTimeMillis = System.currentTimeMillis()
+                    loadTimeElapsedRealtime = SystemClock.elapsedRealtime()
                     isLoadingAd = false
-                    Log.d(TAG, "App open ad loaded.")
-                    if (
-                        currentActivity == activity &&
-                        isAppInForeground &&
-                        pendingShowForCurrentForeground
-                    ) {
+                    if (BuildConfig.DEBUG) Log.d(TAG, "App open ad loaded.")
+                    val activity = currentActivity
+                    if (activity != null && isAppInForeground && pendingShowForCurrentForeground) {
                         showAdIfAvailable(activity)
                     }
                 }
 
                 override fun onAdFailedToLoad(adError: LoadAdError) {
+                    appOpenAd = null
                     isLoadingAd = false
-                    Log.d(TAG, "App open ad failed to load: ${adError.message}")
+                    if (BuildConfig.DEBUG) {
+                        Log.d(TAG, "App open ad failed to load: ${adError.message}")
+                    }
                 }
             }
         )
@@ -167,6 +188,9 @@ class AppOpenAdManager @Inject constructor(
         if (
             isShowingAd ||
             shownForCurrentForeground ||
+            !isAppInForeground ||
+            activity.isFinishing ||
+            activity.isDestroyed ||
             settingsRepository.isAdFreeNow() ||
             !adsConsentManager.canRequestAds.value
         ) {
@@ -176,50 +200,54 @@ class AppOpenAdManager @Inject constructor(
         val ad = appOpenAd.takeIf { isAdAvailable() }
         if (ad == null) {
             appOpenAd = null
-            Log.d(TAG, "App open ad was not ready to show.")
+            if (BuildConfig.DEBUG) Log.d(TAG, "App open ad was not ready to show.")
+            loadAdIfNeeded(activity.application)
             return
         }
 
+        pendingShowForCurrentForeground = false
         ad.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
                 appOpenAd = null
                 isShowingAd = false
                 suppressNextResumeAfterAd = true
+                loadAdIfNeeded(activity.application)
             }
 
             override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                 appOpenAd = null
                 isShowingAd = false
-                Log.d(TAG, "App open ad failed to show: ${adError.message}")
+                if (BuildConfig.DEBUG) {
+                    Log.d(TAG, "App open ad failed to show: ${adError.message}")
+                }
+                loadAdIfNeeded(activity.application)
             }
 
             override fun onAdShowedFullScreenContent() {
+                appOpenAd = null
                 isShowingAd = true
-                pendingShowForCurrentForeground = false
                 shownForCurrentForeground = true
-                Log.d(TAG, "App open ad showed.")
+                if (BuildConfig.DEBUG) Log.d(TAG, "App open ad showed.")
             }
         }
         ad.show(activity)
     }
 
     private fun isAdAvailable(): Boolean {
+        val ageMillis = SystemClock.elapsedRealtime() - loadTimeElapsedRealtime
         return appOpenAd != null &&
-            System.currentTimeMillis() - loadTimeMillis < APP_OPEN_AD_MAX_AGE_MILLIS
+            ageMillis < MonetizationPolicy.APP_OPEN_EXPIRATION_MILLIS
     }
 
     private fun incrementForegroundOpenCount(application: Application): Int {
-        val preferences = application.getSharedPreferences(PREFS_NAME, Application.MODE_PRIVATE)
-        val foregroundOpenCount = preferences.getInt(KEY_FOREGROUND_OPEN_COUNT, 0) + 1
-        preferences.edit().putInt(KEY_FOREGROUND_OPEN_COUNT, foregroundOpenCount).apply()
-        Log.d(TAG, "Foreground open count: $foregroundOpenCount")
+        val foregroundOpenCount = AppOpenRepository(
+            AndroidPreferenceStore(
+                context = application,
+                name = AppOpenRepository.PREFS_NAME
+            )
+        ).recordAppOpen()
+        if (BuildConfig.DEBUG) Log.d(TAG, "Foreground open count: $foregroundOpenCount")
         return foregroundOpenCount
-    }
-
-    private fun getForegroundOpenCount(application: Application): Int {
-        return application
-            .getSharedPreferences(PREFS_NAME, Application.MODE_PRIVATE)
-            .getInt(KEY_FOREGROUND_OPEN_COUNT, 0)
     }
 
     private fun Activity.isAdMobActivity(): Boolean {
@@ -228,10 +256,6 @@ class AppOpenAdManager @Inject constructor(
 
     private companion object {
         const val ADMOB_ACTIVITY_CLASS_NAME = "com.google.android.gms.ads.AdActivity"
-        const val APP_OPEN_AD_MAX_AGE_MILLIS = 4L * 60 * 60 * 1000
-        const val FOREGROUND_OPENS_BEFORE_SHOWING = 5
-        const val KEY_FOREGROUND_OPEN_COUNT = "foreground_open_count"
-        const val PREFS_NAME = "app_open_ads"
         const val TAG = "AppOpenAdManager"
     }
 }

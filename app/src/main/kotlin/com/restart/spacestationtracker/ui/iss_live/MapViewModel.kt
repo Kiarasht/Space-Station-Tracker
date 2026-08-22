@@ -3,7 +3,6 @@ package com.restart.spacestationtracker.ui.iss_live
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.maps.android.compose.MapType
 import com.restart.spacestationtracker.R
 import com.restart.spacestationtracker.data.settings.SettingsRepository
 import com.restart.spacestationtracker.domain.iss_live.use_case.GetFutureIssLocationsUseCase
@@ -44,26 +43,12 @@ class MapViewModel @Inject constructor(
     private fun observeSettings() {
         settingsRepository.appSettingsFlow
             .onEach { settings ->
-                val isAdFree = System.currentTimeMillis() < settings.adFreeExpiry
-                val shouldResetOrbitPath = settings.showOrbit != _uiState.value.showOrbit
-                if (shouldResetOrbitPath) {
-                    futureTimeOffset = 0
-                    lineCount = 0
-                }
+                val isAdFree = settings.hasLifetimeAdRemoval
                 _uiState.value = _uiState.value.copy(
-                    mapType = when (settings.mapType) {
-                        "Satellite" -> MapType.SATELLITE
-                        "Hybrid" -> MapType.HYBRID
-                        "Terrain" -> MapType.TERRAIN
-                        else -> MapType.NORMAL
-                    },
+                    mapType = settings.mapType,
+                    units = settings.units,
                     isAdFree = isAdFree,
-                    showOrbit = settings.showOrbit,
-                    futureIssLocations = if (shouldResetOrbitPath) {
-                        emptyList()
-                    } else {
-                        _uiState.value.futureIssLocations
-                    }
+                    showOrbit = settings.showOrbit
                 )
             }.launchIn(viewModelScope)
     }
@@ -78,7 +63,8 @@ class MapViewModel @Inject constructor(
                 // Fetch current location always.
                 // Fetch future locations only for the first ~2 hours (15 batches * 9 mins = 135 mins)
                 // to prevent infinite line growth.
-                val shouldFetchFuture = _uiState.value.showOrbit && lineCount < 15
+                val shouldFetchFuture = lineCount < 15 &&
+                    (_uiState.value.showOrbit || _uiState.value.futureIssLocations.isNotEmpty())
                 val success = fetchIssLocations(fetchFuture = shouldFetchFuture)
                 if (success && shouldFetchFuture) {
                     ++lineCount
@@ -129,14 +115,6 @@ class MapViewModel @Inject constructor(
             _uiState.value = _uiState.value.copy(liveStreams = streams)
         }
     }
-
-    fun grantAdFreeAccess() {
-        // 6 hours = 6 * 60 * 60 * 1000 milliseconds
-        val durationInMillis = 6L * 60 * 60 * 1000
-        val expiryTime = System.currentTimeMillis() + durationInMillis
-        settingsRepository.setAdFreeExpiry(expiryTime)
-    }
-
 
     override fun onCleared() {
         super.onCleared()

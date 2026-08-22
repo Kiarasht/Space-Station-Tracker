@@ -3,113 +3,85 @@ package com.restart.spacestationtracker.util
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
-import androidx.core.content.edit
+import androidx.core.net.toUri
 import com.restart.spacestationtracker.BuildConfig
-import java.util.concurrent.TimeUnit
+import com.restart.spacestationtracker.shared.policy.AppReviewRepository
+import com.restart.spacestationtracker.shared.preferences.AndroidPreferenceStore
 
-class AppRatingManager(private val context: Context) {
+class AppRatingManager(
+    private val context: Context
+) {
+    private val repository = AppReviewRepository(
+        AndroidPreferenceStore(
+            context = context.applicationContext,
+            name = AppReviewRepository.PREFS_NAME
+        )
+    )
 
-    private val preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-
-    fun recordAppLaunch() {
-        val now = System.currentTimeMillis()
-        preferences.edit {
-            if (!preferences.contains(KEY_FIRST_LAUNCH_TIME)) {
-                putLong(KEY_FIRST_LAUNCH_TIME, now)
-            }
-            putInt(KEY_LAUNCH_COUNT, preferences.getInt(KEY_LAUNCH_COUNT, 0) + 1)
-        }
+    fun recordAppLaunch(nowMillis: Long = System.currentTimeMillis()) {
+        repository.recordAppOpened(nowMillis)
     }
 
-    fun recordScreenVisit(route: String?) {
+    fun recordScreenVisit(route: String?, nowMillis: Long = System.currentTimeMillis()) {
         if (route == null || route.startsWith("legal")) return
-
-        preferences.edit {
-            putInt(KEY_SCREEN_VISIT_COUNT, preferences.getInt(KEY_SCREEN_VISIT_COUNT, 0) + 1)
-        }
+        repository.recordMeaningfulInteraction(nowMillis)
     }
 
-    fun shouldShowPrompt(): Boolean {
-        if (preferences.getBoolean(KEY_HAS_RATED, false)) return false
-
-        val now = System.currentTimeMillis()
-        val firstLaunchTime = preferences.getLong(KEY_FIRST_LAUNCH_TIME, now)
-        val snoozedUntil = preferences.getLong(KEY_SNOOZED_UNTIL, 0L)
-        val launchCount = preferences.getInt(KEY_LAUNCH_COUNT, 0)
-        val screenVisitCount = preferences.getInt(KEY_SCREEN_VISIT_COUNT, 0)
-
-        return now >= snoozedUntil &&
-            now - firstLaunchTime >= MIN_USAGE_AGE_MILLIS &&
-            launchCount >= MIN_LAUNCH_COUNT &&
-            screenVisitCount >= MIN_SCREEN_VISITS
+    fun shouldShowPrompt(nowMillis: Long = System.currentTimeMillis()): Boolean {
+        return repository.isEligibleForReviewPrompt(nowMillis)
     }
 
-    fun snoozePrompt() {
-        preferences.edit {
-            putLong(KEY_SNOOZED_UNTIL, System.currentTimeMillis() + SNOOZE_DURATION_MILLIS)
-        }
+    fun snoozePrompt(
+        durationMillis: Long = AppReviewRepository.USER_DISMISS_DELAY_MILLIS,
+        nowMillis: Long = System.currentTimeMillis()
+    ) {
+        repository.snoozeReviewPrompt(durationMillis, nowMillis)
+    }
+
+    fun markReviewFlowCompleted(nowMillis: Long = System.currentTimeMillis()) {
+        repository.markReviewFlowCompleted(nowMillis)
     }
 
     fun markRatedAndOpenStore() {
-        preferences.edit {
-            putBoolean(KEY_HAS_RATED, true)
-        }
-        openStoreListing()
-    }
-
-    private fun openStoreListing() {
+        markReviewFlowCompleted()
         val installerPackageName = getInstallerPackageName()
-        val intent = when (installerPackageName) {
-            GALAXY_STORE_PACKAGE -> Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("samsungapps://ProductDetail/${BuildConfig.APPLICATION_ID}")
-            )
-            else -> Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}")
-            )
-        }.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        val uri = if (installerPackageName == GALAXY_STORE_PACKAGE) {
+            "samsungapps://ProductDetail/${BuildConfig.APPLICATION_ID}".toUri()
+        } else {
+            "market://details?id=${BuildConfig.APPLICATION_ID}".toUri()
+        }
 
         try {
-            context.startActivity(intent)
+            context.startActivity(
+                Intent(Intent.ACTION_VIEW, uri).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            )
         } catch (_: ActivityNotFoundException) {
             context.startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}")
+                    "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}".toUri()
                 ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             )
         }
     }
 
     private fun getInstallerPackageName(): String? {
-        return try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            runCatching {
                 context.packageManager
                     .getInstallSourceInfo(BuildConfig.APPLICATION_ID)
                     .installingPackageName
-            } else {
-                @Suppress("DEPRECATION")
+            }.getOrNull()
+        } else {
+            @Suppress("DEPRECATION")
+            runCatching {
                 context.packageManager.getInstallerPackageName(BuildConfig.APPLICATION_ID)
-            }
-        } catch (_: RuntimeException) {
-            null
+            }.getOrNull()
         }
     }
 
     private companion object {
         const val GALAXY_STORE_PACKAGE = "com.sec.android.app.samsungapps"
-        const val KEY_FIRST_LAUNCH_TIME = "first_launch_time"
-        const val KEY_HAS_RATED = "has_rated"
-        const val KEY_LAUNCH_COUNT = "launch_count"
-        const val KEY_SCREEN_VISIT_COUNT = "screen_visit_count"
-        const val KEY_SNOOZED_UNTIL = "snoozed_until"
-        const val MIN_LAUNCH_COUNT = 5
-        const val MIN_SCREEN_VISITS = 15
-        const val PREFS_NAME = "app_rating"
-        val MIN_USAGE_AGE_MILLIS: Long = TimeUnit.DAYS.toMillis(3)
-        val SNOOZE_DURATION_MILLIS: Long = TimeUnit.DAYS.toMillis(14)
     }
 }

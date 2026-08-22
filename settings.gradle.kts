@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Space Station Tracker"
 include(":app")
+include(":shared")

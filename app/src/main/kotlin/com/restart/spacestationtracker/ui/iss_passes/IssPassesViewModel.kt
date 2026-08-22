@@ -15,6 +15,7 @@ import com.restart.spacestationtracker.data.settings.SettingsRepository
 import com.restart.spacestationtracker.domain.iss_passes.model.IssPass
 import com.restart.spacestationtracker.domain.iss_passes.use_case.GetIssPassesUseCase
 import com.restart.spacestationtracker.domain.iss_passes.use_case.UserLocation
+import com.restart.spacestationtracker.ui.ads.AdMobIds
 import com.restart.spacestationtracker.ui.ads.AdsConsentManager
 import com.restart.spacestationtracker.util.ForegroundLocationProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -86,7 +87,7 @@ class IssPassesViewModel @Inject constructor(
     private fun observeAdFreeStatus() {
         viewModelScope.launch {
             settingsRepository.appSettingsFlow
-                .map { System.currentTimeMillis() < it.adFreeExpiry }
+                .map { it.hasLifetimeAdRemoval }
                 .combine(adsConsentManager.canRequestAds) { isAdFree, canRequestAds ->
                     isAdFree to canRequestAds
                 }
@@ -110,7 +111,7 @@ class IssPassesViewModel @Inject constructor(
                     val address = getAddressFromLocation(geocoder, location)
 
                     val locationName =
-                        address?.let { "${it.locality}, ${it.adminArea}" }
+                        address?.toDisplayName()
                             ?: application.getString(R.string.current_location)
                     val userLocation = UserLocation(
                         location.latitude,
@@ -124,7 +125,7 @@ class IssPassesViewModel @Inject constructor(
                     getIssPassesUseCase(userLocation).onSuccess { passes ->
                         rawPasses = passes
                         val settings = settingsRepository.appSettingsFlow.first()
-                        val isAdFree = System.currentTimeMillis() < settings.adFreeExpiry
+                        val isAdFree = settings.hasLifetimeAdRemoval
                         buildFeed(passes, isAdFree, adsConsentManager.canRequestAds.value)
                     }.onFailure {
                         _uiState.value =
@@ -196,9 +197,25 @@ class IssPassesViewModel @Inject constructor(
         }
     }
 
+    private fun Address.toDisplayName(): String? {
+        val nearbyPlace = sequenceOf(locality, subLocality, subAdminArea, featureName)
+            .mapNotNull { it?.trim()?.takeIf(String::isNotEmpty) }
+            .firstOrNull()
+        val region = sequenceOf(adminArea, countryName)
+            .mapNotNull { it?.trim()?.takeIf(String::isNotEmpty) }
+            .firstOrNull()
+
+        return when {
+            nearbyPlace != null && region != null &&
+                !nearbyPlace.equals(region, ignoreCase = true) -> "$nearbyPlace, $region"
+            nearbyPlace != null -> nearbyPlace
+            else -> region
+        }
+    }
+
 
     private suspend fun loadNativeAd(): NativeAd? {
-        val adUnitId = application.getString(R.string.locations_native_ad_unit_id)
+        val adUnitId = AdMobIds.nativeForPasses(application)
         return suspendCoroutine { continuation ->
             val adLoader = AdLoader.Builder(application, adUnitId)
                 .forNativeAd { nativeAd ->

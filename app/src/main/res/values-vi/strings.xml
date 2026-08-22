@@ -52,8 +52,6 @@
     <string name="iss_sighting_share_chooser">Chia sẻ…</string>
     <string name="on">" vào ngày "</string>
     <string name="since">"Đã phóng "</string>
-    <string name="license">Giấy phép nguồn mở</string>
-    <string name="msg_license">Ứng dụng này được xây dựng bằng phần mềm sau:</string>
     <string name="msg_about_library_description">Theo dõi Trạm Vũ trụ Quốc tế theo thời gian thực, xem các lần bay qua nhìn thấy được và đường đi trên bầu trời cho vị trí của bạn, theo dõi phi hành đoàn hiện tại, xem phát trực tiếp và bật cảnh báo cho những cơ hội quan sát tốt nhất.</string>
     <string name="desc_about_app">Giới thiệu về ứng dụng này</string>
     <string name="version">Phiên bản</string>
@@ -71,9 +69,9 @@
     <string name="live_stream">Luồng trực tiếp</string>
     <string name="stream_offline">Luồng ngoại tuyến</string>
     <string name="remove_ads">Xóa quảng cáo</string>
-    <string name="remove_ads_description">Xem video ngắn để xóa quảng cáo cho phiên hiện tại?</string>
-    <string name="failed_to_load_ad">Không tải được quảng cáo</string>
-    <string name="watch_video">Xem video</string>
+    <string name="remove_ads_lifetime_description">Xóa vĩnh viễn tất cả quảng cáo với giá %1$s. Đây là giao dịch mua một lần, không phải gói đăng ký.</string>
+    <string name="buy_for_price">Mua với giá %1$s</string>
+    <string name="restore_purchase">Khôi phục giao dịch mua</string>
     <string name="cancel">Hủy</string>
     <string name="close">Đóng</string>
     <string name="support_title">Hỗ trợ</string>
@@ -106,11 +104,6 @@
     <string name="nav_about">Giới thiệu</string>
     <string name="rating_prompt_title">Bạn thích ISS Tracker chứ?</string>
     <string name="rating_prompt_message">Nếu ứng dụng hữu ích, bạn có muốn đánh giá ứng dụng không?</string>
-    <string name="about_feature_live_map">Bản đồ trực tiếp</string>
-    <string name="about_feature_sky_paths">Đường bầu trời</string>
-    <string name="about_feature_pass_alerts">Cảnh báo bay qua</string>
-    <string name="about_feature_live_streams">Phát trực tiếp</string>
-    <string name="about_feature_crew_info">Thông tin phi hành đoàn</string>
     <string name="version_details_format">Phiên bản %1$s (%2$d)</string>
     <string name="version_details_name_only_format">Phiên bản %1$s</string>
     <string name="iss_marker_title">ISS</string>

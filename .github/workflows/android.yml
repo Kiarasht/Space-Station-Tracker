@@ -1,14 +1,13 @@
-name: Android CI
+name: Android PR
 
 on:
-  push:
-    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+  workflow_dispatch:
 
 jobs:
-  generate-release-apk:
-    name: Release APK
+  build-debug-app:
+    name: Build debug app
     timeout-minutes: 20
     runs-on: macos-15
 
@@ -23,24 +22,18 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      - name: Decode Keystore and Create Properties
-        run: |
-          echo "${{ secrets.SIGNING_KEY }}" | base64 --decode > ${{ github.workspace }}/release.keystore
-          echo "storeFile=${{ github.workspace }}/release.keystore" > ${{ github.workspace }}/keystore.properties
-          echo "storePassword=${{ secrets.KEY_STORE_PASSWORD }}" >> ${{ github.workspace }}/keystore.properties
-          echo "keyAlias=${{ secrets.ALIAS }}" >> ${{ github.workspace }}/keystore.properties
-          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> ${{ github.workspace }}/keystore.properties
-          echo "YOUTUBE_API_KEY=${{ secrets.YOUTUBE_API_KEY }}" > ${{ github.workspace }}/local.properties
-          echo "MAPS_API_KEY=${{ secrets.MAPS_API_KEY }}" >> ${{ github.workspace }}/local.properties
-
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build and Sign with Gradle
-        run: ./gradlew assembleRelease
+      - name: Load app version
+        run: bash tools/ci/load-app-version.sh
 
-      - name: Upload APK
+      - name: Build Android debug APK
+        run: ./gradlew :app:assembleDebug --console=plain
+
+      - name: Upload debug APK
         uses: actions/upload-artifact@v7
         with:
-          name: app-release-signed
-          path: app/build/outputs/apk/release/app-release.apk
+          name: iss-tracker-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error

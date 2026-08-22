@@ -1,12 +1,32 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.io.FileInputStream
 import java.util.Properties
 
+val localProperties = Properties().apply {
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use(::load)
+    }
+}
+
+fun propertyOrEnv(name: String): String? {
+    return localProperties.getProperty(name)?.takeIf { it.isNotBlank() }
+        ?: System.getenv(name)?.takeIf { it.isNotBlank() }
+}
+
+fun String.toBuildConfigString(): String {
+    return "\"" + replace("\\", "\\\\").replace("\"", "\\\"") + "\""
+}
+
+val n2yoApiKey = propertyOrEnv("N2YO_API_KEY").orEmpty()
+val mapsApiKey = propertyOrEnv("MAPS_API_KEY").orEmpty()
+val youtubeApiKey = propertyOrEnv("YOUTUBE_API_KEY").orEmpty()
+
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
-    id("com.google.gms.google-services")
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
@@ -14,32 +34,51 @@ android {
     namespace = "com.restart.spacestationtracker"
     compileSdk = 36
 
-    val localProperties = Properties()
-    val localPropertiesFile = rootProject.file("local.properties")
-    if (localPropertiesFile.exists()) {
-        localProperties.load(FileInputStream(localPropertiesFile))
+    val versionProperties = Properties()
+    val versionPropertiesFile = rootProject.file("version.properties")
+    if (versionPropertiesFile.exists()) {
+        versionProperties.load(FileInputStream(versionPropertiesFile))
     }
 
     defaultConfig {
         applicationId = "com.restart.spacestationtracker"
         minSdk = 24
         targetSdk = 36
-        versionCode = 50
-        versionName = "7.05"
+        versionCode = System.getenv("ANDROID_VERSION_CODE")?.toIntOrNull()
+            ?: versionProperties.getProperty("APP_VERSION_CODE")?.toIntOrNull()
+            ?: 1
+        versionName = System.getenv("ANDROID_VERSION_NAME")?.takeIf { it.isNotBlank() }
+            ?: versionProperties.getProperty("APP_VERSION_NAME")?.takeIf { it.isNotBlank() }
+            ?: "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
 
-        val youtubeApiKey = localProperties.getProperty("YOUTUBE_API_KEY") ?: ""
-        buildConfigField("String", "YOUTUBE_API_KEY", "\"$youtubeApiKey\"")
+        buildConfigField("String", "YOUTUBE_API_KEY", youtubeApiKey.toBuildConfigString())
+        buildConfigField("String", "N2YO_API_KEY", n2yoApiKey.toBuildConfigString())
 
         val youtubeLiveStreamsUrl = localProperties.getProperty("YOUTUBE_LIVE_STREAMS_URL")
             ?: "https://raw.githubusercontent.com/Kiarasht/Space-Station-Tracker/live-stream-cache/docs/nasa-live-streams.json"
-        buildConfigField("String", "YOUTUBE_LIVE_STREAMS_URL", "\"$youtubeLiveStreamsUrl\"")
+        buildConfigField(
+            "String",
+            "YOUTUBE_LIVE_STREAMS_URL",
+            youtubeLiveStreamsUrl.toBuildConfigString()
+        )
 
-        val mapsApiKey = localProperties.getProperty("MAPS_API_KEY") ?: ""
         resValue("string", "google_maps_key", mapsApiKey)
+
+        val useAdMobTestAds = localProperties.getProperty("USE_ADMOB_TEST_ADS")
+            ?.trim()
+            ?.uppercase()
+            ?.let { value -> value == "1" || value == "YES" || value == "TRUE" }
+            ?: false
+        buildConfigField("boolean", "USE_ADMOB_TEST_ADS", useAdMobTestAds.toString())
+
+        val umpDebugGeography = localProperties.getProperty("UMP_DEBUG_GEOGRAPHY") ?: ""
+        val umpDebugDeviceIds = localProperties.getProperty("UMP_DEBUG_DEVICE_IDS") ?: ""
+        buildConfigField("String", "UMP_DEBUG_GEOGRAPHY", umpDebugGeography.toBuildConfigString())
+        buildConfigField("String", "UMP_DEBUG_DEVICE_IDS", umpDebugDeviceIds.toBuildConfigString())
     }
 
     val keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -84,9 +123,7 @@ android {
     buildFeatures {
         buildConfig = true
         compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "2.2.0"
+        resValues = true
     }
     packaging {
         resources {
@@ -95,11 +132,31 @@ android {
     }
 }
 
+gradle.taskGraph.whenReady {
+    val includesAndroidReleaseBuild = allTasks.any { task ->
+        task.project == project && task.name.contains("Release", ignoreCase = true)
+    }
+    if (includesAndroidReleaseBuild && n2yoApiKey.isBlank()) {
+        throw org.gradle.api.GradleException(
+            "N2YO_API_KEY must be set in local.properties or the environment for release builds."
+        )
+    }
+    if (includesAndroidReleaseBuild && mapsApiKey.isBlank()) {
+        throw org.gradle.api.GradleException(
+            "MAPS_API_KEY must be set in local.properties or the environment for release builds."
+        )
+    }
+}
+
 kotlin {
-    jvmToolchain(17)
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
 }
 
 dependencies {
+    implementation(project(":shared"))
+
     // Core & Compose
     implementation("androidx.core:core-ktx:1.18.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.10.0")
@@ -121,30 +178,20 @@ dependencies {
     ksp("com.google.dagger:hilt-compiler:2.59.2")
     implementation("androidx.hilt:hilt-navigation-compose:1.3.0")
 
-    // Networking (Retrofit)
-    implementation("com.squareup.retrofit2:retrofit:3.0.0")
-    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
-    implementation("com.github.bumptech.glide:glide:5.0.7")
-    ksp("com.github.bumptech.glide:ksp:5.0.7")
-
-    // Image Loading (Coil)
-    implementation("io.coil-kt:coil-compose:2.7.0")
-
     // Maps
-    implementation("com.google.maps.android:maps-compose:8.3.0")
-    implementation("com.google.android.gms:play-services-maps:20.0.0")
     implementation("com.google.android.gms:play-services-location:21.3.0")
 
-    // Firebase, Ads & User Messaging Platform
-    implementation(platform("com.google.firebase:firebase-bom:34.12.0"))
+    // Ads & User Messaging Platform
+    implementation(platform("com.google.firebase:firebase-bom:34.16.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.android.gms:play-services-ads:25.2.0")
     implementation("com.google.android.ump:user-messaging-platform:4.0.0")
 
     // Settings
-    implementation("androidx.preference:preference:1.2.1")
     implementation("androidx.datastore:datastore-preferences:1.2.1")
     implementation("androidx.work:work-runtime-ktx:2.11.0")
+    implementation("com.google.android.play:review:2.0.2")
+    implementation("com.android.billingclient:billing:9.1.0")
 
     // Testing
     testImplementation("junit:junit:4.13.2")

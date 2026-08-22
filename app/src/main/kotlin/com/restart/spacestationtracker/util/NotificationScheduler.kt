@@ -4,8 +4,9 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import com.restart.spacestationtracker.domain.iss_passes.model.IssPass
-import java.util.concurrent.TimeUnit
+import com.restart.spacestationtracker.shared.passes.PassAlertPolicy
 
 class NotificationScheduler(private val context: Context) {
 
@@ -14,24 +15,31 @@ class NotificationScheduler(private val context: Context) {
     fun scheduleAutomaticNotifications(pass: IssPass, notificationTimes: Set<String>): Set<String> {
         val scheduledIds = mutableSetOf<String>()
         notificationTimes.forEach { time ->
-            val triggerTime = calculateTriggerTime(pass.startTime.time, time)
-            if (triggerTime <= System.currentTimeMillis()) {
-                return@forEach
-            }
+            val reminder = PassAlertPolicy.remindersFor(
+                startTimeMillis = pass.startTimeMillis,
+                notificationTimes = listOf(time),
+                nowMillis = System.currentTimeMillis()
+            ).firstOrNull() ?: return@forEach
 
             val scheduleId = getScheduleId(pass, time, AUTOMATIC_PREFIX)
             val pendingIntent = buildPendingIntent(pass, scheduleId)
-            alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent)
+            scheduleAlarm(reminder.triggerTimeMillis, pendingIntent)
             scheduledIds.add(scheduleId)
         }
         return scheduledIds
     }
 
     fun scheduleNotifications(pass: IssPass, notificationTimes: List<String>) {
-        notificationTimes.forEach { time ->
-            val triggerTime = calculateTriggerTime(pass.startTime.time, time)
-            val pendingIntent = buildPendingIntent(pass, getScheduleId(pass, time, MANUAL_PREFIX))
-            alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent)
+        PassAlertPolicy.remindersFor(
+            startTimeMillis = pass.startTimeMillis,
+            notificationTimes = notificationTimes,
+            nowMillis = System.currentTimeMillis()
+        ).forEach { reminder ->
+            val pendingIntent = buildPendingIntent(
+                pass,
+                getScheduleId(pass, reminder.notificationTime, MANUAL_PREFIX)
+            )
+            scheduleAlarm(reminder.triggerTimeMillis, pendingIntent)
         }
     }
 
@@ -52,7 +60,7 @@ class NotificationScheduler(private val context: Context) {
 
     private fun buildPendingIntent(pass: IssPass, scheduleId: String): PendingIntent {
         val intent = Intent(context, NotificationReceiver::class.java).apply {
-            putExtra(NotificationReceiver.EXTRA_PASS_START_TIME, pass.startTime.time)
+            putExtra(NotificationReceiver.EXTRA_PASS_START_TIME, pass.startTimeMillis)
             putExtra(NotificationReceiver.EXTRA_PASS_DURATION, pass.durationInSeconds)
             putExtra(NotificationReceiver.EXTRA_PASS_MAGNITUDE, pass.magnitude)
         }
@@ -64,20 +72,32 @@ class NotificationScheduler(private val context: Context) {
         )
     }
 
-    private fun calculateTriggerTime(startTime: Long, notificationTime: String): Long {
-        return when (notificationTime) {
-            "At time of event" -> startTime
-            "10 minutes before" -> startTime - TimeUnit.MINUTES.toMillis(10)
-            "1 hour before" -> startTime - TimeUnit.HOURS.toMillis(1)
-            "12 hours before" -> startTime - TimeUnit.HOURS.toMillis(12)
-            "1 day before" -> startTime - TimeUnit.DAYS.toMillis(1)
-            "1 week before" -> startTime - TimeUnit.DAYS.toMillis(7)
-            else -> startTime
+    private fun scheduleAlarm(triggerTimeMillis: Long, pendingIntent: PendingIntent) {
+        val canScheduleExactly = Build.VERSION.SDK_INT < Build.VERSION_CODES.S ||
+            alarmManager.canScheduleExactAlarms()
+
+        if (canScheduleExactly) {
+            try {
+                alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    triggerTimeMillis,
+                    pendingIntent
+                )
+                return
+            } catch (_: SecurityException) {
+                // Permission can be revoked between the capability check and scheduling.
+            }
         }
+
+        alarmManager.setAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            triggerTimeMillis,
+            pendingIntent
+        )
     }
 
     private fun getScheduleId(pass: IssPass, notificationTime: String, prefix: String): String {
-        return "$prefix:${pass.startTime.time}:$notificationTime"
+        return "$prefix:${pass.startTimeMillis}:$notificationTime"
     }
 
     private companion object {
