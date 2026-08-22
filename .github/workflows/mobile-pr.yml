@@ -32,6 +32,27 @@ jobs:
           distribution: temurin
           cache: gradle
 
+      - name: Select Xcode 26
+        shell: bash
+        run: |
+          set -euo pipefail
+          for xcode_app in /Applications/Xcode_26*.app /Applications/Xcode-26*.app /Applications/Xcode.app; do
+            [ -d "$xcode_app" ] || continue
+            developer_dir="$xcode_app/Contents/Developer"
+            xcode_version_output="$(DEVELOPER_DIR="$developer_dir" xcodebuild -version 2>&1 || true)"
+            if printf '%s\n' "$xcode_version_output" | grep -q '^Xcode 26'; then
+              export DEVELOPER_DIR="$developer_dir"
+              echo "DEVELOPER_DIR=$developer_dir" >> "$GITHUB_ENV"
+              printf '%s\n' "$xcode_version_output"
+              printf 'iOS SDK %s\n' "$(xcrun --sdk iphoneos --show-sdk-version)"
+              exit 0
+            fi
+          done
+
+          echo "Xcode 26 with the iOS 26 SDK is required but was not found."
+          ls -1 /Applications/Xcode*.app || true
+          exit 1
+
       - name: Install XcodeGen
         run: brew install xcodegen
 
