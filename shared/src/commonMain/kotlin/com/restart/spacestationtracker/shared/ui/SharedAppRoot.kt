@@ -591,7 +591,8 @@ fun SharedIssMapScreen(
                                 showStreamPicker = true
                             }
                         },
-                    color = MaterialTheme.colorScheme.errorContainer,
+                    color = SpaceLiveStreamRed,
+                    contentColor = SpaceOnLiveStreamRed,
                     tonalElevation = 4.dp
                 ) {
                     Row(

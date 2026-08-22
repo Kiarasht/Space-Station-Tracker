@@ -27,6 +27,8 @@ val SpaceBackgroundLight = Color(0xFFF0F2F5)
 val SpaceSurfaceLight = Color(0xFFFFFFFF)
 val SpaceTextDark = Color(0xFF1C1C1E)
 val SpacePrimaryBlue = Color(0xFF005792)
+val SpaceLiveStreamRed = Color(0xFF8C1D18)
+val SpaceOnLiveStreamRed = Color(0xFFF9DEDC)
 
 val SpaceDarkColorScheme = darkColorScheme(
     primary = SpaceAccentYellow,
