@@ -739,7 +739,6 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
     private var renderedKey = ""
     private var hasSetInitialRegion = false
     private var footprintOverlay: MKCircle?
-    private var nightOverlay: MKCircle?
     private lazy var timeMarkerImages: [Int: UIImage] = Dictionary(
         uniqueKeysWithValues: stride(from: 30, through: 120, by: 30).map {
             ($0, Self.makeTimeMarkerImage(minuteOffset: $0))
@@ -775,20 +774,8 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
         mapView.removeAnnotations(mapView.annotations)
         mapView.removeOverlays(mapView.overlays)
         footprintOverlay = nil
-        nightOverlay = nil
 
         if let current {
-            let nightCenter = CLLocationCoordinate2D(
-                latitude: -current.solarLatitude,
-                longitude: Self.normalizedLongitude(current.solarLongitude + 180)
-            )
-            let night = MKCircle(
-                center: nightCenter,
-                radius: Self.earthQuarterCircumferenceMeters
-            )
-            nightOverlay = night
-            mapView.addOverlay(night, level: .aboveRoads)
-
             let footprint = MKCircle(
                 center: CLLocationCoordinate2D(
                     latitude: current.latitude,
@@ -957,10 +944,7 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
     ) -> MKOverlayRenderer {
         if let circle = overlay as? MKCircle {
             let renderer = MKCircleRenderer(circle: circle)
-            if let night = nightOverlay, circle === night {
-                renderer.fillColor = UIColor(red: 0, green: 0, blue: 32.0 / 255.0, alpha: 0.30)
-                renderer.strokeColor = .clear
-            } else if let footprint = footprintOverlay, circle === footprint {
+            if let footprint = footprintOverlay, circle === footprint {
                 renderer.fillColor = UIColor(
                     red: 63.0 / 255.0,
                     green: 140.0 / 255.0,
@@ -1112,14 +1096,13 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
         ])
     }
 
-    private static let earthQuarterCircumferenceMeters = 10_007_557.0
     private static let initialMapSpanMeters = 8_000_000.0
 }
 
 private var appVersionName: String {
-    Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "7.08"
+    Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "7.09"
 }
 
 private var appVersionCode: String {
-    Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "52"
+    Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "53"
 }

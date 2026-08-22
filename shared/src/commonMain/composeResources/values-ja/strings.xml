@@ -26,6 +26,15 @@
     <string name="sky_path_location_needed_message">空の経路では、近くで見える ISS の通過を探すために現在地が必要です。</string>
     <string name="use_my_location">現在地を使用</string>
     <string name="current_location">現在地</string>
+    <string name="info">情報</string>
+    <string name="got_it">了解</string>
+    <string name="sky_path_info_intro">この図は、あなたの視点から見た ISS の空の通過を示します:</string>
+    <string name="sky_path_info_horizon">直線は地平線です</string>
+    <string name="sky_path_info_arc">弧は空を表します</string>
+    <string name="sky_path_info_iss_icon">ISS アイコンはステーションが到達する最高点を示します</string>
+    <string name="sky_path_info_overhead">アイコンが弧の一番上にある場合、ISS はほぼ真上を通過します。</string>
+    <string name="sky_path_info_lower">アイコンが弧の低い位置で地平線に近い場合、ISS は空の低い位置に見え、通過中あまり高く上がりません。</string>
+    <string name="sky_path_info_labels">NW や SE などのラベルは、通過の開始方向と終了方向を示します</string>
     <string name="schedule_notification">通知を予約</string>
     <string name="add_to_calendar">カレンダーに追加</string>
     <string name="share">共有</string>

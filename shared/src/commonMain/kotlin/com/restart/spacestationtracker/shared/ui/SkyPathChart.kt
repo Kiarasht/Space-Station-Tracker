@@ -8,10 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.FontWeight
@@ -59,20 +57,6 @@ internal fun SkyPathChart(
         val radius = min(size.width * 0.43f, baselineY * 0.86f)
         val center = Offset(size.width / 2f, baselineY)
         val stroke = 2.dp.toPx()
-
-        listOf(
-            Offset(size.width * 0.12f, size.height * 0.16f),
-            Offset(size.width * 0.28f, size.height * 0.32f),
-            Offset(size.width * 0.72f, size.height * 0.14f),
-            Offset(size.width * 0.88f, size.height * 0.38f),
-            Offset(size.width * 0.58f, size.height * 0.24f)
-        ).forEachIndexed { index, star ->
-            drawCircle(
-                color = if (index % 2 == 0) accent.copy(alpha = 0.28f) else muted.copy(alpha = 0.22f),
-                radius = if (index % 2 == 0) 1.8.dp.toPx() else 1.2.dp.toPx(),
-                center = star
-            )
-        }
 
         drawLine(
             color = muted.copy(alpha = 0.65f),
@@ -122,35 +106,6 @@ internal fun SkyPathChart(
         val youText = textMeasurer.measure(youLabel, youStyle)
         drawText(youText, topLeft = Offset(center.x - youText.size.width / 2f, personY - 33.dp.toPx()))
 
-        rotate(degrees = -12f, pivot = satellite) {
-            val bodyWidth = 13.dp.toPx()
-            val bodyHeight = 9.dp.toPx()
-            drawRoundRect(
-                color = accent,
-                topLeft = Offset(satellite.x - bodyWidth / 2f, satellite.y - bodyHeight / 2f),
-                size = Size(bodyWidth, bodyHeight),
-                cornerRadius = androidx.compose.ui.geometry.CornerRadius(2.dp.toPx())
-            )
-            val panelWidth = 14.dp.toPx()
-            val panelHeight = 7.dp.toPx()
-            drawRect(
-                color = Color(0xFF4B7BBE),
-                topLeft = Offset(satellite.x - bodyWidth / 2f - panelWidth - 2.dp.toPx(), satellite.y - panelHeight / 2f),
-                size = Size(panelWidth, panelHeight),
-                style = Stroke(width = 1.5.dp.toPx())
-            )
-            drawRect(
-                color = Color(0xFF4B7BBE),
-                topLeft = Offset(satellite.x + bodyWidth / 2f + 2.dp.toPx(), satellite.y - panelHeight / 2f),
-                size = Size(panelWidth, panelHeight),
-                style = Stroke(width = 1.5.dp.toPx())
-            )
-            drawLine(
-                color = accent,
-                start = Offset(satellite.x, satellite.y - bodyHeight / 2f),
-                end = Offset(satellite.x, satellite.y - bodyHeight),
-                strokeWidth = 1.5.dp.toPx()
-            )
-        }
+        drawIssSatellite(center = satellite, bodyColor = accent)
     }
 }

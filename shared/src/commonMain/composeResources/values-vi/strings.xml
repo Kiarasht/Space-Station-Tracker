@@ -26,6 +26,15 @@
     <string name="sky_path_location_needed_message">Đường bầu trời cần vị trí hiện tại của bạn để tìm các lần ISS bay qua có thể nhìn thấy gần bạn.</string>
     <string name="use_my_location">Sử dụng vị trí của tôi</string>
     <string name="current_location">Vị trí hiện tại</string>
+    <string name="info">Thông tin</string>
+    <string name="got_it">Đã hiểu</string>
+    <string name="sky_path_info_intro">Biểu đồ hiển thị đường ISS đi qua bầu trời theo góc nhìn của bạn:</string>
+    <string name="sky_path_info_horizon">Đường thẳng là đường chân trời</string>
+    <string name="sky_path_info_arc">Cung tròn đại diện cho bầu trời</string>
+    <string name="sky_path_info_iss_icon">Biểu tượng ISS cho biết điểm cao nhất mà trạm sẽ đạt tới</string>
+    <string name="sky_path_info_overhead">Nếu biểu tượng ở đỉnh cung, ISS sẽ bay gần như ngay trên đầu bạn.</string>
+    <string name="sky_path_info_lower">Nếu biểu tượng nằm thấp hơn trên cung, gần đường chân trời, ISS sẽ xuất hiện thấp hơn trên bầu trời và không lên quá cao trong lần bay qua.</string>
+    <string name="sky_path_info_labels">Các nhãn như NW và SE cho biết hướng bắt đầu và kết thúc của lần bay qua</string>
     <string name="schedule_notification">Lên lịch thông báo</string>
     <string name="add_to_calendar">Thêm vào lịch</string>
     <string name="share">Chia sẻ</string>

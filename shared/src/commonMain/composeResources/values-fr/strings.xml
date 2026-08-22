@@ -26,6 +26,15 @@
     <string name="sky_path_location_needed_message">Trajet ciel a besoin de votre position actuelle pour trouver les passages visibles de l’ISS près de vous.</string>
     <string name="use_my_location">Utiliser ma position</string>
     <string name="current_location">Position actuelle</string>
+    <string name="info">Info</string>
+    <string name="got_it">Compris</string>
+    <string name="sky_path_info_intro">Le graphique visualise le passage de l’ISS dans le ciel depuis votre point de vue :</string>
+    <string name="sky_path_info_horizon">La ligne droite représente l’horizon</string>
+    <string name="sky_path_info_arc">L’arc représente le ciel</string>
+    <string name="sky_path_info_iss_icon">L’icône ISS indique le point le plus haut que la station atteindra</string>
+    <string name="sky_path_info_overhead">Si l’icône est tout en haut de l’arc, l’ISS passera presque directement au-dessus de vous.</string>
+    <string name="sky_path_info_lower">Si l’icône est plus basse sur l’arc, près de l’horizon, l’ISS apparaîtra plus basse dans le ciel et montera moins haut pendant son passage.</string>
+    <string name="sky_path_info_labels">Les libellés, comme NW et SE, indiquent les directions de début et de fin du passage</string>
     <string name="schedule_notification">Programmer une notification</string>
     <string name="add_to_calendar">Ajouter au calendrier</string>
     <string name="share">Partager</string>

@@ -16,7 +16,7 @@ import platform.UIKit.UIView
 import platform.UIKit.UIViewController
 
 class IosComposeAppBridge(
-    private val versionText: String = "Version 7.08 (52)"
+    private val versionText: String = "Version 7.09 (53)"
 ) {
     private val controller = SharedAppController(
         settingsRepository = SharedSettingsRepository(

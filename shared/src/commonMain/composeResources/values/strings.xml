@@ -37,6 +37,15 @@
     <string name="refresh">Refresh</string>
     <string name="use_my_location">Use my location</string>
     <string name="current_location">Current location</string>
+    <string name="info">Info</string>
+    <string name="got_it">Got it</string>
+    <string name="sky_path_info_intro">The chart visualizes the ISS pass across the sky from your perspective:</string>
+    <string name="sky_path_info_horizon">The straight line is the horizon</string>
+    <string name="sky_path_info_arc">The arc represents the sky</string>
+    <string name="sky_path_info_iss_icon">The ISS icon shows the highest point the station will reach</string>
+    <string name="sky_path_info_overhead">If the icon is at the very top of the arc, it means the ISS will pass almost directly overhead.</string>
+    <string name="sky_path_info_lower">If the icon is lower on the arc, closer to the horizon line, it means the ISS will appear lower in the sky and will not climb as high during its pass.</string>
+    <string name="sky_path_info_labels">The labels, such as NW and SE, show the start and end directions of the pass</string>
     <string name="schedule_notification">Schedule notification</string>
     <string name="add_to_calendar">Add to calendar</string>
     <string name="share">Share</string>

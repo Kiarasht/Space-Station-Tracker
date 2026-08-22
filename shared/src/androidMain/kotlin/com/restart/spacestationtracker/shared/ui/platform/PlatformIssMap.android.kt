@@ -94,17 +94,6 @@ actual fun PlatformIssMap(
         }
         currentLocation?.let {
             Circle(
-                center = LatLng(
-                    -it.solarLat,
-                    normalizeLongitude(it.solarLon + 180.0)
-                ),
-                radius = EARTH_QUARTER_CIRCUMFERENCE_METERS,
-                fillColor = Color(0x4D000020),
-                strokeColor = Color.Transparent,
-                strokeWidth = 0f,
-                zIndex = -2f
-            )
-            Circle(
                 center = LatLng(it.latitude, it.longitude),
                 radius = it.footprint * 500.0,
                 fillColor = Color(0x263F8CFF),
@@ -338,5 +327,3 @@ private fun bearingDegrees(from: IssMapPoint, to: IssMapPoint): Float {
 
 private fun normalizeLongitude(longitude: Double): Double =
     ((longitude + 540.0) % 360.0) - 180.0
-
-private const val EARTH_QUARTER_CIRCUMFERENCE_METERS = 10_007_557.0

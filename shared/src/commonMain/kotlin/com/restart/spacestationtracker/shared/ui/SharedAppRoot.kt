@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -297,7 +299,7 @@ fun SharedAppRoot(
                             slotId = slotId,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(320.dp)
+                                .height(360.dp)
                         )
                     }
                 )
@@ -422,6 +424,7 @@ fun SharedRemoveAdsButton(
     } else {
         Row(
             modifier = Modifier
+                .fillMaxWidth()
                 .clip(RoundedCornerShape(8.dp))
                 .background(Color.Black.copy(alpha = 0.65f))
                 .clickable {
@@ -429,7 +432,7 @@ fun SharedRemoveAdsButton(
                     showDialog = true
                 }
                 .padding(horizontal = 14.dp, vertical = 9.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
@@ -570,6 +573,7 @@ fun SharedIssMapScreen(
         Column(
             modifier = Modifier
                 .align(Alignment.TopEnd)
+                .width(IntrinsicSize.Max)
                 .padding(16.dp),
             horizontalAlignment = Alignment.End,
             verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -578,6 +582,7 @@ fun SharedIssMapScreen(
             if (liveStreams.isNotEmpty()) {
                 Surface(
                     modifier = Modifier
+                        .fillMaxWidth()
                         .clip(RoundedCornerShape(10.dp))
                         .clickable {
                             if (liveStreams.size == 1) {
@@ -590,9 +595,14 @@ fun SharedIssMapScreen(
                     tonalElevation = 4.dp
                 ) {
                     Row(
-                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 9.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 12.dp, vertical = 9.dp),
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        horizontalArrangement = Arrangement.spacedBy(
+                            8.dp,
+                            Alignment.CenterHorizontally
+                        )
                     ) {
                         Icon(Icons.Default.Videocam, contentDescription = null)
                         Text(stringResource(Res.string.live_stream), fontWeight = FontWeight.Bold)
@@ -691,8 +701,13 @@ private fun SharedPassesScreen(
     onAction: (String, String?) -> Unit
 ) {
     var passForNotification by remember { mutableStateOf<IssPass?>(null) }
+    var showInfoDialog by remember { mutableStateOf(false) }
     var selectedNotificationTimes by remember {
         mutableStateOf(setOf(PassAlertPolicy.TEN_MINUTES_BEFORE))
+    }
+
+    if (showInfoDialog) {
+        SharedSkyPathInfoDialog(onDismiss = { showInfoDialog = false })
     }
 
     passForNotification?.let { pass ->
@@ -798,11 +813,20 @@ private fun SharedPassesScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             item {
-                Text(
-                    state.passLocationName,
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold
-                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        state.passLocationName,
+                        modifier = Modifier.weight(1f),
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold
+                    )
+                    IconButton(onClick = { showInfoDialog = true }) {
+                        Icon(
+                            imageVector = Icons.Default.Info,
+                            contentDescription = stringResource(Res.string.info)
+                        )
+                    }
+                }
             }
             state.passes.forEachIndexed { index, pass ->
                 item(key = pass.startTimeMillis) {
@@ -836,7 +860,7 @@ private fun SharedPassesScreen(
                             slotId = slotId,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(320.dp)
+                                .height(360.dp)
                         )
                     }
                 }
@@ -844,6 +868,36 @@ private fun SharedPassesScreen(
             item { Spacer(Modifier.height(24.dp)) }
         }
     }
+}
+
+@Composable
+private fun SharedSkyPathInfoDialog(onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(Res.string.nav_sky_path)) },
+        text = {
+            LazyColumn(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                item {
+                    Text(stringResource(Res.string.sky_path_info_intro))
+                    Spacer(modifier = Modifier.height(16.dp))
+                    SkyPathVisualGuide(
+                        youLabel = stringResource(Res.string.you),
+                        horizonLabel = stringResource(Res.string.sky_path_info_horizon),
+                        skyArcLabel = stringResource(Res.string.sky_path_info_arc),
+                        highestPointLabel = stringResource(Res.string.sky_path_info_iss_icon),
+                        directionsLabel = stringResource(Res.string.sky_path_info_labels),
+                        overheadExplanation = stringResource(Res.string.sky_path_info_overhead),
+                        lowerExplanation = stringResource(Res.string.sky_path_info_lower)
+                    )
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(Res.string.got_it))
+            }
+        }
+    )
 }
 
 @Composable

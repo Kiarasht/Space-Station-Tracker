@@ -26,6 +26,15 @@
     <string name="sky_path_location_needed_message">天空轨迹需要你的当前位置，以查找附近可见的国际空间站过境。</string>
     <string name="use_my_location">使用我的位置</string>
     <string name="current_location">当前位置</string>
+    <string name="info">信息</string>
+    <string name="got_it">知道了</string>
+    <string name="sky_path_info_intro">图表从你的视角显示国际空间站穿过天空的路径：</string>
+    <string name="sky_path_info_horizon">直线表示地平线</string>
+    <string name="sky_path_info_arc">弧线表示天空</string>
+    <string name="sky_path_info_iss_icon">国际空间站图标表示空间站将达到的最高点</string>
+    <string name="sky_path_info_overhead">如果图标位于弧线最顶部，表示国际空间站几乎会从你的正上方经过。</string>
+    <string name="sky_path_info_lower">如果图标在弧线较低处、靠近地平线，表示国际空间站会在天空中较低的位置出现，过境时不会升得很高。</string>
+    <string name="sky_path_info_labels">NW、SE 等标签表示过境开始和结束的方向</string>
     <string name="schedule_notification">安排通知</string>
     <string name="add_to_calendar">添加到日历</string>
     <string name="share">分享</string>
