@@ -1,0 +1,78 @@
+{
+  "phone": {
+    "size": "1080x1920",
+    "files": [
+      "01-track-the-iss-live.png",
+      "02-find-visible-passes.png",
+      "03-meet-the-crew.png",
+      "04-discover-their-stories.png",
+      "05-live-stream.png",
+      "06-built-for-day-or-night.png"
+    ]
+  },
+  "tablet": {
+    "size": "1920x1080",
+    "files": [
+      "01-track-the-iss-live.png",
+      "02-find-visible-passes.png",
+      "03-meet-the-crew.png",
+      "04-discover-their-stories.png",
+      "05-live-stream.png",
+      "06-built-for-day-or-night.png"
+    ]
+  },
+  "iosPhone": {
+    "size": "1284x2778",
+    "files": [
+      "01-track-the-iss-live.png",
+      "02-find-visible-passes.png",
+      "03-meet-the-crew.png",
+      "04-discover-their-stories.png",
+      "05-live-stream.png",
+      "06-built-for-day-or-night.png"
+    ]
+  },
+  "iosTablet": {
+    "size": "2064x2752",
+    "files": [
+      "01-track-the-iss-live.png",
+      "02-find-visible-passes.png",
+      "03-meet-the-crew.png",
+      "04-discover-their-stories.png",
+      "05-live-stream.png",
+      "06-built-for-day-or-night.png"
+    ]
+  },
+  "slides": [
+    {
+      "slug": "track-the-iss-live",
+      "title": "Track the ISS Live",
+      "description": "Follow its position, speed, altitude, and orbital path in real time."
+    },
+    {
+      "slug": "find-visible-passes",
+      "title": "Find Visible Passes",
+      "description": "View upcoming sky paths, set reminders, and add passes to your calendar."
+    },
+    {
+      "slug": "meet-the-crew",
+      "title": "Meet the Crew",
+      "description": "Explore the astronauts currently living and working in orbit."
+    },
+    {
+      "slug": "discover-their-stories",
+      "title": "Discover Their Stories",
+      "description": "Read astronaut profiles, mission roles, launch details, and more."
+    },
+    {
+      "slug": "live-stream",
+      "title": "Live Stream",
+      "description": "Open the live ISS stream and see our planet from space."
+    },
+    {
+      "slug": "built-for-day-or-night",
+      "title": "Built for Day or Night",
+      "description": "Switch between light and dark themes whenever you track."
+    }
+  ]
+}
