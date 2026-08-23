@@ -22,8 +22,6 @@ import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.selection.toggleable
-import androidx.compose.foundation.text.InlineTextContent
-import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LocationOff
@@ -42,13 +40,9 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.Placeholder
-import androidx.compose.ui.text.PlaceholderVerticalAlign
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.core.app.ActivityCompat
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -57,6 +51,7 @@ import com.restart.spacestationtracker.analytics.AppAnalytics
 import com.restart.spacestationtracker.domain.iss_passes.model.IssPass
 import com.restart.spacestationtracker.ui.ads.NativeAdCard
 import com.restart.spacestationtracker.shared.ui.SharedIssPassCard
+import com.restart.spacestationtracker.shared.ui.SkyPathVisualGuide
 import com.restart.spacestationtracker.util.IssPassVisibility
 import com.restart.spacestationtracker.util.NotificationScheduler
 import com.restart.spacestationtracker.util.openAppSettings
@@ -80,8 +75,6 @@ private fun notificationTimeOptions(): List<NotificationTimeOption> {
         NotificationTimeOption(ALERT_TIME_1_WEEK_BEFORE, stringResource(id = R.string.alert_time_1_week_before))
     )
 }
-
-private fun bulletedText(text: String): String = "\t\u2022 $text"
 
 private const val ALERT_TIME_AT_EVENT = "At time of event"
 private const val ALERT_TIME_10_MINUTES_BEFORE = "10 minutes before"
@@ -201,28 +194,6 @@ fun IssPassesScreen(
                     return@Box
                 }
 
-                val annotatedString = buildAnnotatedString {
-                    append("${uiState.location?.name} ")
-                    appendInlineContent("infoIcon")
-                }
-
-                val inlineContent = mapOf(
-                    "infoIcon" to InlineTextContent(
-                        Placeholder(
-                            width = 24.sp,
-                            height = 24.sp,
-                            placeholderVerticalAlign = PlaceholderVerticalAlign.TextCenter
-                        )
-                    ) {
-                        IconButton(onClick = { showInfoDialog = true }) {
-                            Icon(
-                                imageVector = Icons.Default.Info,
-                                contentDescription = stringResource(id = R.string.info)
-                            )
-                        }
-                    }
-                )
-
                 val onNotificationClick: (IssPass) -> Unit = { pass ->
                     AppAnalytics.trackInteraction("open_pass_alert_scheduler", "sky_path")
                     passForNotification = pass
@@ -236,10 +207,9 @@ fun IssPassesScreen(
                             verticalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
                             item {
-                                Text(
-                                    text = annotatedString,
-                                    style = MaterialTheme.typography.headlineSmall,
-                                    inlineContent = inlineContent
+                                SkyPathHeader(
+                                    locationName = uiState.location?.name.orEmpty(),
+                                    onInfoClick = { showInfoDialog = true }
                                 )
                             }
                             items(
@@ -287,10 +257,9 @@ fun IssPassesScreen(
                             verticalItemSpacing = 16.dp
                         ) {
                             item(span = StaggeredGridItemSpan.FullLine) {
-                                Text(
-                                    text = annotatedString,
-                                    style = MaterialTheme.typography.headlineSmall,
-                                    inlineContent = inlineContent
+                                SkyPathHeader(
+                                    locationName = uiState.location?.name.orEmpty(),
+                                    onInfoClick = { showInfoDialog = true }
                                 )
                             }
                             items(
@@ -330,6 +299,29 @@ fun IssPassesScreen(
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun SkyPathHeader(
+    locationName: String,
+    onInfoClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = locationName,
+            modifier = Modifier.weight(1f),
+            style = MaterialTheme.typography.headlineSmall
+        )
+        IconButton(onClick = onInfoClick) {
+            Icon(
+                imageVector = Icons.Default.Info,
+                contentDescription = stringResource(id = R.string.info)
+            )
         }
     }
 }
@@ -579,19 +571,15 @@ fun InfoDialog(onDismiss: () -> Unit) {
                 item {
                     Text(stringResource(id = R.string.sky_path_info_intro))
                     Spacer(modifier = Modifier.height(16.dp))
-                    Column {
-                        Text(bulletedText(stringResource(id = R.string.sky_path_info_horizon)))
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Text(bulletedText(stringResource(id = R.string.sky_path_info_arc)))
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Text(bulletedText(stringResource(id = R.string.sky_path_info_iss_icon)))
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Text(bulletedText(stringResource(id = R.string.sky_path_info_overhead)))
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Text(bulletedText(stringResource(id = R.string.sky_path_info_lower)))
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Text(bulletedText(stringResource(id = R.string.sky_path_info_labels)))
-                    }
+                    SkyPathVisualGuide(
+                        youLabel = stringResource(id = R.string.you),
+                        horizonLabel = stringResource(id = R.string.sky_path_info_horizon),
+                        skyArcLabel = stringResource(id = R.string.sky_path_info_arc),
+                        highestPointLabel = stringResource(id = R.string.sky_path_info_iss_icon),
+                        directionsLabel = stringResource(id = R.string.sky_path_info_labels),
+                        overheadExplanation = stringResource(id = R.string.sky_path_info_overhead),
+                        lowerExplanation = stringResource(id = R.string.sky_path_info_lower)
+                    )
                 }
             }
         },

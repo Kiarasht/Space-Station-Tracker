@@ -26,6 +26,15 @@
     <string name="sky_path_location_needed_message">Jalur Langit memerlukan lokasi Anda saat ini untuk menemukan lintasan ISS yang terlihat di dekat Anda.</string>
     <string name="use_my_location">Gunakan lokasi saya</string>
     <string name="current_location">Lokasi saat ini</string>
+    <string name="info">Info</string>
+    <string name="got_it">Mengerti</string>
+    <string name="sky_path_info_intro">Bagan memvisualisasikan lintasan ISS melintasi langit dari perspektif Anda:</string>
+    <string name="sky_path_info_horizon">Garis lurus adalah horizon</string>
+    <string name="sky_path_info_arc">Busur mewakili langit</string>
+    <string name="sky_path_info_iss_icon">Ikon ISS menunjukkan titik tertinggi yang akan dicapai stasiun</string>
+    <string name="sky_path_info_overhead">Jika ikon berada di puncak busur, ISS akan lewat hampir tepat di atas Anda.</string>
+    <string name="sky_path_info_lower">Jika ikon lebih rendah pada busur, dekat garis horizon, ISS akan tampak lebih rendah di langit dan tidak naik terlalu tinggi selama lintasan.</string>
+    <string name="sky_path_info_labels">Label seperti NW dan SE menunjukkan arah awal dan akhir lintasan</string>
     <string name="schedule_notification">Jadwalkan notifikasi</string>
     <string name="add_to_calendar">Tambahkan ke kalender</string>
     <string name="share">Bagikan</string>

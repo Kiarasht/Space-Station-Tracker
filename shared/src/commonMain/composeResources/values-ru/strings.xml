@@ -26,6 +26,15 @@
     <string name="sky_path_location_needed_message">Пути в небе нужно ваше текущее местоположение, чтобы найти видимые пролеты МКС рядом с вами.</string>
     <string name="use_my_location">Использовать мое местоположение</string>
     <string name="current_location">Текущее местоположение</string>
+    <string name="info">Информация</string>
+    <string name="got_it">Понятно</string>
+    <string name="sky_path_info_intro">График показывает пролет МКС по небу с вашей точки зрения:</string>
+    <string name="sky_path_info_horizon">Прямая линия — это горизонт</string>
+    <string name="sky_path_info_arc">Дуга представляет небо</string>
+    <string name="sky_path_info_iss_icon">Значок МКС показывает самую высокую точку, которой достигнет станция</string>
+    <string name="sky_path_info_overhead">Если значок находится в верхней части дуги, МКС пройдет почти прямо над вами.</string>
+    <string name="sky_path_info_lower">Если значок находится ниже на дуге, ближе к линии горизонта, МКС будет видна ниже в небе и поднимется не так высоко во время пролета.</string>
+    <string name="sky_path_info_labels">Метки, например NW и SE, показывают направления начала и конца пролета</string>
     <string name="schedule_notification">Запланировать уведомление</string>
     <string name="add_to_calendar">Добавить в календарь</string>
     <string name="share">Поделиться</string>

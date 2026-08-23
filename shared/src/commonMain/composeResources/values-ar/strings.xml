@@ -26,6 +26,15 @@
     <string name="sky_path_location_needed_message">يحتاج مسار السماء إلى موقعك الحالي للعثور على مرات مرور محطة الفضاء الدولية المرئية بالقرب منك.</string>
     <string name="use_my_location">استخدام موقعي</string>
     <string name="current_location">الموقع الحالي</string>
+    <string name="info">معلومات</string>
+    <string name="got_it">حسنًا</string>
+    <string name="sky_path_info_intro">يوضح المخطط مرور محطة الفضاء الدولية عبر السماء من منظورك:</string>
+    <string name="sky_path_info_horizon">الخط المستقيم هو الأفق</string>
+    <string name="sky_path_info_arc">القوس يمثل السماء</string>
+    <string name="sky_path_info_iss_icon">أيقونة محطة الفضاء الدولية توضح أعلى نقطة ستصل إليها المحطة</string>
+    <string name="sky_path_info_overhead">إذا كانت الأيقونة في أعلى القوس، فهذا يعني أن المحطة ستمر تقريبًا فوقك مباشرة.</string>
+    <string name="sky_path_info_lower">إذا كانت الأيقونة في موضع أدنى على القوس بالقرب من خط الأفق، فستظهر المحطة منخفضة في السماء ولن ترتفع كثيرًا أثناء المرور.</string>
+    <string name="sky_path_info_labels">التسميات مثل NW وSE توضح اتجاهي بداية المرور ونهايته</string>
     <string name="schedule_notification">جدولة إشعار</string>
     <string name="add_to_calendar">إضافة إلى التقويم</string>
     <string name="share">مشاركة</string>

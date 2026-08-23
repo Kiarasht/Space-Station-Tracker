@@ -87,7 +87,14 @@ class MapViewModel @Inject constructor(
         var isSuccess = false
         getFutureIssLocationsUseCase(listOf(currentTime) + timestamps)
             .onSuccess { newLocations ->
-                val currentLocation = newLocations.first()
+                val currentLocation = newLocations.firstOrNull()
+                if (currentLocation == null) {
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false,
+                        error = application.getString(R.string.unknown_error)
+                    )
+                    return@onSuccess
+                }
                 val futureLocations = newLocations.drop(1)
 
                 _uiState.value = _uiState.value.copy(
@@ -102,6 +109,7 @@ class MapViewModel @Inject constructor(
                 isSuccess = true
             }.onFailure { throwable ->
                 _uiState.value = _uiState.value.copy(
+                    isLoading = false,
                     error = throwable.localizedMessage ?: application.getString(R.string.unknown_error)
                 )
                 isSuccess = false

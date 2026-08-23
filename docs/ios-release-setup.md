@@ -1,6 +1,6 @@
 # iOS release setup
 
-The generated Xcode project is configured for ISS Tracker 7.08 (52), the `com.restart.spacestationtracker.ios` release bundle identifier, and Apple team `UT45N57AJ6`, matching the USAJobs signing baseline.
+The generated Xcode project is configured for ISS Tracker 7.09 (53), the `com.restart.spacestationtracker.ios` release bundle identifier, and Apple team `UT45N57AJ6`, matching the USAJobs signing baseline.
 
 ## Before the first App Store archive
 
@@ -18,7 +18,7 @@ The N2YO credential is intentionally excluded from source control. Local builds 
 
 ## GitHub release delivery
 
-The `Mobile Production Release` workflow explicitly selects Xcode 26 and the iOS 26 SDK, archives and signs the iOS Release app, exports an IPA, retains the IPA and dSYMs as workflow artifacts, and uploads the build to App Store Connect for TestFlight processing. It reads version `7.08 (52)` from the same root `version.properties` file used by Android.
+The `Mobile Production Release` workflow explicitly selects Xcode 26 and the iOS 26 SDK, archives and signs the iOS Release app, exports an IPA, retains the IPA and dSYMs as workflow artifacts, and uploads the build to App Store Connect for TestFlight processing. It reads version `7.09 (53)` from the same root `version.properties` file used by Android.
 
 Required repository secrets:
 

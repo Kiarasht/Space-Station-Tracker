@@ -26,6 +26,15 @@
     <string name="sky_path_location_needed_message">Der Himmelspfad benötigt deinen aktuellen Standort, um sichtbare ISS-Überflüge in deiner Nähe zu finden.</string>
     <string name="use_my_location">Meinen Standort verwenden</string>
     <string name="current_location">Aktueller Standort</string>
+    <string name="info">Info</string>
+    <string name="got_it">Verstanden</string>
+    <string name="sky_path_info_intro">Das Diagramm zeigt den ISS-Überflug aus deiner Perspektive:</string>
+    <string name="sky_path_info_horizon">Die gerade Linie ist der Horizont</string>
+    <string name="sky_path_info_arc">Der Bogen stellt den Himmel dar</string>
+    <string name="sky_path_info_iss_icon">Das ISS-Symbol zeigt den höchsten Punkt, den die Station erreichen wird</string>
+    <string name="sky_path_info_overhead">Wenn das Symbol ganz oben im Bogen ist, fliegt die ISS fast direkt über dich hinweg.</string>
+    <string name="sky_path_info_lower">Wenn das Symbol tiefer im Bogen und näher an der Horizontlinie ist, erscheint die ISS niedriger am Himmel und steigt während des Überflugs nicht so hoch.</string>
+    <string name="sky_path_info_labels">Die Beschriftungen wie NW und SE zeigen Start- und Endrichtung des Überflugs</string>
     <string name="schedule_notification">Benachrichtigung planen</string>
     <string name="add_to_calendar">Zum Kalender hinzufügen</string>
     <string name="share">Teilen</string>

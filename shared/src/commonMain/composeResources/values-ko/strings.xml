@@ -26,6 +26,15 @@
     <string name="sky_path_location_needed_message">하늘 경로는 주변에서 볼 수 있는 ISS 통과를 찾기 위해 현재 위치가 필요합니다.</string>
     <string name="use_my_location">내 위치 사용</string>
     <string name="current_location">현재 위치</string>
+    <string name="info">정보</string>
+    <string name="got_it">확인</string>
+    <string name="sky_path_info_intro">이 차트는 사용자 관점에서 ISS가 하늘을 지나가는 경로를 보여줍니다:</string>
+    <string name="sky_path_info_horizon">직선은 지평선입니다</string>
+    <string name="sky_path_info_arc">호는 하늘을 나타냅니다</string>
+    <string name="sky_path_info_iss_icon">ISS 아이콘은 정거장이 도달할 가장 높은 지점을 보여줍니다</string>
+    <string name="sky_path_info_overhead">아이콘이 호의 맨 위에 있으면 ISS가 거의 머리 위로 지나간다는 뜻입니다.</string>
+    <string name="sky_path_info_lower">아이콘이 호의 아래쪽, 지평선에 가까운 곳에 있으면 ISS가 하늘에서 낮게 보이고 통과 중 높이 올라가지 않습니다.</string>
+    <string name="sky_path_info_labels">NW, SE 같은 레이블은 통과의 시작 및 끝 방향을 나타냅니다</string>
     <string name="schedule_notification">알림 예약</string>
     <string name="add_to_calendar">캘린더에 추가</string>
     <string name="share">공유</string>

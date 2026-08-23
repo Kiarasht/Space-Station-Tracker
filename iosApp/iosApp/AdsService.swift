@@ -520,6 +520,10 @@ private final class NativeIssAdView: NativeAdView {
     private let advertiserLabel = UILabel()
     private let headlineLabel = UILabel()
     private let bodyLabel = UILabel()
+    private let starRatingLabel = UILabel()
+    private let priceLabel = UILabel()
+    private let storeLabel = UILabel()
+    private let metadataStack = UIStackView()
     private let callToActionButton = UIButton(type: .system)
     private let adChoices = AdChoicesView()
 
@@ -541,12 +545,35 @@ private final class NativeIssAdView: NativeAdView {
         headlineLabel.text = ad.headline
         bodyLabel.text = ad.body
         bodyLabel.isHidden = ad.body?.isEmpty ?? true
-        callToActionButton.setTitle(ad.callToAction ?? "Open", for: .normal)
+        if let rating = ad.starRating?.doubleValue, rating > 0 {
+            starRatingLabel.text = String(format: "★ %.1f", rating)
+            starRatingLabel.isHidden = false
+        } else {
+            starRatingLabel.text = nil
+            starRatingLabel.isHidden = true
+        }
+        priceLabel.text = ad.price
+        priceLabel.isHidden = ad.price?.isEmpty ?? true
+        storeLabel.text = ad.store
+        storeLabel.isHidden = ad.store?.isEmpty ?? true
+        metadataStack.isHidden = starRatingLabel.isHidden &&
+            priceLabel.isHidden && storeLabel.isHidden
+        callToActionButton.setTitle(ad.callToAction, for: .normal)
+        callToActionButton.isHidden = ad.callToAction?.isEmpty ?? true
         nativeAd = ad
     }
 
     private func configureLayout() {
-        backgroundColor = .secondarySystemBackground
+        backgroundColor = UIColor { traits in
+            traits.userInterfaceStyle == .dark
+                ? UIColor(
+                    red: 12.0 / 255.0,
+                    green: 18.0 / 255.0,
+                    blue: 68.0 / 255.0,
+                    alpha: 1
+                )
+                : .white
+        }
         layer.cornerRadius = 12
         layer.cornerCurve = .continuous
         layer.borderWidth = 1
@@ -569,7 +596,25 @@ private final class NativeIssAdView: NativeAdView {
 
         badgeLabel.text = "Ad"
         badgeLabel.font = AppFonts.exo(size: 11, weight: .semibold)
-        badgeLabel.textColor = .secondaryLabel
+        badgeLabel.textAlignment = .center
+        badgeLabel.textColor = UIColor(
+            red: 0,
+            green: 0,
+            blue: 32.0 / 255.0,
+            alpha: 1
+        )
+        badgeLabel.backgroundColor = UIColor(
+            red: 1,
+            green: 235.0 / 255.0,
+            blue: 59.0 / 255.0,
+            alpha: 1
+        )
+        badgeLabel.layer.cornerRadius = 4
+        badgeLabel.clipsToBounds = true
+        NSLayoutConstraint.activate([
+            badgeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 24),
+            badgeLabel.heightAnchor.constraint(equalToConstant: 20)
+        ])
         advertiserLabel.font = AppFonts.exo(size: 12, weight: .semibold)
         advertiserLabel.textColor = .secondaryLabel
         advertiserLabel.numberOfLines = 1
@@ -578,21 +623,31 @@ private final class NativeIssAdView: NativeAdView {
         headlineLabel.numberOfLines = 2
         bodyLabel.font = AppFonts.exo(size: 13)
         bodyLabel.textColor = .secondaryLabel
-        bodyLabel.numberOfLines = 2
+        bodyLabel.numberOfLines = 3
+
+        [starRatingLabel, priceLabel, storeLabel].forEach { label in
+            label.font = AppFonts.exo(size: 12)
+            label.textColor = .secondaryLabel
+            label.numberOfLines = 1
+        }
+        starRatingLabel.textColor = UIColor(
+            red: 1,
+            green: 235.0 / 255.0,
+            blue: 59.0 / 255.0,
+            alpha: 1
+        )
 
         var buttonConfiguration = UIButton.Configuration.filled()
-        buttonConfiguration.baseBackgroundColor = UIColor(
-            red: 238.0 / 255.0,
-            green: 182.0 / 255.0,
-            blue: 33.0 / 255.0,
-            alpha: 1
-        )
-        buttonConfiguration.baseForegroundColor = UIColor(
-            red: 0,
-            green: 0,
-            blue: 32.0 / 255.0,
-            alpha: 1
-        )
+        buttonConfiguration.baseBackgroundColor = UIColor { traits in
+            traits.userInterfaceStyle == .dark
+                ? UIColor(red: 1, green: 235.0 / 255.0, blue: 59.0 / 255.0, alpha: 1)
+                : UIColor(red: 0, green: 87.0 / 255.0, blue: 146.0 / 255.0, alpha: 1)
+        }
+        buttonConfiguration.baseForegroundColor = UIColor { traits in
+            traits.userInterfaceStyle == .dark
+                ? UIColor(red: 0, green: 0, blue: 32.0 / 255.0, alpha: 1)
+                : .white
+        }
         buttonConfiguration.cornerStyle = .medium
         buttonConfiguration.titleTextAttributesTransformer =
             UIConfigurationTextAttributesTransformer { incoming in
@@ -603,24 +658,17 @@ private final class NativeIssAdView: NativeAdView {
         callToActionButton.configuration = buttonConfiguration
         callToActionButton.isUserInteractionEnabled = false
 
-        let badgeContainer = UIView()
-        badgeContainer.backgroundColor = .tertiarySystemFill
-        badgeContainer.layer.cornerRadius = 7
-        badgeLabel.translatesAutoresizingMaskIntoConstraints = false
-        badgeContainer.addSubview(badgeLabel)
-        NSLayoutConstraint.activate([
-            badgeLabel.leadingAnchor.constraint(equalTo: badgeContainer.leadingAnchor, constant: 8),
-            badgeLabel.trailingAnchor.constraint(equalTo: badgeContainer.trailingAnchor, constant: -8),
-            badgeLabel.topAnchor.constraint(equalTo: badgeContainer.topAnchor, constant: 3),
-            badgeLabel.bottomAnchor.constraint(equalTo: badgeContainer.bottomAnchor, constant: -3)
-        ])
-
-        let header = UIStackView(arrangedSubviews: [badgeContainer, advertiserLabel])
+        badgeLabel.setContentHuggingPriority(.required, for: .horizontal)
+        badgeLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        let headerSpacer = UIView()
+        let header = UIStackView(
+            arrangedSubviews: [badgeLabel, advertiserLabel, headerSpacer]
+        )
         header.axis = .horizontal
         header.alignment = .center
         header.spacing = 8
 
-        let textStack = UIStackView(arrangedSubviews: [headlineLabel, bodyLabel])
+        let textStack = UIStackView(arrangedSubviews: [headlineLabel, header])
         textStack.axis = .vertical
         textStack.alignment = .fill
         textStack.spacing = 4
@@ -630,7 +678,16 @@ private final class NativeIssAdView: NativeAdView {
         topRow.alignment = .top
         topRow.spacing = 12
 
-        let content = UIStackView(arrangedSubviews: [header, topRow, media, callToActionButton])
+        metadataStack.addArrangedSubview(starRatingLabel)
+        metadataStack.addArrangedSubview(priceLabel)
+        metadataStack.addArrangedSubview(storeLabel)
+        metadataStack.axis = .horizontal
+        metadataStack.alignment = .center
+        metadataStack.spacing = 8
+
+        let content = UIStackView(
+            arrangedSubviews: [topRow, media, bodyLabel, metadataStack, callToActionButton]
+        )
         content.axis = .vertical
         content.alignment = .fill
         content.spacing = 9
@@ -644,6 +701,9 @@ private final class NativeIssAdView: NativeAdView {
         advertiserView = advertiserLabel
         headlineView = headlineLabel
         bodyView = bodyLabel
+        starRatingView = starRatingLabel
+        priceView = priceLabel
+        storeView = storeLabel
         callToActionView = callToActionButton
         adChoicesView = adChoices
 

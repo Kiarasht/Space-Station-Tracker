@@ -1,14 +1,25 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
-import { chromium } from "playwright";
-import sharp from "sharp";
+import { fileURLToPath, pathToFileURL } from "node:url";
+
+const bundledNodeModules = process.env.CODEX_NODE_MODULES;
+const packageEntry = (packageName, entryPoint) =>
+    bundledNodeModules
+        ? pathToFileURL(path.join(bundledNodeModules, packageName, entryPoint)).href
+        : packageName;
+const { chromium } = await import(packageEntry("playwright", "index.mjs"));
+const { default: sharp } = await import(packageEntry("sharp", "dist/index.mjs"));
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const screensDir = path.resolve(scriptDir, "..");
 const renderOutputDir = "/private/tmp/iss-tracker-store-listing";
 const phoneOutputDir = path.join(renderOutputDir, "phone");
 const tabletOutputDir = path.join(renderOutputDir, "tablet");
+const iosPhoneOutputDir = path.join(scriptDir, "ios", "phone");
+const iosTabletOutputDir = path.join(scriptDir, "ios", "tablet");
+const iosCaptureDir =
+    process.env.ISS_TRACKER_IOS_SCREENSHOTS_DIR ??
+    path.join(process.env.HOME ?? "", "Desktop");
 
 export const slides = [
     {
@@ -17,6 +28,8 @@ export const slides = [
         description: "Follow its position, speed, altitude, and orbital path in real time.",
         phone: "Phone 1.png",
         tablet: "Tablet 1.png",
+        iosPhone: "Simulator Screenshot - iPhone 13 Pro Max - 2026-08-23 at 01.10.17.png",
+        iosTablet: "Simulator Screenshot - iPad Pro 13-inch (M5) - 2026-08-23 at 01.34.34.png",
         accent: "#62D8E8",
         accentAlt: "#FFEB3B",
         horizon: "#0B5778"
@@ -27,6 +40,8 @@ export const slides = [
         description: "View upcoming sky paths, set reminders, and add passes to your calendar.",
         phone: "Phone 2.png",
         tablet: "Tablet 2.png",
+        iosPhone: "Simulator Screenshot - iPhone 13 Pro Max - 2026-08-23 at 01.01.18.png",
+        iosTablet: "Simulator Screenshot - iPad Pro 13-inch (M5) - 2026-08-23 at 01.45.06.png",
         accent: "#FFEB3B",
         accentAlt: "#62D8E8",
         horizon: "#17336E"
@@ -37,6 +52,8 @@ export const slides = [
         description: "Explore the astronauts currently living and working in orbit.",
         phone: "Phone 3.png",
         tablet: "Tablet 3.png",
+        iosPhone: "Simulator Screenshot - iPhone 13 Pro Max - 2026-08-23 at 01.00.14.png",
+        iosTablet: "Simulator Screenshot - iPad Pro 13-inch (M5) - 2026-08-23 at 01.33.22.png",
         accent: "#62D8E8",
         accentAlt: "#F5F7FF",
         horizon: "#123A67"
@@ -47,16 +64,20 @@ export const slides = [
         description: "Read astronaut profiles, mission roles, launch details, and more.",
         phone: "Phone 4.png",
         tablet: "Tablet 4.png",
+        iosPhone: "Simulator Screenshot - iPhone 13 Pro Max - 2026-08-23 at 01.03.07.png",
+        iosTablet: "Simulator Screenshot - iPad Pro 13-inch (M5) - 2026-08-23 at 01.33.44.png",
         accent: "#FFEB3B",
         accentAlt: "#62D8E8",
         horizon: "#203568"
     },
     {
-        slug: "watch-earth-from-orbit",
-        title: "Watch Earth From Orbit",
+        slug: "live-stream",
+        title: "Live Stream",
         description: "Open the live ISS stream and see our planet from space.",
         phone: "Phone 6.png",
         tablet: "Tablet 6.png",
+        iosPhone: "Simulator Screenshot - iPhone 13 Pro Max - 2026-08-23 at 01.05.44.png",
+        iosTablet: "Simulator Screenshot - iPad Pro 13-inch (M5) - 2026-08-23 at 01.37.27.png",
         accent: "#FF5252",
         accentAlt: "#62D8E8",
         horizon: "#123E5D"
@@ -67,6 +88,14 @@ export const slides = [
         description: "Switch between light and dark themes whenever you track.",
         phone: ["Phone 5.png", "Phone 4.png"],
         tablet: ["Tablet 4.png", "Tablet 5.png"],
+        iosPhone: [
+            "Simulator Screenshot - iPhone 13 Pro Max - 2026-08-23 at 01.03.09.png",
+            "Simulator Screenshot - iPhone 13 Pro Max - 2026-08-23 at 01.03.07.png"
+        ],
+        iosTablet: [
+            "Simulator Screenshot - iPad Pro 13-inch (M5) - 2026-08-23 at 01.34.43.png",
+            "Simulator Screenshot - iPad Pro 13-inch (M5) - 2026-08-23 at 01.33.22.png"
+        ],
         accent: "#FFEB3B",
         accentAlt: "#62D8E8",
         horizon: "#28456B",
@@ -84,6 +113,18 @@ export const formats = {
         width: 1920,
         height: 1080,
         outputDir: tabletOutputDir
+    },
+    iosPhone: {
+        width: 1284,
+        height: 2778,
+        outputDir: iosPhoneOutputDir,
+        sourceDir: iosCaptureDir
+    },
+    iosTablet: {
+        width: 2064,
+        height: 2752,
+        outputDir: iosTabletOutputDir,
+        sourceDir: iosCaptureDir
     }
 };
 
@@ -111,6 +152,18 @@ const copyManifest = {
             `${String(index + 1).padStart(2, "0")}-${slide.slug}.png`
         )
     },
+    iosPhone: {
+        size: "1284x2778",
+        files: slides.map((slide, index) =>
+            `${String(index + 1).padStart(2, "0")}-${slide.slug}.png`
+        )
+    },
+    iosTablet: {
+        size: "2064x2752",
+        files: slides.map((slide, index) =>
+            `${String(index + 1).padStart(2, "0")}-${slide.slug}.png`
+        )
+    },
     slides: slides.map(({ slug, title, description }) => ({
         slug,
         title,
@@ -121,6 +174,8 @@ const copyManifest = {
 export async function prepareHtmlPages() {
     await fs.mkdir(phoneOutputDir, { recursive: true });
     await fs.mkdir(tabletOutputDir, { recursive: true });
+    await fs.mkdir(iosPhoneOutputDir, { recursive: true });
+    await fs.mkdir(iosTabletOutputDir, { recursive: true });
 
     const pages = [];
     for (const [formatName, format] of Object.entries(formats)) {
@@ -161,6 +216,14 @@ export async function finalizeAssets() {
         path.join(tabletOutputDir, "screenshot-copy.json"),
         manifestJson
     );
+    await fs.writeFile(
+        path.join(iosPhoneOutputDir, "screenshot-copy.json"),
+        manifestJson
+    );
+    await fs.writeFile(
+        path.join(iosTabletOutputDir, "screenshot-copy.json"),
+        manifestJson
+    );
 
     await makeContactSheet(
         phoneOutputDir,
@@ -181,6 +244,28 @@ export async function finalizeAssets() {
             columns: 3,
             thumbnailWidth: 480,
             thumbnailHeight: 270
+        }
+    );
+
+    await makeContactSheet(
+        iosPhoneOutputDir,
+        slides,
+        path.join(iosPhoneOutputDir, "contact-sheet-preview.png"),
+        {
+            columns: 3,
+            thumbnailWidth: 257,
+            thumbnailHeight: 556
+        }
+    );
+
+    await makeContactSheet(
+        iosTabletOutputDir,
+        slides,
+        path.join(iosTabletOutputDir, "contact-sheet-preview.png"),
+        {
+            columns: 3,
+            thumbnailWidth: 310,
+            thumbnailHeight: 413
         }
     );
 }
@@ -231,16 +316,44 @@ export async function buildSlideHtml(formatName, format, slide) {
         : [slide[formatName]];
     const images = await Promise.all(
         sourceFiles.map((filename) =>
-            fileDataUri(path.join(screensDir, filename), "image/png")
+            fileDataUri(
+                path.join(format.sourceDir ?? screensDir, filename),
+                "image/png"
+            )
         )
     );
     const stars = makeStars(format.width, format.height);
-    const deviceMarkup = slide.splitTheme
-        ? `
-            <img class="device theme-device theme-device-light" src="${images[0]}" alt="">
-            <img class="device theme-device theme-device-dark" src="${images[1]}" alt="">
-        `
-        : `<img class="device" src="${images[0]}" alt="">`;
+    const usesIosDeviceFrame = formatName === "iosPhone" || formatName === "iosTablet";
+    const deviceMarkup = usesIosDeviceFrame
+        ? slide.splitTheme
+            ? `
+                <div class="device-frame theme-split-frame">
+                    <div class="theme-split-screen">
+                        <div class="theme-half theme-half-light">
+                            <img class="theme-source" src="${images[0]}" alt="Light theme">
+                        </div>
+                        <div class="theme-half theme-half-dark">
+                            <img class="theme-source" src="${images[1]}" alt="Dark theme">
+                        </div>
+                        <div class="theme-divider"></div>
+                    </div>
+                    <span class="device-notch"></span>
+                    <span class="device-home-indicator"></span>
+                </div>
+            `
+            : `
+                <div class="device-frame">
+                    <img class="device-screen" src="${images[0]}" alt="">
+                    <span class="device-notch"></span>
+                    <span class="device-home-indicator"></span>
+                </div>
+            `
+        : slide.splitTheme
+          ? `
+                <img class="device theme-device theme-device-light" src="${images[0]}" alt="">
+                <img class="device theme-device theme-device-dark" src="${images[1]}" alt="">
+            `
+          : `<img class="device" src="${images[0]}" alt="">`;
 
     return `
         <!doctype html>
@@ -337,7 +450,15 @@ export async function buildSlideHtml(formatName, format, slide) {
                 .theme-device {
                     filter: drop-shadow(0 38px 45px rgba(0, 0, 0, 0.52));
                 }
-                ${formatName === "phone" ? phoneCss() : tabletCss()}
+                ${
+                    formatName === "phone"
+                        ? phoneCss()
+                        : formatName === "iosPhone"
+                          ? iosPhoneCss()
+                          : formatName === "iosTablet"
+                            ? iosTabletCss()
+                          : tabletCss()
+                }
             </style>
         </head>
         <body>
@@ -400,6 +521,285 @@ function phoneCss() {
             right: -20px;
             z-index: 4;
             transform: rotate(4deg);
+        }
+    `;
+}
+
+function iosPhoneCss() {
+    return `
+        .copy {
+            top: 104px;
+            left: 86px;
+            right: 86px;
+        }
+        h1 {
+            max-width: 1112px;
+            font-size: 86px;
+            line-height: 1.03;
+        }
+        p {
+            max-width: 1080px;
+            margin-top: 24px;
+            font-size: 40px;
+            line-height: 1.28;
+        }
+        .horizon {
+            bottom: -500px;
+            width: 1860px;
+            height: 1120px;
+            transform: translateX(-50%);
+            border-radius: 50% 50% 0 0;
+        }
+        .device-frame {
+            position: absolute;
+            z-index: 4;
+            top: 535px;
+            left: 124px;
+            width: 1036px;
+            aspect-ratio: 1284 / 2778;
+            padding: 13px;
+            overflow: hidden;
+            border: 7px solid #737B89;
+            border-radius: 116px;
+            background: #050507;
+            box-shadow:
+                0 44px 62px rgba(0, 0, 0, 0.58),
+                inset 0 0 0 5px #17191F,
+                inset 0 0 0 8px rgba(255, 255, 255, 0.08);
+        }
+        .device-screen,
+        .theme-split-screen {
+            position: absolute;
+            inset: 13px;
+            width: calc(100% - 26px);
+            height: calc(100% - 26px);
+            overflow: hidden;
+            border-radius: 94px;
+            background: #000020;
+        }
+        .device-screen {
+            display: block;
+            object-fit: cover;
+        }
+        .device-notch {
+            position: absolute;
+            z-index: 10;
+            top: 11px;
+            left: 50%;
+            width: 350px;
+            height: 69px;
+            transform: translateX(-50%);
+            border-radius: 0 0 38px 38px;
+            background: #050507;
+            box-shadow: 0 3px 0 rgba(255, 255, 255, 0.04);
+        }
+        .device-notch::after {
+            content: "";
+            position: absolute;
+            top: 18px;
+            right: 54px;
+            width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            background: #0B1222;
+            box-shadow: inset 0 0 0 4px #07090E;
+        }
+        .device-home-indicator {
+            position: absolute;
+            z-index: 12;
+            bottom: 31px;
+            left: 50%;
+            width: 286px;
+            height: 14px;
+            transform: translateX(-50%);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.34);
+        }
+        .theme-split-frame {
+            background: #050507;
+        }
+        .theme-split-frame .device-home-indicator {
+            background: linear-gradient(
+                90deg,
+                rgba(20, 20, 22, 0.96) 0%,
+                rgba(20, 20, 22, 0.96) 50%,
+                rgba(255, 255, 255, 0.96) 50%,
+                rgba(255, 255, 255, 0.96) 100%
+            );
+        }
+        .theme-half {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            overflow: hidden;
+        }
+        .theme-half-light {
+            left: 0;
+        }
+        .theme-half-dark {
+            right: 0;
+        }
+        .theme-source {
+            position: absolute;
+            top: 0;
+            width: 200%;
+            height: 100%;
+            max-width: none;
+            object-fit: cover;
+        }
+        .theme-half-light .theme-source {
+            left: 0;
+        }
+        .theme-half-dark .theme-source {
+            left: -100%;
+        }
+        .theme-divider {
+            position: absolute;
+            z-index: 6;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 3px;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.72);
+            box-shadow: 0 0 18px rgba(0, 0, 0, 0.46);
+        }
+    `;
+}
+
+function iosTabletCss() {
+    return `
+        .copy {
+            top: 96px;
+            left: 116px;
+            right: 116px;
+        }
+        h1 {
+            max-width: 1832px;
+            font-size: 112px;
+            line-height: 1.03;
+        }
+        p {
+            max-width: 1760px;
+            margin-top: 24px;
+            font-size: 50px;
+            line-height: 1.26;
+        }
+        .horizon {
+            bottom: -520px;
+            width: 2780px;
+            height: 1260px;
+            transform: translateX(-50%);
+            border-radius: 50% 50% 0 0;
+        }
+        .device-frame {
+            position: absolute;
+            z-index: 4;
+            top: 430px;
+            left: 172px;
+            width: 1720px;
+            aspect-ratio: 2064 / 2752;
+            padding: 16px;
+            overflow: hidden;
+            border: 8px solid #737B89;
+            border-radius: 92px;
+            background: #050507;
+            box-shadow:
+                0 48px 68px rgba(0, 0, 0, 0.58),
+                inset 0 0 0 6px #17191F,
+                inset 0 0 0 10px rgba(255, 255, 255, 0.08);
+        }
+        .device-screen,
+        .theme-split-screen {
+            position: absolute;
+            inset: 16px;
+            width: calc(100% - 32px);
+            height: calc(100% - 32px);
+            overflow: hidden;
+            border-radius: 66px;
+            background: #000020;
+        }
+        .device-screen {
+            display: block;
+            object-fit: cover;
+        }
+        .device-notch {
+            position: absolute;
+            z-index: 10;
+            top: 24px;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            background: #090D16;
+            box-shadow:
+                inset 0 0 0 4px #030408,
+                0 0 0 2px rgba(255, 255, 255, 0.05);
+        }
+        .device-home-indicator {
+            position: absolute;
+            z-index: 12;
+            bottom: 25px;
+            left: 50%;
+            width: 330px;
+            height: 13px;
+            transform: translateX(-50%);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.34);
+        }
+        .theme-split-frame {
+            background: #050507;
+        }
+        .theme-split-frame .device-home-indicator {
+            background: linear-gradient(
+                90deg,
+                rgba(20, 20, 22, 0.96) 0%,
+                rgba(20, 20, 22, 0.96) 50%,
+                rgba(255, 255, 255, 0.96) 50%,
+                rgba(255, 255, 255, 0.96) 100%
+            );
+        }
+        .theme-half {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            overflow: hidden;
+        }
+        .theme-half-light {
+            left: 0;
+        }
+        .theme-half-dark {
+            right: 0;
+        }
+        .theme-source {
+            position: absolute;
+            top: 0;
+            width: 200%;
+            height: 100%;
+            max-width: none;
+            object-fit: cover;
+        }
+        .theme-half-light .theme-source {
+            left: 0;
+        }
+        .theme-half-dark .theme-source {
+            left: -100%;
+        }
+        .theme-divider {
+            position: absolute;
+            z-index: 6;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.72);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.48);
         }
     `;
 }

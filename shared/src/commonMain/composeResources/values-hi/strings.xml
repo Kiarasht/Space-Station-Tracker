@@ -26,6 +26,15 @@
     <string name="sky_path_location_needed_message">स्काई पाथ को आपके आस-पास दिखाई देने वाले ISS पास खोजने के लिए आपका वर्तमान स्थान चाहिए।</string>
     <string name="use_my_location">मेरे स्थान का उपयोग करें</string>
     <string name="current_location">वर्तमान स्थान</string>
+    <string name="info">जानकारी</string>
+    <string name="got_it">समझ गया</string>
+    <string name="sky_path_info_intro">चार्ट आपके नज़रिए से आकाश में ISS पास दिखाता है:</string>
+    <string name="sky_path_info_horizon">सीधी रेखा क्षितिज है</string>
+    <string name="sky_path_info_arc">चाप आकाश को दर्शाता है</string>
+    <string name="sky_path_info_iss_icon">ISS आइकन वह सबसे ऊँचा बिंदु दिखाता है जहाँ स्टेशन पहुँचेगा</string>
+    <string name="sky_path_info_overhead">अगर आइकन चाप के सबसे ऊपर है, तो ISS लगभग सीधे आपके ऊपर से गुज़रेगा।</string>
+    <string name="sky_path_info_lower">अगर आइकन चाप पर नीचे, क्षितिज रेखा के पास है, तो ISS आकाश में नीचे दिखाई देगा और पास के दौरान उतना ऊपर नहीं चढ़ेगा।</string>
+    <string name="sky_path_info_labels">NW और SE जैसे लेबल पास की शुरुआत और अंत की दिशाएँ दिखाते हैं</string>
     <string name="schedule_notification">सूचना शेड्यूल करें</string>
     <string name="add_to_calendar">कैलेंडर में जोड़ें</string>
     <string name="share">साझा करें</string>

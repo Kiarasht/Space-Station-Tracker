@@ -26,6 +26,15 @@
     <string name="sky_path_location_needed_message">A Trajetória precisa da sua localização atual para encontrar passes visíveis da ISS perto de você.</string>
     <string name="use_my_location">Usar minha localização</string>
     <string name="current_location">Localização atual</string>
+    <string name="info">Informações</string>
+    <string name="got_it">Entendi</string>
+    <string name="sky_path_info_intro">O gráfico mostra o passe da ISS pelo céu a partir da sua perspectiva:</string>
+    <string name="sky_path_info_horizon">A linha reta é o horizonte</string>
+    <string name="sky_path_info_arc">O arco representa o céu</string>
+    <string name="sky_path_info_iss_icon">O ícone da ISS mostra o ponto mais alto que a estação alcançará</string>
+    <string name="sky_path_info_overhead">Se o ícone estiver no topo do arco, significa que a ISS passará quase diretamente sobre você.</string>
+    <string name="sky_path_info_lower">Se o ícone estiver mais baixo no arco, perto da linha do horizonte, a ISS aparecerá mais baixa no céu e não subirá tanto durante o passe.</string>
+    <string name="sky_path_info_labels">Os rótulos, como NW e SE, mostram as direções de início e fim do passe</string>
     <string name="schedule_notification">Agendar notificação</string>
     <string name="add_to_calendar">Adicionar ao calendário</string>
     <string name="share">Compartilhar</string>
