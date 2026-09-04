@@ -55,5 +55,6 @@ freeline_project_description.json
 /debug.keystore
 /keystore.properties
 /release.keystore
+/.ci/
 /iosApp/Configuration/Local.xcconfig
 /iosApp/Configuration/CiSigning.xcconfig

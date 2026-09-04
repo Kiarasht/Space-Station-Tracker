@@ -20,6 +20,12 @@ The account performing enrollment must be the account owner or have the **Releas
 - `N2YO_API_KEY`
 - `MAPS_API_KEY`
 - `GOOGLE_PLAY_SERVICE_ACCOUNT_JSON`: raw Google service-account JSON, not base64 encoded.
+- `FIREBASE_APP_DISTRIBUTION_SERVICE_ACCOUNT_JSON`: raw service-account JSON with Firebase App Distribution access.
+
+Optional Firebase tester targeting secrets:
+
+- `FIREBASE_APP_DISTRIBUTION_GROUPS`: comma-separated App Distribution group aliases.
+- `FIREBASE_APP_DISTRIBUTION_TESTERS`: comma-separated tester email addresses.
 
 The service account must be invited under Google Play Console **Users and permissions**, granted access to ISS Tracker, and allowed to manage testing-track releases. The Google Play Android Developer API must also be enabled for its Google Cloud project.
 
@@ -33,7 +39,23 @@ If Play reports `For uploading an AppBundle you must be enrolled in Play Signing
 - `version.properties` supplies both the release name and version code.
 - Gradle builds and signs `app-release.aab`.
 - GitHub retains the AAB as a workflow artifact.
+- Firebase App Distribution retains the same signed AAB for testing and later store distribution.
 - The same AAB, R8 mapping file, and release notes are uploaded to closed testing.
 - The release is marked `completed`, allowing it to be promoted to production from Play Console without rebuilding it.
+
+Firebase App Distribution must be enabled for Firebase Android app
+`1:689771934258:android:5940bdea7ae875001a022b`. In Firebase Console, link that app
+to the matching Google Play app under **Project settings > Integrations > Google Play**.
+Firebase uses Play internal app sharing to process an AAB for testers. Testers or
+groups are optional; without them, the release remains available in the Firebase
+App Distribution console.
+
+The Google Play internal-app-sharing certificate must also be registered as an
+additional key for `com.restart.spacestationtracker` under **Android developer
+verification > Package names**. This is a one-time Play Console requirement.
+
+Galaxy Store submission is intentionally manual. Download the signed AAB from the
+GitHub Actions artifact or Firebase App Distribution and submit that exact file so
+the package name, version, and signing identity remain consistent.
 
 Every upload requires a new, monotonically increasing `APP_VERSION_CODE`.

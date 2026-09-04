@@ -19,6 +19,9 @@ struct RootView: View {
                 model.start()
             }
             .onChange(of: scenePhase) { phase in
+                if phase == .active {
+                    model.applicationDidBecomeActive()
+                }
                 if phase == .background {
                     isReturningFromBackground = true
                 } else if phase == .active, isReturningFromBackground {

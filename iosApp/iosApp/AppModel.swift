@@ -98,6 +98,12 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         recordForegroundOpen()
     }
 
+    func applicationDidBecomeActive() {
+        // Also covers returning from system permission dialogs (not just background).
+        guard hasRequestedAdsConfiguration else { return }
+        ads.configure()
+    }
+
     func recordMeaningfulInteraction() -> Bool {
         let nowMillis = Self.nowMillis
         policyBridge.recordMeaningfulInteraction(nowMillis: nowMillis)
@@ -1100,9 +1106,9 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
 }
 
 private var appVersionName: String {
-    Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "7.09"
+    Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "7.10"
 }
 
 private var appVersionCode: String {
-    Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "53"
+    Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "54"
 }
