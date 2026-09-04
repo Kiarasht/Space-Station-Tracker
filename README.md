@@ -4,7 +4,7 @@ ISS Tracker follows the International Space Station in real time, finds visible 
 
 ## Project status
 
-Version `7.09` is the current shared Android and iOS release candidate.
+Version `7.10` is the current shared Android and iOS release candidate.
 
 - `app`: Android navigation and platform integrations around shared Compose screens
 - `shared`: KMP networking, models, policies, presentation state, resources, theme, and Compose UI
@@ -46,8 +46,8 @@ xcodebuild \
 Update only `version.properties`:
 
 ```properties
-APP_VERSION_NAME=7.09
-APP_VERSION_CODE=53
+APP_VERSION_NAME=7.10
+APP_VERSION_CODE=54
 ```
 
 Android reads it during Gradle configuration. Both Xcode configurations include the same file directly.

@@ -14,6 +14,8 @@ permissions:
   contents: read
 
 env:
+  FIREBASE_APP_ID: 1:689771934258:android:5940bdea7ae875001a022b
+  FIREBASE_SERVICE_ACCOUNT_PATH: .ci/firebase-app-distribution-service-account.json
   GOOGLE_PLAY_TRACK: alpha
 
 jobs:
@@ -30,6 +32,9 @@ jobs:
       N2YO_API_KEY: ${{ secrets.N2YO_API_KEY }}
       MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
       GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+      FIREBASE_APP_DISTRIBUTION_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_APP_DISTRIBUTION_SERVICE_ACCOUNT_JSON }}
+      FIREBASE_APP_DISTRIBUTION_GROUPS: ${{ secrets.FIREBASE_APP_DISTRIBUTION_GROUPS }}
+      FIREBASE_APP_DISTRIBUTION_TESTERS: ${{ secrets.FIREBASE_APP_DISTRIBUTION_TESTERS }}
 
     steps:
       - name: Checkout repository
@@ -41,6 +46,11 @@ jobs:
           distribution: temurin
           java-version: "17"
           cache: gradle
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
 
       - name: Load app version
         run: bash tools/ci/load-app-version.sh
@@ -57,6 +67,7 @@ jobs:
           [ -n "$N2YO_API_KEY" ] || missing+=("N2YO_API_KEY")
           [ -n "$MAPS_API_KEY" ] || missing+=("MAPS_API_KEY")
           [ -n "$GOOGLE_PLAY_SERVICE_ACCOUNT_JSON" ] || missing+=("GOOGLE_PLAY_SERVICE_ACCOUNT_JSON")
+          [ -n "$FIREBASE_APP_DISTRIBUTION_SERVICE_ACCOUNT_JSON" ] || missing+=("FIREBASE_APP_DISTRIBUTION_SERVICE_ACCOUNT_JSON")
           if [ "${#missing[@]}" -gt 0 ]; then
             printf 'Missing required GitHub secrets: %s\n' "${missing[*]}"
             exit 1
@@ -79,6 +90,16 @@ jobs:
             echo "USE_ADMOB_TEST_ADS=false"
           } > "$GITHUB_WORKSPACE/local.properties"
 
+      - name: Write Firebase App Distribution credentials
+        shell: bash
+        run: |
+          mkdir -p "$(dirname "$FIREBASE_SERVICE_ACCOUNT_PATH")"
+          printf '%s' "$FIREBASE_APP_DISTRIBUTION_SERVICE_ACCOUNT_JSON" > "$FIREBASE_SERVICE_ACCOUNT_PATH"
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/$FIREBASE_SERVICE_ACCOUNT_PATH" >> "$GITHUB_ENV"
+
+      - name: Install Firebase CLI
+        run: npm install --global firebase-tools
+
       - name: Build signed Android release AAB
         run: ./gradlew :app:bundleRelease --console=plain
 
@@ -88,6 +109,23 @@ jobs:
           name: iss-tracker-${{ env.APP_VERSION_NAME }}-${{ env.APP_VERSION_CODE }}-release-aab
           path: app/build/outputs/bundle/release/app-release.aab
           if-no-files-found: error
+
+      - name: Upload AAB to Firebase App Distribution
+        shell: bash
+        run: |
+          args=(
+            appdistribution:distribute
+            app/build/outputs/bundle/release/app-release.aab
+            --app "$FIREBASE_APP_ID"
+            --release-notes "ISS Tracker ${APP_VERSION_NAME} (${APP_VERSION_CODE}) release ${GITHUB_SHA}"
+          )
+          if [ -n "$FIREBASE_APP_DISTRIBUTION_GROUPS" ]; then
+            args+=(--groups "$FIREBASE_APP_DISTRIBUTION_GROUPS")
+          fi
+          if [ -n "$FIREBASE_APP_DISTRIBUTION_TESTERS" ]; then
+            args+=(--testers "$FIREBASE_APP_DISTRIBUTION_TESTERS")
+          fi
+          firebase "${args[@]}"
 
       - name: Upload AAB to Google Play closed testing
         uses: r0adkll/upload-google-play@v1

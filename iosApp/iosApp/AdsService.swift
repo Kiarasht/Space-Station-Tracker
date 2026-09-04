@@ -1,3 +1,4 @@
+import AppTrackingTransparency
 import CoreText
 import Foundation
 import GoogleMobileAds
@@ -152,6 +153,7 @@ final class AdsService: ObservableObject {
     private var shouldShowAppOpenWhenLoaded = false
     private weak var pendingRootViewController: UIViewController?
     private var isPreparingAds = false
+    private var hasCompletedAdsPreparation = false
     private var nativeAds: [String: NativeAd] = [:]
     private var nativeAdLoaders: [String: NativeAdSlotLoader] = [:]
     private var nativeAdCallbacks: [String: [(NativeAd) -> Void]] = [:]
@@ -167,9 +169,60 @@ final class AdsService: ObservableObject {
     }
 
     func configure() {
-        guard AdConfiguration.isConfigured, !isPreparingAds else { return }
+        guard AdConfiguration.isConfigured, !isAdFree,
+              !isPreparingAds, !hasCompletedAdsPreparation else { return }
         isPreparingAds = true
 
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            // ATT is owned by the app, not by an optional AdMob IDFA message.
+            // Do not initialize ads while the system request is unresolved.
+            guard await self.requestTrackingAuthorizationIfNeeded(), !self.isAdFree else {
+                self.isPreparingAds = false
+                return
+            }
+            await self.waitForApplicationActive()
+            guard !self.isAdFree else {
+                self.isPreparingAds = false
+                return
+            }
+            self.gatherConsentIfNeeded()
+        }
+    }
+
+    private func waitForApplicationActive() async {
+        let activations = NotificationCenter.default.notifications(
+            named: UIApplication.didBecomeActiveNotification
+        )
+        guard UIApplication.shared.applicationState != .active else { return }
+        for await _ in activations {
+            if UIApplication.shared.applicationState == .active { return }
+        }
+    }
+
+    private func requestTrackingAuthorizationIfNeeded() async -> Bool {
+        // A competing system prompt can leave ATT undecided. Retry once after
+        // activation; subsequent foreground activations can retry configuration.
+        for _ in 0..<2 {
+            await waitForApplicationActive()
+            guard !isAdFree else { return false }
+            guard ATTrackingManager.trackingAuthorizationStatus == .notDetermined else {
+                return true
+            }
+            await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+                ATTrackingManager.requestTrackingAuthorization { _ in
+                    continuation.resume()
+                }
+            }
+            if ATTrackingManager.trackingAuthorizationStatus != .notDetermined {
+                return true
+            }
+            try? await Task.sleep(nanoseconds: 500_000_000)
+        }
+        return false
+    }
+
+    private func gatherConsentIfNeeded() {
         let parameters = RequestParameters()
         ConsentInformation.shared.requestConsentInfoUpdate(with: parameters) { [weak self] _ in
             Task { @MainActor in
@@ -177,6 +230,9 @@ final class AdsService: ObservableObject {
                 try? await ConsentForm.loadAndPresentIfRequired(
                     from: AppModel.topViewController()
                 )
+                // If consent could not be obtained (for example, offline on a
+                // fresh install), allow configuration to retry on activation.
+                self.hasCompletedAdsPreparation = ConsentInformation.shared.canRequestAds
                 self.refreshConsentState()
                 self.startAdsIfAllowed()
                 self.isPreparingAds = false
@@ -225,6 +281,8 @@ final class AdsService: ObservableObject {
             clearLoadedAds()
         } else if canRequestAds {
             loadAppOpenAdIfNeeded()
+        } else {
+            configure()
         }
     }
 
@@ -254,7 +312,9 @@ final class AdsService: ObservableObject {
     }
 
     private func refreshConsentState() {
-        canRequestAds = ConsentInformation.shared.canRequestAds
+        canRequestAds = hasCompletedAdsPreparation &&
+            ATTrackingManager.trackingAuthorizationStatus != .notDetermined &&
+            ConsentInformation.shared.canRequestAds
         isPrivacyOptionsRequired =
             ConsentInformation.shared.privacyOptionsRequirementStatus == .required
         onConsentStateChanged?(canRequestAds, isPrivacyOptionsRequired)
