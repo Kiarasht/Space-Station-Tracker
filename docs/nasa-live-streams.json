@@ -1,13 +1,8 @@
 {
   "status": "ok",
-  "updatedAt": "2026-10-10T02:16:14.851Z",
-  "updatedAtMillis": 1791598574851,
+  "updatedAt": "2026-10-10T08:39:33.093Z",
+  "updatedAtMillis": 1791621573093,
   "source": "github-actions",
-  "streams": [
-    {
-      "videoId": "M3HKLzjvKPc",
-      "title": "Live Video from the International Space Station (Official NASA Stream)"
-    }
-  ],
+  "streams": [],
   "error": null
 }
