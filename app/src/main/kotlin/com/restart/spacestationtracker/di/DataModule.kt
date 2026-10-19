@@ -12,7 +12,9 @@ import com.restart.spacestationtracker.domain.people_in_space.repository.PeopleI
 import com.restart.spacestationtracker.domain.youtube.repository.YouTubeRepository
 import com.restart.spacestationtracker.domain.youtube.use_case.GetNasaLiveStreamStatusUseCase
 import com.restart.spacestationtracker.shared.network.KtorSpaceStationRepository
+import com.restart.spacestationtracker.shared.network.ISS_TLE_PREFS_NAME
 import com.restart.spacestationtracker.shared.network.NetworkConfig
+import com.restart.spacestationtracker.shared.preferences.AndroidPreferenceStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,7 +33,6 @@ object DataModule {
         return NetworkConfig(
             youtubeLiveStreamsUrl = BuildConfig.YOUTUBE_LIVE_STREAMS_URL,
             youtubeApiKey = BuildConfig.YOUTUBE_API_KEY,
-            n2yoApiKey = BuildConfig.N2YO_API_KEY,
             youtubeRequestHeaders = mapOf(
                 "X-Android-Package" to context.packageName,
                 "X-Android-Cert" to getCertificateSha1Fingerprint(context)
@@ -42,8 +43,12 @@ object DataModule {
     @Provides
     @Singleton
     fun provideSpaceStationRepository(
-        config: NetworkConfig
-    ): KtorSpaceStationRepository = KtorSpaceStationRepository(config)
+        config: NetworkConfig,
+        @ApplicationContext context: Context
+    ): KtorSpaceStationRepository = KtorSpaceStationRepository(
+        config = config,
+        tleStore = AndroidPreferenceStore(context, ISS_TLE_PREFS_NAME)
+    )
 
     @Provides
     fun provideIssRepository(

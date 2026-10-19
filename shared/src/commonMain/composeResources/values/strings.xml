@@ -134,4 +134,21 @@
     <string name="terms_of_use">Terms of Use</string>
     <string name="iss_is_sunlit">ISS is sunlit</string>
     <string name="iss_in_earth_shadow">In Earth’s shadow</string>
+    <string name="unable_to_track_iss_message">Check your connection. The map updates automatically once the ISS position is available.</string>
+    <string name="crew_section_iss">Aboard the ISS</string>
+    <string name="crew_section_elsewhere">Elsewhere in space</string>
+    <string name="next_visible_pass">Next visible pass</string>
+    <string name="later_passes">Later passes</string>
+    <string name="visible_now">Visible now</string>
+    <string name="countdown_days_format">in %1$dd %2$dh</string>
+    <string name="countdown_hours_format">in %1$dh %2$dm</string>
+    <string name="countdown_minutes_format">in %1$d min</string>
+    <string name="peak_elevation_format">Peak %1$d°</string>
+    <string name="people_in_space_now">people in space right now</string>
+    <string name="day_in_space_format">Day %1$d in space</string>
+    <string name="overhead_format">Overhead %1$d°</string>
+    <string name="about_stat_orbit">minutes per orbit</string>
+    <string name="about_stat_sunrises">sunrises a day</string>
+    <string name="about_stat_crewed">years with people aboard</string>
+    <string name="about_data_sources">Data from %1$s</string>
 </resources>

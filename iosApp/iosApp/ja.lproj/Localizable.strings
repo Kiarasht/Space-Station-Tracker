@@ -1,0 +1,17 @@
+/* Pass reminders, location errors, calendar and share text. */
+
+"notification.title.at_event" = "ISSの通過が始まります";
+"notification.title.10_minutes" = "10分後にISSが通過します";
+"notification.title.1_hour" = "1時間後にISSが通過します";
+"notification.title.12_hours" = "12時間後にISSが通過します";
+"notification.title.1_day" = "1日後にISSが通過します";
+"notification.title.1_week" = "1週間後にISSが通過します";
+"notification.title.upcoming" = "まもなくISSが通過します";
+"notification.body.format" = "%1$@の方向を見てください。最大仰角は%2$ld°です。";
+"location.error.unavailable" = "位置情報にアクセスできません。位置情報サービスを確認して、もう一度お試しください。";
+"location.error.failed" = "位置を特定できませんでした。位置情報サービスを確認して、もう一度お試しください。";
+"location.current" = "現在地";
+"calendar.event.title" = "国際宇宙ステーションの通過";
+"calendar.event.notes.format" = "%1$@から%2$@へ見えるISSの通過。最大仰角%3$ld°。";
+"share.pass.format" = "国際宇宙ステーションの通過：%1$@。継続時間：%2$ld分%3$ld秒。最大仰角：%4$ld°。";
+"share.app.format" = "ISS Trackerで国際宇宙ステーションを追跡しよう：%@";

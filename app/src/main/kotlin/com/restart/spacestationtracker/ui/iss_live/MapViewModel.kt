@@ -7,6 +7,7 @@ import com.restart.spacestationtracker.R
 import com.restart.spacestationtracker.data.settings.SettingsRepository
 import com.restart.spacestationtracker.domain.iss_live.use_case.GetFutureIssLocationsUseCase
 import com.restart.spacestationtracker.domain.youtube.use_case.GetNasaLiveStreamStatusUseCase
+import com.restart.spacestationtracker.shared.presentation.OrbitTrack
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -31,11 +32,8 @@ class MapViewModel @Inject constructor(
     val uiState: StateFlow<MapUiState> = _uiState.asStateFlow()
 
     private var issTrackingJob: Job? = null
-    private var futureTimeOffset = 0
-    private var lineCount = 0
 
     init {
-        startIssTracking()
         observeSettings()
         checkNasaLiveStatus()
     }
@@ -48,43 +46,43 @@ class MapViewModel @Inject constructor(
                     mapType = settings.mapType,
                     units = settings.units,
                     isAdFree = isAdFree,
-                    showOrbit = settings.showOrbit
+                    showOrbit = settings.showOrbit,
+                    futureIssLocations = if (settings.showOrbit) {
+                        _uiState.value.futureIssLocations
+                    } else {
+                        emptyList()
+                    }
                 )
             }.launchIn(viewModelScope)
     }
 
-    private fun startIssTracking() {
-        issTrackingJob?.cancel()
+    /** Called when the map becomes visible; polling stops again in [stopIssTracking]. */
+    fun startIssTracking() {
+        if (issTrackingJob?.isActive == true) return
         issTrackingJob = viewModelScope.launch {
             if (_uiState.value.issLocation == null) {
                 _uiState.value = _uiState.value.copy(isLoading = true)
             }
             while (isActive) {
-                // Fetch current location always.
-                // Fetch future locations only for the first ~2 hours (15 batches * 9 mins = 135 mins)
-                // to prevent infinite line growth.
-                val shouldFetchFuture = lineCount < 15 &&
-                    (_uiState.value.showOrbit || _uiState.value.futureIssLocations.isNotEmpty())
-                val success = fetchIssLocations(fetchFuture = shouldFetchFuture)
-                if (success && shouldFetchFuture) {
-                    ++lineCount
-                }
+                fetchIssLocations()
                 delay(5000)
             }
         }
     }
 
-    private suspend fun fetchIssLocations(fetchFuture: Boolean): Boolean {
+    fun stopIssTracking() {
+        issTrackingJob?.cancel()
+        issTrackingJob = null
+    }
+
+    private suspend fun fetchIssLocations() {
         val currentTime = System.currentTimeMillis() / 1000
-        val timestamps = if (fetchFuture) {
-            (0..9).map { minute ->
-                currentTime + (futureTimeOffset + minute) * 60
-            }
-        } else {
-            emptyList()
-        }
-        
-        var isSuccess = false
+        val timestamps = OrbitTrack.nextTimestamps(
+            future = _uiState.value.futureIssLocations,
+            nowSeconds = currentTime,
+            showOrbit = _uiState.value.showOrbit
+        )
+
         getFutureIssLocationsUseCase(listOf(currentTime) + timestamps)
             .onSuccess { newLocations ->
                 val currentLocation = newLocations.firstOrNull()
@@ -95,26 +93,27 @@ class MapViewModel @Inject constructor(
                     )
                     return@onSuccess
                 }
-                val futureLocations = newLocations.drop(1)
 
                 _uiState.value = _uiState.value.copy(
                     issLocation = currentLocation,
-                    futureIssLocations = _uiState.value.futureIssLocations + futureLocations,
+                    futureIssLocations = if (_uiState.value.showOrbit) {
+                        OrbitTrack.merge(
+                            existing = _uiState.value.futureIssLocations,
+                            incoming = newLocations.drop(1),
+                            nowSeconds = currentTime
+                        )
+                    } else {
+                        emptyList()
+                    },
                     isLoading = false,
                     error = null
                 )
-                if (fetchFuture) {
-                    futureTimeOffset += 9
-                }
-                isSuccess = true
-            }.onFailure { throwable ->
+            }.onFailure {
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
-                    error = throwable.localizedMessage ?: application.getString(R.string.unknown_error)
+                    error = application.getString(R.string.unknown_error)
                 )
-                isSuccess = false
             }
-        return isSuccess
     }
 
     private fun checkNasaLiveStatus() {
@@ -126,6 +125,6 @@ class MapViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        issTrackingJob?.cancel()
+        stopIssTracking()
     }
 }

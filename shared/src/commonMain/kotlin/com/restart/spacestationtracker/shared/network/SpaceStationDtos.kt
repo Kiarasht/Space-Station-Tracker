@@ -1,7 +1,6 @@
 package com.restart.spacestationtracker.shared.network
 
 import com.restart.spacestationtracker.domain.iss_live.model.IssLocation
-import com.restart.spacestationtracker.domain.iss_passes.model.IssPass
 import com.restart.spacestationtracker.domain.people_in_space.model.Astronaut
 import com.restart.spacestationtracker.domain.people_in_space.model.Expedition
 import com.restart.spacestationtracker.domain.youtube.model.LiveStream
@@ -85,7 +84,8 @@ internal data class PersonDto(
         flagCode = flagCode,
         twitterUrl = twitter,
         instagramUrl = instagram,
-        facebookUrl = facebook
+        facebookUrl = facebook,
+        isOnIss = iss
     )
 }
 
@@ -98,10 +98,27 @@ internal data class WikiQueryDto(val pages: Map<String, WikiPageDto>? = null)
 @Serializable
 internal data class WikiPageDto(val extract: String = "")
 
+/** The live-stream list published by the update-youtube-live-streams workflow. */
 @Serializable
 internal data class NasaLiveStreamsResponse(
+    val status: String? = null,
+    val updatedAtMillis: Long? = null,
+    /** When YouTube last confirmed the list; absent in files written before it existed. */
+    val lastSuccessAtMillis: Long? = null,
     val streams: List<NasaLiveStreamDto> = emptyList()
-)
+) {
+    /**
+     * The streams, or none once the list is older than [maxAgeMillis]. The workflow only runs while the
+     * owner's Mac is on, so a list can be hours or days old and name streams that have ended.
+     */
+    fun currentStreams(nowMillis: Long, maxAgeMillis: Long): List<NasaLiveStreamDto> {
+        val confirmedAt = lastSuccessAtMillis?.takeIf { it > 0 }
+            ?: updatedAtMillis?.takeIf { status == "ok" }
+            ?: return emptyList()
+        // A confirmation "in the future" means the device clock is behind; trust the list.
+        return if (nowMillis - confirmedAt <= maxAgeMillis) streams else emptyList()
+    }
+}
 
 @Serializable
 internal data class NasaLiveStreamDto(
@@ -127,35 +144,3 @@ internal data class YouTubeVideoIdDto(val videoId: String)
 
 @Serializable
 internal data class YouTubeSnippetDto(val title: String)
-
-@Serializable
-internal data class IssPassesResponseDto(
-    val passes: List<IssPassDto>? = null
-)
-
-@Serializable
-internal data class IssPassDto(
-    val startAz: Double = 0.0,
-    val startAzCompass: String = "",
-    val startEl: Double = 0.0,
-    val startUTC: Long,
-    val maxAz: Double = 0.0,
-    val maxAzCompass: String = "",
-    val maxEl: Double,
-    val maxUTC: Long = 0,
-    val endAz: Double = 0.0,
-    val endAzCompass: String = "",
-    val endEl: Double = 0.0,
-    val endUTC: Long = 0,
-    val mag: Double,
-    val duration: Int
-) {
-    fun toDomain() = IssPass(
-        startTimeMillis = startUTC * 1_000,
-        durationInSeconds = duration,
-        magnitude = mag,
-        maxElevation = maxEl,
-        startAzimuthCompass = startAzCompass,
-        endAzimuthCompass = endAzCompass
-    )
-}

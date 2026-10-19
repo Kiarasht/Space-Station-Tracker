@@ -130,4 +130,21 @@
     <string name="purchase_status_pending">Покупка ожидает подтверждения. Реклама будет удалена после подтверждения оплаты магазином.</string>
     <string name="purchase_status_restored">Постоянное отключение рекламы восстановлено.</string>
     <string name="purchase_status_removed">Реклама удалена навсегда.</string>
+    <string name="unable_to_track_iss_message">Проверьте подключение. Карта обновится автоматически, как только станет известно положение МКС.</string>
+    <string name="crew_section_iss">На борту МКС</string>
+    <string name="crew_section_elsewhere">В других местах в космосе</string>
+    <string name="next_visible_pass">Следующий видимый пролёт</string>
+    <string name="later_passes">Следующие пролёты</string>
+    <string name="visible_now">Видно сейчас</string>
+    <string name="countdown_days_format">через %1$d д %2$d ч</string>
+    <string name="countdown_hours_format">через %1$d ч %2$d мин</string>
+    <string name="countdown_minutes_format">через %1$d мин</string>
+    <string name="peak_elevation_format">Макс. %1$d°</string>
+    <string name="people_in_space_now">человек сейчас в космосе</string>
+    <string name="day_in_space_format">%1$d-й день в космосе</string>
+    <string name="overhead_format">Зенит %1$d°</string>
+    <string name="about_stat_orbit">минуты на виток</string>
+    <string name="about_stat_sunrises">восходов в сутки</string>
+    <string name="about_stat_crewed">лет с экипажем на борту</string>
+    <string name="about_data_sources">Данные: %1$s</string>
 </resources>

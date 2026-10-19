@@ -130,4 +130,21 @@
     <string name="purchase_status_pending">عملية الشراء معلقة. ستتم إزالة الإعلانات بعد تأكيد المتجر للدفع.</string>
     <string name="purchase_status_restored">تمت استعادة إزالة الإعلانات مدى الحياة.</string>
     <string name="purchase_status_removed">تمت إزالة الإعلانات نهائيًا.</string>
+    <string name="unable_to_track_iss_message">تحقق من اتصالك. تتحدث الخريطة تلقائيًا عندما يتوفر موقع محطة الفضاء الدولية.</string>
+    <string name="crew_section_iss">على متن محطة الفضاء الدولية</string>
+    <string name="crew_section_elsewhere">في أماكن أخرى في الفضاء</string>
+    <string name="next_visible_pass">المرور المرئي التالي</string>
+    <string name="later_passes">مرورات لاحقة</string>
+    <string name="visible_now">مرئية الآن</string>
+    <string name="countdown_days_format">بعد %1$d ي %2$d س</string>
+    <string name="countdown_hours_format">بعد %1$d س %2$d د</string>
+    <string name="countdown_minutes_format">بعد %1$d د</string>
+    <string name="peak_elevation_format">الذروة %1$d°</string>
+    <string name="people_in_space_now">أشخاص في الفضاء الآن</string>
+    <string name="day_in_space_format">اليوم %1$d في الفضاء</string>
+    <string name="overhead_format">فوق الرأس %1$d°</string>
+    <string name="about_stat_orbit">دقيقة لكل مدار</string>
+    <string name="about_stat_sunrises">شروقًا في اليوم</string>
+    <string name="about_stat_crewed">عامًا بطاقم على متنها</string>
+    <string name="about_data_sources">البيانات من %1$s</string>
 </resources>

@@ -243,4 +243,7 @@
     <string name="auto_alert_sync_scheduled_format">Ditemukan %1$d lintasan yang cocok dan dijadwalkan %2$d notifikasi.</string>
     <string name="auto_alert_sync_failed">Gagal</string>
     <string name="auto_alert_sync_retry_message">Tidak dapat memeriksa lintasan ISS. Akan mencoba lagi.</string>
+    <string name="notification_times_already_passed">Waktu pengingat tersebut sudah lewat untuk lintasan ini.</string>
+    <string name="no_calendar_app_available">Tidak ada aplikasi kalender yang tersedia</string>
+    <string name="notification_iss_pass_alert_direction_format">Lihat ke arah %1$s, puncak pada %2$d°.</string>
 </resources>

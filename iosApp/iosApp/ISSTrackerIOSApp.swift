@@ -44,6 +44,8 @@ final class ISSAppDelegate: NSObject, UIApplicationDelegate {
             UIApplication.LaunchOptionsKey: Any
         ]? = nil
     ) -> Bool {
+        // Must be set before launch finishes so a tap that cold-launches the app is delivered.
+        UNUserNotificationCenter.current().delegate = PassNotificationDelegate.shared
         configureFirebase()
         AppAnalyticsService.shared.configure()
         PassAlertAltitudeStorage.migrateToMetersIfNeeded(
@@ -146,65 +148,24 @@ final class PassBackgroundRefreshCoordinator {
     private static func replaceAutomaticNotifications(
         with passes: [IosPassAlertPayload]
     ) async {
-        let center = UNUserNotificationCenter.current()
-        let settings = await center.notificationSettings()
+        let settings = await UNUserNotificationCenter.current().notificationSettings()
         guard settings.authorizationStatus == .authorized ||
                 settings.authorizationStatus == .provisional else {
             return
         }
 
-        let pending = await center.pendingNotificationRequests()
-        center.removePendingNotificationRequests(
-            withIdentifiers: pending
-                .map(\.identifier)
-                .filter { $0.hasPrefix("automatic:") }
-        )
-
-        for pass in passes {
-            let triggerDate = Date(
-                timeIntervalSince1970: TimeInterval(pass.triggerTimeMillis) / 1_000
-            )
-            guard triggerDate > Date() else { continue }
-
-            let content = UNMutableNotificationContent()
-            content.title = notificationTitle(for: pass.notificationTime)
-            content.body = "Look \(pass.startAzimuthCompass) for a pass peaking at \(Int(pass.maxElevation.rounded()))°."
-            content.sound = .default
-            content.userInfo = ["pass_start_time": pass.startTimeMillis]
-
-            let components = Calendar.current.dateComponents(
-                [.year, .month, .day, .hour, .minute, .second],
-                from: triggerDate
-            )
-            let request = UNNotificationRequest(
-                identifier: "automatic:\(pass.startTimeMillis):\(pass.identifierSuffix)",
-                content: content,
-                trigger: UNCalendarNotificationTrigger(
-                    dateMatching: components,
-                    repeats: false
+        await PassNotificationScheduler.replaceAutomatic(
+            with: passes.map { pass in
+                PassNotificationRequest(
+                    startTimeMillis: pass.startTimeMillis,
+                    triggerTimeMillis: pass.triggerTimeMillis,
+                    notificationTime: pass.notificationTime,
+                    identifierSuffix: pass.identifierSuffix,
+                    startAzimuthCompass: pass.startAzimuthCompass,
+                    maxElevation: pass.maxElevation
                 )
-            )
-            try? await center.add(request)
-        }
-    }
-
-    private static func notificationTitle(for notificationTime: String) -> String {
-        switch notificationTime {
-        case "At time of event": "ISS pass is starting"
-        case "10 minutes before": "ISS pass in 10 minutes"
-        case "1 hour before": "ISS pass in 1 hour"
-        case "12 hours before": "ISS pass in 12 hours"
-        case "1 day before": "ISS pass tomorrow"
-        case "1 week before": "ISS pass in 1 week"
-        default: "Upcoming ISS pass"
-        }
+            }
+        )
     }
 }
 
-private extension UNUserNotificationCenter {
-    func pendingNotificationRequests() async -> [UNNotificationRequest] {
-        await withCheckedContinuation { continuation in
-            getPendingNotificationRequests { continuation.resume(returning: $0) }
-        }
-    }
-}

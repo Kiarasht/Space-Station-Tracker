@@ -26,11 +26,11 @@ Before resubmitting, verify on a physical iPhone and iPad:
 4. With tracking requests disabled/restricted, verify the app remains usable without attempting to force a prompt.
 5. Attach the physical-device recording to the App Review response and reference it in App Review Information Notes. Reconcile App Store privacy answers with the actual SDK and advertising configuration; the prompt alone is not a complete privacy audit.
 
-The N2YO credential is intentionally excluded from source control. Local builds read it from ignored `iosApp/Configuration/Local.xcconfig`. GitHub Actions reads the same value from the repository-level `N2YO_API_KEY` secret and generates that local config during CI. Rotate the existing N2YO key before production because removing it from the current tree does not remove it from Git history, then update the repository secret and each developer's local config with the replacement.
+Visible passes are predicted on the device from the ISS orbital elements published by CelesTrak (see `shared/.../passes/PassPredictor.kt`), so iOS builds need no pass-prediction API key.
 
 ## GitHub release delivery
 
-The `Mobile Production Release` workflow explicitly selects Xcode 26 and the iOS 26 SDK, archives and signs the iOS Release app, exports an IPA, retains the IPA and dSYMs as workflow artifacts, and uploads the build to App Store Connect for TestFlight processing. It reads version `7.10 (54)` from the same root `version.properties` file used by Android.
+The `Release distribution (Play + TestFlight)` workflow runs `tools/ci/ios.sh release --upload` on the self-hosted runners on the owner's Mac (see [CI on the owner's Mac](ci-runners.md)). It archives and signs the iOS Release app and uploads it to App Store Connect for TestFlight processing through `xcodebuild -exportArchive`. It reads the version from the same root `version.properties` file used by Android. Pull requests build the Debug `.dev` app with an Ad Hoc profile and send it to Firebase App Distribution.
 
 Required repository secrets:
 
@@ -41,10 +41,9 @@ Required repository secrets:
 - `IOS_APP_STORE_PROVISIONING_PROFILE_BASE64`
 - `IOS_DISTRIBUTION_CERTIFICATE_BASE64`
 - `IOS_DISTRIBUTION_CERTIFICATE_PASSWORD`
-- `IOS_SIGNING_KEYCHAIN_PASSWORD`
-- `N2YO_API_KEY`
+- `IOS_ADHOC_PROFILE_BASE64` (debug channel only)
 
-The workflow runs on pushes to `master` and can also be started manually from GitHub Actions. Uploading places the build in App Store Connect/TestFlight processing; it does not automatically submit the app for public App Review.
+The workflow runs on pushes to `master` that raise `APP_VERSION_CODE` and can also be started manually from GitHub Actions. Uploading places the build in App Store Connect/TestFlight processing; it does not automatically submit the app for public App Review.
 
 ## Unsigned device build check
 

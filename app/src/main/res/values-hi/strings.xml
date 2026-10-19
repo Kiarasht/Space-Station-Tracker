@@ -243,4 +243,7 @@
     <string name="auto_alert_sync_scheduled_format">%1$d मेल खाने वाले पास मिले और %2$d सूचनाएँ शेड्यूल की गईं।</string>
     <string name="auto_alert_sync_failed">विफल</string>
     <string name="auto_alert_sync_retry_message">ISS पास जाँचे नहीं जा सके। फिर कोशिश की जाएगी।</string>
+    <string name="notification_times_already_passed">इस पास के लिए ये रिमाइंडर समय पहले ही बीत चुके हैं।</string>
+    <string name="no_calendar_app_available">कोई कैलेंडर ऐप उपलब्ध नहीं है</string>
+    <string name="notification_iss_pass_alert_direction_format">%1$s की ओर देखें, अधिकतम ऊँचाई %2$d°।</string>
 </resources>

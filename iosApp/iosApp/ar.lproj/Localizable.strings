@@ -1,0 +1,17 @@
+/* Pass reminders, location errors, calendar and share text. */
+
+"notification.title.at_event" = "بدأ مرور محطة الفضاء الدولية";
+"notification.title.10_minutes" = "مرور محطة الفضاء الدولية بعد 10 دقائق";
+"notification.title.1_hour" = "مرور محطة الفضاء الدولية بعد ساعة";
+"notification.title.12_hours" = "مرور محطة الفضاء الدولية بعد 12 ساعة";
+"notification.title.1_day" = "مرور محطة الفضاء الدولية بعد يوم";
+"notification.title.1_week" = "مرور محطة الفضاء الدولية بعد أسبوع";
+"notification.title.upcoming" = "مرور قادم لمحطة الفضاء الدولية";
+"notification.body.format" = "انظر نحو %1$@ لمرور يبلغ أقصى ارتفاع له %2$ld°.";
+"location.error.unavailable" = "الوصول إلى الموقع غير متاح. تحقق من خدمات الموقع وحاول مرة أخرى.";
+"location.error.failed" = "تعذّر تحديد الموقع. تحقق من خدمات الموقع وحاول مرة أخرى.";
+"location.current" = "الموقع الحالي";
+"calendar.event.title" = "مرور محطة الفضاء الدولية";
+"calendar.event.notes.format" = "مرور مرئي لمحطة الفضاء الدولية من %1$@ إلى %2$@، بأقصى ارتفاع %3$ld°.";
+"share.pass.format" = "مرور محطة الفضاء الدولية في %1$@. المدة: %2$ld د %3$ld ث. أقصى ارتفاع: %4$ld°.";
+"share.app.format" = "تتبّع محطة الفضاء الدولية باستخدام ISS Tracker: %@";

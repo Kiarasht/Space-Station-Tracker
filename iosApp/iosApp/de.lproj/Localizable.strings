@@ -1,0 +1,17 @@
+/* Pass reminders, location errors, calendar and share text. */
+
+"notification.title.at_event" = "ISS-Überflug beginnt";
+"notification.title.10_minutes" = "ISS-Überflug in 10 Minuten";
+"notification.title.1_hour" = "ISS-Überflug in 1 Stunde";
+"notification.title.12_hours" = "ISS-Überflug in 12 Stunden";
+"notification.title.1_day" = "ISS-Überflug in 1 Tag";
+"notification.title.1_week" = "ISS-Überflug in 1 Woche";
+"notification.title.upcoming" = "Bevorstehender ISS-Überflug";
+"notification.body.format" = "Blicke nach %1$@ – höchster Punkt bei %2$ld°.";
+"location.error.unavailable" = "Kein Zugriff auf den Standort. Prüfe die Ortungsdienste und versuche es erneut.";
+"location.error.failed" = "Der Standort konnte nicht ermittelt werden. Prüfe die Ortungsdienste und versuche es erneut.";
+"location.current" = "Aktueller Standort";
+"calendar.event.title" = "Überflug der Internationalen Raumstation";
+"calendar.event.notes.format" = "Sichtbarer ISS-Überflug von %1$@ nach %2$@, höchster Punkt bei %3$ld°.";
+"share.pass.format" = "Überflug der Internationalen Raumstation am %1$@. Dauer: %2$ld Min. %3$ld Sek. Maximale Höhe: %4$ld°.";
+"share.app.format" = "Verfolge die Internationale Raumstation mit ISS Tracker: %@";

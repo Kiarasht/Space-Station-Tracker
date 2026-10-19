@@ -16,6 +16,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -43,7 +45,8 @@ actual fun PlatformIssMap(
     currentLocation: IssLocation?,
     orbit: List<IssMapPoint>,
     mapType: String,
-    modifier: Modifier
+    modifier: Modifier,
+    bottomInset: Dp
 ) {
     val context = LocalContext.current
     val cameraState = rememberCameraPositionState {
@@ -74,6 +77,7 @@ actual fun PlatformIssMap(
     GoogleMap(
         modifier = modifier,
         cameraPositionState = cameraState,
+        contentPadding = PaddingValues(bottom = bottomInset),
         properties = MapProperties(
             mapType = when (mapType) {
                 "Satellite" -> MapType.SATELLITE

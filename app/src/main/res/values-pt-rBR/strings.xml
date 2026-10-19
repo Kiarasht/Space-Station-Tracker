@@ -243,4 +243,7 @@
     <string name="auto_alert_sync_scheduled_format">%1$d passes correspondentes encontrados e %2$d notificações agendadas.</string>
     <string name="auto_alert_sync_failed">Falhou</string>
     <string name="auto_alert_sync_retry_message">Não foi possível verificar os passes da ISS. Tentaremos novamente.</string>
+    <string name="notification_times_already_passed">Esses horários de lembrete já passaram para esta passagem.</string>
+    <string name="no_calendar_app_available">Nenhum app de calendário disponível</string>
+    <string name="notification_iss_pass_alert_direction_format">Olhe para %1$s, com ponto mais alto a %2$d°.</string>
 </resources>

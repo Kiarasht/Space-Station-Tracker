@@ -130,4 +130,21 @@
     <string name="purchase_status_pending">Pembelian tertunda. Iklan akan dihapus setelah toko mengonfirmasi pembayaran.</string>
     <string name="purchase_status_restored">Penghapusan iklan seumur hidup dipulihkan.</string>
     <string name="purchase_status_removed">Iklan dihapus secara permanen.</string>
+    <string name="unable_to_track_iss_message">Periksa koneksi Anda. Peta diperbarui otomatis setelah posisi ISS tersedia.</string>
+    <string name="crew_section_iss">Di atas ISS</string>
+    <string name="crew_section_elsewhere">Di tempat lain di luar angkasa</string>
+    <string name="next_visible_pass">Lintasan terlihat berikutnya</string>
+    <string name="later_passes">Lintasan berikutnya</string>
+    <string name="visible_now">Terlihat sekarang</string>
+    <string name="countdown_days_format">dalam %1$d h %2$d j</string>
+    <string name="countdown_hours_format">dalam %1$d j %2$d m</string>
+    <string name="countdown_minutes_format">dalam %1$d menit</string>
+    <string name="peak_elevation_format">Puncak %1$d°</string>
+    <string name="people_in_space_now">orang di luar angkasa saat ini</string>
+    <string name="day_in_space_format">Hari ke-%1$d di luar angkasa</string>
+    <string name="overhead_format">Tepat di atas %1$d°</string>
+    <string name="about_stat_orbit">menit per orbit</string>
+    <string name="about_stat_sunrises">matahari terbit sehari</string>
+    <string name="about_stat_crewed">tahun selalu berawak</string>
+    <string name="about_data_sources">Data dari %1$s</string>
 </resources>

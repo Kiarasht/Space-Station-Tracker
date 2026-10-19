@@ -243,4 +243,7 @@
     <string name="auto_alert_sync_scheduled_format">%1$d passages correspondants trouvés et %2$d notifications programmées.</string>
     <string name="auto_alert_sync_failed">Échec</string>
     <string name="auto_alert_sync_retry_message">Impossible de vérifier les passages de l’ISS. Nouvelle tentative prévue.</string>
+    <string name="notification_times_already_passed">Ces heures de rappel sont déjà passées pour ce passage.</string>
+    <string name="no_calendar_app_available">Aucune application d’agenda disponible</string>
+    <string name="notification_iss_pass_alert_direction_format">Regardez vers %1$s, point culminant à %2$d°.</string>
 </resources>

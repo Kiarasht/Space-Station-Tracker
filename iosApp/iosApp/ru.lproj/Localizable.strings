@@ -1,0 +1,17 @@
+/* Pass reminders, location errors, calendar and share text. */
+
+"notification.title.at_event" = "Пролёт МКС начинается";
+"notification.title.10_minutes" = "Пролёт МКС через 10 минут";
+"notification.title.1_hour" = "Пролёт МКС через 1 час";
+"notification.title.12_hours" = "Пролёт МКС через 12 часов";
+"notification.title.1_day" = "Пролёт МКС через 1 день";
+"notification.title.1_week" = "Пролёт МКС через 1 неделю";
+"notification.title.upcoming" = "Предстоящий пролёт МКС";
+"notification.body.format" = "Смотрите на %1$@: наивысшая точка пролёта — %2$ld°.";
+"location.error.unavailable" = "Доступ к геопозиции недоступен. Проверьте службы геолокации и повторите попытку.";
+"location.error.failed" = "Не удалось определить местоположение. Проверьте службы геолокации и повторите попытку.";
+"location.current" = "Текущее местоположение";
+"calendar.event.title" = "Пролёт Международной космической станции";
+"calendar.event.notes.format" = "Видимый пролёт МКС от %1$@ до %2$@, наивысшая точка — %3$ld°.";
+"share.pass.format" = "Пролёт Международной космической станции %1$@. Длительность: %2$ld мин %3$ld с. Максимальная высота: %4$ld°.";
+"share.app.format" = "Следите за Международной космической станцией с ISS Tracker: %@";

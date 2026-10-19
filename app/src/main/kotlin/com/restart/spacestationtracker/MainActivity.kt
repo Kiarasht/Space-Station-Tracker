@@ -1,21 +1,17 @@
 package com.restart.spacestationtracker
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.lifecycleScope
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
@@ -25,30 +21,25 @@ import androidx.compose.material.icons.filled.Public
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.restart.spacestationtracker.shared.ui.SpaceNavItem
+import com.restart.spacestationtracker.shared.ui.SpaceFloatingNavBar
+import com.restart.spacestationtracker.shared.ui.SpaceBottomChrome
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-import androidx.compose.ui.input.nestedscroll.NestedScrollSource
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -106,10 +97,14 @@ class MainActivity : ComponentActivity() {
     private var isMobileAdsInitialized = false
     private var consentAllowsAdRequests = false
     private var purchaseEntitlementChecked = false
+    private var pendingRoute by mutableStateOf<String?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        if (savedInstanceState == null) {
+            pendingRoute = intent.consumeOpenRoute()
+        }
         adRemovalBillingController = AndroidAdRemovalBillingController(
             context = this,
             settingsRepository = settingsRepository
@@ -145,6 +140,8 @@ class MainActivity : ComponentActivity() {
             
             SpaceStationTrackerTheme(darkTheme = useDarkTheme) {
                 MainScreen(
+                    pendingRoute = pendingRoute,
+                    onPendingRouteHandled = { pendingRoute = null },
                     isAdFree = isAdFree,
                     canRequestAds =
                         canRequestAds && purchaseState.isEntitlementCheckComplete,
@@ -167,9 +164,29 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        adRemovalBillingController.refreshPurchases()
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        intent.consumeOpenRoute()?.let { pendingRoute = it }
+    }
+
     override fun onDestroy() {
         adRemovalBillingController.stop()
         super.onDestroy()
+    }
+
+    private fun Intent.consumeOpenRoute(): String? {
+        val route = getStringExtra(EXTRA_OPEN_ROUTE)
+        removeExtra(EXTRA_OPEN_ROUTE)
+        return route
+    }
+
+    companion object {
+        const val EXTRA_OPEN_ROUTE = "extra_open_route"
     }
 
     private fun maybeInitializeMobileAds() {
@@ -192,6 +209,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(
+    pendingRoute: String?,
+    onPendingRouteHandled: () -> Unit,
     isAdFree: Boolean,
     canRequestAds: Boolean,
     purchaseState: AdRemovalPurchaseUiState,
@@ -211,32 +230,11 @@ fun MainScreen(
         Screen.About
     )
 
-    val bottomBarState = rememberSaveable { mutableStateOf(true) }
-    val nestedScrollConnection = remember {
-        object : NestedScrollConnection {
-            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
-                if (available.y > 0) {
-                    bottomBarState.value = true
-                }
-                return Offset.Zero
-            }
-
-            override fun onPostScroll(
-                consumed: Offset,
-                available: Offset,
-                source: NestedScrollSource
-            ): Offset {
-                if (consumed.y < 0) {
-                    bottomBarState.value = false
-                }
-                return super.onPostScroll(consumed, available, source)
-            }
-        }
-    }
-
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
     val currentRoute = currentDestination?.route
+    var chromeHeightPx by remember { mutableIntStateOf(0) }
+    val chromeHeight = with(LocalDensity.current) { chromeHeightPx.toDp() }
 
     LaunchedEffect(currentRoute) {
         AppAnalytics.trackScreen(currentRoute)
@@ -250,112 +248,73 @@ fun MainScreen(
         AppAnalytics.updateAdFreeState(isAdFree)
     }
 
-    val isBottomBarVisible = when {
-        currentDestination?.route == Screen.Map.route -> true
-        currentDestination?.route?.startsWith("legal") == true -> false
-        else -> bottomBarState.value
-    }
-
-    var navBarHeight by remember { mutableFloatStateOf(0f) }
-
-    val bottomBarTranslationY by animateFloatAsState(
-        targetValue = if (isBottomBarVisible) 0f else navBarHeight,
-        label = "Bottom bar translation"
-    )
-
-    val bottomPadding = WindowInsets.navigationBars.getBottom(LocalDensity.current)
-    val animatedBottomPadding by animateDpAsState(
-        targetValue = if (isBottomBarVisible) 0.dp else (bottomPadding / LocalDensity.current.density).dp,
-        label = "animated bottom padding"
-    )
-
-    Scaffold(
-        modifier = Modifier.nestedScroll(nestedScrollConnection),
-        bottomBar = {
-            Column(
-                modifier = Modifier
-                    .graphicsLayer { translationY = bottomBarTranslationY }
-            ) {
-                if (!isAdFree && canRequestAds) {
-                    AdmobBanner(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = animatedBottomPadding)
-                    )
+    LaunchedEffect(pendingRoute) {
+        val route = pendingRoute ?: return@LaunchedEffect
+        if (bottomNavItems.any { it.route == route }) {
+            navController.navigate(route) {
+                popUpTo(navController.graph.findStartDestination().id) {
+                    saveState = true
                 }
-                NavigationBar(
-                    modifier = Modifier.onSizeChanged { navBarHeight = it.height.toFloat() },
-                    containerColor = MaterialTheme.colorScheme.surface
-                ) {
-                    bottomNavItems.forEach { screen ->
-                        NavigationBarItem(
-                            colors = NavigationBarItemDefaults.colors(
-                                selectedIconColor = MaterialTheme.colorScheme.primary,
-                                selectedTextColor = MaterialTheme.colorScheme.primary,
-                                unselectedIconColor = MaterialTheme.colorScheme.onSurface,
-                                unselectedTextColor = MaterialTheme.colorScheme.onSurface,
-                                indicatorColor = MaterialTheme.colorScheme.background
-                            ),
-                            icon = {
-                                val painter = when (screen.route) {
-                                    Screen.IssPasses.route -> painterResource(id = R.drawable.ic_passes)
-                                    Screen.PeopleInSpace.route -> painterResource(id = R.drawable.ic_astronaut)
-                                    else -> rememberVectorPainter(image = screen.icon!!)
-                                }
-                                Icon(
-                                    painter = painter,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(24.dp)
-                                )
-                            },
-                            label = { Text(stringResource(id = screen.labelResId)) },
-                            selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-                            onClick = {
-                                AppAnalytics.trackInteraction("navigate_${screen.route}")
-                                navController.navigate(screen.route) {
-                                    popUpTo(navController.graph.findStartDestination().id) {
-                                        saveState = true
-                                    }
-                                    launchSingleTop = true
-                                    restoreState = true
-                                }
-                            }
-                        )
-                    }
-                }
+                launchSingleTop = true
+                restoreState = true
             }
         }
-    ) { innerPadding ->
-        Column {
+        onPendingRouteHandled()
+    }
+
+    // Legal pages are full screen.
+    val isBottomBarVisible = currentRoute?.startsWith("legal") != true
+    val selectedRoute = bottomNavItems.firstOrNull { screen ->
+        currentDestination?.hierarchy?.any { it.route == screen.route } == true
+    }?.route ?: Screen.Map.route
+    val navItems = bottomNavItems.map { screen ->
+        SpaceNavItem(
+            key = screen.route,
+            label = stringResource(id = screen.labelResId),
+            icon = when (screen.route) {
+                Screen.IssPasses.route -> painterResource(id = R.drawable.ic_passes)
+                Screen.PeopleInSpace.route -> painterResource(id = R.drawable.ic_astronaut)
+                else -> rememberVectorPainter(image = screen.icon!!)
+            }
+        )
+    }
+
+    Scaffold(containerColor = MaterialTheme.colorScheme.background) { innerPadding ->
+        // Screens draw under the floating bar; its measured height becomes their bottom padding.
+        val contentPadding = PaddingValues(
+            top = innerPadding.calculateTopPadding(),
+            bottom = if (isBottomBarVisible) chromeHeight else innerPadding.calculateBottomPadding()
+        )
+        Box(Modifier.fillMaxSize()) {
             NavHost(
                 navController,
                 startDestination = Screen.Map.route,
             ) {
                 composable(Screen.Map.route) {
                     SharedMapRoute(
-                        contentPadding = innerPadding,
+                        contentPadding = contentPadding,
                         canRequestAds = canRequestAds,
                         purchaseState = purchaseState,
                         onPurchaseAdRemoval = onPurchaseAdRemoval,
                         onRestoreAdRemoval = onRestoreAdRemoval
                     )
                 }
-                composable(Screen.IssPasses.route) { IssPassesScreen(contentPadding = innerPadding) }
+                composable(Screen.IssPasses.route) { IssPassesScreen(contentPadding = contentPadding) }
                 composable(Screen.PeopleInSpace.route) {
                     PeopleInSpaceScreen(
-                        contentPadding = innerPadding
+                        contentPadding = contentPadding
                     )
                 }
                 composable(Screen.Settings.route) {
                     SettingsScreen(
-                        contentPadding = innerPadding,
+                        contentPadding = contentPadding,
                         isPrivacyOptionsRequired = isPrivacyOptionsRequired,
                         onPrivacyOptionsClick = onPrivacyOptionsClick
                     )
                 }
                 composable(Screen.About.route) {
                     SharedAboutRoute(
-                        contentPadding = innerPadding,
+                        contentPadding = contentPadding,
                         onNavigateToLegal = { titleResId, contentResId ->
                             navController.navigate("legal/$titleResId/$contentResId")
                         }
@@ -374,6 +333,34 @@ fun MainScreen(
                         titleResId = title,
                         contentResId = content,
                         onNavigateUp = { navController.popBackStack() }
+                    )
+                }
+            }
+
+            if (isBottomBarVisible) {
+                SpaceBottomChrome(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .onSizeChanged { chromeHeightPx = it.height },
+                    banner = if (!isAdFree && canRequestAds) {
+                        { AdmobBanner(modifier = Modifier.fillMaxWidth()) }
+                    } else {
+                        null
+                    }
+                ) {
+                    SpaceFloatingNavBar(
+                        items = navItems,
+                        selectedKey = selectedRoute,
+                        onSelect = { route ->
+                            AppAnalytics.trackInteraction("navigate_$route")
+                            navController.navigate(route) {
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        }
                     )
                 }
             }

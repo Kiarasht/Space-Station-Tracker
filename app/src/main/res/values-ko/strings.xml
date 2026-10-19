@@ -243,4 +243,7 @@
     <string name="auto_alert_sync_scheduled_format">조건에 맞는 통과 %1$d개를 찾고 알림 %2$d개를 예약했습니다.</string>
     <string name="auto_alert_sync_failed">실패</string>
     <string name="auto_alert_sync_retry_message">ISS 통과를 확인할 수 없습니다. 다시 시도합니다.</string>
+    <string name="notification_times_already_passed">이 통과에 대한 알림 시간이 이미 지났습니다.</string>
+    <string name="no_calendar_app_available">사용할 수 있는 캘린더 앱이 없습니다</string>
+    <string name="notification_iss_pass_alert_direction_format">%1$s 방향을 보세요. 최고 고도 %2$d°.</string>
 </resources>

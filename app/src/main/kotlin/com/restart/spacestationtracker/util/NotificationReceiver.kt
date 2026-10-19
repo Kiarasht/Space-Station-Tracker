@@ -8,11 +8,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.restart.spacestationtracker.MainActivity
 import com.restart.spacestationtracker.R
+import com.restart.spacestationtracker.Screen
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.concurrent.TimeUnit
+import kotlin.math.roundToInt
 
 class NotificationReceiver : BroadcastReceiver() {
 
@@ -20,6 +23,10 @@ class NotificationReceiver : BroadcastReceiver() {
         const val EXTRA_PASS_START_TIME = "extra_pass_start_time"
         const val EXTRA_PASS_DURATION = "extra_pass_duration"
         const val EXTRA_PASS_MAGNITUDE = "extra_pass_magnitude"
+        const val EXTRA_PASS_MAX_ELEVATION = "extra_pass_max_elevation"
+        const val EXTRA_PASS_START_COMPASS = "extra_pass_start_compass"
+        const val EXTRA_PASS_END_COMPASS = "extra_pass_end_compass"
+        const val EXTRA_SCHEDULE_ID = "extra_schedule_id"
     }
 
     override fun onReceive(context: Context, intent: Intent) {
@@ -27,13 +34,25 @@ class NotificationReceiver : BroadcastReceiver() {
         val passDuration = intent.getIntExtra(EXTRA_PASS_DURATION, 0)
         val passMagnitude = intent.getDoubleExtra(EXTRA_PASS_MAGNITUDE, 0.0)
 
+        val passMaxElevation = intent.getDoubleExtra(EXTRA_PASS_MAX_ELEVATION, Double.NaN)
+        val passStartCompass = intent.getStringExtra(EXTRA_PASS_START_COMPASS).orEmpty()
+
+        intent.getStringExtra(EXTRA_SCHEDULE_ID)?.let { scheduleId ->
+            NotificationScheduler(context).onNotificationDelivered(scheduleId)
+        }
+
         if (passStartTime == 0L) return
 
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         createNotificationChannel(context, notificationManager)
 
-        val launchIntent = context.packageManager.getLaunchIntentForPackage(context.packageName)
+        val launchIntent = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                Intent.FLAG_ACTIVITY_SINGLE_TOP
+            putExtra(MainActivity.EXTRA_OPEN_ROUTE, Screen.IssPasses.route)
+        }
         val pendingIntent = PendingIntent.getActivity(
             context, 0, launchIntent,
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
@@ -43,17 +62,27 @@ class NotificationReceiver : BroadcastReceiver() {
         val startTimeStr = dateFormat.format(Date(passStartTime))
         val durationInMinutes = TimeUnit.SECONDS.toMinutes(passDuration.toLong())
 
+        val summaryText = context.getString(
+            R.string.notification_iss_pass_alert_text_format,
+            startTimeStr,
+            durationInMinutes,
+            context.getString(IssPassVisibility.labelResForMagnitude(passMagnitude))
+        )
+        val contentText = if (passStartCompass.isNotBlank() && !passMaxElevation.isNaN()) {
+            summaryText + "\n" + context.getString(
+                R.string.notification_iss_pass_alert_direction_format,
+                passStartCompass,
+                passMaxElevation.roundToInt()
+            )
+        } else {
+            summaryText
+        }
+
         val notification = NotificationCompat.Builder(context, "iss_pass_channel")
             .setSmallIcon(R.drawable.ic_iss)
             .setContentTitle(context.getString(R.string.notification_iss_pass_alert_title))
-            .setContentText(
-                context.getString(
-                    R.string.notification_iss_pass_alert_text_format,
-                    startTimeStr,
-                    durationInMinutes,
-                    context.getString(IssPassVisibility.labelResForMagnitude(passMagnitude))
-                )
-            )
+            .setContentText(contentText)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(contentText))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)

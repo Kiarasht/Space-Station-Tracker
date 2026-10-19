@@ -4,6 +4,8 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.ComposeUIViewController
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import com.restart.spacestationtracker.shared.network.ISS_TLE_PREFS_NAME
+import com.restart.spacestationtracker.shared.network.KtorSpaceStationRepository
 import com.restart.spacestationtracker.shared.presentation.SharedAppController
 import com.restart.spacestationtracker.shared.preferences.NSUserDefaultsPreferenceStore
 import com.restart.spacestationtracker.shared.settings.SharedSettingsRepository
@@ -19,6 +21,9 @@ class IosComposeAppBridge(
     private val versionText: String = "Version 7.09 (53)"
 ) {
     private val controller = SharedAppController(
+        repository = KtorSpaceStationRepository(
+            tleStore = NSUserDefaultsPreferenceStore(ISS_TLE_PREFS_NAME)
+        ),
         settingsRepository = SharedSettingsRepository(
             NSUserDefaultsPreferenceStore(SETTINGS_SUITE_NAME)
         )
@@ -54,6 +59,10 @@ class IosComposeAppBridge(
         IosIssMapRegistry.register(factory, updater)
     }
 
+    fun registerMapInsetUpdater(updater: (UIView, Double) -> Unit) {
+        IosIssMapRegistry.registerInsetUpdater(updater)
+    }
+
     fun registerNativeAdViewFactory(factory: (String) -> UIView) {
         IosNativeAdRegistry.register(factory)
     }
@@ -75,6 +84,14 @@ class IosComposeAppBridge(
             locationName = locationName
         )
         controller.loadPasses(latitude, longitude, altitude, locationName)
+    }
+
+    fun openPassesTab() {
+        controller.requestTab("PASSES")
+    }
+
+    fun setAppActive(active: Boolean) {
+        controller.setAppActive(active)
     }
 
     fun setAutomaticPassAlertsEnabled(enabled: Boolean) {

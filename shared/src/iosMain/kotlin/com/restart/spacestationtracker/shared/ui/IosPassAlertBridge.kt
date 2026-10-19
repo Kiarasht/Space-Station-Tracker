@@ -1,5 +1,6 @@
 package com.restart.spacestationtracker.shared.ui
 
+import com.restart.spacestationtracker.shared.network.ISS_TLE_PREFS_NAME
 import com.restart.spacestationtracker.shared.network.KtorSpaceStationRepository
 import com.restart.spacestationtracker.shared.passes.PassAlertPolicy
 import com.restart.spacestationtracker.shared.preferences.NSUserDefaultsPreferenceStore
@@ -29,7 +30,9 @@ data class IosPassAlertPayload(
 
 class IosPassAlertBridge {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
-    private val repository = KtorSpaceStationRepository()
+    private val repository = KtorSpaceStationRepository(
+        tleStore = NSUserDefaultsPreferenceStore(ISS_TLE_PREFS_NAME)
+    )
 
     fun createNotificationSchedules(
         startTimeMillis: Long,

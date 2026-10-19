@@ -243,4 +243,7 @@
     <string name="auto_alert_sync_scheduled_format">找到 %1$d 次匹配过境，并安排了 %2$d 条通知。</string>
     <string name="auto_alert_sync_failed">失败</string>
     <string name="auto_alert_sync_retry_message">无法检查国际空间站过境。将重试。</string>
+    <string name="notification_times_already_passed">此次过境的这些提醒时间已经过去。</string>
+    <string name="no_calendar_app_available">没有可用的日历应用</string>
+    <string name="notification_iss_pass_alert_direction_format">请朝%1$s方向看，最高仰角%2$d°。</string>
 </resources>

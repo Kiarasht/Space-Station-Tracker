@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
+import android.os.SystemClock
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
@@ -17,6 +18,8 @@ import kotlin.coroutines.resume
 object ForegroundLocationProvider {
     private const val FUSED_LAST_LOCATION_TIMEOUT_MS = 1_500L
     private const val FRESH_LOCATION_TIMEOUT_MS = 10_000L
+    private const val MAX_CACHED_LOCATION_AGE_MS = 30L * 60L * 1_000L
+    private const val MAX_CACHED_ACCURACY_METERS = 5_000f
 
     fun hasLocationPermission(context: Context): Boolean {
         return ContextCompat.checkSelfPermission(
@@ -29,13 +32,26 @@ object ForegroundLocationProvider {
             ) == PackageManager.PERMISSION_GRANTED
     }
 
+    /**
+     * Prefers a recent cached fix, then a fresh fix, and only falls back to an old cached fix
+     * when nothing else is available, so a days-old location from another city is a last resort.
+     */
     suspend fun getBestLocation(context: Context): Location? {
         if (!hasLocationPermission(context)) return null
 
-        return getLocationManagerLastKnownLocation(context)
-            ?: getFusedLastLocation(context)
+        val lastKnownLocation = getLocationManagerLastKnownLocation(context)
+        val fusedLastLocation = getFusedLastLocation(context)
+        return listOfNotNull(lastKnownLocation, fusedLastLocation)
+            .filter(::isRecent)
+            .maxByOrNull(Location::getTime)
             ?: getFreshFusedLocation(context)
-            ?: getLocationManagerLastKnownLocation(context)
+            ?: listOfNotNull(lastKnownLocation, fusedLastLocation).maxByOrNull(Location::getTime)
+    }
+
+    private fun isRecent(location: Location): Boolean {
+        val ageMillis = (SystemClock.elapsedRealtimeNanos() - location.elapsedRealtimeNanos) / 1_000_000
+        val isAccurateEnough = !location.hasAccuracy() || location.accuracy <= MAX_CACHED_ACCURACY_METERS
+        return ageMillis in 0..MAX_CACHED_LOCATION_AGE_MS && isAccurateEnough
     }
 
     private fun getLocationManagerLastKnownLocation(context: Context): Location? {
@@ -43,8 +59,7 @@ object ForegroundLocationProvider {
             val locationManager =
                 context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
             locationManager.getProviders(true)
-                .asReversed()
-                .firstNotNullOfOrNull { provider ->
+                .mapNotNull { provider ->
                     try {
                         locationManager.getLastKnownLocation(provider)
                     } catch (_: SecurityException) {
@@ -53,6 +68,7 @@ object ForegroundLocationProvider {
                         null
                     }
                 }
+                .maxByOrNull(Location::getTime)
         } catch (_: SecurityException) {
             null
         } catch (_: RuntimeException) {

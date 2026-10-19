@@ -3,6 +3,7 @@ package com.restart.spacestationtracker.ui.iss_passes
 import android.Manifest
 import android.app.Activity
 import android.app.AlarmManager
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
@@ -50,7 +51,10 @@ import com.restart.spacestationtracker.R
 import com.restart.spacestationtracker.analytics.AppAnalytics
 import com.restart.spacestationtracker.domain.iss_passes.model.IssPass
 import com.restart.spacestationtracker.ui.ads.NativeAdCard
+import com.restart.spacestationtracker.shared.passes.PassAlertPolicy
 import com.restart.spacestationtracker.shared.ui.SharedIssPassCard
+import com.restart.spacestationtracker.shared.ui.SharedNextPassHero
+import com.restart.spacestationtracker.shared.ui.SkyPathSectionTitle
 import com.restart.spacestationtracker.shared.ui.SkyPathVisualGuide
 import com.restart.spacestationtracker.util.IssPassVisibility
 import com.restart.spacestationtracker.util.NotificationScheduler
@@ -95,15 +99,18 @@ fun IssPassesScreen(
     val locale = remember(configuration) { configuration.locales[0] }
     val layoutDirection = LocalLayoutDirection.current
     val windowSizeClass = calculateWindowSizeClass(activity)
-    val passDateFormat = remember(locale) { SimpleDateFormat("EEEE, MMMM d", locale) }
-    val passTimeFormat = remember(locale) { SimpleDateFormat("h:mm a", locale) }
     val viewportPadding = PaddingValues(
         start = contentPadding.calculateStartPadding(layoutDirection),
         end = contentPadding.calculateEndPadding(layoutDirection),
-        top = contentPadding.calculateTopPadding(),
-        bottom = contentPadding.calculateTopPadding()
+        top = contentPadding.calculateTopPadding()
     )
-    val listPadding = PaddingValues(16.dp)
+    // The list scrolls under the floating bar; its height arrives as the bottom padding.
+    val listPadding = PaddingValues(
+        start = 16.dp,
+        top = 16.dp,
+        end = 16.dp,
+        bottom = 16.dp + contentPadding.calculateBottomPadding()
+    )
 
     var showInfoDialog by rememberSaveable { mutableStateOf(false) }
     var passForNotification by remember { mutableStateOf<IssPass?>(null) }
@@ -152,7 +159,7 @@ fun IssPassesScreen(
         when {
             uiState.isLoading -> CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             uiState.error != null -> {
-                val isLocationError = uiState.error?.contains("location", ignoreCase = true) == true
+                val isLocationError = uiState.isLocationError
                 SkyPathStateMessage(
                     title = if (isLocationError) {
                         stringResource(id = R.string.sky_path_location_needed)
@@ -199,6 +206,19 @@ fun IssPassesScreen(
                     passForNotification = pass
                 }
 
+                val onAddToCalendarClick: (IssPass) -> Unit = {
+                    AppAnalytics.trackInteraction("add_pass_to_calendar", "sky_path")
+                    addPassToCalendar(activity, it)
+                }
+                val onShareClick: (IssPass) -> Unit = {
+                    AppAnalytics.trackInteraction("share_pass", "sky_path")
+                    sharePassDetails(activity, it)
+                }
+                // The next pass gets the hero card; the rest (with ads) follow under "Later passes".
+                val heroPass = uiState.feedItems.firstNotNullOfOrNull { (it as? FeedItem.PassItem)?.pass }
+                val laterItems = uiState.feedItems.filterNot { it is FeedItem.PassItem && it.pass == heroPass }
+                val hasLaterPasses = laterItems.any { it is FeedItem.PassItem }
+
                 when (windowSizeClass.widthSizeClass) {
                     WindowWidthSizeClass.Compact -> {
                         LazyColumn(
@@ -212,8 +232,19 @@ fun IssPassesScreen(
                                     onInfoClick = { showInfoDialog = true }
                                 )
                             }
+                            heroPass?.let { pass ->
+                                item {
+                                    SharedNextPassHero(
+                                        pass = pass,
+                                        onScheduleNotification = onNotificationClick,
+                                        onAddToCalendar = onAddToCalendarClick,
+                                        onShare = onShareClick
+                                    )
+                                }
+                            }
+                            if (hasLaterPasses) item { SkyPathSectionTitle() }
                             items(
-                                items = uiState.feedItems,
+                                items = laterItems,
                                 contentType = { item ->
                                     when (item) {
                                         is FeedItem.PassItem -> "pass"
@@ -225,18 +256,8 @@ fun IssPassesScreen(
                                     is FeedItem.PassItem -> SharedIssPassCard(
                                         pass = item.pass,
                                         onScheduleNotification = onNotificationClick,
-                                        onAddToCalendar = {
-                                            AppAnalytics.trackInteraction("add_pass_to_calendar", "sky_path")
-                                            addPassToCalendar(activity, it)
-                                        },
-                                        onShare = {
-                                            AppAnalytics.trackInteraction("share_pass", "sky_path")
-                                            sharePassDetails(activity, it)
-                                        },
-                                        dateLabel = passDateFormat
-                                            .format(Date(item.pass.startTimeMillis))
-                                            .uppercase(locale),
-                                        timeLabel = passTimeFormat.format(Date(item.pass.startTimeMillis))
+                                        onAddToCalendar = onAddToCalendarClick,
+                                        onShare = onShareClick
                                     )
 
                                     is FeedItem.AdItem -> NativeAdCard(nativeAd = item.ad)
@@ -262,8 +283,21 @@ fun IssPassesScreen(
                                     onInfoClick = { showInfoDialog = true }
                                 )
                             }
+                            heroPass?.let { pass ->
+                                item(span = StaggeredGridItemSpan.FullLine) {
+                                    SharedNextPassHero(
+                                        pass = pass,
+                                        onScheduleNotification = onNotificationClick,
+                                        onAddToCalendar = onAddToCalendarClick,
+                                        onShare = onShareClick
+                                    )
+                                }
+                            }
+                            if (hasLaterPasses) {
+                                item(span = StaggeredGridItemSpan.FullLine) { SkyPathSectionTitle() }
+                            }
                             items(
-                                items = uiState.feedItems,
+                                items = laterItems,
                                 contentType = { item ->
                                     when (item) {
                                         is FeedItem.PassItem -> "pass"
@@ -275,18 +309,8 @@ fun IssPassesScreen(
                                     is FeedItem.PassItem -> SharedIssPassCard(
                                         pass = item.pass,
                                         onScheduleNotification = onNotificationClick,
-                                        onAddToCalendar = {
-                                            AppAnalytics.trackInteraction("add_pass_to_calendar", "sky_path")
-                                            addPassToCalendar(activity, it)
-                                        },
-                                        onShare = {
-                                            AppAnalytics.trackInteraction("share_pass", "sky_path")
-                                            sharePassDetails(activity, it)
-                                        },
-                                        dateLabel = passDateFormat
-                                            .format(Date(item.pass.startTimeMillis))
-                                            .uppercase(locale),
-                                        timeLabel = passTimeFormat.format(Date(item.pass.startTimeMillis))
+                                        onAddToCalendar = onAddToCalendarClick,
+                                        onShare = onShareClick
                                     )
 
                                     is FeedItem.AdItem -> NativeAdCard(nativeAd = item.ad)
@@ -468,6 +492,13 @@ fun NotificationSchedulerDialog(pass: IssPass, onDismiss: () -> Unit) {
     }
 
     val notificationOptions = notificationTimeOptions()
+    val availableOptionValues = remember(pass.startTimeMillis) {
+        PassAlertPolicy.remindersFor(
+            startTimeMillis = pass.startTimeMillis,
+            notificationTimes = PassAlertPolicy.supportedNotificationTimes,
+            nowMillis = System.currentTimeMillis()
+        ).map { it.notificationTime }.toSet()
+    }
 
     val selectedOptions = remember { mutableStateListOf<String>() }
 
@@ -509,11 +540,14 @@ fun NotificationSchedulerDialog(pass: IssPass, onDismiss: () -> Unit) {
                     }
                     Spacer(Modifier.height(16.dp))
                     notificationOptions.forEach { option ->
+                        // Reminder times that are already in the past can't be scheduled.
+                        val isAvailable = option.value in availableOptionValues
                         Row(
                             Modifier
                                 .fillMaxWidth()
                                 .toggleable(
                                     value = option.value in selectedOptions,
+                                    enabled = isAvailable,
                                     onValueChange = {
                                         if (it) selectedOptions.add(option.value) else selectedOptions.remove(
                                             option.value
@@ -526,10 +560,18 @@ fun NotificationSchedulerDialog(pass: IssPass, onDismiss: () -> Unit) {
                         ) {
                             Checkbox(
                                 checked = option.value in selectedOptions,
-                                onCheckedChange = null
+                                onCheckedChange = null,
+                                enabled = isAvailable
                             )
                             Spacer(Modifier.width(8.dp))
-                            Text(option.label)
+                            Text(
+                                text = option.label,
+                                color = if (isAvailable) {
+                                    MaterialTheme.colorScheme.onSurface
+                                } else {
+                                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+                                }
+                            )
                         }
                     }
                 }
@@ -539,9 +581,17 @@ fun NotificationSchedulerDialog(pass: IssPass, onDismiss: () -> Unit) {
             TextButton(
                 onClick = {
                     if (hasNotificationPermission) {
-                        notificationScheduler.scheduleNotifications(pass, selectedOptions)
-                        Toast.makeText(context, R.string.notification_scheduled, Toast.LENGTH_SHORT)
-                            .show()
+                        val scheduledCount =
+                            notificationScheduler.scheduleNotifications(pass, selectedOptions)
+                        Toast.makeText(
+                            context,
+                            if (scheduledCount > 0) {
+                                R.string.notification_scheduled
+                            } else {
+                                R.string.notification_times_already_passed
+                            },
+                            Toast.LENGTH_SHORT
+                        ).show()
                         onDismiss()
                     } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         requestNotificationPermissionOrOpenSettings()
@@ -610,7 +660,13 @@ private fun sharePassDetails(context: Context, pass: IssPass) {
         type = "text/plain"
         putExtra(Intent.EXTRA_TEXT, shareText)
     }
-    context.startActivity(Intent.createChooser(intent, context.getString(R.string.iss_pass_share_chooser)))
+    try {
+        context.startActivity(
+            Intent.createChooser(intent, context.getString(R.string.iss_pass_share_chooser))
+        )
+    } catch (_: ActivityNotFoundException) {
+        Toast.makeText(context, R.string.no_share_app_available, Toast.LENGTH_SHORT).show()
+    }
 }
 
 private fun addPassToCalendar(context: Context, pass: IssPass) {
@@ -630,7 +686,11 @@ private fun addPassToCalendar(context: Context, pass: IssPass) {
             )
         )
     }
-    context.startActivity(intent)
+    try {
+        context.startActivity(intent)
+    } catch (_: ActivityNotFoundException) {
+        Toast.makeText(context, R.string.no_calendar_app_available, Toast.LENGTH_SHORT).show()
+    }
 }
 
 private fun Context.findActivity(): Activity {

@@ -130,4 +130,21 @@
     <string name="purchase_status_pending">Achat en attente. Les publicités seront supprimées après confirmation du paiement par la boutique.</string>
     <string name="purchase_status_restored">Suppression définitive des publicités restaurée.</string>
     <string name="purchase_status_removed">Les publicités sont supprimées définitivement.</string>
+    <string name="unable_to_track_iss_message">Vérifiez votre connexion. La carte se met à jour automatiquement dès que la position de l’ISS est disponible.</string>
+    <string name="crew_section_iss">À bord de l’ISS</string>
+    <string name="crew_section_elsewhere">Ailleurs dans l’espace</string>
+    <string name="next_visible_pass">Prochain passage visible</string>
+    <string name="later_passes">Passages suivants</string>
+    <string name="visible_now">Visible maintenant</string>
+    <string name="countdown_days_format">dans %1$d j %2$d h</string>
+    <string name="countdown_hours_format">dans %1$d h %2$d min</string>
+    <string name="countdown_minutes_format">dans %1$d min</string>
+    <string name="peak_elevation_format">Point culminant %1$d°</string>
+    <string name="people_in_space_now">personnes dans l’espace en ce moment</string>
+    <string name="day_in_space_format">Jour %1$d dans l’espace</string>
+    <string name="overhead_format">Zénith %1$d°</string>
+    <string name="about_stat_orbit">minutes par orbite</string>
+    <string name="about_stat_sunrises">levers de soleil par jour</string>
+    <string name="about_stat_crewed">ans habitée sans interruption</string>
+    <string name="about_data_sources">Données : %1$s</string>
 </resources>

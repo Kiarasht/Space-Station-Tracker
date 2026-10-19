@@ -130,4 +130,21 @@
     <string name="purchase_status_pending">购买正在等待处理。商店确认付款后将移除广告。</string>
     <string name="purchase_status_restored">已恢复永久移除广告。</string>
     <string name="purchase_status_removed">广告已永久移除。</string>
+    <string name="unable_to_track_iss_message">请检查网络连接。获取到国际空间站位置后，地图会自动更新。</string>
+    <string name="crew_section_iss">国际空间站上</string>
+    <string name="crew_section_elsewhere">其他太空驻留人员</string>
+    <string name="next_visible_pass">下一次可见过境</string>
+    <string name="later_passes">之后的过境</string>
+    <string name="visible_now">现在可见</string>
+    <string name="countdown_days_format">%1$d天%2$d小时后</string>
+    <string name="countdown_hours_format">%1$d小时%2$d分钟后</string>
+    <string name="countdown_minutes_format">%1$d分钟后</string>
+    <string name="peak_elevation_format">最高 %1$d°</string>
+    <string name="people_in_space_now">人此刻在太空中</string>
+    <string name="day_in_space_format">太空第%1$d天</string>
+    <string name="overhead_format">天顶 %1$d°</string>
+    <string name="about_stat_orbit">分钟绕地球一圈</string>
+    <string name="about_stat_sunrises">每天日出次数</string>
+    <string name="about_stat_crewed">年持续有人驻留</string>
+    <string name="about_data_sources">数据来源：%1$s</string>
 </resources>

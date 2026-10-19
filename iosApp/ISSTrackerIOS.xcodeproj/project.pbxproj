@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04A9128156DEB7F37E12DFA0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8B78EC5B0C7F41346B344425 /* Localizable.strings */; };
 		291DA3AD2808278D708F3FF3 /* GoogleService-Info-Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E69E8B1E49FBE9BBF6F04E6 /* GoogleService-Info-Debug.plist */; };
 		3AF24B4716BF43EF275D0678 /* ISSTrackerShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E13391BAAC59CFFCA6C7AAA2 /* ISSTrackerShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		48814893FCA314DB183A2DD8 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE64AB4177A2357DB6CFB467 /* RootView.swift */; };
@@ -16,6 +17,7 @@
 		AA527B3F172BCCD592AEC0E5 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 1D2772B984DF271DD7B375ED /* PrivacyInfo.xcprivacy */; };
 		D0717C1F8A7883A28A566401 /* GoogleUserMessagingPlatform in Frameworks */ = {isa = PBXBuildFile; productRef = 2286855AF4A3534EA3E91F93 /* GoogleUserMessagingPlatform */; };
 		D07E8BF06EA5D415F54F3427 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4657DB7A645C484740893CCE /* AppModel.swift */; };
+		E4F052EBBF3536A76D58FD5A /* PassNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8774E9AF550701EAA1D025A /* PassNotifications.swift */; };
 		E55A960ADCFB53FC56CDF7F2 /* ISSTrackerShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E13391BAAC59CFFCA6C7AAA2 /* ISSTrackerShared.framework */; };
 		EDDBA0649BA241611F8C73A2 /* AdsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B118C1B736EA7F09D8F8 /* AdsService.swift */; };
 		F394239BAB35B80D9B8049D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33167A1A3DDB85815E2CCB7C /* Assets.xcassets */; };
@@ -39,19 +41,33 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		062A1F26B738E44C98F20A7F /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0B4C1DEF6FE6EDB309F833C9 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0F57D368E3212A253C486B84 /* ISSTrackerIOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ISSTrackerIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		125165E12BE2003602759594 /* ISSTrackerIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSTrackerIOSApp.swift; sourceTree = "<group>"; };
 		1D2772B984DF271DD7B375ED /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		28129695ED13933AD0EBA90C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		2CDDA9A861BA179AC73310C4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		33167A1A3DDB85815E2CCB7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3322285E60C30AFEB3DCE09F /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		41BEE4A656AA1FBA6D960332 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4657DB7A645C484740893CCE /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		4E5B04B47B9289ECE889CE6D /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4F95250940DE4A762904CBDB /* AppAnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAnalyticsService.swift; sourceTree = "<group>"; };
+		5398DB07EBEA96A466171F17 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		598A2F648961ABA161FFBC4F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5B7F29E50B9DDD165ADD50AB /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		68B20FAA4623BE60E574446E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		745D262F2D5C388A0E4B80EE /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9E69E8B1E49FBE9BBF6F04E6 /* GoogleService-Info-Debug.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info-Debug.plist"; sourceTree = "<group>"; };
+		A250F793EC4F758AB016FF5D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AE64AB4177A2357DB6CFB467 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		B7A306F752B4C977A9EA6A3D /* AdRemovalPurchaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdRemovalPurchaseService.swift; sourceTree = "<group>"; };
+		D2AB3AC3739C501A55C0C46A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DC5F34050A189BF4254173BA /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		DE3136E9FDAEDCD3C02B92C1 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E13391BAAC59CFFCA6C7AAA2 /* ISSTrackerShared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ISSTrackerShared.framework; path = "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)/ISSTrackerShared.framework"; sourceTree = "<group>"; };
+		E8774E9AF550701EAA1D025A /* PassNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassNotifications.swift; sourceTree = "<group>"; };
 		EDD3B118C1B736EA7F09D8F8 /* AdsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,8 +115,10 @@
 				9E69E8B1E49FBE9BBF6F04E6 /* GoogleService-Info-Debug.plist */,
 				41BEE4A656AA1FBA6D960332 /* GoogleService-Info.plist */,
 				125165E12BE2003602759594 /* ISSTrackerIOSApp.swift */,
+				E8774E9AF550701EAA1D025A /* PassNotifications.swift */,
 				1D2772B984DF271DD7B375ED /* PrivacyInfo.xcprivacy */,
 				AE64AB4177A2357DB6CFB467 /* RootView.swift */,
+				8B78EC5B0C7F41346B344425 /* Localizable.strings */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -168,7 +186,19 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
+				ar,
+				de,
 				en,
+				es,
+				fr,
+				hi,
+				id,
+				ja,
+				ko,
+				"pt-BR",
+				ru,
+				vi,
+				"zh-Hans",
 			);
 			mainGroup = 1BF6B254E510FFA803E520BF;
 			minimizedProjectReferenceProxies = 1;
@@ -195,6 +225,7 @@
 				F394239BAB35B80D9B8049D7 /* Assets.xcassets in Resources */,
 				291DA3AD2808278D708F3FF3 /* GoogleService-Info-Debug.plist in Resources */,
 				7E10728D5A657AA82F2B911A /* GoogleService-Info.plist in Resources */,
+				04A9128156DEB7F37E12DFA0 /* Localizable.strings in Resources */,
 				AA527B3F172BCCD592AEC0E5 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -233,11 +264,35 @@
 				6B2F22E7B5312BC5A5995BC3 /* AppAnalyticsService.swift in Sources */,
 				D07E8BF06EA5D415F54F3427 /* AppModel.swift in Sources */,
 				F81435FB071B44DD4B6355FD /* ISSTrackerIOSApp.swift in Sources */,
+				E4F052EBBF3536A76D58FD5A /* PassNotifications.swift in Sources */,
 				48814893FCA314DB183A2DD8 /* RootView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		8B78EC5B0C7F41346B344425 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D2AB3AC3739C501A55C0C46A /* ar */,
+				68B20FAA4623BE60E574446E /* de */,
+				598A2F648961ABA161FFBC4F /* en */,
+				A250F793EC4F758AB016FF5D /* es */,
+				5398DB07EBEA96A466171F17 /* fr */,
+				4E5B04B47B9289ECE889CE6D /* hi */,
+				062A1F26B738E44C98F20A7F /* id */,
+				DE3136E9FDAEDCD3C02B92C1 /* ja */,
+				0B4C1DEF6FE6EDB309F833C9 /* ko */,
+				2CDDA9A861BA179AC73310C4 /* pt-BR */,
+				745D262F2D5C388A0E4B80EE /* ru */,
+				5B7F29E50B9DDD165ADD50AB /* vi */,
+				28129695ED13933AD0EBA90C /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		0827BC99D84F74167BC47817 /* Release */ = {

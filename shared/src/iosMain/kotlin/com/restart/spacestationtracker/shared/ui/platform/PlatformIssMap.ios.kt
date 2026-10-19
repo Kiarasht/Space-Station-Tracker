@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
@@ -31,6 +32,17 @@ object IosIssMapRegistry {
 
     fun update(view: UIView, current: IssMapPoint?, orbit: List<IssMapPoint>, mapType: String) {
         updater?.invoke(view, current, orbit, mapType)
+    }
+
+    private var insetUpdater: ((UIView, Double) -> Unit)? = null
+
+    /** Receives the bottom inset in points so MapKit keeps its logo and legal link visible. */
+    fun registerInsetUpdater(updater: (UIView, Double) -> Unit) {
+        insetUpdater = updater
+    }
+
+    fun updateInset(view: UIView, bottomInsetPoints: Double) {
+        insetUpdater?.invoke(view, bottomInsetPoints)
     }
 }
 
@@ -60,7 +72,8 @@ actual fun PlatformIssMap(
     currentLocation: IssLocation?,
     orbit: List<IssMapPoint>,
     mapType: String,
-    modifier: Modifier
+    modifier: Modifier,
+    bottomInset: Dp
 ) {
     Box(
         modifier = modifier.background(MaterialTheme.colorScheme.surfaceVariant)
@@ -83,6 +96,7 @@ actual fun PlatformIssMap(
                     orbit = orbit,
                     mapType = mapType
                 )
+                IosIssMapRegistry.updateInset(view, bottomInset.value.toDouble())
             },
             modifier = Modifier.fillMaxSize()
         )

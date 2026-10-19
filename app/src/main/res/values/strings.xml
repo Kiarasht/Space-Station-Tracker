@@ -341,4 +341,7 @@
         <p>If you have any questions about these Terms, please contact us at: restartapplication@gmail.com</p>
     ]]>
     </string>
+    <string name="notification_times_already_passed">Those reminder times have already passed for this pass.</string>
+    <string name="no_calendar_app_available">No calendar app available</string>
+    <string name="notification_iss_pass_alert_direction_format">Look %1$s, peaking at %2$d°.</string>
 </resources>

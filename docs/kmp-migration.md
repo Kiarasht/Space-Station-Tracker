@@ -50,7 +50,7 @@ Model migrations must either retain the same serialized shape or provide toleran
 - Added iOS-native AdMob placements inside the shared Passes and Crew lists, plus a permanent ad-removal purchase used by both platforms.
 - Removed legacy rewarded ad-free timers during upgrade and store the permanent entitlement as `ad_removal_lifetime_enabled`.
 - Kept Android's native navigation and platform adapters while sharing its product screens and Ktor repositories, preserving Android-specific ads, alarms, notifications, calendar actions, and existing storage.
-- Moved the N2YO credential out of tracked Kotlin and into platform-local/release configuration, with release validation and CI secret wiring.
+- Moved the N2YO credential out of tracked Kotlin and into platform-local/release configuration, with release validation and CI secret wiring. (Later replaced: passes are now predicted on the device with SGP4 and N2YO is no longer used.)
 - Removed superseded Android Crew rendering and its obsolete Coil 2, Glide, and app-level OkHttp stack.
 - Migrated the Android app module to AGP built-in Kotlin, matching the current USAJobs baseline.
 
@@ -62,7 +62,7 @@ Model migrations must either retain the same serialized shape or provide toleran
 
 ## Remaining release gates
 
-1. Rotate the N2YO key because its previous value remains in Git history, then configure `N2YO_API_KEY` in GitHub Actions and `ISS_TRACKER_N2YO_API_KEY` for iOS archives.
+1. Revoke the old N2YO key, which remains in Git history. The apps no longer use N2YO: visible passes are predicted on the device from CelesTrak's ISS orbital elements.
 2. Create/confirm the App Store record and iOS-specific AdMob app plus ad units, then enable release ads.
 3. Exercise notification, calendar, location, consent, ad, review, and upgrade flows on physical Android and iOS devices before store submission.
 4. Complete the Play Console and App Store privacy declarations from the release checklist.

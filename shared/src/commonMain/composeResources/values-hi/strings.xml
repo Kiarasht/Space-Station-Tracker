@@ -130,4 +130,21 @@
     <string name="purchase_status_pending">खरीदारी लंबित है। स्टोर द्वारा भुगतान की पुष्टि के बाद विज्ञापन हटा दिए जाएँगे।</string>
     <string name="purchase_status_restored">आजीवन विज्ञापन हटाना पुनर्स्थापित हो गया।</string>
     <string name="purchase_status_removed">विज्ञापन स्थायी रूप से हटा दिए गए हैं।</string>
+    <string name="unable_to_track_iss_message">अपना कनेक्शन जाँचें। ISS की स्थिति उपलब्ध होते ही नक्शा अपने आप अपडेट हो जाएगा।</string>
+    <string name="crew_section_iss">ISS पर सवार</string>
+    <string name="crew_section_elsewhere">अंतरिक्ष में अन्यत्र</string>
+    <string name="next_visible_pass">अगला दृश्य पास</string>
+    <string name="later_passes">बाद के पास</string>
+    <string name="visible_now">अभी दिख रहा है</string>
+    <string name="countdown_days_format">%1$d दिन %2$d घं. में</string>
+    <string name="countdown_hours_format">%1$d घं. %2$d मि. में</string>
+    <string name="countdown_minutes_format">%1$d मि. में</string>
+    <string name="peak_elevation_format">अधिकतम %1$d°</string>
+    <string name="people_in_space_now">लोग अभी अंतरिक्ष में हैं</string>
+    <string name="day_in_space_format">अंतरिक्ष में दिन %1$d</string>
+    <string name="overhead_format">सिर के ऊपर %1$d°</string>
+    <string name="about_stat_orbit">मिनट प्रति परिक्रमा</string>
+    <string name="about_stat_sunrises">सूर्योदय प्रतिदिन</string>
+    <string name="about_stat_crewed">वर्षों से लगातार मानवयुक्त</string>
+    <string name="about_data_sources">डेटा स्रोत: %1$s</string>
 </resources>

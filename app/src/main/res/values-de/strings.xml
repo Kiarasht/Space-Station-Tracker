@@ -243,4 +243,7 @@
     <string name="auto_alert_sync_scheduled_format">%1$d passende Überflüge gefunden und %2$d Benachrichtigungen geplant.</string>
     <string name="auto_alert_sync_failed">Fehlgeschlagen</string>
     <string name="auto_alert_sync_retry_message">ISS-Überflüge konnten nicht geprüft werden. Es wird erneut versucht.</string>
+    <string name="notification_times_already_passed">Diese Erinnerungszeiten sind für diesen Überflug bereits vorbei.</string>
+    <string name="no_calendar_app_available">Keine Kalender-App verfügbar</string>
+    <string name="notification_iss_pass_alert_direction_format">Blicke nach %1$s, höchster Punkt bei %2$d°.</string>
 </resources>

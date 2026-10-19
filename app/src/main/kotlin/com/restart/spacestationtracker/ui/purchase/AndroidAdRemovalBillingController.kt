@@ -53,7 +53,7 @@ class AndroidAdRemovalBillingController(
 
     fun start() {
         if (!isInstalledFromGooglePlay()) {
-            markPurchasesUnavailable(entitlementCheckComplete = true)
+            markPurchasesUnavailable()
             return
         }
 
@@ -82,6 +82,7 @@ class AndroidAdRemovalBillingController(
                         it.copy(
                             isLoading = false,
                             isPurchaseAvailable = false,
+                            isEntitlementCheckComplete = true,
                             statusCode = SharedPurchaseStatus.UNAVAILABLE
                         )
                     }
@@ -93,6 +94,17 @@ class AndroidAdRemovalBillingController(
     fun stop() {
         if (billingClient.isReady) billingClient.endConnection()
         isConnected = false
+    }
+
+    /**
+     * Re-checks owned purchases when the app returns to the foreground, so a purchase completed outside
+     * the app (a pending payment that cleared, a promo code redeemed in the Play Store, a refund) applies
+     * without a restart. Does nothing until [start] has connected.
+     */
+    fun refreshPurchases() {
+        if (isConnected && billingClient.isReady) {
+            queryOwnedPurchases(showRestoreMessage = false)
+        }
     }
 
     fun purchase(activity: Activity?) {
@@ -115,7 +127,7 @@ class AndroidAdRemovalBillingController(
         }
         if (!isInstalledFromGooglePlay()) {
             AppAnalytics.trackPurchaseFlow("unavailable")
-            markPurchasesUnavailable(entitlementCheckComplete = true)
+            markPurchasesUnavailable()
             return
         }
 
@@ -258,7 +270,7 @@ class AndroidAdRemovalBillingController(
 
         billingClient.queryProductDetailsAsync(params) { billingResult, result ->
             if (billingResult.responseCode != BillingClient.BillingResponseCode.OK) {
-                markPurchasesUnavailable(entitlementCheckComplete = false)
+                markPurchasesUnavailable()
                 return@queryProductDetailsAsync
             }
 
@@ -287,10 +299,12 @@ class AndroidAdRemovalBillingController(
             .build()
         billingClient.queryPurchasesAsync(params) { billingResult, purchases ->
             if (billingResult.responseCode != BillingClient.BillingResponseCode.OK) {
+                // Keep the stored entitlement and let ads start for everyone else.
                 updateState {
                     it.copy(
                         isLoading = false,
                         isPurchaseInProgress = false,
+                        isEntitlementCheckComplete = true,
                         statusCode = SharedPurchaseStatus.UNAVAILABLE
                     )
                 }
@@ -395,15 +409,19 @@ class AndroidAdRemovalBillingController(
         }
     }
 
-    private fun markPurchasesUnavailable(entitlementCheckComplete: Boolean = false) {
+    /**
+     * Billing cannot answer (not a Play install, Play Store unavailable or outdated, no account, network).
+     * The entitlement check still counts as complete: the stored ad-removal flag keeps purchasers ad-free,
+     * and ads can start for everyone else instead of waiting for Billing forever.
+     */
+    private fun markPurchasesUnavailable() {
         productDetails = null
         updateState {
             it.copy(
                 isLoading = false,
                 isPurchaseInProgress = false,
                 isPurchaseAvailable = false,
-                isEntitlementCheckComplete =
-                    it.isEntitlementCheckComplete || entitlementCheckComplete,
+                isEntitlementCheckComplete = true,
                 statusCode = SharedPurchaseStatus.UNAVAILABLE
             )
         }

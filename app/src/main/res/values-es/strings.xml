@@ -243,4 +243,7 @@
     <string name="auto_alert_sync_scheduled_format">Se encontraron %1$d pasos coincidentes y se programaron %2$d notificaciones.</string>
     <string name="auto_alert_sync_failed">Falló</string>
     <string name="auto_alert_sync_retry_message">No se pudieron comprobar los pasos de la EEI. Se intentará de nuevo.</string>
+    <string name="notification_times_already_passed">Esas horas de aviso ya han pasado para este paso.</string>
+    <string name="no_calendar_app_available">No hay ninguna aplicación de calendario disponible</string>
+    <string name="notification_iss_pass_alert_direction_format">Mira hacia el %1$s; alcanzará su punto más alto a %2$d°.</string>
 </resources>

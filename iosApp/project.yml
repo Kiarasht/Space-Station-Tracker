@@ -62,7 +62,6 @@ targets:
         ISSTrackerPassesNativeAdUnitId: $(ISS_TRACKER_PASSES_NATIVE_AD_UNIT_ID)
         ISSTrackerCrewNativeAdUnitId: $(ISS_TRACKER_CREW_NATIVE_AD_UNIT_ID)
         ISSTrackerAppStoreUrl: $(ISS_TRACKER_APP_STORE_URL)
-        ISSTrackerN2yoApiKey: $(ISS_TRACKER_N2YO_API_KEY)
         GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_PERSONALIZATION_SIGNALS: false
         UILaunchScreen: {}
         UIBackgroundModes:

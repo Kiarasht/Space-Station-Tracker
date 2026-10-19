@@ -71,8 +71,10 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         }
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
-        UNUserNotificationCenter.current().delegate = PassNotificationDelegate.shared
         configureComposeBridge()
+        PassNotificationDelegate.shared.setOpenPassesHandler { [weak self] in
+            self?.composeBridge.openPassesTab()
+        }
     }
 
     func makeComposeViewController() -> UIViewController {
@@ -96,6 +98,10 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         refreshSettingsPlatformState()
         adRemovalPurchase.refreshEntitlements()
         recordForegroundOpen()
+    }
+
+    func setAppActive(_ active: Bool) {
+        composeBridge.setAppActive(active: active)
     }
 
     func applicationDidBecomeActive() {
@@ -124,7 +130,7 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
             cancelAutomaticPassNotifications()
             PassBackgroundRefreshCoordinator.shared.cancel()
             composeBridge.setPassesLocationError(
-                message: "Location access is unavailable. Check Location Services and try again."
+                message: String(localized: "location.error.unavailable")
             )
             refreshSettingsPlatformState()
         default:
@@ -173,7 +179,7 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
     }
 
     private static func locationName(from placemark: CLPlacemark?) -> String {
-        guard let placemark else { return "Current Location" }
+        guard let placemark else { return String(localized: "location.current") }
 
         let nearbyPlace = [
             placemark.locality,
@@ -192,13 +198,13 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
            nearbyPlace.caseInsensitiveCompare(region) != .orderedSame {
             return "\(nearbyPlace), \(region)"
         }
-        return nearbyPlace ?? region ?? "Current Location"
+        return nearbyPlace ?? region ?? String(localized: "location.current")
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         isLocationLookupInProgress = false
         composeBridge.setPassesLocationError(
-            message: "Location could not be determined. Check Location Services and try again."
+            message: String(localized: "location.error.failed")
         )
         refreshSettingsPlatformState()
     }
@@ -214,6 +220,9 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
                 mapView.update(current: current, orbit: orbitPoints, mapType: mapType)
             }
         )
+        composeBridge.registerMapInsetUpdater { view, bottomInset in
+            (view as? NativeIssMapView)?.setBottomInset(CGFloat(bottomInset))
+        }
         composeBridge.registerNativeAdViewFactory { [weak self] slotId in
             self?.ads.makeNativeAdView(
                 slotId: slotId,
@@ -258,6 +267,10 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         case "schedule_pass_notification":
             guard let pass = decodePass(parameter) else { return }
             Task {
+                guard await requestNotificationAuthorization() else {
+                    openNotificationSettings()
+                    return
+                }
                 let notificationTimes = pass.notificationTimes?.isEmpty == false
                     ? pass.notificationTimes!
                     : ["10 minutes before"]
@@ -268,12 +281,15 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
                 )
                 let schedules: [IosNotificationSchedule] = cast(value)
                 for schedule in schedules {
-                    await scheduleNotification(
-                        for: pass,
-                        notificationTime: schedule.notificationTime,
-                        triggerTimeMillis: schedule.triggerTimeMillis,
-                        identifierSuffix: schedule.identifierSuffix,
-                        identifierPrefix: "manual"
+                    await PassNotificationScheduler.addManual(
+                        PassNotificationRequest(
+                            startTimeMillis: pass.startTimeMillis,
+                            triggerTimeMillis: schedule.triggerTimeMillis,
+                            notificationTime: schedule.notificationTime,
+                            identifierSuffix: schedule.identifierSuffix,
+                            startAzimuthCompass: pass.startAzimuthCompass,
+                            maxElevation: pass.maxElevation
+                        )
                     )
                 }
             }
@@ -323,38 +339,6 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         return try? JSONDecoder().decode(PassPayload.self, from: data)
     }
 
-    private func scheduleNotification(
-        for pass: PassPayload,
-        notificationTime: String,
-        triggerTimeMillis: Int64,
-        identifierSuffix: String,
-        identifierPrefix: String
-    ) async {
-        guard await requestNotificationAuthorization() else {
-            openNotificationSettings()
-            return
-        }
-        let triggerDate = Date(timeIntervalSince1970: TimeInterval(triggerTimeMillis) / 1_000)
-        guard triggerDate > Date() else { return }
-
-        let content = UNMutableNotificationContent()
-        content.title = notificationTitle(for: notificationTime)
-        content.body = "Look \(pass.startAzimuthCompass) for a pass peaking at \(Int(pass.maxElevation.rounded()))°."
-        content.sound = .default
-        content.userInfo = ["pass_start_time": pass.startTimeMillis]
-
-        let components = Calendar.current.dateComponents(
-            [.year, .month, .day, .hour, .minute, .second],
-            from: triggerDate
-        )
-        let request = UNNotificationRequest(
-            identifier: "\(identifierPrefix):\(pass.startTimeMillis):\(identifierSuffix)",
-            content: content,
-            trigger: UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-        )
-        try? await UNUserNotificationCenter.current().add(request)
-    }
-
     private func refreshAutomaticPassAlerts(location: CLLocation) {
         passAlertBridge.loadAutomaticSchedules(
             latitude: location.coordinate.latitude,
@@ -365,25 +349,19 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
                 Task { @MainActor in
                     guard let self else { return }
                     let passes: [IosPassAlertPayload] = self.cast(value)
-                    self.cancelAutomaticPassNotifications()
-                    for pass in passes {
-                        let payload = PassPayload(
-                            startTimeMillis: pass.startTimeMillis,
-                            durationInSeconds: Int(pass.durationInSeconds),
-                            magnitude: pass.magnitude,
-                            maxElevation: pass.maxElevation,
-                            startAzimuthCompass: pass.startAzimuthCompass,
-                            endAzimuthCompass: pass.endAzimuthCompass,
-                            notificationTimes: nil
-                        )
-                        await self.scheduleNotification(
-                            for: payload,
-                            notificationTime: pass.notificationTime,
-                            triggerTimeMillis: pass.triggerTimeMillis,
-                            identifierSuffix: pass.identifierSuffix,
-                            identifierPrefix: "automatic"
-                        )
-                    }
+                    guard await self.requestNotificationAuthorization() else { return }
+                    await PassNotificationScheduler.replaceAutomatic(
+                        with: passes.map { pass in
+                            PassNotificationRequest(
+                                startTimeMillis: pass.startTimeMillis,
+                                triggerTimeMillis: pass.triggerTimeMillis,
+                                notificationTime: pass.notificationTime,
+                                identifierSuffix: pass.identifierSuffix,
+                                startAzimuthCompass: pass.startAzimuthCompass,
+                                maxElevation: pass.maxElevation
+                            )
+                        }
+                    )
                 }
             },
             onFailure: { _ in }
@@ -426,14 +404,7 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
     }
 
     private func cancelAutomaticPassNotifications() {
-        let center = UNUserNotificationCenter.current()
-        center.getPendingNotificationRequests { requests in
-            let identifiers = requests
-                .map(\.identifier)
-                .filter { $0.hasPrefix("automatic:") }
-            UNUserNotificationCenter.current()
-                .removePendingNotificationRequests(withIdentifiers: identifiers)
-        }
+        Task { await PassNotificationScheduler.cancelAutomatic() }
     }
 
     private func openNotificationSettings() {
@@ -451,18 +422,6 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
     private func openAppSettings() {
         if let url = URL(string: UIApplication.openSettingsURLString) {
             UIApplication.shared.open(url)
-        }
-    }
-
-    private func notificationTitle(for notificationTime: String) -> String {
-        switch notificationTime {
-        case "At time of event": "ISS pass is starting"
-        case "10 minutes before": "ISS pass in 10 minutes"
-        case "1 hour before": "ISS pass in 1 hour"
-        case "12 hours before": "ISS pass in 12 hours"
-        case "1 day before": "ISS pass tomorrow"
-        case "1 week before": "ISS pass in 1 week"
-        default: "Upcoming ISS pass"
         }
     }
 
@@ -487,10 +446,15 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         let editor = EKEventEditViewController()
         let startDate = Date(timeIntervalSince1970: TimeInterval(pass.startTimeMillis) / 1_000)
         let event = EKEvent(eventStore: eventStore)
-        event.title = "International Space Station pass"
+        event.title = String(localized: "calendar.event.title")
         event.startDate = startDate
         event.endDate = startDate.addingTimeInterval(TimeInterval(pass.durationInSeconds))
-        event.notes = "Visible ISS pass from \(pass.startAzimuthCompass) to \(pass.endAzimuthCompass), peaking at \(Int(pass.maxElevation.rounded()))°."
+        event.notes = String(
+            format: String(localized: "calendar.event.notes.format"),
+            pass.startAzimuthCompass,
+            pass.endAzimuthCompass,
+            Int(pass.maxElevation.rounded())
+        )
         editor.eventStore = eventStore
         editor.event = event
         editor.editViewDelegate = eventEditorDelegate
@@ -502,7 +466,13 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         let formatter = DateFormatter()
         formatter.dateStyle = .full
         formatter.timeStyle = .short
-        let text = "International Space Station pass on \(formatter.string(from: startDate)). Duration: \(pass.durationInSeconds / 60)m \(pass.durationInSeconds % 60)s. Peak elevation: \(Int(pass.maxElevation.rounded()))°."
+        let text = String(
+            format: String(localized: "share.pass.format"),
+            formatter.string(from: startDate),
+            pass.durationInSeconds / 60,
+            pass.durationInSeconds % 60,
+            Int(pass.maxElevation.rounded())
+        )
         let controller = UIActivityViewController(
             activityItems: [text],
             applicationActivities: nil
@@ -538,7 +508,7 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
 
     private func shareApp() {
         let url = appStoreURL?.absoluteString ?? "https://restartapps.com/"
-        let text = "Track the International Space Station with ISS Tracker: \(url)"
+        let text = String(format: String(localized: "share.app.format"), url)
         let controller = UIActivityViewController(activityItems: [text], applicationActivities: nil)
         if let popover = controller.popoverPresentationController,
            let source = Self.topViewController()?.view {
@@ -568,7 +538,7 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
             cancelAutomaticPassNotifications()
             PassBackgroundRefreshCoordinator.shared.cancel()
             composeBridge.setPassesLocationError(
-                message: "Location access is unavailable. Check Location Services and try again."
+                message: String(localized: "location.error.unavailable")
             )
             refreshSettingsPlatformState()
             if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
@@ -717,17 +687,6 @@ private final class PassEventEditorDelegate: NSObject, EKEventEditViewDelegate {
     }
 }
 
-private final class PassNotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
-    static let shared = PassNotificationDelegate()
-
-    func userNotificationCenter(
-        _ center: UNUserNotificationCenter,
-        willPresent notification: UNNotification
-    ) async -> UNNotificationPresentationOptions {
-        [.banner, .sound]
-    }
-}
-
 private final class SolarMapAnnotation: MKPointAnnotation {}
 
 private final class IssMapAnnotation: MKPointAnnotation {}
@@ -759,6 +718,12 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configure()
+    }
+
+    /** Keeps MapKit's logo and legal link above the floating navigation bar. */
+    func setBottomInset(_ inset: CGFloat) {
+        guard mapView.layoutMargins.bottom != inset + 4 else { return }
+        mapView.layoutMargins = UIEdgeInsets(top: 8, left: 8, bottom: inset + 4, right: 8)
     }
 
     func update(current: IssMapPoint?, orbit: [IssMapPoint], mapType: String) {

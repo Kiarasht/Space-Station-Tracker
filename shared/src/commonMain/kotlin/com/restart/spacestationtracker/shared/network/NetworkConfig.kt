@@ -5,6 +5,5 @@ data class NetworkConfig(
     val youtubeLiveStreamsUrl: String =
         "https://raw.githubusercontent.com/Kiarasht/Space-Station-Tracker/live-stream-cache/docs/nasa-live-streams.json",
     val youtubeApiKey: String = "",
-    val youtubeRequestHeaders: Map<String, String> = emptyMap(),
-    val n2yoApiKey: String = PlatformNetworkConfig.n2yoApiKey
+    val youtubeRequestHeaders: Map<String, String> = emptyMap()
 )

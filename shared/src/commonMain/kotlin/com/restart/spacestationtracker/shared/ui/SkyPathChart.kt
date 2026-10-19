@@ -1,14 +1,26 @@
 package com.restart.spacestationtracker.shared.ui
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
@@ -16,96 +28,209 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.restart.spacestationtracker.shared.resources.Res
+import com.restart.spacestationtracker.shared.resources.overhead_format
+import org.jetbrains.compose.resources.stringResource
 import kotlin.math.PI
 import kotlin.math.cos
-import kotlin.math.min
+import kotlin.math.pow
+import kotlin.math.roundToInt
 import kotlin.math.sin
+import kotlin.math.sqrt
 
+private val NightTop = Color(0xFF070C2B)
+private val NightMiddle = Color(0xFF111A52)
+private val NightBottom = Color(0xFF243B8F)
+
+/** The night-sky gradient behind sky-path charts; also used for the whole next-pass hero card. */
+internal val SkyNightBrush = Brush.verticalGradient(listOf(NightTop, NightMiddle, NightBottom))
+private val PathStart = Color(0xFF2DD4BF)
+private val PathEnd = Color(0xFFFFD84D)
+
+/**
+ * Side view of a pass on a night-sky panel: the curve follows the pass's real elevation over time,
+ * from where it becomes visible (left) to where it fades (right), with the ISS at its highest point.
+ */
 @Composable
 internal fun SkyPathChart(
     startCompass: String,
     endCompass: String,
     maxElevation: Double,
+    elevationTrack: List<Double> = emptyList(),
     youLabel: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    sparkleSeed: Long = 0L,
+    /** False when the chart sits on a surface that already has the night-sky gradient. */
+    showBackground: Boolean = true
 ) {
     val textMeasurer = rememberTextMeasurer()
-    val foreground = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
-    val accent = androidx.compose.material3.MaterialTheme.colorScheme.primary
-    val muted = androidx.compose.material3.MaterialTheme.colorScheme.onSurfaceVariant
-    val labelStyle = TextStyle(
-        color = foreground,
+    val labelFont = MaterialTheme.typography.labelMedium.fontFamily
+    val track = remember(elevationTrack, maxElevation) {
+        elevationTrack.takeIf { it.size >= 2 }
+            ?: List(24) { index -> sin(PI * index / 23.0) * maxElevation }
+    }
+    val compassStyle = TextStyle(
+        color = Color.White.copy(alpha = 0.9f),
         fontSize = 12.sp,
-        fontWeight = FontWeight.SemiBold,
-        fontFamily = androidx.compose.material3.MaterialTheme.typography.labelMedium.fontFamily
+        fontWeight = FontWeight.Bold,
+        fontFamily = labelFont
     )
     val youStyle = TextStyle(
-        color = muted,
+        color = Color.White.copy(alpha = 0.7f),
         fontSize = 11.sp,
         fontWeight = FontWeight.Medium,
-        fontFamily = androidx.compose.material3.MaterialTheme.typography.labelSmall.fontFamily
+        fontFamily = labelFont
+    )
+    val overheadText = stringResource(Res.string.overhead_format, 90)
+    val overheadStyle = TextStyle(
+        color = Color.White.copy(alpha = 0.55f),
+        fontSize = 10.sp,
+        fontWeight = FontWeight.Medium,
+        fontFamily = labelFont
+    )
+    val peakStyle = TextStyle(
+        color = PathEnd,
+        fontSize = 13.sp,
+        fontWeight = FontWeight.Bold,
+        fontFamily = labelFont
     )
 
-    Canvas(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 12.dp, vertical = 4.dp)
-            .aspectRatio(1.9f)
+    Box(
+        modifier = if (showBackground) {
+            modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp)).background(SkyNightBrush)
+        } else {
+            modifier.fillMaxWidth()
+        }
     ) {
-        val labelHeight = 22.dp.toPx()
-        val baselineY = size.height - labelHeight
-        val radius = min(size.width * 0.43f, baselineY * 0.86f)
-        val center = Offset(size.width / 2f, baselineY)
-        val stroke = 2.dp.toPx()
+        if (showBackground) {
+            SkyPathCardSparkles(seed = sparkleSeed, modifier = Modifier.matchParentSize())
+        }
+        // The dome is a true half-circle as wide as the path, so the chart's height follows its width.
+        BoxWithConstraints(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = if (showBackground) 14.dp else 0.dp, vertical = 10.dp)
+        ) {
+        val canvasHeight = (maxWidth - ChartInset * 2) / 2 + ChartLabelHeight + ChartTopRoom
+        Canvas(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(canvasHeight)
+        ) {
+            val labelHeight = ChartLabelHeight.toPx()
+            val baselineY = size.height - labelHeight
+            val inset = ChartInset.toPx()
+            val left = inset
+            val span = size.width - inset * 2f
+            val center = Offset(size.width / 2f, baselineY)
+            // Straight overhead is the top of the half-circle.
+            val skyHeight = span / 2f
 
-        drawLine(
-            color = muted.copy(alpha = 0.65f),
-            start = Offset(center.x - radius, baselineY),
-            end = Offset(center.x + radius, baselineY),
-            strokeWidth = stroke
-        )
-        drawArc(
-            color = foreground,
-            startAngle = 180f,
-            sweepAngle = 180f,
-            useCenter = false,
-            topLeft = Offset(center.x - radius, center.y - radius),
-            size = Size(radius * 2f, radius * 2f),
-            style = Stroke(width = stroke)
-        )
+            // A faint "sky ceiling": horizon to straight overhead, stretched to the full width so every
+            // path fits inside it. It shows at a glance how close to overhead a pass climbs.
+            drawArc(
+                color = Color.White.copy(alpha = 0.2f),
+                startAngle = 180f,
+                sweepAngle = 180f,
+                useCenter = false,
+                topLeft = Offset(left, baselineY - skyHeight),
+                size = Size(span, skyHeight * 2f),
+                style = Stroke(
+                    width = 1.dp.toPx(),
+                    pathEffect = PathEffect.dashPathEffect(floatArrayOf(4.dp.toPx(), 6.dp.toPx()))
+                )
+            )
+            // Name the dome's top, unless a near-overhead pass puts its own peak label there.
+            if (maxElevation < 70.0) {
+                val overhead = textMeasurer.measure(overheadText, overheadStyle)
+                drawText(
+                    overhead,
+                    topLeft = Offset(
+                        center.x - overhead.size.width / 2f,
+                        baselineY - skyHeight - overhead.size.height - 3.dp.toPx()
+                    )
+                )
+            }
+            drawLine(
+                color = Color.White.copy(alpha = 0.35f),
+                start = Offset(0f, baselineY),
+                end = Offset(size.width, baselineY),
+                strokeWidth = 1.5.dp.toPx()
+            )
 
-        val elevation = maxElevation.coerceIn(0.0, 90.0)
-        val angle = PI + elevation * PI / 180.0
-        val satellite = Offset(
-            x = center.x + radius * cos(angle).toFloat(),
-            y = center.y + radius * sin(angle).toFloat()
-        )
-        drawLine(
-            color = accent.copy(alpha = 0.48f),
-            start = center,
-            end = satellite,
-            strokeWidth = 1.5.dp.toPx(),
-            pathEffect = PathEffect.dashPathEffect(floatArrayOf(7.dp.toPx(), 7.dp.toPx()))
-        )
+            // The pass sweeps across the dome from its start direction (left) to its end (right). Low
+            // passes are common, so heights are eased upward to keep them readable: 12° draws at about a
+            // third of the way up, while overhead reaches the top. Each point's horizontal reach shrinks
+            // with its height, so the whole path stays inside the half-circle. The label shows the true angle.
+            fun pointAt(index: Int): Offset {
+                val fraction = index.toFloat() / (track.size - 1)
+                val elevation = track[index].coerceIn(0.0, 90.0)
+                val height = (elevation / 90.0).pow(0.55)
+                val sweep = PI * (1.0 - fraction)
+                return Offset(
+                    x = center.x + (skyHeight * cos(sweep) * sqrt(1.0 - height * height)).toFloat(),
+                    y = baselineY - (skyHeight * height).toFloat()
+                )
+            }
 
-        val startText = textMeasurer.measure(startCompass, labelStyle)
-        val endText = textMeasurer.measure(endCompass, labelStyle)
-        drawText(startText, topLeft = Offset(center.x - radius, baselineY + 4.dp.toPx()))
-        drawText(
-            endText,
-            topLeft = Offset(center.x + radius - endText.size.width, baselineY + 4.dp.toPx())
-        )
+            val path = Path().apply {
+                val first = pointAt(0)
+                moveTo(first.x, first.y)
+                for (index in 1 until track.size) {
+                    val previous = pointAt(index - 1)
+                    val current = pointAt(index)
+                    val midX = (previous.x + current.x) / 2f
+                    quadraticTo(previous.x, previous.y, midX, (previous.y + current.y) / 2f)
+                    if (index == track.size - 1) lineTo(current.x, current.y)
+                }
+            }
+            val pathBrush = Brush.horizontalGradient(
+                colors = listOf(PathStart, PathEnd),
+                startX = left,
+                endX = left + span
+            )
+            // Soft glow under the path, then the path itself.
+            drawPath(path, pathBrush, alpha = 0.25f, style = Stroke(width = 10.dp.toPx(), cap = StrokeCap.Round, join = StrokeJoin.Round))
+            drawPath(path, pathBrush, style = Stroke(width = 3.5.dp.toPx(), cap = StrokeCap.Round, join = StrokeJoin.Round))
 
-        val personY = baselineY - 20.dp.toPx()
-        drawCircle(color = foreground, radius = 4.dp.toPx(), center = Offset(center.x, personY - 11.dp.toPx()))
-        drawLine(foreground, Offset(center.x, personY - 7.dp.toPx()), Offset(center.x, personY + 7.dp.toPx()), 2.dp.toPx())
-        drawLine(foreground, Offset(center.x, personY - 1.dp.toPx()), Offset(center.x - 7.dp.toPx(), personY + 4.dp.toPx()), 2.dp.toPx())
-        drawLine(foreground, Offset(center.x, personY - 1.dp.toPx()), Offset(center.x + 7.dp.toPx(), personY + 4.dp.toPx()), 2.dp.toPx())
-        drawLine(foreground, Offset(center.x, personY + 7.dp.toPx()), Offset(center.x - 5.dp.toPx(), personY + 15.dp.toPx()), 2.dp.toPx())
-        drawLine(foreground, Offset(center.x, personY + 7.dp.toPx()), Offset(center.x + 5.dp.toPx(), personY + 15.dp.toPx()), 2.dp.toPx())
-        val youText = textMeasurer.measure(youLabel, youStyle)
-        drawText(youText, topLeft = Offset(center.x - youText.size.width / 2f, personY - 33.dp.toPx()))
+            val start = pointAt(0)
+            val end = pointAt(track.size - 1)
+            drawCircle(PathStart, radius = 5.dp.toPx(), center = start)
+            drawCircle(Color.White, radius = 2.dp.toPx(), center = start)
+            drawCircle(PathEnd, radius = 4.dp.toPx(), center = end)
 
-        drawIssSatellite(center = satellite, bodyColor = accent)
+            val peakIndex = track.indices.maxBy { track[it] }
+            val peak = pointAt(peakIndex)
+            drawCircle(PathEnd.copy(alpha = 0.22f), radius = 18.dp.toPx(), center = peak)
+            drawIssSatellite(center = peak, bodyColor = PathEnd, panelColor = Color(0xFF9FB4FF))
+
+            val peakText = textMeasurer.measure("${maxElevation.roundToInt()}°", peakStyle)
+            val peakLabelY = (peak.y - 24.dp.toPx() - peakText.size.height).coerceAtLeast(0f)
+            drawText(
+                peakText,
+                topLeft = Offset(
+                    (peak.x - peakText.size.width / 2f).coerceIn(0f, size.width - peakText.size.width),
+                    peakLabelY
+                )
+            )
+
+            val startText = textMeasurer.measure(startCompass, compassStyle)
+            val endText = textMeasurer.measure(endCompass, compassStyle)
+            drawText(startText, topLeft = Offset(0f, baselineY + 4.dp.toPx()))
+            drawText(endText, topLeft = Offset(size.width - endText.size.width, baselineY + 4.dp.toPx()))
+
+            // The observer: a small marker on the horizon, so no path can run into it.
+            drawCircle(Color.White.copy(alpha = 0.25f), radius = 7.dp.toPx(), center = center)
+            drawCircle(Color.White, radius = 3.5.dp.toPx(), center = center)
+            // "You" sits under the horizon so even a low pass never runs into it.
+            val youText = textMeasurer.measure(youLabel, youStyle)
+            drawText(youText, topLeft = Offset(center.x - youText.size.width / 2f, baselineY + 4.dp.toPx()))
+        }
+        }
     }
 }
+
+private val ChartInset = 8.dp
+private val ChartLabelHeight = 20.dp
+// Room above the dome's top for the "Overhead" label.
+private val ChartTopRoom = 22.dp

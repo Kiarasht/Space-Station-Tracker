@@ -243,4 +243,7 @@
     <string name="auto_alert_sync_scheduled_format">条件に合う通過が %1$d 件見つかり、%2$d 件の通知を予約しました。</string>
     <string name="auto_alert_sync_failed">失敗</string>
     <string name="auto_alert_sync_retry_message">ISS 通過を確認できませんでした。再試行します。</string>
+    <string name="notification_times_already_passed">この通過では、選択した通知時刻はすでに過ぎています。</string>
+    <string name="no_calendar_app_available">利用できるカレンダーアプリがありません</string>
+    <string name="notification_iss_pass_alert_direction_format">%1$sの方向を見てください。最大仰角は%2$d°です。</string>
 </resources>

@@ -5,7 +5,7 @@ Code can provide safe defaults, but store-console declarations and consent messa
 ## Both platforms
 
 - Confirm `version.properties` contains a monotonically increasing build number.
-- Rotate the N2YO credential previously present in repository history and configure platform release secrets.
+- Revoke the old N2YO credential that remains in repository history (the apps no longer use N2YO) and configure platform release secrets.
 - Test UMP in EEA and non-EEA debug geographies.
 - Confirm banners request immediately after consent and app-open ads do not show before foreground open five.
 - Verify the in-app privacy policy matches enabled SDKs and data providers.
