@@ -1,3 +1,6 @@
+# Refreshes the NASA live-stream JSON the apps read from the live-stream-cache branch. Runs only on the
+# self-hosted runners on the owner's Mac (see docs/ci-runners.md), so it updates only while the Mac is on;
+# the apps keep showing the last published list in between. Never use GitHub-hosted runners here.
 name: Update YouTube Live Streams
 
 on:
@@ -8,6 +11,7 @@ on:
 permissions:
   contents: write
 
+# While the Mac is asleep GitHub keeps only the newest pending run, so no backlog builds up.
 concurrency:
   group: update-youtube-live-streams
   cancel-in-progress: false
@@ -15,18 +19,19 @@ concurrency:
 jobs:
   update-live-streams:
     name: Update live stream JSON
-    runs-on: ubuntu-latest
+    if: github.actor == github.repository_owner && github.triggering_actor == github.repository_owner
+    runs-on: [self-hosted, macOS, iss-tracker]
     timeout-minutes: 5
+    defaults:
+      run:
+        # Its own checkout folder, so switching to live-stream-cache never touches the mobile builds' checkout.
+        working-directory: live-streams
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
-          node-version: "24"
-          package-manager-cache: false
+          path: live-streams
 
       - name: Restore previous live stream JSON
         run: |
@@ -37,9 +42,12 @@ jobs:
             echo "No previous live stream JSON found."
           fi
 
+      # Uses the Mac's own Node (Homebrew) instead of downloading one on every run.
       - name: Fetch YouTube live stream status
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          # Manual runs always do a full search; scheduled runs use cheap checks between searches.
+          FORCE_FULL_SEARCH: ${{ github.event_name == 'workflow_dispatch' }}
         run: node .github/scripts/update-youtube-live-streams.js
 
       - name: Commit live stream JSON
@@ -53,16 +61,19 @@ jobs:
           git reset --hard
           git clean -fd
 
+          # -C resets the local branch left by the previous run on this persistent checkout.
           if git show-ref --verify --quiet "refs/remotes/origin/$cache_branch"; then
             remote_branch_exists="true"
-            git switch --track "origin/$cache_branch"
+            git switch -C "$cache_branch" "origin/$cache_branch"
           else
+            git branch -D "$cache_branch" 2>/dev/null || true
             git switch --orphan "$cache_branch"
             git rm -rf . || true
           fi
 
           mkdir -p "$(dirname "$cache_file")"
           cp "$temp_json" "$cache_file"
+          rm -f "$temp_json"
 
           if [ "$remote_branch_exists" = "true" ] && git diff --quiet -- "$cache_file"; then
             echo "No live stream status changes to commit."

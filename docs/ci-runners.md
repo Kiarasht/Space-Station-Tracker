@@ -1,0 +1,141 @@
+# CI on the owner's Mac
+
+Every workflow runs on self-hosted GitHub Actions runners on the owner's Mac, the same setup as the owner's other apps (Pgnify, GSA Auction Finder, NYCJobs). The GitHub Actions budget is used up, so:
+
+- Never add GitHub-hosted runners (`ubuntu-*`, `macos-*`, `windows-*`).
+- Never add `upload-artifact`, `actions/cache` or other steps that store files on GitHub.
+- Never add setup actions that download toolchains; the jobs use the Mac's own JDK, Android SDK, Xcode, Node and Firebase CLI.
+
+`update-youtube-live-streams.yml` runs on the Mac too, so the live-stream list the apps read updates only while the Mac is on. While the Mac is asleep, GitHub keeps only the newest pending run, and the apps keep showing the last published list.
+
+## Runners
+
+| Runner | Folder | Labels |
+|---|---|---|
+| `mac` | `~/actions-runners/iss-tracker` | `self-hosted, macOS, ARM64, iss-tracker` |
+| `mac-2` | `~/actions-runners/iss-tracker-2` | `self-hosted, macOS, ARM64, iss-tracker` |
+
+Both are installed as LaunchAgents (`actions.runner.Kiarasht-Space-Station-Tracker.mac` and `.mac-2`). They start at login, run in the background with no window, and let the Android and iOS jobs build at the same time. They update themselves.
+
+Watch them from a terminal:
+
+```sh
+tail -f ~/Library/Logs/actions.runner.Kiarasht-Space-Station-Tracker.mac*/stdout.log
+```
+
+Check, stop or start them:
+
+```sh
+cd ~/actions-runners/iss-tracker && ./svc.sh status
+cd ~/actions-runners/iss-tracker && ./svc.sh stop
+cd ~/actions-runners/iss-tracker && ./svc.sh start
+```
+
+Jobs queue while the Mac is asleep or logged out and start when it is back. The iOS jobs wrap the build in `caffeinate` so the Mac does not sleep mid-archive.
+
+## Only the owner's runs reach the Mac
+
+This repository is public, and a self-hosted runner on a public repository would otherwise let anyone's pull request run code on the Mac. Only runs the owner (`Kiarasht`) starts may run here: their own pull requests from branches of this repository, their pushes, their manual runs and the scheduled cron. Three layers enforce it:
+
+- **Runner hook (the real guarantee):** both runners run `~/actions-runners/hooks/iss-tracker-job-started.sh` before every job, set through `ACTIONS_RUNNER_HOOK_JOB_STARTED` in each runner's `.env`. It fails the job before any step runs unless the repository, actor, triggering actor and, for pull requests, the PR author and head repository all match the owner. Unlike the workflows, a pull request cannot edit it: the runners use an installed copy outside the repository. Its source is `tools/ci/runner-job-started.sh`.
+- **Workflow conditions:** every job's `if:` checks the same thing, so other people's PRs are skipped instead of failing at the hook.
+- **Repository setting:** Actions requires approval for runs from every outside contributor ("Require approval for all outside collaborators" under Settings > Actions > General).
+
+The workflows use `pull_request`, never `pull_request_target`. Never approve a workflow run for a pull request you have not read.
+
+After changing `tools/ci/runner-job-started.sh`, reinstall the copy and restart both runners:
+
+```sh
+install -m 0555 tools/ci/runner-job-started.sh ~/actions-runners/hooks/iss-tracker-job-started.sh
+```
+
+```sh
+for d in iss-tracker iss-tracker-2; do (cd ~/actions-runners/$d && ./svc.sh stop && ./svc.sh start); done
+```
+
+## Workflows
+
+Naming follows the owner's other apps: a debug channel and a release channel, each with one job per platform.
+
+| Workflow | Trigger | Job | Builds and sends |
+|---|---|---|---|
+| `ci.yml`: Mobile debug distribution | Owner's PR to `master` from a branch of this repository, or manual | `android-debug` | Android unit tests and lint, then the debug APK (test ads) → Firebase App Distribution |
+| | | `ios-debug` | Shared tests, then the Debug `.dev` IPA (test ads, Ad Hoc profile) → Firebase App Distribution |
+| `release.yml`: Release distribution (Play + TestFlight) | Owner's push to `master` that raises `APP_VERSION_CODE`, or manual | `release-gate` | Skips the uploads when the version code did not go up |
+| | | `android-release` | Android unit tests, then the signed release AAB and R8 mapping → Google Play alpha track |
+| | | `ios-release` | Shared tests, then the Release IPA (App Store profile) → TestFlight |
+
+| `update-youtube-live-streams.yml` | Every 15 minutes, or manual | `update-live-streams` | Refreshes `docs/nasa-live-streams.json` on the `live-stream-cache` branch |
+
+Debug builds go to the Firebase group(s) in the `FIREBASE_APP_DISTRIBUTION_GROUPS` secret. A manual run of `release.yml` always releases, which is how to retry a failed upload.
+
+## Scripts
+
+The workflows only call these scripts, which also run by hand:
+
+```sh
+tools/ci/android.sh debug|release [--upload]
+tools/ci/ios.sh debug|release [--upload]
+```
+
+Output goes to the ignored `artifacts/ci/`. On the runners that is inside each runner's `_work` checkout. For example, the latest release AAB for Galaxy Store submission is at `~/actions-runners/iss-tracker*/_work/Space-Station-Tracker/Space-Station-Tracker/artifacts/ci/iss-tracker-release.aab`.
+
+For manual runs, the scripts use your own `keystore.properties`, `local.properties` and `iosApp/Configuration/Local.xcconfig`. Uploads, the iOS certificate and profiles fall back to `~/.config/iss-tracker/ci/`:
+
+- `firebase-service-account.json` and `play-service-account.json`
+- `ios-adhoc.mobileprovision` and `ios-appstore.mobileprovision`
+- `apple-distribution.p12`, with its password in the login keychain as service `iss-tracker.ios.distribution`, account `p12`
+- `ci.env`, holding `APP_STORE_CONNECT_API_KEY_ID` and `APP_STORE_CONNECT_ISSUER_ID`
+
+In CI the scripts write `keystore.properties` and `Local.xcconfig` into the runner checkout and delete them when they exit. Key files decoded from secrets go to a per-run temporary folder that is also deleted. They refuse to write those files outside GitHub Actions, so a manual run never replaces your own copies.
+
+iOS signing imports the Apple Distribution certificate into a temporary keychain. A runner service cannot use the login keychain, and your own keychain list is restored afterwards. The app target is signed manually through `iosApp/Configuration/CiSigning.xcconfig`, so Swift packages are never given a profile.
+
+## Secrets
+
+| Secret | Used by |
+|---|---|
+| `MAPS_API_KEY`, `YOUTUBE_API_KEY` | App API keys (Android builds) |
+| `SIGNING_KEY`, `KEY_STORE_PASSWORD`, `ALIAS`, `KEY_PASSWORD` | Android release keystore (base64) and its passwords |
+| `GOOGLE_PLAY_SERVICE_ACCOUNT_JSON` | Play uploads |
+| `FIREBASE_APP_DISTRIBUTION_SERVICE_ACCOUNT_JSON`, `FIREBASE_APP_DISTRIBUTION_GROUPS` | Debug uploads and their tester groups |
+| `APP_STORE_CONNECT_API_KEY_BASE64`, `APP_STORE_CONNECT_API_KEY_ID`, `APP_STORE_CONNECT_ISSUER_ID`, `APPLE_TEAM_ID` | iOS export and TestFlight upload |
+| `IOS_DISTRIBUTION_CERTIFICATE_BASE64`, `IOS_DISTRIBUTION_CERTIFICATE_PASSWORD` | Apple Distribution certificate (.p12) |
+| `IOS_APP_STORE_PROVISIONING_PROFILE_BASE64` | App Store profile for `com.restart.spacestationtracker.ios` |
+| `IOS_ADHOC_PROFILE_BASE64` | Ad Hoc profile for `com.restart.spacestationtracker.ios.dev` (debug channel) |
+
+`IOS_SIGNING_KEYCHAIN_PASSWORD` and `N2YO_API_KEY` are no longer used. Each run generates a random keychain password, and passes are predicted on the device.
+
+Create or refresh the Ad Hoc profile after registering a test device, then update the secret:
+
+```sh
+node tools/ci/asc_profiles.mjs
+```
+
+```sh
+base64 -i ~/.config/iss-tracker/ci/ios-adhoc.mobileprovision | gh secret set IOS_ADHOC_PROFILE_BASE64
+```
+
+Ad Hoc builds install only on devices registered in the Apple Developer account.
+
+## Switching over from the old workflows
+
+Until this setup is merged into `master`, `master` still has the old `mobile-pr.yml`, `mobile-release.yml` and the GitHub-hosted version of `update-youtube-live-streams.yml`. All three are disabled on GitHub (Actions > workflow > "Disable workflow") so nothing runs on GitHub's machines. The merge removes the first two. GitHub keeps `update-youtube-live-streams.yml` disabled because its path is unchanged, so re-enable it after the merge to start the Mac version:
+
+```sh
+gh workflow enable update-youtube-live-streams.yml -R Kiarasht/Space-Station-Tracker
+```
+
+## Re-registering a runner
+
+If a runner is removed on GitHub or its folder is lost, re-register it with a fresh token. Tokens expire after an hour.
+
+```sh
+cd ~/actions-runners/iss-tracker && ./svc.sh stop && ./svc.sh uninstall
+```
+
+```sh
+cd ~/actions-runners/iss-tracker && ./config.sh --unattended --url https://github.com/Kiarasht/Space-Station-Tracker --token "$(gh api -X POST repos/Kiarasht/Space-Station-Tracker/actions/runners/registration-token --jq .token)" --name mac --labels iss-tracker --work _work --replace && ./svc.sh install && ./svc.sh start
+```
+
+Use `iss-tracker-2` and `--name mac-2` for the second runner. A re-registered runner keeps its `.env`, so the pre-job hook stays set; check that `.env` still contains the `ACTIONS_RUNNER_HOOK_JOB_STARTED` line.
