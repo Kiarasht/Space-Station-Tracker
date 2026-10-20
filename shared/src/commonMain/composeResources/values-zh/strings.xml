@@ -147,16 +147,8 @@
     <string name="about_stat_sunrises">每天日出次数</string>
     <string name="about_stat_crewed">年持续有人驻留</string>
     <string name="about_data_sources">数据来源：%1$s</string>
-    <string name="satellite_tiangong_name">天宫空间站</string>
-    <string name="satellite_hubble_name">哈勃空间望远镜</string>
     <string name="satellite_tiangong_short">天宫</string>
+    <string name="satellite_iss_short">国际空间站</string>
     <string name="satellite_hubble_short">哈勃</string>
-    <string name="satellite_kind_station">空间站</string>
-    <string name="satellite_kind_telescope">空间望远镜</string>
-    <string name="satellite_orbit_format">%1$d 分钟绕地一圈</string>
-    <string name="learn_more">了解更多</string>
-    <string name="satellite_iss_description">由五个航天机构共同建造、约有一个足球场大小的实验室。自 2000 年 11 月起一直有人驻留。</string>
-    <string name="satellite_tiangong_description">中国的空间站，于 2021 年和 2022 年在轨组装。三人乘组搭乘神舟飞船前往，每次驻留约六个月。</string>
-    <string name="satellite_hubble_description">自 1990 年起在轨道上拍摄宇宙的望远镜。没有乘组；宇航员最后一次维修它是在 2009 年。</string>
     <string name="satellite_sunlit">正被阳光照射</string>
 </resources>

@@ -63,14 +63,6 @@ class SatelliteTrackerTest {
         assertEquals(listOf(TrackedSatellite.ISS, TrackedSatellite.HUBBLE), later)
     }
 
-    @Test
-    fun learnMoreFallsBackToEnglish() {
-        assertEquals(
-            "https://www.wikidata.org/wiki/Special:GoToLinkedPage/dewiki,enwiki/Q2513",
-            TrackedSatellite.HUBBLE.learnMoreUrl("de")
-        )
-    }
-
     private fun assertClose(expected: Double, actual: Double, tolerance: Double, label: String) {
         assertTrue(abs(expected - actual) <= tolerance, "$label: expected $expected ± $tolerance, was $actual")
     }

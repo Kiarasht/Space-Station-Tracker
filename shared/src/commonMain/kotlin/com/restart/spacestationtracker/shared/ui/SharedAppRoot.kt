@@ -96,6 +96,7 @@ import com.restart.spacestationtracker.shared.resources.Res
 import com.restart.spacestationtracker.shared.resources.*
 import com.restart.spacestationtracker.shared.ui.platform.IssMapPoint
 import com.restart.spacestationtracker.shared.ui.platform.PlatformIssMap
+import com.restart.spacestationtracker.shared.ui.platform.SatelliteMapTrack
 import com.restart.spacestationtracker.shared.satellites.SatelliteSnapshot
 import com.restart.spacestationtracker.shared.satellites.TrackedSatellite
 import com.restart.spacestationtracker.shared.ui.platform.PlatformBannerAd
@@ -220,7 +221,6 @@ fun SharedAppRoot(
                     liveStreams = state.liveStreams,
                     contentPadding = padding,
                     satellites = state.satellites,
-                    onOpenUrl = { onAction(SharedAppActions.OPEN_URL, it) },
                     onOpenStream = { stream ->
                         onAction(
                             SharedAppActions.OPEN_URL,
@@ -517,19 +517,26 @@ fun SharedIssMapScreen(
     contentPadding: PaddingValues,
     onOpenStream: (LiveStream) -> Unit,
     topEndContent: @Composable ColumnScope.() -> Unit = {},
-    satellites: List<SatelliteSnapshot> = emptyList(),
-    onOpenUrl: (String) -> Unit = {}
+    satellites: List<SatelliteSnapshot> = emptyList()
 ) {
     var showStreamPicker by remember { mutableStateOf(false) }
     var selectedSatelliteId by rememberSaveable { mutableStateOf<String?>(null) }
     val selectedSatellite = TrackedSatellite.fromId(selectedSatelliteId)
     val selectedSnapshot = satellites.firstOrNull { it.satellite == selectedSatellite }
-    // The ISS's own orbit line already shows its path when the orbit setting is on.
-    val selectedTrack = when {
-        selectedSnapshot == null -> emptyList()
-        selectedSatellite == TrackedSatellite.ISS && showOrbit -> emptyList()
-        else -> selectedSnapshot.track
-    }
+    // One path at a time: the ISS's by default (following the orbit setting), or the selected spacecraft's.
+    // Every path is passed with a visible flag so the map can fade between them.
+    val issOrbitVisible = selectedSatellite == null || selectedSatellite == TrackedSatellite.ISS
+    val tracks = satellites
+        // The ISS's own orbit line stands in for its computed path unless the orbit setting is off.
+        .filter { it.satellite != TrackedSatellite.ISS || !showOrbit }
+        .map { snapshot ->
+            SatelliteMapTrack(
+                id = snapshot.satellite.id,
+                points = snapshot.track,
+                colorArgb = snapshot.satellite.trackColorArgb(),
+                visible = snapshot.satellite == selectedSatellite
+            )
+        }
 
     if (showStreamPicker) {
         AlertDialog(
@@ -576,9 +583,9 @@ fun SharedIssMapScreen(
             mapType = mapType,
             modifier = Modifier.fillMaxSize(),
             bottomInset = contentPadding.calculateBottomPadding(),
-            satellites = satelliteMarkers(satellites, selectedSatellite),
-            selectedTrack = selectedTrack,
-            selectedTrackColorArgb = selectedSatellite?.trackColorArgb() ?: 0xFFFFFFFF,
+            satellites = satelliteMarkers(satellites, currentLocation, selectedSatellite),
+            tracks = tracks,
+            orbitVisible = issOrbitVisible,
             onSatelliteClick = { id -> selectedSatelliteId = id }
         )
 
@@ -678,18 +685,6 @@ fun SharedIssMapScreen(
                     }
                 }
             }
-        }
-
-        selectedSatellite?.let { satellite ->
-            SatelliteDetailCard(
-                satellite = satellite,
-                snapshot = selectedSnapshot,
-                onClose = { selectedSatelliteId = null },
-                onOpenUrl = onOpenUrl,
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(16.dp)
-            )
         }
         }
     }

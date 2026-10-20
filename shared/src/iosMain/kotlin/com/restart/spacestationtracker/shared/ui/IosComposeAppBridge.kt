@@ -14,6 +14,7 @@ import com.restart.spacestationtracker.shared.ui.platform.IosBannerAdRegistry
 import com.restart.spacestationtracker.shared.ui.platform.IosNativeAdRegistry
 import com.restart.spacestationtracker.shared.ui.platform.IssMapPoint
 import com.restart.spacestationtracker.shared.ui.platform.SatelliteMapMarker
+import com.restart.spacestationtracker.shared.ui.platform.SatelliteMapTrack
 import kotlinx.coroutines.flow.MutableStateFlow
 import platform.UIKit.UIView
 import platform.UIKit.UIViewController
@@ -61,7 +62,7 @@ class IosComposeAppBridge(
     }
 
     fun registerMapSatelliteUpdater(
-        updater: (UIView, List<SatelliteMapMarker>, List<IssMapPoint>, Long, (String?) -> Unit) -> Unit
+        updater: (UIView, List<SatelliteMapMarker>, List<SatelliteMapTrack>, Boolean, (String?) -> Unit) -> Unit
     ) {
         IosIssMapRegistry.registerSatelliteUpdater(updater)
     }

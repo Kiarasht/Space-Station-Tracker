@@ -9,9 +9,12 @@ import android.graphics.Path
 import android.graphics.RectF
 import android.graphics.Typeface
 import android.os.Build
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -26,7 +29,6 @@ import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
-import com.google.maps.android.compose.Circle
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapType
 import com.google.maps.android.compose.MapUiSettings
@@ -48,11 +50,13 @@ actual fun PlatformIssMap(
     modifier: Modifier,
     bottomInset: Dp,
     satellites: List<SatelliteMapMarker>,
-    selectedTrack: List<IssMapPoint>,
-    selectedTrackColorArgb: Long,
+    tracks: List<SatelliteMapTrack>,
+    orbitVisible: Boolean,
     onSatelliteClick: (String?) -> Unit
 ) {
     val context = LocalContext.current
+    // Lines (with their arrows and labels) fade in and out when the selection changes.
+    val orbitAlpha by animateFloatAsState(if (orbitVisible) 1f else 0f, tween(LINE_FADE_MILLIS))
     val density = context.resources.displayMetrics.density
     val cameraState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(LatLng(0.0, 0.0), 2f)
@@ -68,9 +72,6 @@ actual fun PlatformIssMap(
         buildOrbitCues(currentLocation?.timestamp ?: 0L, orderedOrbit)
     }
     val exoTypeface = remember(context) { loadExoTypeface(context) }
-    val selectedCues = remember(selectedTrack) {
-        buildOrbitCues(selectedTrack.firstOrNull()?.timestamp ?: 0L, selectedTrack)
-    }
     LaunchedEffect(currentLocation) {
         if (!hasCentered && currentLocation != null) {
             cameraState.animate(
@@ -97,68 +98,51 @@ actual fun PlatformIssMap(
         uiSettings = MapUiSettings(zoomControlsEnabled = false),
         onMapClick = { onSatelliteClick(null) }
     ) {
-        val issMarker = remember { createIssMarker() }
-        val sunMarker = remember { createSunMarker() }
         val directionMarker = remember { createDirectionMarker() }
         val timeMarkers = remember(exoTypeface) {
             (30..120 step 30).associateWith { minute ->
                 createTimeMarker("+${minute}m", exoTypeface)
             }
         }
-        currentLocation?.let {
-            Circle(
-                center = LatLng(it.latitude, it.longitude),
-                radius = it.footprint * 500.0,
-                fillColor = Color(0x263F8CFF),
-                strokeColor = Color(0xCC64B5F6),
-                strokeWidth = 3f,
-                zIndex = -1f
-            )
-            Marker(
-                state = rememberUpdatedMarkerState(LatLng(it.solarLat, it.solarLon)),
-                icon = sunMarker,
-                anchor = androidx.compose.ui.geometry.Offset(0.5f, 0.5f),
-                zIndex = 2f
-            )
-            Marker(
-                state = rememberUpdatedMarkerState(LatLng(it.latitude, it.longitude)),
-                icon = issMarker,
-                anchor = androidx.compose.ui.geometry.Offset(0.5f, 0.5f),
-                zIndex = 3f,
-                onClick = {
-                    onSatelliteClick(ISS_MARKER_ID)
-                    true
-                }
-            )
-        }
-        if (selectedTrack.size > 1) {
-            val trackColor = selectedTrackColorArgb.toInt()
-            Polyline(
-                points = selectedTrack.map { LatLng(it.latitude, it.longitude) },
-                color = Color(trackColor),
-                width = 5f,
-                geodesic = true,
-                zIndex = 1f
-            )
-            // The same arrows and +30m to +120m labels as the ISS line, in the satellite's color.
-            val trackDirectionMarker = remember(trackColor) { createDirectionMarker(trackColor) }
-            val trackTimeMarkers = remember(trackColor, exoTypeface) {
-                (30..120 step 30).associateWith { minute ->
-                    createTimeMarker("+${minute}m", exoTypeface, trackColor)
+        tracks.forEach { track ->
+            key(track.id) {
+                val alpha by animateFloatAsState(if (track.visible) 1f else 0f, tween(LINE_FADE_MILLIS))
+                if (track.points.size > 1 && alpha > 0f) {
+                    val trackColor = track.colorArgb.toInt()
+                    Polyline(
+                        points = track.points.map { LatLng(it.latitude, it.longitude) },
+                        color = Color(trackColor).copy(alpha = alpha),
+                        width = 5f,
+                        geodesic = true,
+                        zIndex = 1f
+                    )
+                    // The same arrows and +30m to +120m labels as the ISS line, in the satellite's color.
+                    val cues = remember(track.points) {
+                        buildOrbitCues(track.points.first().timestamp, track.points)
+                    }
+                    val trackDirectionMarker = remember(trackColor) { createDirectionMarker(trackColor) }
+                    val trackTimeMarkers = remember(trackColor, exoTypeface) {
+                        (30..120 step 30).associateWith { minute ->
+                            createTimeMarker("+${minute}m", exoTypeface, trackColor)
+                        }
+                    }
+                    cues.forEach { cue ->
+                        key(cue.minuteOffset) {
+                            Marker(
+                                state = rememberUpdatedMarkerState(LatLng(cue.point.latitude, cue.point.longitude)),
+                                icon = if (cue.minuteOffset % 30 == 0) trackTimeMarkers[cue.minuteOffset] else trackDirectionMarker,
+                                anchor = androidx.compose.ui.geometry.Offset(0.5f, 0.5f),
+                                flat = cue.minuteOffset % 30 != 0,
+                                rotation = if (cue.minuteOffset % 30 == 0) 0f else cue.bearing,
+                                alpha = alpha,
+                                zIndex = 4f
+                            )
+                        }
+                    }
                 }
             }
-            selectedCues.forEach { cue ->
-                Marker(
-                    state = rememberUpdatedMarkerState(LatLng(cue.point.latitude, cue.point.longitude)),
-                    icon = if (cue.minuteOffset % 30 == 0) trackTimeMarkers[cue.minuteOffset] else trackDirectionMarker,
-                    anchor = androidx.compose.ui.geometry.Offset(0.5f, 0.5f),
-                    flat = cue.minuteOffset % 30 != 0,
-                    rotation = if (cue.minuteOffset % 30 == 0) 0f else cue.bearing,
-                    zIndex = 4f
-                )
-            }
         }
-        satellites.forEach { satellite ->
+        satellites.forEach { satellite -> key(satellite.id) {
             val icon = remember(satellite.label, satellite.colorArgb, satellite.isStation, satellite.isSelected, exoTypeface) {
                 createSatelliteMarker(satellite, density, exoTypeface)
             }
@@ -173,37 +157,41 @@ actual fun PlatformIssMap(
                     true
                 }
             )
-        }
-        if (orderedOrbit.size > 1) {
+        } }
+        if (orderedOrbit.size > 1 && orbitAlpha > 0f) {
             Polyline(
                 points = orderedOrbit.map { LatLng(it.latitude, it.longitude) },
-                color = Color.Red,
+                color = Color.Red.copy(alpha = orbitAlpha),
                 width = 5f,
                 geodesic = true,
                 zIndex = 1f
             )
-        }
-        orbitCues.forEach { cue ->
-            if (cue.minuteOffset % 30 == 0) {
-                Marker(
-                    state = rememberUpdatedMarkerState(
-                        LatLng(cue.point.latitude, cue.point.longitude)
-                    ),
-                    icon = timeMarkers[cue.minuteOffset],
-                    anchor = androidx.compose.ui.geometry.Offset(0.5f, 0.5f),
-                    zIndex = 4f
-                )
-            } else {
-                Marker(
-                    state = rememberUpdatedMarkerState(
-                        LatLng(cue.point.latitude, cue.point.longitude)
-                    ),
-                    icon = directionMarker,
-                    anchor = androidx.compose.ui.geometry.Offset(0.5f, 0.5f),
-                    flat = true,
-                    rotation = cue.bearing,
-                    zIndex = 4f
-                )
+            orbitCues.forEach { cue ->
+                key(cue.minuteOffset) {
+                    if (cue.minuteOffset % 30 == 0) {
+                        Marker(
+                            state = rememberUpdatedMarkerState(
+                                LatLng(cue.point.latitude, cue.point.longitude)
+                            ),
+                            icon = timeMarkers[cue.minuteOffset],
+                            anchor = androidx.compose.ui.geometry.Offset(0.5f, 0.5f),
+                            alpha = orbitAlpha,
+                            zIndex = 4f
+                        )
+                    } else {
+                        Marker(
+                            state = rememberUpdatedMarkerState(
+                                LatLng(cue.point.latitude, cue.point.longitude)
+                            ),
+                            icon = directionMarker,
+                            anchor = androidx.compose.ui.geometry.Offset(0.5f, 0.5f),
+                            flat = true,
+                            rotation = cue.bearing,
+                            alpha = orbitAlpha,
+                            zIndex = 4f
+                        )
+                    }
+                }
             }
         }
     }
@@ -220,43 +208,14 @@ actual fun PlatformBannerAd(
     modifier: Modifier
 ) = Unit
 
-private fun createIssMarker(): BitmapDescriptor {
-    val width = 104
-    val height = 48
-    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-    val canvas = Canvas(bitmap)
-    val bodyPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = AndroidColor.rgb(232, 157, 54)
-        style = Paint.Style.FILL
-    }
-    val panelPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = AndroidColor.rgb(54, 96, 156)
-        style = Paint.Style.FILL
-    }
-    val detailPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = AndroidColor.WHITE
-        strokeWidth = 2f
-        style = Paint.Style.STROKE
-    }
-
-    canvas.drawRect(39f, 14f, 65f, 34f, bodyPaint)
-    canvas.drawRect(4f, 12f, 35f, 36f, panelPaint)
-    canvas.drawRect(69f, 12f, 100f, 36f, panelPaint)
-    canvas.drawLine(35f, 24f, 39f, 24f, bodyPaint)
-    canvas.drawLine(65f, 24f, 69f, 24f, bodyPaint)
-    canvas.drawLine(52f, 5f, 52f, 14f, bodyPaint)
-    canvas.drawCircle(52f, 5f, 3f, bodyPaint)
-    canvas.drawRect(10f, 17f, 29f, 31f, detailPaint)
-    canvas.drawRect(75f, 17f, 94f, 31f, detailPaint)
-
-    return BitmapDescriptorFactory.fromBitmap(bitmap)
-}
+private const val LINE_FADE_MILLIS = 300
 
 private class SatelliteMarkerIcon(val descriptor: BitmapDescriptor, val anchorY: Float)
 
 /** A colored badge with a station or telescope glyph, and the satellite's name in a pill underneath. */
 private fun createSatelliteMarker(marker: SatelliteMapMarker, density: Float, typeface: Typeface): SatelliteMarkerIcon {
-    val radius = (if (marker.isSelected) 17f else 14f) * density
+    // Same size selected or not, so a tap doesn't make the badge jump; the label's border shows the selection.
+    val radius = 14f * density
     val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = AndroidColor.WHITE
         textSize = 11f * density
@@ -310,30 +269,6 @@ private fun createSatelliteMarker(marker: SatelliteMapMarker, density: Float, ty
     canvas.drawText(marker.label, centerX, baseline, textPaint)
 
     return SatelliteMarkerIcon(BitmapDescriptorFactory.fromBitmap(bitmap), anchorY = centerY / height)
-}
-
-private fun createSunMarker(): BitmapDescriptor {
-    val size = 56
-    val center = size / 2f
-    val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
-    val canvas = Canvas(bitmap)
-    val rayPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = AndroidColor.rgb(255, 221, 64)
-        strokeWidth = 4f
-        strokeCap = Paint.Cap.ROUND
-    }
-    repeat(8) { index ->
-        val angle = Math.toRadians(index * 45.0)
-        canvas.drawLine(
-            center + (18f * sin(angle)).toFloat(),
-            center - (18f * cos(angle)).toFloat(),
-            center + (25f * sin(angle)).toFloat(),
-            center - (25f * cos(angle)).toFloat(),
-            rayPaint
-        )
-    }
-    canvas.drawCircle(center, center, 13f, rayPaint)
-    return BitmapDescriptorFactory.fromBitmap(bitmap)
 }
 
 private fun createDirectionMarker(fillColor: Int = AndroidColor.RED): BitmapDescriptor {

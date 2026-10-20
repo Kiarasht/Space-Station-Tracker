@@ -28,14 +28,23 @@ data class SatelliteMapMarker(
     val isSelected: Boolean
 )
 
-/** Map id reported when the ISS marker itself is tapped. */
-const val ISS_MARKER_ID = "iss"
+/**
+ * A satellite's predicted path, with direction arrows and +30m to +120m labels along it. Hidden paths are
+ * still passed so the map can fade them out (and back in) when [visible] changes.
+ */
+data class SatelliteMapTrack(
+    val id: String,
+    val points: List<IssMapPoint>,
+    /** Line color as 0xAARRGGBB. */
+    val colorArgb: Long,
+    val visible: Boolean
+)
 
 /**
  * The live map. [bottomInset] keeps the map's own logo, legal link and controls clear of anything drawn
  * over its bottom edge, such as the floating navigation bar; the map itself still fills [modifier].
- * Tapping the ISS or a [satellites] marker calls [onSatelliteClick] with its id, and tapping empty map
- * calls it with null. [selectedTrack] is the selected satellite's next orbit, drawn in [selectedTrackColorArgb].
+ * Every spacecraft, the ISS included, is a [satellites] marker. Tapping one calls [onSatelliteClick] with its id; tapping empty map
+ * calls it with null. [tracks] are the other satellites' paths, each in its own color.
  */
 @Composable
 expect fun PlatformIssMap(
@@ -45,8 +54,9 @@ expect fun PlatformIssMap(
     modifier: Modifier = Modifier,
     bottomInset: Dp = 0.dp,
     satellites: List<SatelliteMapMarker> = emptyList(),
-    selectedTrack: List<IssMapPoint> = emptyList(),
-    selectedTrackColorArgb: Long = 0xFFFFFFFF,
+    tracks: List<SatelliteMapTrack> = emptyList(),
+    /** Whether the ISS's [orbit] line shows; it fades out while another spacecraft is selected. */
+    orbitVisible: Boolean = true,
     onSatelliteClick: (String?) -> Unit = {}
 )
 

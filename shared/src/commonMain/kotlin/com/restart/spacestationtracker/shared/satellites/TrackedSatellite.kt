@@ -14,20 +14,10 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 /** Spacecraft the map can show. [id] is stable across versions; it keys selections and map markers. */
-enum class TrackedSatellite(
-    val id: String,
-    val noradId: Int,
-    val launchYear: Int,
-    /** Wikidata item, which opens the Wikipedia article in the reader's language. */
-    val wikidataId: String
-) {
-    ISS("iss", 25544, 1998, "Q25271"),
-    TIANGONG("tiangong", 48274, 2021, "Q5100935"),
-    HUBBLE("hubble", 20580, 1990, "Q2513");
-
-    /** Wikipedia in [language] ("de", "ja", ...), falling back to English where there is no article. */
-    fun learnMoreUrl(language: String): String =
-        "https://www.wikidata.org/wiki/Special:GoToLinkedPage/${language}wiki,enwiki/$wikidataId"
+enum class TrackedSatellite(val id: String, val noradId: Int) {
+    ISS("iss", 25544),
+    TIANGONG("tiangong", 48274),
+    HUBBLE("hubble", 20580);
 
     companion object {
         fun fromId(id: String?): TrackedSatellite? = entries.firstOrNull { it.id == id }

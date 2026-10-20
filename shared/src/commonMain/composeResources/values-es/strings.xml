@@ -147,16 +147,8 @@
     <string name="about_stat_sunrises">amaneceres al día</string>
     <string name="about_stat_crewed">años habitada sin pausa</string>
     <string name="about_data_sources">Datos de %1$s</string>
-    <string name="satellite_tiangong_name">Estación espacial Tiangong</string>
-    <string name="satellite_hubble_name">Telescopio espacial Hubble</string>
     <string name="satellite_tiangong_short">Tiangong</string>
+    <string name="satellite_iss_short">EEI</string>
     <string name="satellite_hubble_short">Hubble</string>
-    <string name="satellite_kind_station">Estación espacial</string>
-    <string name="satellite_kind_telescope">Telescopio espacial</string>
-    <string name="satellite_orbit_format">%1$d min por órbita</string>
-    <string name="learn_more">Más información</string>
-    <string name="satellite_iss_description">Un laboratorio del tamaño de un campo de fútbol, construido por cinco agencias espaciales. Hay personas a bordo sin interrupción desde noviembre de 2000.</string>
-    <string name="satellite_tiangong_description">La estación espacial de China, ensamblada en órbita en 2021 y 2022. Tripulaciones de tres suben en naves Shenzhou para estancias de unos seis meses.</string>
-    <string name="satellite_hubble_description">Un telescopio que fotografía el universo desde la órbita desde 1990. No tiene tripulación; los astronautas lo repararon por última vez en 2009.</string>
     <string name="satellite_sunlit">Iluminado por el Sol</string>
 </resources>

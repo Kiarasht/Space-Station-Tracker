@@ -223,14 +223,14 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         composeBridge.registerMapInsetUpdater { view, bottomInset in
             (view as? NativeIssMapView)?.setBottomInset(CGFloat(bottomInset))
         }
-        composeBridge.registerMapSatelliteUpdater { [weak self] view, satellites, track, trackColor, onSelect in
+        composeBridge.registerMapSatelliteUpdater { [weak self] view, satellites, tracks, orbitVisible, onSelect in
             guard let mapView = view as? NativeIssMapView else { return }
             let markers: [SatelliteMapMarker] = self?.cast(satellites) ?? []
-            let trackPoints: [IssMapPoint] = self?.cast(track) ?? []
+            let paths: [SatelliteMapTrack] = self?.cast(tracks) ?? []
             mapView.updateSatellites(
                 markers: markers,
-                track: trackPoints,
-                trackColor: trackColor.int64Value,
+                tracks: paths,
+                orbitVisible: orbitVisible.boolValue,
                 onSelect: { id in _ = onSelect(id) }
             )
         }
@@ -698,23 +698,26 @@ private final class PassEventEditorDelegate: NSObject, EKEventEditViewDelegate {
     }
 }
 
-private final class SolarMapAnnotation: MKPointAnnotation {}
+/** An arrow or time label that belongs to one path and fades with it. */
+private protocol PathCueAnnotation: AnyObject {
+    var pathId: String { get }
+}
 
-private final class IssMapAnnotation: MKPointAnnotation {}
-
-private final class OrbitDirectionAnnotation: MKPointAnnotation {
+private final class OrbitDirectionAnnotation: MKPointAnnotation, PathCueAnnotation {
     var rotationRadians: CGFloat = 0
-    /** Set for a selected satellite's path; nil keeps the ISS's red. */
+    /** Set for another satellite's path; nil keeps the ISS's red. */
     var colorArgb: Int64?
+    var pathId = ""
 }
 
-private final class OrbitTimeAnnotation: MKPointAnnotation {
+private final class OrbitTimeAnnotation: MKPointAnnotation, PathCueAnnotation {
     var minuteOffset = 0
-    /** Set for a selected satellite's path; nil keeps the ISS's yellow border. */
+    /** Set for another satellite's path; nil keeps the ISS's yellow border. */
     var colorArgb: Int64?
+    var pathId = ""
 }
 
-/** Tiangong, Hubble and other non-ISS spacecraft. */
+/** A spacecraft marker; the ISS, Tiangong and Hubble are all drawn the same way. */
 private final class SatelliteAnnotation: MKPointAnnotation {
     var id = ""
     var label = ""
@@ -723,23 +726,50 @@ private final class SatelliteAnnotation: MKPointAnnotation {
     var isSelected = false
 }
 
+/** Where a direction arrow or a +30m label belongs on a path. */
+private struct OrbitCue {
+    let minuteOffset: Int
+    let coordinate: CLLocationCoordinate2D
+    let rotationRadians: CGFloat
+}
+
+/**
+ * The live map. Every refresh updates what is already on the map in place (markers move, arrows turn, a
+ * changed line is swapped for its new version) instead of clearing and redrawing everything, which made the
+ * whole map blink whenever anything changed, such as selecting a satellite.
+ */
 private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecognizerDelegate {
     private let mapView = MKMapView()
-    private var renderedKey = ""
     private var hasSetInitialRegion = false
     private var current: IssMapPoint?
     private var orbit: [IssMapPoint] = []
     private var mapTypeName = "Normal"
     private var satellites: [SatelliteMapMarker] = []
-    private var selectedTrack: [IssMapPoint] = []
-    private var selectedTrackColor: Int64 = 0
+    private var tracks: [SatelliteMapTrack] = []
+    private var orbitVisible = true
     private var onSelect: ((String?) -> Void)?
     private var isRenderScheduled = false
     private var satelliteMarkerImages: [String: UIImage] = [:]
     private var coloredCueImages: [String: UIImage] = [:]
-    private var footprintOverlay: MKCircle?
-    /** The selected satellite's next orbit. MapKit's polyline factory can't build Swift subclasses, so it's matched by identity. */
-    private var selectedTrackOverlay: MKPolyline?
+    // What is on the map now, so each refresh changes only what moved.
+    private var satelliteAnnotations: [String: SatelliteAnnotation] = [:]
+    /** Arrows and time labels, keyed by "<path id>|<minute offset>". */
+    private var cueAnnotations: [String: MKPointAnnotation] = [:]
+    /** One line per path ("iss" or a satellite id), with a key of its points to tell when it changed. */
+    private var pathOverlays: [String: MKPolyline] = [:]
+    private var pathKeys: [String: String] = [:]
+    /** Line colors by overlay. MapKit's polyline factory can't build Swift subclasses, so color can't live on the overlay. */
+    private var overlayColors: [ObjectIdentifier: UIColor] = [:]
+    /** Which path each overlay draws, to give a replaced line its path's current opacity. */
+    private var overlayPaths: [ObjectIdentifier: String] = [:]
+    /** Each path's opacity now and where it is heading; a selection change fades lines in or out. */
+    private var pathAlpha: [String: CGFloat] = [:]
+    private var pathTarget: [String: CGFloat] = [:]
+    private var fadeLink: CADisplayLink?
+    private var lastFadeTime: CFTimeInterval = 0
+    private static let lineFadeSeconds: CGFloat = 0.3
+    /** The ISS orbit line's path id; the ISS's computed track uses "iss". */
+    private static let issOrbitPath = "iss-orbit"
     private lazy var timeMarkerImages: [Int: UIImage] = Dictionary(
         uniqueKeysWithValues: stride(from: 30, through: 120, by: 30).map {
             ($0, Self.makeTimeMarkerImage(minuteOffset: $0))
@@ -771,13 +801,13 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecogn
 
     func updateSatellites(
         markers: [SatelliteMapMarker],
-        track: [IssMapPoint],
-        trackColor: Int64,
+        tracks: [SatelliteMapTrack],
+        orbitVisible: Bool,
         onSelect: @escaping (String?) -> Void
     ) {
         satellites = markers
-        selectedTrack = track
-        selectedTrackColor = trackColor
+        self.tracks = tracks
+        self.orbitVisible = orbitVisible
         self.onSelect = onSelect
         scheduleRender()
     }
@@ -794,133 +824,255 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecogn
     }
 
     private func render() {
-        let current = self.current
-        let orbit = self.orbit
-        let mapType = mapTypeName
-        let currentKey = current.map {
-            "\($0.latitude)|\($0.longitude)|\($0.timestamp)|\($0.footprint)|" +
-                "\($0.solarLatitude)|\($0.solarLongitude)"
-        } ?? "none"
-        let satelliteKey = satellites
-            .map { "|\($0.id)|\($0.latitude)|\($0.longitude)|\($0.isSelected)|\($0.label)" }
-            .joined() + "|track\(selectedTrackColor)" + selectedTrack
-            .map { "|\($0.latitude)|\($0.longitude)" }
-            .joined()
-        let key = mapType + "|" + currentKey + satelliteKey + orbit
-            .map { "|\($0.latitude)|\($0.longitude)|\($0.timestamp)" }
-            .joined()
-        guard key != renderedKey else { return }
-        renderedKey = key
-        mapView.mapType = switch mapType {
+        let mapType: MKMapType = switch mapTypeName {
         case "Satellite": .satellite
         case "Hybrid": .hybrid
         default: .standard
         }
+        if mapView.mapType != mapType { mapView.mapType = mapType }
 
-        mapView.removeAnnotations(mapView.annotations)
-        mapView.removeOverlays(mapView.overlays)
-        footprintOverlay = nil
-        selectedTrackOverlay = nil
+        var cues: [String: (cue: OrbitCue, colorArgb: Int64?, pathId: String)] = [:]
 
+        // The ISS's orbit line; its marker comes with the other spacecraft below.
         if let current {
-            let footprint = MKCircle(
-                center: CLLocationCoordinate2D(
-                    latitude: current.latitude,
-                    longitude: current.longitude
-                ),
-                radius: current.footprint * 500
-            )
-            footprintOverlay = footprint
-            mapView.addOverlay(footprint, level: .aboveRoads)
-
-            let solarAnnotation = SolarMapAnnotation()
-            solarAnnotation.coordinate = CLLocationCoordinate2D(
-                latitude: current.solarLatitude,
-                longitude: current.solarLongitude
-            )
-            mapView.addAnnotation(solarAnnotation)
-
-            let annotation = IssMapAnnotation()
-            annotation.coordinate = CLLocationCoordinate2D(
-                latitude: current.latitude,
-                longitude: current.longitude
-            )
-            mapView.addAnnotation(annotation)
+            let coordinate = CLLocationCoordinate2D(latitude: current.latitude, longitude: current.longitude)
             if !hasSetInitialRegion {
                 hasSetInitialRegion = true
                 mapView.setRegion(
                     MKCoordinateRegion(
-                        center: annotation.coordinate,
+                        center: coordinate,
                         latitudinalMeters: Self.initialMapSpanMeters,
                         longitudinalMeters: Self.initialMapSpanMeters
                     ),
                     animated: true
                 )
             }
-
             let orderedOrbit = Self.orderedOrbit(orbit)
-            addOrbitPath(orderedOrbit)
-            addOrbitCues(
-                currentTimestamp: current.timestamp,
-                orbit: orderedOrbit
-            )
+            let path = Self.issOrbitPath
+            setPath(id: path, points: orderedOrbit, color: .systemRed, visible: orbitVisible)
+            if isShowing(path) {
+                for cue in Self.orbitCues(currentTimestamp: current.timestamp, orbit: orderedOrbit) {
+                    cues["\(path)|\(cue.minuteOffset)"] = (cue, nil, path)
+                }
+            }
+        } else {
+            setPath(id: Self.issOrbitPath, points: [], color: .systemRed, visible: false)
         }
-        addSatellites()
+
+        // The other paths; only the selected one is visible, and the rest fade out.
+        let trackIds = Set(tracks.map(\.id))
+        for track in tracks {
+            let points = track.points
+            setPath(id: track.id, points: points, color: Self.color(argb: track.colorArgb), visible: track.visible)
+            if isShowing(track.id), let first = points.first {
+                for cue in Self.orbitCues(currentTimestamp: first.timestamp, orbit: points) {
+                    cues["\(track.id)|\(cue.minuteOffset)"] = (cue, track.colorArgb, track.id)
+                }
+            }
+        }
+        for id in pathOverlays.keys where id != Self.issOrbitPath && !trackIds.contains(id) {
+            setPath(id: id, points: [], color: .clear, visible: false)
+        }
+
+        // Satellite markers: moved in place; a selection change only redraws that marker's image.
+        let markerIds = Set(satellites.map(\.id))
+        for marker in satellites {
+            let coordinate = CLLocationCoordinate2D(latitude: marker.latitude, longitude: marker.longitude)
+            if let annotation = satelliteAnnotations[marker.id] {
+                annotation.coordinate = coordinate
+                if annotation.isSelected != marker.isSelected || annotation.label != marker.label ||
+                    annotation.colorArgb != marker.colorArgb {
+                    annotation.isSelected = marker.isSelected
+                    annotation.label = marker.label
+                    annotation.colorArgb = marker.colorArgb
+                    annotation.title = marker.label
+                    if let view = mapView.view(for: annotation) {
+                        // Swap the image instantly, without MapKit or UIKit animating the change.
+                        CATransaction.begin()
+                        CATransaction.setDisableActions(true)
+                        UIView.performWithoutAnimation { configureSatelliteView(view, for: annotation) }
+                        CATransaction.commit()
+                    }
+                }
+            } else {
+                let annotation = SatelliteAnnotation()
+                annotation.id = marker.id
+                annotation.label = marker.label
+                annotation.colorArgb = marker.colorArgb
+                annotation.isStation = marker.isStation
+                annotation.isSelected = marker.isSelected
+                annotation.title = marker.label
+                annotation.coordinate = coordinate
+                satelliteAnnotations[marker.id] = annotation
+                mapView.addAnnotation(annotation)
+            }
+        }
+        for (id, annotation) in satelliteAnnotations where !markerIds.contains(id) {
+            mapView.removeAnnotation(annotation)
+            satelliteAnnotations[id] = nil
+        }
+
+        syncCues(cues)
+        startFadeIfNeeded()
     }
 
-    private func addSatellites() {
-        if selectedTrack.count > 1 {
-            let coordinates = selectedTrack.map {
-                CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)
+    /** Visible, or still fading out. */
+    private func isShowing(_ path: String) -> Bool {
+        (pathTarget[path] ?? 0) > 0 || (pathAlpha[path] ?? 0) > 0
+    }
+
+    private func startFadeIfNeeded() {
+        guard fadeLink == nil, pathTarget.contains(where: { pathAlpha[$0.key] != $0.value }) else { return }
+        lastFadeTime = CACurrentMediaTime()
+        let link = CADisplayLink(target: self, selector: #selector(stepFade))
+        link.add(to: .main, forMode: .common)
+        fadeLink = link
+    }
+
+    /** Moves each path's opacity toward its target; a path that finished fading out loses its labels. */
+    @objc private func stepFade() {
+        let now = CACurrentMediaTime()
+        let step = CGFloat(now - lastFadeTime) / Self.lineFadeSeconds
+        lastFadeTime = now
+        var animating = false
+        for (id, target) in pathTarget {
+            let current = pathAlpha[id] ?? target
+            guard current != target else { continue }
+            let next = current < target ? min(target, current + step) : max(target, current - step)
+            pathAlpha[id] = next
+            applyAlpha(next, toPath: id)
+            if next != target {
+                animating = true
+            } else if target == 0 {
+                for (key, annotation) in cueAnnotations where (annotation as? PathCueAnnotation)?.pathId == id {
+                    mapView.removeAnnotation(annotation)
+                    cueAnnotations[key] = nil
+                }
             }
+        }
+        if !animating {
+            fadeLink?.invalidate()
+            fadeLink = nil
+        }
+    }
+
+    private func applyAlpha(_ alpha: CGFloat, toPath id: String) {
+        if let overlay = pathOverlays[id], let renderer = mapView.renderer(for: overlay) as? MKPolylineRenderer {
+            renderer.alpha = alpha
+            renderer.setNeedsDisplay()
+        }
+        for annotation in cueAnnotations.values where (annotation as? PathCueAnnotation)?.pathId == id {
+            mapView.view(for: annotation)?.alpha = alpha
+        }
+    }
+
+    /**
+     * Shows [points] as path [id]'s line, replacing its previous version only when the points changed. The new
+     * line is added before the old one is removed, a moment later, so the path never disappears for a frame.
+     */
+    private func setPath(id: String, points: [IssMapPoint], color: UIColor, visible: Bool) {
+        pathTarget[id] = visible ? 1 : 0
+        // A path seen for the first time starts transparent, so it fades in like any other.
+        if pathAlpha[id] == nil { pathAlpha[id] = 0 }
+        let key = points.count > 1 ? points.map { "\($0.latitude),\($0.longitude)" }.joined(separator: ";") : ""
+        guard pathKeys[id] != key else { return }
+        pathKeys[id] = key
+        let old = pathOverlays[id]
+        pathOverlays[id] = nil
+        if points.count > 1 {
+            let coordinates = points.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }
             let polyline = coordinates.withUnsafeBufferPointer { buffer in
                 MKGeodesicPolyline(coordinates: buffer.baseAddress!, count: buffer.count)
             }
-            selectedTrackOverlay = polyline
+            overlayColors[ObjectIdentifier(polyline)] = color
+            overlayPaths[ObjectIdentifier(polyline)] = id
+            pathOverlays[id] = polyline
             mapView.addOverlay(polyline, level: .aboveRoads)
-            // The same arrows and +30m to +120m labels as the ISS line, in the satellite's color.
-            addOrbitCues(
-                currentTimestamp: selectedTrack[0].timestamp,
-                orbit: selectedTrack,
-                colorArgb: selectedTrackColor
-            )
         }
-        for marker in satellites {
-            let annotation = SatelliteAnnotation()
-            annotation.id = marker.id
-            annotation.label = marker.label
-            annotation.colorArgb = marker.colorArgb
-            annotation.isStation = marker.isStation
-            annotation.isSelected = marker.isSelected
-            annotation.title = marker.label
-            annotation.coordinate = CLLocationCoordinate2D(latitude: marker.latitude, longitude: marker.longitude)
-            mapView.addAnnotation(annotation)
+        if let old {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                self?.mapView.removeOverlay(old)
+                self?.overlayColors[ObjectIdentifier(old)] = nil
+                self?.overlayPaths[ObjectIdentifier(old)] = nil
+            }
         }
     }
 
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        let id: String?
-        switch view.annotation {
-        case let satellite as SatelliteAnnotation: id = satellite.id
-        case is IssMapAnnotation: id = "iss"
-        default: id = nil
+    /** Moves and turns existing arrows and labels, and adds or removes only the ones that came or went. */
+    private func syncCues(_ cues: [String: (cue: OrbitCue, colorArgb: Int64?, pathId: String)]) {
+        for (key, entry) in cues {
+            if let annotation = cueAnnotations[key] {
+                annotation.coordinate = entry.cue.coordinate
+                if let direction = annotation as? OrbitDirectionAnnotation,
+                   direction.rotationRadians != entry.cue.rotationRadians {
+                    direction.rotationRadians = entry.cue.rotationRadians
+                    mapView.view(for: direction)?.transform = CGAffineTransform(rotationAngle: entry.cue.rotationRadians)
+                }
+            } else {
+                let annotation: MKPointAnnotation
+                if entry.cue.minuteOffset.isMultiple(of: 30) {
+                    let time = OrbitTimeAnnotation()
+                    time.minuteOffset = entry.cue.minuteOffset
+                    time.colorArgb = entry.colorArgb
+                    time.pathId = entry.pathId
+                    annotation = time
+                } else {
+                    let direction = OrbitDirectionAnnotation()
+                    direction.rotationRadians = entry.cue.rotationRadians
+                    direction.colorArgb = entry.colorArgb
+                    direction.pathId = entry.pathId
+                    annotation = direction
+                }
+                annotation.coordinate = entry.cue.coordinate
+                cueAnnotations[key] = annotation
+                mapView.addAnnotation(annotation)
+            }
         }
-        // Selection lives in the shared screen; clear MapKit's so the same marker can be tapped again.
+        for (key, annotation) in cueAnnotations where cues[key] == nil {
+            mapView.removeAnnotation(annotation)
+            cueAnnotations[key] = nil
+        }
+    }
+
+    /** Taps are handled in handleMapTap; selection lives in the shared screen, so MapKit's is just cleared. */
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let annotation = view.annotation {
             DispatchQueue.main.async { mapView.deselectAnnotation(annotation, animated: false) }
         }
-        if let id { onSelect?(id) }
     }
 
-    /** A tap on empty map closes the details; taps on markers are handled by didSelect. */
+    /**
+     * Selects a tapped spacecraft, or goes back to the ISS on a tap on empty map. This recognizer fires as soon
+     * as the finger lifts, while MapKit's own didSelect waits about a third of a second to rule out a
+     * double-tap zoom, which made selection feel slow.
+     */
     @objc private func handleMapTap(_ recognizer: UITapGestureRecognizer) {
         guard recognizer.state == .ended else { return }
         var hit = mapView.hitTest(recognizer.location(in: mapView), with: nil)
         while let view = hit {
-            if view is MKAnnotationView { return }
+            if let annotationView = view as? MKAnnotationView {
+                // Arrows and time labels aren't selectable; ignore taps on them.
+                if let satellite = annotationView.annotation as? SatelliteAnnotation { onSelect?(satellite.id) }
+                return
+            }
             hit = view.superview
         }
         onSelect?(nil)
+    }
+
+    /**
+     * MapKit fades new markers in on its own. Markers should just appear, and arrows and labels take their
+     * path's opacity, so they fade with its line.
+     */
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+        for view in views {
+            view.layer.removeAllAnimations()
+            if let cue = view.annotation as? PathCueAnnotation {
+                view.alpha = pathAlpha[cue.pathId] ?? 1
+            } else {
+                view.alpha = 1
+            }
+        }
     }
 
     func gestureRecognizer(
@@ -930,22 +1082,13 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecogn
         true
     }
 
-    private func addOrbitPath(_ orbit: [IssMapPoint]) {
-        guard orbit.count > 1 else { return }
-        let coordinates = orbit.map {
-            CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)
-        }
-        let polyline = coordinates.withUnsafeBufferPointer { buffer in
-            MKGeodesicPolyline(coordinates: buffer.baseAddress!, count: buffer.count)
-        }
-        mapView.addOverlay(polyline, level: .aboveRoads)
-    }
-
-    private func addOrbitCues(currentTimestamp: Int64, orbit: [IssMapPoint], colorArgb: Int64? = nil) {
-        guard currentTimestamp > 0 else { return }
+    /** Arrows every 30 minutes (at 15, 45, ...) and time labels at 30, 60, 90 and 120 minutes along [orbit]. */
+    private static func orbitCues(currentTimestamp: Int64, orbit: [IssMapPoint]) -> [OrbitCue] {
+        guard currentTimestamp > 0 else { return [] }
         let future = orbit.filter { $0.timestamp > currentTimestamp }
-        guard future.count > 1 else { return }
+        guard future.count > 1 else { return [] }
 
+        var cues: [OrbitCue] = []
         for minuteOffset in stride(from: 15, through: 120, by: 15) {
             let targetTimestamp = currentTimestamp + Int64(minuteOffset * 60)
             guard let index = future.indices.min(by: {
@@ -954,40 +1097,38 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecogn
             }) else { continue }
             let point = future[index]
             guard abs(point.timestamp - targetTimestamp) <= 90 else { continue }
+            let coordinate = CLLocationCoordinate2D(latitude: point.latitude, longitude: point.longitude)
 
             if minuteOffset.isMultiple(of: 30) {
-                let annotation = OrbitTimeAnnotation()
-                annotation.minuteOffset = minuteOffset
-                annotation.colorArgb = colorArgb
-                annotation.coordinate = CLLocationCoordinate2D(
-                    latitude: point.latitude,
-                    longitude: point.longitude
-                )
-                mapView.addAnnotation(annotation)
+                cues.append(OrbitCue(minuteOffset: minuteOffset, coordinate: coordinate, rotationRadians: 0))
             } else {
                 let next = future.indices.contains(index + 1) ? future[index + 1] : nil
                 let previous = index > 0 ? future[index - 1] : nil
-                let from: IssMapPoint
-                let to: IssMapPoint
-                if let next = next {
-                    from = point
-                    to = next
-                } else if let previous = previous {
-                    from = previous
-                    to = point
+                let rotation: CGFloat
+                if let next {
+                    rotation = bearingRadians(from: point, to: next)
+                } else if let previous {
+                    rotation = bearingRadians(from: previous, to: point)
                 } else {
                     continue
                 }
-                let annotation = OrbitDirectionAnnotation()
-                annotation.rotationRadians = Self.bearingRadians(from: from, to: to)
-                annotation.colorArgb = colorArgb
-                annotation.coordinate = CLLocationCoordinate2D(
-                    latitude: point.latitude,
-                    longitude: point.longitude
-                )
-                mapView.addAnnotation(annotation)
+                cues.append(OrbitCue(minuteOffset: minuteOffset, coordinate: coordinate, rotationRadians: rotation))
             }
         }
+        return cues
+    }
+
+    private func configureSatelliteView(_ view: MKAnnotationView, for satellite: SatelliteAnnotation) {
+        let marker = satelliteMarkerImage(for: satellite)
+        view.image = marker.image
+        // The badge sits on the satellite's position; its name hangs below.
+        view.centerOffset = CGPoint(x: 0, y: marker.image.size.height / 2 - marker.badgeCenterY)
+        view.transform = .identity
+        view.displayPriority = .required
+        view.collisionMode = .circle
+        view.canShowCallout = false
+        view.accessibilityLabel = satellite.label
+        view.zPriority = satellite.isSelected ? .max : .defaultUnselected
     }
 
     func mapView(
@@ -995,33 +1136,6 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecogn
         viewFor annotation: MKAnnotation
     ) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
-
-        if annotation is SolarMapAnnotation {
-            let identifier = "solar"
-            let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-                ?? MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            view.annotation = annotation
-            view.image = UIImage(systemName: "sun.max.fill")?
-                .applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 25, weight: .bold))?
-                .withTintColor(.systemYellow, renderingMode: .alwaysOriginal)
-            view.displayPriority = .required
-            view.collisionMode = .circle
-            return view
-        }
-
-        if annotation is IssMapAnnotation {
-            let identifier = "iss"
-            let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-                ?? MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            view.annotation = annotation
-            view.image = Self.issMarkerImage
-            view.centerOffset = .zero
-            view.transform = .identity
-            view.displayPriority = .required
-            view.collisionMode = .rectangle
-            view.canShowCallout = false
-            return view
-        }
 
         if let direction = annotation as? OrbitDirectionAnnotation {
             let identifier = "orbit-direction"
@@ -1040,16 +1154,7 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecogn
             let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
                 ?? MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view.annotation = annotation
-            let marker = satelliteMarkerImage(for: satellite)
-            view.image = marker.image
-            // The badge sits on the satellite's position; its name hangs below.
-            view.centerOffset = CGPoint(x: 0, y: marker.image.size.height / 2 - marker.badgeCenterY)
-            view.transform = .identity
-            view.displayPriority = .required
-            view.collisionMode = .circle
-            view.canShowCallout = false
-            view.accessibilityLabel = satellite.label
-            view.zPriority = satellite.isSelected ? .max : .defaultUnselected
+            configureSatelliteView(view, for: satellite)
             return view
         }
 
@@ -1073,37 +1178,13 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecogn
         _ mapView: MKMapView,
         rendererFor overlay: MKOverlay
     ) -> MKOverlayRenderer {
-        if let circle = overlay as? MKCircle {
-            let renderer = MKCircleRenderer(circle: circle)
-            if let footprint = footprintOverlay, circle === footprint {
-                renderer.fillColor = UIColor(
-                    red: 63.0 / 255.0,
-                    green: 140.0 / 255.0,
-                    blue: 1,
-                    alpha: 0.15
-                )
-                renderer.strokeColor = UIColor(
-                    red: 100.0 / 255.0,
-                    green: 181.0 / 255.0,
-                    blue: 246.0 / 255.0,
-                    alpha: 0.80
-                )
-                renderer.lineWidth = 1
-            }
-            return renderer
-        }
-        if let track = overlay as? MKPolyline, let selected = selectedTrackOverlay, track === selected {
-            let renderer = MKPolylineRenderer(polyline: track)
-            renderer.strokeColor = Self.color(argb: selectedTrackColor)
-            renderer.lineWidth = 3
-            return renderer
-        }
         guard let polyline = overlay as? MKPolyline else {
             return MKOverlayRenderer(overlay: overlay)
         }
         let renderer = MKPolylineRenderer(polyline: polyline)
-        renderer.strokeColor = .systemRed
+        renderer.strokeColor = overlayColors[ObjectIdentifier(polyline)] ?? .systemRed
         renderer.lineWidth = 3
+        renderer.alpha = overlayPaths[ObjectIdentifier(polyline)].flatMap { pathAlpha[$0] } ?? 1
         return renderer
     }
 
@@ -1188,54 +1269,6 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecogn
         }.withRenderingMode(.alwaysOriginal)
     }
 
-    private static let issMarkerImage: UIImage = {
-        let sourceWidth: CGFloat = 104
-        let sourceHeight: CGFloat = 48
-        let scale: CGFloat = 1.0 / 3.0
-        let size = CGSize(width: sourceWidth * scale, height: sourceHeight * scale)
-
-        return UIGraphicsImageRenderer(size: size).image { context in
-            let canvas = context.cgContext
-            canvas.scaleBy(x: scale, y: scale)
-
-            let bodyColor = UIColor(
-                red: 232.0 / 255.0,
-                green: 157.0 / 255.0,
-                blue: 54.0 / 255.0,
-                alpha: 1
-            )
-            let panelColor = UIColor(
-                red: 54.0 / 255.0,
-                green: 96.0 / 255.0,
-                blue: 156.0 / 255.0,
-                alpha: 1
-            )
-
-            canvas.setFillColor(bodyColor.cgColor)
-            canvas.fill(CGRect(x: 39, y: 14, width: 26, height: 20))
-            canvas.setFillColor(panelColor.cgColor)
-            canvas.fill(CGRect(x: 4, y: 12, width: 31, height: 24))
-            canvas.fill(CGRect(x: 69, y: 12, width: 31, height: 24))
-
-            canvas.setStrokeColor(bodyColor.cgColor)
-            canvas.setLineWidth(1)
-            canvas.move(to: CGPoint(x: 35, y: 24))
-            canvas.addLine(to: CGPoint(x: 39, y: 24))
-            canvas.move(to: CGPoint(x: 65, y: 24))
-            canvas.addLine(to: CGPoint(x: 69, y: 24))
-            canvas.move(to: CGPoint(x: 52, y: 5))
-            canvas.addLine(to: CGPoint(x: 52, y: 14))
-            canvas.strokePath()
-            canvas.setFillColor(bodyColor.cgColor)
-            canvas.fillEllipse(in: CGRect(x: 49, y: 2, width: 6, height: 6))
-
-            canvas.setStrokeColor(UIColor.white.cgColor)
-            canvas.setLineWidth(2)
-            canvas.stroke(CGRect(x: 10, y: 17, width: 19, height: 14))
-            canvas.stroke(CGRect(x: 75, y: 17, width: 19, height: 14))
-        }.withRenderingMode(.alwaysOriginal)
-    }()
-
     private func configure() {
         backgroundColor = .systemBackground
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -1268,7 +1301,8 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecogn
     }
 
     private func satelliteMarkerImage(for satellite: SatelliteAnnotation) -> (image: UIImage, badgeCenterY: CGFloat) {
-        let radius: CGFloat = satellite.isSelected ? 17 : 14
+        // Same size selected or not, so a tap doesn't make the badge jump; the label's border shows the selection.
+        let radius: CGFloat = 14
         let ring: CGFloat = 2
         let key = "\(satellite.label)|\(satellite.colorArgb)|\(satellite.isStation)|\(satellite.isSelected)"
         let badgeCenterY = radius + ring

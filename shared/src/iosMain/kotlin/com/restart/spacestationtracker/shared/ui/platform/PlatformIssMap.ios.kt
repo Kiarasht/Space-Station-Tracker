@@ -47,11 +47,11 @@ object IosIssMapRegistry {
         insetUpdater?.invoke(view, bottomInsetPoints)
     }
 
-    private var satelliteUpdater: ((UIView, List<SatelliteMapMarker>, List<IssMapPoint>, Long, (String?) -> Unit) -> Unit)? = null
+    private var satelliteUpdater: ((UIView, List<SatelliteMapMarker>, List<SatelliteMapTrack>, Boolean, (String?) -> Unit) -> Unit)? = null
 
-    /** Receives the other satellites, the selected one's orbit and its color, and the tap callback. */
+    /** Receives the spacecraft markers, their paths, whether the ISS orbit shows, and the tap callback. */
     fun registerSatelliteUpdater(
-        updater: (UIView, List<SatelliteMapMarker>, List<IssMapPoint>, Long, (String?) -> Unit) -> Unit
+        updater: (UIView, List<SatelliteMapMarker>, List<SatelliteMapTrack>, Boolean, (String?) -> Unit) -> Unit
     ) {
         satelliteUpdater = updater
     }
@@ -59,11 +59,11 @@ object IosIssMapRegistry {
     fun updateSatellites(
         view: UIView,
         satellites: List<SatelliteMapMarker>,
-        selectedTrack: List<IssMapPoint>,
-        selectedTrackColorArgb: Long,
+        tracks: List<SatelliteMapTrack>,
+        orbitVisible: Boolean,
         onSatelliteClick: (String?) -> Unit
     ) {
-        satelliteUpdater?.invoke(view, satellites, selectedTrack, selectedTrackColorArgb, onSatelliteClick)
+        satelliteUpdater?.invoke(view, satellites, tracks, orbitVisible, onSatelliteClick)
     }
 }
 
@@ -96,8 +96,8 @@ actual fun PlatformIssMap(
     modifier: Modifier,
     bottomInset: Dp,
     satellites: List<SatelliteMapMarker>,
-    selectedTrack: List<IssMapPoint>,
-    selectedTrackColorArgb: Long,
+    tracks: List<SatelliteMapTrack>,
+    orbitVisible: Boolean,
     onSatelliteClick: (String?) -> Unit
 ) {
     val currentOnSatelliteClick by rememberUpdatedState(onSatelliteClick)
@@ -126,8 +126,8 @@ actual fun PlatformIssMap(
                 IosIssMapRegistry.updateSatellites(
                     view = view,
                     satellites = satellites,
-                    selectedTrack = selectedTrack,
-                    selectedTrackColorArgb = selectedTrackColorArgb,
+                    tracks = tracks,
+                    orbitVisible = orbitVisible,
                     onSatelliteClick = { id -> currentOnSatelliteClick(id) }
                 )
             },

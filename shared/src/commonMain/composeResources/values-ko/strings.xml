@@ -147,16 +147,8 @@
     <string name="about_stat_sunrises">하루 일출 횟수</string>
     <string name="about_stat_crewed">년째 유인 운영</string>
     <string name="about_data_sources">데이터 출처: %1$s</string>
-    <string name="satellite_tiangong_name">톈궁 우주정거장</string>
-    <string name="satellite_hubble_name">허블 우주망원경</string>
     <string name="satellite_tiangong_short">톈궁</string>
+    <string name="satellite_iss_short">ISS</string>
     <string name="satellite_hubble_short">허블</string>
-    <string name="satellite_kind_station">우주정거장</string>
-    <string name="satellite_kind_telescope">우주망원경</string>
-    <string name="satellite_orbit_format">%1$d분마다 한 바퀴</string>
-    <string name="learn_more">자세히 보기</string>
-    <string name="satellite_iss_description">다섯 우주기관이 함께 만든 축구장 크기의 연구소입니다. 2000년 11월부터 한 번도 빠짐없이 사람이 머물고 있습니다.</string>
-    <string name="satellite_tiangong_description">중국의 우주정거장으로 2021~2022년 궤도에서 조립되었습니다. 3명의 승무원이 선저우 우주선을 타고 약 6개월간 머뭅니다.</string>
-    <string name="satellite_hubble_description">1990년부터 궤도에서 우주를 촬영해 온 망원경입니다. 승무원은 없으며, 우주비행사가 마지막으로 수리한 것은 2009년입니다.</string>
     <string name="satellite_sunlit">햇빛을 받고 있음</string>
 </resources>

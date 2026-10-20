@@ -151,16 +151,8 @@
     <string name="about_stat_sunrises">sunrises a day</string>
     <string name="about_stat_crewed">years with people aboard</string>
     <string name="about_data_sources">Data from %1$s</string>
-    <string name="satellite_tiangong_name">Tiangong Space Station</string>
-    <string name="satellite_hubble_name">Hubble Space Telescope</string>
     <string name="satellite_tiangong_short">Tiangong</string>
+    <string name="satellite_iss_short">ISS</string>
     <string name="satellite_hubble_short">Hubble</string>
-    <string name="satellite_kind_station">Space station</string>
-    <string name="satellite_kind_telescope">Space telescope</string>
-    <string name="satellite_orbit_format">%1$d min per orbit</string>
-    <string name="learn_more">Learn more</string>
-    <string name="satellite_iss_description">A laboratory about the size of a football field, built by five space agencies. People have lived aboard without a break since November 2000.</string>
-    <string name="satellite_tiangong_description">China’s space station, assembled in orbit in 2021 and 2022. Crews of three fly up on Shenzhou spacecraft for stays of about six months.</string>
-    <string name="satellite_hubble_description">A telescope that has photographed the universe from orbit since 1990. It has no crew; astronauts last visited to repair it in 2009.</string>
     <string name="satellite_sunlit">In sunlight</string>
 </resources>
