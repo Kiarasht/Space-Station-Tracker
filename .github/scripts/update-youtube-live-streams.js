@@ -8,12 +8,12 @@ const nasaUploadsPlaylistId = `UU${nasaChannelId.slice(2)}`;
 const youtubeApiKey = process.env.YOUTUBE_API_KEY;
 const forceFullSearch = process.env.FORCE_FULL_SEARCH === "true";
 
-// search.list costs 100 quota units, while playlistItems.list and videos.list cost 1 each. search.list
-// misses long-running streams (the 24/7 ISS feed has been live for months and never shows up there), so every
-// run also reads the channel's public /live page for the stream it is featuring and confirms it with
+// search.list costs 100 quota units, while playlistItems.list and videos.list cost 1 each. A search with
+// eventType=live misses long-running streams (the 24/7 ISS feed has been live for months and never shows up
+// there), so a full search also runs a plain channel search for "live" and confirms each result with
 // videos.list. Once a stream is known, the cheap checks keep re-confirming it.
-// A full search runs at most every few hours to catch long-running streams; the runs in
-// between re-check known and recently uploaded videos for a few units.
+// A full search runs at most every few hours; the runs in between re-check known and recently uploaded
+// videos for a few units.
 const fullSearchIntervalMillis = 3 * 60 * 60 * 1000;
 const videosPerRequest = 50;
 
@@ -44,16 +44,15 @@ async function main() {
   try {
     let streams;
     let fullSearchAt = lastFullSearchAtMillis;
-    const featuredId = await featuredLiveVideoId();
     if (needsFullSearch) {
-      streams = await fullSearch(previous.streams, featuredId);
+      streams = await fullSearch(previous.streams);
       fullSearchAt = updatedAt.getTime();
     } else {
       try {
-        streams = await checkKnownAndRecentVideos(previous.streams, featuredId);
+        streams = await checkKnownAndRecentVideos(previous.streams);
       } catch (error) {
         console.warn(`Cheap live check failed, falling back to search: ${error.message}`);
-        streams = await fullSearch(previous.streams, featuredId);
+        streams = await fullSearch(previous.streams);
         fullSearchAt = updatedAt.getTime();
       }
     }
@@ -96,40 +95,28 @@ async function searchNasaLiveStreams() {
     .filter((stream) => stream.videoId && stream.title);
 }
 
-/** Search results plus the known and featured streams, each confirmed live. */
-async function fullSearch(previousStreams, featuredId) {
+/** IDs of the channel's videos matching "live", live or not; videos.list sorts out which ones are. */
+async function searchNasaLiveCandidates() {
+  const payload = await youtubeGet("search", {
+    part: "id",
+    channelId: nasaChannelId,
+    q: "live",
+    type: "video",
+    maxResults: String(videosPerRequest)
+  });
+  return (payload.items || []).map((video) => video?.id?.videoId);
+}
+
+/** Streams the live search found, plus the known and candidate videos confirmed live. */
+async function fullSearch(previousStreams) {
   const searched = await searchNasaLiveStreams();
-  const confirmed = await liveVideos([...(previousStreams || []).map((stream) => stream.videoId), featuredId]);
+  const candidates = await searchNasaLiveCandidates();
+  const confirmed = await liveVideos([...(previousStreams || []).map((stream) => stream.videoId), ...candidates]);
   const byId = new Map([...searched, ...confirmed].map((stream) => [stream.videoId, stream]));
   return [...byId.values()];
 }
 
-/**
- * The video the channel's public /live page is featuring, or null. A best effort: if YouTube serves a consent
- * or bot-check page instead, the other checks still run.
- */
-async function featuredLiveVideoId() {
-  try {
-    const response = await fetch(`https://www.youtube.com/channel/${nasaChannelId}/live`, {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15",
-        "Accept-Language": "en-US,en;q=0.9",
-        // Skips the cookie-consent interstitial served in some regions.
-        Cookie: "CONSENT=YES+cb; SOCS=CAI"
-      }
-    });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const html = await response.text();
-    const match = html.match(/<link rel="canonical" href="https:\/\/www\.youtube\.com\/watch\?v=([\w-]{11})"/);
-    return match ? match[1] : null;
-  } catch (error) {
-    console.warn(`Couldn't read the channel's live page: ${error.message}`);
-    return null;
-  }
-}
-
-async function checkKnownAndRecentVideos(previousStreams, featuredId) {
+async function checkKnownAndRecentVideos(previousStreams) {
   const uploads = await youtubeGet("playlistItems", {
     part: "contentDetails",
     playlistId: nasaUploadsPlaylistId,
@@ -137,7 +124,6 @@ async function checkKnownAndRecentVideos(previousStreams, featuredId) {
   });
   return liveVideos([
     ...(previousStreams || []).map((stream) => stream.videoId),
-    featuredId,
     ...(uploads.items || []).map((item) => item?.contentDetails?.videoId)
   ]);
 }

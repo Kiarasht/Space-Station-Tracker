@@ -65,7 +65,7 @@ A debug channel and a release channel, each with one job per platform. iOS uses 
 | | | `android-release` | Android unit tests, then the signed release AAB (production ads) and R8 mapping → Google Play alpha track and Firebase App Distribution |
 | | | `ios-release` | Shared tests, then the Release build (production ads, build `<code>`) → TestFlight, ready to attach to a new App Store version |
 
-| `update-youtube-live-streams.yml` | Every 15 minutes, or manual (GitHub-hosted) | `update-live-streams` | Refreshes `docs/nasa-live-streams.json` on the `live-stream-cache` branch. Finds streams through YouTube search, NASA's recent uploads and the channel's public `/live` page (search misses the 24/7 ISS feed) |
+| `update-youtube-live-streams.yml` | Every 15 minutes, or manual (GitHub-hosted) | `update-live-streams` | Refreshes `docs/nasa-live-streams.json` on the `live-stream-cache` branch. Finds streams through a live-event search, a plain channel search for "live" confirmed with `videos.list` (the live-event search misses the 24/7 ISS feed), and NASA's recent uploads |
 
 Firebase builds go to the group(s) in the `FIREBASE_APP_DISTRIBUTION_GROUPS` secret. Firebase delivers the AABs through Play's internal app sharing, since the Firebase project is linked to the Play app.
 
