@@ -100,6 +100,7 @@ if [ -n "$certificate" ]; then
 CODE_SIGN_STYLE = Manual
 CODE_SIGN_IDENTITY = $identity
 CODE_SIGN_IDENTITY[sdk=iphoneos*] = $identity
+ISS_TRACKER_CODE_SIGN_IDENTITY = $identity
 PROVISIONING_PROFILE_SPECIFIER = $profile_name
 OTHER_CODE_SIGN_FLAGS = --keychain $keychain
 $app_settings"

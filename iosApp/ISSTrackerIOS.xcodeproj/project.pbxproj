@@ -359,7 +359,7 @@
 			baseConfigurationReference = 3322285E60C30AFEB3DCE09F /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "$(ISS_TRACKER_CODE_SIGN_IDENTITY)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				DEVELOPMENT_TEAM = UT45N57AJ6;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -513,7 +513,7 @@
 			baseConfigurationReference = DC5F34050A189BF4254173BA /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "$(ISS_TRACKER_CODE_SIGN_IDENTITY)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
