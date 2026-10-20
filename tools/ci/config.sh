@@ -8,8 +8,6 @@ CI_HOME="${ISS_CI_HOME:-$HOME/.config/iss-tracker/ci}"
 OUT="$ROOT/artifacts/ci"
 FIREBASE_PROJECT="titanium-gadget-112205"
 FIREBASE_ANDROID_APP="1:689771934258:android:5940bdea7ae875001a022b"
-# The debug channel ships the ".dev" iOS bundle, which has its own Firebase app.
-FIREBASE_IOS_DEBUG_APP="1:689771934258:ios:4ccc747d0f5198b31a022b"
 ANDROID_PACKAGE="com.restart.spacestationtracker"
 APPLE_TEAM_ID="${APPLE_TEAM_ID:-UT45N57AJ6}"
 # ci.env (manual runs only) may set APP_STORE_CONNECT_API_KEY_ID, APP_STORE_CONNECT_ISSUER_ID,

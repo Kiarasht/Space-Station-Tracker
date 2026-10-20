@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # Builds the Android app and optionally uploads it.
-#   tools/ci/android.sh debug   [--upload]   assembleDebug APK (test ads, debug key)  -> Firebase App Distribution
-#   tools/ci/android.sh release [--upload]   bundleRelease AAB (production, release key) -> Google Play (alpha track)
-# The debug channel ships an APK: Firebase installs APKs directly, while its AAB path goes through Play's
-# internal app sharing. Store builds are always App Bundles.
+#   tools/ci/android.sh debug   [--upload]   bundleDebug AAB (test ads, debug key)        -> Firebase App Distribution
+#   tools/ci/android.sh release [--upload]   bundleRelease AAB (production, release key)  -> Google Play (alpha track)
+#                                                                                         and Firebase App Distribution
+# Both channels ship App Bundles. Firebase delivers them through Play's internal app sharing, which works
+# because the Firebase project is linked to the Play app.
 # shellcheck source=tools/ci/config.sh
 . "$(dirname "$0")/config.sh"
 flavor="${1:?debug or release}"; upload="${2:-}"
@@ -21,9 +22,9 @@ fi
 
 case "$flavor" in
   debug)
-    task=assembleDebug
-    output="$ROOT/app/build/outputs/apk/debug/app-debug.apk"
-    artifact="$OUT/iss-tracker-debug.apk"
+    task=bundleDebug
+    output="$ROOT/app/build/outputs/bundle/debug/app-debug.aab"
+    artifact="$OUT/iss-tracker-debug.aab"
     ;;
   release)
     task=bundleRelease
@@ -37,13 +38,13 @@ cp "$output" "$artifact"
 echo "Built $artifact ($(version_name) / $(version_code))"
 [ "$upload" = "--upload" ] || exit 0
 
-if [ "$flavor" = debug ]; then
-  firebase_credentials
-  groups="${FIREBASE_APP_DISTRIBUTION_GROUPS:-}"
-  firebase appdistribution:distribute "$artifact" --project "$FIREBASE_PROJECT" --app "$FIREBASE_ANDROID_APP" \
-    --release-notes "$(release_notes)" ${groups:+--groups "$groups"}
-else
+if [ "$flavor" = release ]; then
   put GOOGLE_PLAY_SERVICE_ACCOUNT_JSON "$SECRETS/play.json" play-service-account.json
   node "$ROOT/tools/ci/play_upload.mjs" "$artifact" "$ANDROID_PACKAGE" "${GOOGLE_PLAY_TRACK:-alpha}" "$SECRETS/play.json" \
     "$ROOT/distribution/whatsnew" "$ROOT/app/build/outputs/mapping/release/mapping.txt"
 fi
+# Both channels also go to Firebase App Distribution testers.
+firebase_credentials
+groups="${FIREBASE_APP_DISTRIBUTION_GROUPS:-}"
+firebase appdistribution:distribute "$artifact" --project "$FIREBASE_PROJECT" --app "$FIREBASE_ANDROID_APP" \
+  --release-notes "$(release_notes)" ${groups:+--groups "$groups"}

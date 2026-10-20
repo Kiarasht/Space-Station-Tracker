@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 # Archives and exports a signed .ipa and optionally uploads it.
-#   tools/ci/ios.sh debug   [--upload]   Debug config (.dev bundle, test ads), Ad Hoc profile -> Firebase App Distribution
-#   tools/ci/ios.sh release [--upload]   Release config (production ads), App Store profile   -> TestFlight
+#   tools/ci/ios.sh debug   [--upload]   Debug config (test ads), build <code>.<run>.<attempt> -> TestFlight, internal only
+#   tools/ci/ios.sh release [--upload]   Release config (production ads), build <code>        -> TestFlight
+# Both use the one App Store Connect app (com.restart.spacestationtracker.ios) and its App Store profile. Debug
+# builds swap the Debug config's .dev bundle ID for the store one, get a unique build number, and are marked
+# internal-testing-only so they can never be submitted for review; release builds are the ones to attach to a
+# new App Store version.
 # The Apple Distribution certificate is imported into a temporary keychain (a runner service cannot use the
 # login keychain), added to the search list without dropping the user's own keychains, and the app target is
 # signed manually through Configuration/CiSigning.xcconfig, so Swift packages are never handed a profile.
@@ -11,15 +15,22 @@
 flavor="${1:?debug or release}"; upload="${2:-}"
 case "$flavor" in
   debug)
-    config=Debug; method=release-testing; bundle_id=com.restart.spacestationtracker.ios.dev
-    profile_var=IOS_ADHOC_PROFILE_BASE64; profile_file=ios-adhoc.mobileprovision
+    config=Debug
+    # Unique for every run and retry, and never the plain version code the release build uses.
+    build_number="$(version_code).${GITHUB_RUN_NUMBER:-$(date +%s)}.${GITHUB_RUN_ATTEMPT:-1}"
+    internal_only="<key>testFlightInternalTestingOnly</key><true/>"
     ;;
   release)
-    config=Release; method=app-store-connect; bundle_id=com.restart.spacestationtracker.ios
-    profile_var=IOS_APP_STORE_PROVISIONING_PROFILE_BASE64; profile_file=ios-appstore.mobileprovision
+    config=Release; build_number="$(version_code)"; internal_only=""
     ;;
   *) echo "Unknown flavor $flavor" >&2; exit 2 ;;
 esac
+method=app-store-connect; bundle_id=com.restart.spacestationtracker.ios
+profile_var=IOS_APP_STORE_PROVISIONING_PROFILE_BASE64; profile_file=ios-appstore.mobileprovision
+# Applied last through CiSigning.xcconfig, so only the app target gets the store bundle ID (Swift packages keep theirs).
+app_settings="PRODUCT_BUNDLE_IDENTIFIER = $bundle_id
+CURRENT_PROJECT_VERSION = $build_number
+CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO"
 project="$ROOT/iosApp/ISSTrackerIOS.xcodeproj"
 signing_xcconfig="$ROOT/iosApp/Configuration/CiSigning.xcconfig"
 
@@ -90,13 +101,15 @@ CODE_SIGN_STYLE = Manual
 CODE_SIGN_IDENTITY = $identity
 CODE_SIGN_IDENTITY[sdk=iphoneos*] = $identity
 PROVISIONING_PROFILE_SPECIFIER = $profile_name
-OTHER_CODE_SIGN_FLAGS = --keychain $keychain"
+OTHER_CODE_SIGN_FLAGS = --keychain $keychain
+$app_settings"
   export_signing="<key>signingStyle</key><string>manual</string><key>signingCertificate</key><string>$identity</string>
   <key>provisioningProfiles</key><dict><key>$bundle_id</key><string>$profile_name</string></dict>"
   echo "Signing manually with \"$profile_name\""
 else
   write_checkout_file "$signing_xcconfig" "DEVELOPMENT_TEAM = $APPLE_TEAM_ID
-CODE_SIGN_STYLE = Automatic"
+CODE_SIGN_STYLE = Automatic
+$app_settings"
   echo "No distribution certificate found; using Xcode automatic signing"
 fi
 
@@ -108,7 +121,7 @@ xcodebuild archive -quiet -project "$project" -scheme ISSTrackerIOS -configurati
   -destination generic/platform=iOS -archivePath "$archive" -allowProvisioningUpdates ${auth[@]+"${auth[@]}"}
 
 destination="export"
-if [ "$flavor" = release ] && [ "$upload" = --upload ]; then destination=upload; fi
+if [ "$upload" = --upload ]; then destination=upload; fi
 options="$OUT/ExportOptions-$flavor.plist"
 cat > "$options" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
@@ -121,21 +134,14 @@ cat > "$options" <<PLIST
   <key>manageAppVersionAndBuildNumber</key><false/>
   <key>stripSwiftSymbols</key><true/>
   <key>uploadSymbols</key><true/>
+  $internal_only
 </dict></plist>
 PLIST
 export_dir="$OUT/ipa-$flavor"; rm -rf "$export_dir"
 xcodebuild -exportArchive -quiet -archivePath "$archive" -exportOptionsPlist "$options" -exportPath "$export_dir" \
   -allowProvisioningUpdates ${auth[@]+"${auth[@]}"}
 if [ "$destination" = upload ]; then
-  echo "Uploaded $(version_name) ($(version_code)) to App Store Connect for TestFlight"
+  echo "Uploaded $(version_name) ($build_number, $config) to App Store Connect for TestFlight"
 else
-  echo "Exported $(version_name) ($(version_code), $config) to $export_dir"
-fi
-
-if [ "$upload" = --upload ] && [ "$flavor" = debug ]; then
-  firebase_credentials
-  groups="${FIREBASE_APP_DISTRIBUTION_GROUPS:-}"
-  ipa="$(find "$export_dir" -maxdepth 1 -name '*.ipa' -print -quit)"
-  firebase appdistribution:distribute "$ipa" --project "$FIREBASE_PROJECT" \
-    --app "$FIREBASE_IOS_DEBUG_APP" --release-notes "$(release_notes)" ${groups:+--groups "$groups"}
+  echo "Exported $(version_name) ($build_number, $config) to $export_dir"
 fi

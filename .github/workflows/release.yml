@@ -1,21 +1,17 @@
-# Release channel: a merge to master that raises APP_VERSION_CODE builds both platforms in parallel and sends
-# them to the stores (Google Play alpha track and TestFlight). Self-hosted runners on the owner's Mac only
-# (see docs/ci-runners.md); no GitHub-hosted runners or upload-artifact.
+# Release channel: a merge to master that raises APP_VERSION_CODE builds both platforms with production ads, in
+# parallel. Android sends the release AAB to Google Play (alpha track) and Firebase App Distribution; iOS sends
+# the Release build (build number = APP_VERSION_CODE) to TestFlight, ready to attach to a new App Store
+# version. Self-hosted runners on the owner's Mac only (see docs/ci-runners.md); no GitHub-hosted runners or
+# upload-artifact.
 #
-# TestFlight is also how iOS is tested before merging: push a testflight/<anything> tag on the PR branch (or,
-# once this file is on master, run it by hand with "platforms: ios"). Each successful upload is recorded as a tag (release/<platform>/<version code>), and a
-# build already uploaded is skipped, so the merge afterwards ships only Android instead of being rejected
-# for reusing the build number. Pushing a fix after testing needs a new APP_VERSION_CODE to upload again.
+# Each successful upload is recorded as a tag (release/<platform>/<version code>), and a platform whose build
+# is already uploaded is skipped, so a retry never fails on a reused build number.
 name: Release distribution (Play + TestFlight)
 
 on:
   push:
     branches: [master]
-    # A testflight/* tag sends that commit's iOS build to TestFlight. Tags run the workflow file from the
-    # tagged commit, so this works from a PR branch even before a new release.yml reaches master.
-    tags: ["testflight/*"]
-  # A manual run releases from any branch; use it to test iOS on TestFlight before merging, or to retry a
-  # failed upload.
+  # A manual run retries a failed upload (one platform or both).
   workflow_dispatch:
     inputs:
       platforms:
@@ -54,7 +50,6 @@ jobs:
         env:
           EVENT_NAME: ${{ github.event_name }}
           BEFORE_SHA: ${{ github.event.before }}
-          GIT_REF: ${{ github.ref }}
           PLATFORMS: ${{ inputs.platforms || 'both' }}
         run: |
           set -euo pipefail
@@ -84,13 +79,6 @@ jobs:
 
           if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
             echo "Manual run ($PLATFORMS) of version code $current."
-            release_platforms
-            exit 0
-          fi
-
-          if [[ "$GIT_REF" == refs/tags/testflight/* ]]; then
-            echo "TestFlight tag ${GIT_REF#refs/tags/}: iOS build $current."
-            PLATFORMS=ios
             release_platforms
             exit 0
           fi
@@ -131,6 +119,8 @@ jobs:
       YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
       GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
       GOOGLE_PLAY_TRACK: alpha
+      FIREBASE_APP_DISTRIBUTION_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_APP_DISTRIBUTION_SERVICE_ACCOUNT_JSON }}
+      FIREBASE_APP_DISTRIBUTION_GROUPS: ${{ secrets.FIREBASE_APP_DISTRIBUTION_GROUPS }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
@@ -138,7 +128,7 @@ jobs:
       - name: Android unit tests
         # The runner service has no ANDROID_HOME; use the same default as tools/ci/config.sh.
         run: ANDROID_HOME="${ANDROID_HOME:-$HOME/Library/Android/sdk}" ./gradlew :app:testDebugUnitTest --console=plain
-      - name: Build release AAB and upload to Google Play
+      - name: Build release AAB and upload to Google Play and Firebase App Distribution
         run: tools/ci/android.sh release --upload
       - name: Record the upload
         run: tools/ci/record_release.sh android

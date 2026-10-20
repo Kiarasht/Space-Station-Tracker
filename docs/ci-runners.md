@@ -55,31 +55,23 @@ for d in iss-tracker iss-tracker-2; do (cd ~/actions-runners/$d && ./svc.sh stop
 
 ## Workflows
 
-A debug channel for Android and a release channel for both platforms. iOS has no debug channel: it is tested through TestFlight.
+A debug channel and a release channel, each with one job per platform. iOS uses one App Store Connect app for both: PR builds and release builds all go to its TestFlight.
 
 | Workflow | Trigger | Job | Builds and sends |
 |---|---|---|---|
-| `ci.yml`: Mobile debug distribution | Owner's PR to `master` from a branch of this repository, or manual | `android-debug` | Android unit tests and lint, then the debug APK (test ads) → Firebase App Distribution |
-| | | `shared-tests` | The shared module's tests (on the iOS simulator) |
-| `release.yml`: Release distribution (Play + TestFlight) | Owner's push to `master` that raises `APP_VERSION_CODE`, or manual from any branch | `release-gate` | Skips the uploads when the version code did not go up, and any platform whose build was already uploaded |
-| | | `android-release` | Android unit tests, then the signed release AAB and R8 mapping → Google Play alpha track |
-| | | `ios-release` | Shared tests, then the Release IPA (App Store profile) → TestFlight |
+| `ci.yml`: Mobile debug distribution | Owner's PR to `master` from a branch of this repository, or manual | `android-debug` | Android unit tests and lint, then the debug AAB (test ads) → Firebase App Distribution |
+| | | `ios-debug` | Shared tests, then the Debug build (test ads, store bundle ID, build `<code>.<run>.<attempt>`) → TestFlight, internal testing only |
+| `release.yml`: Release distribution (Play + TestFlight) | Owner's push to `master` that raises `APP_VERSION_CODE`, or manual | `release-gate` | Skips the uploads when the version code did not go up, and any platform whose build was already uploaded |
+| | | `android-release` | Android unit tests, then the signed release AAB (production ads) and R8 mapping → Google Play alpha track and Firebase App Distribution |
+| | | `ios-release` | Shared tests, then the Release build (production ads, build `<code>`) → TestFlight, ready to attach to a new App Store version |
 
 | `update-youtube-live-streams.yml` | Every 15 minutes, or manual | `update-live-streams` | Refreshes `docs/nasa-live-streams.json` on the `live-stream-cache` branch |
 
-Android debug builds go to the Firebase group(s) in the `FIREBASE_APP_DISTRIBUTION_GROUPS` secret.
+Firebase builds go to the group(s) in the `FIREBASE_APP_DISTRIBUTION_GROUPS` secret. Firebase delivers the AABs through Play's internal app sharing, since the Firebase project is linked to the Play app.
 
-### Testing iOS on TestFlight before merging
+PR builds for iOS are marked internal-testing-only (`testFlightInternalTestingOnly`), so they can be installed by internal testers but never submitted for review; only the release build can go into an App Store version. Their build numbers (`55.12.1`) never clash with the release build's (`55`).
 
-Push a `testflight/` tag on the PR branch; `release.yml` then sends that commit's iOS build to TestFlight:
-
-```sh
-git tag testflight/55 && git push origin testflight/55
-```
-
-Once `release.yml` is on `master`, a manual run with `platforms: ios` does the same: `gh workflow run release.yml --ref <branch> -f platforms=ios`.
-
-Each successful upload pushes a tag, `release/<platform>/<APP_VERSION_CODE>` (`tools/ci/record_release.sh`). The gate skips a platform whose tag exists, so after testing build 55 on TestFlight, merging ships only Android. A fix pushed after testing needs a higher `APP_VERSION_CODE` to reach TestFlight again, because App Store Connect rejects a reused build number. A manual run with `platforms: both` (or a single platform) also retries a failed upload, since a failed upload leaves no tag.
+Each successful release upload pushes a tag, `release/<platform>/<APP_VERSION_CODE>` (`tools/ci/record_release.sh`), and the gate skips a platform whose tag exists. A manual run of `release.yml` (both platforms or one) retries a failed upload, since a failed upload leaves no tag.
 
 ## Scripts
 
@@ -87,7 +79,7 @@ The workflows only call these scripts, which also run by hand:
 
 ```sh
 tools/ci/android.sh debug|release [--upload]
-tools/ci/ios.sh release [--upload]
+tools/ci/ios.sh debug|release [--upload]
 ```
 
 Output goes to the ignored `artifacts/ci/`. On the runners that is inside each runner's `_work` checkout. For example, the latest release AAB for Galaxy Store submission is at `~/actions-runners/iss-tracker*/_work/Space-Station-Tracker/Space-Station-Tracker/artifacts/ci/iss-tracker-release.aab`.
@@ -117,7 +109,7 @@ iOS signing imports the Apple Distribution certificate into a temporary keychain
 
 `IOS_SIGNING_KEYCHAIN_PASSWORD` and `N2YO_API_KEY` are no longer used. Each run generates a random keychain password, and passes are predicted on the device.
 
-`tools/ci/ios.sh debug` (an Ad Hoc build for Firebase) and `tools/ci/asc_profiles.mjs` remain for manual use, but CI doesn't run them: iOS is tested through TestFlight.
+`tools/ci/asc_profiles.mjs` (an Ad Hoc profile for the `.dev` bundle) is no longer used by CI.
 
 ## Switching over from the old workflows
 

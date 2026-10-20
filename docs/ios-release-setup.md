@@ -30,7 +30,7 @@ Visible passes are predicted on the device from the ISS orbital elements publish
 
 ## GitHub release delivery
 
-The `Release distribution (Play + TestFlight)` workflow runs `tools/ci/ios.sh release --upload` on the self-hosted runners on the owner's Mac (see [CI on the owner's Mac](ci-runners.md)). It archives and signs the iOS Release app and uploads it to App Store Connect for TestFlight processing through `xcodebuild -exportArchive`. It reads the version from the same root `version.properties` file used by Android. Pull requests build the Debug `.dev` app with an Ad Hoc profile and send it to Firebase App Distribution.
+The `Release distribution (Play + TestFlight)` workflow runs `tools/ci/ios.sh release --upload` on the self-hosted runners on the owner's Mac (see [CI on the owner's Mac](ci-runners.md)). It archives and signs the iOS Release app and uploads it to App Store Connect for TestFlight processing through `xcodebuild -exportArchive`. It reads the version from the same root `version.properties` file used by Android. Pull requests run `tools/ci/ios.sh debug --upload`: a Debug build with test ads, under the store bundle ID, uploaded to the same app's TestFlight as internal-testing-only.
 
 Required repository secrets:
 
@@ -42,7 +42,7 @@ Required repository secrets:
 - `IOS_DISTRIBUTION_CERTIFICATE_BASE64`
 - `IOS_DISTRIBUTION_CERTIFICATE_PASSWORD`
 
-The workflow runs on pushes to `master` that raise `APP_VERSION_CODE` and can also be started manually from GitHub Actions; a manual run with `platforms: ios` on a PR branch puts that build on TestFlight before merging (see [ci-runners.md](ci-runners.md)). Uploading places the build in App Store Connect/TestFlight processing; it does not automatically submit the app for public App Review.
+The workflow runs on pushes to `master` that raise `APP_VERSION_CODE` and can also be started manually from GitHub Actions. Pull requests also upload a Debug build with test ads to the same app's TestFlight, marked internal-testing-only (see [ci-runners.md](ci-runners.md)). Uploading places the build in App Store Connect/TestFlight processing; it does not automatically submit the app for public App Review.
 
 ## Unsigned device build check
 
