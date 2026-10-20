@@ -42,6 +42,11 @@ fun SharedMapRoute(
         error = state.error,
         liveStreams = state.liveStreams,
         contentPadding = contentPadding,
+        satellites = state.satellites,
+        onOpenUrl = { url ->
+            AppAnalytics.trackInteraction("open_satellite_link", "map")
+            runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri())) }
+        },
         onOpenStream = { stream ->
             AppAnalytics.trackInteraction("open_live_stream", "map")
             context.startActivity(

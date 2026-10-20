@@ -128,7 +128,7 @@ private fun SpaceNavBarItem(
     Column(
         modifier = modifier
             .fillMaxHeight()
-            .clip(RoundedCornerShape(percent = 50))
+            // No pill clip: there's no ripple to contain, and it cut off long labels such as "Paramètres".
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 // The selected capsule is the only feedback; no ripple.

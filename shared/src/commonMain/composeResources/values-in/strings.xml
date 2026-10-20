@@ -147,4 +147,16 @@
     <string name="about_stat_sunrises">matahari terbit sehari</string>
     <string name="about_stat_crewed">tahun selalu berawak</string>
     <string name="about_data_sources">Data dari %1$s</string>
+    <string name="satellite_tiangong_name">Stasiun Luar Angkasa Tiangong</string>
+    <string name="satellite_hubble_name">Teleskop Luar Angkasa Hubble</string>
+    <string name="satellite_tiangong_short">Tiangong</string>
+    <string name="satellite_hubble_short">Hubble</string>
+    <string name="satellite_kind_station">Stasiun luar angkasa</string>
+    <string name="satellite_kind_telescope">Teleskop luar angkasa</string>
+    <string name="satellite_orbit_format">%1$d menit per orbit</string>
+    <string name="learn_more">Pelajari lebih lanjut</string>
+    <string name="satellite_iss_description">Laboratorium seukuran lapangan sepak bola yang dibangun oleh lima badan antariksa. Manusia tinggal di dalamnya tanpa henti sejak November 2000.</string>
+    <string name="satellite_tiangong_description">Stasiun luar angkasa Tiongkok, dirakit di orbit pada 2021 dan 2022. Awak bertiga naik dengan wahana Shenzhou untuk tinggal sekitar enam bulan.</string>
+    <string name="satellite_hubble_description">Teleskop yang memotret alam semesta dari orbit sejak 1990. Tidak berawak; astronaut terakhir memperbaikinya pada 2009.</string>
+    <string name="satellite_sunlit">Disinari Matahari</string>
 </resources>

@@ -147,4 +147,16 @@
     <string name="about_stat_sunrises">شروقًا في اليوم</string>
     <string name="about_stat_crewed">عامًا بطاقم على متنها</string>
     <string name="about_data_sources">البيانات من %1$s</string>
+    <string name="satellite_tiangong_name">محطة تيانغونغ الفضائية</string>
+    <string name="satellite_hubble_name">تلسكوب هابل الفضائي</string>
+    <string name="satellite_tiangong_short">تيانغونغ</string>
+    <string name="satellite_hubble_short">هابل</string>
+    <string name="satellite_kind_station">محطة فضائية</string>
+    <string name="satellite_kind_telescope">تلسكوب فضائي</string>
+    <string name="satellite_orbit_format">%1$d دقيقة لكل مدار</string>
+    <string name="learn_more">اعرف المزيد</string>
+    <string name="satellite_iss_description">مختبر بحجم ملعب كرة قدم تقريبًا، بنته خمس وكالات فضاء. يعيش البشر على متنه دون انقطاع منذ نوفمبر 2000.</string>
+    <string name="satellite_tiangong_description">محطة الفضاء الصينية، جُمعت في المدار عامي 2021 و2022. تصعد إليها أطقم من ثلاثة أفراد على مركبات شنتشو لإقامات تقارب ستة أشهر.</string>
+    <string name="satellite_hubble_description">تلسكوب يصوّر الكون من المدار منذ عام 1990. لا طاقم على متنه، وآخر زيارة لروّاد الفضاء لإصلاحه كانت عام 2009.</string>
+    <string name="satellite_sunlit">تحت ضوء الشمس</string>
 </resources>

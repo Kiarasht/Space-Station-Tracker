@@ -147,4 +147,16 @@
     <string name="about_stat_sunrises">1日の日の出の回数</string>
     <string name="about_stat_crewed">年間ずっと有人</string>
     <string name="about_data_sources">データ提供: %1$s</string>
+    <string name="satellite_tiangong_name">天宮宇宙ステーション</string>
+    <string name="satellite_hubble_name">ハッブル宇宙望遠鏡</string>
+    <string name="satellite_tiangong_short">天宮</string>
+    <string name="satellite_hubble_short">ハッブル</string>
+    <string name="satellite_kind_station">宇宙ステーション</string>
+    <string name="satellite_kind_telescope">宇宙望遠鏡</string>
+    <string name="satellite_orbit_format">%1$d分で1周</string>
+    <string name="learn_more">詳しく見る</string>
+    <string name="satellite_iss_description">5つの宇宙機関が建設した、サッカー場ほどの大きさの実験施設。2000年11月から途切れることなく人が滞在しています。</string>
+    <string name="satellite_tiangong_description">中国の宇宙ステーションで、2021年から2022年に軌道上で組み立てられました。3人のクルーが神舟宇宙船で約6か月間滞在します。</string>
+    <string name="satellite_hubble_description">1990年から軌道上で宇宙を撮影している望遠鏡。乗員はおらず、宇宙飛行士による最後の修理は2009年でした。</string>
+    <string name="satellite_sunlit">太陽光を受けています</string>
 </resources>

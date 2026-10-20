@@ -15,9 +15,27 @@ data class IssMapPoint(
     val solarLongitude: Double = 0.0
 )
 
+/** Another spacecraft on the map, such as Tiangong or Hubble; tapping it reports [id]. */
+data class SatelliteMapMarker(
+    val id: String,
+    val label: String,
+    val latitude: Double,
+    val longitude: Double,
+    /** Marker color as 0xAARRGGBB. */
+    val colorArgb: Long,
+    /** Draws a station (solar panels) rather than a telescope. */
+    val isStation: Boolean,
+    val isSelected: Boolean
+)
+
+/** Map id reported when the ISS marker itself is tapped. */
+const val ISS_MARKER_ID = "iss"
+
 /**
  * The live map. [bottomInset] keeps the map's own logo, legal link and controls clear of anything drawn
  * over its bottom edge, such as the floating navigation bar; the map itself still fills [modifier].
+ * Tapping the ISS or a [satellites] marker calls [onSatelliteClick] with its id, and tapping empty map
+ * calls it with null. [selectedTrack] is the selected satellite's next orbit, drawn in [selectedTrackColorArgb].
  */
 @Composable
 expect fun PlatformIssMap(
@@ -25,7 +43,11 @@ expect fun PlatformIssMap(
     orbit: List<IssMapPoint>,
     mapType: String,
     modifier: Modifier = Modifier,
-    bottomInset: Dp = 0.dp
+    bottomInset: Dp = 0.dp,
+    satellites: List<SatelliteMapMarker> = emptyList(),
+    selectedTrack: List<IssMapPoint> = emptyList(),
+    selectedTrackColorArgb: Long = 0xFFFFFFFF,
+    onSatelliteClick: (String?) -> Unit = {}
 )
 
 @Composable

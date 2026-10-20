@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.restart.spacestationtracker.shared.passes.CompassLabels
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.restart.spacestationtracker.MainActivity
@@ -35,7 +36,8 @@ class NotificationReceiver : BroadcastReceiver() {
         val passMagnitude = intent.getDoubleExtra(EXTRA_PASS_MAGNITUDE, 0.0)
 
         val passMaxElevation = intent.getDoubleExtra(EXTRA_PASS_MAX_ELEVATION, Double.NaN)
-        val passStartCompass = intent.getStringExtra(EXTRA_PASS_START_COMPASS).orEmpty()
+        // Reminders store the English code ("NW"); show it in the reader's language.
+        val passStartCompass = CompassLabels.localize(intent.getStringExtra(EXTRA_PASS_START_COMPASS).orEmpty())
 
         intent.getStringExtra(EXTRA_SCHEDULE_ID)?.let { scheduleId ->
             NotificationScheduler(context).onNotificationDelivered(scheduleId)

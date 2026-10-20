@@ -12,6 +12,7 @@ import com.restart.spacestationtracker.domain.people_in_space.repository.PeopleI
 import com.restart.spacestationtracker.domain.youtube.repository.YouTubeRepository
 import com.restart.spacestationtracker.domain.youtube.use_case.GetNasaLiveStreamStatusUseCase
 import com.restart.spacestationtracker.shared.network.KtorSpaceStationRepository
+import com.restart.spacestationtracker.shared.satellites.SatelliteElementsSource
 import com.restart.spacestationtracker.shared.network.ISS_TLE_PREFS_NAME
 import com.restart.spacestationtracker.shared.network.NetworkConfig
 import com.restart.spacestationtracker.shared.preferences.AndroidPreferenceStore
@@ -64,6 +65,11 @@ object DataModule {
     fun providePeopleInSpaceRepository(
         repository: KtorSpaceStationRepository
     ): PeopleInSpaceRepository = repository
+
+    @Provides
+    fun provideSatelliteElementsSource(
+        repository: KtorSpaceStationRepository
+    ): SatelliteElementsSource = repository
 
     @Provides
     fun provideYouTubeRepository(

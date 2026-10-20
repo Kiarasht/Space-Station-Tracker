@@ -24,6 +24,7 @@ val youtubeApiKey = propertyOrEnv("YOUTUBE_API_KEY").orEmpty()
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.plugin.compose")
@@ -178,6 +179,7 @@ dependencies {
     // Ads & User Messaging Platform
     implementation(platform("com.google.firebase:firebase-bom:34.16.0"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.android.gms:play-services-ads:25.2.0")
     implementation("com.google.android.ump:user-messaging-platform:4.0.0")
 

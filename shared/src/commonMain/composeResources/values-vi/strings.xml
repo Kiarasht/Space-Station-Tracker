@@ -147,4 +147,16 @@
     <string name="about_stat_sunrises">lần bình minh mỗi ngày</string>
     <string name="about_stat_crewed">năm liên tục có người ở</string>
     <string name="about_data_sources">Dữ liệu từ %1$s</string>
+    <string name="satellite_tiangong_name">Trạm vũ trụ Thiên Cung</string>
+    <string name="satellite_hubble_name">Kính viễn vọng không gian Hubble</string>
+    <string name="satellite_tiangong_short">Thiên Cung</string>
+    <string name="satellite_hubble_short">Hubble</string>
+    <string name="satellite_kind_station">Trạm vũ trụ</string>
+    <string name="satellite_kind_telescope">Kính viễn vọng không gian</string>
+    <string name="satellite_orbit_format">%1$d phút mỗi vòng</string>
+    <string name="learn_more">Tìm hiểu thêm</string>
+    <string name="satellite_iss_description">Một phòng thí nghiệm rộng cỡ sân bóng đá do năm cơ quan vũ trụ xây dựng. Con người đã sống liên tục trên đó từ tháng 11 năm 2000.</string>
+    <string name="satellite_tiangong_description">Trạm vũ trụ của Trung Quốc, được lắp ráp trên quỹ đạo vào năm 2021 và 2022. Các phi hành đoàn ba người bay lên bằng tàu Thần Châu và ở khoảng sáu tháng.</string>
+    <string name="satellite_hubble_description">Kính viễn vọng chụp ảnh vũ trụ từ quỹ đạo từ năm 1990. Không có phi hành đoàn; lần cuối phi hành gia sửa chữa nó là năm 2009.</string>
+    <string name="satellite_sunlit">Đang được Mặt Trời chiếu sáng</string>
 </resources>

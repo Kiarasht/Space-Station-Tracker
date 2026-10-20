@@ -1,0 +1,5 @@
+/* Permission prompts shown by iOS. */
+"NSCalendarsUsageDescription" = "ISS Tracker 仅在你选择添加即将到来的国际空间站过境时使用日历。";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "ISS Tracker 仅在你选择添加即将到来的国际空间站过境时使用日历。";
+"NSLocationWhenInUseUsageDescription" = "仅在你查找附近可见的国际空间站过境时使用你的位置。";
+"NSUserTrackingUsageDescription" = "此权限在启用广告时帮助衡量广告效果。";

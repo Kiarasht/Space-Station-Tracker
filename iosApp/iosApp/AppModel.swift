@@ -223,6 +223,17 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         composeBridge.registerMapInsetUpdater { view, bottomInset in
             (view as? NativeIssMapView)?.setBottomInset(CGFloat(bottomInset))
         }
+        composeBridge.registerMapSatelliteUpdater { [weak self] view, satellites, track, trackColor, onSelect in
+            guard let mapView = view as? NativeIssMapView else { return }
+            let markers: [SatelliteMapMarker] = self?.cast(satellites) ?? []
+            let trackPoints: [IssMapPoint] = self?.cast(track) ?? []
+            mapView.updateSatellites(
+                markers: markers,
+                track: trackPoints,
+                trackColor: trackColor.int64Value,
+                onSelect: { id in _ = onSelect(id) }
+            )
+        }
         composeBridge.registerNativeAdViewFactory { [weak self] slotId in
             self?.ads.makeNativeAdView(
                 slotId: slotId,
@@ -451,8 +462,8 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         event.endDate = startDate.addingTimeInterval(TimeInterval(pass.durationInSeconds))
         event.notes = String(
             format: String(localized: "calendar.event.notes.format"),
-            pass.startAzimuthCompass,
-            pass.endAzimuthCompass,
+            CompassLabels.shared.localize(code: pass.startAzimuthCompass),
+            CompassLabels.shared.localize(code: pass.endAzimuthCompass),
             Int(pass.maxElevation.rounded())
         )
         editor.eventStore = eventStore
@@ -693,17 +704,42 @@ private final class IssMapAnnotation: MKPointAnnotation {}
 
 private final class OrbitDirectionAnnotation: MKPointAnnotation {
     var rotationRadians: CGFloat = 0
+    /** Set for a selected satellite's path; nil keeps the ISS's red. */
+    var colorArgb: Int64?
 }
 
 private final class OrbitTimeAnnotation: MKPointAnnotation {
     var minuteOffset = 0
+    /** Set for a selected satellite's path; nil keeps the ISS's yellow border. */
+    var colorArgb: Int64?
 }
 
-private final class NativeIssMapView: UIView, MKMapViewDelegate {
+/** Tiangong, Hubble and other non-ISS spacecraft. */
+private final class SatelliteAnnotation: MKPointAnnotation {
+    var id = ""
+    var label = ""
+    var colorArgb: Int64 = 0
+    var isStation = true
+    var isSelected = false
+}
+
+private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecognizerDelegate {
     private let mapView = MKMapView()
     private var renderedKey = ""
     private var hasSetInitialRegion = false
+    private var current: IssMapPoint?
+    private var orbit: [IssMapPoint] = []
+    private var mapTypeName = "Normal"
+    private var satellites: [SatelliteMapMarker] = []
+    private var selectedTrack: [IssMapPoint] = []
+    private var selectedTrackColor: Int64 = 0
+    private var onSelect: ((String?) -> Void)?
+    private var isRenderScheduled = false
+    private var satelliteMarkerImages: [String: UIImage] = [:]
+    private var coloredCueImages: [String: UIImage] = [:]
     private var footprintOverlay: MKCircle?
+    /** The selected satellite's next orbit. MapKit's polyline factory can't build Swift subclasses, so it's matched by identity. */
+    private var selectedTrackOverlay: MKPolyline?
     private lazy var timeMarkerImages: [Int: UIImage] = Dictionary(
         uniqueKeysWithValues: stride(from: 30, through: 120, by: 30).map {
             ($0, Self.makeTimeMarkerImage(minuteOffset: $0))
@@ -727,11 +763,50 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
     }
 
     func update(current: IssMapPoint?, orbit: [IssMapPoint], mapType: String) {
+        self.current = current
+        self.orbit = orbit
+        mapTypeName = mapType
+        scheduleRender()
+    }
+
+    func updateSatellites(
+        markers: [SatelliteMapMarker],
+        track: [IssMapPoint],
+        trackColor: Int64,
+        onSelect: @escaping (String?) -> Void
+    ) {
+        satellites = markers
+        selectedTrack = track
+        selectedTrackColor = trackColor
+        self.onSelect = onSelect
+        scheduleRender()
+    }
+
+    /** Compose sends the ISS and the other satellites separately; draw once for both. */
+    private func scheduleRender() {
+        guard !isRenderScheduled else { return }
+        isRenderScheduled = true
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.isRenderScheduled = false
+            self.render()
+        }
+    }
+
+    private func render() {
+        let current = self.current
+        let orbit = self.orbit
+        let mapType = mapTypeName
         let currentKey = current.map {
             "\($0.latitude)|\($0.longitude)|\($0.timestamp)|\($0.footprint)|" +
                 "\($0.solarLatitude)|\($0.solarLongitude)"
         } ?? "none"
-        let key = mapType + "|" + currentKey + orbit
+        let satelliteKey = satellites
+            .map { "|\($0.id)|\($0.latitude)|\($0.longitude)|\($0.isSelected)|\($0.label)" }
+            .joined() + "|track\(selectedTrackColor)" + selectedTrack
+            .map { "|\($0.latitude)|\($0.longitude)" }
+            .joined()
+        let key = mapType + "|" + currentKey + satelliteKey + orbit
             .map { "|\($0.latitude)|\($0.longitude)|\($0.timestamp)" }
             .joined()
         guard key != renderedKey else { return }
@@ -745,6 +820,7 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
         mapView.removeAnnotations(mapView.annotations)
         mapView.removeOverlays(mapView.overlays)
         footprintOverlay = nil
+        selectedTrackOverlay = nil
 
         if let current {
             let footprint = MKCircle(
@@ -789,6 +865,69 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
                 orbit: orderedOrbit
             )
         }
+        addSatellites()
+    }
+
+    private func addSatellites() {
+        if selectedTrack.count > 1 {
+            let coordinates = selectedTrack.map {
+                CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)
+            }
+            let polyline = coordinates.withUnsafeBufferPointer { buffer in
+                MKGeodesicPolyline(coordinates: buffer.baseAddress!, count: buffer.count)
+            }
+            selectedTrackOverlay = polyline
+            mapView.addOverlay(polyline, level: .aboveRoads)
+            // The same arrows and +30m to +120m labels as the ISS line, in the satellite's color.
+            addOrbitCues(
+                currentTimestamp: selectedTrack[0].timestamp,
+                orbit: selectedTrack,
+                colorArgb: selectedTrackColor
+            )
+        }
+        for marker in satellites {
+            let annotation = SatelliteAnnotation()
+            annotation.id = marker.id
+            annotation.label = marker.label
+            annotation.colorArgb = marker.colorArgb
+            annotation.isStation = marker.isStation
+            annotation.isSelected = marker.isSelected
+            annotation.title = marker.label
+            annotation.coordinate = CLLocationCoordinate2D(latitude: marker.latitude, longitude: marker.longitude)
+            mapView.addAnnotation(annotation)
+        }
+    }
+
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        let id: String?
+        switch view.annotation {
+        case let satellite as SatelliteAnnotation: id = satellite.id
+        case is IssMapAnnotation: id = "iss"
+        default: id = nil
+        }
+        // Selection lives in the shared screen; clear MapKit's so the same marker can be tapped again.
+        if let annotation = view.annotation {
+            DispatchQueue.main.async { mapView.deselectAnnotation(annotation, animated: false) }
+        }
+        if let id { onSelect?(id) }
+    }
+
+    /** A tap on empty map closes the details; taps on markers are handled by didSelect. */
+    @objc private func handleMapTap(_ recognizer: UITapGestureRecognizer) {
+        guard recognizer.state == .ended else { return }
+        var hit = mapView.hitTest(recognizer.location(in: mapView), with: nil)
+        while let view = hit {
+            if view is MKAnnotationView { return }
+            hit = view.superview
+        }
+        onSelect?(nil)
+    }
+
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
+    ) -> Bool {
+        true
     }
 
     private func addOrbitPath(_ orbit: [IssMapPoint]) {
@@ -802,7 +941,7 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
         mapView.addOverlay(polyline, level: .aboveRoads)
     }
 
-    private func addOrbitCues(currentTimestamp: Int64, orbit: [IssMapPoint]) {
+    private func addOrbitCues(currentTimestamp: Int64, orbit: [IssMapPoint], colorArgb: Int64? = nil) {
         guard currentTimestamp > 0 else { return }
         let future = orbit.filter { $0.timestamp > currentTimestamp }
         guard future.count > 1 else { return }
@@ -819,6 +958,7 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
             if minuteOffset.isMultiple(of: 30) {
                 let annotation = OrbitTimeAnnotation()
                 annotation.minuteOffset = minuteOffset
+                annotation.colorArgb = colorArgb
                 annotation.coordinate = CLLocationCoordinate2D(
                     latitude: point.latitude,
                     longitude: point.longitude
@@ -840,6 +980,7 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
                 }
                 let annotation = OrbitDirectionAnnotation()
                 annotation.rotationRadians = Self.bearingRadians(from: from, to: to)
+                annotation.colorArgb = colorArgb
                 annotation.coordinate = CLLocationCoordinate2D(
                     latitude: point.latitude,
                     longitude: point.longitude
@@ -887,10 +1028,28 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
             let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
                 ?? MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view.annotation = annotation
-            view.image = Self.directionMarkerImage
+            view.image = direction.colorArgb.map { coloredDirectionImage(argb: $0) } ?? Self.directionMarkerImage
             view.transform = CGAffineTransform(rotationAngle: direction.rotationRadians)
             view.displayPriority = .required
             view.collisionMode = .circle
+            return view
+        }
+
+        if let satellite = annotation as? SatelliteAnnotation {
+            let identifier = "satellite"
+            let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+                ?? MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            view.annotation = annotation
+            let marker = satelliteMarkerImage(for: satellite)
+            view.image = marker.image
+            // The badge sits on the satellite's position; its name hangs below.
+            view.centerOffset = CGPoint(x: 0, y: marker.image.size.height / 2 - marker.badgeCenterY)
+            view.transform = .identity
+            view.displayPriority = .required
+            view.collisionMode = .circle
+            view.canShowCallout = false
+            view.accessibilityLabel = satellite.label
+            view.zPriority = satellite.isSelected ? .max : .defaultUnselected
             return view
         }
 
@@ -899,7 +1058,8 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
             let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
                 ?? MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view.annotation = annotation
-            view.image = timeMarkerImages[time.minuteOffset]
+            view.image = time.colorArgb.map { coloredTimeImage(minuteOffset: time.minuteOffset, argb: $0) }
+                ?? timeMarkerImages[time.minuteOffset]
             view.transform = .identity
             view.displayPriority = .required
             view.collisionMode = .rectangle
@@ -932,6 +1092,12 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
             }
             return renderer
         }
+        if let track = overlay as? MKPolyline, let selected = selectedTrackOverlay, track === selected {
+            let renderer = MKPolylineRenderer(polyline: track)
+            renderer.strokeColor = Self.color(argb: selectedTrackColor)
+            renderer.lineWidth = 3
+            return renderer
+        }
         guard let polyline = overlay as? MKPolyline else {
             return MKOverlayRenderer(overlay: overlay)
         }
@@ -962,7 +1128,23 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
         ((longitude + 540).truncatingRemainder(dividingBy: 360)) - 180
     }
 
-    private static func makeTimeMarkerImage(minuteOffset: Int) -> UIImage {
+    private func coloredDirectionImage(argb: Int64) -> UIImage {
+        let key = "direction|\(argb)"
+        if let cached = coloredCueImages[key] { return cached }
+        let image = Self.makeDirectionMarkerImage(color: Self.color(argb: argb))
+        coloredCueImages[key] = image
+        return image
+    }
+
+    private func coloredTimeImage(minuteOffset: Int, argb: Int64) -> UIImage {
+        let key = "time|\(minuteOffset)|\(argb)"
+        if let cached = coloredCueImages[key] { return cached }
+        let image = Self.makeTimeMarkerImage(minuteOffset: minuteOffset, border: Self.color(argb: argb))
+        coloredCueImages[key] = image
+        return image
+    }
+
+    private static func makeTimeMarkerImage(minuteOffset: Int, border: UIColor = .systemYellow) -> UIImage {
         let size = CGSize(width: 72, height: 28)
         return UIGraphicsImageRenderer(size: size).image { _ in
             let bounds = CGRect(origin: .zero, size: size).insetBy(dx: 1, dy: 1)
@@ -970,7 +1152,7 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
             UIColor(red: 12.0 / 255.0, green: 18.0 / 255.0, blue: 68.0 / 255.0, alpha: 0.94)
                 .setFill()
             path.fill()
-            UIColor.systemYellow.setStroke()
+            border.setStroke()
             path.lineWidth = 1.5
             path.stroke()
 
@@ -990,7 +1172,9 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
         }
     }
 
-    private static let directionMarkerImage: UIImage = {
+    private static let directionMarkerImage: UIImage = makeDirectionMarkerImage(color: .systemRed)
+
+    private static func makeDirectionMarkerImage(color: UIColor) -> UIImage {
         let size = CGSize(width: 22, height: 22)
         return UIGraphicsImageRenderer(size: size).image { _ in
             let path = UIBezierPath()
@@ -999,10 +1183,10 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
             path.addLine(to: CGPoint(x: 11, y: 15))
             path.addLine(to: CGPoint(x: 2, y: 20))
             path.close()
-            UIColor.systemRed.setFill()
+            color.setFill()
             path.fill()
         }.withRenderingMode(.alwaysOriginal)
-    }()
+    }
 
     private static let issMarkerImage: UIImage = {
         let sourceWidth: CGFloat = 104
@@ -1058,6 +1242,10 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
         mapView.delegate = self
         mapView.isRotateEnabled = false
         mapView.pointOfInterestFilter = .excludingAll
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleMapTap(_:)))
+        tap.delegate = self
+        tap.cancelsTouchesInView = false
+        mapView.addGestureRecognizer(tap)
         addSubview(mapView)
         NSLayoutConstraint.activate([
             mapView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -1068,6 +1256,86 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
     }
 
     private static let initialMapSpanMeters = 8_000_000.0
+
+    private static func color(argb: Int64) -> UIColor {
+        let value = UInt32(truncatingIfNeeded: argb)
+        return UIColor(
+            red: CGFloat((value >> 16) & 0xFF) / 255,
+            green: CGFloat((value >> 8) & 0xFF) / 255,
+            blue: CGFloat(value & 0xFF) / 255,
+            alpha: CGFloat((value >> 24) & 0xFF) / 255
+        )
+    }
+
+    private func satelliteMarkerImage(for satellite: SatelliteAnnotation) -> (image: UIImage, badgeCenterY: CGFloat) {
+        let radius: CGFloat = satellite.isSelected ? 17 : 14
+        let ring: CGFloat = 2
+        let key = "\(satellite.label)|\(satellite.colorArgb)|\(satellite.isStation)|\(satellite.isSelected)"
+        let badgeCenterY = radius + ring
+        if let cached = satelliteMarkerImages[key] {
+            return (cached, badgeCenterY)
+        }
+        let accent = Self.color(argb: satellite.colorArgb)
+        let font = AppFonts.exo(size: 11, weight: .bold)
+        let text = satellite.label as NSString
+        let textSize = text.size(withAttributes: [.font: font])
+        let labelSize = CGSize(width: textSize.width + 14, height: 18)
+        let gap: CGFloat = 3
+        let size = CGSize(
+            width: max(labelSize.width, (radius + ring) * 2) + 2,
+            height: (radius + ring) * 2 + gap + labelSize.height + 2
+        )
+        let image = UIGraphicsImageRenderer(size: size).image { context in
+            let center = CGPoint(x: size.width / 2, y: badgeCenterY)
+            UIColor.white.setFill()
+            UIBezierPath(arcCenter: center, radius: radius + ring, startAngle: 0, endAngle: .pi * 2, clockwise: true).fill()
+            accent.setFill()
+            UIBezierPath(arcCenter: center, radius: radius, startAngle: 0, endAngle: .pi * 2, clockwise: true).fill()
+
+            UIColor.white.setFill()
+            let unit = radius / 14
+            let cg = context.cgContext
+            cg.saveGState()
+            cg.translateBy(x: center.x, y: center.y)
+            if satellite.isStation {
+                UIBezierPath(rect: CGRect(x: -3 * unit, y: -4 * unit, width: 6 * unit, height: 8 * unit)).fill()
+                UIBezierPath(rect: CGRect(x: -11 * unit, y: -3 * unit, width: 6 * unit, height: 6 * unit)).fill()
+                UIBezierPath(rect: CGRect(x: 5 * unit, y: -3 * unit, width: 6 * unit, height: 6 * unit)).fill()
+                UIBezierPath(rect: CGRect(x: -5 * unit, y: -0.6 * unit, width: 10 * unit, height: 1.2 * unit)).fill()
+            } else {
+                cg.rotate(by: -35 * .pi / 180)
+                UIBezierPath(
+                    roundedRect: CGRect(x: -9 * unit, y: -3.5 * unit, width: 16 * unit, height: 7 * unit),
+                    cornerRadius: 2 * unit
+                ).fill()
+                UIBezierPath(rect: CGRect(x: 7 * unit, y: -2.5 * unit, width: 3 * unit, height: 5 * unit)).fill()
+                UIBezierPath(rect: CGRect(x: -3 * unit, y: -9 * unit, width: 2 * unit, height: 5.5 * unit)).fill()
+                UIBezierPath(rect: CGRect(x: -3 * unit, y: 3.5 * unit, width: 2 * unit, height: 5.5 * unit)).fill()
+            }
+            cg.restoreGState()
+
+            let labelRect = CGRect(
+                x: (size.width - labelSize.width) / 2,
+                y: badgeCenterY + radius + ring + gap,
+                width: labelSize.width,
+                height: labelSize.height
+            )
+            let pill = UIBezierPath(roundedRect: labelRect, cornerRadius: labelSize.height / 2)
+            UIColor(red: 12.0 / 255.0, green: 18.0 / 255.0, blue: 68.0 / 255.0, alpha: 0.92).setFill()
+            pill.fill()
+            if satellite.isSelected {
+                accent.setStroke()
+                pill.lineWidth = 1.5
+                pill.stroke()
+            }
+            text.draw(
+                at: CGPoint(x: labelRect.midX - textSize.width / 2, y: labelRect.midY - textSize.height / 2),
+                withAttributes: [.font: font, .foregroundColor: UIColor.white]
+            )
+        }
+        satelliteMarkerImages[key] = image
+        return (image, badgeCenterY)
+    }
 }
 
 private var appVersionName: String {

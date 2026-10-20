@@ -15,7 +15,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
-class IssTleProviderTest {
+class TleProviderTest {
     private val line1 = "1 25544U 98067A   26289.78971908  .00007803  00000+0  15012-3 0  9995"
     private val line2 = "2 25544  51.6326  58.3278 0006748 271.9059  88.1156 15.48899044590607"
     private val olderLine1 = "1 25544U 98067A   26288.82192346  .00005580  00000+0  10980-3 0  9999"
@@ -88,7 +88,7 @@ class IssTleProviderTest {
         store: PreferenceStore,
         clock: () -> Long,
         respond: (String) -> Response
-    ): IssTleProvider {
+    ): TleProvider {
         val engine = MockEngine { request ->
             val response = respond(request.url.toString())
             if (response.status != HttpStatusCode.OK) {
@@ -107,7 +107,7 @@ class IssTleProviderTest {
             expectSuccess = true
             install(ContentNegotiation) { json(spaceStationJson) }
         }
-        return IssTleProvider(client, store, clock)
+        return TleProvider(client, store, clock)
     }
 
     private class MemoryStore : PreferenceStore {

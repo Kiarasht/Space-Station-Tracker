@@ -147,4 +147,16 @@
     <string name="about_stat_sunrises">सूर्योदय प्रतिदिन</string>
     <string name="about_stat_crewed">वर्षों से लगातार मानवयुक्त</string>
     <string name="about_data_sources">डेटा स्रोत: %1$s</string>
+    <string name="satellite_tiangong_name">तियांगोंग अंतरिक्ष स्टेशन</string>
+    <string name="satellite_hubble_name">हबल अंतरिक्ष दूरबीन</string>
+    <string name="satellite_tiangong_short">तियांगोंग</string>
+    <string name="satellite_hubble_short">हबल</string>
+    <string name="satellite_kind_station">अंतरिक्ष स्टेशन</string>
+    <string name="satellite_kind_telescope">अंतरिक्ष दूरबीन</string>
+    <string name="satellite_orbit_format">%1$d मिनट प्रति परिक्रमा</string>
+    <string name="learn_more">और जानें</string>
+    <string name="satellite_iss_description">लगभग एक फ़ुटबॉल मैदान जितनी बड़ी प्रयोगशाला, जिसे पाँच अंतरिक्ष एजेंसियों ने बनाया। नवंबर 2000 से इसमें लगातार लोग रह रहे हैं।</string>
+    <string name="satellite_tiangong_description">चीन का अंतरिक्ष स्टेशन, जिसे 2021 और 2022 में कक्षा में जोड़ा गया। तीन लोगों के दल शेनझोउ यानों से लगभग छह महीने के लिए जाते हैं।</string>
+    <string name="satellite_hubble_description">एक दूरबीन जो 1990 से कक्षा से ब्रह्मांड की तस्वीरें ले रही है। इसमें कोई दल नहीं है; अंतरिक्ष यात्रियों ने आख़िरी बार 2009 में इसकी मरम्मत की।</string>
+    <string name="satellite_sunlit">सूर्य के प्रकाश में</string>
 </resources>

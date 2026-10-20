@@ -46,9 +46,14 @@ actual fun PlatformIssMap(
     orbit: List<IssMapPoint>,
     mapType: String,
     modifier: Modifier,
-    bottomInset: Dp
+    bottomInset: Dp,
+    satellites: List<SatelliteMapMarker>,
+    selectedTrack: List<IssMapPoint>,
+    selectedTrackColorArgb: Long,
+    onSatelliteClick: (String?) -> Unit
 ) {
     val context = LocalContext.current
+    val density = context.resources.displayMetrics.density
     val cameraState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(LatLng(0.0, 0.0), 2f)
     }
@@ -63,6 +68,9 @@ actual fun PlatformIssMap(
         buildOrbitCues(currentLocation?.timestamp ?: 0L, orderedOrbit)
     }
     val exoTypeface = remember(context) { loadExoTypeface(context) }
+    val selectedCues = remember(selectedTrack) {
+        buildOrbitCues(selectedTrack.firstOrNull()?.timestamp ?: 0L, selectedTrack)
+    }
     LaunchedEffect(currentLocation) {
         if (!hasCentered && currentLocation != null) {
             cameraState.animate(
@@ -86,7 +94,8 @@ actual fun PlatformIssMap(
                 else -> MapType.NORMAL
             }
         ),
-        uiSettings = MapUiSettings(zoomControlsEnabled = false)
+        uiSettings = MapUiSettings(zoomControlsEnabled = false),
+        onMapClick = { onSatelliteClick(null) }
     ) {
         val issMarker = remember { createIssMarker() }
         val sunMarker = remember { createSunMarker() }
@@ -115,7 +124,54 @@ actual fun PlatformIssMap(
                 state = rememberUpdatedMarkerState(LatLng(it.latitude, it.longitude)),
                 icon = issMarker,
                 anchor = androidx.compose.ui.geometry.Offset(0.5f, 0.5f),
-                zIndex = 3f
+                zIndex = 3f,
+                onClick = {
+                    onSatelliteClick(ISS_MARKER_ID)
+                    true
+                }
+            )
+        }
+        if (selectedTrack.size > 1) {
+            val trackColor = selectedTrackColorArgb.toInt()
+            Polyline(
+                points = selectedTrack.map { LatLng(it.latitude, it.longitude) },
+                color = Color(trackColor),
+                width = 5f,
+                geodesic = true,
+                zIndex = 1f
+            )
+            // The same arrows and +30m to +120m labels as the ISS line, in the satellite's color.
+            val trackDirectionMarker = remember(trackColor) { createDirectionMarker(trackColor) }
+            val trackTimeMarkers = remember(trackColor, exoTypeface) {
+                (30..120 step 30).associateWith { minute ->
+                    createTimeMarker("+${minute}m", exoTypeface, trackColor)
+                }
+            }
+            selectedCues.forEach { cue ->
+                Marker(
+                    state = rememberUpdatedMarkerState(LatLng(cue.point.latitude, cue.point.longitude)),
+                    icon = if (cue.minuteOffset % 30 == 0) trackTimeMarkers[cue.minuteOffset] else trackDirectionMarker,
+                    anchor = androidx.compose.ui.geometry.Offset(0.5f, 0.5f),
+                    flat = cue.minuteOffset % 30 != 0,
+                    rotation = if (cue.minuteOffset % 30 == 0) 0f else cue.bearing,
+                    zIndex = 4f
+                )
+            }
+        }
+        satellites.forEach { satellite ->
+            val icon = remember(satellite.label, satellite.colorArgb, satellite.isStation, satellite.isSelected, exoTypeface) {
+                createSatelliteMarker(satellite, density, exoTypeface)
+            }
+            Marker(
+                state = rememberUpdatedMarkerState(LatLng(satellite.latitude, satellite.longitude)),
+                icon = icon.descriptor,
+                anchor = androidx.compose.ui.geometry.Offset(0.5f, icon.anchorY),
+                title = satellite.label,
+                zIndex = if (satellite.isSelected) 5f else 2.5f,
+                onClick = {
+                    onSatelliteClick(satellite.id)
+                    true
+                }
             )
         }
         if (orderedOrbit.size > 1) {
@@ -196,6 +252,66 @@ private fun createIssMarker(): BitmapDescriptor {
     return BitmapDescriptorFactory.fromBitmap(bitmap)
 }
 
+private class SatelliteMarkerIcon(val descriptor: BitmapDescriptor, val anchorY: Float)
+
+/** A colored badge with a station or telescope glyph, and the satellite's name in a pill underneath. */
+private fun createSatelliteMarker(marker: SatelliteMapMarker, density: Float, typeface: Typeface): SatelliteMarkerIcon {
+    val radius = (if (marker.isSelected) 17f else 14f) * density
+    val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = AndroidColor.WHITE
+        textSize = 11f * density
+        textAlign = Paint.Align.CENTER
+        this.typeface = Typeface.create(typeface, Typeface.BOLD)
+    }
+    val labelWidth = textPaint.measureText(marker.label) + 14f * density
+    val labelHeight = 18f * density
+    val gap = 3f * density
+    val ring = 2f * density
+    val width = maxOf(labelWidth, (radius + ring) * 2f).toInt() + 2
+    val height = ((radius + ring) * 2f + gap + labelHeight).toInt() + 2
+    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(bitmap)
+    val centerX = width / 2f
+    val centerY = radius + ring
+    val accent = marker.colorArgb.toInt()
+
+    canvas.drawCircle(centerX, centerY, radius + ring, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = AndroidColor.WHITE })
+    canvas.drawCircle(centerX, centerY, radius, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = accent })
+    val glyph = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = AndroidColor.WHITE; style = Paint.Style.FILL }
+    val unit = radius / 14f
+    if (marker.isStation) {
+        canvas.drawRect(centerX - 3f * unit, centerY - 4f * unit, centerX + 3f * unit, centerY + 4f * unit, glyph)
+        canvas.drawRect(centerX - 11f * unit, centerY - 3f * unit, centerX - 5f * unit, centerY + 3f * unit, glyph)
+        canvas.drawRect(centerX + 5f * unit, centerY - 3f * unit, centerX + 11f * unit, centerY + 3f * unit, glyph)
+        canvas.drawRect(centerX - 5f * unit, centerY - 0.6f * unit, centerX + 5f * unit, centerY + 0.6f * unit, glyph)
+    } else {
+        canvas.save()
+        canvas.rotate(-35f, centerX, centerY)
+        canvas.drawRoundRect(RectF(centerX - 9f * unit, centerY - 3.5f * unit, centerX + 7f * unit, centerY + 3.5f * unit), 2f * unit, 2f * unit, glyph)
+        canvas.drawRect(centerX + 7f * unit, centerY - 2.5f * unit, centerX + 10f * unit, centerY + 2.5f * unit, glyph)
+        canvas.drawRect(centerX - 3f * unit, centerY - 9f * unit, centerX - 1f * unit, centerY - 3.5f * unit, glyph)
+        canvas.drawRect(centerX - 3f * unit, centerY + 3.5f * unit, centerX - 1f * unit, centerY + 9f * unit, glyph)
+        canvas.restore()
+    }
+
+    val labelTop = centerY + radius + ring + gap
+    val label = RectF(centerX - labelWidth / 2f, labelTop, centerX + labelWidth / 2f, labelTop + labelHeight)
+    canvas.drawRoundRect(label, labelHeight / 2f, labelHeight / 2f, Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = AndroidColor.argb(235, 12, 18, 68)
+    })
+    if (marker.isSelected) {
+        canvas.drawRoundRect(label, labelHeight / 2f, labelHeight / 2f, Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = accent
+            style = Paint.Style.STROKE
+            strokeWidth = 1.5f * density
+        })
+    }
+    val baseline = label.centerY() - (textPaint.ascent() + textPaint.descent()) / 2f
+    canvas.drawText(marker.label, centerX, baseline, textPaint)
+
+    return SatelliteMarkerIcon(BitmapDescriptorFactory.fromBitmap(bitmap), anchorY = centerY / height)
+}
+
 private fun createSunMarker(): BitmapDescriptor {
     val size = 56
     val center = size / 2f
@@ -220,12 +336,12 @@ private fun createSunMarker(): BitmapDescriptor {
     return BitmapDescriptorFactory.fromBitmap(bitmap)
 }
 
-private fun createDirectionMarker(): BitmapDescriptor {
+private fun createDirectionMarker(fillColor: Int = AndroidColor.RED): BitmapDescriptor {
     val size = 44
     val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
     val canvas = Canvas(bitmap)
     val fill = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = AndroidColor.RED
+        color = fillColor
         style = Paint.Style.FILL
     }
     val outline = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -246,7 +362,11 @@ private fun createDirectionMarker(): BitmapDescriptor {
     return BitmapDescriptorFactory.fromBitmap(bitmap)
 }
 
-private fun createTimeMarker(label: String, typeface: Typeface): BitmapDescriptor {
+private fun createTimeMarker(
+    label: String,
+    typeface: Typeface,
+    borderColor: Int = AndroidColor.rgb(255, 221, 64)
+): BitmapDescriptor {
     val width = 116
     val height = 48
     val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
@@ -256,7 +376,7 @@ private fun createTimeMarker(label: String, typeface: Typeface): BitmapDescripto
         style = Paint.Style.FILL
     }
     val border = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = AndroidColor.rgb(255, 221, 64)
+        color = borderColor
         style = Paint.Style.STROKE
         strokeWidth = 3f
     }

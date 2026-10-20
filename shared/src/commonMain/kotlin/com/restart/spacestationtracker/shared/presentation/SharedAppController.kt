@@ -1,5 +1,7 @@
 package com.restart.spacestationtracker.shared.presentation
 
+import com.restart.spacestationtracker.shared.satellites.SatelliteLayer
+import com.restart.spacestationtracker.shared.satellites.SatelliteSnapshot
 import com.restart.spacestationtracker.domain.iss_live.model.IssLocation
 import com.restart.spacestationtracker.domain.iss_passes.model.IssPass
 import com.restart.spacestationtracker.domain.people_in_space.model.Astronaut
@@ -38,7 +40,9 @@ data class SharedAppState(
     val isPassesLoading: Boolean = false,
     val mapError: String? = null,
     val crewError: String? = null,
-    val passesError: String? = null
+    val passesError: String? = null,
+    /** The ISS, Tiangong and Hubble computed from their orbits, for the map's markers and details. */
+    val satellites: List<SatelliteSnapshot> = emptyList()
 )
 
 class SharedAppController(
@@ -53,6 +57,7 @@ class SharedAppController(
     val requestedTab: StateFlow<String?> = _requestedTab.asStateFlow()
 
     private var trackingJob: Job? = null
+    private val satelliteLayer = SatelliteLayer(repository)
     private var hasStarted = false
     private var isMapVisible = true
     private var isAppActive = true
@@ -278,6 +283,8 @@ class SharedAppController(
                             )
                         }
                     }
+                val satellites = satelliteLayer.snapshots(nowSeconds * 1_000L)
+                _state.update { it.copy(satellites = satellites) }
                 delay(5_000)
             }
         }

@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.restart.spacestationtracker.shared.resources.Res
 import com.restart.spacestationtracker.shared.resources.overhead_format
+import com.restart.spacestationtracker.shared.passes.CompassLabels
 import org.jetbrains.compose.resources.stringResource
 import kotlin.math.PI
 import kotlin.math.cos
@@ -82,6 +83,8 @@ internal fun SkyPathChart(
         fontFamily = labelFont
     )
     val overheadText = stringResource(Res.string.overhead_format, 90)
+    val startLabel = remember(startCompass) { CompassLabels.localize(startCompass) }
+    val endLabel = remember(endCompass) { CompassLabels.localize(endCompass) }
     val overheadStyle = TextStyle(
         color = Color.White.copy(alpha = 0.55f),
         fontSize = 10.sp,
@@ -214,8 +217,8 @@ internal fun SkyPathChart(
                 )
             )
 
-            val startText = textMeasurer.measure(startCompass, compassStyle)
-            val endText = textMeasurer.measure(endCompass, compassStyle)
+            val startText = textMeasurer.measure(startLabel, compassStyle)
+            val endText = textMeasurer.measure(endLabel, compassStyle)
             drawText(startText, topLeft = Offset(0f, baselineY + 4.dp.toPx()))
             drawText(endText, topLeft = Offset(size.width - endText.size.width, baselineY + 4.dp.toPx()))
 

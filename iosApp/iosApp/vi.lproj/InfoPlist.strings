@@ -1,0 +1,5 @@
+/* Permission prompts shown by iOS. */
+"NSCalendarsUsageDescription" = "ISS Tracker chỉ dùng Lịch khi bạn chọn thêm một lần ISS bay qua sắp tới.";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "ISS Tracker chỉ dùng Lịch khi bạn chọn thêm một lần ISS bay qua sắp tới.";
+"NSLocationWhenInUseUsageDescription" = "Vị trí của bạn chỉ được dùng khi bạn tìm các lần ISS bay qua có thể nhìn thấy gần bạn.";
+"NSUserTrackingUsageDescription" = "Quyền này giúp đo lường quảng cáo khi quảng cáo được bật.";

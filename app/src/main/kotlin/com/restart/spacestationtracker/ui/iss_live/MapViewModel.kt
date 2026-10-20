@@ -8,7 +8,10 @@ import com.restart.spacestationtracker.data.settings.SettingsRepository
 import com.restart.spacestationtracker.domain.iss_live.use_case.GetFutureIssLocationsUseCase
 import com.restart.spacestationtracker.domain.youtube.use_case.GetNasaLiveStreamStatusUseCase
 import com.restart.spacestationtracker.shared.presentation.OrbitTrack
+import com.restart.spacestationtracker.shared.satellites.SatelliteElementsSource
+import com.restart.spacestationtracker.shared.satellites.SatelliteLayer
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,8 +19,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,8 +30,11 @@ class MapViewModel @Inject constructor(
     private val getFutureIssLocationsUseCase: GetFutureIssLocationsUseCase,
     private val settingsRepository: SettingsRepository,
     private val getNasaLiveStreamStatusUseCase: GetNasaLiveStreamStatusUseCase,
+    satelliteElementsSource: SatelliteElementsSource,
     private val application: Application
 ) : ViewModel() {
+
+    private val satelliteLayer = SatelliteLayer(satelliteElementsSource)
 
     private val _uiState = MutableStateFlow(MapUiState())
     val uiState: StateFlow<MapUiState> = _uiState.asStateFlow()
@@ -65,6 +73,7 @@ class MapViewModel @Inject constructor(
             }
             while (isActive) {
                 fetchIssLocations()
+                updateSatellites()
                 delay(5000)
             }
         }
@@ -114,6 +123,13 @@ class MapViewModel @Inject constructor(
                     error = application.getString(R.string.unknown_error)
                 )
             }
+    }
+
+    private suspend fun updateSatellites() {
+        val satellites = withContext(Dispatchers.Default) {
+            satelliteLayer.snapshots(System.currentTimeMillis())
+        }
+        _uiState.update { it.copy(satellites = satellites) }
     }
 
     private fun checkNasaLiveStatus() {

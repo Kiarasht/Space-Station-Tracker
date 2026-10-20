@@ -93,10 +93,14 @@ internal data class PersonDto(
 internal data class WikiBioResponseDto(val query: WikiQueryDto? = null)
 
 @Serializable
-internal data class WikiQueryDto(val pages: Map<String, WikiPageDto>? = null)
+internal data class WikiQueryDto(val pages: List<WikiPageDto>? = null)
+
+/** One page from the query API in `formatversion=2`, where pages are a list and language links name their title. */
+@Serializable
+internal data class WikiPageDto(val extract: String = "", val langlinks: List<WikiLangLinkDto> = emptyList())
 
 @Serializable
-internal data class WikiPageDto(val extract: String = "")
+internal data class WikiLangLinkDto(val lang: String = "", val title: String = "")
 
 /** The live-stream list published by the update-youtube-live-streams workflow. */
 @Serializable

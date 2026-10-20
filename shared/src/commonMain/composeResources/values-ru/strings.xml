@@ -147,4 +147,16 @@
     <string name="about_stat_sunrises">восходов в сутки</string>
     <string name="about_stat_crewed">лет с экипажем на борту</string>
     <string name="about_data_sources">Данные: %1$s</string>
+    <string name="satellite_tiangong_name">Космическая станция «Тяньгун»</string>
+    <string name="satellite_hubble_name">Космический телескоп «Хаббл»</string>
+    <string name="satellite_tiangong_short">Тяньгун</string>
+    <string name="satellite_hubble_short">Хаббл</string>
+    <string name="satellite_kind_station">Космическая станция</string>
+    <string name="satellite_kind_telescope">Космический телескоп</string>
+    <string name="satellite_orbit_format">%1$d мин на виток</string>
+    <string name="learn_more">Подробнее</string>
+    <string name="satellite_iss_description">Лаборатория размером с футбольное поле, построенная пятью космическими агентствами. Люди живут на борту без перерыва с ноября 2000 года.</string>
+    <string name="satellite_tiangong_description">Китайская космическая станция, собранная на орбите в 2021–2022 годах. Экипажи из трёх человек прилетают на кораблях «Шэньчжоу» примерно на полгода.</string>
+    <string name="satellite_hubble_description">Телескоп, снимающий Вселенную с орбиты с 1990 года. Экипажа нет; в последний раз астронавты ремонтировали его в 2009 году.</string>
+    <string name="satellite_sunlit">Освещён Солнцем</string>
 </resources>

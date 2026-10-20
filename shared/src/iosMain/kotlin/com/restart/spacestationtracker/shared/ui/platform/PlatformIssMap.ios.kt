@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
@@ -44,6 +46,25 @@ object IosIssMapRegistry {
     fun updateInset(view: UIView, bottomInsetPoints: Double) {
         insetUpdater?.invoke(view, bottomInsetPoints)
     }
+
+    private var satelliteUpdater: ((UIView, List<SatelliteMapMarker>, List<IssMapPoint>, Long, (String?) -> Unit) -> Unit)? = null
+
+    /** Receives the other satellites, the selected one's orbit and its color, and the tap callback. */
+    fun registerSatelliteUpdater(
+        updater: (UIView, List<SatelliteMapMarker>, List<IssMapPoint>, Long, (String?) -> Unit) -> Unit
+    ) {
+        satelliteUpdater = updater
+    }
+
+    fun updateSatellites(
+        view: UIView,
+        satellites: List<SatelliteMapMarker>,
+        selectedTrack: List<IssMapPoint>,
+        selectedTrackColorArgb: Long,
+        onSatelliteClick: (String?) -> Unit
+    ) {
+        satelliteUpdater?.invoke(view, satellites, selectedTrack, selectedTrackColorArgb, onSatelliteClick)
+    }
 }
 
 object IosNativeAdRegistry {
@@ -73,8 +94,13 @@ actual fun PlatformIssMap(
     orbit: List<IssMapPoint>,
     mapType: String,
     modifier: Modifier,
-    bottomInset: Dp
+    bottomInset: Dp,
+    satellites: List<SatelliteMapMarker>,
+    selectedTrack: List<IssMapPoint>,
+    selectedTrackColorArgb: Long,
+    onSatelliteClick: (String?) -> Unit
 ) {
+    val currentOnSatelliteClick by rememberUpdatedState(onSatelliteClick)
     Box(
         modifier = modifier.background(MaterialTheme.colorScheme.surfaceVariant)
     ) {
@@ -97,6 +123,13 @@ actual fun PlatformIssMap(
                     mapType = mapType
                 )
                 IosIssMapRegistry.updateInset(view, bottomInset.value.toDouble())
+                IosIssMapRegistry.updateSatellites(
+                    view = view,
+                    satellites = satellites,
+                    selectedTrack = selectedTrack,
+                    selectedTrackColorArgb = selectedTrackColorArgb,
+                    onSatelliteClick = { id -> currentOnSatelliteClick(id) }
+                )
             },
             modifier = Modifier.fillMaxSize()
         )

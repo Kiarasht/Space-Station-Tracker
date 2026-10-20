@@ -147,4 +147,16 @@
     <string name="about_stat_sunrises">Sonnenaufgänge am Tag</string>
     <string name="about_stat_crewed">Jahre durchgehend bemannt</string>
     <string name="about_data_sources">Daten von %1$s</string>
+    <string name="satellite_tiangong_name">Raumstation Tiangong</string>
+    <string name="satellite_hubble_name">Hubble-Weltraumteleskop</string>
+    <string name="satellite_tiangong_short">Tiangong</string>
+    <string name="satellite_hubble_short">Hubble</string>
+    <string name="satellite_kind_station">Raumstation</string>
+    <string name="satellite_kind_telescope">Weltraumteleskop</string>
+    <string name="satellite_orbit_format">%1$d Min. pro Umlauf</string>
+    <string name="learn_more">Mehr erfahren</string>
+    <string name="satellite_iss_description">Ein Labor etwa so groß wie ein Fußballfeld, gebaut von fünf Raumfahrtagenturen. Seit November 2000 leben ununterbrochen Menschen an Bord.</string>
+    <string name="satellite_tiangong_description">Chinas Raumstation, 2021 und 2022 im Orbit zusammengebaut. Dreiköpfige Crews fliegen mit Shenzhou-Raumschiffen für etwa sechs Monate hinauf.</string>
+    <string name="satellite_hubble_description">Ein Teleskop, das seit 1990 das Universum aus dem Orbit fotografiert. Es hat keine Crew; zuletzt reparierten Astronauten es 2009.</string>
+    <string name="satellite_sunlit">Im Sonnenlicht</string>
 </resources>

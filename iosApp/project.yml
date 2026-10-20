@@ -103,6 +103,8 @@ targets:
         embed: true
       - package: Firebase
         product: FirebaseAnalytics
+      - package: Firebase
+        product: FirebaseCrashlytics
       - package: GoogleMobileAds
         product: GoogleMobileAds
       - package: GoogleUserMessagingPlatform
@@ -119,5 +121,21 @@ targets:
           ./gradlew \
             :shared:embedAndSignAppleFrameworkForXcode \
             :shared:syncComposeResourcesForIos
+    postBuildScripts:
+      - name: Upload Crashlytics symbols
+        basedOnDependencyAnalysis: false
+        script: |
+          # Release builds only: Debug builds have no dSYMs and use the dev Firebase config.
+          if [ "${CONFIGURATION}" != "Release" ]; then
+            exit 0
+          fi
+          # The shared Kotlin framework has its own dSYM; put it beside the app's so Crashlytics and
+          # archives pick it up, and crashes in shared code are readable.
+          kotlin_dsym="$SRCROOT/../shared/build/xcode-frameworks/$CONFIGURATION/$SDK_NAME/ISSTrackerShared.framework.dSYM"
+          if [ -d "$kotlin_dsym" ] && [ -n "${DWARF_DSYM_FOLDER_PATH:-}" ]; then
+            rm -rf "$DWARF_DSYM_FOLDER_PATH/ISSTrackerShared.framework.dSYM"
+            cp -R "$kotlin_dsym" "$DWARF_DSYM_FOLDER_PATH/"
+          fi
+          "${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run"
     scheme:
       gatherCoverageData: false

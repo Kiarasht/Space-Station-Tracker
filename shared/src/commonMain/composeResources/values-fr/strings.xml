@@ -105,7 +105,7 @@
     <string name="share_app_description">Envoyer le lien de l’app à quelqu’un</string>
     <string name="legal_title">Mentions Légales</string>
     <string name="privacy_policy">Politique de Confidentialité</string>
-    <string name="terms_of_use">Conditions d\'Utilisation</string>
+    <string name="terms_of_use">Conditions d’Utilisation</string>
     <string name="iss_is_sunlit">L’ISS est éclairée par le Soleil</string>
     <string name="iss_in_earth_shadow">Dans l’ombre de la Terre</string>
     <string name="back">Retour</string>
@@ -147,4 +147,16 @@
     <string name="about_stat_sunrises">levers de soleil par jour</string>
     <string name="about_stat_crewed">ans habitée sans interruption</string>
     <string name="about_data_sources">Données : %1$s</string>
+    <string name="satellite_tiangong_name">Station spatiale Tiangong</string>
+    <string name="satellite_hubble_name">Télescope spatial Hubble</string>
+    <string name="satellite_tiangong_short">Tiangong</string>
+    <string name="satellite_hubble_short">Hubble</string>
+    <string name="satellite_kind_station">Station spatiale</string>
+    <string name="satellite_kind_telescope">Télescope spatial</string>
+    <string name="satellite_orbit_format">%1$d min par orbite</string>
+    <string name="learn_more">En savoir plus</string>
+    <string name="satellite_iss_description">Un laboratoire de la taille d’un terrain de football, construit par cinq agences spatiales. Des humains y vivent sans interruption depuis novembre 2000.</string>
+    <string name="satellite_tiangong_description">La station spatiale chinoise, assemblée en orbite en 2021 et 2022. Des équipages de trois personnes y montent à bord des vaisseaux Shenzhou pour environ six mois.</string>
+    <string name="satellite_hubble_description">Un télescope qui photographie l’Univers depuis l’orbite depuis 1990. Il n’a pas d’équipage ; des astronautes l’ont réparé pour la dernière fois en 2009.</string>
+    <string name="satellite_sunlit">Éclairé par le Soleil</string>
 </resources>

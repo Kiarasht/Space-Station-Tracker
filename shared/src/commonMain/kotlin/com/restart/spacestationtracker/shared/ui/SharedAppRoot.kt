@@ -67,6 +67,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -95,6 +96,8 @@ import com.restart.spacestationtracker.shared.resources.Res
 import com.restart.spacestationtracker.shared.resources.*
 import com.restart.spacestationtracker.shared.ui.platform.IssMapPoint
 import com.restart.spacestationtracker.shared.ui.platform.PlatformIssMap
+import com.restart.spacestationtracker.shared.satellites.SatelliteSnapshot
+import com.restart.spacestationtracker.shared.satellites.TrackedSatellite
 import com.restart.spacestationtracker.shared.ui.platform.PlatformBannerAd
 import com.restart.spacestationtracker.shared.ui.platform.PlatformNativeAd
 import kotlinx.datetime.TimeZone
@@ -216,6 +219,8 @@ fun SharedAppRoot(
                     error = state.mapError,
                     liveStreams = state.liveStreams,
                     contentPadding = padding,
+                    satellites = state.satellites,
+                    onOpenUrl = { onAction(SharedAppActions.OPEN_URL, it) },
                     onOpenStream = { stream ->
                         onAction(
                             SharedAppActions.OPEN_URL,
@@ -511,9 +516,20 @@ fun SharedIssMapScreen(
     liveStreams: List<LiveStream>,
     contentPadding: PaddingValues,
     onOpenStream: (LiveStream) -> Unit,
-    topEndContent: @Composable ColumnScope.() -> Unit = {}
+    topEndContent: @Composable ColumnScope.() -> Unit = {},
+    satellites: List<SatelliteSnapshot> = emptyList(),
+    onOpenUrl: (String) -> Unit = {}
 ) {
     var showStreamPicker by remember { mutableStateOf(false) }
+    var selectedSatelliteId by rememberSaveable { mutableStateOf<String?>(null) }
+    val selectedSatellite = TrackedSatellite.fromId(selectedSatelliteId)
+    val selectedSnapshot = satellites.firstOrNull { it.satellite == selectedSatellite }
+    // The ISS's own orbit line already shows its path when the orbit setting is on.
+    val selectedTrack = when {
+        selectedSnapshot == null -> emptyList()
+        selectedSatellite == TrackedSatellite.ISS && showOrbit -> emptyList()
+        else -> selectedSnapshot.track
+    }
 
     if (showStreamPicker) {
         AlertDialog(
@@ -559,7 +575,11 @@ fun SharedIssMapScreen(
             },
             mapType = mapType,
             modifier = Modifier.fillMaxSize(),
-            bottomInset = contentPadding.calculateBottomPadding()
+            bottomInset = contentPadding.calculateBottomPadding(),
+            satellites = satelliteMarkers(satellites, selectedSatellite),
+            selectedTrack = selectedTrack,
+            selectedTrackColorArgb = selectedSatellite?.trackColorArgb() ?: 0xFFFFFFFF,
+            onSatelliteClick = { id -> selectedSatelliteId = id }
         )
 
         // The map runs edge to edge under the status bar and the floating bar; overlays stay clear of both.
@@ -577,10 +597,31 @@ fun SharedIssMapScreen(
             }
         }
 
-        currentLocation?.let { location ->
-            IssLocationCard(
-                location = location,
+        // The card follows the selected satellite; with nothing (or the ISS) selected it shows the live ISS.
+        val telemetry = when {
+            selectedSnapshot != null && selectedSatellite != TrackedSatellite.ISS -> SatelliteTelemetry(
+                latitude = selectedSnapshot.latitude,
+                longitude = selectedSnapshot.longitude,
+                altitudeKm = selectedSnapshot.altitudeKm,
+                speedKmh = selectedSnapshot.speedKmh,
+                inShadow = selectedSnapshot.isInEarthShadow,
+                isIss = false
+            )
+            currentLocation != null -> SatelliteTelemetry(
+                latitude = currentLocation.latitude,
+                longitude = currentLocation.longitude,
+                altitudeKm = currentLocation.altitude,
+                speedKmh = currentLocation.velocity,
+                inShadow = currentLocation.visibility.equals("eclipsed", ignoreCase = true),
+                isIss = true
+            )
+            else -> null
+        }
+        telemetry?.let {
+            TelemetryCard(
+                telemetry = it,
                 units = units,
+                accent = selectedSatellite?.takeIf { satellite -> satellite != TrackedSatellite.ISS }?.accent,
                 modifier = Modifier
                     .align(Alignment.TopStart)
                     .padding(16.dp)
@@ -638,33 +679,58 @@ fun SharedIssMapScreen(
                 }
             }
         }
+
+        selectedSatellite?.let { satellite ->
+            SatelliteDetailCard(
+                satellite = satellite,
+                snapshot = selectedSnapshot,
+                onClose = { selectedSatelliteId = null },
+                onOpenUrl = onOpenUrl,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(16.dp)
+            )
+        }
         }
     }
 }
 
+private class SatelliteTelemetry(
+    val latitude: Double,
+    val longitude: Double,
+    val altitudeKm: Double,
+    val speedKmh: Double,
+    val inShadow: Boolean,
+    val isIss: Boolean
+)
+
+/** Position, altitude, speed and sunlight for one satellite; [accent] marks a satellite other than the ISS. */
 @Composable
-private fun IssLocationCard(
-    location: IssLocation,
+private fun TelemetryCard(
+    telemetry: SatelliteTelemetry,
     units: String,
+    accent: Color?,
     modifier: Modifier = Modifier
 ) {
     val altitude = if (units == "Imperial") {
-        "${(location.altitude * 0.621371).roundToInt()} mi"
+        "${(telemetry.altitudeKm * 0.621371).roundToInt()} mi"
     } else {
-        "${location.altitude.roundToInt()} km"
+        "${telemetry.altitudeKm.roundToInt()} km"
     }
     val velocity = if (units == "Imperial") {
-        "${(location.velocity * 0.621371).roundToInt()} mph"
+        "${(telemetry.speedKmh * 0.621371).roundToInt()} mph"
     } else {
-        "${location.velocity.roundToInt()} km/h"
+        "${telemetry.speedKmh.roundToInt()} km/h"
     }
     val colors = MaterialTheme.spaceColors
-    val inShadow = location.visibility.equals("eclipsed", ignoreCase = true)
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(20.dp),
         color = MaterialTheme.colorScheme.surface.copy(alpha = 0.92f),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.7f)),
+        border = BorderStroke(
+            if (accent != null) 1.5.dp else 1.dp,
+            accent ?: MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.7f)
+        ),
         shadowElevation = 8.dp
     ) {
         Column(
@@ -673,8 +739,8 @@ private fun IssLocationCard(
         ) {
             IssTelemetryRow(
                 icon = Icons.Default.LocationOn,
-                tint = MaterialTheme.colorScheme.primary,
-                value = "${location.latitude.format(2)}°, ${location.longitude.format(2)}°"
+                tint = accent ?: MaterialTheme.colorScheme.primary,
+                value = "${telemetry.latitude.format(2)}°, ${telemetry.longitude.format(2)}°"
             )
             IssTelemetryRow(
                 icon = Icons.Default.Height,
@@ -687,13 +753,13 @@ private fun IssLocationCard(
                 value = velocity
             )
             IssTelemetryRow(
-                icon = if (inShadow) Icons.Default.DarkMode else Icons.Default.WbSunny,
-                tint = if (inShadow) MaterialTheme.colorScheme.secondary else colors.visibilityVeryBright,
+                icon = if (telemetry.inShadow) Icons.Default.DarkMode else Icons.Default.WbSunny,
+                tint = if (telemetry.inShadow) MaterialTheme.colorScheme.secondary else colors.visibilityVeryBright,
                 value = stringResource(
-                    if (location.visibility.equals("eclipsed", ignoreCase = true)) {
-                        Res.string.iss_in_earth_shadow
-                    } else {
-                        Res.string.iss_is_sunlit
+                    when {
+                        telemetry.inShadow -> Res.string.iss_in_earth_shadow
+                        telemetry.isIss -> Res.string.iss_is_sunlit
+                        else -> Res.string.satellite_sunlit
                     }
                 )
             )

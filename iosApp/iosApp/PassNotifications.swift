@@ -1,4 +1,5 @@
 import Foundation
+import ISSTrackerShared
 @preconcurrency import UserNotifications
 
 /// One pass reminder ready to be handed to `UNUserNotificationCenter`.
@@ -69,7 +70,7 @@ enum PassNotificationScheduler {
         let content = UNMutableNotificationContent()
         content.title = PassNotificationText.title(for: request.notificationTime)
         content.body = PassNotificationText.body(
-            compass: request.startAzimuthCompass,
+            compass: CompassLabels.shared.localize(code: request.startAzimuthCompass),
             maxElevation: request.maxElevation
         )
         content.sound = .default
@@ -130,11 +131,11 @@ final class PassNotificationDelegate: NSObject, UNUserNotificationCenterDelegate
 
     @MainActor
     func setOpenPassesHandler(_ handler: @escaping @MainActor () -> Void) {
-        lock.lock()
-        openHandler = handler
-        let shouldOpen = pendingOpen
-        pendingOpen = false
-        lock.unlock()
+        let shouldOpen = lock.withLock {
+            openHandler = handler
+            defer { pendingOpen = false }
+            return pendingOpen
+        }
         if shouldOpen { handler() }
     }
 
@@ -152,10 +153,11 @@ final class PassNotificationDelegate: NSObject, UNUserNotificationCenterDelegate
         let identifier = response.notification.request.identifier
         guard identifier.hasPrefix(PassNotificationScheduler.automaticPrefix) ||
                 identifier.hasPrefix(PassNotificationScheduler.manualPrefix) else { return }
-        lock.lock()
-        let handler = openHandler
-        if handler == nil { pendingOpen = true }
-        lock.unlock()
+        // Scoped locking: a plain lock()/unlock() pair isn't allowed in async code under Swift 6.
+        let handler = lock.withLock {
+            if openHandler == nil { pendingOpen = true }
+            return openHandler
+        }
         if let handler {
             await MainActor.run { handler() }
         }

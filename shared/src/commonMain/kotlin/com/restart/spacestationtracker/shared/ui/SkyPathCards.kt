@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.restart.spacestationtracker.domain.iss_passes.model.IssPass
+import com.restart.spacestationtracker.shared.passes.CompassLabels
 import com.restart.spacestationtracker.shared.resources.Res
 import com.restart.spacestationtracker.shared.resources.add_to_calendar
 import com.restart.spacestationtracker.shared.resources.countdown_days_format
@@ -202,7 +203,7 @@ private fun PassFacts(pass: IssPass, onHero: Boolean) {
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         SpacePill(
-            text = "${pass.startAzimuthCompass} → ${pass.endAzimuthCompass}",
+            text = "${CompassLabels.localize(pass.startAzimuthCompass)} → ${CompassLabels.localize(pass.endAzimuthCompass)}",
             color = neutral,
             icon = Icons.Default.Explore
         )
