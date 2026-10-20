@@ -1,6 +1,7 @@
-# Refreshes the NASA live-stream JSON the apps read from the live-stream-cache branch. Runs only on the
-# self-hosted runners on the owner's Mac (see docs/ci-runners.md), so it updates only while the Mac is on;
-# the apps keep showing the last published list in between. Never use GitHub-hosted runners here.
+# Refreshes the NASA live-stream JSON the apps read from the live-stream-cache branch. The one workflow on a
+# GitHub-hosted runner: it has to keep running while the owner's Mac is closed, it's a few seconds of Node with
+# no build, and hosted runners are free for public repositories. Everything else stays on the Mac
+# (see docs/ci-runners.md).
 name: Update YouTube Live Streams
 
 on:
@@ -11,7 +12,7 @@ on:
 permissions:
   contents: write
 
-# While the Mac is asleep GitHub keeps only the newest pending run, so no backlog builds up.
+# GitHub keeps only the newest pending run, so a slow run never builds up a backlog.
 concurrency:
   group: update-youtube-live-streams
   cancel-in-progress: false
@@ -20,7 +21,7 @@ jobs:
   update-live-streams:
     name: Update live stream JSON
     if: github.actor == github.repository_owner && github.triggering_actor == github.repository_owner
-    runs-on: [self-hosted, macOS, iss-tracker]
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     defaults:
       run:
@@ -42,7 +43,7 @@ jobs:
             echo "No previous live stream JSON found."
           fi
 
-      # Uses the Mac's own Node (Homebrew) instead of downloading one on every run.
+      # Uses the Node that GitHub's Ubuntu image ships with (the script needs only the built-in fetch).
       - name: Fetch YouTube live stream status
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
