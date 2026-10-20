@@ -2,8 +2,8 @@
 # them to the stores (Google Play alpha track and TestFlight). Self-hosted runners on the owner's Mac only
 # (see docs/ci-runners.md); no GitHub-hosted runners or upload-artifact.
 #
-# TestFlight is also how iOS is tested before merging: run this workflow by hand on the PR branch with
-# "platforms: ios". Each successful upload is recorded as a tag (release/<platform>/<version code>), and a
+# TestFlight is also how iOS is tested before merging: push a testflight/<anything> tag on the PR branch (or,
+# once this file is on master, run it by hand with "platforms: ios"). Each successful upload is recorded as a tag (release/<platform>/<version code>), and a
 # build already uploaded is skipped, so the merge afterwards ships only Android instead of being rejected
 # for reusing the build number. Pushing a fix after testing needs a new APP_VERSION_CODE to upload again.
 name: Release distribution (Play + TestFlight)
@@ -11,6 +11,9 @@ name: Release distribution (Play + TestFlight)
 on:
   push:
     branches: [master]
+    # A testflight/* tag sends that commit's iOS build to TestFlight. Tags run the workflow file from the
+    # tagged commit, so this works from a PR branch even before a new release.yml reaches master.
+    tags: ["testflight/*"]
   # A manual run releases from any branch; use it to test iOS on TestFlight before merging, or to retry a
   # failed upload.
   workflow_dispatch:
@@ -51,6 +54,7 @@ jobs:
         env:
           EVENT_NAME: ${{ github.event_name }}
           BEFORE_SHA: ${{ github.event.before }}
+          GIT_REF: ${{ github.ref }}
           PLATFORMS: ${{ inputs.platforms || 'both' }}
         run: |
           set -euo pipefail
@@ -80,6 +84,13 @@ jobs:
 
           if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
             echo "Manual run ($PLATFORMS) of version code $current."
+            release_platforms
+            exit 0
+          fi
+
+          if [[ "$GIT_REF" == refs/tags/testflight/* ]]; then
+            echo "TestFlight tag ${GIT_REF#refs/tags/}: iOS build $current."
+            PLATFORMS=ios
             release_platforms
             exit 0
           fi

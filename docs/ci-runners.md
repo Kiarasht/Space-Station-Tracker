@@ -71,11 +71,13 @@ Android debug builds go to the Firebase group(s) in the `FIREBASE_APP_DISTRIBUTI
 
 ### Testing iOS on TestFlight before merging
 
-Run `release.yml` by hand on the PR branch with `platforms: ios`:
+Push a `testflight/` tag on the PR branch; `release.yml` then sends that commit's iOS build to TestFlight:
 
 ```sh
-gh workflow run release.yml --ref <branch> -f platforms=ios
+git tag testflight/55 && git push origin testflight/55
 ```
+
+Once `release.yml` is on `master`, a manual run with `platforms: ios` does the same: `gh workflow run release.yml --ref <branch> -f platforms=ios`.
 
 Each successful upload pushes a tag, `release/<platform>/<APP_VERSION_CODE>` (`tools/ci/record_release.sh`). The gate skips a platform whose tag exists, so after testing build 55 on TestFlight, merging ships only Android. A fix pushed after testing needs a higher `APP_VERSION_CODE` to reach TestFlight again, because App Store Connect rejects a reused build number. A manual run with `platforms: both` (or a single platform) also retries a failed upload, since a failed upload leaves no tag.
 
