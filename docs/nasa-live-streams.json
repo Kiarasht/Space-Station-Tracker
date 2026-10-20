@@ -1,7 +1,9 @@
 {
   "status": "ok",
-  "updatedAt": "2026-10-17T07:02:44.467Z",
-  "updatedAtMillis": 1792220564467,
+  "updatedAt": "2026-10-20T08:48:15.726Z",
+  "updatedAtMillis": 1792486095726,
+  "lastSuccessAtMillis": 1792486095726,
+  "lastFullSearchAtMillis": 1792486095726,
   "source": "github-actions",
   "streams": [],
   "error": null
