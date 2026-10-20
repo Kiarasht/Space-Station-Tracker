@@ -44,7 +44,8 @@ jobs:
         with:
           clean: false
       - name: Android unit tests and lint
-        run: ./gradlew :app:testDebugUnitTest :app:lintDebug --console=plain
+        # The runner service has no ANDROID_HOME; use the same default as tools/ci/config.sh.
+        run: ANDROID_HOME="${ANDROID_HOME:-$HOME/Library/Android/sdk}" ./gradlew :app:testDebugUnitTest :app:lintDebug --console=plain
       - name: Build debug APK and upload to Firebase App Distribution
         run: tools/ci/android.sh debug --upload
 

@@ -96,7 +96,8 @@ jobs:
         with:
           clean: false
       - name: Android unit tests
-        run: ./gradlew :app:testDebugUnitTest --console=plain
+        # The runner service has no ANDROID_HOME; use the same default as tools/ci/config.sh.
+        run: ANDROID_HOME="${ANDROID_HOME:-$HOME/Library/Android/sdk}" ./gradlew :app:testDebugUnitTest --console=plain
       - name: Build release AAB and upload to Google Play
         run: tools/ci/android.sh release --upload
 
