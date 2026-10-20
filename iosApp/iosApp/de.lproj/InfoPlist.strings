@@ -1,0 +1,5 @@
+/* Permission prompts shown by iOS. */
+"NSCalendarsUsageDescription" = "ISS Tracker verwendet den Kalender nur, wenn du einen bevorstehenden ISS-Überflug hinzufügen möchtest.";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "ISS Tracker verwendet den Kalender nur, wenn du einen bevorstehenden ISS-Überflug hinzufügen möchtest.";
+"NSLocationWhenInUseUsageDescription" = "Dein Standort wird nur verwendet, wenn du sichtbare ISS-Überflüge in deiner Nähe suchst.";
+"NSUserTrackingUsageDescription" = "Diese Berechtigung hilft bei der Messung von Werbung, wenn Werbung aktiviert ist.";

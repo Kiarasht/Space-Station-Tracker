@@ -1,0 +1,5 @@
+/* Permission prompts shown by iOS. */
+"NSCalendarsUsageDescription" = "ISS Tracker uses Calendar only when you choose to add an upcoming ISS pass.";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "ISS Tracker uses Calendar only when you choose to add an upcoming ISS pass.";
+"NSLocationWhenInUseUsageDescription" = "Your location is used only when you ask to find visible ISS passes near you.";
+"NSUserTrackingUsageDescription" = "This permission helps support ad measurement when advertising is enabled.";

@@ -1,0 +1,5 @@
+/* Permission prompts shown by iOS. */
+"NSCalendarsUsageDescription" = "ISS Tracker usa el Calendario solo cuando eliges añadir un próximo paso de la ISS.";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "ISS Tracker usa el Calendario solo cuando eliges añadir un próximo paso de la ISS.";
+"NSLocationWhenInUseUsageDescription" = "Tu ubicación solo se usa cuando pides buscar pasos visibles de la ISS cerca de ti.";
+"NSUserTrackingUsageDescription" = "Este permiso ayuda a medir los anuncios cuando la publicidad está activada.";

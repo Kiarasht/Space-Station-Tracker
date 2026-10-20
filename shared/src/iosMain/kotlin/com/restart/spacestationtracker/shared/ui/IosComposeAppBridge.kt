@@ -4,6 +4,8 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.ComposeUIViewController
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import com.restart.spacestationtracker.shared.network.ISS_TLE_PREFS_NAME
+import com.restart.spacestationtracker.shared.network.KtorSpaceStationRepository
 import com.restart.spacestationtracker.shared.presentation.SharedAppController
 import com.restart.spacestationtracker.shared.preferences.NSUserDefaultsPreferenceStore
 import com.restart.spacestationtracker.shared.settings.SharedSettingsRepository
@@ -11,6 +13,8 @@ import com.restart.spacestationtracker.shared.ui.platform.IosIssMapRegistry
 import com.restart.spacestationtracker.shared.ui.platform.IosBannerAdRegistry
 import com.restart.spacestationtracker.shared.ui.platform.IosNativeAdRegistry
 import com.restart.spacestationtracker.shared.ui.platform.IssMapPoint
+import com.restart.spacestationtracker.shared.ui.platform.SatelliteMapMarker
+import com.restart.spacestationtracker.shared.ui.platform.SatelliteMapTrack
 import kotlinx.coroutines.flow.MutableStateFlow
 import platform.UIKit.UIView
 import platform.UIKit.UIViewController
@@ -19,6 +23,9 @@ class IosComposeAppBridge(
     private val versionText: String = "Version 7.09 (53)"
 ) {
     private val controller = SharedAppController(
+        repository = KtorSpaceStationRepository(
+            tleStore = NSUserDefaultsPreferenceStore(ISS_TLE_PREFS_NAME)
+        ),
         settingsRepository = SharedSettingsRepository(
             NSUserDefaultsPreferenceStore(SETTINGS_SUITE_NAME)
         )
@@ -54,6 +61,16 @@ class IosComposeAppBridge(
         IosIssMapRegistry.register(factory, updater)
     }
 
+    fun registerMapSatelliteUpdater(
+        updater: (UIView, List<SatelliteMapMarker>, List<SatelliteMapTrack>, Boolean, (String?) -> Unit) -> Unit
+    ) {
+        IosIssMapRegistry.registerSatelliteUpdater(updater)
+    }
+
+    fun registerMapInsetUpdater(updater: (UIView, Double) -> Unit) {
+        IosIssMapRegistry.registerInsetUpdater(updater)
+    }
+
     fun registerNativeAdViewFactory(factory: (String) -> UIView) {
         IosNativeAdRegistry.register(factory)
     }
@@ -75,6 +92,14 @@ class IosComposeAppBridge(
             locationName = locationName
         )
         controller.loadPasses(latitude, longitude, altitude, locationName)
+    }
+
+    fun openPassesTab() {
+        controller.requestTab("PASSES")
+    }
+
+    fun setAppActive(active: Boolean) {
+        controller.setAppActive(active)
     }
 
     fun setAutomaticPassAlertsEnabled(enabled: Boolean) {

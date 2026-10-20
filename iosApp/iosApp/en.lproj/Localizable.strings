@@ -1,0 +1,17 @@
+/* Pass reminders, location errors, calendar and share text. */
+
+"notification.title.at_event" = "ISS pass is starting";
+"notification.title.10_minutes" = "ISS pass in 10 minutes";
+"notification.title.1_hour" = "ISS pass in 1 hour";
+"notification.title.12_hours" = "ISS pass in 12 hours";
+"notification.title.1_day" = "ISS pass in 1 day";
+"notification.title.1_week" = "ISS pass in 1 week";
+"notification.title.upcoming" = "Upcoming ISS pass";
+"notification.body.format" = "Look %1$@ for a pass peaking at %2$ld°.";
+"location.error.unavailable" = "Location access is unavailable. Check Location Services and try again.";
+"location.error.failed" = "Location could not be determined. Check Location Services and try again.";
+"location.current" = "Current Location";
+"calendar.event.title" = "International Space Station pass";
+"calendar.event.notes.format" = "Visible ISS pass from %1$@ to %2$@, peaking at %3$ld°.";
+"share.pass.format" = "International Space Station pass on %1$@. Duration: %2$ldm %3$lds. Peak elevation: %4$ld°.";
+"share.app.format" = "Track the International Space Station with ISS Tracker: %@";

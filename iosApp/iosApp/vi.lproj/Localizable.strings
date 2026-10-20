@@ -1,0 +1,17 @@
+/* Pass reminders, location errors, calendar and share text. */
+
+"notification.title.at_event" = "ISS bắt đầu bay qua";
+"notification.title.10_minutes" = "ISS bay qua sau 10 phút";
+"notification.title.1_hour" = "ISS bay qua sau 1 giờ";
+"notification.title.12_hours" = "ISS bay qua sau 12 giờ";
+"notification.title.1_day" = "ISS bay qua sau 1 ngày";
+"notification.title.1_week" = "ISS bay qua sau 1 tuần";
+"notification.title.upcoming" = "Lượt bay qua sắp tới của ISS";
+"notification.body.format" = "Hãy nhìn về hướng %1$@, điểm cao nhất ở %2$ld°.";
+"location.error.unavailable" = "Không thể truy cập vị trí. Hãy kiểm tra Dịch vụ định vị và thử lại.";
+"location.error.failed" = "Không thể xác định vị trí. Hãy kiểm tra Dịch vụ định vị và thử lại.";
+"location.current" = "Vị trí hiện tại";
+"calendar.event.title" = "Lượt bay qua của Trạm Vũ trụ Quốc tế";
+"calendar.event.notes.format" = "Lượt bay qua có thể nhìn thấy của ISS từ %1$@ đến %2$@, điểm cao nhất ở %3$ld°.";
+"share.pass.format" = "Lượt bay qua của Trạm Vũ trụ Quốc tế vào %1$@. Thời lượng: %2$ld phút %3$ld giây. Độ cao tối đa: %4$ld°.";
+"share.app.format" = "Theo dõi Trạm Vũ trụ Quốc tế với ISS Tracker: %@";

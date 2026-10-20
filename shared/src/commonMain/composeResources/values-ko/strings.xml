@@ -130,4 +130,24 @@
     <string name="purchase_status_pending">구매가 대기 중입니다. 스토어에서 결제를 확인하면 광고가 제거됩니다.</string>
     <string name="purchase_status_restored">평생 광고 제거가 복원되었습니다.</string>
     <string name="purchase_status_removed">광고가 영구적으로 제거되었습니다.</string>
+    <string name="unable_to_track_iss_message">연결 상태를 확인하세요. ISS 위치를 확인하면 지도가 자동으로 업데이트됩니다.</string>
+    <string name="crew_section_iss">ISS 탑승 중</string>
+    <string name="crew_section_elsewhere">다른 우주 비행체</string>
+    <string name="next_visible_pass">다음 관측 가능 통과</string>
+    <string name="later_passes">이후 통과</string>
+    <string name="visible_now">지금 보임</string>
+    <string name="countdown_days_format">%1$d일 %2$d시간 후</string>
+    <string name="countdown_hours_format">%1$d시간 %2$d분 후</string>
+    <string name="countdown_minutes_format">%1$d분 후</string>
+    <string name="peak_elevation_format">최고 고도 %1$d°</string>
+    <string name="people_in_space_now">명이 지금 우주에 있습니다</string>
+    <string name="day_in_space_format">우주 체류 %1$d일째</string>
+    <string name="overhead_format">천정 %1$d°</string>
+    <string name="about_stat_orbit">분마다 지구 한 바퀴</string>
+    <string name="about_stat_sunrises">하루 일출 횟수</string>
+    <string name="about_stat_crewed">년째 유인 운영</string>
+    <string name="satellite_tiangong_short">톈궁</string>
+    <string name="satellite_iss_short">ISS</string>
+    <string name="satellite_hubble_short">허블</string>
+    <string name="satellite_sunlit">햇빛을 받고 있음</string>
 </resources>

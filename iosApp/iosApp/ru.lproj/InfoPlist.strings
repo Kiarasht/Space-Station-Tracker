@@ -1,0 +1,5 @@
+/* Permission prompts shown by iOS. */
+"NSCalendarsUsageDescription" = "ISS Tracker использует Календарь, только когда вы добавляете предстоящий пролёт МКС.";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "ISS Tracker использует Календарь, только когда вы добавляете предстоящий пролёт МКС.";
+"NSLocationWhenInUseUsageDescription" = "Ваше местоположение используется, только когда вы ищете видимые пролёты МКС рядом с вами.";
+"NSUserTrackingUsageDescription" = "Это разрешение помогает измерять эффективность рекламы, когда реклама включена.";

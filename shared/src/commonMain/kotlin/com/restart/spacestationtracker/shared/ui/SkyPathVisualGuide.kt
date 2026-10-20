@@ -1,5 +1,6 @@
 package com.restart.spacestationtracker.shared.ui
 
+import com.restart.spacestationtracker.shared.passes.CompassLabels
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,6 +9,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -99,13 +102,15 @@ private fun GuideSymbolGraphic(symbol: GuideSymbol) {
     val foreground = MaterialTheme.colorScheme.onSurfaceVariant
 
     Box(
-        modifier = Modifier.size(width = 34.dp, height = 24.dp),
+        // Wide enough for written-out directions such as Arabic's.
+        modifier = Modifier.widthIn(min = 34.dp).height(24.dp),
         contentAlignment = Alignment.CenterStart
     ) {
         if (symbol == GuideSymbol.Directions) {
             Text(
-                text = "WNW",
+                text = CompassLabels.localize("WNW"),
                 maxLines = 1,
+                softWrap = false,
                 style = MaterialTheme.typography.labelSmall,
                 color = accent
             )

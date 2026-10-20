@@ -18,13 +18,13 @@ fun String.toBuildConfigString(): String {
     return "\"" + replace("\\", "\\\\").replace("\"", "\\\"") + "\""
 }
 
-val n2yoApiKey = propertyOrEnv("N2YO_API_KEY").orEmpty()
 val mapsApiKey = propertyOrEnv("MAPS_API_KEY").orEmpty()
 val youtubeApiKey = propertyOrEnv("YOUTUBE_API_KEY").orEmpty()
 
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.plugin.compose")
@@ -56,7 +56,6 @@ android {
         }
 
         buildConfigField("String", "YOUTUBE_API_KEY", youtubeApiKey.toBuildConfigString())
-        buildConfigField("String", "N2YO_API_KEY", n2yoApiKey.toBuildConfigString())
 
         val youtubeLiveStreamsUrl = localProperties.getProperty("YOUTUBE_LIVE_STREAMS_URL")
             ?: "https://raw.githubusercontent.com/Kiarasht/Space-Station-Tracker/live-stream-cache/docs/nasa-live-streams.json"
@@ -136,11 +135,6 @@ gradle.taskGraph.whenReady {
     val includesAndroidReleaseBuild = allTasks.any { task ->
         task.project == project && task.name.contains("Release", ignoreCase = true)
     }
-    if (includesAndroidReleaseBuild && n2yoApiKey.isBlank()) {
-        throw org.gradle.api.GradleException(
-            "N2YO_API_KEY must be set in local.properties or the environment for release builds."
-        )
-    }
     if (includesAndroidReleaseBuild && mapsApiKey.isBlank()) {
         throw org.gradle.api.GradleException(
             "MAPS_API_KEY must be set in local.properties or the environment for release builds."
@@ -160,6 +154,7 @@ dependencies {
     // Core & Compose
     implementation("androidx.core:core-ktx:1.18.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.10.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.10.0")
     implementation("androidx.activity:activity-compose:1.13.0")
     implementation(platform("androidx.compose:compose-bom:2026.04.01"))
     implementation("androidx.compose.ui:ui")
@@ -184,6 +179,7 @@ dependencies {
     // Ads & User Messaging Platform
     implementation(platform("com.google.firebase:firebase-bom:34.16.0"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.android.gms:play-services-ads:25.2.0")
     implementation("com.google.android.ump:user-messaging-platform:4.0.0")
 

@@ -6,5 +6,9 @@ data class IssPass(
     val magnitude: Double,
     val maxElevation: Double,
     val startAzimuthCompass: String,
-    val endAzimuthCompass: String
+    val endAzimuthCompass: String,
+    /** Elevation in degrees, sampled evenly from the start to the end of the visible window. */
+    val elevationTrack: List<Double> = emptyList(),
+    /** Azimuth in degrees (0 = north, clockwise) at the same moments as [elevationTrack]. */
+    val azimuthTrack: List<Double> = emptyList()
 )

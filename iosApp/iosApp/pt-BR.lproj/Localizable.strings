@@ -1,0 +1,17 @@
+/* Pass reminders, location errors, calendar and share text. */
+
+"notification.title.at_event" = "A passagem da ISS está começando";
+"notification.title.10_minutes" = "Passagem da ISS em 10 minutos";
+"notification.title.1_hour" = "Passagem da ISS em 1 hora";
+"notification.title.12_hours" = "Passagem da ISS em 12 horas";
+"notification.title.1_day" = "Passagem da ISS em 1 dia";
+"notification.title.1_week" = "Passagem da ISS em 1 semana";
+"notification.title.upcoming" = "Próxima passagem da ISS";
+"notification.body.format" = "Olhe para %1$@; a passagem atinge %2$ld° de altura.";
+"location.error.unavailable" = "O acesso à localização não está disponível. Verifique os Serviços de Localização e tente novamente.";
+"location.error.failed" = "Não foi possível determinar a localização. Verifique os Serviços de Localização e tente novamente.";
+"location.current" = "Localização atual";
+"calendar.event.title" = "Passagem da Estação Espacial Internacional";
+"calendar.event.notes.format" = "Passagem visível da ISS de %1$@ a %2$@, com altura máxima de %3$ld°.";
+"share.pass.format" = "Passagem da Estação Espacial Internacional em %1$@. Duração: %2$ld min %3$ld s. Elevação máxima: %4$ld°.";
+"share.app.format" = "Acompanhe a Estação Espacial Internacional com o ISS Tracker: %@";

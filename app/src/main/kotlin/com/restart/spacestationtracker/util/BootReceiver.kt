@@ -24,6 +24,7 @@ class BootReceiver : BroadcastReceiver() {
         val pendingResult = goAsync()
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                NotificationScheduler(context.applicationContext).rescheduleManualNotifications()
                 val entryPoint = EntryPointAccessors.fromApplication(
                     context.applicationContext,
                     BootReceiverEntryPoint::class.java
@@ -42,6 +43,7 @@ class BootReceiver : BroadcastReceiver() {
     private companion object {
         val RESCHEDULE_ACTIONS = setOf(
             Intent.ACTION_BOOT_COMPLETED,
+            Intent.ACTION_MY_PACKAGE_REPLACED,
             AlarmManager.ACTION_SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED
         )
     }

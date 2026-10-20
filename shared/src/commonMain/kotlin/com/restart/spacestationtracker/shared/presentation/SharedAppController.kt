@@ -1,5 +1,7 @@
 package com.restart.spacestationtracker.shared.presentation
 
+import com.restart.spacestationtracker.shared.satellites.SatelliteLayer
+import com.restart.spacestationtracker.shared.satellites.SatelliteSnapshot
 import com.restart.spacestationtracker.domain.iss_live.model.IssLocation
 import com.restart.spacestationtracker.domain.iss_passes.model.IssPass
 import com.restart.spacestationtracker.domain.people_in_space.model.Astronaut
@@ -38,7 +40,9 @@ data class SharedAppState(
     val isPassesLoading: Boolean = false,
     val mapError: String? = null,
     val crewError: String? = null,
-    val passesError: String? = null
+    val passesError: String? = null,
+    /** The ISS, Tiangong and Hubble computed from their orbits, for the map's markers and details. */
+    val satellites: List<SatelliteSnapshot> = emptyList()
 )
 
 class SharedAppController(
@@ -48,9 +52,15 @@ class SharedAppController(
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     private val _state = MutableStateFlow(SharedAppState())
     val state: StateFlow<SharedAppState> = _state.asStateFlow()
+    private val _requestedTab = MutableStateFlow<String?>(null)
+    /** A tab the platform asked to show, e.g. after a pass reminder was tapped. */
+    val requestedTab: StateFlow<String?> = _requestedTab.asStateFlow()
 
     private var trackingJob: Job? = null
+    private val satelliteLayer = SatelliteLayer(repository)
     private var hasStarted = false
+    private var isMapVisible = true
+    private var isAppActive = true
 
     fun start() {
         if (hasStarted) return
@@ -62,7 +72,7 @@ class SharedAppController(
                 }
             }
         }
-        startIssTracking()
+        updateTrackingState()
         scope.launch { loadCrew() }
         scope.launch {
             _state.update { it.copy(liveStreams = repository.getNasaLiveStreams()) }
@@ -74,7 +84,29 @@ class SharedAppController(
         _state.update {
             it.copy(settings = it.settings.copy(showOrbit = showOrbit))
         }
-        if (showOrbit) startIssTracking()
+        if (!showOrbit) {
+            _state.update { it.copy(futureIssLocations = emptyList()) }
+        }
+    }
+
+    fun requestTab(tabName: String) {
+        _requestedTab.value = tabName
+    }
+
+    fun consumeRequestedTab() {
+        _requestedTab.value = null
+    }
+
+    /** Polls only while the map is on screen, so hidden tabs don't keep hitting the API. */
+    fun setMapVisible(visible: Boolean) {
+        isMapVisible = visible
+        updateTrackingState()
+    }
+
+    /** Pauses polling while the app is in the background. */
+    fun setAppActive(active: Boolean) {
+        isAppActive = active
+        updateTrackingState()
     }
 
     fun setMapType(mapType: String) {
@@ -206,20 +238,25 @@ class SharedAppController(
         repository.close()
     }
 
+    private fun updateTrackingState() {
+        if (hasStarted && isMapVisible && isAppActive) {
+            startIssTracking()
+        } else {
+            trackingJob?.cancel()
+            trackingJob = null
+        }
+    }
+
     private fun startIssTracking() {
         if (trackingJob?.isActive == true) return
         trackingJob = scope.launch {
-            var futureMinuteOffset = 0
-            var futureBatchCount = 0
             while (isActive) {
-                val shouldLoadOrbit = futureBatchCount < 15 &&
-                    (_state.value.settings.showOrbit || _state.value.futureIssLocations.isNotEmpty())
                 val nowSeconds = kotlin.time.Clock.System.now().epochSeconds
-                val futureTimestamps = if (shouldLoadOrbit) {
-                    (0..9).map { minute -> nowSeconds + (futureMinuteOffset + minute) * 60L }
-                } else {
-                    emptyList()
-                }
+                val futureTimestamps = OrbitTrack.nextTimestamps(
+                    future = _state.value.futureIssLocations,
+                    nowSeconds = nowSeconds,
+                    showOrbit = _state.value.settings.showOrbit
+                )
 
                 repository.getIssFutureLocations(listOf(nowSeconds) + futureTimestamps)
                     .onSuccess { locations ->
@@ -228,14 +265,14 @@ class SharedAppController(
                         _state.update { old ->
                             old.copy(
                                 currentIssLocation = current ?: old.currentIssLocation,
-                                futureIssLocations = old.futureIssLocations + future,
+                                futureIssLocations = if (old.settings.showOrbit) {
+                                    OrbitTrack.merge(old.futureIssLocations, future, nowSeconds)
+                                } else {
+                                    emptyList()
+                                },
                                 isMapLoading = false,
                                 mapError = null
                             )
-                        }
-                        if (shouldLoadOrbit) {
-                            futureMinuteOffset += 9
-                            futureBatchCount += 1
                         }
                     }
                     .onFailure { error ->
@@ -246,6 +283,8 @@ class SharedAppController(
                             )
                         }
                     }
+                val satellites = satelliteLayer.snapshots(nowSeconds * 1_000L)
+                _state.update { it.copy(satellites = satellites) }
                 delay(5_000)
             }
         }
@@ -259,7 +298,7 @@ class SharedAppController(
                     val pageTitle = expedition.url.substringAfterLast("/")
                     expedition.copy(
                         bio = repository.getAstronautBio(pageTitle)
-                            .getOrDefault("Biography not available.")
+                            .getOrDefault("")
                     )
                 }
                 val enrichedAstronauts = astronauts.map { astronaut ->
@@ -267,7 +306,7 @@ class SharedAppController(
                         val pageTitle = astronaut.bioUrl.substringAfterLast("/")
                         astronaut.copy(
                             bio = repository.getAstronautBio(pageTitle)
-                                .getOrDefault("Biography not available.")
+                                .getOrDefault("")
                         )
                     }
                 }.awaitAll()

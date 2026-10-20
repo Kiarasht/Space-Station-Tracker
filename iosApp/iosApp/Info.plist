@@ -38,8 +38,6 @@
 	<string>$(ISS_TRACKER_BANNER_AD_UNIT_ID)</string>
 	<key>ISSTrackerCrewNativeAdUnitId</key>
 	<string>$(ISS_TRACKER_CREW_NATIVE_AD_UNIT_ID)</string>
-	<key>ISSTrackerN2yoApiKey</key>
-	<string>$(ISS_TRACKER_N2YO_API_KEY)</string>
 	<key>ISSTrackerPassesNativeAdUnitId</key>
 	<string>$(ISS_TRACKER_PASSES_NATIVE_AD_UNIT_ID)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>

@@ -13,6 +13,7 @@ data class IssPassesUiState(
     val isLoading: Boolean = false,
     val feedItems: List<FeedItem> = emptyList(),
     val error: String? = null,
+    val isLocationError: Boolean = false,
     val permissionGranted: Boolean = false,
     val location: UserLocation? = null
 )

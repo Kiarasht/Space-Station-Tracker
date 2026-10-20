@@ -1,0 +1,5 @@
+/* Permission prompts shown by iOS. */
+"NSCalendarsUsageDescription" = "يستخدم ISS Tracker التقويم فقط عندما تختار إضافة مرور قادم لمحطة الفضاء الدولية.";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "يستخدم ISS Tracker التقويم فقط عندما تختار إضافة مرور قادم لمحطة الفضاء الدولية.";
+"NSLocationWhenInUseUsageDescription" = "يُستخدم موقعك فقط عندما تطلب العثور على مرورات مرئية لمحطة الفضاء الدولية بالقرب منك.";
+"NSUserTrackingUsageDescription" = "يساعد هذا الإذن في قياس الإعلانات عند تفعيل الإعلانات.";

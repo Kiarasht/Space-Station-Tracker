@@ -57,3 +57,5 @@ See [docs/kmp-migration.md](docs/kmp-migration.md) for the phased migration plan
 Android closed-testing publishing is documented in [docs/android-play-publishing.md](docs/android-play-publishing.md).
 
 iOS signing, production configuration, and archiving are documented in [docs/ios-release-setup.md](docs/ios-release-setup.md).
+
+CI runs on self-hosted runners on the owner's Mac: pull requests send test-ad builds to Firebase App Distribution (Android) and TestFlight (iOS), and version bumps on `master` ship production builds to Google Play, Firebase and TestFlight. See [docs/ci-runners.md](docs/ci-runners.md).

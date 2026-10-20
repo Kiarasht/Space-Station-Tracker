@@ -130,4 +130,24 @@
     <string name="purchase_status_pending">購入は保留中です。ストアが支払いを確認すると広告が削除されます。</string>
     <string name="purchase_status_restored">広告の永久削除を復元しました。</string>
     <string name="purchase_status_removed">広告を完全に削除しました。</string>
+    <string name="unable_to_track_iss_message">接続を確認してください。ISSの位置が取得できると、地図は自動的に更新されます。</string>
+    <string name="crew_section_iss">ISSに滞在中</string>
+    <string name="crew_section_elsewhere">その他の宇宙滞在者</string>
+    <string name="next_visible_pass">次に見える通過</string>
+    <string name="later_passes">今後の通過</string>
+    <string name="visible_now">現在見えています</string>
+    <string name="countdown_days_format">%1$d日%2$d時間後</string>
+    <string name="countdown_hours_format">%1$d時間%2$d分後</string>
+    <string name="countdown_minutes_format">%1$d分後</string>
+    <string name="peak_elevation_format">最大仰角 %1$d°</string>
+    <string name="people_in_space_now">人が現在宇宙に滞在中</string>
+    <string name="day_in_space_format">宇宙滞在%1$d日目</string>
+    <string name="overhead_format">天頂 %1$d°</string>
+    <string name="about_stat_orbit">分で地球を1周</string>
+    <string name="about_stat_sunrises">1日の日の出の回数</string>
+    <string name="about_stat_crewed">年間ずっと有人</string>
+    <string name="satellite_tiangong_short">天宮</string>
+    <string name="satellite_iss_short">ISS</string>
+    <string name="satellite_hubble_short">ハッブル</string>
+    <string name="satellite_sunlit">太陽光を受けています</string>
 </resources>

@@ -1,0 +1,4 @@
+self-hosted-runner:
+  # Custom label of the runners on the owner's Mac (see docs/ci-runners.md).
+  labels:
+    - iss-tracker

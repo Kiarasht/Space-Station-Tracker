@@ -1,0 +1,5 @@
+/* Permission prompts shown by iOS. */
+"NSCalendarsUsageDescription" = "ISS Trackerがカレンダーを使うのは、今後のISS通過を追加するときだけです。";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "ISS Trackerがカレンダーを使うのは、今後のISS通過を追加するときだけです。";
+"NSLocationWhenInUseUsageDescription" = "位置情報は、近くで見えるISSの通過を探すときにのみ使用されます。";
+"NSUserTrackingUsageDescription" = "この許可は、広告が有効なときの広告効果の測定に役立ちます。";

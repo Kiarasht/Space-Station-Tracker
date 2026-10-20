@@ -1,104 +1,25 @@
 <resources>
     <string name="app_name">ISS Tracker</string>
-    <string name="map_activity">Map</string>
-    <string name="flybys_title">Passing By</string>
-    <string name="help_title">About</string>
-    <string name="label_location">Flybys</string>
-    <string name="label_people_in_space">On Duty</string>
-    <string name="label_setting">Settings</string>
-    <string name="label_help">Help</string>
-    <string name="label_stream">Live!</string>
-    <string name="midAt"> at </string>
-    <string name="countryFlagContentDescription">Country flag this astronaut is from</string>
-    <string name="astronautTwitterContentDescription">Icon to link to astronauts twitter page</string>
-    <string name="astronautWikiContentDescription">Icon to link to astronauts wiki page</string>
-    <string name="astronautGoogleContentDescription">Icon to link to astronauts Google search page</string>
-    <string name="refreshTitle">Refresh Rate</string>
-    <string name="refreshSummary">Amount of time before updating ISS location on map</string>
-    <string name="lockTitle">Lock ISS</string>
-    <string name="lockSummary">Lock onto ISS and follow it on the map</string>
-    <string name="infoTitle">Additional Info</string>
-    <string name="infoSummary">Provide additional information about ISS on the map</string>
-    <string name="mapTitle">Map type</string>
-    <string name="mapSummary">Change the map type</string>
-    <string name="decimalTitle">Decimal Places</string>
-    <string name="decimalSummary">Change the accuracy of all numerical values</string>
-    <string name="sizeTitle">Prediction line size</string>
-    <string name="sizeSummary">Change the size of ISSs prediction line</string>
-    <string name="textSizeTitle">Text size</string>
-    <string name="textSizeSummary">Change the size of all text values on map</string>
-    <string name="notificationTitle">ISS Notification</string>
-    <string name="notificationSummary">Notify when ISS is expected to fly over my location</string>
-    <string name="errorLocation">Unable to find your location.</string>
-    <string name="errorPermissionLocation">Denied access to your location</string>
-    <string name="nothing_available">There are no ISS passes by your location at this time</string>
-    <string name="unable_to_get_astronauts">Unable to get astronauts. Make sure you are connected to the internet and try again later</string>
     <string name="unable_to_get_passes">Unable to get ISS passes. Make sure you are connected to the internet and try again later</string>
-    <string name="errorMap">Can not apply settings to map</string>
-    <string name="errorFiveTimes">Failed all 5 times. Either you have no connection or server is overloaded.</string>
-    <string name="errorLessFive">Request to server failed. Retrying…</string>
-    <string name="errorNoWiki"> does not have a wiki page</string>
-    <string name="errorNoTwitter"> does not have a Twitter account</string>
-    <string name="errorNoInstagram"> does not have a Instagram account</string>
-    <string name="errorNoFacebook"> does not have a Facebook account</string>
-    <string name="data_corrupted">App data is corrupted. Resetting!</string>
-    <string name="polyError">Unable in creating prediction line</string>
-    <string name="calendar">Calendar</string>
-    <string name="share">Share</string>
-    <string name="image_content">Image of a map with a marker for user location.</string>
-    <string name="iss_sighting_share_title">ISS Sighting</string>
-    <string name="iss_sighting_share_description">ISS will be visible here. Going to check it out!</string>
-    <string name="iss_sighting_share_body">"Check it out! ISS will be visible at "</string>
-    <string name="iss_sighting_share_chooser">Share…</string>
-    <string name="on">" on "</string>
-    <string name="since">"Launched "</string>
-    <string name="msg_about_library_description">Track the International Space Station in real time, view upcoming visible passes and sky paths for your location, follow the current crew, watch live streams, and enable alerts for the best viewing opportunities.</string>
-    <string name="desc_about_app">About this app</string>
-    <string name="version">Versions</string>
-    <string name="version_msg">List of previous changes, fixes, and updates:</string>
-    <string name="refresh_stats_every_seconds">Refresh stats every %1$d seconds</string>
-    <string name="change_the_thickness_of_the_prediction_line">Change the thickness of the prediction line</string>
-    <string name="starts">Starts: %1$s</string>
-    <string name="duration">Duration: %1$s</string>
     <string name="ad_attribution">Ad</string>
-    <string name="ad_icon">Ad Icon</string>
     <string name="app_ID_Main" translatable="false">ca-app-pub-1850763013639682~8939815838</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/4298913050</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/1377236244</string>
     <string name="app_open_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/9402033285</string>
     <string name="locations_native_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/9845698217</string>
     <string name="on_duty_native_ad_unit_id" translatable="false">ca-app-pub-1850763013639682/4740210185</string>
-    <string name="legal_title">Legal Jibber Jabber</string>
-    <string name="support_title">Support</string>
-    <string name="contact_support">Contact support</string>
-    <string name="contact_support_description">Report pass predictions, notifications, ads, or other issues</string>
     <string name="support_email" translatable="false">restartapplication@gmail.com</string>
     <string name="support_email_subject">ISS Tracker support</string>
     <string name="support_email_body">Hi,\n\nI need help with ISS Tracker.\n\nApp version: %1$s\n\n</string>
     <string name="no_email_app_available">No email app available</string>
-    <string name="rate_app">Rate ISS Tracker</string>
-    <string name="rate_app_description">Open the store listing for this app</string>
     <string name="share_app">Share ISS Tracker</string>
-    <string name="share_app_description">Send the app link to someone else</string>
     <string name="share_app_text">Track the International Space Station with ISS Tracker: %1$s</string>
     <string name="no_share_app_available">No share app available</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="terms_of_use">Terms of Use</string>
-    <string name="nasa_live">NASA Live</string>
-    <string name="live_stream">Live Stream</string>
-    <string name="stream_offline">Stream Offline</string>
-    <string name="remove_ads">Remove Ads</string>
-    <string name="remove_ads_lifetime_description">Permanently remove all ads for %1$s. This is one purchase, not a subscription.</string>
-    <string name="buy_for_price">Buy for %1$s</string>
-    <string name="restore_purchase">Restore Purchase</string>
     <string name="cancel">Cancel</string>
-    <string name="close">Close</string>
-    <string name="yes">Yes</string>
-    <string name="not_yet">Not yet</string>
     <string name="try_again">Try again</string>
     <string name="refresh">Refresh</string>
     <string name="open">Open</string>
-    <string name="open_settings">Open Settings</string>
     <string name="open_settings_lowercase">Open settings</string>
     <string name="update">Update</string>
     <string name="manage">Manage</string>
@@ -111,39 +32,13 @@
     <string name="nav_settings">Settings</string>
     <string name="nav_about">About</string>
 
-    <string name="rating_prompt_title">Enjoying ISS Tracker?</string>
-    <string name="rating_prompt_message">If the app has been useful, would you like to rate it?</string>
 
     <string name="version_details_format">Version %1$s (%2$d)</string>
-    <string name="version_details_name_only_format">Version %1$s</string>
 
-    <string name="iss_marker_title">ISS</string>
-    <string name="iss_marker_snippet">International Space Station</string>
-    <string name="map_error_format">Error: %1$s</string>
     <string name="unknown_error">An unknown error occurred</string>
-    <string name="select_stream">Select Stream</string>
 
-    <string name="altitude">Altitude</string>
-    <string name="velocity">Velocity</string>
-    <string name="visibility">Visibility</string>
-    <string name="altitude_km_format">Altitude: %1$s km</string>
-    <string name="velocity_kph_format">Velocity: %1$s kph</string>
-    <string name="visibility_format">Visibility: %1$s</string>
-    <string name="visibility_eclipsed">Eclipsed</string>
-    <string name="visibility_daylight">Daylight</string>
 
-    <string name="unable_to_load_crew">Unable to load crew</string>
-    <string name="unable_to_load_crew_message">We could not get the latest astronaut and expedition details. Check your connection and try again.</string>
-    <string name="no_crew_data_available">No crew data available</string>
-    <string name="no_crew_data_available_message">Crew information is not available right now. Please check again later.</string>
     <string name="could_not_load_bio">Could not load bio.</string>
-    <string name="biography_not_available">Biography not available</string>
-    <string name="expedition_format">Expedition %1$s</string>
-    <string name="expedition_patch">Expedition Patch</string>
-    <string name="country_flag">Flag</string>
-    <string name="launched_on_format">Launched on %1$s</string>
-    <string name="return_on_format">Return on %1$s</string>
-    <string name="astronaut_role_on_craft_format">%1$s on %2$s</string>
 
     <string name="sky_path_location_needed">Location needed</string>
     <string name="sky_path_location_needed_message">Sky Path needs your current location to find visible ISS passes near you.</string>
@@ -156,11 +51,8 @@
     <string name="could_not_retrieve_location">Could not retrieve location.</string>
     <string name="location_permission_denied">Location permission denied.</string>
     <string name="info">Info</string>
-    <string name="schedule_notification">Schedule Notification</string>
-    <string name="add_to_calendar">Add to Calendar</string>
     <string name="permission_granted_schedule_notifications">Permission granted! You can now schedule notifications.</string>
     <string name="enable_notifications_for_pass_alerts">Enable notifications in app settings to schedule ISS pass alerts.</string>
-    <string name="permission_required">Permission Required</string>
     <string name="exact_alarm_permission_message">To schedule notifications accurately, please grant the Alarms and reminders permission in your phone settings.</string>
     <string name="schedule_notification_title">Schedule Notification</string>
     <string name="schedule_notification_message_format">Schedule a notification for the ISS pass on %1$s.</string>
@@ -173,9 +65,6 @@
     <string name="sky_path_info_overhead">If the icon is at the very top of the arc, it means the ISS will pass almost directly overhead.</string>
     <string name="sky_path_info_lower">If the icon is lower on the arc, closer to the horizon line, it means the ISS will appear lower in the sky and will not climb as high during its pass.</string>
     <string name="sky_path_info_labels">The labels, such as NW and SE, show the start and end directions of the pass</string>
-    <string name="starts_label">Starts</string>
-    <string name="duration_label">Duration</string>
-    <string name="duration_min_sec_format">%1$d min %2$d sec</string>
     <string name="you">You</string>
     <string name="iss_pass_share_chooser">Share ISS Pass</string>
     <string name="iss_pass_share_text_format">Check out this ISS pass!\nDate: %1$s\nDuration: %2$d min %3$d sec\nVisibility: %4$s</string>
@@ -188,10 +77,6 @@
     <string name="visibility_very_bright">Very Bright</string>
     <string name="visibility_very_faint">Very Faint</string>
 
-    <string name="settings_iss_pass_alerts">ISS Pass Alerts</string>
-    <string name="settings_map_settings">Map Settings</string>
-    <string name="settings_general_settings">General Settings</string>
-    <string name="settings_privacy">Privacy</string>
     <string name="automatic_alerts_enabled_toast">Automatic ISS pass alerts enabled.</string>
     <string name="alert_location_updated_toast">Alert location updated.</string>
     <string name="getting_current_location_toast">Getting your current location...</string>
@@ -201,18 +86,6 @@
     <string name="enable_notifications_in_settings_toast">Enable notifications in app settings to use ISS pass alerts.</string>
     <string name="notification_permission_required_toast">Notification permission is required for ISS pass alerts.</string>
     <string name="battery_unrestricted_guidance_toast">Open Battery, then set background usage to Unrestricted.</string>
-    <string name="units">Units</string>
-    <string name="map_type">Map Type</string>
-    <string name="map_type_normal">Normal</string>
-    <string name="map_type_satellite">Satellite</string>
-    <string name="map_type_hybrid">Hybrid</string>
-    <string name="map_type_terrain">Terrain</string>
-    <string name="show_orbit_path">Show orbit path</string>
-    <string name="show_orbit_path_description">Show the predicted ISS path on the map</string>
-    <string name="theme">Theme</string>
-    <string name="theme_follow_system">Follow System</string>
-    <string name="theme_light">Light</string>
-    <string name="theme_dark">Dark</string>
     <string name="watching_very_bright_passes_only">Watching for Very Bright ISS passes only</string>
     <string name="watching_visibility_or_better_format">Watching for %1$s or better ISS passes</string>
     <string name="getting_your_current_location">Getting your current location</string>
@@ -341,4 +214,7 @@
         <p>If you have any questions about these Terms, please contact us at: restartapplication@gmail.com</p>
     ]]>
     </string>
+    <string name="notification_times_already_passed">Those reminder times have already passed for this pass.</string>
+    <string name="no_calendar_app_available">No calendar app available</string>
+    <string name="notification_iss_pass_alert_direction_format">Look %1$s, peaking at %2$d°.</string>
 </resources>

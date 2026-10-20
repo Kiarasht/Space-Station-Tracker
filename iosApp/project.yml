@@ -62,7 +62,6 @@ targets:
         ISSTrackerPassesNativeAdUnitId: $(ISS_TRACKER_PASSES_NATIVE_AD_UNIT_ID)
         ISSTrackerCrewNativeAdUnitId: $(ISS_TRACKER_CREW_NATIVE_AD_UNIT_ID)
         ISSTrackerAppStoreUrl: $(ISS_TRACKER_APP_STORE_URL)
-        ISSTrackerN2yoApiKey: $(ISS_TRACKER_N2YO_API_KEY)
         GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_PERSONALIZATION_SIGNALS: false
         UILaunchScreen: {}
         UIBackgroundModes:
@@ -85,6 +84,9 @@ targets:
       base:
         PRODUCT_NAME: ISS Tracker
         INFOPLIST_FILE: iosApp/Info.plist
+        # Set per configuration in Configuration/*.xcconfig, and by CI's CiSigning.xcconfig. A literal value here
+        # would outrank the xcconfig files, so CI couldn't sign Debug builds for TestFlight.
+        CODE_SIGN_IDENTITY: $(ISS_TRACKER_CODE_SIGN_IDENTITY)
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         OTHER_LDFLAGS:
           - $(inherited)
@@ -104,6 +106,8 @@ targets:
         embed: true
       - package: Firebase
         product: FirebaseAnalytics
+      - package: Firebase
+        product: FirebaseCrashlytics
       - package: GoogleMobileAds
         product: GoogleMobileAds
       - package: GoogleUserMessagingPlatform
@@ -117,8 +121,25 @@ targets:
             exit 0
           fi
           cd "$SRCROOT/.."
-          ./gradlew \
+          # CI sets ISS_TRACKER_GRADLE_ARGS=--no-daemon so signing runs in the job, never in a reused daemon.
+          ./gradlew ${ISS_TRACKER_GRADLE_ARGS:-} \
             :shared:embedAndSignAppleFrameworkForXcode \
             :shared:syncComposeResourcesForIos
+    postBuildScripts:
+      - name: Upload Crashlytics symbols
+        basedOnDependencyAnalysis: false
+        script: |
+          # Release builds only: Debug builds have no dSYMs and use the dev Firebase config.
+          if [ "${CONFIGURATION}" != "Release" ]; then
+            exit 0
+          fi
+          # The shared Kotlin framework has its own dSYM; put it beside the app's so Crashlytics and
+          # archives pick it up, and crashes in shared code are readable.
+          kotlin_dsym="$SRCROOT/../shared/build/xcode-frameworks/$CONFIGURATION/$SDK_NAME/ISSTrackerShared.framework.dSYM"
+          if [ -d "$kotlin_dsym" ] && [ -n "${DWARF_DSYM_FOLDER_PATH:-}" ]; then
+            rm -rf "$DWARF_DSYM_FOLDER_PATH/ISSTrackerShared.framework.dSYM"
+            cp -R "$kotlin_dsym" "$DWARF_DSYM_FOLDER_PATH/"
+          fi
+          "${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run"
     scheme:
       gatherCoverageData: false

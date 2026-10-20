@@ -130,4 +130,24 @@
     <string name="purchase_status_pending">Giao dịch mua đang chờ xử lý. Quảng cáo sẽ được xóa sau khi cửa hàng xác nhận thanh toán.</string>
     <string name="purchase_status_restored">Đã khôi phục tính năng xóa quảng cáo trọn đời.</string>
     <string name="purchase_status_removed">Quảng cáo đã được xóa vĩnh viễn.</string>
+    <string name="unable_to_track_iss_message">Hãy kiểm tra kết nối. Bản đồ sẽ tự động cập nhật khi có vị trí của ISS.</string>
+    <string name="crew_section_iss">Trên ISS</string>
+    <string name="crew_section_elsewhere">Ở nơi khác trong không gian</string>
+    <string name="next_visible_pass">Lượt bay qua kế tiếp</string>
+    <string name="later_passes">Các lượt sau</string>
+    <string name="visible_now">Đang nhìn thấy</string>
+    <string name="countdown_days_format">sau %1$d ngày %2$d giờ</string>
+    <string name="countdown_hours_format">sau %1$d giờ %2$d phút</string>
+    <string name="countdown_minutes_format">sau %1$d phút</string>
+    <string name="peak_elevation_format">Cao nhất %1$d°</string>
+    <string name="people_in_space_now">người đang ở trong không gian</string>
+    <string name="day_in_space_format">Ngày %1$d trong không gian</string>
+    <string name="overhead_format">Thiên đỉnh %1$d°</string>
+    <string name="about_stat_orbit">phút mỗi vòng quỹ đạo</string>
+    <string name="about_stat_sunrises">lần bình minh mỗi ngày</string>
+    <string name="about_stat_crewed">năm liên tục có người ở</string>
+    <string name="satellite_tiangong_short">Thiên Cung</string>
+    <string name="satellite_iss_short">ISS</string>
+    <string name="satellite_hubble_short">Hubble</string>
+    <string name="satellite_sunlit">Đang được Mặt Trời chiếu sáng</string>
 </resources>

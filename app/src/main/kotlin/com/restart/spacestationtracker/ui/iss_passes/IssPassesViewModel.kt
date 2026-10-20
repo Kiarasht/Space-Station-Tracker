@@ -19,6 +19,11 @@ import com.restart.spacestationtracker.ui.ads.AdMobIds
 import com.restart.spacestationtracker.ui.ads.AdsConsentManager
 import com.restart.spacestationtracker.util.ForegroundLocationProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,11 +32,12 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import java.io.IOException
 import javax.inject.Inject
 import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
 
 @HiltViewModel
 class IssPassesViewModel @Inject constructor(
@@ -45,6 +51,9 @@ class IssPassesViewModel @Inject constructor(
     val uiState: StateFlow<IssPassesUiState> = _uiState.asStateFlow()
 
     private var rawPasses: List<IssPass>? = null
+    private var fetchJob: Job? = null
+    private var feedJob: Job? = null
+    private var loadedAds: List<NativeAd> = emptyList()
 
     init {
         checkPermission()
@@ -56,23 +65,21 @@ class IssPassesViewModel @Inject constructor(
         if (isGranted) {
             fetchLocationAndPasses()
         } else {
-            _uiState.value =
-                _uiState.value.copy(
-                    error = application.getString(R.string.sky_path_location_permission_required)
-                )
+            showLocationError(R.string.sky_path_location_permission_required)
         }
     }
 
     fun retryLocationAndPasses() {
         if (ForegroundLocationProvider.hasLocationPermission(application)) {
-            _uiState.value = _uiState.value.copy(permissionGranted = true, error = null)
+            _uiState.value = _uiState.value.copy(
+                permissionGranted = true,
+                error = null,
+                isLocationError = false
+            )
             fetchLocationAndPasses()
         } else {
-            _uiState.value = _uiState.value.copy(
-                permissionGranted = false,
-                isLoading = false,
-                error = application.getString(R.string.sky_path_location_permission_required)
-            )
+            _uiState.value = _uiState.value.copy(permissionGranted = false)
+            showLocationError(R.string.sky_path_location_permission_required)
         }
     }
 
@@ -101,14 +108,14 @@ class IssPassesViewModel @Inject constructor(
     }
 
     private fun fetchLocationAndPasses() {
-        viewModelScope.launch {
+        fetchJob?.cancel()
+        fetchJob = viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
             try {
                 val location = ForegroundLocationProvider.getBestLocation(application)
 
                 if (location != null) {
-                    val geocoder = Geocoder(application)
-                    val address = getAddressFromLocation(geocoder, location)
+                    val address = getAddressFromLocation(Geocoder(application), location)
 
                     val locationName =
                         address?.toDisplayName()
@@ -128,71 +135,109 @@ class IssPassesViewModel @Inject constructor(
                         val isAdFree = settings.hasLifetimeAdRemoval
                         buildFeed(passes, isAdFree, adsConsentManager.canRequestAds.value)
                     }.onFailure {
-                        _uiState.value =
-                            _uiState.value.copy(isLoading = false, error = it.localizedMessage)
+                        _uiState.value = _uiState.value.copy(
+                            isLoading = false,
+                            isLocationError = false,
+                            error = application.getString(R.string.unable_to_get_passes)
+                        )
                     }
                 } else {
-                    _uiState.value =
-                        _uiState.value.copy(
-                            isLoading = false,
-                            error = application.getString(R.string.could_not_retrieve_location)
-                        )
+                    showLocationError(R.string.could_not_retrieve_location)
                 }
             } catch (_: SecurityException) {
-                _uiState.value =
-                    _uiState.value.copy(
-                        isLoading = false,
-                        error = application.getString(R.string.location_permission_denied)
-                    )
+                showLocationError(R.string.location_permission_denied)
             }
         }
     }
 
-    private suspend fun buildFeed(passes: List<IssPass>, isAdFree: Boolean, canRequestAds: Boolean) {
-        val feedItems: MutableList<FeedItem> =
-            passes.map { FeedItem.PassItem(it) }.toMutableList()
-
-        if (!isAdFree && canRequestAds) {
-            val adPosition = 2
-            val adInterval = 4
-            var insertionIndex = adPosition
-
-            while (insertionIndex <= feedItems.size) {
-                loadNativeAd()?.let { adItem ->
-                    feedItems.add(insertionIndex, FeedItem.AdItem(adItem))
-                }
-                insertionIndex += adInterval
-            }
-        }
-
+    private fun showLocationError(messageResId: Int) {
         _uiState.value = _uiState.value.copy(
-            feedItems = feedItems,
             isLoading = false,
-            error = null
+            isLocationError = true,
+            error = application.getString(messageResId)
         )
     }
 
-    private suspend fun getAddressFromLocation(geocoder: Geocoder, location: Location): Address? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            suspendCoroutine { continuation ->
-                try {
-                    geocoder.getFromLocation(
-                        location.latitude,
-                        location.longitude,
-                        1
-                    ) { addresses ->
-                        continuation.resume(addresses.firstOrNull())
-                    }
-                } catch (e: IOException) {
-                    continuation.resumeWithException(e)
-                }
+    // Passes are shown right away; native ads are loaded in parallel and slotted in afterwards.
+    private fun buildFeed(passes: List<IssPass>, isAdFree: Boolean, canRequestAds: Boolean) {
+        feedJob?.cancel()
+        _uiState.value = _uiState.value.copy(
+            feedItems = passes.map { FeedItem.PassItem(it) },
+            isLoading = false,
+            isLocationError = false,
+            error = null
+        )
+        replaceLoadedAds(emptyList())
+        if (isAdFree || !canRequestAds) return
+
+        var adSlots = 0
+        while (AD_FIRST_POSITION + adSlots * AD_INTERVAL <= passes.size + adSlots) {
+            adSlots++
+        }
+        if (adSlots == 0) return
+
+        feedJob = viewModelScope.launch {
+            val ads = coroutineScope {
+                List(adSlots) { async { loadNativeAd() } }.awaitAll().filterNotNull()
             }
-        } else {
-            try {
-                @Suppress("DEPRECATION")
-                geocoder.getFromLocation(location.latitude, location.longitude, 1)?.firstOrNull()
-            } catch (_: IOException) {
-                null
+            replaceLoadedAds(ads)
+
+            val feedItems: MutableList<FeedItem> =
+                passes.map { FeedItem.PassItem(it) }.toMutableList()
+            var insertionIndex = AD_FIRST_POSITION
+            ads.forEach { ad ->
+                if (insertionIndex > feedItems.size) return@forEach
+                feedItems.add(insertionIndex, FeedItem.AdItem(ad))
+                insertionIndex += AD_INTERVAL
+            }
+            _uiState.value = _uiState.value.copy(feedItems = feedItems)
+        }
+    }
+
+    private fun replaceLoadedAds(ads: List<NativeAd>) {
+        loadedAds.forEach(NativeAd::destroy)
+        loadedAds = ads
+    }
+
+    // A missing place name must never block the pass lookup, so every failure path yields null.
+    private suspend fun getAddressFromLocation(geocoder: Geocoder, location: Location): Address? {
+        if (!Geocoder.isPresent()) return null
+        return withTimeoutOrNull(GEOCODER_TIMEOUT_MS) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                suspendCancellableCoroutine { continuation ->
+                    try {
+                        geocoder.getFromLocation(
+                            location.latitude,
+                            location.longitude,
+                            1,
+                            object : Geocoder.GeocodeListener {
+                                override fun onGeocode(addresses: MutableList<Address>) {
+                                    if (continuation.isActive) {
+                                        continuation.resume(addresses.firstOrNull())
+                                    }
+                                }
+
+                                override fun onError(errorMessage: String?) {
+                                    if (continuation.isActive) continuation.resume(null)
+                                }
+                            }
+                        )
+                    } catch (_: IllegalArgumentException) {
+                        if (continuation.isActive) continuation.resume(null)
+                    }
+                }
+            } else {
+                withContext(Dispatchers.IO) {
+                    try {
+                        @Suppress("DEPRECATION")
+                        geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                            ?.firstOrNull()
+                    } catch (_: IOException) {
+                        null
+                    } catch (_: IllegalArgumentException) {
+                        null
+                    }
+                }
             }
         }
     }
@@ -216,18 +261,33 @@ class IssPassesViewModel @Inject constructor(
 
     private suspend fun loadNativeAd(): NativeAd? {
         val adUnitId = AdMobIds.nativeForPasses(application)
-        return suspendCoroutine { continuation ->
+        return suspendCancellableCoroutine { continuation ->
             val adLoader = AdLoader.Builder(application, adUnitId)
                 .forNativeAd { nativeAd ->
-                    continuation.resume(nativeAd)
+                    if (continuation.isActive) {
+                        continuation.resume(nativeAd)
+                    } else {
+                        nativeAd.destroy()
+                    }
                 }
                 .withAdListener(object : com.google.android.gms.ads.AdListener() {
                     override fun onAdFailedToLoad(adError: com.google.android.gms.ads.LoadAdError) {
-                        continuation.resume(null)
+                        if (continuation.isActive) continuation.resume(null)
                     }
                 })
                 .build()
             adLoader.loadAd(AdRequest.Builder().build())
         }
+    }
+
+    override fun onCleared() {
+        replaceLoadedAds(emptyList())
+        super.onCleared()
+    }
+
+    private companion object {
+        const val GEOCODER_TIMEOUT_MS = 5_000L
+        const val AD_FIRST_POSITION = 2
+        const val AD_INTERVAL = 4
     }
 }

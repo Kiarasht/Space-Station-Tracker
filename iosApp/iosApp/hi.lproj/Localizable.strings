@@ -1,0 +1,17 @@
+/* Pass reminders, location errors, calendar and share text. */
+
+"notification.title.at_event" = "ISS पास शुरू हो रहा है";
+"notification.title.10_minutes" = "ISS पास 10 मिनट में";
+"notification.title.1_hour" = "ISS पास 1 घंटे में";
+"notification.title.12_hours" = "ISS पास 12 घंटे में";
+"notification.title.1_day" = "ISS पास 1 दिन में";
+"notification.title.1_week" = "ISS पास 1 सप्ताह में";
+"notification.title.upcoming" = "आगामी ISS पास";
+"notification.body.format" = "%1$@ की ओर देखें, यह पास %2$ld° की अधिकतम ऊँचाई तक जाएगा।";
+"location.error.unavailable" = "स्थान की पहुँच उपलब्ध नहीं है। स्थान सेवाएँ जाँचें और फिर से प्रयास करें।";
+"location.error.failed" = "स्थान का पता नहीं लगाया जा सका। स्थान सेवाएँ जाँचें और फिर से प्रयास करें।";
+"location.current" = "वर्तमान स्थान";
+"calendar.event.title" = "अंतर्राष्ट्रीय अंतरिक्ष स्टेशन पास";
+"calendar.event.notes.format" = "%1$@ से %2$@ तक दिखाई देने वाला ISS पास, अधिकतम ऊँचाई %3$ld°।";
+"share.pass.format" = "%1$@ को अंतर्राष्ट्रीय अंतरिक्ष स्टेशन पास। अवधि: %2$ld मि %3$ld से। अधिकतम ऊँचाई: %4$ld°।";
+"share.app.format" = "ISS Tracker के साथ अंतर्राष्ट्रीय अंतरिक्ष स्टेशन को ट्रैक करें: %@";

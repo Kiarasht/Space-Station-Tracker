@@ -3,6 +3,13 @@ package com.restart.spacestationtracker.shared.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -49,9 +56,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -63,9 +67,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -89,6 +96,9 @@ import com.restart.spacestationtracker.shared.resources.Res
 import com.restart.spacestationtracker.shared.resources.*
 import com.restart.spacestationtracker.shared.ui.platform.IssMapPoint
 import com.restart.spacestationtracker.shared.ui.platform.PlatformIssMap
+import com.restart.spacestationtracker.shared.ui.platform.SatelliteMapTrack
+import com.restart.spacestationtracker.shared.satellites.SatelliteSnapshot
+import com.restart.spacestationtracker.shared.satellites.TrackedSatellite
 import com.restart.spacestationtracker.shared.ui.platform.PlatformBannerAd
 import com.restart.spacestationtracker.shared.ui.platform.PlatformNativeAd
 import kotlinx.datetime.TimeZone
@@ -149,13 +159,23 @@ fun SharedAppRoot(
             .build()
     }
     val state by controller.state.collectAsState()
+    val requestedTab by controller.requestedTab.collectAsState()
     var selectedTab by remember { mutableStateOf(SharedTab.MAP) }
+    var chromeHeight by remember { mutableStateOf(0.dp) }
+    val density = LocalDensity.current
+
+    LaunchedEffect(requestedTab) {
+        val tabName = requestedTab ?: return@LaunchedEffect
+        SharedTab.entries.firstOrNull { it.name == tabName }?.let { selectedTab = it }
+        controller.consumeRequestedTab()
+    }
 
     LaunchedEffect(Unit) {
         controller.start()
     }
     LaunchedEffect(selectedTab) {
         onAction(SharedAppActions.SCREEN_VIEW, selectedTab.name)
+        controller.setMapVisible(selectedTab == SharedTab.MAP)
     }
     DisposableEffect(controller) {
         onDispose(controller::close)
@@ -167,64 +187,28 @@ fun SharedAppRoot(
         else -> isSystemInDarkTheme()
     }
     SpaceStationTheme(darkTheme = useDarkTheme) {
-        Scaffold(
-            containerColor = MaterialTheme.colorScheme.background,
-            bottomBar = {
-                Column {
-                    if (settingsPlatformState.adsAvailable &&
-                        !settingsPlatformState.isAdFree
-                    ) {
-                        PlatformBannerAd(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(50.dp)
-                        )
-                    }
-                    NavigationBar(
-                        containerColor = MaterialTheme.colorScheme.surface
-                    ) {
-                        SharedTab.entries.forEach { tab ->
-                            val label = tab.localizedLabel()
-                            NavigationBarItem(
-                                colors = NavigationBarItemDefaults.colors(
-                                    selectedIconColor = MaterialTheme.colorScheme.primary,
-                                    selectedTextColor = MaterialTheme.colorScheme.primary,
-                                    unselectedIconColor = MaterialTheme.colorScheme.onSurface,
-                                    unselectedTextColor = MaterialTheme.colorScheme.onSurface,
-                                    indicatorColor = MaterialTheme.colorScheme.background
-                                ),
-                                selected = selectedTab == tab,
-                                onClick = {
-                                    selectedTab = tab
-                                    onAction(SharedAppActions.MEANINGFUL_INTERACTION, tab.name)
-                                },
-                                icon = {
-                                    val painter = when (tab) {
-                                        SharedTab.PASSES -> painterResource(Res.drawable.ic_passes)
-                                        SharedTab.CREW -> painterResource(Res.drawable.ic_astronaut)
-                                        else -> rememberVectorPainter(
-                                            image = when (tab) {
-                                                SharedTab.MAP -> Icons.Default.Map
-                                                SharedTab.SETTINGS -> Icons.Default.Settings
-                                                SharedTab.ABOUT -> Icons.Default.Info
-                                                SharedTab.PASSES,
-                                                SharedTab.CREW -> error("Custom navigation icon expected")
-                                            }
-                                        )
-                                    }
-                                    Icon(
-                                        painter = painter,
-                                        contentDescription = label,
-                                        modifier = Modifier.size(24.dp)
-                                    )
-                                },
-                                label = { Text(label) }
-                            )
-                        }
-                    }
+        val navItems = SharedTab.entries.map { tab ->
+            SpaceNavItem(
+                key = tab.name,
+                label = tab.localizedLabel(),
+                icon = when (tab) {
+                    SharedTab.MAP -> rememberVectorPainter(Icons.Default.Map)
+                    SharedTab.PASSES -> painterResource(Res.drawable.ic_passes)
+                    SharedTab.CREW -> painterResource(Res.drawable.ic_astronaut)
+                    SharedTab.SETTINGS -> rememberVectorPainter(Icons.Default.Settings)
+                    SharedTab.ABOUT -> rememberVectorPainter(Icons.Default.Info)
                 }
-            }
-        ) { padding ->
+            )
+        }
+        Scaffold(
+            containerColor = MaterialTheme.colorScheme.background
+        ) { scaffoldPadding ->
+            // Screens draw under the floating bar; its height becomes their bottom padding.
+            val padding = PaddingValues(
+                top = scaffoldPadding.calculateTopPadding(),
+                bottom = chromeHeight
+            )
+            Box(Modifier.fillMaxSize()) {
             when (selectedTab) {
                 SharedTab.MAP -> SharedIssMapScreen(
                     currentLocation = state.currentIssLocation,
@@ -236,6 +220,7 @@ fun SharedAppRoot(
                     error = state.mapError,
                     liveStreams = state.liveStreams,
                     contentPadding = padding,
+                    satellites = state.satellites,
                     onOpenStream = { stream ->
                         onAction(
                             SharedAppActions.OPEN_URL,
@@ -307,6 +292,18 @@ fun SharedAppRoot(
                         )
                     }
                 )
+                SharedTab.ABOUT -> SharedAboutScreen(
+                    contentPadding = padding,
+                    versionText = versionText,
+                    onContactSupport = { onAction(SharedAppActions.CONTACT_SUPPORT, versionText) },
+                    onRateApp = { onAction(SharedAppActions.RATE_APP, null) },
+                    onShareApp = { onAction(SharedAppActions.SHARE_APP, null) },
+                    onPrivacyPolicy = null,
+                    onTermsOfUse = null,
+                    onLegalPageViewed = { page ->
+                        onAction(SharedAppActions.SCREEN_VIEW, page)
+                    }
+                )
                 SharedTab.SETTINGS -> SharedFullSettingsScreen(
                     settings = state.settings,
                     platformState = settingsPlatformState,
@@ -347,18 +344,35 @@ fun SharedAppRoot(
                         onAction(SharedAppActions.PRIVACY_CHOICES, null)
                     }
                 )
-                SharedTab.ABOUT -> SharedAboutScreen(
-                    contentPadding = padding,
-                    versionText = versionText,
-                    onContactSupport = { onAction(SharedAppActions.CONTACT_SUPPORT, versionText) },
-                    onRateApp = { onAction(SharedAppActions.RATE_APP, null) },
-                    onShareApp = { onAction(SharedAppActions.SHARE_APP, null) },
-                    onPrivacyPolicy = null,
-                    onTermsOfUse = null,
-                    onLegalPageViewed = { page ->
-                        onAction(SharedAppActions.SCREEN_VIEW, page)
+            }
+            SpaceBottomChrome(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .onSizeChanged { chromeHeight = with(density) { it.height.toDp() } },
+                banner = if (settingsPlatformState.adsAvailable && !settingsPlatformState.isAdFree) {
+                    {
+                        PlatformBannerAd(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp)
+                        )
+                    }
+                } else {
+                    null
+                }
+            ) {
+                SpaceFloatingNavBar(
+                    items = navItems,
+                    selectedKey = selectedTab.name,
+                    onSelect = { key ->
+                        val tab = SharedTab.valueOf(key)
+                        if (tab != selectedTab) {
+                            onAction(SharedAppActions.MEANINGFUL_INTERACTION, tab.name)
+                        }
+                        selectedTab = tab
                     }
                 )
+            }
             }
         }
     }
@@ -426,30 +440,34 @@ fun SharedRemoveAdsButton(
             color = Color.White
         )
     } else {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(8.dp))
-                .background(Color.Black.copy(alpha = 0.65f))
-                .clickable {
-                    onOpen()
-                    showDialog = true
-                }
-                .padding(horizontal = 14.dp, vertical = 9.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
-            verticalAlignment = Alignment.CenterVertically
+        val gold = MaterialTheme.spaceColors.gold
+        val onGold = MaterialTheme.spaceColors.onGold
+        Surface(
+            onClick = {
+                onOpen()
+                showDialog = true
+            },
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(percent = 50),
+            color = gold,
+            contentColor = onGold,
+            shadowElevation = 6.dp
         ) {
-            Icon(
-                imageVector = Icons.Default.AttachMoney,
-                contentDescription = null,
-                tint = Color.White,
-                modifier = Modifier.size(22.dp)
-            )
-            Text(
-                text = stringResource(Res.string.remove_ads),
-                color = Color.White,
-                fontWeight = FontWeight.SemiBold
-            )
+            Row(
+                modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Default.AutoAwesome,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp)
+                )
+                Text(
+                    text = stringResource(Res.string.remove_ads),
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
     }
 }
@@ -498,9 +516,27 @@ fun SharedIssMapScreen(
     liveStreams: List<LiveStream>,
     contentPadding: PaddingValues,
     onOpenStream: (LiveStream) -> Unit,
-    topEndContent: @Composable ColumnScope.() -> Unit = {}
+    topEndContent: @Composable ColumnScope.() -> Unit = {},
+    satellites: List<SatelliteSnapshot> = emptyList()
 ) {
     var showStreamPicker by remember { mutableStateOf(false) }
+    var selectedSatelliteId by rememberSaveable { mutableStateOf<String?>(null) }
+    val selectedSatellite = TrackedSatellite.fromId(selectedSatelliteId)
+    val selectedSnapshot = satellites.firstOrNull { it.satellite == selectedSatellite }
+    // One path at a time: the ISS's by default (following the orbit setting), or the selected spacecraft's.
+    // Every path is passed with a visible flag so the map can fade between them.
+    val issOrbitVisible = selectedSatellite == null || selectedSatellite == TrackedSatellite.ISS
+    val tracks = satellites
+        // The ISS's own orbit line stands in for its computed path unless the orbit setting is off.
+        .filter { it.satellite != TrackedSatellite.ISS || !showOrbit }
+        .map { snapshot ->
+            SatelliteMapTrack(
+                id = snapshot.satellite.id,
+                points = snapshot.track,
+                colorArgb = snapshot.satellite.trackColorArgb(),
+                visible = snapshot.satellite == selectedSatellite
+            )
+        }
 
     if (showStreamPicker) {
         AlertDialog(
@@ -529,15 +565,12 @@ fun SharedIssMapScreen(
         )
     }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(contentPadding)
-    ) {
+    Box(modifier = Modifier.fillMaxSize()) {
         PlatformIssMap(
             currentLocation = currentLocation,
+            // Lead with the current position so the orbit line starts at the station icon.
             orbit = if (showOrbit) {
-                futureLocations.map {
+                (listOfNotNull(currentLocation) + futureLocations).map {
                     IssMapPoint(
                         latitude = it.latitude,
                         longitude = it.longitude,
@@ -548,9 +581,16 @@ fun SharedIssMapScreen(
                 emptyList()
             },
             mapType = mapType,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
+            bottomInset = contentPadding.calculateBottomPadding(),
+            satellites = satelliteMarkers(satellites, currentLocation, selectedSatellite),
+            tracks = tracks,
+            orbitVisible = issOrbitVisible,
+            onSatelliteClick = { id -> selectedSatelliteId = id }
         )
 
+        // The map runs edge to edge under the status bar and the floating bar; overlays stay clear of both.
+        Box(modifier = Modifier.fillMaxSize().padding(contentPadding)) {
         when {
             isLoading && currentLocation == null -> {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
@@ -558,16 +598,37 @@ fun SharedIssMapScreen(
             error != null && currentLocation == null -> {
                 StateMessage(
                     title = stringResource(Res.string.unable_to_track_iss),
-                    message = error,
+                    message = stringResource(Res.string.unable_to_track_iss_message),
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
         }
 
-        currentLocation?.let { location ->
-            IssLocationCard(
-                location = location,
+        // The card follows the selected satellite; with nothing (or the ISS) selected it shows the live ISS.
+        val telemetry = when {
+            selectedSnapshot != null && selectedSatellite != TrackedSatellite.ISS -> SatelliteTelemetry(
+                latitude = selectedSnapshot.latitude,
+                longitude = selectedSnapshot.longitude,
+                altitudeKm = selectedSnapshot.altitudeKm,
+                speedKmh = selectedSnapshot.speedKmh,
+                inShadow = selectedSnapshot.isInEarthShadow,
+                isIss = false
+            )
+            currentLocation != null -> SatelliteTelemetry(
+                latitude = currentLocation.latitude,
+                longitude = currentLocation.longitude,
+                altitudeKm = currentLocation.altitude,
+                speedKmh = currentLocation.velocity,
+                inShadow = currentLocation.visibility.equals("eclipsed", ignoreCase = true),
+                isIss = true
+            )
+            else -> null
+        }
+        telemetry?.let {
+            TelemetryCard(
+                telemetry = it,
                 units = units,
+                accent = selectedSatellite?.takeIf { satellite -> satellite != TrackedSatellite.ISS }?.accent,
                 modifier = Modifier
                     .align(Alignment.TopStart)
                     .padding(16.dp)
@@ -584,90 +645,116 @@ fun SharedIssMapScreen(
         ) {
             topEndContent()
             if (liveStreams.isNotEmpty()) {
+                val pulse by rememberInfiniteTransition().animateFloat(
+                    initialValue = 1f,
+                    targetValue = 0.25f,
+                    animationSpec = infiniteRepeatable(tween(900), RepeatMode.Reverse)
+                )
                 Surface(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(10.dp))
-                        .clickable {
-                            if (liveStreams.size == 1) {
-                                onOpenStream(liveStreams.first())
-                            } else {
-                                showStreamPicker = true
-                            }
-                        },
-                    color = SpaceLiveStreamRed,
-                    contentColor = SpaceOnLiveStreamRed,
-                    tonalElevation = 4.dp
+                    onClick = {
+                        if (liveStreams.size == 1) {
+                            onOpenStream(liveStreams.first())
+                        } else {
+                            showStreamPicker = true
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(percent = 50),
+                    color = MaterialTheme.spaceColors.live,
+                    contentColor = Color.White,
+                    shadowElevation = 6.dp
                 ) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 12.dp, vertical = 9.dp),
+                            .padding(horizontal = 14.dp, vertical = 10.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(
                             8.dp,
                             Alignment.CenterHorizontally
                         )
                     ) {
-                        Icon(Icons.Default.Videocam, contentDescription = null)
+                        Box(
+                            Modifier
+                                .size(9.dp)
+                                .clip(RoundedCornerShape(percent = 50))
+                                .background(Color.White.copy(alpha = pulse))
+                        )
+                        Icon(Icons.Default.Videocam, contentDescription = null, modifier = Modifier.size(20.dp))
                         Text(stringResource(Res.string.live_stream), fontWeight = FontWeight.Bold)
                     }
                 }
             }
         }
+        }
     }
 }
 
+private class SatelliteTelemetry(
+    val latitude: Double,
+    val longitude: Double,
+    val altitudeKm: Double,
+    val speedKmh: Double,
+    val inShadow: Boolean,
+    val isIss: Boolean
+)
+
+/** Position, altitude, speed and sunlight for one satellite; [accent] marks a satellite other than the ISS. */
 @Composable
-private fun IssLocationCard(
-    location: IssLocation,
+private fun TelemetryCard(
+    telemetry: SatelliteTelemetry,
     units: String,
+    accent: Color?,
     modifier: Modifier = Modifier
 ) {
     val altitude = if (units == "Imperial") {
-        "${(location.altitude * 0.621371).roundToInt()} mi"
+        "${(telemetry.altitudeKm * 0.621371).roundToInt()} mi"
     } else {
-        "${location.altitude.roundToInt()} km"
+        "${telemetry.altitudeKm.roundToInt()} km"
     }
     val velocity = if (units == "Imperial") {
-        "${(location.velocity * 0.621371).roundToInt()} mph"
+        "${(telemetry.speedKmh * 0.621371).roundToInt()} mph"
     } else {
-        "${location.velocity.roundToInt()} km/h"
+        "${telemetry.speedKmh.roundToInt()} km/h"
     }
-    Card(
+    val colors = MaterialTheme.spaceColors
+    Surface(
         modifier = modifier,
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.94f)
+        shape = RoundedCornerShape(20.dp),
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.92f),
+        border = BorderStroke(
+            if (accent != null) 1.5.dp else 1.dp,
+            accent ?: MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.7f)
         ),
-        elevation = CardDefaults.cardElevation(6.dp)
+        shadowElevation = 8.dp
     ) {
         Column(
-            modifier = Modifier.padding(14.dp),
-            verticalArrangement = Arrangement.spacedBy(6.dp)
+            modifier = Modifier.padding(12.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             IssTelemetryRow(
                 icon = Icons.Default.LocationOn,
-                value = "${location.latitude.format(2)}°, ${location.longitude.format(2)}°"
+                tint = accent ?: MaterialTheme.colorScheme.primary,
+                value = "${telemetry.latitude.format(2)}°, ${telemetry.longitude.format(2)}°"
             )
             IssTelemetryRow(
                 icon = Icons.Default.Height,
+                tint = MaterialTheme.colorScheme.tertiary,
                 value = altitude
             )
             IssTelemetryRow(
                 icon = Icons.Default.Speed,
+                tint = colors.live,
                 value = velocity
             )
             IssTelemetryRow(
-                icon = if (location.visibility.equals("eclipsed", ignoreCase = true)) {
-                    Icons.Default.DarkMode
-                } else {
-                    Icons.Default.WbSunny
-                },
+                icon = if (telemetry.inShadow) Icons.Default.DarkMode else Icons.Default.WbSunny,
+                tint = if (telemetry.inShadow) MaterialTheme.colorScheme.secondary else colors.visibilityVeryBright,
                 value = stringResource(
-                    if (location.visibility.equals("eclipsed", ignoreCase = true)) {
-                        Res.string.iss_in_earth_shadow
-                    } else {
-                        Res.string.iss_is_sunlit
+                    when {
+                        telemetry.inShadow -> Res.string.iss_in_earth_shadow
+                        telemetry.isIss -> Res.string.iss_is_sunlit
+                        else -> Res.string.satellite_sunlit
                     }
                 )
             )
@@ -678,21 +765,18 @@ private fun IssLocationCard(
 @Composable
 private fun IssTelemetryRow(
     icon: ImageVector,
+    tint: Color,
     value: String
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            modifier = Modifier.size(17.dp),
-            tint = MaterialTheme.colorScheme.primary
-        )
+        SpaceIconTile(icon = icon, tint = tint, size = 28.dp)
         Text(
             text = value,
             style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.SemiBold,
             maxLines = 1
         )
     }
@@ -750,6 +834,7 @@ private fun SharedPassesScreen(
                                 checked = value in selectedNotificationTimes,
                                 onCheckedChange = null
                             )
+                            Spacer(Modifier.width(8.dp))
                             Text(label)
                         }
                     }
@@ -810,11 +895,14 @@ private fun SharedPassesScreen(
             actionLabel = stringResource(Res.string.refresh),
             onAction = { onAction(SharedAppActions.REQUEST_LOCATION, null) }
         )
-        else -> BoxWithConstraints(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-        ) {
+        else -> BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+            // Edge to edge: content starts below the status bar and scrolls under it and the floating bar.
+            val listPadding = PaddingValues(
+                start = 16.dp,
+                top = 16.dp + padding.calculateTopPadding(),
+                end = 16.dp,
+                bottom = 16.dp + padding.calculateBottomPadding()
+            )
             val onScheduleNotification: (IssPass) -> Unit = { pass ->
                 selectedNotificationTimes =
                     state.settings.automaticPassAlertNotificationTimes.ifEmpty {
@@ -838,7 +926,7 @@ private fun SharedPassesScreen(
             if (maxWidth < 600.dp) {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(16.dp),
+                    contentPadding = listPadding,
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     item {
@@ -848,7 +936,19 @@ private fun SharedPassesScreen(
                         )
                     }
                     state.passes.forEachIndexed { index, pass ->
-                        item(key = pass.startTimeMillis) {
+                        if (index == 0) {
+                            item(key = pass.startTimeMillis) {
+                                SharedNextPassHero(
+                                    pass = pass,
+                                    onScheduleNotification = onScheduleNotification,
+                                    onAddToCalendar = onAddToCalendar,
+                                    onShare = onShare
+                                )
+                            }
+                            if (state.passes.size > 1) {
+                                item(key = "later-passes") { SkyPathSectionTitle() }
+                            }
+                        } else item(key = pass.startTimeMillis) {
                             SharedIssPassCard(
                                 pass = pass,
                                 onScheduleNotification = onScheduleNotification,
@@ -874,7 +974,7 @@ private fun SharedPassesScreen(
                 LazyVerticalStaggeredGrid(
                     columns = StaggeredGridCells.Fixed(2),
                     modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(16.dp),
+                    contentPadding = listPadding,
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     verticalItemSpacing = 16.dp
                 ) {
@@ -885,7 +985,21 @@ private fun SharedPassesScreen(
                         )
                     }
                     state.passes.forEachIndexed { index, pass ->
-                        item(key = pass.startTimeMillis) {
+                        if (index == 0) {
+                            item(key = pass.startTimeMillis, span = StaggeredGridItemSpan.FullLine) {
+                                SharedNextPassHero(
+                                    pass = pass,
+                                    onScheduleNotification = onScheduleNotification,
+                                    onAddToCalendar = onAddToCalendar,
+                                    onShare = onShare
+                                )
+                            }
+                            if (state.passes.size > 1) {
+                                item(key = "later-passes", span = StaggeredGridItemSpan.FullLine) {
+                                    SkyPathSectionTitle()
+                                }
+                            }
+                        } else item(key = pass.startTimeMillis) {
                             SharedIssPassCard(
                                 pass = pass,
                                 onScheduleNotification = onScheduleNotification,
@@ -999,105 +1113,6 @@ private fun SkyPathStateMessage(
     }
 }
 
-@Composable
-fun SharedIssPassCard(
-    pass: IssPass,
-    onScheduleNotification: (IssPass) -> Unit,
-    onAddToCalendar: (IssPass) -> Unit,
-    onShare: (IssPass) -> Unit,
-    dateLabel: String = formatEpochDate(pass.startTimeMillis),
-    timeLabel: String = formatEpochTime(pass.startTimeMillis),
-    modifier: Modifier = Modifier
-) {
-    val notifyLabel = stringResource(Res.string.schedule_notification)
-    val calendarLabel = stringResource(Res.string.add_to_calendar)
-    val shareLabel = stringResource(Res.string.share)
-    Card(
-        modifier = modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        elevation = CardDefaults.cardElevation(4.dp)
-    ) {
-        Box(modifier = Modifier.fillMaxWidth()) {
-            SkyPathCardSparkles(
-                seed = pass.startTimeMillis,
-                modifier = Modifier.matchParentSize()
-            )
-            Column(
-                modifier = Modifier.padding(18.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        dateLabel,
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.weight(1f)
-                    )
-                    IconButton(
-                        onClick = { onScheduleNotification(pass) }
-                    ) {
-                        Icon(Icons.Default.Notifications, contentDescription = notifyLabel)
-                    }
-                    IconButton(
-                        onClick = { onAddToCalendar(pass) }
-                    ) {
-                        Icon(Icons.Default.CalendarMonth, contentDescription = calendarLabel)
-                    }
-                    IconButton(
-                        onClick = { onShare(pass) }
-                    ) {
-                        Icon(Icons.Default.Share, contentDescription = shareLabel)
-                    }
-                }
-                SkyPathChart(
-                    startCompass = pass.startAzimuthCompass,
-                    endCompass = pass.endAzimuthCompass,
-                    maxElevation = pass.maxElevation,
-                    youLabel = stringResource(Res.string.you)
-                )
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    PassMetric(
-                        stringResource(Res.string.starts_label),
-                        timeLabel
-                    )
-                    PassMetric(
-                        stringResource(Res.string.duration_label),
-                        stringResource(
-                            Res.string.duration_min_sec_format,
-                            pass.durationInSeconds / 60,
-                            pass.durationInSeconds % 60
-                        )
-                    )
-                    PassMetric(
-                        stringResource(Res.string.visibility),
-                        visibilityLabel(pass.magnitude)
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun PassMetric(label: String, value: String) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(label, style = MaterialTheme.typography.labelMedium)
-        Text(
-            value,
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.SemiBold,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
-    }
-}
-
 @Serializable
 private data class PassPlatformPayload(
     val startTimeMillis: Long,
@@ -1167,18 +1182,9 @@ internal fun formatEpochSeconds(seconds: Long): String {
     return formatDateTime(Instant.fromEpochSeconds(seconds))
 }
 
-private fun formatEpochDate(milliseconds: Long): String {
-    return formatDateTime(Instant.fromEpochMilliseconds(milliseconds))
-}
+private fun formatEpochDate(milliseconds: Long): String = formatPassDate(milliseconds)
 
-private fun formatEpochTime(milliseconds: Long): String {
-    val dateTime = Instant.fromEpochMilliseconds(milliseconds)
-        .toLocalDateTime(TimeZone.currentSystemDefault())
-    val hour = if (dateTime.hour % 12 == 0) 12 else dateTime.hour % 12
-    val minute = dateTime.minute.toString().padStart(2, '0')
-    val period = if (dateTime.hour < 12) "AM" else "PM"
-    return "$hour:$minute $period"
-}
+private fun formatEpochTime(milliseconds: Long): String = formatPassTime(milliseconds)
 
 private fun formatDateTime(instant: Instant, includeTime: Boolean = false): String {
     val dateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
@@ -1204,7 +1210,7 @@ private fun SharedTab.localizedLabel(): String {
 }
 
 @Composable
-private fun visibilityLabel(magnitude: Double): String {
+internal fun visibilityLabel(magnitude: Double): String {
     val resource: StringResource = when (PassVisibility.fromMagnitude(magnitude)) {
         PassVisibility.VERY_BRIGHT -> Res.string.visibility_very_bright
         PassVisibility.BRIGHT -> Res.string.visibility_bright

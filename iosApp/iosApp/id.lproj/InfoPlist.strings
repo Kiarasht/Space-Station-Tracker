@@ -1,0 +1,5 @@
+/* Permission prompts shown by iOS. */
+"NSCalendarsUsageDescription" = "ISS Tracker menggunakan Kalender hanya saat Anda memilih menambahkan lintasan ISS mendatang.";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "ISS Tracker menggunakan Kalender hanya saat Anda memilih menambahkan lintasan ISS mendatang.";
+"NSLocationWhenInUseUsageDescription" = "Lokasi Anda hanya digunakan saat Anda meminta mencari lintasan ISS yang terlihat di dekat Anda.";
+"NSUserTrackingUsageDescription" = "Izin ini membantu pengukuran iklan saat iklan diaktifkan.";

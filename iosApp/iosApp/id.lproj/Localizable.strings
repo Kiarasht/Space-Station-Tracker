@@ -1,0 +1,17 @@
+/* Pass reminders, location errors, calendar and share text. */
+
+"notification.title.at_event" = "Lintasan ISS dimulai";
+"notification.title.10_minutes" = "Lintasan ISS dalam 10 menit";
+"notification.title.1_hour" = "Lintasan ISS dalam 1 jam";
+"notification.title.12_hours" = "Lintasan ISS dalam 12 jam";
+"notification.title.1_day" = "Lintasan ISS dalam 1 hari";
+"notification.title.1_week" = "Lintasan ISS dalam 1 minggu";
+"notification.title.upcoming" = "Lintasan ISS mendatang";
+"notification.body.format" = "Lihat ke arah %1$@, puncak lintasan pada %2$ld°.";
+"location.error.unavailable" = "Akses lokasi tidak tersedia. Periksa Layanan Lokasi dan coba lagi.";
+"location.error.failed" = "Lokasi tidak dapat ditentukan. Periksa Layanan Lokasi dan coba lagi.";
+"location.current" = "Lokasi Saat Ini";
+"calendar.event.title" = "Lintasan Stasiun Luar Angkasa Internasional";
+"calendar.event.notes.format" = "Lintasan ISS terlihat dari %1$@ ke %2$@, puncak pada %3$ld°.";
+"share.pass.format" = "Lintasan Stasiun Luar Angkasa Internasional pada %1$@. Durasi: %2$ld mnt %3$ld dtk. Elevasi puncak: %4$ld°.";
+"share.app.format" = "Lacak Stasiun Luar Angkasa Internasional dengan ISS Tracker: %@";

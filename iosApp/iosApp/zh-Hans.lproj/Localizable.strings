@@ -1,0 +1,17 @@
+/* Pass reminders, location errors, calendar and share text. */
+
+"notification.title.at_event" = "国际空间站过境开始";
+"notification.title.10_minutes" = "国际空间站将在10分钟后过境";
+"notification.title.1_hour" = "国际空间站将在1小时后过境";
+"notification.title.12_hours" = "国际空间站将在12小时后过境";
+"notification.title.1_day" = "国际空间站将在1天后过境";
+"notification.title.1_week" = "国际空间站将在1周后过境";
+"notification.title.upcoming" = "国际空间站即将过境";
+"notification.body.format" = "请朝%1$@方向看，最高仰角%2$ld°。";
+"location.error.unavailable" = "无法访问位置。请检查定位服务后重试。";
+"location.error.failed" = "无法确定位置。请检查定位服务后重试。";
+"location.current" = "当前位置";
+"calendar.event.title" = "国际空间站过境";
+"calendar.event.notes.format" = "可见的国际空间站过境：从%1$@到%2$@，最高仰角%3$ld°。";
+"share.pass.format" = "国际空间站过境时间：%1$@。持续时间：%2$ld分%3$ld秒。最高仰角：%4$ld°。";
+"share.app.format" = "使用 ISS Tracker 追踪国际空间站：%@";

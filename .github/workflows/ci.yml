@@ -1,0 +1,80 @@
+# Debug channel: every PR to master builds both platforms with test ads, in parallel. Android sends a debug
+# AAB to Firebase App Distribution; iOS sends a Debug build to TestFlight in the same App Store Connect app as
+# releases, numbered <version code>.<run>.<attempt> and marked internal-testing-only. Runs only on the
+# self-hosted runners on the owner's Mac (see docs/ci-runners.md); never use GitHub-hosted runners or
+# upload-artifact for these jobs.
+#
+# This repository is public, so only the owner's own runs may reach the Mac. Each job runs only when the
+# owner opened the PR from a branch of this repository (or started the run by hand), Actions requires
+# approval for every outside contributor's run, and the runners' pre-job hook refuses any job the owner did
+# not start (tools/ci/runner-job-started.sh). Never switch this workflow to pull_request_target.
+name: Mobile debug distribution
+
+on:
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+concurrency:
+  group: mobile-debug-${{ github.event.pull_request.number || github.ref_name }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  ISS_RELEASE_NOTES: "PR #${{ github.event.pull_request.number }}: ${{ github.event.pull_request.title }} (${{ github.event.pull_request.head.sha || github.sha }})"
+  FIREBASE_APP_DISTRIBUTION_GROUPS: ${{ secrets.FIREBASE_APP_DISTRIBUTION_GROUPS }}
+
+jobs:
+  android-debug:
+    name: android-debug
+    # Only the owner's own PRs (same-repo branches) or manual runs; everyone else's PRs never reach the Mac.
+    if: >-
+      github.actor == github.repository_owner && github.triggering_actor == github.repository_owner &&
+      (github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.user.login == github.repository_owner &&
+      github.event.pull_request.head.repo.full_name == github.repository))
+    runs-on: [self-hosted, macOS, iss-tracker]
+    timeout-minutes: 60
+    env:
+      MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
+      YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+      FIREBASE_APP_DISTRIBUTION_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_APP_DISTRIBUTION_SERVICE_ACCOUNT_JSON }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          clean: false
+      - name: Android unit tests and lint
+        # The runner service has no ANDROID_HOME; use the same default as tools/ci/config.sh.
+        run: ANDROID_HOME="${ANDROID_HOME:-$HOME/Library/Android/sdk}" ./gradlew :app:testDebugUnitTest :app:lintDebug --console=plain
+      - name: Build debug AAB and upload to Firebase App Distribution
+        run: tools/ci/android.sh debug --upload
+
+  ios-debug:
+    name: ios-debug
+    # Only the owner's own PRs (same-repo branches) or manual runs; everyone else's PRs never reach the Mac.
+    if: >-
+      github.actor == github.repository_owner && github.triggering_actor == github.repository_owner &&
+      (github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.user.login == github.repository_owner &&
+      github.event.pull_request.head.repo.full_name == github.repository))
+    runs-on: [self-hosted, macOS, iss-tracker]
+    timeout-minutes: 120
+    env:
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+      APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+      APP_STORE_CONNECT_API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+      IOS_DISTRIBUTION_CERTIFICATE_BASE64: ${{ secrets.IOS_DISTRIBUTION_CERTIFICATE_BASE64 }}
+      IOS_DISTRIBUTION_CERTIFICATE_PASSWORD: ${{ secrets.IOS_DISTRIBUTION_CERTIFICATE_PASSWORD }}
+      IOS_APP_STORE_PROVISIONING_PROFILE_BASE64: ${{ secrets.IOS_APP_STORE_PROVISIONING_PROFILE_BASE64 }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          clean: false
+      # The shared module has no JVM test target, so its commonTest suite runs on the simulator.
+      - name: Shared tests
+        run: ./gradlew :shared:iosSimulatorArm64Test --console=plain
+      - name: Build debug IPA and upload to TestFlight (internal testing only)
+        run: /usr/bin/caffeinate -dimsu tools/ci/ios.sh debug --upload

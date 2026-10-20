@@ -11,5 +11,7 @@ data class Astronaut(
     val flagCode: String,
     val twitterUrl: String?,
     val instagramUrl: String?,
-    val facebookUrl: String?
+    val facebookUrl: String?,
+    /** False for people aboard another spacecraft, such as China's Tiangong station. */
+    val isOnIss: Boolean = true
 )

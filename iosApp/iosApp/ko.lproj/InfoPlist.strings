@@ -1,0 +1,5 @@
+/* Permission prompts shown by iOS. */
+"NSCalendarsUsageDescription" = "ISS Tracker는 다가오는 ISS 통과를 추가할 때만 캘린더를 사용합니다.";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "ISS Tracker는 다가오는 ISS 통과를 추가할 때만 캘린더를 사용합니다.";
+"NSLocationWhenInUseUsageDescription" = "위치는 근처에서 보이는 ISS 통과를 찾을 때만 사용됩니다.";
+"NSUserTrackingUsageDescription" = "이 권한은 광고가 켜져 있을 때 광고 측정에 도움이 됩니다.";

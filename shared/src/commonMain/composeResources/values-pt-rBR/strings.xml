@@ -130,4 +130,24 @@
     <string name="purchase_status_pending">Compra pendente. Os anúncios serão removidos após a confirmação do pagamento pela loja.</string>
     <string name="purchase_status_restored">Remoção permanente de anúncios restaurada.</string>
     <string name="purchase_status_removed">Os anúncios foram removidos permanentemente.</string>
+    <string name="unable_to_track_iss_message">Verifique sua conexão. O mapa é atualizado automaticamente assim que a posição da ISS estiver disponível.</string>
+    <string name="crew_section_iss">A bordo da ISS</string>
+    <string name="crew_section_elsewhere">Em outros lugares do espaço</string>
+    <string name="next_visible_pass">Próxima passagem visível</string>
+    <string name="later_passes">Passagens seguintes</string>
+    <string name="visible_now">Visível agora</string>
+    <string name="countdown_days_format">em %1$d d %2$d h</string>
+    <string name="countdown_hours_format">em %1$d h %2$d min</string>
+    <string name="countdown_minutes_format">em %1$d min</string>
+    <string name="peak_elevation_format">Altura máx. %1$d°</string>
+    <string name="people_in_space_now">pessoas no espaço agora</string>
+    <string name="day_in_space_format">Dia %1$d no espaço</string>
+    <string name="overhead_format">Zênite %1$d°</string>
+    <string name="about_stat_orbit">minutos por órbita</string>
+    <string name="about_stat_sunrises">nasceres do sol por dia</string>
+    <string name="about_stat_crewed">anos sempre tripulada</string>
+    <string name="satellite_tiangong_short">Tiangong</string>
+    <string name="satellite_iss_short">EEI</string>
+    <string name="satellite_hubble_short">Hubble</string>
+    <string name="satellite_sunlit">Iluminado pelo Sol</string>
 </resources>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#005792</color>
-    <color name="onPrimary">#FFFFFF</color>
     <color name="primaryVariant">#FFFFFF</color>
     <color name="onSurface">#1C1C1E</color>
 </resources>

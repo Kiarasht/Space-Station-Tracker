@@ -1,0 +1,161 @@
+# Release channel: a merge to master that raises APP_VERSION_CODE builds both platforms with production ads, in
+# parallel. Android sends the release AAB to Google Play (alpha track) and Firebase App Distribution; iOS sends
+# the Release build (build number = APP_VERSION_CODE) to TestFlight, ready to attach to a new App Store
+# version. Self-hosted runners on the owner's Mac only (see docs/ci-runners.md); no GitHub-hosted runners or
+# upload-artifact.
+#
+# Each successful upload is recorded as a tag (release/<platform>/<version code>), and a platform whose build
+# is already uploaded is skipped, so a retry never fails on a reused build number.
+name: Release distribution (Play + TestFlight)
+
+on:
+  push:
+    branches: [master]
+  # A manual run retries a failed upload (one platform or both).
+  workflow_dispatch:
+    inputs:
+      platforms:
+        description: Stores to upload to
+        type: choice
+        options: [both, ios, android]
+        default: both
+
+concurrency:
+  group: mobile-release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  # Both stores reject a reused build number, so a merge without a version bump (docs, CI, refactors)
+  # skips the uploads instead of failing them.
+  release-gate:
+    name: release-gate
+    # Only pushes and manual runs by the owner; the release jobs below depend on this one.
+    if: github.actor == github.repository_owner && github.triggering_actor == github.repository_owner
+    runs-on: [self-hosted, macOS, iss-tracker]
+    timeout-minutes: 5
+    outputs:
+      release_android: ${{ steps.gate.outputs.release_android }}
+      release_ios: ${{ steps.gate.outputs.release_ios }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          clean: false
+
+      - name: Compare version code with the previous push
+        id: gate
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BEFORE_SHA: ${{ github.event.before }}
+          PLATFORMS: ${{ inputs.platforms || 'both' }}
+        run: |
+          set -euo pipefail
+          read_version_code() {
+            awk -F= '$1 ~ /^[[:space:]]*APP_VERSION_CODE[[:space:]]*$/ { gsub(/[[:space:]]/, "", $2); print $2 }' | tail -n 1
+          }
+
+          current="$(read_version_code < version.properties)"
+          if ! [[ "$current" =~ ^[0-9]+$ ]]; then
+            echo "::error::APP_VERSION_CODE in version.properties is missing or not a number."
+            exit 1
+          fi
+
+          # Sets release_<platform> for each requested platform whose build wasn't uploaded already.
+          release_platforms() {
+            for platform in android ios; do
+              case "$PLATFORMS" in both | "$platform") ;; *) continue ;; esac
+              tag="release/$platform/$current"
+              if git ls-remote --exit-code --tags origin "refs/tags/$tag" > /dev/null 2>&1; then
+                echo "::notice::The $platform build $current was already uploaded ($tag), so it is skipped."
+              else
+                echo "Releasing the $platform build $current."
+                echo "release_$platform=true" >> "$GITHUB_OUTPUT"
+              fi
+            done
+          }
+
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "Manual run ($PLATFORMS) of version code $current."
+            release_platforms
+            exit 0
+          fi
+
+          previous=""
+          if [ -n "$BEFORE_SHA" ] && [ "$BEFORE_SHA" != "0000000000000000000000000000000000000000" ] &&
+            git fetch --quiet --depth=1 origin "$BEFORE_SHA"; then
+            previous="$(git show "$BEFORE_SHA:version.properties" 2>/dev/null | read_version_code || true)"
+          fi
+
+          if [ -z "$previous" ]; then
+            echo "No previous version code found; releasing version code $current."
+            release_platforms
+          elif [ "$current" -gt "$previous" ]; then
+            echo "Version code changed from $previous to $current; releasing."
+            release_platforms
+          elif [ "$current" -eq "$previous" ]; then
+            echo "::notice::APP_VERSION_CODE is still $current, so store uploads are skipped. Bump version.properties to release."
+          else
+            echo "::error::APP_VERSION_CODE went down from $previous to $current; the stores require it to increase."
+            exit 1
+          fi
+
+  android-release:
+    name: android-release
+    needs: release-gate
+    if: needs.release-gate.outputs.release_android == 'true'
+    runs-on: [self-hosted, macOS, iss-tracker]
+    timeout-minutes: 60
+    permissions:
+      contents: write # pushes the release/android/<version code> tag after a successful upload
+    env:
+      SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+      KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+      ALIAS: ${{ secrets.ALIAS }}
+      KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+      MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
+      YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+      GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+      GOOGLE_PLAY_TRACK: alpha
+      FIREBASE_APP_DISTRIBUTION_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_APP_DISTRIBUTION_SERVICE_ACCOUNT_JSON }}
+      FIREBASE_APP_DISTRIBUTION_GROUPS: ${{ secrets.FIREBASE_APP_DISTRIBUTION_GROUPS }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          clean: false
+      - name: Android unit tests
+        # The runner service has no ANDROID_HOME; use the same default as tools/ci/config.sh.
+        run: ANDROID_HOME="${ANDROID_HOME:-$HOME/Library/Android/sdk}" ./gradlew :app:testDebugUnitTest --console=plain
+      - name: Build release AAB and upload to Google Play and Firebase App Distribution
+        run: tools/ci/android.sh release --upload
+      - name: Record the upload
+        run: tools/ci/record_release.sh android
+
+  ios-release:
+    name: ios-release
+    needs: release-gate
+    if: needs.release-gate.outputs.release_ios == 'true'
+    runs-on: [self-hosted, macOS, iss-tracker]
+    timeout-minutes: 120
+    permissions:
+      contents: write # pushes the release/ios/<version code> tag after a successful upload
+    env:
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+      APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+      APP_STORE_CONNECT_API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+      IOS_DISTRIBUTION_CERTIFICATE_BASE64: ${{ secrets.IOS_DISTRIBUTION_CERTIFICATE_BASE64 }}
+      IOS_DISTRIBUTION_CERTIFICATE_PASSWORD: ${{ secrets.IOS_DISTRIBUTION_CERTIFICATE_PASSWORD }}
+      IOS_APP_STORE_PROVISIONING_PROFILE_BASE64: ${{ secrets.IOS_APP_STORE_PROVISIONING_PROFILE_BASE64 }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          clean: false
+      - name: Shared tests
+        run: ./gradlew :shared:iosSimulatorArm64Test --console=plain
+      - name: Build release IPA and upload to TestFlight
+        run: /usr/bin/caffeinate -dimsu tools/ci/ios.sh release --upload
+      - name: Record the upload
+        run: tools/ci/record_release.sh ios

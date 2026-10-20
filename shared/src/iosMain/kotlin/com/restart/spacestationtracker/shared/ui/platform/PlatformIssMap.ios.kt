@@ -6,8 +6,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
@@ -31,6 +34,36 @@ object IosIssMapRegistry {
 
     fun update(view: UIView, current: IssMapPoint?, orbit: List<IssMapPoint>, mapType: String) {
         updater?.invoke(view, current, orbit, mapType)
+    }
+
+    private var insetUpdater: ((UIView, Double) -> Unit)? = null
+
+    /** Receives the bottom inset in points so MapKit keeps its logo and legal link visible. */
+    fun registerInsetUpdater(updater: (UIView, Double) -> Unit) {
+        insetUpdater = updater
+    }
+
+    fun updateInset(view: UIView, bottomInsetPoints: Double) {
+        insetUpdater?.invoke(view, bottomInsetPoints)
+    }
+
+    private var satelliteUpdater: ((UIView, List<SatelliteMapMarker>, List<SatelliteMapTrack>, Boolean, (String?) -> Unit) -> Unit)? = null
+
+    /** Receives the spacecraft markers, their paths, whether the ISS orbit shows, and the tap callback. */
+    fun registerSatelliteUpdater(
+        updater: (UIView, List<SatelliteMapMarker>, List<SatelliteMapTrack>, Boolean, (String?) -> Unit) -> Unit
+    ) {
+        satelliteUpdater = updater
+    }
+
+    fun updateSatellites(
+        view: UIView,
+        satellites: List<SatelliteMapMarker>,
+        tracks: List<SatelliteMapTrack>,
+        orbitVisible: Boolean,
+        onSatelliteClick: (String?) -> Unit
+    ) {
+        satelliteUpdater?.invoke(view, satellites, tracks, orbitVisible, onSatelliteClick)
     }
 }
 
@@ -60,8 +93,14 @@ actual fun PlatformIssMap(
     currentLocation: IssLocation?,
     orbit: List<IssMapPoint>,
     mapType: String,
-    modifier: Modifier
+    modifier: Modifier,
+    bottomInset: Dp,
+    satellites: List<SatelliteMapMarker>,
+    tracks: List<SatelliteMapTrack>,
+    orbitVisible: Boolean,
+    onSatelliteClick: (String?) -> Unit
 ) {
+    val currentOnSatelliteClick by rememberUpdatedState(onSatelliteClick)
     Box(
         modifier = modifier.background(MaterialTheme.colorScheme.surfaceVariant)
     ) {
@@ -82,6 +121,14 @@ actual fun PlatformIssMap(
                     },
                     orbit = orbit,
                     mapType = mapType
+                )
+                IosIssMapRegistry.updateInset(view, bottomInset.value.toDouble())
+                IosIssMapRegistry.updateSatellites(
+                    view = view,
+                    satellites = satellites,
+                    tracks = tracks,
+                    orbitVisible = orbitVisible,
+                    onSatelliteClick = { id -> currentOnSatelliteClick(id) }
                 )
             },
             modifier = Modifier.fillMaxSize()

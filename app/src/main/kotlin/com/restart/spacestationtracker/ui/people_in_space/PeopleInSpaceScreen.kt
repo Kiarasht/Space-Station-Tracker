@@ -29,7 +29,7 @@ fun PeopleInSpaceScreen(
         start = contentPadding.calculateStartPadding(layoutDirection),
         top = contentPadding.calculateTopPadding(),
         end = contentPadding.calculateEndPadding(layoutDirection),
-        bottom = contentPadding.calculateTopPadding()
+        bottom = contentPadding.calculateBottomPadding()
     )
     val ads = remember(uiState.feedItems) {
         uiState.feedItems.filterIsInstance<FeedItem.AdItem>()

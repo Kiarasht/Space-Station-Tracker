@@ -71,8 +71,10 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         }
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
-        UNUserNotificationCenter.current().delegate = PassNotificationDelegate.shared
         configureComposeBridge()
+        PassNotificationDelegate.shared.setOpenPassesHandler { [weak self] in
+            self?.composeBridge.openPassesTab()
+        }
     }
 
     func makeComposeViewController() -> UIViewController {
@@ -96,6 +98,10 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         refreshSettingsPlatformState()
         adRemovalPurchase.refreshEntitlements()
         recordForegroundOpen()
+    }
+
+    func setAppActive(_ active: Bool) {
+        composeBridge.setAppActive(active: active)
     }
 
     func applicationDidBecomeActive() {
@@ -124,7 +130,7 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
             cancelAutomaticPassNotifications()
             PassBackgroundRefreshCoordinator.shared.cancel()
             composeBridge.setPassesLocationError(
-                message: "Location access is unavailable. Check Location Services and try again."
+                message: String(localized: "location.error.unavailable")
             )
             refreshSettingsPlatformState()
         default:
@@ -173,7 +179,7 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
     }
 
     private static func locationName(from placemark: CLPlacemark?) -> String {
-        guard let placemark else { return "Current Location" }
+        guard let placemark else { return String(localized: "location.current") }
 
         let nearbyPlace = [
             placemark.locality,
@@ -192,13 +198,13 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
            nearbyPlace.caseInsensitiveCompare(region) != .orderedSame {
             return "\(nearbyPlace), \(region)"
         }
-        return nearbyPlace ?? region ?? "Current Location"
+        return nearbyPlace ?? region ?? String(localized: "location.current")
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         isLocationLookupInProgress = false
         composeBridge.setPassesLocationError(
-            message: "Location could not be determined. Check Location Services and try again."
+            message: String(localized: "location.error.failed")
         )
         refreshSettingsPlatformState()
     }
@@ -214,6 +220,20 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
                 mapView.update(current: current, orbit: orbitPoints, mapType: mapType)
             }
         )
+        composeBridge.registerMapInsetUpdater { view, bottomInset in
+            (view as? NativeIssMapView)?.setBottomInset(CGFloat(bottomInset))
+        }
+        composeBridge.registerMapSatelliteUpdater { [weak self] view, satellites, tracks, orbitVisible, onSelect in
+            guard let mapView = view as? NativeIssMapView else { return }
+            let markers: [SatelliteMapMarker] = self?.cast(satellites) ?? []
+            let paths: [SatelliteMapTrack] = self?.cast(tracks) ?? []
+            mapView.updateSatellites(
+                markers: markers,
+                tracks: paths,
+                orbitVisible: orbitVisible.boolValue,
+                onSelect: { id in _ = onSelect(id) }
+            )
+        }
         composeBridge.registerNativeAdViewFactory { [weak self] slotId in
             self?.ads.makeNativeAdView(
                 slotId: slotId,
@@ -258,6 +278,10 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         case "schedule_pass_notification":
             guard let pass = decodePass(parameter) else { return }
             Task {
+                guard await requestNotificationAuthorization() else {
+                    openNotificationSettings()
+                    return
+                }
                 let notificationTimes = pass.notificationTimes?.isEmpty == false
                     ? pass.notificationTimes!
                     : ["10 minutes before"]
@@ -268,12 +292,15 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
                 )
                 let schedules: [IosNotificationSchedule] = cast(value)
                 for schedule in schedules {
-                    await scheduleNotification(
-                        for: pass,
-                        notificationTime: schedule.notificationTime,
-                        triggerTimeMillis: schedule.triggerTimeMillis,
-                        identifierSuffix: schedule.identifierSuffix,
-                        identifierPrefix: "manual"
+                    await PassNotificationScheduler.addManual(
+                        PassNotificationRequest(
+                            startTimeMillis: pass.startTimeMillis,
+                            triggerTimeMillis: schedule.triggerTimeMillis,
+                            notificationTime: schedule.notificationTime,
+                            identifierSuffix: schedule.identifierSuffix,
+                            startAzimuthCompass: pass.startAzimuthCompass,
+                            maxElevation: pass.maxElevation
+                        )
                     )
                 }
             }
@@ -323,38 +350,6 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         return try? JSONDecoder().decode(PassPayload.self, from: data)
     }
 
-    private func scheduleNotification(
-        for pass: PassPayload,
-        notificationTime: String,
-        triggerTimeMillis: Int64,
-        identifierSuffix: String,
-        identifierPrefix: String
-    ) async {
-        guard await requestNotificationAuthorization() else {
-            openNotificationSettings()
-            return
-        }
-        let triggerDate = Date(timeIntervalSince1970: TimeInterval(triggerTimeMillis) / 1_000)
-        guard triggerDate > Date() else { return }
-
-        let content = UNMutableNotificationContent()
-        content.title = notificationTitle(for: notificationTime)
-        content.body = "Look \(pass.startAzimuthCompass) for a pass peaking at \(Int(pass.maxElevation.rounded()))°."
-        content.sound = .default
-        content.userInfo = ["pass_start_time": pass.startTimeMillis]
-
-        let components = Calendar.current.dateComponents(
-            [.year, .month, .day, .hour, .minute, .second],
-            from: triggerDate
-        )
-        let request = UNNotificationRequest(
-            identifier: "\(identifierPrefix):\(pass.startTimeMillis):\(identifierSuffix)",
-            content: content,
-            trigger: UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-        )
-        try? await UNUserNotificationCenter.current().add(request)
-    }
-
     private func refreshAutomaticPassAlerts(location: CLLocation) {
         passAlertBridge.loadAutomaticSchedules(
             latitude: location.coordinate.latitude,
@@ -365,25 +360,19 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
                 Task { @MainActor in
                     guard let self else { return }
                     let passes: [IosPassAlertPayload] = self.cast(value)
-                    self.cancelAutomaticPassNotifications()
-                    for pass in passes {
-                        let payload = PassPayload(
-                            startTimeMillis: pass.startTimeMillis,
-                            durationInSeconds: Int(pass.durationInSeconds),
-                            magnitude: pass.magnitude,
-                            maxElevation: pass.maxElevation,
-                            startAzimuthCompass: pass.startAzimuthCompass,
-                            endAzimuthCompass: pass.endAzimuthCompass,
-                            notificationTimes: nil
-                        )
-                        await self.scheduleNotification(
-                            for: payload,
-                            notificationTime: pass.notificationTime,
-                            triggerTimeMillis: pass.triggerTimeMillis,
-                            identifierSuffix: pass.identifierSuffix,
-                            identifierPrefix: "automatic"
-                        )
-                    }
+                    guard await self.requestNotificationAuthorization() else { return }
+                    await PassNotificationScheduler.replaceAutomatic(
+                        with: passes.map { pass in
+                            PassNotificationRequest(
+                                startTimeMillis: pass.startTimeMillis,
+                                triggerTimeMillis: pass.triggerTimeMillis,
+                                notificationTime: pass.notificationTime,
+                                identifierSuffix: pass.identifierSuffix,
+                                startAzimuthCompass: pass.startAzimuthCompass,
+                                maxElevation: pass.maxElevation
+                            )
+                        }
+                    )
                 }
             },
             onFailure: { _ in }
@@ -426,14 +415,7 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
     }
 
     private func cancelAutomaticPassNotifications() {
-        let center = UNUserNotificationCenter.current()
-        center.getPendingNotificationRequests { requests in
-            let identifiers = requests
-                .map(\.identifier)
-                .filter { $0.hasPrefix("automatic:") }
-            UNUserNotificationCenter.current()
-                .removePendingNotificationRequests(withIdentifiers: identifiers)
-        }
+        Task { await PassNotificationScheduler.cancelAutomatic() }
     }
 
     private func openNotificationSettings() {
@@ -451,18 +433,6 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
     private func openAppSettings() {
         if let url = URL(string: UIApplication.openSettingsURLString) {
             UIApplication.shared.open(url)
-        }
-    }
-
-    private func notificationTitle(for notificationTime: String) -> String {
-        switch notificationTime {
-        case "At time of event": "ISS pass is starting"
-        case "10 minutes before": "ISS pass in 10 minutes"
-        case "1 hour before": "ISS pass in 1 hour"
-        case "12 hours before": "ISS pass in 12 hours"
-        case "1 day before": "ISS pass tomorrow"
-        case "1 week before": "ISS pass in 1 week"
-        default: "Upcoming ISS pass"
         }
     }
 
@@ -487,10 +457,15 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         let editor = EKEventEditViewController()
         let startDate = Date(timeIntervalSince1970: TimeInterval(pass.startTimeMillis) / 1_000)
         let event = EKEvent(eventStore: eventStore)
-        event.title = "International Space Station pass"
+        event.title = String(localized: "calendar.event.title")
         event.startDate = startDate
         event.endDate = startDate.addingTimeInterval(TimeInterval(pass.durationInSeconds))
-        event.notes = "Visible ISS pass from \(pass.startAzimuthCompass) to \(pass.endAzimuthCompass), peaking at \(Int(pass.maxElevation.rounded()))°."
+        event.notes = String(
+            format: String(localized: "calendar.event.notes.format"),
+            CompassLabels.shared.localize(code: pass.startAzimuthCompass),
+            CompassLabels.shared.localize(code: pass.endAzimuthCompass),
+            Int(pass.maxElevation.rounded())
+        )
         editor.eventStore = eventStore
         editor.event = event
         editor.editViewDelegate = eventEditorDelegate
@@ -502,7 +477,13 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         let formatter = DateFormatter()
         formatter.dateStyle = .full
         formatter.timeStyle = .short
-        let text = "International Space Station pass on \(formatter.string(from: startDate)). Duration: \(pass.durationInSeconds / 60)m \(pass.durationInSeconds % 60)s. Peak elevation: \(Int(pass.maxElevation.rounded()))°."
+        let text = String(
+            format: String(localized: "share.pass.format"),
+            formatter.string(from: startDate),
+            pass.durationInSeconds / 60,
+            pass.durationInSeconds % 60,
+            Int(pass.maxElevation.rounded())
+        )
         let controller = UIActivityViewController(
             activityItems: [text],
             applicationActivities: nil
@@ -538,7 +519,7 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
 
     private func shareApp() {
         let url = appStoreURL?.absoluteString ?? "https://restartapps.com/"
-        let text = "Track the International Space Station with ISS Tracker: \(url)"
+        let text = String(format: String(localized: "share.app.format"), url)
         let controller = UIActivityViewController(activityItems: [text], applicationActivities: nil)
         if let popover = controller.popoverPresentationController,
            let source = Self.topViewController()?.view {
@@ -568,7 +549,7 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
             cancelAutomaticPassNotifications()
             PassBackgroundRefreshCoordinator.shared.cancel()
             composeBridge.setPassesLocationError(
-                message: "Location access is unavailable. Check Location Services and try again."
+                message: String(localized: "location.error.unavailable")
             )
             refreshSettingsPlatformState()
             if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
@@ -717,34 +698,78 @@ private final class PassEventEditorDelegate: NSObject, EKEventEditViewDelegate {
     }
 }
 
-private final class PassNotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
-    static let shared = PassNotificationDelegate()
-
-    func userNotificationCenter(
-        _ center: UNUserNotificationCenter,
-        willPresent notification: UNNotification
-    ) async -> UNNotificationPresentationOptions {
-        [.banner, .sound]
-    }
+/** An arrow or time label that belongs to one path and fades with it. */
+private protocol PathCueAnnotation: AnyObject {
+    var pathId: String { get }
 }
 
-private final class SolarMapAnnotation: MKPointAnnotation {}
-
-private final class IssMapAnnotation: MKPointAnnotation {}
-
-private final class OrbitDirectionAnnotation: MKPointAnnotation {
+private final class OrbitDirectionAnnotation: MKPointAnnotation, PathCueAnnotation {
     var rotationRadians: CGFloat = 0
+    /** Set for another satellite's path; nil keeps the ISS's red. */
+    var colorArgb: Int64?
+    var pathId = ""
 }
 
-private final class OrbitTimeAnnotation: MKPointAnnotation {
+private final class OrbitTimeAnnotation: MKPointAnnotation, PathCueAnnotation {
     var minuteOffset = 0
+    /** Set for another satellite's path; nil keeps the ISS's yellow border. */
+    var colorArgb: Int64?
+    var pathId = ""
 }
 
-private final class NativeIssMapView: UIView, MKMapViewDelegate {
+/** A spacecraft marker; the ISS, Tiangong and Hubble are all drawn the same way. */
+private final class SatelliteAnnotation: MKPointAnnotation {
+    var id = ""
+    var label = ""
+    var colorArgb: Int64 = 0
+    var isStation = true
+    var isSelected = false
+}
+
+/** Where a direction arrow or a +30m label belongs on a path. */
+private struct OrbitCue {
+    let minuteOffset: Int
+    let coordinate: CLLocationCoordinate2D
+    let rotationRadians: CGFloat
+}
+
+/**
+ * The live map. Every refresh updates what is already on the map in place (markers move, arrows turn, a
+ * changed line is swapped for its new version) instead of clearing and redrawing everything, which made the
+ * whole map blink whenever anything changed, such as selecting a satellite.
+ */
+private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecognizerDelegate {
     private let mapView = MKMapView()
-    private var renderedKey = ""
     private var hasSetInitialRegion = false
-    private var footprintOverlay: MKCircle?
+    private var current: IssMapPoint?
+    private var orbit: [IssMapPoint] = []
+    private var mapTypeName = "Normal"
+    private var satellites: [SatelliteMapMarker] = []
+    private var tracks: [SatelliteMapTrack] = []
+    private var orbitVisible = true
+    private var onSelect: ((String?) -> Void)?
+    private var isRenderScheduled = false
+    private var satelliteMarkerImages: [String: UIImage] = [:]
+    private var coloredCueImages: [String: UIImage] = [:]
+    // What is on the map now, so each refresh changes only what moved.
+    private var satelliteAnnotations: [String: SatelliteAnnotation] = [:]
+    /** Arrows and time labels, keyed by "<path id>|<minute offset>". */
+    private var cueAnnotations: [String: MKPointAnnotation] = [:]
+    /** One line per path ("iss" or a satellite id), with a key of its points to tell when it changed. */
+    private var pathOverlays: [String: MKPolyline] = [:]
+    private var pathKeys: [String: String] = [:]
+    /** Line colors by overlay. MapKit's polyline factory can't build Swift subclasses, so color can't live on the overlay. */
+    private var overlayColors: [ObjectIdentifier: UIColor] = [:]
+    /** Which path each overlay draws, to give a replaced line its path's current opacity. */
+    private var overlayPaths: [ObjectIdentifier: String] = [:]
+    /** Each path's opacity now and where it is heading; a selection change fades lines in or out. */
+    private var pathAlpha: [String: CGFloat] = [:]
+    private var pathTarget: [String: CGFloat] = [:]
+    private var fadeLink: CADisplayLink?
+    private var lastFadeTime: CFTimeInterval = 0
+    private static let lineFadeSeconds: CGFloat = 0.3
+    /** The ISS orbit line's path id; the ISS's computed track uses "iss". */
+    private static let issOrbitPath = "iss-orbit"
     private lazy var timeMarkerImages: [Int: UIImage] = Dictionary(
         uniqueKeysWithValues: stride(from: 30, through: 120, by: 30).map {
             ($0, Self.makeTimeMarkerImage(minuteOffset: $0))
@@ -761,87 +786,309 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
         configure()
     }
 
+    /** Keeps MapKit's logo and legal link above the floating navigation bar. */
+    func setBottomInset(_ inset: CGFloat) {
+        guard mapView.layoutMargins.bottom != inset + 4 else { return }
+        mapView.layoutMargins = UIEdgeInsets(top: 8, left: 8, bottom: inset + 4, right: 8)
+    }
+
     func update(current: IssMapPoint?, orbit: [IssMapPoint], mapType: String) {
-        let currentKey = current.map {
-            "\($0.latitude)|\($0.longitude)|\($0.timestamp)|\($0.footprint)|" +
-                "\($0.solarLatitude)|\($0.solarLongitude)"
-        } ?? "none"
-        let key = mapType + "|" + currentKey + orbit
-            .map { "|\($0.latitude)|\($0.longitude)|\($0.timestamp)" }
-            .joined()
-        guard key != renderedKey else { return }
-        renderedKey = key
-        mapView.mapType = switch mapType {
+        self.current = current
+        self.orbit = orbit
+        mapTypeName = mapType
+        scheduleRender()
+    }
+
+    func updateSatellites(
+        markers: [SatelliteMapMarker],
+        tracks: [SatelliteMapTrack],
+        orbitVisible: Bool,
+        onSelect: @escaping (String?) -> Void
+    ) {
+        satellites = markers
+        self.tracks = tracks
+        self.orbitVisible = orbitVisible
+        self.onSelect = onSelect
+        scheduleRender()
+    }
+
+    /** Compose sends the ISS and the other satellites separately; draw once for both. */
+    private func scheduleRender() {
+        guard !isRenderScheduled else { return }
+        isRenderScheduled = true
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.isRenderScheduled = false
+            self.render()
+        }
+    }
+
+    private func render() {
+        let mapType: MKMapType = switch mapTypeName {
         case "Satellite": .satellite
         case "Hybrid": .hybrid
         default: .standard
         }
+        if mapView.mapType != mapType { mapView.mapType = mapType }
 
-        mapView.removeAnnotations(mapView.annotations)
-        mapView.removeOverlays(mapView.overlays)
-        footprintOverlay = nil
+        var cues: [String: (cue: OrbitCue, colorArgb: Int64?, pathId: String)] = [:]
 
+        // The ISS's orbit line; its marker comes with the other spacecraft below.
         if let current {
-            let footprint = MKCircle(
-                center: CLLocationCoordinate2D(
-                    latitude: current.latitude,
-                    longitude: current.longitude
-                ),
-                radius: current.footprint * 500
-            )
-            footprintOverlay = footprint
-            mapView.addOverlay(footprint, level: .aboveRoads)
-
-            let solarAnnotation = SolarMapAnnotation()
-            solarAnnotation.coordinate = CLLocationCoordinate2D(
-                latitude: current.solarLatitude,
-                longitude: current.solarLongitude
-            )
-            mapView.addAnnotation(solarAnnotation)
-
-            let annotation = IssMapAnnotation()
-            annotation.coordinate = CLLocationCoordinate2D(
-                latitude: current.latitude,
-                longitude: current.longitude
-            )
-            mapView.addAnnotation(annotation)
+            let coordinate = CLLocationCoordinate2D(latitude: current.latitude, longitude: current.longitude)
             if !hasSetInitialRegion {
                 hasSetInitialRegion = true
                 mapView.setRegion(
                     MKCoordinateRegion(
-                        center: annotation.coordinate,
+                        center: coordinate,
                         latitudinalMeters: Self.initialMapSpanMeters,
                         longitudinalMeters: Self.initialMapSpanMeters
                     ),
                     animated: true
                 )
             }
-
             let orderedOrbit = Self.orderedOrbit(orbit)
-            addOrbitPath(orderedOrbit)
-            addOrbitCues(
-                currentTimestamp: current.timestamp,
-                orbit: orderedOrbit
-            )
+            let path = Self.issOrbitPath
+            setPath(id: path, points: orderedOrbit, color: .systemRed, visible: orbitVisible)
+            if isShowing(path) {
+                for cue in Self.orbitCues(currentTimestamp: current.timestamp, orbit: orderedOrbit) {
+                    cues["\(path)|\(cue.minuteOffset)"] = (cue, nil, path)
+                }
+            }
+        } else {
+            setPath(id: Self.issOrbitPath, points: [], color: .systemRed, visible: false)
+        }
+
+        // The other paths; only the selected one is visible, and the rest fade out.
+        let trackIds = Set(tracks.map(\.id))
+        for track in tracks {
+            let points = track.points
+            setPath(id: track.id, points: points, color: Self.color(argb: track.colorArgb), visible: track.visible)
+            if isShowing(track.id), let first = points.first {
+                for cue in Self.orbitCues(currentTimestamp: first.timestamp, orbit: points) {
+                    cues["\(track.id)|\(cue.minuteOffset)"] = (cue, track.colorArgb, track.id)
+                }
+            }
+        }
+        for id in pathOverlays.keys where id != Self.issOrbitPath && !trackIds.contains(id) {
+            setPath(id: id, points: [], color: .clear, visible: false)
+        }
+
+        // Satellite markers: moved in place; a selection change only redraws that marker's image.
+        let markerIds = Set(satellites.map(\.id))
+        for marker in satellites {
+            let coordinate = CLLocationCoordinate2D(latitude: marker.latitude, longitude: marker.longitude)
+            if let annotation = satelliteAnnotations[marker.id] {
+                annotation.coordinate = coordinate
+                if annotation.isSelected != marker.isSelected || annotation.label != marker.label ||
+                    annotation.colorArgb != marker.colorArgb {
+                    annotation.isSelected = marker.isSelected
+                    annotation.label = marker.label
+                    annotation.colorArgb = marker.colorArgb
+                    annotation.title = marker.label
+                    if let view = mapView.view(for: annotation) {
+                        // Swap the image instantly, without MapKit or UIKit animating the change.
+                        CATransaction.begin()
+                        CATransaction.setDisableActions(true)
+                        UIView.performWithoutAnimation { configureSatelliteView(view, for: annotation) }
+                        CATransaction.commit()
+                    }
+                }
+            } else {
+                let annotation = SatelliteAnnotation()
+                annotation.id = marker.id
+                annotation.label = marker.label
+                annotation.colorArgb = marker.colorArgb
+                annotation.isStation = marker.isStation
+                annotation.isSelected = marker.isSelected
+                annotation.title = marker.label
+                annotation.coordinate = coordinate
+                satelliteAnnotations[marker.id] = annotation
+                mapView.addAnnotation(annotation)
+            }
+        }
+        for (id, annotation) in satelliteAnnotations where !markerIds.contains(id) {
+            mapView.removeAnnotation(annotation)
+            satelliteAnnotations[id] = nil
+        }
+
+        syncCues(cues)
+        startFadeIfNeeded()
+    }
+
+    /** Visible, or still fading out. */
+    private func isShowing(_ path: String) -> Bool {
+        (pathTarget[path] ?? 0) > 0 || (pathAlpha[path] ?? 0) > 0
+    }
+
+    private func startFadeIfNeeded() {
+        guard fadeLink == nil, pathTarget.contains(where: { pathAlpha[$0.key] != $0.value }) else { return }
+        lastFadeTime = CACurrentMediaTime()
+        let link = CADisplayLink(target: self, selector: #selector(stepFade))
+        link.add(to: .main, forMode: .common)
+        fadeLink = link
+    }
+
+    /** Moves each path's opacity toward its target; a path that finished fading out loses its labels. */
+    @objc private func stepFade() {
+        let now = CACurrentMediaTime()
+        let step = CGFloat(now - lastFadeTime) / Self.lineFadeSeconds
+        lastFadeTime = now
+        var animating = false
+        for (id, target) in pathTarget {
+            let current = pathAlpha[id] ?? target
+            guard current != target else { continue }
+            let next = current < target ? min(target, current + step) : max(target, current - step)
+            pathAlpha[id] = next
+            applyAlpha(next, toPath: id)
+            if next != target {
+                animating = true
+            } else if target == 0 {
+                for (key, annotation) in cueAnnotations where (annotation as? PathCueAnnotation)?.pathId == id {
+                    mapView.removeAnnotation(annotation)
+                    cueAnnotations[key] = nil
+                }
+            }
+        }
+        if !animating {
+            fadeLink?.invalidate()
+            fadeLink = nil
         }
     }
 
-    private func addOrbitPath(_ orbit: [IssMapPoint]) {
-        guard orbit.count > 1 else { return }
-        let coordinates = orbit.map {
-            CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)
+    private func applyAlpha(_ alpha: CGFloat, toPath id: String) {
+        if let overlay = pathOverlays[id], let renderer = mapView.renderer(for: overlay) as? MKPolylineRenderer {
+            renderer.alpha = alpha
+            renderer.setNeedsDisplay()
         }
-        let polyline = coordinates.withUnsafeBufferPointer { buffer in
-            MKGeodesicPolyline(coordinates: buffer.baseAddress!, count: buffer.count)
+        for annotation in cueAnnotations.values where (annotation as? PathCueAnnotation)?.pathId == id {
+            mapView.view(for: annotation)?.alpha = alpha
         }
-        mapView.addOverlay(polyline, level: .aboveRoads)
     }
 
-    private func addOrbitCues(currentTimestamp: Int64, orbit: [IssMapPoint]) {
-        guard currentTimestamp > 0 else { return }
+    /**
+     * Shows [points] as path [id]'s line, replacing its previous version only when the points changed. The new
+     * line is added before the old one is removed, a moment later, so the path never disappears for a frame.
+     */
+    private func setPath(id: String, points: [IssMapPoint], color: UIColor, visible: Bool) {
+        pathTarget[id] = visible ? 1 : 0
+        // A path seen for the first time starts transparent, so it fades in like any other.
+        if pathAlpha[id] == nil { pathAlpha[id] = 0 }
+        let key = points.count > 1 ? points.map { "\($0.latitude),\($0.longitude)" }.joined(separator: ";") : ""
+        guard pathKeys[id] != key else { return }
+        pathKeys[id] = key
+        let old = pathOverlays[id]
+        pathOverlays[id] = nil
+        if points.count > 1 {
+            let coordinates = points.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }
+            let polyline = coordinates.withUnsafeBufferPointer { buffer in
+                MKGeodesicPolyline(coordinates: buffer.baseAddress!, count: buffer.count)
+            }
+            overlayColors[ObjectIdentifier(polyline)] = color
+            overlayPaths[ObjectIdentifier(polyline)] = id
+            pathOverlays[id] = polyline
+            mapView.addOverlay(polyline, level: .aboveRoads)
+        }
+        if let old {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                self?.mapView.removeOverlay(old)
+                self?.overlayColors[ObjectIdentifier(old)] = nil
+                self?.overlayPaths[ObjectIdentifier(old)] = nil
+            }
+        }
+    }
+
+    /** Moves and turns existing arrows and labels, and adds or removes only the ones that came or went. */
+    private func syncCues(_ cues: [String: (cue: OrbitCue, colorArgb: Int64?, pathId: String)]) {
+        for (key, entry) in cues {
+            if let annotation = cueAnnotations[key] {
+                annotation.coordinate = entry.cue.coordinate
+                if let direction = annotation as? OrbitDirectionAnnotation,
+                   direction.rotationRadians != entry.cue.rotationRadians {
+                    direction.rotationRadians = entry.cue.rotationRadians
+                    mapView.view(for: direction)?.transform = CGAffineTransform(rotationAngle: entry.cue.rotationRadians)
+                }
+            } else {
+                let annotation: MKPointAnnotation
+                if entry.cue.minuteOffset.isMultiple(of: 30) {
+                    let time = OrbitTimeAnnotation()
+                    time.minuteOffset = entry.cue.minuteOffset
+                    time.colorArgb = entry.colorArgb
+                    time.pathId = entry.pathId
+                    annotation = time
+                } else {
+                    let direction = OrbitDirectionAnnotation()
+                    direction.rotationRadians = entry.cue.rotationRadians
+                    direction.colorArgb = entry.colorArgb
+                    direction.pathId = entry.pathId
+                    annotation = direction
+                }
+                annotation.coordinate = entry.cue.coordinate
+                cueAnnotations[key] = annotation
+                mapView.addAnnotation(annotation)
+            }
+        }
+        for (key, annotation) in cueAnnotations where cues[key] == nil {
+            mapView.removeAnnotation(annotation)
+            cueAnnotations[key] = nil
+        }
+    }
+
+    /** Taps are handled in handleMapTap; selection lives in the shared screen, so MapKit's is just cleared. */
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let annotation = view.annotation {
+            DispatchQueue.main.async { mapView.deselectAnnotation(annotation, animated: false) }
+        }
+    }
+
+    /**
+     * Selects a tapped spacecraft, or goes back to the ISS on a tap on empty map. This recognizer fires as soon
+     * as the finger lifts, while MapKit's own didSelect waits about a third of a second to rule out a
+     * double-tap zoom, which made selection feel slow.
+     */
+    @objc private func handleMapTap(_ recognizer: UITapGestureRecognizer) {
+        guard recognizer.state == .ended else { return }
+        var hit = mapView.hitTest(recognizer.location(in: mapView), with: nil)
+        while let view = hit {
+            if let annotationView = view as? MKAnnotationView {
+                // Arrows and time labels aren't selectable; ignore taps on them.
+                if let satellite = annotationView.annotation as? SatelliteAnnotation { onSelect?(satellite.id) }
+                return
+            }
+            hit = view.superview
+        }
+        onSelect?(nil)
+    }
+
+    /**
+     * MapKit fades new markers in on its own. Markers should just appear, and arrows and labels take their
+     * path's opacity, so they fade with its line.
+     */
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+        for view in views {
+            view.layer.removeAllAnimations()
+            if let cue = view.annotation as? PathCueAnnotation {
+                view.alpha = pathAlpha[cue.pathId] ?? 1
+            } else {
+                view.alpha = 1
+            }
+        }
+    }
+
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
+    ) -> Bool {
+        true
+    }
+
+    /** Arrows every 30 minutes (at 15, 45, ...) and time labels at 30, 60, 90 and 120 minutes along [orbit]. */
+    private static func orbitCues(currentTimestamp: Int64, orbit: [IssMapPoint]) -> [OrbitCue] {
+        guard currentTimestamp > 0 else { return [] }
         let future = orbit.filter { $0.timestamp > currentTimestamp }
-        guard future.count > 1 else { return }
+        guard future.count > 1 else { return [] }
 
+        var cues: [OrbitCue] = []
         for minuteOffset in stride(from: 15, through: 120, by: 15) {
             let targetTimestamp = currentTimestamp + Int64(minuteOffset * 60)
             guard let index = future.indices.min(by: {
@@ -850,38 +1097,38 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
             }) else { continue }
             let point = future[index]
             guard abs(point.timestamp - targetTimestamp) <= 90 else { continue }
+            let coordinate = CLLocationCoordinate2D(latitude: point.latitude, longitude: point.longitude)
 
             if minuteOffset.isMultiple(of: 30) {
-                let annotation = OrbitTimeAnnotation()
-                annotation.minuteOffset = minuteOffset
-                annotation.coordinate = CLLocationCoordinate2D(
-                    latitude: point.latitude,
-                    longitude: point.longitude
-                )
-                mapView.addAnnotation(annotation)
+                cues.append(OrbitCue(minuteOffset: minuteOffset, coordinate: coordinate, rotationRadians: 0))
             } else {
                 let next = future.indices.contains(index + 1) ? future[index + 1] : nil
                 let previous = index > 0 ? future[index - 1] : nil
-                let from: IssMapPoint
-                let to: IssMapPoint
-                if let next = next {
-                    from = point
-                    to = next
-                } else if let previous = previous {
-                    from = previous
-                    to = point
+                let rotation: CGFloat
+                if let next {
+                    rotation = bearingRadians(from: point, to: next)
+                } else if let previous {
+                    rotation = bearingRadians(from: previous, to: point)
                 } else {
                     continue
                 }
-                let annotation = OrbitDirectionAnnotation()
-                annotation.rotationRadians = Self.bearingRadians(from: from, to: to)
-                annotation.coordinate = CLLocationCoordinate2D(
-                    latitude: point.latitude,
-                    longitude: point.longitude
-                )
-                mapView.addAnnotation(annotation)
+                cues.append(OrbitCue(minuteOffset: minuteOffset, coordinate: coordinate, rotationRadians: rotation))
             }
         }
+        return cues
+    }
+
+    private func configureSatelliteView(_ view: MKAnnotationView, for satellite: SatelliteAnnotation) {
+        let marker = satelliteMarkerImage(for: satellite)
+        view.image = marker.image
+        // The badge sits on the satellite's position; its name hangs below.
+        view.centerOffset = CGPoint(x: 0, y: marker.image.size.height / 2 - marker.badgeCenterY)
+        view.transform = .identity
+        view.displayPriority = .required
+        view.collisionMode = .circle
+        view.canShowCallout = false
+        view.accessibilityLabel = satellite.label
+        view.zPriority = satellite.isSelected ? .max : .defaultUnselected
     }
 
     func mapView(
@@ -890,42 +1137,24 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
     ) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
 
-        if annotation is SolarMapAnnotation {
-            let identifier = "solar"
-            let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-                ?? MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            view.annotation = annotation
-            view.image = UIImage(systemName: "sun.max.fill")?
-                .applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 25, weight: .bold))?
-                .withTintColor(.systemYellow, renderingMode: .alwaysOriginal)
-            view.displayPriority = .required
-            view.collisionMode = .circle
-            return view
-        }
-
-        if annotation is IssMapAnnotation {
-            let identifier = "iss"
-            let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-                ?? MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            view.annotation = annotation
-            view.image = Self.issMarkerImage
-            view.centerOffset = .zero
-            view.transform = .identity
-            view.displayPriority = .required
-            view.collisionMode = .rectangle
-            view.canShowCallout = false
-            return view
-        }
-
         if let direction = annotation as? OrbitDirectionAnnotation {
             let identifier = "orbit-direction"
             let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
                 ?? MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view.annotation = annotation
-            view.image = Self.directionMarkerImage
+            view.image = direction.colorArgb.map { coloredDirectionImage(argb: $0) } ?? Self.directionMarkerImage
             view.transform = CGAffineTransform(rotationAngle: direction.rotationRadians)
             view.displayPriority = .required
             view.collisionMode = .circle
+            return view
+        }
+
+        if let satellite = annotation as? SatelliteAnnotation {
+            let identifier = "satellite"
+            let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+                ?? MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            view.annotation = annotation
+            configureSatelliteView(view, for: satellite)
             return view
         }
 
@@ -934,7 +1163,8 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
             let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
                 ?? MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view.annotation = annotation
-            view.image = timeMarkerImages[time.minuteOffset]
+            view.image = time.colorArgb.map { coloredTimeImage(minuteOffset: time.minuteOffset, argb: $0) }
+                ?? timeMarkerImages[time.minuteOffset]
             view.transform = .identity
             view.displayPriority = .required
             view.collisionMode = .rectangle
@@ -948,31 +1178,13 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
         _ mapView: MKMapView,
         rendererFor overlay: MKOverlay
     ) -> MKOverlayRenderer {
-        if let circle = overlay as? MKCircle {
-            let renderer = MKCircleRenderer(circle: circle)
-            if let footprint = footprintOverlay, circle === footprint {
-                renderer.fillColor = UIColor(
-                    red: 63.0 / 255.0,
-                    green: 140.0 / 255.0,
-                    blue: 1,
-                    alpha: 0.15
-                )
-                renderer.strokeColor = UIColor(
-                    red: 100.0 / 255.0,
-                    green: 181.0 / 255.0,
-                    blue: 246.0 / 255.0,
-                    alpha: 0.80
-                )
-                renderer.lineWidth = 1
-            }
-            return renderer
-        }
         guard let polyline = overlay as? MKPolyline else {
             return MKOverlayRenderer(overlay: overlay)
         }
         let renderer = MKPolylineRenderer(polyline: polyline)
-        renderer.strokeColor = .systemRed
+        renderer.strokeColor = overlayColors[ObjectIdentifier(polyline)] ?? .systemRed
         renderer.lineWidth = 3
+        renderer.alpha = overlayPaths[ObjectIdentifier(polyline)].flatMap { pathAlpha[$0] } ?? 1
         return renderer
     }
 
@@ -997,7 +1209,23 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
         ((longitude + 540).truncatingRemainder(dividingBy: 360)) - 180
     }
 
-    private static func makeTimeMarkerImage(minuteOffset: Int) -> UIImage {
+    private func coloredDirectionImage(argb: Int64) -> UIImage {
+        let key = "direction|\(argb)"
+        if let cached = coloredCueImages[key] { return cached }
+        let image = Self.makeDirectionMarkerImage(color: Self.color(argb: argb))
+        coloredCueImages[key] = image
+        return image
+    }
+
+    private func coloredTimeImage(minuteOffset: Int, argb: Int64) -> UIImage {
+        let key = "time|\(minuteOffset)|\(argb)"
+        if let cached = coloredCueImages[key] { return cached }
+        let image = Self.makeTimeMarkerImage(minuteOffset: minuteOffset, border: Self.color(argb: argb))
+        coloredCueImages[key] = image
+        return image
+    }
+
+    private static func makeTimeMarkerImage(minuteOffset: Int, border: UIColor = .systemYellow) -> UIImage {
         let size = CGSize(width: 72, height: 28)
         return UIGraphicsImageRenderer(size: size).image { _ in
             let bounds = CGRect(origin: .zero, size: size).insetBy(dx: 1, dy: 1)
@@ -1005,7 +1233,7 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
             UIColor(red: 12.0 / 255.0, green: 18.0 / 255.0, blue: 68.0 / 255.0, alpha: 0.94)
                 .setFill()
             path.fill()
-            UIColor.systemYellow.setStroke()
+            border.setStroke()
             path.lineWidth = 1.5
             path.stroke()
 
@@ -1025,7 +1253,9 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
         }
     }
 
-    private static let directionMarkerImage: UIImage = {
+    private static let directionMarkerImage: UIImage = makeDirectionMarkerImage(color: .systemRed)
+
+    private static func makeDirectionMarkerImage(color: UIColor) -> UIImage {
         let size = CGSize(width: 22, height: 22)
         return UIGraphicsImageRenderer(size: size).image { _ in
             let path = UIBezierPath()
@@ -1034,58 +1264,10 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
             path.addLine(to: CGPoint(x: 11, y: 15))
             path.addLine(to: CGPoint(x: 2, y: 20))
             path.close()
-            UIColor.systemRed.setFill()
+            color.setFill()
             path.fill()
         }.withRenderingMode(.alwaysOriginal)
-    }()
-
-    private static let issMarkerImage: UIImage = {
-        let sourceWidth: CGFloat = 104
-        let sourceHeight: CGFloat = 48
-        let scale: CGFloat = 1.0 / 3.0
-        let size = CGSize(width: sourceWidth * scale, height: sourceHeight * scale)
-
-        return UIGraphicsImageRenderer(size: size).image { context in
-            let canvas = context.cgContext
-            canvas.scaleBy(x: scale, y: scale)
-
-            let bodyColor = UIColor(
-                red: 232.0 / 255.0,
-                green: 157.0 / 255.0,
-                blue: 54.0 / 255.0,
-                alpha: 1
-            )
-            let panelColor = UIColor(
-                red: 54.0 / 255.0,
-                green: 96.0 / 255.0,
-                blue: 156.0 / 255.0,
-                alpha: 1
-            )
-
-            canvas.setFillColor(bodyColor.cgColor)
-            canvas.fill(CGRect(x: 39, y: 14, width: 26, height: 20))
-            canvas.setFillColor(panelColor.cgColor)
-            canvas.fill(CGRect(x: 4, y: 12, width: 31, height: 24))
-            canvas.fill(CGRect(x: 69, y: 12, width: 31, height: 24))
-
-            canvas.setStrokeColor(bodyColor.cgColor)
-            canvas.setLineWidth(1)
-            canvas.move(to: CGPoint(x: 35, y: 24))
-            canvas.addLine(to: CGPoint(x: 39, y: 24))
-            canvas.move(to: CGPoint(x: 65, y: 24))
-            canvas.addLine(to: CGPoint(x: 69, y: 24))
-            canvas.move(to: CGPoint(x: 52, y: 5))
-            canvas.addLine(to: CGPoint(x: 52, y: 14))
-            canvas.strokePath()
-            canvas.setFillColor(bodyColor.cgColor)
-            canvas.fillEllipse(in: CGRect(x: 49, y: 2, width: 6, height: 6))
-
-            canvas.setStrokeColor(UIColor.white.cgColor)
-            canvas.setLineWidth(2)
-            canvas.stroke(CGRect(x: 10, y: 17, width: 19, height: 14))
-            canvas.stroke(CGRect(x: 75, y: 17, width: 19, height: 14))
-        }.withRenderingMode(.alwaysOriginal)
-    }()
+    }
 
     private func configure() {
         backgroundColor = .systemBackground
@@ -1093,6 +1275,10 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
         mapView.delegate = self
         mapView.isRotateEnabled = false
         mapView.pointOfInterestFilter = .excludingAll
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleMapTap(_:)))
+        tap.delegate = self
+        tap.cancelsTouchesInView = false
+        mapView.addGestureRecognizer(tap)
         addSubview(mapView)
         NSLayoutConstraint.activate([
             mapView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -1103,6 +1289,87 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate {
     }
 
     private static let initialMapSpanMeters = 8_000_000.0
+
+    private static func color(argb: Int64) -> UIColor {
+        let value = UInt32(truncatingIfNeeded: argb)
+        return UIColor(
+            red: CGFloat((value >> 16) & 0xFF) / 255,
+            green: CGFloat((value >> 8) & 0xFF) / 255,
+            blue: CGFloat(value & 0xFF) / 255,
+            alpha: CGFloat((value >> 24) & 0xFF) / 255
+        )
+    }
+
+    private func satelliteMarkerImage(for satellite: SatelliteAnnotation) -> (image: UIImage, badgeCenterY: CGFloat) {
+        // Same size selected or not, so a tap doesn't make the badge jump; the label's border shows the selection.
+        let radius: CGFloat = 14
+        let ring: CGFloat = 2
+        let key = "\(satellite.label)|\(satellite.colorArgb)|\(satellite.isStation)|\(satellite.isSelected)"
+        let badgeCenterY = radius + ring
+        if let cached = satelliteMarkerImages[key] {
+            return (cached, badgeCenterY)
+        }
+        let accent = Self.color(argb: satellite.colorArgb)
+        let font = AppFonts.exo(size: 11, weight: .bold)
+        let text = satellite.label as NSString
+        let textSize = text.size(withAttributes: [.font: font])
+        let labelSize = CGSize(width: textSize.width + 14, height: 18)
+        let gap: CGFloat = 3
+        let size = CGSize(
+            width: max(labelSize.width, (radius + ring) * 2) + 2,
+            height: (radius + ring) * 2 + gap + labelSize.height + 2
+        )
+        let image = UIGraphicsImageRenderer(size: size).image { context in
+            let center = CGPoint(x: size.width / 2, y: badgeCenterY)
+            UIColor.white.setFill()
+            UIBezierPath(arcCenter: center, radius: radius + ring, startAngle: 0, endAngle: .pi * 2, clockwise: true).fill()
+            accent.setFill()
+            UIBezierPath(arcCenter: center, radius: radius, startAngle: 0, endAngle: .pi * 2, clockwise: true).fill()
+
+            UIColor.white.setFill()
+            let unit = radius / 14
+            let cg = context.cgContext
+            cg.saveGState()
+            cg.translateBy(x: center.x, y: center.y)
+            if satellite.isStation {
+                UIBezierPath(rect: CGRect(x: -3 * unit, y: -4 * unit, width: 6 * unit, height: 8 * unit)).fill()
+                UIBezierPath(rect: CGRect(x: -11 * unit, y: -3 * unit, width: 6 * unit, height: 6 * unit)).fill()
+                UIBezierPath(rect: CGRect(x: 5 * unit, y: -3 * unit, width: 6 * unit, height: 6 * unit)).fill()
+                UIBezierPath(rect: CGRect(x: -5 * unit, y: -0.6 * unit, width: 10 * unit, height: 1.2 * unit)).fill()
+            } else {
+                cg.rotate(by: -35 * .pi / 180)
+                UIBezierPath(
+                    roundedRect: CGRect(x: -9 * unit, y: -3.5 * unit, width: 16 * unit, height: 7 * unit),
+                    cornerRadius: 2 * unit
+                ).fill()
+                UIBezierPath(rect: CGRect(x: 7 * unit, y: -2.5 * unit, width: 3 * unit, height: 5 * unit)).fill()
+                UIBezierPath(rect: CGRect(x: -3 * unit, y: -9 * unit, width: 2 * unit, height: 5.5 * unit)).fill()
+                UIBezierPath(rect: CGRect(x: -3 * unit, y: 3.5 * unit, width: 2 * unit, height: 5.5 * unit)).fill()
+            }
+            cg.restoreGState()
+
+            let labelRect = CGRect(
+                x: (size.width - labelSize.width) / 2,
+                y: badgeCenterY + radius + ring + gap,
+                width: labelSize.width,
+                height: labelSize.height
+            )
+            let pill = UIBezierPath(roundedRect: labelRect, cornerRadius: labelSize.height / 2)
+            UIColor(red: 12.0 / 255.0, green: 18.0 / 255.0, blue: 68.0 / 255.0, alpha: 0.92).setFill()
+            pill.fill()
+            if satellite.isSelected {
+                accent.setStroke()
+                pill.lineWidth = 1.5
+                pill.stroke()
+            }
+            text.draw(
+                at: CGPoint(x: labelRect.midX - textSize.width / 2, y: labelRect.midY - textSize.height / 2),
+                withAttributes: [.font: font, .foregroundColor: UIColor.white]
+            )
+        }
+        satelliteMarkerImages[key] = image
+        return (image, badgeCenterY)
+    }
 }
 
 private var appVersionName: String {
