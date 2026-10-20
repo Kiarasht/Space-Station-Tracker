@@ -1,4 +1,5 @@
-# Debug channel: every PR to master builds both platforms with test ads, in parallel. Android sends a debug
+# Debug channel: every PR to master builds both platforms with test ads (one after the other on the single
+# runner, or in parallel if a second runner is added). Android sends a debug
 # AAB to Firebase App Distribution; iOS sends a Debug build to TestFlight in the same App Store Connect app as
 # releases, numbered <version code>.<run>.<attempt> and marked internal-testing-only. Runs only on the
 # self-hosted runners on the owner's Mac (see docs/ci-runners.md); never use GitHub-hosted runners or
