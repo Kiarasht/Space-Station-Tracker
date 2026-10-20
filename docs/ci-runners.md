@@ -13,14 +13,13 @@ Every workflow runs on self-hosted GitHub Actions runners on the owner's Mac, th
 | Runner | Folder | Labels |
 |---|---|---|
 | `mac` | `~/actions-runners/iss-tracker` | `self-hosted, macOS, ARM64, iss-tracker` |
-| `mac-2` | `~/actions-runners/iss-tracker-2` | `self-hosted, macOS, ARM64, iss-tracker` |
 
-Both are installed as LaunchAgents (`actions.runner.Kiarasht-Space-Station-Tracker.mac` and `.mac-2`). They start at login, run in the background with no window, and let the Android and iOS jobs build at the same time. They update themselves.
+It is installed as a LaunchAgent (`actions.runner.Kiarasht-Space-Station-Tracker.mac`). It starts at login, runs in the background with no window, and updates itself. A runner takes one job at a time, so a run's Android and iOS jobs build one after the other; that keeps them from competing for the Mac's memory and disk. For parallel builds, register a second runner with the same `iss-tracker` label (see below).
 
 Watch them from a terminal:
 
 ```sh
-tail -f ~/Library/Logs/actions.runner.Kiarasht-Space-Station-Tracker.mac*/stdout.log
+tail -f ~/Library/Logs/actions.runner.Kiarasht-Space-Station-Tracker.mac/stdout.log
 ```
 
 Check, stop or start them:
@@ -37,20 +36,20 @@ Jobs queue while the Mac is asleep or logged out and start when it is back. The 
 
 This repository is public, and a self-hosted runner on a public repository would otherwise let anyone's pull request run code on the Mac. Only runs the owner (`Kiarasht`) starts may run here: their own pull requests from branches of this repository, their pushes, their manual runs and the scheduled cron. Three layers enforce it:
 
-- **Runner hook (the real guarantee):** both runners run `~/actions-runners/hooks/iss-tracker-job-started.sh` before every job, set through `ACTIONS_RUNNER_HOOK_JOB_STARTED` in each runner's `.env`. It fails the job before any step runs unless the repository, actor, triggering actor and, for pull requests, the PR author and head repository all match the owner. Unlike the workflows, a pull request cannot edit it: the runners use an installed copy outside the repository. Its source is `tools/ci/runner-job-started.sh`.
+- **Runner hook (the real guarantee):** the runner runs `~/actions-runners/hooks/iss-tracker-job-started.sh` before every job, set through `ACTIONS_RUNNER_HOOK_JOB_STARTED` in its `.env`. It fails the job before any step runs unless the repository, actor, triggering actor and, for pull requests, the PR author and head repository all match the owner. Unlike the workflows, a pull request cannot edit it: the runners use an installed copy outside the repository. Its source is `tools/ci/runner-job-started.sh`.
 - **Workflow conditions:** every job's `if:` checks the same thing, so other people's PRs are skipped instead of failing at the hook.
 - **Repository setting:** Actions requires approval for runs from every outside contributor ("Require approval for all outside collaborators" under Settings > Actions > General).
 
 The workflows use `pull_request`, never `pull_request_target`. Never approve a workflow run for a pull request you have not read.
 
-After changing `tools/ci/runner-job-started.sh`, reinstall the copy and restart both runners:
+After changing `tools/ci/runner-job-started.sh`, reinstall the copy and restart the runner:
 
 ```sh
 install -m 0555 tools/ci/runner-job-started.sh ~/actions-runners/hooks/iss-tracker-job-started.sh
 ```
 
 ```sh
-for d in iss-tracker iss-tracker-2; do (cd ~/actions-runners/$d && ./svc.sh stop && ./svc.sh start); done
+cd ~/actions-runners/iss-tracker && ./svc.sh stop && ./svc.sh start
 ```
 
 ## Workflows
@@ -131,4 +130,4 @@ cd ~/actions-runners/iss-tracker && ./svc.sh stop && ./svc.sh uninstall
 cd ~/actions-runners/iss-tracker && ./config.sh --unattended --url https://github.com/Kiarasht/Space-Station-Tracker --token "$(gh api -X POST repos/Kiarasht/Space-Station-Tracker/actions/runners/registration-token --jq .token)" --name mac --labels iss-tracker --work _work --replace && ./svc.sh install && ./svc.sh start
 ```
 
-Use `iss-tracker-2` and `--name mac-2` for the second runner. A re-registered runner keeps its `.env`, so the pre-job hook stays set; check that `.env` still contains the `ACTIONS_RUNNER_HOOK_JOB_STARTED` line.
+A re-registered runner keeps its `.env`, so the pre-job hook stays set; check that `.env` still contains the `ACTIONS_RUNNER_HOOK_JOB_STARTED` line. To add a second runner for parallel builds, unpack a runner into `~/actions-runners/iss-tracker-2`, register it the same way with `--name mac-2`, and copy the hook line into its `.env`.

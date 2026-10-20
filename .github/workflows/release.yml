@@ -1,5 +1,5 @@
-# Release channel: a merge to master that raises APP_VERSION_CODE builds both platforms with production ads, in
-# parallel. Android sends the release AAB to Google Play (alpha track) and Firebase App Distribution; iOS sends
+# Release channel: a merge to master that raises APP_VERSION_CODE builds both platforms with production ads (one
+# after the other on the single runner). Android sends the release AAB to Google Play (alpha track) and Firebase App Distribution; iOS sends
 # the Release build (build number = APP_VERSION_CODE) to TestFlight, ready to attach to a new App Store
 # version. Self-hosted runners on the owner's Mac only (see docs/ci-runners.md); no GitHub-hosted runners or
 # upload-artifact.
