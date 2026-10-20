@@ -146,7 +146,6 @@
     <string name="about_stat_orbit">मिनट प्रति परिक्रमा</string>
     <string name="about_stat_sunrises">सूर्योदय प्रतिदिन</string>
     <string name="about_stat_crewed">वर्षों से लगातार मानवयुक्त</string>
-    <string name="about_data_sources">डेटा स्रोत: %1$s</string>
     <string name="satellite_tiangong_short">तियांगोंग</string>
     <string name="satellite_iss_short">ISS</string>
     <string name="satellite_hubble_short">हबल</string>

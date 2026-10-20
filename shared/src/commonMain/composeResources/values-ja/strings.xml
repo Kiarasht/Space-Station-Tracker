@@ -146,7 +146,6 @@
     <string name="about_stat_orbit">分で地球を1周</string>
     <string name="about_stat_sunrises">1日の日の出の回数</string>
     <string name="about_stat_crewed">年間ずっと有人</string>
-    <string name="about_data_sources">データ提供: %1$s</string>
     <string name="satellite_tiangong_short">天宮</string>
     <string name="satellite_iss_short">ISS</string>
     <string name="satellite_hubble_short">ハッブル</string>

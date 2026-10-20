@@ -120,15 +120,18 @@ object PassPredictor {
             var maxElevation = max(first.look.elevation, last.look.elevation)
             var brightest = min(magnitudeOf(first), magnitudeOf(last))
             val elevations = mutableListOf(first.look.elevation)
+            val azimuths = mutableListOf(first.look.azimuth)
             var time = startMillis + DETAIL_STEP_MILLIS
             while (time < endMillis) {
                 val sample = sample(time)
                 maxElevation = max(maxElevation, sample.look.elevation)
                 brightest = min(brightest, magnitudeOf(sample))
                 elevations += sample.look.elevation
+                azimuths += sample.look.azimuth
                 time += DETAIL_STEP_MILLIS
             }
             elevations += last.look.elevation
+            azimuths += last.look.azimuth
             return IssPass(
                 startTimeMillis = startMillis,
                 durationInSeconds = ((endMillis - startMillis) / 1_000.0).roundToLong().toInt(),
@@ -136,7 +139,9 @@ object PassPredictor {
                 maxElevation = (maxElevation * 10.0).roundToLong() / 10.0,
                 startAzimuthCompass = compassPoint(first.look.azimuth),
                 endAzimuthCompass = compassPoint(last.look.azimuth),
-                elevationTrack = downsample(elevations, TRACK_POINTS)
+                // Both tracks are sampled at the same indices, so they stay paired.
+                elevationTrack = downsample(elevations, TRACK_POINTS),
+                azimuthTrack = downsample(azimuths, TRACK_POINTS)
             )
         }
 

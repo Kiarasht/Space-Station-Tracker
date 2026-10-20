@@ -146,7 +146,6 @@
     <string name="about_stat_orbit">دقيقة لكل مدار</string>
     <string name="about_stat_sunrises">شروقًا في اليوم</string>
     <string name="about_stat_crewed">عامًا بطاقم على متنها</string>
-    <string name="about_data_sources">البيانات من %1$s</string>
     <string name="satellite_tiangong_short">تيانغونغ</string>
     <string name="satellite_iss_short">محطة الفضاء</string>
     <string name="satellite_hubble_short">هابل</string>

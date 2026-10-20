@@ -146,7 +146,6 @@
     <string name="about_stat_orbit">minutos por órbita</string>
     <string name="about_stat_sunrises">amaneceres al día</string>
     <string name="about_stat_crewed">años habitada sin pausa</string>
-    <string name="about_data_sources">Datos de %1$s</string>
     <string name="satellite_tiangong_short">Tiangong</string>
     <string name="satellite_iss_short">EEI</string>
     <string name="satellite_hubble_short">Hubble</string>

@@ -146,7 +146,6 @@
     <string name="about_stat_orbit">Minuten pro Umlauf</string>
     <string name="about_stat_sunrises">Sonnenaufgänge am Tag</string>
     <string name="about_stat_crewed">Jahre durchgehend bemannt</string>
-    <string name="about_data_sources">Daten von %1$s</string>
     <string name="satellite_tiangong_short">Tiangong</string>
     <string name="satellite_iss_short">ISS</string>
     <string name="satellite_hubble_short">Hubble</string>

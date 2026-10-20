@@ -111,6 +111,7 @@ fun SharedNextPassHero(
             endCompass = pass.endAzimuthCompass,
             maxElevation = pass.maxElevation,
             elevationTrack = pass.elevationTrack,
+            azimuthTrack = pass.azimuthTrack,
             youLabel = stringResource(Res.string.you),
             showBackground = false
         )
@@ -176,6 +177,7 @@ fun SharedIssPassCard(
             endCompass = pass.endAzimuthCompass,
             maxElevation = pass.maxElevation,
             elevationTrack = pass.elevationTrack,
+            azimuthTrack = pass.azimuthTrack,
             youLabel = stringResource(Res.string.you),
             showBackground = false
         )

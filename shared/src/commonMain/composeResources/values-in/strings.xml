@@ -146,7 +146,6 @@
     <string name="about_stat_orbit">menit per orbit</string>
     <string name="about_stat_sunrises">matahari terbit sehari</string>
     <string name="about_stat_crewed">tahun selalu berawak</string>
-    <string name="about_data_sources">Data dari %1$s</string>
     <string name="satellite_tiangong_short">Tiangong</string>
     <string name="satellite_iss_short">ISS</string>
     <string name="satellite_hubble_short">Hubble</string>

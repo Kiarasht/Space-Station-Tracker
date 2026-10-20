@@ -188,18 +188,14 @@ fun SharedCrewScreen(
                 }
             }
         }
-        else -> BoxWithConstraints(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = contentPadding.calculateTopPadding())
-        ) {
+        else -> BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
             val displayItems = remember(items) {
                 listOf(crewSummary(items)) + withStationHeaders(items)
             }
-            // Content scrolls under the floating bar.
+            // Edge to edge: content starts below the status bar and scrolls under it and the floating bar.
             val listPadding = PaddingValues(
                 start = 16.dp,
-                top = 16.dp,
+                top = 16.dp + contentPadding.calculateTopPadding(),
                 end = 16.dp,
                 bottom = 16.dp + contentPadding.calculateBottomPadding()
             )
@@ -746,10 +742,11 @@ fun SharedFullSettingsScreen(
         )
     }
     LazyColumn(
-        modifier = Modifier.fillMaxSize().padding(top = contentPadding.calculateTopPadding()),
+        // Edge to edge: content starts below the status bar and scrolls under it and the floating bar.
+        modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(
             start = 16.dp,
-            top = 16.dp,
+            top = 16.dp + contentPadding.calculateTopPadding(),
             end = 16.dp,
             bottom = contentPadding.calculateBottomPadding() + 24.dp
         ),
@@ -774,16 +771,17 @@ fun SharedFullSettingsScreen(
                         onCheckedChange = onAutomaticAlertsChanged
                     )
                 }
-                SettingsDivider()
-                AlertHealth(
-                    lines = listOf(
-                        platformState.hasNotificationPermission to stringResource(if (platformState.hasNotificationPermission) Res.string.notifications_allowed else Res.string.notifications_need_permission),
-                        platformState.hasLocationPermission to stringResource(if (platformState.hasLocationPermission) Res.string.location_permission_allowed else Res.string.location_permission_needed),
-                        hasLocation to stringResource(if (hasLocation) Res.string.alert_location_saved else Res.string.alert_location_needs_update),
-                        platformState.isBackgroundUnrestricted to stringResource(if (platformState.isBackgroundUnrestricted) Res.string.battery_unrestricted else Res.string.battery_may_pause_alerts)
-                    )
-                )
+                // Alert health and the alert options only matter while automatic alerts are on.
                 if (settings.automaticPassAlertsEnabled) {
+                    SettingsDivider()
+                    AlertHealth(
+                        lines = listOf(
+                            platformState.hasNotificationPermission to stringResource(if (platformState.hasNotificationPermission) Res.string.notifications_allowed else Res.string.notifications_need_permission),
+                            platformState.hasLocationPermission to stringResource(if (platformState.hasLocationPermission) Res.string.location_permission_allowed else Res.string.location_permission_needed),
+                            hasLocation to stringResource(if (hasLocation) Res.string.alert_location_saved else Res.string.alert_location_needs_update),
+                            platformState.isBackgroundUnrestricted to stringResource(if (platformState.isBackgroundUnrestricted) Res.string.battery_unrestricted else Res.string.battery_may_pause_alerts)
+                        )
+                    )
                     SettingsDivider()
                     SettingsChoiceRow(
                         icon = Icons.Default.Visibility,

@@ -146,7 +146,6 @@
     <string name="about_stat_orbit">분마다 지구 한 바퀴</string>
     <string name="about_stat_sunrises">하루 일출 횟수</string>
     <string name="about_stat_crewed">년째 유인 운영</string>
-    <string name="about_data_sources">데이터 출처: %1$s</string>
     <string name="satellite_tiangong_short">톈궁</string>
     <string name="satellite_iss_short">ISS</string>
     <string name="satellite_hubble_short">허블</string>

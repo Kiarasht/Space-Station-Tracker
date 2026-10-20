@@ -170,20 +170,9 @@ fun SharedAboutScreen(
                     )
                 }
             }
-            item {
-                Text(
-                    text = stringResource(Res.string.about_data_sources, DATA_SOURCES),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
-                )
-            }
         }
     }
 }
-
-private const val DATA_SOURCES = "CelesTrak · Where the ISS at? · corquaid ISS APIs · Wikipedia"
 
 private enum class LegalPage { PRIVACY, TERMS }
 

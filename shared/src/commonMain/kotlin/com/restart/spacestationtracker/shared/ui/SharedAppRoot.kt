@@ -895,15 +895,11 @@ private fun SharedPassesScreen(
             actionLabel = stringResource(Res.string.refresh),
             onAction = { onAction(SharedAppActions.REQUEST_LOCATION, null) }
         )
-        else -> BoxWithConstraints(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = padding.calculateTopPadding())
-        ) {
-            // Content scrolls under the floating bar.
+        else -> BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+            // Edge to edge: content starts below the status bar and scrolls under it and the floating bar.
             val listPadding = PaddingValues(
                 start = 16.dp,
-                top = 16.dp,
+                top = 16.dp + padding.calculateTopPadding(),
                 end = 16.dp,
                 bottom = 16.dp + padding.calculateBottomPadding()
             )

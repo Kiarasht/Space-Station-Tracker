@@ -146,7 +146,6 @@
     <string name="about_stat_orbit">minutes par orbite</string>
     <string name="about_stat_sunrises">levers de soleil par jour</string>
     <string name="about_stat_crewed">ans habitée sans interruption</string>
-    <string name="about_data_sources">Données : %1$s</string>
     <string name="satellite_tiangong_short">Tiangong</string>
     <string name="satellite_iss_short">ISS</string>
     <string name="satellite_hubble_short">Hubble</string>

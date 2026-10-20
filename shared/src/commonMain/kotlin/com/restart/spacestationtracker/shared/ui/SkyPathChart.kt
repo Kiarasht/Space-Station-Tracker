@@ -58,6 +58,8 @@ internal fun SkyPathChart(
     endCompass: String,
     maxElevation: Double,
     elevationTrack: List<Double> = emptyList(),
+    /** Azimuths at the same moments as [elevationTrack]; with them the curve follows the real sky path. */
+    azimuthTrack: List<Double> = emptyList(),
     youLabel: String,
     modifier: Modifier = Modifier,
     sparkleSeed: Long = 0L,
@@ -69,6 +71,9 @@ internal fun SkyPathChart(
     val track = remember(elevationTrack, maxElevation) {
         elevationTrack.takeIf { it.size >= 2 }
             ?: List(24) { index -> sin(PI * index / 23.0) * maxElevation }
+    }
+    val chartPoints = remember(track, azimuthTrack) {
+        skyChartPoints(track, azimuthTrack.takeIf { it.size == track.size } ?: emptyList())
     }
     val compassStyle = TextStyle(
         color = Color.White.copy(alpha = 0.9f),
@@ -161,18 +166,12 @@ internal fun SkyPathChart(
                 strokeWidth = 1.5.dp.toPx()
             )
 
-            // The pass sweeps across the dome from its start direction (left) to its end (right). Low
-            // passes are common, so heights are eased upward to keep them readable: 12° draws at about a
-            // third of the way up, while overhead reaches the top. Each point's horizontal reach shrinks
-            // with its height, so the whole path stays inside the half-circle. The label shows the true angle.
+            // See skyChartPoints: the sky dome seen from the side, start direction on the left.
             fun pointAt(index: Int): Offset {
-                val fraction = index.toFloat() / (track.size - 1)
-                val elevation = track[index].coerceIn(0.0, 90.0)
-                val height = (elevation / 90.0).pow(0.55)
-                val sweep = PI * (1.0 - fraction)
+                val point = chartPoints[index]
                 return Offset(
-                    x = center.x + (skyHeight * cos(sweep) * sqrt(1.0 - height * height)).toFloat(),
-                    y = baselineY - (skyHeight * height).toFloat()
+                    x = center.x + (skyHeight * point.x).toFloat(),
+                    y = baselineY - (skyHeight * point.height).toFloat()
                 )
             }
 
@@ -237,3 +236,47 @@ private val ChartInset = 8.dp
 private val ChartLabelHeight = 20.dp
 // Room above the dome's top for the "Overhead" label.
 private val ChartTopRoom = 22.dp
+
+/** Where a pass sample sits on the chart: [x] from -1 (start side) to 1 (end side), [height] from 0 to 1. */
+internal data class SkyChartPoint(val x: Double, val height: Double)
+
+/**
+ * The pass on the sky dome seen from the side, looking across the line from where it becomes visible to
+ * where it fades (that line runs left to right). Each sample's left-right position comes from its real
+ * direction along that line, so the curve has the shape of the actual path. Low passes are common, so
+ * heights are eased upward to stay readable (12° draws about a third of the way up, overhead at the top);
+ * horizontal reach shrinks with height to match, keeping every point inside the half-circle.
+ *
+ * Without [azimuths] (one per elevation) it falls back to spacing samples evenly in time.
+ */
+internal fun skyChartPoints(elevations: List<Double>, azimuths: List<Double>): List<SkyChartPoint> {
+    if (elevations.isEmpty()) return emptyList()
+    val heights = elevations.map { (it.coerceIn(0.0, 90.0) / 90.0).pow(0.55) }
+    val reach = heights.map { sqrt(1.0 - it * it) }
+
+    if (azimuths.size == elevations.size && azimuths.size >= 2) {
+        // Ground-plane positions of the first and last samples set the left-right axis.
+        fun ground(index: Int): Pair<Double, Double> {
+            val azimuth = azimuths[index] * PI / 180.0
+            val distance = cos(elevations[index].coerceIn(0.0, 90.0) * PI / 180.0)
+            return distance * sin(azimuth) to distance * cos(azimuth)
+        }
+        val (startEast, startNorth) = ground(0)
+        val (endEast, endNorth) = ground(azimuths.lastIndex)
+        val axisEast = endEast - startEast
+        val axisNorth = endNorth - startNorth
+        val length = sqrt(axisEast * axisEast + axisNorth * axisNorth)
+        if (length > 1e-6) {
+            return elevations.indices.map { index ->
+                val azimuth = azimuths[index] * PI / 180.0
+                val along = (sin(azimuth) * axisEast + cos(azimuth) * axisNorth) / length
+                SkyChartPoint(x = along * reach[index], height = heights[index])
+            }
+        }
+    }
+
+    return elevations.indices.map { index ->
+        val fraction = if (elevations.size > 1) index.toDouble() / elevations.lastIndex else 0.5
+        SkyChartPoint(x = cos(PI * (1.0 - fraction)) * reach[index], height = heights[index])
+    }
+}

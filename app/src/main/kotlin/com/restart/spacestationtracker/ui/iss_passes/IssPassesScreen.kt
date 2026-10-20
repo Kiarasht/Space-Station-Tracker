@@ -101,13 +101,12 @@ fun IssPassesScreen(
     val windowSizeClass = calculateWindowSizeClass(activity)
     val viewportPadding = PaddingValues(
         start = contentPadding.calculateStartPadding(layoutDirection),
-        end = contentPadding.calculateEndPadding(layoutDirection),
-        top = contentPadding.calculateTopPadding()
+        end = contentPadding.calculateEndPadding(layoutDirection)
     )
-    // The list scrolls under the floating bar; its height arrives as the bottom padding.
+    // Edge to edge: the list starts below the status bar and scrolls under it and the floating bar.
     val listPadding = PaddingValues(
         start = 16.dp,
-        top = 16.dp,
+        top = 16.dp + contentPadding.calculateTopPadding(),
         end = 16.dp,
         bottom = 16.dp + contentPadding.calculateBottomPadding()
     )

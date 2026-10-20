@@ -146,7 +146,6 @@
     <string name="about_stat_orbit">минуты на виток</string>
     <string name="about_stat_sunrises">восходов в сутки</string>
     <string name="about_stat_crewed">лет с экипажем на борту</string>
-    <string name="about_data_sources">Данные: %1$s</string>
     <string name="satellite_tiangong_short">Тяньгун</string>
     <string name="satellite_iss_short">МКС</string>
     <string name="satellite_hubble_short">Хаббл</string>

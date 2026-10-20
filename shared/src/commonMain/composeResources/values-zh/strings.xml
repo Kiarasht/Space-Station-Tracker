@@ -146,7 +146,6 @@
     <string name="about_stat_orbit">分钟绕地球一圈</string>
     <string name="about_stat_sunrises">每天日出次数</string>
     <string name="about_stat_crewed">年持续有人驻留</string>
-    <string name="about_data_sources">数据来源：%1$s</string>
     <string name="satellite_tiangong_short">天宫</string>
     <string name="satellite_iss_short">国际空间站</string>
     <string name="satellite_hubble_short">哈勃</string>

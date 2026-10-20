@@ -146,7 +146,6 @@
     <string name="about_stat_orbit">phút mỗi vòng quỹ đạo</string>
     <string name="about_stat_sunrises">lần bình minh mỗi ngày</string>
     <string name="about_stat_crewed">năm liên tục có người ở</string>
-    <string name="about_data_sources">Dữ liệu từ %1$s</string>
     <string name="satellite_tiangong_short">Thiên Cung</string>
     <string name="satellite_iss_short">ISS</string>
     <string name="satellite_hubble_short">Hubble</string>
