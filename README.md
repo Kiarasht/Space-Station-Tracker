@@ -58,4 +58,4 @@ Android closed-testing publishing is documented in [docs/android-play-publishing
 
 iOS signing, production configuration, and archiving are documented in [docs/ios-release-setup.md](docs/ios-release-setup.md).
 
-CI runs on self-hosted runners on the owner's Mac: pull requests send debug builds to Firebase App Distribution, and version bumps on `master` ship to Google Play and TestFlight. See [docs/ci-runners.md](docs/ci-runners.md).
+CI runs on self-hosted runners on the owner's Mac: pull requests send Android debug builds to Firebase App Distribution, iOS is tested through TestFlight, and version bumps on `master` ship to Google Play and TestFlight. See [docs/ci-runners.md](docs/ci-runners.md).

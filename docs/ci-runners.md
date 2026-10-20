@@ -55,19 +55,29 @@ for d in iss-tracker iss-tracker-2; do (cd ~/actions-runners/$d && ./svc.sh stop
 
 ## Workflows
 
-Naming follows the owner's other apps: a debug channel and a release channel, each with one job per platform.
+A debug channel for Android and a release channel for both platforms. iOS has no debug channel: it is tested through TestFlight.
 
 | Workflow | Trigger | Job | Builds and sends |
 |---|---|---|---|
 | `ci.yml`: Mobile debug distribution | Owner's PR to `master` from a branch of this repository, or manual | `android-debug` | Android unit tests and lint, then the debug APK (test ads) → Firebase App Distribution |
-| | | `ios-debug` | Shared tests, then the Debug `.dev` IPA (test ads, Ad Hoc profile) → Firebase App Distribution |
-| `release.yml`: Release distribution (Play + TestFlight) | Owner's push to `master` that raises `APP_VERSION_CODE`, or manual | `release-gate` | Skips the uploads when the version code did not go up |
+| | | `shared-tests` | The shared module's tests (on the iOS simulator) |
+| `release.yml`: Release distribution (Play + TestFlight) | Owner's push to `master` that raises `APP_VERSION_CODE`, or manual from any branch | `release-gate` | Skips the uploads when the version code did not go up, and any platform whose build was already uploaded |
 | | | `android-release` | Android unit tests, then the signed release AAB and R8 mapping → Google Play alpha track |
 | | | `ios-release` | Shared tests, then the Release IPA (App Store profile) → TestFlight |
 
 | `update-youtube-live-streams.yml` | Every 15 minutes, or manual | `update-live-streams` | Refreshes `docs/nasa-live-streams.json` on the `live-stream-cache` branch |
 
-Debug builds go to the Firebase group(s) in the `FIREBASE_APP_DISTRIBUTION_GROUPS` secret. A manual run of `release.yml` always releases, which is how to retry a failed upload.
+Android debug builds go to the Firebase group(s) in the `FIREBASE_APP_DISTRIBUTION_GROUPS` secret.
+
+### Testing iOS on TestFlight before merging
+
+Run `release.yml` by hand on the PR branch with `platforms: ios`:
+
+```sh
+gh workflow run release.yml --ref <branch> -f platforms=ios
+```
+
+Each successful upload pushes a tag, `release/<platform>/<APP_VERSION_CODE>` (`tools/ci/record_release.sh`). The gate skips a platform whose tag exists, so after testing build 55 on TestFlight, merging ships only Android. A fix pushed after testing needs a higher `APP_VERSION_CODE` to reach TestFlight again, because App Store Connect rejects a reused build number. A manual run with `platforms: both` (or a single platform) also retries a failed upload, since a failed upload leaves no tag.
 
 ## Scripts
 
@@ -75,7 +85,7 @@ The workflows only call these scripts, which also run by hand:
 
 ```sh
 tools/ci/android.sh debug|release [--upload]
-tools/ci/ios.sh debug|release [--upload]
+tools/ci/ios.sh release [--upload]
 ```
 
 Output goes to the ignored `artifacts/ci/`. On the runners that is inside each runner's `_work` checkout. For example, the latest release AAB for Galaxy Store submission is at `~/actions-runners/iss-tracker*/_work/Space-Station-Tracker/Space-Station-Tracker/artifacts/ci/iss-tracker-release.aab`.
@@ -83,7 +93,7 @@ Output goes to the ignored `artifacts/ci/`. On the runners that is inside each r
 For manual runs, the scripts use your own `keystore.properties`, `local.properties` and `iosApp/Configuration/Local.xcconfig`. Uploads, the iOS certificate and profiles fall back to `~/.config/iss-tracker/ci/`:
 
 - `firebase-service-account.json` and `play-service-account.json`
-- `ios-adhoc.mobileprovision` and `ios-appstore.mobileprovision`
+- `ios-appstore.mobileprovision`
 - `apple-distribution.p12`, with its password in the login keychain as service `iss-tracker.ios.distribution`, account `p12`
 - `ci.env`, holding `APP_STORE_CONNECT_API_KEY_ID` and `APP_STORE_CONNECT_ISSUER_ID`
 
@@ -102,21 +112,10 @@ iOS signing imports the Apple Distribution certificate into a temporary keychain
 | `APP_STORE_CONNECT_API_KEY_BASE64`, `APP_STORE_CONNECT_API_KEY_ID`, `APP_STORE_CONNECT_ISSUER_ID`, `APPLE_TEAM_ID` | iOS export and TestFlight upload |
 | `IOS_DISTRIBUTION_CERTIFICATE_BASE64`, `IOS_DISTRIBUTION_CERTIFICATE_PASSWORD` | Apple Distribution certificate (.p12) |
 | `IOS_APP_STORE_PROVISIONING_PROFILE_BASE64` | App Store profile for `com.restart.spacestationtracker.ios` |
-| `IOS_ADHOC_PROFILE_BASE64` | Ad Hoc profile for `com.restart.spacestationtracker.ios.dev` (debug channel) |
 
 `IOS_SIGNING_KEYCHAIN_PASSWORD` and `N2YO_API_KEY` are no longer used. Each run generates a random keychain password, and passes are predicted on the device.
 
-Create or refresh the Ad Hoc profile after registering a test device, then update the secret:
-
-```sh
-node tools/ci/asc_profiles.mjs
-```
-
-```sh
-base64 -i ~/.config/iss-tracker/ci/ios-adhoc.mobileprovision | gh secret set IOS_ADHOC_PROFILE_BASE64
-```
-
-Ad Hoc builds install only on devices registered in the Apple Developer account.
+`tools/ci/ios.sh debug` (an Ad Hoc build for Firebase) and `tools/ci/asc_profiles.mjs` remain for manual use, but CI doesn't run them: iOS is tested through TestFlight.
 
 ## Switching over from the old workflows
 

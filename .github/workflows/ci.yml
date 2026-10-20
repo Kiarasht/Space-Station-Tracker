@@ -1,6 +1,7 @@
-# Debug channel: every PR to master tests and builds both platforms in parallel and sends them to Firebase
-# App Distribution. Runs only on the self-hosted runners on the owner's Mac (see docs/ci-runners.md); never
-# use GitHub-hosted runners or upload-artifact for these jobs.
+# Debug channel: every PR to master runs the shared tests and sends an Android debug build to Firebase App
+# Distribution. iOS has no debug channel: test iOS through TestFlight with a manual run of release.yml
+# (platforms: ios) on the PR branch. Runs only on the self-hosted runners on the owner's Mac (see
+# docs/ci-runners.md); never use GitHub-hosted runners or upload-artifact for these jobs.
 #
 # This repository is public, so only the owner's own runs may reach the Mac. Each job runs only when the
 # owner opened the PR from a branch of this repository (or started the run by hand), Actions requires
@@ -49,8 +50,8 @@ jobs:
       - name: Build debug APK and upload to Firebase App Distribution
         run: tools/ci/android.sh debug --upload
 
-  ios-debug:
-    name: ios-debug
+  shared-tests:
+    name: shared-tests
     # Only the owner's own PRs (same-repo branches) or manual runs; everyone else's PRs never reach the Mac.
     if: >-
       github.actor == github.repository_owner && github.triggering_actor == github.repository_owner &&
@@ -58,16 +59,7 @@ jobs:
       (github.event.pull_request.user.login == github.repository_owner &&
       github.event.pull_request.head.repo.full_name == github.repository))
     runs-on: [self-hosted, macOS, iss-tracker]
-    timeout-minutes: 120
-    env:
-      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
-      APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
-      APP_STORE_CONNECT_API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
-      IOS_DISTRIBUTION_CERTIFICATE_BASE64: ${{ secrets.IOS_DISTRIBUTION_CERTIFICATE_BASE64 }}
-      IOS_DISTRIBUTION_CERTIFICATE_PASSWORD: ${{ secrets.IOS_DISTRIBUTION_CERTIFICATE_PASSWORD }}
-      IOS_ADHOC_PROFILE_BASE64: ${{ secrets.IOS_ADHOC_PROFILE_BASE64 }}
-      FIREBASE_APP_DISTRIBUTION_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_APP_DISTRIBUTION_SERVICE_ACCOUNT_JSON }}
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
@@ -75,5 +67,3 @@ jobs:
       # The shared module has no JVM test target, so its commonTest suite runs on the simulator.
       - name: Shared tests
         run: ./gradlew :shared:iosSimulatorArm64Test --console=plain
-      - name: Build debug IPA and upload to Firebase App Distribution
-        run: /usr/bin/caffeinate -dimsu tools/ci/ios.sh debug --upload

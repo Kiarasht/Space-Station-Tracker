@@ -41,9 +41,8 @@ Required repository secrets:
 - `IOS_APP_STORE_PROVISIONING_PROFILE_BASE64`
 - `IOS_DISTRIBUTION_CERTIFICATE_BASE64`
 - `IOS_DISTRIBUTION_CERTIFICATE_PASSWORD`
-- `IOS_ADHOC_PROFILE_BASE64` (debug channel only)
 
-The workflow runs on pushes to `master` that raise `APP_VERSION_CODE` and can also be started manually from GitHub Actions. Uploading places the build in App Store Connect/TestFlight processing; it does not automatically submit the app for public App Review.
+The workflow runs on pushes to `master` that raise `APP_VERSION_CODE` and can also be started manually from GitHub Actions; a manual run with `platforms: ios` on a PR branch puts that build on TestFlight before merging (see [ci-runners.md](ci-runners.md)). Uploading places the build in App Store Connect/TestFlight processing; it does not automatically submit the app for public App Review.
 
 ## Unsigned device build check
 

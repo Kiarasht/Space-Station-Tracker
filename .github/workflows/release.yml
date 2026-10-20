@@ -1,13 +1,25 @@
 # Release channel: a merge to master that raises APP_VERSION_CODE builds both platforms in parallel and sends
 # them to the stores (Google Play alpha track and TestFlight). Self-hosted runners on the owner's Mac only
 # (see docs/ci-runners.md); no GitHub-hosted runners or upload-artifact.
+#
+# TestFlight is also how iOS is tested before merging: run this workflow by hand on the PR branch with
+# "platforms: ios". Each successful upload is recorded as a tag (release/<platform>/<version code>), and a
+# build already uploaded is skipped, so the merge afterwards ships only Android instead of being rejected
+# for reusing the build number. Pushing a fix after testing needs a new APP_VERSION_CODE to upload again.
 name: Release distribution (Play + TestFlight)
 
 on:
   push:
     branches: [master]
-  # A manual run always releases; use it to retry a failed upload.
+  # A manual run releases from any branch; use it to test iOS on TestFlight before merging, or to retry a
+  # failed upload.
   workflow_dispatch:
+    inputs:
+      platforms:
+        description: Stores to upload to
+        type: choice
+        options: [both, ios, android]
+        default: both
 
 concurrency:
   group: mobile-release
@@ -26,7 +38,8 @@ jobs:
     runs-on: [self-hosted, macOS, iss-tracker]
     timeout-minutes: 5
     outputs:
-      should_release: ${{ steps.gate.outputs.should_release }}
+      release_android: ${{ steps.gate.outputs.release_android }}
+      release_ios: ${{ steps.gate.outputs.release_ios }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
@@ -38,6 +51,7 @@ jobs:
         env:
           EVENT_NAME: ${{ github.event_name }}
           BEFORE_SHA: ${{ github.event.before }}
+          PLATFORMS: ${{ inputs.platforms || 'both' }}
         run: |
           set -euo pipefail
           read_version_code() {
@@ -50,9 +64,23 @@ jobs:
             exit 1
           fi
 
+          # Sets release_<platform> for each requested platform whose build wasn't uploaded already.
+          release_platforms() {
+            for platform in android ios; do
+              case "$PLATFORMS" in both | "$platform") ;; *) continue ;; esac
+              tag="release/$platform/$current"
+              if git ls-remote --exit-code --tags origin "refs/tags/$tag" > /dev/null 2>&1; then
+                echo "::notice::The $platform build $current was already uploaded ($tag), so it is skipped."
+              else
+                echo "Releasing the $platform build $current."
+                echo "release_$platform=true" >> "$GITHUB_OUTPUT"
+              fi
+            done
+          }
+
           if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
-            echo "Manual run: releasing version code $current."
-            echo "should_release=true" >> "$GITHUB_OUTPUT"
+            echo "Manual run ($PLATFORMS) of version code $current."
+            release_platforms
             exit 0
           fi
 
@@ -64,13 +92,12 @@ jobs:
 
           if [ -z "$previous" ]; then
             echo "No previous version code found; releasing version code $current."
-            echo "should_release=true" >> "$GITHUB_OUTPUT"
+            release_platforms
           elif [ "$current" -gt "$previous" ]; then
             echo "Version code changed from $previous to $current; releasing."
-            echo "should_release=true" >> "$GITHUB_OUTPUT"
+            release_platforms
           elif [ "$current" -eq "$previous" ]; then
             echo "::notice::APP_VERSION_CODE is still $current, so store uploads are skipped. Bump version.properties to release."
-            echo "should_release=false" >> "$GITHUB_OUTPUT"
           else
             echo "::error::APP_VERSION_CODE went down from $previous to $current; the stores require it to increase."
             exit 1
@@ -79,9 +106,11 @@ jobs:
   android-release:
     name: android-release
     needs: release-gate
-    if: needs.release-gate.outputs.should_release == 'true'
+    if: needs.release-gate.outputs.release_android == 'true'
     runs-on: [self-hosted, macOS, iss-tracker]
     timeout-minutes: 60
+    permissions:
+      contents: write # pushes the release/android/<version code> tag after a successful upload
     env:
       SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
       KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
@@ -100,13 +129,17 @@ jobs:
         run: ANDROID_HOME="${ANDROID_HOME:-$HOME/Library/Android/sdk}" ./gradlew :app:testDebugUnitTest --console=plain
       - name: Build release AAB and upload to Google Play
         run: tools/ci/android.sh release --upload
+      - name: Record the upload
+        run: tools/ci/record_release.sh android
 
   ios-release:
     name: ios-release
     needs: release-gate
-    if: needs.release-gate.outputs.should_release == 'true'
+    if: needs.release-gate.outputs.release_ios == 'true'
     runs-on: [self-hosted, macOS, iss-tracker]
     timeout-minutes: 120
+    permissions:
+      contents: write # pushes the release/ios/<version code> tag after a successful upload
     env:
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
       APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
@@ -123,3 +156,5 @@ jobs:
         run: ./gradlew :shared:iosSimulatorArm64Test --console=plain
       - name: Build release IPA and upload to TestFlight
         run: /usr/bin/caffeinate -dimsu tools/ci/ios.sh release --upload
+      - name: Record the upload
+        run: tools/ci/record_release.sh ios
