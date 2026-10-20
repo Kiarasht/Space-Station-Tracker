@@ -289,7 +289,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"${ISS_TRACKER_SKIP_SHARED_FRAMEWORK_BUILD:-}\" = \"1\" ]; then\n  echo \"Skipping ISSTrackerShared Gradle build; CI prepared the framework.\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew \\\n  :shared:embedAndSignAppleFrameworkForXcode \\\n  :shared:syncComposeResourcesForIos\n";
+			shellScript = "if [ \"${ISS_TRACKER_SKIP_SHARED_FRAMEWORK_BUILD:-}\" = \"1\" ]; then\n  echo \"Skipping ISSTrackerShared Gradle build; CI prepared the framework.\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n# CI sets ISS_TRACKER_GRADLE_ARGS=--no-daemon so signing runs in the job, never in a reused daemon.\n./gradlew ${ISS_TRACKER_GRADLE_ARGS:-} \\\n  :shared:embedAndSignAppleFrameworkForXcode \\\n  :shared:syncComposeResourcesForIos\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

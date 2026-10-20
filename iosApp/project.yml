@@ -121,7 +121,8 @@ targets:
             exit 0
           fi
           cd "$SRCROOT/.."
-          ./gradlew \
+          # CI sets ISS_TRACKER_GRADLE_ARGS=--no-daemon so signing runs in the job, never in a reused daemon.
+          ./gradlew ${ISS_TRACKER_GRADLE_ARGS:-} \
             :shared:embedAndSignAppleFrameworkForXcode \
             :shared:syncComposeResourcesForIos
     postBuildScripts:

@@ -118,6 +118,10 @@ fi
 archive="$OUT/ISSTracker-$flavor.xcarchive"; rm -rf "$archive"
 # -quiet keeps warnings and errors, so a signing failure shows its real cause in the CI log.
 # The target's pre-build script builds the shared Kotlin framework through Gradle.
+# The target's pre-build script signs the Kotlin framework from inside Gradle. A Gradle daemon left running by
+# a build outside this job (same user, same Mac) can't open this job's temporary keychain, and codesign fails
+# with errSecInternalComponent, so the archive uses a daemon of its own.
+export ISS_TRACKER_GRADLE_ARGS="--no-daemon"
 xcodebuild archive -quiet -project "$project" -scheme ISSTrackerIOS -configuration "$config" \
   -destination generic/platform=iOS -archivePath "$archive" -allowProvisioningUpdates ${auth[@]+"${auth[@]}"}
 
