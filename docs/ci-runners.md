@@ -1,12 +1,12 @@
 # CI on the owner's Mac
 
-Every workflow runs on self-hosted GitHub Actions runners on the owner's Mac, the same setup as the owner's other apps (Pgnify, GSA Auction Finder, NYCJobs). The GitHub Actions budget is used up, so:
+The build workflows run on a self-hosted GitHub Actions runner on the owner's Mac, the same setup as the owner's other apps (Pgnify, GSA Auction Finder, NYCJobs). For them:
 
 - Never add GitHub-hosted runners (`ubuntu-*`, `macos-*`, `windows-*`).
 - Never add `upload-artifact`, `actions/cache` or other steps that store files on GitHub.
 - Never add setup actions that download toolchains; the jobs use the Mac's own JDK, Android SDK, Xcode, Node and Firebase CLI.
 
-`update-youtube-live-streams.yml` runs on the Mac too, so the live-stream list the apps read updates only while the Mac is on. While the Mac is asleep, GitHub keeps only the newest pending run, and the apps keep showing the last published list.
+The one exception is `update-youtube-live-streams.yml`, which runs on a GitHub-hosted `ubuntu-latest` runner so the live-stream list keeps updating while the Mac is closed. It's a few seconds of Node with no build or artifacts, and hosted runners are free for public repositories.
 
 ## Runners
 
@@ -65,7 +65,7 @@ A debug channel and a release channel, each with one job per platform. iOS uses 
 | | | `android-release` | Android unit tests, then the signed release AAB (production ads) and R8 mapping → Google Play alpha track and Firebase App Distribution |
 | | | `ios-release` | Shared tests, then the Release build (production ads, build `<code>`) → TestFlight, ready to attach to a new App Store version |
 
-| `update-youtube-live-streams.yml` | Every 15 minutes, or manual | `update-live-streams` | Refreshes `docs/nasa-live-streams.json` on the `live-stream-cache` branch |
+| `update-youtube-live-streams.yml` | Every 15 minutes, or manual (GitHub-hosted) | `update-live-streams` | Refreshes `docs/nasa-live-streams.json` on the `live-stream-cache` branch. Finds streams through YouTube search, NASA's recent uploads and the channel's public `/live` page (search misses the 24/7 ISS feed) |
 
 Firebase builds go to the group(s) in the `FIREBASE_APP_DISTRIBUTION_GROUPS` secret. Firebase delivers the AABs through Play's internal app sharing, since the Firebase project is linked to the Play app.
 
@@ -110,14 +110,6 @@ iOS signing imports the Apple Distribution certificate into a temporary keychain
 `IOS_SIGNING_KEYCHAIN_PASSWORD` and `N2YO_API_KEY` are no longer used. Each run generates a random keychain password, and passes are predicted on the device.
 
 `tools/ci/asc_profiles.mjs` (an Ad Hoc profile for the `.dev` bundle) is no longer used by CI.
-
-## Switching over from the old workflows
-
-Until this setup is merged into `master`, `master` still has the old `mobile-pr.yml`, `mobile-release.yml` and the GitHub-hosted version of `update-youtube-live-streams.yml`. All three are disabled on GitHub (Actions > workflow > "Disable workflow") so nothing runs on GitHub's machines. The merge removes the first two. GitHub keeps `update-youtube-live-streams.yml` disabled because its path is unchanged, so re-enable it after the merge to start the Mac version:
-
-```sh
-gh workflow enable update-youtube-live-streams.yml -R Kiarasht/Space-Station-Tracker
-```
 
 ## Re-registering a runner
 
