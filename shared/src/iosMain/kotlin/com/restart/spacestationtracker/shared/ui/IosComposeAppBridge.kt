@@ -98,6 +98,11 @@ class IosComposeAppBridge(
         controller.requestTab("PASSES")
     }
 
+    /** Opens a tab by name (MAP, PASSES, CREW, SETTINGS, ABOUT); used by debug launch arguments. */
+    fun openTab(name: String) {
+        controller.requestTab(name)
+    }
+
     fun setAppActive(active: Boolean) {
         controller.setAppActive(active)
     }
