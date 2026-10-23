@@ -1,15 +1,11 @@
 {
   "status": "ok",
-  "updatedAt": "2026-10-23T19:54:43.321Z",
-  "updatedAtMillis": 1792785283321,
-  "lastSuccessAtMillis": 1792785283321,
-  "lastFullSearchAtMillis": 1792785283321,
+  "updatedAt": "2026-10-23T23:03:02.262Z",
+  "updatedAtMillis": 1792796582262,
+  "lastSuccessAtMillis": 1792796582262,
+  "lastFullSearchAtMillis": 1792796582262,
   "source": "github-actions",
   "streams": [
-    {
-      "videoId": "pAKqJxuxDgk",
-      "title": "Artemis Acceleration (Oct. 23, 2026)"
-    },
     {
       "videoId": "M3HKLzjvKPc",
       "title": "Live Video from the International Space Station (Official NASA Stream)"
