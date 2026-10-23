@@ -80,13 +80,10 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil3.ImageLoader
 import coil3.compose.setSingletonImageLoaderFactory
-import coil3.network.ktor3.KtorNetworkFetcherFactory
 import com.restart.spacestationtracker.domain.iss_live.model.IssLocation
 import com.restart.spacestationtracker.domain.iss_passes.model.IssPass
 import com.restart.spacestationtracker.domain.youtube.model.LiveStream
-import com.restart.spacestationtracker.shared.network.createPlatformHttpClient
 import com.restart.spacestationtracker.shared.presentation.SharedAppController
 import com.restart.spacestationtracker.shared.presentation.SharedAppState
 import com.restart.spacestationtracker.shared.network.spaceStationJson
@@ -151,13 +148,7 @@ fun SharedAppRoot(
     settingsPlatformState: SharedSettingsPlatformState = SharedSettingsPlatformState(),
     onAction: (String, String?) -> Unit
 ) {
-    setSingletonImageLoaderFactory { context ->
-        ImageLoader.Builder(context)
-            .components {
-                add(KtorNetworkFetcherFactory(httpClient = { createPlatformHttpClient() }))
-            }
-            .build()
-    }
+    setSingletonImageLoaderFactory { context -> spaceImageLoader(context) }
     val state by controller.state.collectAsState()
     val requestedTab by controller.requestedTab.collectAsState()
     var selectedTab by remember { mutableStateOf(SharedTab.MAP) }
