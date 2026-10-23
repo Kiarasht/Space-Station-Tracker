@@ -15,3 +15,5 @@
 "calendar.event.notes.format" = "Sichtbarer ISS-Überflug von %1$@ nach %2$@, höchster Punkt bei %3$ld°.";
 "share.pass.format" = "Überflug der Internationalen Raumstation am %1$@. Dauer: %2$ld Min. %3$ld Sek. Maximale Höhe: %4$ld°.";
 "share.app.format" = "Verfolge die Internationale Raumstation mit ISS Tracker: %@";
+"notification.live_event.title" = "NASA-Livestream in 10 Minuten";
+"notification.live_event.body.format" = "%1$@ beginnt um %2$@. Tippe zum Ansehen.";

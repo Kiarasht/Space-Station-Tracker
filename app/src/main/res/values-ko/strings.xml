@@ -120,4 +120,8 @@
     <string name="notification_times_already_passed">이 통과에 대한 알림 시간이 이미 지났습니다.</string>
     <string name="no_calendar_app_available">사용할 수 있는 캘린더 앱이 없습니다</string>
     <string name="notification_iss_pass_alert_direction_format">%1$s 방향을 보세요. 최고 고도 %2$d°.</string>
+    <string name="notification_channel_live_events">NASA 라이브 이벤트</string>
+    <string name="notification_channel_live_events_description">NASA의 우주 유영, 발사, 도킹 생중계 전에 알림</string>
+    <string name="notification_live_event_title">10분 후 NASA 생중계</string>
+    <string name="notification_live_event_text_format">%1$s이(가) %2$s에 시작해요. 탭해서 시청하세요.</string>
 </resources>

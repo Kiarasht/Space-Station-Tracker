@@ -150,4 +150,7 @@
     <string name="satellite_iss_short">ISS</string>
     <string name="satellite_hubble_short">हबल</string>
     <string name="satellite_sunlit">सूर्य के प्रकाश में</string>
+    <string name="settings_live_events">NASA लाइव इवेंट</string>
+    <string name="live_event_alerts">लाइव इवेंट अलर्ट</string>
+    <string name="live_event_alerts_description">NASA के YouTube पर स्पेसवॉक, लॉन्च और डॉकिंग, शुरू होने से 10 मिनट पहले</string>
 </resources>

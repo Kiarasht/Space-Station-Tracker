@@ -54,3 +54,52 @@ class KtorSpaceStationRepositoryTest {
         repository.close()
     }
 }
+
+class UpcomingLiveEventsTest {
+
+    @Test
+    fun upcomingBroadcastsAreReadFromThePublishedListSoonestFirst() = runTest {
+        val engine = MockEngine {
+            respond(
+                content = """
+                    {
+                      "status": "ok",
+                      "streams": [{ "videoId": "M3HKLzjvKPc", "title": "Live Video from the ISS" }],
+                      "upcoming": [
+                        { "videoId": "b", "title": "Launch", "scheduledStartMillis": 2000 },
+                        { "videoId": "a", "title": "U.S. Spacewalk 100", "scheduledStartMillis": 1000 }
+                      ]
+                    }
+                """.trimIndent(),
+                headers = headersOf(HttpHeaders.ContentType, "application/json")
+            )
+        }
+        val repository = KtorSpaceStationRepository(
+            config = NetworkConfig(youtubeLiveStreamsUrl = "https://example.test/streams.json"),
+            client = HttpClient(engine)
+        )
+
+        val events = repository.getUpcomingLiveEvents().getOrThrow()
+
+        assertEquals(listOf("a", "b"), events.map { it.videoId })
+        assertEquals(1000L, events.first().scheduledStartMillis)
+        repository.close()
+    }
+
+    @Test
+    fun listsWrittenBeforeUpcomingBroadcastsWereAddedHaveNone() = runTest {
+        val engine = MockEngine {
+            respond(
+                content = """{ "status": "ok", "streams": [] }""",
+                headers = headersOf(HttpHeaders.ContentType, "application/json")
+            )
+        }
+        val repository = KtorSpaceStationRepository(
+            config = NetworkConfig(youtubeLiveStreamsUrl = "https://example.test/streams.json"),
+            client = HttpClient(engine)
+        )
+
+        assertEquals(emptyList(), repository.getUpcomingLiveEvents().getOrThrow())
+        repository.close()
+    }
+}

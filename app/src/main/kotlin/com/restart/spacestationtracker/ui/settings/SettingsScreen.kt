@@ -284,6 +284,44 @@ fun SettingsScreen(
         }
     }
 
+    // Live-event alerts need only notifications, so they get their own permission request.
+    val liveEventNotificationPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = { isGranted ->
+            if (isGranted) {
+                viewModel.enableLiveEventAlerts()
+            } else {
+                notificationPermissionDeniedCount += 1
+                Toast.makeText(context, R.string.notification_permission_required_toast, Toast.LENGTH_SHORT).show()
+            }
+        }
+    )
+
+    fun startEnableLiveEventAlerts() {
+        if (hasNotificationPermission()) {
+            viewModel.enableLiveEventAlerts()
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (notificationPermissionDeniedCount > 0 &&
+                !ActivityCompat.shouldShowRequestPermissionRationale(
+                    activity,
+                    Manifest.permission.POST_NOTIFICATIONS
+                )
+            ) {
+                Toast.makeText(context, R.string.enable_notifications_in_settings_toast, Toast.LENGTH_LONG)
+                    .show()
+                context.openAppSettings()
+            } else {
+                liveEventNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
+    }
+
+    LaunchedEffect(settings.liveEventAlertsEnabled, permissionRefreshCounter) {
+        if (settings.liveEventAlertsEnabled && !hasNotificationPermission()) {
+            viewModel.disableLiveEventAlerts()
+        }
+    }
+
     LaunchedEffect(settings.automaticPassAlertsEnabled, permissionRefreshCounter) {
         if (settings.automaticPassAlertsEnabled &&
             (!hasNotificationPermission() || !hasLocationPermission())
@@ -305,6 +343,10 @@ fun SettingsScreen(
         onAutomaticAlertsChanged = { enabled ->
             AppAnalytics.trackSetting("automatic_pass_alerts", enabled.toString())
             if (enabled) startEnableAutomaticAlerts() else viewModel.disableAutomaticPassAlerts()
+        },
+        onLiveEventAlertsChanged = { enabled ->
+            AppAnalytics.trackSetting("live_event_alerts", enabled.toString())
+            if (enabled) startEnableLiveEventAlerts() else viewModel.disableLiveEventAlerts()
         },
         onMinVisibilityChanged = { value ->
             AppAnalytics.trackSetting("minimum_visibility", value)

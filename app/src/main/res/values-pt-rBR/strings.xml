@@ -120,4 +120,8 @@
     <string name="notification_times_already_passed">Esses horários de lembrete já passaram para esta passagem.</string>
     <string name="no_calendar_app_available">Nenhum app de calendário disponível</string>
     <string name="notification_iss_pass_alert_direction_format">Olhe para %1$s, com ponto mais alto a %2$d°.</string>
+    <string name="notification_channel_live_events">Eventos ao vivo da NASA</string>
+    <string name="notification_channel_live_events_description">Alertas antes das transmissões da NASA de caminhadas espaciais, lançamentos e acoplagens</string>
+    <string name="notification_live_event_title">Evento ao vivo da NASA em 10 minutos</string>
+    <string name="notification_live_event_text_format">%1$s começa às %2$s. Toque para assistir.</string>
 </resources>

@@ -120,4 +120,8 @@
     <string name="notification_times_already_passed">انقضت أوقات التذكير هذه بالفعل لهذا المرور.</string>
     <string name="no_calendar_app_available">لا يتوفر تطبيق تقويم</string>
     <string name="notification_iss_pass_alert_direction_format">انظر نحو %1$s، بأقصى ارتفاع %2$d°.</string>
+    <string name="notification_channel_live_events">بث ناسا المباشر</string>
+    <string name="notification_channel_live_events_description">تنبيهات قبل بث ناسا لعمليات السير في الفضاء والإطلاق والالتحام</string>
+    <string name="notification_live_event_title">بث مباشر لناسا بعد 10 دقائق</string>
+    <string name="notification_live_event_text_format">يبدأ %1$s الساعة %2$s. انقر للمشاهدة.</string>
 </resources>

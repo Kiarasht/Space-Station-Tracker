@@ -15,3 +15,5 @@
 "calendar.event.notes.format" = "可见的国际空间站过境：从%1$@到%2$@，最高仰角%3$ld°。";
 "share.pass.format" = "国际空间站过境时间：%1$@。持续时间：%2$ld分%3$ld秒。最高仰角：%4$ld°。";
 "share.app.format" = "使用 ISS Tracker 追踪国际空间站：%@";
+"notification.live_event.title" = "NASA 直播将在 10 分钟后开始";
+"notification.live_event.body.format" = "%1$@将于 %2$@ 开始。点按观看。";

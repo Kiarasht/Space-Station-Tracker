@@ -15,3 +15,5 @@
 "calendar.event.notes.format" = "Lintasan ISS terlihat dari %1$@ ke %2$@, puncak pada %3$ld°.";
 "share.pass.format" = "Lintasan Stasiun Luar Angkasa Internasional pada %1$@. Durasi: %2$ld mnt %3$ld dtk. Elevasi puncak: %4$ld°.";
 "share.app.format" = "Lacak Stasiun Luar Angkasa Internasional dengan ISS Tracker: %@";
+"notification.live_event.title" = "Siaran langsung NASA dalam 10 menit";
+"notification.live_event.body.format" = "%1$@ dimulai pukul %2$@. Ketuk untuk menonton.";

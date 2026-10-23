@@ -79,6 +79,11 @@ class SharedSettingsRepository(
         transform = { it.copy(automaticPassAlertScheduledIds = value) }
     )
 
+    fun setLiveEventAlertsEnabled(value: Boolean) = update(
+        write = { store.putBoolean(AppSettingsKeys.LIVE_EVENT_ALERTS_ENABLED, value) },
+        transform = { it.copy(liveEventAlertsEnabled = value) }
+    )
+
     fun setLifetimeAdRemoval(value: Boolean) = update(
         write = { store.putBoolean(AppSettingsKeys.LIFETIME_AD_REMOVAL, value) },
         transform = { it.copy(hasLifetimeAdRemoval = value) }
@@ -131,7 +136,11 @@ class SharedSettingsRepository(
             automaticPassAlertLastSyncResult =
                 store.getString(AppSettingsKeys.AUTO_PASS_ALERT_LAST_SYNC_RESULT),
             automaticPassAlertLastSyncMessage =
-                store.getString(AppSettingsKeys.AUTO_PASS_ALERT_LAST_SYNC_MESSAGE)
+                store.getString(AppSettingsKeys.AUTO_PASS_ALERT_LAST_SYNC_MESSAGE),
+            liveEventAlertsEnabled = store.getBoolean(AppSettingsKeys.LIVE_EVENT_ALERTS_ENABLED)
+                ?: defaultAppSettings.liveEventAlertsEnabled,
+            liveEventAlertScheduledIds =
+                store.getStringSet(AppSettingsKeys.LIVE_EVENT_ALERT_SCHEDULED_IDS).orEmpty()
         )
     }
 }

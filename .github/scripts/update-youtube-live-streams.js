@@ -14,6 +14,8 @@ const forceFullSearch = process.env.FORCE_FULL_SEARCH === "true";
 // videos.list. Once a stream is known, the cheap checks keep re-confirming it.
 // A full search runs at most every few hours; the runs in between re-check known and recently uploaded
 // videos for a few units.
+// Scheduled ("upcoming") streams are published too, with their start times, so the apps can alert users
+// before NASA events such as spacewalks and launches. A full search also looks for new ones.
 const fullSearchIntervalMillis = 3 * 60 * 60 * 1000;
 const videosPerRequest = 50;
 
@@ -26,6 +28,7 @@ async function main() {
       status: "error",
       updatedAt,
       streams: previous.streams,
+      upcoming: previous.upcoming,
       lastFullSearchAtMillis: previous.lastFullSearchAtMillis,
       lastSuccessAtMillis: previous.lastSuccessAtMillis,
       error: {
@@ -42,26 +45,29 @@ async function main() {
     updatedAt.getTime() - lastFullSearchAtMillis >= fullSearchIntervalMillis;
 
   try {
-    let streams;
+    let found;
     let fullSearchAt = lastFullSearchAtMillis;
     if (needsFullSearch) {
-      streams = await fullSearch(previous.streams);
+      found = await fullSearch(previous);
       fullSearchAt = updatedAt.getTime();
     } else {
       try {
-        streams = await checkKnownAndRecentVideos(previous.streams);
+        found = await checkKnownAndRecentVideos(previous);
       } catch (error) {
         console.warn(`Cheap live check failed, falling back to search: ${error.message}`);
-        streams = await fullSearch(previous.streams);
+        found = await fullSearch(previous);
         fullSearchAt = updatedAt.getTime();
       }
     }
+    const { streams, upcoming } = found;
     console.log(`Live streams: ${streams.map((stream) => `${stream.videoId} (${stream.title})`).join(", ") || "none"}`);
+    console.log(`Upcoming: ${upcoming.map((event) => `${event.videoId} at ${new Date(event.scheduledStartMillis).toISOString()} (${event.title})`).join(", ") || "none"}`);
 
     writeOutput({
       status: "ok",
       updatedAt,
       streams,
+      upcoming,
       lastFullSearchAtMillis: fullSearchAt,
       lastSuccessAtMillis: updatedAt.getTime(),
       error: null
@@ -71,6 +77,7 @@ async function main() {
       status: "error",
       updatedAt,
       streams: previous.streams,
+      upcoming: previous.upcoming,
       lastFullSearchAtMillis,
       lastSuccessAtMillis: previous.lastSuccessAtMillis,
       error: {
@@ -107,43 +114,81 @@ async function searchNasaLiveCandidates() {
   return (payload.items || []).map((video) => video?.id?.videoId);
 }
 
-/** Streams the live search found, plus the known and candidate videos confirmed live. */
-async function fullSearch(previousStreams) {
-  const searched = await searchNasaLiveStreams();
-  const candidates = await searchNasaLiveCandidates();
-  const confirmed = await liveVideos([...(previousStreams || []).map((stream) => stream.videoId), ...candidates]);
-  const byId = new Map([...searched, ...confirmed].map((stream) => [stream.videoId, stream]));
-  return [...byId.values()];
+/** IDs of the channel's scheduled streams that haven't started yet. */
+async function searchNasaUpcomingStreams() {
+  const payload = await youtubeGet("search", {
+    part: "id",
+    channelId: nasaChannelId,
+    eventType: "upcoming",
+    type: "video",
+    maxResults: String(videosPerRequest)
+  });
+  return (payload.items || []).map((video) => video?.id?.videoId);
 }
 
-async function checkKnownAndRecentVideos(previousStreams) {
+/** Streams the live search found, plus the known and candidate videos confirmed live or scheduled. */
+async function fullSearch(previous) {
+  const searched = await searchNasaLiveStreams();
+  const candidates = await searchNasaLiveCandidates();
+  const upcomingCandidates = await searchNasaUpcomingStreams();
+  const { live, upcoming } = await classifyVideos([
+    ...knownIds(previous),
+    ...candidates,
+    ...upcomingCandidates
+  ]);
+  const byId = new Map([...searched, ...live].map((stream) => [stream.videoId, stream]));
+  return { streams: [...byId.values()], upcoming };
+}
+
+async function checkKnownAndRecentVideos(previous) {
   const uploads = await youtubeGet("playlistItems", {
     part: "contentDetails",
     playlistId: nasaUploadsPlaylistId,
     maxResults: String(videosPerRequest)
   });
-  return liveVideos([
-    ...(previousStreams || []).map((stream) => stream.videoId),
+  const { live, upcoming } = await classifyVideos([
+    ...knownIds(previous),
     ...(uploads.items || []).map((item) => item?.contentDetails?.videoId)
   ]);
+  return { streams: live, upcoming };
 }
 
-/** The given videos that are live right now, one videos.list unit per 50. */
-async function liveVideos(ids) {
+/** The live and scheduled videos from the last run, so each run re-checks them. */
+function knownIds(previous) {
+  return [...(previous.streams || []), ...(previous.upcoming || [])].map((stream) => stream.videoId);
+}
+
+/**
+ * The given videos that are live now, and those scheduled to start later (oldest first); one videos.list unit
+ * per 50. A scheduled stream whose start time has passed without going live is left out: NASA often leaves
+ * those behind after a change of plan.
+ */
+async function classifyVideos(ids) {
   const uniqueIds = [...new Set(ids.filter(Boolean))];
-  const streams = [];
+  const live = [];
+  const upcoming = [];
+  const now = Date.now();
   for (let start = 0; start < uniqueIds.length; start += videosPerRequest) {
     const payload = await youtubeGet("videos", {
-      part: "snippet",
+      part: "snippet,liveStreamingDetails",
       id: uniqueIds.slice(start, start + videosPerRequest).join(",")
     });
     for (const video of payload.items || []) {
-      if (video?.snippet?.liveBroadcastContent === "live" && video.id && video.snippet.title) {
-        streams.push({ videoId: video.id, title: video.snippet.title });
+      const title = video?.snippet?.title;
+      if (!video?.id || !title) continue;
+      const state = video.snippet.liveBroadcastContent;
+      if (state === "live") {
+        live.push({ videoId: video.id, title });
+      } else if (state === "upcoming") {
+        const scheduledStartMillis = Date.parse(video.liveStreamingDetails?.scheduledStartTime ?? "");
+        if (Number.isFinite(scheduledStartMillis) && scheduledStartMillis > now) {
+          upcoming.push({ videoId: video.id, title, scheduledStartMillis });
+        }
       }
     }
   }
-  return streams;
+  upcoming.sort((a, b) => a.scheduledStartMillis - b.scheduledStartMillis);
+  return { live, upcoming };
 }
 
 async function youtubeGet(resource, params) {
@@ -165,13 +210,13 @@ function readPreviousOutput() {
   try {
     return JSON.parse(fs.readFileSync(outputPath, "utf8"));
   } catch {
-    return { streams: [] };
+    return { streams: [], upcoming: [] };
   }
 }
 
 // updatedAtMillis changes on every run; lastSuccessAtMillis only when YouTube confirmed the list, so the
 // apps can tell how old the streams are even while the check keeps failing.
-function writeOutput({ status, updatedAt, streams, lastFullSearchAtMillis, lastSuccessAtMillis, error }) {
+function writeOutput({ status, updatedAt, streams, upcoming, lastFullSearchAtMillis, lastSuccessAtMillis, error }) {
   const output = {
     status,
     updatedAt: updatedAt.toISOString(),
@@ -180,6 +225,7 @@ function writeOutput({ status, updatedAt, streams, lastFullSearchAtMillis, lastS
     lastFullSearchAtMillis: Number(lastFullSearchAtMillis) || 0,
     source: "github-actions",
     streams: streams || [],
+    upcoming: upcoming || [],
     error
   };
 

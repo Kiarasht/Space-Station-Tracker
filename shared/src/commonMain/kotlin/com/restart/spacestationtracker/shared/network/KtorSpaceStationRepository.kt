@@ -8,6 +8,7 @@ import com.restart.spacestationtracker.domain.people_in_space.model.Astronaut
 import com.restart.spacestationtracker.domain.people_in_space.model.Expedition
 import com.restart.spacestationtracker.domain.people_in_space.repository.PeopleInSpaceRepository
 import com.restart.spacestationtracker.domain.youtube.model.LiveStream
+import com.restart.spacestationtracker.domain.youtube.model.ScheduledLiveEvent
 import com.restart.spacestationtracker.domain.youtube.repository.YouTubeRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -138,10 +139,21 @@ class KtorSpaceStationRepository(
         // An old list is still used rather than falling back to the YouTube API, whose per-key quota is
         // shared by every installation.
         return runCatching {
-            spaceStationJson.decodeFromString<NasaLiveStreamsResponse>(
-                client.get(config.youtubeLiveStreamsUrl).bodyAsText()
-            ).streams.map(NasaLiveStreamDto::toDomain)
+            fetchPublishedLiveStreams().streams.map(NasaLiveStreamDto::toDomain)
         }.getOrNull()
+    }
+
+    override suspend fun getUpcomingLiveEvents(): Result<List<ScheduledLiveEvent>> = runCatching {
+        fetchPublishedLiveStreams().upcoming
+            .map(NasaUpcomingStreamDto::toDomain)
+            .sortedBy { it.scheduledStartMillis }
+    }
+
+    private suspend fun fetchPublishedLiveStreams(): NasaLiveStreamsResponse {
+        check(config.youtubeLiveStreamsUrl.isNotBlank()) { "No live-stream list configured." }
+        return spaceStationJson.decodeFromString<NasaLiveStreamsResponse>(
+            client.get(config.youtubeLiveStreamsUrl).bodyAsText()
+        )
     }
 
     private suspend fun fetchLiveStreamsFromYouTube(): List<LiveStream>? {

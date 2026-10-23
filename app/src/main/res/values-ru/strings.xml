@@ -120,4 +120,8 @@
     <string name="notification_times_already_passed">Это время напоминания для этого пролёта уже прошло.</string>
     <string name="no_calendar_app_available">Нет доступного приложения календаря</string>
     <string name="notification_iss_pass_alert_direction_format">Смотрите на %1$s, наивысшая точка — %2$d°.</string>
+    <string name="notification_channel_live_events">Прямые трансляции NASA</string>
+    <string name="notification_channel_live_events_description">Уведомления перед трансляциями NASA выходов в открытый космос, запусков и стыковок</string>
+    <string name="notification_live_event_title">Трансляция NASA через 10 минут</string>
+    <string name="notification_live_event_text_format">%1$s начнётся в %2$s. Нажмите, чтобы смотреть.</string>
 </resources>

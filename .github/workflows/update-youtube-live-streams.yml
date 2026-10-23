@@ -1,4 +1,5 @@
-# Refreshes the NASA live-stream JSON the apps read from the live-stream-cache branch. The one workflow on a
+# Refreshes the NASA live-stream JSON the apps read from the live-stream-cache branch: the streams live now, and
+# the scheduled ones the apps alert users about. The one workflow on a
 # GitHub-hosted runner: it has to keep running while the owner's Mac is closed, it's a few seconds of Node with
 # no build, and hosted runners are free for public repositories. Everything else stays on the Mac
 # (see docs/ci-runners.md).
@@ -13,6 +14,8 @@ on:
 
 permissions:
   contents: write
+  # Only for the keep-alive step below, which re-enables this workflow.
+  actions: write
 
 # GitHub keeps only the newest pending run, so a slow run never builds up a backlog.
 concurrency:
@@ -88,3 +91,10 @@ jobs:
           git add "$cache_file"
           git commit -m "Update NASA live stream status [skip ci]"
           git push -u origin "$cache_branch"
+
+      # GitHub switches off scheduled workflows in public repositories after 60 days without repository
+      # activity. Re-enabling this one on every run resets that clock, so live-event alerts keep their data.
+      - name: Keep the schedule enabled
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method PUT "repos/${{ github.repository }}/actions/workflows/update-youtube-live-streams.yml/enable"

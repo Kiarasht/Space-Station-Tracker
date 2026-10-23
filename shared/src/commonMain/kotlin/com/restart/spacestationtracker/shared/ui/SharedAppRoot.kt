@@ -124,6 +124,8 @@ object SharedAppActions {
     const val SCHEDULE_PASS_NOTIFICATION = "schedule_pass_notification"
     const val ADD_PASS_TO_CALENDAR = "add_pass_to_calendar"
     const val SHARE_PASS = "share_pass"
+    const val ENABLE_LIVE_EVENT_ALERTS = "enable_live_event_alerts"
+    const val DISABLE_LIVE_EVENT_ALERTS = "disable_live_event_alerts"
     const val ENABLE_AUTOMATIC_PASS_ALERTS = "enable_automatic_pass_alerts"
     const val DISABLE_AUTOMATIC_PASS_ALERTS = "disable_automatic_pass_alerts"
     const val OPEN_BACKGROUND_SETTINGS = "open_background_settings"
@@ -304,6 +306,14 @@ fun SharedAppRoot(
                         onAction(
                             if (enabled) SharedAppActions.ENABLE_AUTOMATIC_PASS_ALERTS
                             else SharedAppActions.DISABLE_AUTOMATIC_PASS_ALERTS,
+                            null
+                        )
+                    },
+                    onLiveEventAlertsChanged = { enabled ->
+                        controller.setLiveEventAlertsEnabled(enabled)
+                        onAction(
+                            if (enabled) SharedAppActions.ENABLE_LIVE_EVENT_ALERTS
+                            else SharedAppActions.DISABLE_LIVE_EVENT_ALERTS,
                             null
                         )
                     },

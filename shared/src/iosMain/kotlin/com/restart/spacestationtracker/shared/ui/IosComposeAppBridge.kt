@@ -111,6 +111,10 @@ class IosComposeAppBridge(
         controller.setAutomaticPassAlertsEnabled(enabled)
     }
 
+    fun setLiveEventAlertsEnabled(enabled: Boolean) {
+        controller.setLiveEventAlertsEnabled(enabled)
+    }
+
     fun clearPassesError() {
         controller.clearPassesError()
     }

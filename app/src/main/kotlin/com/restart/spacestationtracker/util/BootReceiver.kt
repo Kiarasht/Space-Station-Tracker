@@ -34,6 +34,11 @@ class BootReceiver : BroadcastReceiver() {
                     entryPoint.workScheduler().scheduleDailySync()
                     entryPoint.workScheduler().runImmediateSync()
                 }
+                // A reboot clears alarms; the sync schedules the live-event alerts again.
+                if (settings.liveEventAlertsEnabled) {
+                    entryPoint.liveEventWorkScheduler().schedulePeriodicSync()
+                    entryPoint.liveEventWorkScheduler().runImmediateSync()
+                }
             } finally {
                 pendingResult.finish()
             }
@@ -54,4 +59,5 @@ class BootReceiver : BroadcastReceiver() {
 interface BootReceiverEntryPoint {
     fun settingsRepository(): SettingsRepository
     fun workScheduler(): AutomaticPassAlertWorkScheduler
+    fun liveEventWorkScheduler(): LiveEventAlertWorkScheduler
 }

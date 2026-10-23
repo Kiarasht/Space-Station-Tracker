@@ -150,4 +150,7 @@
     <string name="satellite_iss_short">ISS</string>
     <string name="satellite_hubble_short">허블</string>
     <string name="satellite_sunlit">햇빛을 받고 있음</string>
+    <string name="settings_live_events">NASA 라이브 이벤트</string>
+    <string name="live_event_alerts">라이브 이벤트 알림</string>
+    <string name="live_event_alerts_description">NASA YouTube의 우주 유영, 발사, 도킹 생중계를 시작 10분 전에 알려 드려요</string>
 </resources>

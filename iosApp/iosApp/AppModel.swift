@@ -18,6 +18,7 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
     private let policyBridge: IosAppPolicyBridge
     private let composeBridge: IosComposeAppBridge
     private let passAlertBridge = IosPassAlertBridge()
+    private let liveEventAlertBridge = IosLiveEventAlertBridge()
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
     private let eventStore = EKEventStore()
@@ -93,6 +94,7 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         refreshSettingsPlatformState()
         adRemovalPurchase.configure()
         recordForegroundOpen()
+        refreshLiveEventAlerts()
     }
 
     func appDidReturnFromBackground() {
@@ -101,6 +103,7 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         refreshSettingsPlatformState()
         adRemovalPurchase.refreshEntitlements()
         recordForegroundOpen()
+        refreshLiveEventAlerts()
     }
 
     func setAppActive(_ active: Bool) {
@@ -324,6 +327,20 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
                     openNotificationSettings()
                 }
             }
+        case "enable_live_event_alerts":
+            Task {
+                if await requestNotificationAuthorization() {
+                    refreshLiveEventAlerts()
+                    PassBackgroundRefreshCoordinator.shared.schedule()
+                } else {
+                    composeBridge.setLiveEventAlertsEnabled(enabled: false)
+                    refreshSettingsPlatformState()
+                    openNotificationSettings()
+                }
+            }
+        case "disable_live_event_alerts":
+            Task { await LiveEventNotificationScheduler.cancelAll() }
+            PassBackgroundRefreshCoordinator.shared.cancel()
         case "disable_automatic_pass_alerts":
             cancelAutomaticPassNotifications()
             PassBackgroundRefreshCoordinator.shared.cancel()
@@ -378,6 +395,26 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
                             )
                         }
                     )
+                }
+            },
+            onFailure: { _ in }
+        )
+    }
+
+    /// Replaces the live-event alerts with NASA's current schedule. Opening the app is a cheap moment to
+    /// pick up new broadcasts; background refresh covers the rest.
+    private func refreshLiveEventAlerts() {
+        guard settingsDefaults.bool(forKey: "live_event_alerts_enabled") else { return }
+        liveEventAlertBridge.loadAlerts(
+            nowMillis: Self.nowMillis,
+            onSuccess: { [weak self] value in
+                Task { @MainActor in
+                    guard let self else { return }
+                    let alerts: [IosLiveEventAlertPayload] = self.cast(value)
+                    guard await self.requestNotificationAuthorization(),
+                          // Alerts may have been switched off while the schedule was loading.
+                          self.settingsDefaults.bool(forKey: "live_event_alerts_enabled") else { return }
+                    await LiveEventNotificationScheduler.replace(with: alerts)
                 }
             },
             onFailure: { _ in }
@@ -636,6 +673,10 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
             // While iOS is still asking, keep the user's opt-in; only a refusal turns alerts off.
             let notificationsRefused = !notificationsAllowed && settings.authorizationStatus != .notDetermined
             let locationRefused = !locationAllowed && self.locationManager.authorizationStatus != .notDetermined
+            if self.settingsDefaults.bool(forKey: "live_event_alerts_enabled") && notificationsRefused {
+                self.composeBridge.setLiveEventAlertsEnabled(enabled: false)
+                Task { await LiveEventNotificationScheduler.cancelAll() }
+            }
             if self.settingsDefaults.bool(forKey: "auto_pass_alerts_enabled") &&
                 (notificationsRefused || locationRefused) {
                 self.composeBridge.setAutomaticPassAlertsEnabled(enabled: false)

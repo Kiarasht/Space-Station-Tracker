@@ -80,6 +80,7 @@ final class PassBackgroundRefreshCoordinator {
     static let taskIdentifier = "com.restart.spacestationtracker.pass-refresh"
 
     private let bridge = IosPassAlertBridge()
+    private let liveEventBridge = IosLiveEventAlertBridge()
     private let defaults = UserDefaults(suiteName: "settings") ?? .standard
 
     func register() {
@@ -96,19 +97,26 @@ final class PassBackgroundRefreshCoordinator {
     }
 
     func schedule() {
-        guard defaults.bool(forKey: "auto_pass_alerts_enabled") else { return }
+        let passAlerts = defaults.bool(forKey: "auto_pass_alerts_enabled")
+        let liveEventAlerts = defaults.bool(forKey: "live_event_alerts_enabled")
+        guard passAlerts || liveEventAlerts else { return }
         let request = BGAppRefreshTaskRequest(identifier: Self.taskIdentifier)
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 12 * 60 * 60)
+        // NASA's broadcast schedule changes more often than pass predictions, so ask sooner when it's on.
+        // iOS still decides when the refresh actually runs.
+        request.earliestBeginDate = Date(timeIntervalSinceNow: (liveEventAlerts ? 6 : 12) * 60 * 60)
         BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: Self.taskIdentifier)
         try? BGTaskScheduler.shared.submit(request)
     }
 
+    /// Stops the refresh once neither pass alerts nor live-event alerts need it.
     func cancel() {
         BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: Self.taskIdentifier)
+        schedule()
     }
 
     private func handle(_ task: BGAppRefreshTask) {
         schedule()
+        refreshLiveEventAlerts()
         PassAlertAltitudeStorage.migrateToMetersIfNeeded(in: defaults)
         guard defaults.bool(forKey: "auto_pass_alerts_enabled"),
               defaults.object(forKey: "auto_pass_alert_latitude") != nil,
@@ -142,6 +150,25 @@ final class PassBackgroundRefreshCoordinator {
                 didFinish = true
                 task.setTaskCompleted(success: false)
             }
+        )
+    }
+
+    /// Fire and forget: the schedule is one small download, finished well within the task's time.
+    private func refreshLiveEventAlerts() {
+        guard defaults.bool(forKey: "live_event_alerts_enabled") else { return }
+        let defaults = defaults
+        liveEventBridge.loadAlerts(
+            nowMillis: Int64(Date().timeIntervalSince1970 * 1_000),
+            onSuccess: { alerts in
+                Task {
+                    let settings = await UNUserNotificationCenter.current().notificationSettings()
+                    guard settings.authorizationStatus == .authorized ||
+                            settings.authorizationStatus == .provisional,
+                          defaults.bool(forKey: "live_event_alerts_enabled") else { return }
+                    await LiveEventNotificationScheduler.replace(with: alerts)
+                }
+            },
+            onFailure: { _ in }
         )
     }
 
