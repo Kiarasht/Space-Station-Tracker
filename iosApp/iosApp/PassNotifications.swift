@@ -76,8 +76,9 @@ enum PassNotificationScheduler {
         content.sound = .default
         content.userInfo = [PassNotificationText.passStartTimeKey: request.startTimeMillis]
 
+        // Pinning the time zone keeps the reminder at the same instant if the device changes zones.
         let components = Calendar.current.dateComponents(
-            [.year, .month, .day, .hour, .minute, .second],
+            [.timeZone, .year, .month, .day, .hour, .minute, .second],
             from: triggerDate
         )
         let notificationRequest = UNNotificationRequest(

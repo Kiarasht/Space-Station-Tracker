@@ -861,6 +861,10 @@ private fun SharedPassesScreen(
         )
     }
 
+    // Passes drop off once they end, so a forecast left open for hours never offers a past pass as next.
+    val nowMillis = rememberPassClock()
+    val upcomingPasses = remember(state.passes, nowMillis) { state.passes.filterNot { it.hasEnded(nowMillis) } }
+
     when {
         state.isPassesLoading -> LoadingScreen(padding)
         state.passLocationName == null && state.passesError == null -> SkyPathStateMessage(
@@ -887,7 +891,7 @@ private fun SharedPassesScreen(
             actionLabel = stringResource(Res.string.try_again),
             onAction = { onAction(SharedAppActions.REQUEST_LOCATION, null) }
         )
-        state.passes.isEmpty() -> SkyPathStateMessage(
+        upcomingPasses.isEmpty() -> SkyPathStateMessage(
             padding = padding,
             icon = Icons.Default.VisibilityOff,
             title = stringResource(Res.string.sky_path_no_visible_passes),
@@ -935,7 +939,7 @@ private fun SharedPassesScreen(
                             onInfoClick = { showInfoDialog = true }
                         )
                     }
-                    state.passes.forEachIndexed { index, pass ->
+                    upcomingPasses.forEachIndexed { index, pass ->
                         if (index == 0) {
                             item(key = pass.startTimeMillis) {
                                 SharedNextPassHero(
@@ -945,7 +949,7 @@ private fun SharedPassesScreen(
                                     onShare = onShare
                                 )
                             }
-                            if (state.passes.size > 1) {
+                            if (upcomingPasses.size > 1) {
                                 item(key = "later-passes") { SkyPathSectionTitle() }
                             }
                         } else item(key = pass.startTimeMillis) {
@@ -984,7 +988,7 @@ private fun SharedPassesScreen(
                             onInfoClick = { showInfoDialog = true }
                         )
                     }
-                    state.passes.forEachIndexed { index, pass ->
+                    upcomingPasses.forEachIndexed { index, pass ->
                         if (index == 0) {
                             item(key = pass.startTimeMillis, span = StaggeredGridItemSpan.FullLine) {
                                 SharedNextPassHero(
@@ -994,7 +998,7 @@ private fun SharedPassesScreen(
                                     onShare = onShare
                                 )
                             }
-                            if (state.passes.size > 1) {
+                            if (upcomingPasses.size > 1) {
                                 item(key = "later-passes", span = StaggeredGridItemSpan.FullLine) {
                                     SkyPathSectionTitle()
                                 }
