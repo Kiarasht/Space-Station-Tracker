@@ -361,6 +361,8 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
                     guard let self else { return }
                     let passes: [IosPassAlertPayload] = self.cast(value)
                     guard await self.requestNotificationAuthorization() else { return }
+                    // Alerts may have been switched off while the forecast was loading.
+                    guard self.settingsDefaults.bool(forKey: "auto_pass_alerts_enabled") else { return }
                     await PassNotificationScheduler.replaceAutomatic(
                         with: passes.map { pass in
                             PassNotificationRequest(
@@ -624,8 +626,11 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
             default:
                 locationAllowed = false
             }
+            // While iOS is still asking, keep the user's opt-in; only a refusal turns alerts off.
+            let notificationsRefused = !notificationsAllowed && settings.authorizationStatus != .notDetermined
+            let locationRefused = !locationAllowed && self.locationManager.authorizationStatus != .notDetermined
             if self.settingsDefaults.bool(forKey: "auto_pass_alerts_enabled") &&
-                (!notificationsAllowed || !locationAllowed) {
+                (notificationsRefused || locationRefused) {
                 self.composeBridge.setAutomaticPassAlertsEnabled(enabled: false)
                 self.cancelAutomaticPassNotifications()
                 PassBackgroundRefreshCoordinator.shared.cancel()
