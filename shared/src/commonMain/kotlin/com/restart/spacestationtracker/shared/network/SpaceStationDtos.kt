@@ -112,8 +112,9 @@ internal data class NasaLiveStreamsResponse(
     val streams: List<NasaLiveStreamDto> = emptyList()
 ) {
     /**
-     * The streams, or none once the list is older than [maxAgeMillis]. The workflow only runs while the
-     * owner's Mac is on, so a list can be hours or days old and name streams that have ended.
+     * The streams, or none once the list is older than [maxAgeMillis]. GitHub runs the scheduled workflow
+     * only every few hours in practice, and not at all if it is disabled or keeps failing, so a list can be
+     * hours or days old and name streams that have ended.
      */
     fun currentStreams(nowMillis: Long, maxAgeMillis: Long): List<NasaLiveStreamDto> {
         val confirmedAt = lastSuccessAtMillis?.takeIf { it > 0 }

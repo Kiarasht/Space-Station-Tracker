@@ -181,7 +181,9 @@ class KtorSpaceStationRepository(
         const val YOUTUBE_SEARCH_API = "https://www.googleapis.com/youtube/v3/search"
         const val NASA_CHANNEL_ID = "UCLA_DiR1FfKNvjuUpBHmylQ"
         const val LIVE_STREAM_CACHE_MILLIS = 30L * 60 * 1_000
-        const val LIVE_STREAM_MAX_AGE_MILLIS = 2L * 60 * 60 * 1_000
+        // The workflow is scheduled every 15 minutes, but GitHub has been starting it only every 2-5 hours.
+        // Each run drops streams that ended, so this only bounds how long a list outlives a stopped workflow.
+        const val LIVE_STREAM_MAX_AGE_MILLIS = 12L * 60 * 60 * 1_000
     }
 }
 

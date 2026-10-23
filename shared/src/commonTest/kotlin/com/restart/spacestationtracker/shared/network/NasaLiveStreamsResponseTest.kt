@@ -6,7 +6,7 @@ import kotlin.test.assertTrue
 
 class NasaLiveStreamsResponseTest {
     private val now = 1_792_224_254_000L
-    private val maxAge = 2L * 60 * 60 * 1_000
+    private val maxAge = 12L * 60 * 60 * 1_000
     private val minute = 60_000L
 
     private fun decode(json: String) = spaceStationJson.decodeFromString(NasaLiveStreamsResponse.serializer(), json)
@@ -21,8 +21,18 @@ class NasaLiveStreamsResponseTest {
     }
 
     @Test
+    fun keepsStreamsBetweenDelayedScheduledRuns() {
+        // GitHub started the 15-minute schedule five hours late.
+        val response = decode(
+            """{"status":"ok","updatedAtMillis":${now - 5 * 60 * minute},"lastSuccessAtMillis":${now - 5 * 60 * minute},
+              "streams":[{"videoId":"live1","title":"ISS Live"}]}"""
+        )
+        assertEquals(listOf("live1"), response.currentStreams(now, maxAge).map { it.videoId })
+    }
+
+    @Test
     fun dropsStreamsWhenTheWorkflowStoppedRunning() {
-        // The owner's Mac was off: the file is a day old.
+        // The workflow stopped running: the file is a day old.
         val response = decode(
             """{"status":"ok","updatedAtMillis":${now - 24 * 60 * minute},"lastSuccessAtMillis":${now - 24 * 60 * minute},
               "streams":[{"videoId":"live1","title":"ISS Live"}]}"""
@@ -34,7 +44,7 @@ class NasaLiveStreamsResponseTest {
     fun dropsStreamsWhileTheYouTubeCheckKeepsFailing() {
         // The workflow still runs (updatedAtMillis is fresh) but has not confirmed the list for hours.
         val response = decode(
-            """{"status":"error","updatedAtMillis":${now - minute},"lastSuccessAtMillis":${now - 5 * 60 * minute},
+            """{"status":"error","updatedAtMillis":${now - minute},"lastSuccessAtMillis":${now - 13 * 60 * minute},
               "streams":[{"videoId":"live1","title":"ISS Live"}]}"""
         )
         assertTrue(response.currentStreams(now, maxAge).isEmpty())
