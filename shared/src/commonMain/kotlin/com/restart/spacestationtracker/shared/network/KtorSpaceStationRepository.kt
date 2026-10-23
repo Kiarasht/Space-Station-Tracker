@@ -135,14 +135,12 @@ class KtorSpaceStationRepository(
 
     private suspend fun fetchLiveStreamsFromBackend(): List<LiveStream>? {
         if (config.youtubeLiveStreamsUrl.isBlank()) return null
-        // A stale list is treated as "nothing live" rather than falling back to the YouTube API, whose
-        // per-key quota is shared by every installation.
+        // An old list is still used rather than falling back to the YouTube API, whose per-key quota is
+        // shared by every installation.
         return runCatching {
             spaceStationJson.decodeFromString<NasaLiveStreamsResponse>(
                 client.get(config.youtubeLiveStreamsUrl).bodyAsText()
-            )
-                .currentStreams(nowMillis(), LIVE_STREAM_MAX_AGE_MILLIS)
-                .map(NasaLiveStreamDto::toDomain)
+            ).streams.map(NasaLiveStreamDto::toDomain)
         }.getOrNull()
     }
 
@@ -181,9 +179,6 @@ class KtorSpaceStationRepository(
         const val YOUTUBE_SEARCH_API = "https://www.googleapis.com/youtube/v3/search"
         const val NASA_CHANNEL_ID = "UCLA_DiR1FfKNvjuUpBHmylQ"
         const val LIVE_STREAM_CACHE_MILLIS = 30L * 60 * 1_000
-        // The workflow is scheduled every 15 minutes, but GitHub has been starting it only every 2-5 hours.
-        // Each run drops streams that ended, so this only bounds how long a list outlives a stopped workflow.
-        const val LIVE_STREAM_MAX_AGE_MILLIS = 12L * 60 * 60 * 1_000
     }
 }
 

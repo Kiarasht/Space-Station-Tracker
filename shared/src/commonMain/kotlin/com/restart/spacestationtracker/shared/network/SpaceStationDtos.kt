@@ -102,28 +102,12 @@ internal data class WikiPageDto(val extract: String = "", val langlinks: List<Wi
 @Serializable
 internal data class WikiLangLinkDto(val lang: String = "", val title: String = "")
 
-/** The live-stream list published by the update-youtube-live-streams workflow. */
+/**
+ * The live-stream list published by the update-youtube-live-streams workflow. The app shows it however old it
+ * is: GitHub runs the workflow only every few hours, and NASA's 24/7 ISS feeds stay live for months.
+ */
 @Serializable
-internal data class NasaLiveStreamsResponse(
-    val status: String? = null,
-    val updatedAtMillis: Long? = null,
-    /** When YouTube last confirmed the list; absent in files written before it existed. */
-    val lastSuccessAtMillis: Long? = null,
-    val streams: List<NasaLiveStreamDto> = emptyList()
-) {
-    /**
-     * The streams, or none once the list is older than [maxAgeMillis]. GitHub runs the scheduled workflow
-     * only every few hours in practice, and not at all if it is disabled or keeps failing, so a list can be
-     * hours or days old and name streams that have ended.
-     */
-    fun currentStreams(nowMillis: Long, maxAgeMillis: Long): List<NasaLiveStreamDto> {
-        val confirmedAt = lastSuccessAtMillis?.takeIf { it > 0 }
-            ?: updatedAtMillis?.takeIf { status == "ok" }
-            ?: return emptyList()
-        // A confirmation "in the future" means the device clock is behind; trust the list.
-        return if (nowMillis - confirmedAt <= maxAgeMillis) streams else emptyList()
-    }
-}
+internal data class NasaLiveStreamsResponse(val streams: List<NasaLiveStreamDto> = emptyList())
 
 @Serializable
 internal data class NasaLiveStreamDto(
