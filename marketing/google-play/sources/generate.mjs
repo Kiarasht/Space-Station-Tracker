@@ -237,8 +237,15 @@ const ipadCss = `${css}
 const ipadBackground = (H) => `
   <div style="position:absolute;inset:0;background:linear-gradient(90deg,#000020 0%,#07103A 12%,#08223F 26%,#24195A 46%,#2C1A55 56%,#171A50 70%,#1A1342 84%,#0B0A35 100%)"></div>
   <svg style="position:absolute;left:0;top:0" width="12384" height="${H}">${stars(12384, H, 900, 11)}</svg>
-  ${[[500, 1300, C.issRed, "2e"], [2600, 900, C.teal, "2a"], [4700, 1200, C.coral, "28"], [6800, 1000, C.amber, "26"], [8900, 1200, C.violet, "40"], [11000, 1300, C.gold, "2a"]]
+  ${[[300, 1300, C.issRed, "2e"], [2500, 900, C.teal, "2a"], [4600, 1500, C.sunset, "3a"], [6900, 1100, C.amber, "24"], [8800, 1100, C.coral, "28"], [10900, 1300, C.violet, "40"]]
     .map(([x, y, c, a]) => `<div class="glow" style="left:${x}px;top:${y}px;width:1700px;height:1700px;background:radial-gradient(circle,${c}${a},transparent 65%)"></div>`).join("")}
+  <!-- Sunrise over Earth's limb and the sky dome, spanning slides 3 and 4, as on the phone. -->
+  <div style="position:absolute;left:${6192 - 4800}px;top:${H - 720}px;width:9600px;height:9600px;border-radius:50%;
+    background:radial-gradient(circle at 50% 0%,#2B4A9A 0%,#0E1A4A 18%,#050A26 40%);
+    box-shadow:0 -16px 70px ${C.sunset}aa,0 -90px 280px ${C.sunset}66,0 -240px 560px ${C.orchid}44"></div>
+  <svg style="position:absolute;left:0;top:0" width="12384" height="${H}">
+    <path d="M ${6192 - 1900} ${H - 640} A 1900 1900 0 0 1 ${6192 + 1900} ${H - 640}" fill="none"
+      stroke="#fff" stroke-opacity=".16" stroke-width="5" stroke-dasharray="24 30"/></svg>
   <svg style="position:absolute;left:0;top:0" width="12384" height="${H}" viewBox="0 0 12384 ${H}">
     <defs><linearGradient id="itrack" x1="0" x2="1">
       <stop offset="0" stop-color="${C.gold}" stop-opacity="0"/><stop offset=".07" stop-color="${C.gold}" stop-opacity=".6"/>
@@ -250,6 +257,7 @@ const ipadBackground = (H) => `
       stroke-linecap="round" filter="url(#isoft)" opacity=".5"/>
     <use href="#itrk" stroke="url(#itrack)" stroke-width="8" fill="none"/>
   </svg>`;
+// The tablet story mirrors the phone slide for slide: same headlines, same order, the same immersive pair on 3–4.
 const ipadSlides = () => `
   ${ipadCopy(0, { lines: ["See the ISS", "right now."], accent: "right now.",
     sub: "Live position, speed and orbit path on the map." })}
@@ -258,30 +266,29 @@ const ipadSlides = () => `
   ${ipadCrop(ipadShot("map"), { sx: 1725, sy: 118, sw: 301, sh: 52, cr: 26, x: 1400, y: 1040, w: 500, rotate: 3, glow: "#FF6B6B" })}
 
   ${ipadCopy(1, { color: "#5EEAD4", lines: ["Know when to", "look up."], accent: "look up.",
-    sub: "Every visible pass from where you are, drawn across your sky." })}
+    sub: "Every visible pass from where you are, with a countdown." })}
   ${ipad(ipadShot("passes"), { x: IPAD_W + 260, y: 960, w: 1600, rotate: -3 })}
   ${ipadCrop(ipadShot("passes"), { sx: 1832, sy: 265, sw: 159, sh: 47, cr: 23, x: IPAD_W + 1390, y: 910, w: 500, rotate: 4, glow: C.gold })}
   ${ipadCrop(ipadShot("passes"), { sx: 64, sy: 1566, sw: 812, sh: 70, x: IPAD_W + 260, y: 2230, w: 1560, rotate: 2, radius: 70, glow: C.teal })}
 
-  ${ipadCopy(2, { color: "#FF9A9A", lines: ["Meet the crew", "in orbit."], accent: "in orbit.",
-    sub: "Everyone in space right now, grouped by spacecraft." })}
-  ${ipad(ipadShot("crew"), { x: 2 * IPAD_W + 300, y: 960, w: 1600, rotate: 3, z: 3 })}
-  ${ipadCrop(ipadShot("crew"), { sx: 22, sy: 86, sw: 620, sh: 138, x: 2 * IPAD_W + 150, y: 880, w: 1080, rotate: -2, radius: 44, glow: C.coral })}
+  ${ipadCopy(2, { color: "#FFB38A", lines: ["Find it in", "your sky."], accent: "your sky.",
+    sub: "Where it rises, how high it climbs and where it sets." })}
+  ${ipad(ipadShot("skypath-list"), { x: 2 * IPAD_W + 640, y: 940, w: 1600, rotate: 7, z: 3 })}
 
   ${ipadCopy(3, { color: "#FCD34D", lines: ["Never miss", "a bright pass."], accent: "a bright pass.",
-    sub: "Automatic alerts before good passes, at the times you choose." })}
-  ${ipad(ipadShot("settings"), { x: 3 * IPAD_W + 380, y: 1000, w: 1520, rotate: -4 })}
-  ${ipadCrop(ipadShot("settings"), { sx: 31, sy: 157, sw: 1000, sh: 470, x: 3 * IPAD_W + 160, y: 2050, w: 1180, rotate: 3, z: 5, radius: 50, glow: C.amber })}
+    sub: "Automatic alerts for good passes, or a reminder for any pass." })}
+  ${ipad(ipadShot("pass-reminder"), { x: 3 * IPAD_W + 440, y: 1020, w: 1500, rotate: -5 })}
+  ${ipadCrop(ipadShot("pass-reminder"), { sx: 473, sy: 1079, sw: 1118, sh: 618, cr: 55, x: 3 * IPAD_W + 568, y: 1696, w: 1300, rotate: -5, z: 5, glow: C.amber })}
 
-  ${ipadCopy(4, { color: "#C4B5FD", lines: ["Track Hubble", "and Tiangong too."], accent: "and Tiangong too.",
+  ${ipadCopy(4, { color: "#FF9A9A", lines: ["Meet the crew", "in orbit."], accent: "in orbit.",
+    sub: "Everyone in space right now, grouped by spacecraft." })}
+  ${ipad(ipadShot("crew"), { x: 4 * IPAD_W + 300, y: 960, w: 1600, rotate: 3, z: 3 })}
+  ${ipadCrop(ipadShot("crew"), { sx: 22, sy: 86, sw: 620, sh: 138, x: 4 * IPAD_W + 150, y: 880, w: 1080, rotate: -2, radius: 44, glow: C.coral })}
+
+  ${ipadCopy(5, { color: "#C4B5FD", lines: ["Track Hubble", "and Tiangong too."], accent: "and Tiangong too.",
     sub: "Each with its own live position and orbit path." })}
-  ${ipad(ipadShot("map-hubble"), { x: 4 * IPAD_W + 230, y: 960, w: 1600, rotate: 3 })}
-  ${ipadCrop(ipadShot("map-hubble"), { sx: 33, sy: 97, sw: 308, sh: 317, cr: 31, x: 4 * IPAD_W + 150, y: 1000, w: 640, rotate: -5, z: 5, glow: C.violet, ring: false })}
-
-  ${ipadCopy(5, { lines: ["Look up. It’s", "right there."], accent: "right there.",
-    sub: "Live map, visible passes, alerts and the crew in one app." })}
-  ${ipad(ipadShot("about"), { x: 5 * IPAD_W + 240, y: 1120, w: 1580, rotate: -2 })}
-  ${ipadCrop(ipadShot("about"), { sx: 28, sy: 722, sw: 2008, sh: 194, x: 5 * IPAD_W + 164, y: 1690, w: 1760, rotate: -2, radius: 40, glow: C.gold })}
+  ${ipad(ipadShot("map-hubble"), { x: 5 * IPAD_W + 230, y: 960, w: 1600, rotate: 3 })}
+  ${ipadCrop(ipadShot("map-hubble"), { sx: 33, sy: 97, sw: 308, sh: 317, cr: 31, x: 5 * IPAD_W + 150, y: 1000, w: 640, rotate: -5, z: 5, glow: C.violet, ring: false })}
 `;
 /** The six tablet slides in 2064-unit-wide slides, H units tall, drawn at `scale` output pixels per unit. */
 function ipadGallery(H, dy, scale = 1, grow = 1) {

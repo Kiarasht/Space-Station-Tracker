@@ -6,7 +6,7 @@
 | `icon-512.png` | 512 × 512 | App icon |
 | `feature-graphic.png` | 1024 × 500 | Feature graphic |
 | `01-hero.png` … `06-finale.png` | 1080 × 1920 each | Phone screenshots, in this order |
-| `tablet/01-map.png` … `06-finale.png` | 1440 × 2560 each (9:16) | 7-inch and 10-inch tablet screenshots (the same files in both slots), in this order |
+| `tablet/01-hero.png` … `06-finale.png` | 1440 × 2560 each (9:16) | 7-inch and 10-inch tablet screenshots (the same files in both slots), in this order |
 | `gallery-preview.png` | 2040 × 760 | Review sheet only (do not upload) |
 
 All exports are opaque 24-bit RGB PNGs. See `design-brief.md` for the story, headlines and brand tokens.
@@ -45,8 +45,8 @@ This needs Node, Google Chrome in `/Applications` (or `CHROME=/path/to/chrome`) 
    - `map-hubble`: pan the map to Hubble and tap it.
    - `skypath-hero`, `skypath-list` (scrolled to "Later passes"), `pass-reminder` (bell on the hero card, with "1 hour before" also ticked).
    - `settings-alerts`: Settings with Automatic good pass alerts on and notifications allowed.
-   - `crew-top`, `crew-astronauts` (scrolled one screen), `about`.
-   - iPad: `ipad-map`, `ipad-map-hubble`, `ipad-passes`, `ipad-crew`, `ipad-settings`, `ipad-about`.
+   - `crew-top`, `crew-astronauts` (scrolled one screen).
+   - iPad, mirroring the phone: `ipad-map`, `ipad-passes`, `ipad-skypath-list` (scrolled to "Later passes"), `ipad-pass-reminder` (bell on the hero card, "1 hour before" also ticked), `ipad-crew`, `ipad-map-hubble`.
 4. **Capture:** `marketing/google-play/sources/capture.sh <name> <udid>` saves the raw capture to `artifacts/marketing-raw/`, which is untracked.
 5. **Copy:** `marketing/google-play/sources/redact.sh` copies the captures into `sources/screenshots/`. Nothing in them is private, so nothing is blurred; the script can still blur a rectangle if ever needed.
 

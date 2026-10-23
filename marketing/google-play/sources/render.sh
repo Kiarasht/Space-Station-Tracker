@@ -48,7 +48,7 @@ ipadout="$out/../app-store/ipad"
 mkdir -p "$ipadout"
 shoot gallery-appstore-ipad.html 12384 2752 "$tmp/ipad.png"
 i=0
-for name in 01-map 02-sky-path 03-crew 04-alerts 05-spacecraft 06-finale; do
+for name in 01-hero 02-feature 03-immersive-start 04-immersive-continuation 05-feature-spotlight 06-finale; do
   flat "$tmp/ipad.png" "$ipadout/$name.png" $((i * 2064)) 0 2064 2752
   i=$((i + 1))
 done
@@ -58,7 +58,7 @@ tablet="$out/tablet"
 mkdir -p "$tablet"
 shoot gallery-play-tablet.html 8640 2560 "$tmp/tablet.png"
 i=0
-for name in 01-map 02-sky-path 03-crew 04-alerts 05-spacecraft 06-finale; do
+for name in 01-hero 02-feature 03-immersive-start 04-immersive-continuation 05-feature-spotlight 06-finale; do
   flat "$tmp/tablet.png" "$tablet/$name.png" $((i * 1440)) 0 1440 2560
   i=$((i + 1))
 done

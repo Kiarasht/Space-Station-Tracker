@@ -10,4 +10,4 @@ r() { name="$1"; shift; swift redact.swift "$raw/$name.png" "screenshots/$name.p
 c() { cp "$raw/$1.png" "screenshots/$1.png"; echo "copied screenshots/$1.png"; }
 mkdir -p screenshots
 for name in map-iss skypath-hero skypath-list pass-reminder settings-alerts crew-top crew-astronauts \
-  map-hubble about ipad-map ipad-passes ipad-crew ipad-settings ipad-map-hubble ipad-about; do c "$name"; done
+  map-hubble ipad-map ipad-passes ipad-skypath-list ipad-pass-reminder ipad-crew ipad-map-hubble; do c "$name"; done
