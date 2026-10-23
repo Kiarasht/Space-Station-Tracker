@@ -56,6 +56,8 @@ import com.restart.spacestationtracker.shared.ui.SharedIssPassCard
 import com.restart.spacestationtracker.shared.ui.SharedNextPassHero
 import com.restart.spacestationtracker.shared.ui.SkyPathSectionTitle
 import com.restart.spacestationtracker.shared.ui.SkyPathVisualGuide
+import com.restart.spacestationtracker.shared.ui.hasEnded
+import com.restart.spacestationtracker.shared.ui.rememberPassClock
 import com.restart.spacestationtracker.util.IssPassVisibility
 import com.restart.spacestationtracker.util.NotificationScheduler
 import com.restart.spacestationtracker.util.openAppSettings
@@ -188,7 +190,10 @@ fun IssPassesScreen(
             }
 
             else -> {
-                if (uiState.feedItems.isEmpty()) {
+                // Passes drop off once they end, so a forecast left open never offers a past pass as next.
+                val nowMillis = rememberPassClock()
+                val feedItems = uiState.feedItems.filterNot { it is FeedItem.PassItem && it.pass.hasEnded(nowMillis) }
+                if (feedItems.none { it is FeedItem.PassItem }) {
                     SkyPathStateMessage(
                         title = stringResource(id = R.string.sky_path_no_visible_passes),
                         message = stringResource(id = R.string.sky_path_no_visible_passes_message),
@@ -214,8 +219,8 @@ fun IssPassesScreen(
                     sharePassDetails(activity, it)
                 }
                 // The next pass gets the hero card; the rest (with ads) follow under "Later passes".
-                val heroPass = uiState.feedItems.firstNotNullOfOrNull { (it as? FeedItem.PassItem)?.pass }
-                val laterItems = uiState.feedItems.filterNot { it is FeedItem.PassItem && it.pass == heroPass }
+                val heroPass = feedItems.firstNotNullOfOrNull { (it as? FeedItem.PassItem)?.pass }
+                val laterItems = feedItems.filterNot { it is FeedItem.PassItem && it.pass == heroPass }
                 val hasLaterPasses = laterItems.any { it is FeedItem.PassItem }
 
                 when (windowSizeClass.widthSizeClass) {

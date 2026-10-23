@@ -71,13 +71,7 @@ fun SharedNextPassHero(
     dateLabel: String = formatPassDate(pass.startTimeMillis),
     timeLabel: String = formatPassTime(pass.startTimeMillis)
 ) {
-    var nowMillis by remember { mutableLongStateOf(currentTimeMillis()) }
-    LaunchedEffect(pass.startTimeMillis) {
-        while (true) {
-            nowMillis = currentTimeMillis()
-            delay(30_000)
-        }
-    }
+    val nowMillis = rememberPassClock()
     val heroText = MaterialTheme.spaceColors.onHero
     // One night sky across the whole card, with the chart drawn straight onto it.
     SpaceHeroCard(
@@ -286,3 +280,20 @@ private fun countdownLabel(pass: IssPass, nowMillis: Long): String {
 }
 
 private fun currentTimeMillis(): Long = kotlin.time.Clock.System.now().toEpochMilliseconds()
+
+/** The current time, updated every 30 seconds while on screen, for countdowns and dropping ended passes. */
+@Composable
+fun rememberPassClock(): Long {
+    var nowMillis by remember { mutableLongStateOf(currentTimeMillis()) }
+    LaunchedEffect(Unit) {
+        while (true) {
+            nowMillis = currentTimeMillis()
+            delay(30_000)
+        }
+    }
+    return nowMillis
+}
+
+/** Whether the pass is over, so it no longer belongs in the upcoming list. */
+fun IssPass.hasEnded(nowMillis: Long): Boolean =
+    startTimeMillis + durationInSeconds * 1_000L <= nowMillis
