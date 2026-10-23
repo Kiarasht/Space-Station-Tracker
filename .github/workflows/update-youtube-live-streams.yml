@@ -6,6 +6,8 @@ name: Update YouTube Live Streams
 
 on:
   schedule:
+    # GitHub delays and drops scheduled runs under load; this one has been starting only every 2-5 hours.
+    # The apps show the last published list however old it is.
     - cron: "7,22,37,52 * * * *"
   workflow_dispatch:
 
