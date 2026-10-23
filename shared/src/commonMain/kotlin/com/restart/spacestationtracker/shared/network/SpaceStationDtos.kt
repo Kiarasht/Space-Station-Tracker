@@ -4,6 +4,7 @@ import com.restart.spacestationtracker.domain.iss_live.model.IssLocation
 import com.restart.spacestationtracker.domain.people_in_space.model.Astronaut
 import com.restart.spacestationtracker.domain.people_in_space.model.Expedition
 import com.restart.spacestationtracker.domain.youtube.model.LiveStream
+import com.restart.spacestationtracker.domain.youtube.model.ScheduledLiveEvent
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -107,7 +108,11 @@ internal data class WikiLangLinkDto(val lang: String = "", val title: String = "
  * is: GitHub runs the workflow only every few hours, and NASA's 24/7 ISS feeds stay live for months.
  */
 @Serializable
-internal data class NasaLiveStreamsResponse(val streams: List<NasaLiveStreamDto> = emptyList())
+internal data class NasaLiveStreamsResponse(
+    val streams: List<NasaLiveStreamDto> = emptyList(),
+    /** Scheduled broadcasts, for live-event alerts; absent in files written before they were published. */
+    val upcoming: List<NasaUpcomingStreamDto> = emptyList()
+)
 
 @Serializable
 internal data class NasaLiveStreamDto(
@@ -115,6 +120,15 @@ internal data class NasaLiveStreamDto(
     val title: String
 ) {
     fun toDomain() = LiveStream(videoId = videoId, title = title)
+}
+
+@Serializable
+internal data class NasaUpcomingStreamDto(
+    val videoId: String,
+    val title: String,
+    val scheduledStartMillis: Long
+) {
+    fun toDomain() = ScheduledLiveEvent(videoId = videoId, title = title, scheduledStartMillis = scheduledStartMillis)
 }
 
 @Serializable

@@ -150,4 +150,7 @@
     <string name="satellite_iss_short">محطة الفضاء</string>
     <string name="satellite_hubble_short">هابل</string>
     <string name="satellite_sunlit">تحت ضوء الشمس</string>
+    <string name="settings_live_events">بث ناسا المباشر</string>
+    <string name="live_event_alerts">تنبيهات البث المباشر</string>
+    <string name="live_event_alerts_description">عمليات السير في الفضاء والإطلاق والالتحام على قناة ناسا في يوتيوب، قبل بدئها بـ10 دقائق</string>
 </resources>

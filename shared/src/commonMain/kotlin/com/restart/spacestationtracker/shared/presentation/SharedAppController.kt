@@ -124,6 +124,13 @@ class SharedAppController(
         _state.update { it.copy(settings = it.settings.copy(theme = theme)) }
     }
 
+    fun setLiveEventAlertsEnabled(enabled: Boolean) {
+        settingsRepository?.setLiveEventAlertsEnabled(enabled)
+        _state.update {
+            it.copy(settings = it.settings.copy(liveEventAlertsEnabled = enabled))
+        }
+    }
+
     fun setAutomaticPassAlertsEnabled(enabled: Boolean) {
         settingsRepository?.setAutomaticPassAlertsEnabled(enabled)
         _state.update {

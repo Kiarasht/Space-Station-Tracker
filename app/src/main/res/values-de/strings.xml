@@ -120,4 +120,8 @@
     <string name="notification_times_already_passed">Diese Erinnerungszeiten sind für diesen Überflug bereits vorbei.</string>
     <string name="no_calendar_app_available">Keine Kalender-App verfügbar</string>
     <string name="notification_iss_pass_alert_direction_format">Blicke nach %1$s, höchster Punkt bei %2$d°.</string>
+    <string name="notification_channel_live_events">NASA-Livestreams</string>
+    <string name="notification_channel_live_events_description">Hinweise vor NASA-Übertragungen von Weltraumausstiegen, Starts und Andockmanövern</string>
+    <string name="notification_live_event_title">NASA-Livestream in 10 Minuten</string>
+    <string name="notification_live_event_text_format">%1$s beginnt um %2$s. Tippe zum Ansehen.</string>
 </resources>

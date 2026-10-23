@@ -7,6 +7,8 @@ import com.restart.spacestationtracker.data.settings.AppSettings
 import com.restart.spacestationtracker.data.settings.SettingsRepository
 import com.restart.spacestationtracker.data.settings.defaultAppSettings
 import com.restart.spacestationtracker.util.AutomaticPassAlertWorkScheduler
+import com.restart.spacestationtracker.util.LiveEventAlertScheduler
+import com.restart.spacestationtracker.util.LiveEventAlertWorkScheduler
 import com.restart.spacestationtracker.util.NotificationScheduler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -19,6 +21,7 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val workScheduler: AutomaticPassAlertWorkScheduler,
+    private val liveEventWorkScheduler: LiveEventAlertWorkScheduler,
     private val application: Application
 ) : ViewModel() {
 
@@ -122,6 +125,23 @@ class SettingsViewModel @Inject constructor(
             if (settingsState.value.automaticPassAlertsEnabled) {
                 workScheduler.runImmediateSync()
             }
+        }
+    }
+
+    fun enableLiveEventAlerts() {
+        viewModelScope.launch {
+            settingsRepository.setLiveEventAlertsEnabled(true)
+            liveEventWorkScheduler.schedulePeriodicSync()
+            liveEventWorkScheduler.runImmediateSync()
+        }
+    }
+
+    fun disableLiveEventAlerts() {
+        viewModelScope.launch {
+            liveEventWorkScheduler.cancelSync()
+            LiveEventAlertScheduler(application).cancel(settingsState.value.liveEventAlertScheduledIds)
+            settingsRepository.setLiveEventAlertsEnabled(false)
+            settingsRepository.setLiveEventAlertScheduledIds(emptySet())
         }
     }
 

@@ -57,6 +57,7 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.TextButton
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Layers
+import androidx.compose.material.icons.filled.LiveTv
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material3.HorizontalDivider
@@ -673,6 +674,7 @@ fun SharedFullSettingsScreen(
     platformState: SharedSettingsPlatformState,
     contentPadding: PaddingValues,
     onAutomaticAlertsChanged: (Boolean) -> Unit,
+    onLiveEventAlertsChanged: (Boolean) -> Unit,
     onMinVisibilityChanged: (String) -> Unit,
     onNotificationTimesChanged: (Set<String>) -> Unit,
     onUpdateLocation: () -> Unit,
@@ -818,6 +820,22 @@ fun SharedFullSettingsScreen(
                             FilledTonalButton(onClick = onOpenBackgroundSettings) { Text(stringResource(Res.string.open)) }
                         }
                     }
+                }
+            }
+        }
+        item {
+            SpaceSectionCard(stringResource(Res.string.settings_live_events)) {
+                SettingsRow(
+                    icon = Icons.Default.LiveTv,
+                    tint = colors.live,
+                    title = stringResource(Res.string.live_event_alerts),
+                    subtitle = stringResource(Res.string.live_event_alerts_description)
+                ) {
+                    Switch(settings.liveEventAlertsEnabled, onLiveEventAlertsChanged)
+                }
+                if (settings.liveEventAlertsEnabled && !platformState.hasNotificationPermission) {
+                    SettingsDivider()
+                    AlertHealth(lines = listOf(false to stringResource(Res.string.notifications_need_permission)))
                 }
             }
         }

@@ -17,6 +17,7 @@
         android:theme="@style/Theme.App">
 
         <receiver android:name=".util.NotificationReceiver" android:exported="false"/>
+        <receiver android:name=".util.LiveEventAlertReceiver" android:exported="false"/>
         <receiver
             android:name=".util.BootReceiver"
             android:exported="false">

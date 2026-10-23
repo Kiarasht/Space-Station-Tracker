@@ -19,7 +19,10 @@ data class AppSettings(
     val automaticPassAlertScheduledIds: Set<String> = emptySet(),
     val automaticPassAlertLastSyncTimeMillis: Long? = null,
     val automaticPassAlertLastSyncResult: String? = null,
-    val automaticPassAlertLastSyncMessage: String? = null
+    val automaticPassAlertLastSyncMessage: String? = null,
+    val liveEventAlertsEnabled: Boolean = false,
+    /** The live-event alarms Android scheduled, so a refresh or switching off can cancel them. */
+    val liveEventAlertScheduledIds: Set<String> = emptySet()
 ) {
     companion object {
         const val MAP_TYPE_NORMAL = "Normal"
@@ -53,4 +56,6 @@ object AppSettingsKeys {
     const val AUTO_PASS_ALERT_LAST_SYNC_TIME = "auto_pass_alert_last_sync_time"
     const val AUTO_PASS_ALERT_LAST_SYNC_RESULT = "auto_pass_alert_last_sync_result"
     const val AUTO_PASS_ALERT_LAST_SYNC_MESSAGE = "auto_pass_alert_last_sync_message"
+    const val LIVE_EVENT_ALERTS_ENABLED = "live_event_alerts_enabled"
+    const val LIVE_EVENT_ALERT_SCHEDULED_IDS = "live_event_alert_scheduled_ids"
 }

@@ -120,4 +120,8 @@
     <string name="notification_times_already_passed">इस पास के लिए ये रिमाइंडर समय पहले ही बीत चुके हैं।</string>
     <string name="no_calendar_app_available">कोई कैलेंडर ऐप उपलब्ध नहीं है</string>
     <string name="notification_iss_pass_alert_direction_format">%1$s की ओर देखें, अधिकतम ऊँचाई %2$d°।</string>
+    <string name="notification_channel_live_events">NASA लाइव इवेंट</string>
+    <string name="notification_channel_live_events_description">NASA के स्पेसवॉक, लॉन्च और डॉकिंग प्रसारण से पहले अलर्ट</string>
+    <string name="notification_live_event_title">NASA लाइव इवेंट 10 मिनट में</string>
+    <string name="notification_live_event_text_format">%1$s %2$s बजे शुरू होगा। देखने के लिए टैप करें।</string>
 </resources>

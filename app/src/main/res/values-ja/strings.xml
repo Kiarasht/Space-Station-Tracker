@@ -120,4 +120,8 @@
     <string name="notification_times_already_passed">この通過では、選択した通知時刻はすでに過ぎています。</string>
     <string name="no_calendar_app_available">利用できるカレンダーアプリがありません</string>
     <string name="notification_iss_pass_alert_direction_format">%1$sの方向を見てください。最大仰角は%2$d°です。</string>
+    <string name="notification_channel_live_events">NASAのライブ配信</string>
+    <string name="notification_channel_live_events_description">NASAの船外活動、打ち上げ、ドッキングの配信前にお知らせします</string>
+    <string name="notification_live_event_title">NASAのライブ配信まであと10分</string>
+    <string name="notification_live_event_text_format">%1$sは%2$sに始まります。タップして視聴。</string>
 </resources>

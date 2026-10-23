@@ -75,9 +75,11 @@ import com.restart.spacestationtracker.ui.purchase.AndroidAdRemovalBillingContro
 import com.restart.spacestationtracker.ui.settings.SettingsScreen
 import com.restart.spacestationtracker.ui.theme.SpaceStationTrackerTheme
 import com.restart.spacestationtracker.util.AppRatingManager
+import com.restart.spacestationtracker.util.LiveEventAlertWorkScheduler
 import com.restart.spacestationtracker.util.AppReviewRequester
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
@@ -89,6 +91,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var adsConsentManager: AdsConsentManager
+
+    @Inject
+    lateinit var liveEventAlertWorkScheduler: LiveEventAlertWorkScheduler
 
     @Inject
     lateinit var appOpenAdManager: AppOpenAdManager
@@ -118,6 +123,12 @@ class MainActivity : ComponentActivity() {
         lifecycleScope.launch {
             settingsRepository.awaitInitialLoad()
             adRemovalBillingController.start()
+        }
+        // Opening the app is a cheap moment to pick up newly scheduled NASA broadcasts.
+        lifecycleScope.launch {
+            if (settingsRepository.appSettingsFlow.first().liveEventAlertsEnabled) {
+                liveEventAlertWorkScheduler.runImmediateSync()
+            }
         }
         AppRatingManager(applicationContext).recordAppLaunch()
         appOpenAdManager.register(application)

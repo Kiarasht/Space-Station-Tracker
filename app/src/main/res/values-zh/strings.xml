@@ -120,4 +120,8 @@
     <string name="notification_times_already_passed">此次过境的这些提醒时间已经过去。</string>
     <string name="no_calendar_app_available">没有可用的日历应用</string>
     <string name="notification_iss_pass_alert_direction_format">请朝%1$s方向看，最高仰角%2$d°。</string>
+    <string name="notification_channel_live_events">NASA 直播活动</string>
+    <string name="notification_channel_live_events_description">在 NASA 直播太空行走、发射和对接前提醒你</string>
+    <string name="notification_live_event_title">NASA 直播将在 10 分钟后开始</string>
+    <string name="notification_live_event_text_format">%1$s将于 %2$s 开始。点按观看。</string>
 </resources>

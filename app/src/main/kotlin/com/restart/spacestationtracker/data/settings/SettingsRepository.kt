@@ -71,6 +71,9 @@ class SettingsRepository @Inject constructor(@ApplicationContext context: Contex
             stringPreferencesKey(AppSettingsKeys.AUTO_PASS_ALERT_LAST_SYNC_RESULT)
         val AUTO_PASS_ALERT_LAST_SYNC_MESSAGE =
             stringPreferencesKey(AppSettingsKeys.AUTO_PASS_ALERT_LAST_SYNC_MESSAGE)
+        val LIVE_EVENT_ALERTS_ENABLED = booleanPreferencesKey(AppSettingsKeys.LIVE_EVENT_ALERTS_ENABLED)
+        val LIVE_EVENT_ALERT_SCHEDULED_IDS =
+            stringSetPreferencesKey(AppSettingsKeys.LIVE_EVENT_ALERT_SCHEDULED_IDS)
     }
 
     init {
@@ -145,7 +148,10 @@ class SettingsRepository @Inject constructor(@ApplicationContext context: Contex
             automaticPassAlertScheduledIds = automaticPassAlertScheduledIds,
             automaticPassAlertLastSyncTimeMillis = automaticPassAlertLastSyncTimeMillis,
             automaticPassAlertLastSyncResult = automaticPassAlertLastSyncResult,
-            automaticPassAlertLastSyncMessage = automaticPassAlertLastSyncMessage
+            automaticPassAlertLastSyncMessage = automaticPassAlertLastSyncMessage,
+            liveEventAlertsEnabled =
+                preferences[Keys.LIVE_EVENT_ALERTS_ENABLED] ?: defaultAppSettings.liveEventAlertsEnabled,
+            liveEventAlertScheduledIds = preferences[Keys.LIVE_EVENT_ALERT_SCHEDULED_IDS].orEmpty()
         )
     }
 
@@ -227,6 +233,18 @@ class SettingsRepository @Inject constructor(@ApplicationContext context: Contex
             preferences[Keys.AUTO_PASS_ALERT_LAST_SYNC_TIME] = timestampMillis
             preferences[Keys.AUTO_PASS_ALERT_LAST_SYNC_RESULT] = result
             preferences[Keys.AUTO_PASS_ALERT_LAST_SYNC_MESSAGE] = message
+        }
+    }
+
+    suspend fun setLiveEventAlertsEnabled(value: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[Keys.LIVE_EVENT_ALERTS_ENABLED] = value
+        }
+    }
+
+    suspend fun setLiveEventAlertScheduledIds(value: Set<String>) {
+        dataStore.edit { preferences ->
+            preferences[Keys.LIVE_EVENT_ALERT_SCHEDULED_IDS] = value
         }
     }
 

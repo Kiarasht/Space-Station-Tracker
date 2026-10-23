@@ -1,6 +1,7 @@
 import Foundation
 import ISSTrackerShared
-@preconcurrency import UserNotifications
+@preconcurrency import UIKit
+import UserNotifications
 
 /// One pass reminder ready to be handed to `UNUserNotificationCenter`.
 struct PassNotificationRequest {
@@ -152,6 +153,14 @@ final class PassNotificationDelegate: NSObject, UNUserNotificationCenterDelegate
         didReceive response: UNNotificationResponse
     ) async {
         let identifier = response.notification.request.identifier
+        // Live-event alerts open the broadcast itself.
+        if identifier.hasPrefix(LiveEventNotificationScheduler.identifierPrefix) {
+            if let value = response.notification.request.content.userInfo[LiveEventNotificationScheduler.urlKey] as? String,
+               let url = URL(string: value) {
+                await MainActor.run { UIApplication.shared.open(url) }
+            }
+            return
+        }
         guard identifier.hasPrefix(PassNotificationScheduler.automaticPrefix) ||
                 identifier.hasPrefix(PassNotificationScheduler.manualPrefix) else { return }
         // Scoped locking: a plain lock()/unlock() pair isn't allowed in async code under Swift 6.
