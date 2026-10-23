@@ -86,6 +86,9 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
     func start() {
         guard !hasStarted else { return }
         hasStarted = true
+        #if DEBUG
+        if let tab = DebugLaunchArguments.startTab { composeBridge.openTab(name: tab) }
+        #endif
         refreshAdFreeState()
         refreshSettingsPlatformState()
         adRemovalPurchase.configure()
@@ -586,7 +589,11 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
     }
 
     private func refreshAdFreeState() {
-        let active = adRemovalPurchase.isEntitled
+        var active = adRemovalPurchase.isEntitled
+        #if DEBUG
+        // Store screenshots: `--hide-ads` keeps test ads out of captures.
+        if DebugLaunchArguments.hideAds { active = true }
+        #endif
         isAdFree = active
         ads.setAdFree(active)
         analytics.updateAdFreeState(active)
@@ -1384,3 +1391,22 @@ private var appVersionName: String {
 private var appVersionCode: String {
     Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "54"
 }
+
+#if DEBUG
+/// Debug-only launch arguments for capturing store screenshots without tapping, e.g.
+/// `xcrun simctl launch <udid> <bundle-id> --start-tab PASSES --hide-ads --disable-analytics`.
+enum DebugLaunchArguments {
+    private static let arguments = ProcessInfo.processInfo.arguments
+
+    /** Tab to open at launch: MAP, PASSES, CREW, SETTINGS or ABOUT. */
+    static var startTab: String? {
+        guard let index = arguments.firstIndex(of: "--start-tab"), index + 1 < arguments.count else { return nil }
+        return arguments[index + 1]
+    }
+
+    static var hideAds: Bool { arguments.contains("--hide-ads") }
+
+    /** Keeps captures from counting as real usage. */
+    static var disableAnalytics: Bool { arguments.contains("--disable-analytics") }
+}
+#endif

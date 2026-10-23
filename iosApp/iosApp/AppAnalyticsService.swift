@@ -15,6 +15,12 @@ final class AppAnalyticsService {
 
     func configure() {
         #if canImport(FirebaseAnalytics)
+        #if DEBUG
+        if DebugLaunchArguments.disableAnalytics {
+            Analytics.setAnalyticsCollectionEnabled(false)
+            return
+        }
+        #endif
         Analytics.setAnalyticsCollectionEnabled(true)
         Analytics.setUserProperty("ios", forName: "platform")
         #endif
