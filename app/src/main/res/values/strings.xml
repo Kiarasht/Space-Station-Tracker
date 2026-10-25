@@ -199,4 +199,5 @@
     <string name="notification_channel_live_events_description">Alerts before NASA broadcasts spacewalks, launches and dockings</string>
     <string name="notification_live_event_title">NASA live event in 10 minutes</string>
     <string name="notification_live_event_text_format">%1$s starts at %2$s. Tap to watch.</string>
+    <string name="no_app_to_open_link">No app can open this link</string>
 </resources>

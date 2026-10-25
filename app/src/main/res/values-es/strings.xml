@@ -117,4 +117,5 @@
     <string name="notification_channel_live_events_description">Avisos antes de las retransmisiones de la NASA de caminatas espaciales, lanzamientos y acoplamientos</string>
     <string name="notification_live_event_title">Evento de la NASA en directo en 10 minutos</string>
     <string name="notification_live_event_text_format">%1$s empieza a las %2$s. Toca para verlo.</string>
+    <string name="no_app_to_open_link">Ninguna app puede abrir este enlace</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.restart.spacestationtracker.ui.people_in_space
 
-import android.content.Intent
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
@@ -10,12 +9,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.restart.spacestationtracker.analytics.AppAnalytics
 import com.restart.spacestationtracker.shared.ui.SharedCrewItem
 import com.restart.spacestationtracker.shared.ui.SharedCrewScreen
 import com.restart.spacestationtracker.ui.ads.NativeAdCard
+import com.restart.spacestationtracker.util.openLink
 
 @Composable
 fun PeopleInSpaceScreen(
@@ -56,7 +55,7 @@ fun PeopleInSpaceScreen(
         },
         onOpenUrl = { url ->
             AppAnalytics.trackInteraction("open_crew_external_content", "on_duty")
-            context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+            context.openLink(url)
         },
         platformSlot = { id -> ads[id]?.let { NativeAdCard(nativeAd = it) } }
     )

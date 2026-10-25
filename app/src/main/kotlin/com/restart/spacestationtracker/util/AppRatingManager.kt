@@ -57,12 +57,7 @@ class AppRatingManager(
                 Intent(Intent.ACTION_VIEW, uri).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             )
         } catch (_: ActivityNotFoundException) {
-            context.startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}".toUri()
-                ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            )
+            context.openLink("https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}")
         }
     }
 

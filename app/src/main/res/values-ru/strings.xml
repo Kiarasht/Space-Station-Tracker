@@ -117,4 +117,5 @@
     <string name="notification_channel_live_events_description">Уведомления перед трансляциями NASA выходов в открытый космос, запусков и стыковок</string>
     <string name="notification_live_event_title">Трансляция NASA через 10 минут</string>
     <string name="notification_live_event_text_format">%1$s начнётся в %2$s. Нажмите, чтобы смотреть.</string>
+    <string name="no_app_to_open_link">Нет приложения, чтобы открыть эту ссылку</string>
 </resources>
