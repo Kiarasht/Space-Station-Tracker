@@ -163,7 +163,8 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.compose.material3:material3-window-size-class:1.4.0")
-    implementation("com.google.android.material:material:1.13.0")
+    // The native ad layout (res/layout/native_ad_layout.xml) is a ConstraintLayout.
+    implementation("androidx.constraintlayout:constraintlayout:2.1.0")
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.9.8")

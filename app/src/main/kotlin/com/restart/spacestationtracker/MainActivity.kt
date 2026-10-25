@@ -27,6 +27,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -79,6 +80,7 @@ import com.restart.spacestationtracker.util.LiveEventAlertWorkScheduler
 import com.restart.spacestationtracker.util.AppReviewRequester
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -211,9 +213,15 @@ class MainActivity : ComponentActivity() {
             return
         }
         isMobileAdsInitialized = true
-        MobileAds.initialize(this) {
-            appOpenAdManager.register(application)
-            appOpenAdManager.onAdsReady(this)
+        // Google recommends starting the Mobile Ads SDK off the main thread: its setup work there has
+        // caused ANRs on slower phones.
+        lifecycleScope.launch(Dispatchers.IO) {
+            MobileAds.initialize(this@MainActivity) {
+                runOnUiThread {
+                    appOpenAdManager.register(application)
+                    appOpenAdManager.onAdsReady(this@MainActivity)
+                }
+            }
         }
     }
 }
@@ -396,26 +404,29 @@ fun AdmobBanner(modifier: Modifier = Modifier) {
                 MAX_BANNER_HEIGHT_DP
             )
         }
-        val adView = remember(context) {
-            AdView(context).apply {
-                adUnitId = AdMobIds.banner(context)
+        // An AdView takes its size only once, so a new width (rotation, split screen, unfolding) gets a
+        // new banner instead of resizing the old one, which AdMob rejects with a crash.
+        key(adSize) {
+            val adView = remember {
+                AdView(context).apply {
+                    adUnitId = AdMobIds.banner(context)
+                    setAdSize(adSize)
+                }
             }
-        }
+            LaunchedEffect(adView) {
+                adView.loadAd(AdRequest.Builder().build())
+            }
+            DisposableEffect(adView) {
+                onDispose(adView::destroy)
+            }
 
-        LaunchedEffect(adView, adSize) {
-            adView.setAdSize(adSize)
-            adView.loadAd(AdRequest.Builder().build())
+            AndroidView(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(MAX_BANNER_HEIGHT_DP.dp),
+                factory = { adView }
+            )
         }
-        DisposableEffect(adView) {
-            onDispose(adView::destroy)
-        }
-
-        AndroidView(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(MAX_BANNER_HEIGHT_DP.dp),
-            factory = { adView }
-        )
     }
 }
 

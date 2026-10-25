@@ -117,4 +117,5 @@
     <string name="notification_channel_live_events_description">Thông báo trước khi NASA phát trực tiếp đi bộ ngoài không gian, phóng tàu và ghép nối</string>
     <string name="notification_live_event_title">Sự kiện trực tiếp của NASA sau 10 phút</string>
     <string name="notification_live_event_text_format">%1$s bắt đầu lúc %2$s. Nhấn để xem.</string>
+    <string name="no_app_to_open_link">Không có ứng dụng nào mở được liên kết này</string>
 </resources>

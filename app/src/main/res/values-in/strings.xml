@@ -117,4 +117,5 @@
     <string name="notification_channel_live_events_description">Peringatan sebelum NASA menyiarkan spacewalk, peluncuran, dan docking</string>
     <string name="notification_live_event_title">Siaran langsung NASA dalam 10 menit</string>
     <string name="notification_live_event_text_format">%1$s dimulai pukul %2$s. Ketuk untuk menonton.</string>
+    <string name="no_app_to_open_link">Tidak ada aplikasi yang bisa membuka tautan ini</string>
 </resources>

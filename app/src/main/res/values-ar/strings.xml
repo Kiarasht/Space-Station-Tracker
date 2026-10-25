@@ -117,4 +117,5 @@
     <string name="notification_channel_live_events_description">تنبيهات قبل بث ناسا لعمليات السير في الفضاء والإطلاق والالتحام</string>
     <string name="notification_live_event_title">بث مباشر لناسا بعد 10 دقائق</string>
     <string name="notification_live_event_text_format">يبدأ %1$s الساعة %2$s. انقر للمشاهدة.</string>
+    <string name="no_app_to_open_link">لا يوجد تطبيق يفتح هذا الرابط</string>
 </resources>

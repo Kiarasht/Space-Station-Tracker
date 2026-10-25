@@ -1,3 +1,7 @@
 <resources>
-    <style name="Theme.App" parent="Theme.Material3.DayNight.NoActionBar" />
+    <!--
+        Android's own window theme: Compose draws every screen, so the app doesn't need the Material Components
+        library (whose dialogs call APIs deprecated in Android 15). The dark variant is in values-night.
+    -->
+    <style name="Theme.App" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>

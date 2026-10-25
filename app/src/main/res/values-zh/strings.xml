@@ -117,4 +117,5 @@
     <string name="notification_channel_live_events_description">在 NASA 直播太空行走、发射和对接前提醒你</string>
     <string name="notification_live_event_title">NASA 直播将在 10 分钟后开始</string>
     <string name="notification_live_event_text_format">%1$s将于 %2$s 开始。点按观看。</string>
+    <string name="no_app_to_open_link">没有可以打开此链接的应用</string>
 </resources>

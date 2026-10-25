@@ -117,4 +117,5 @@
     <string name="notification_channel_live_events_description">NASA의 우주 유영, 발사, 도킹 생중계 전에 알림</string>
     <string name="notification_live_event_title">10분 후 NASA 생중계</string>
     <string name="notification_live_event_text_format">%1$s이(가) %2$s에 시작해요. 탭해서 시청하세요.</string>
+    <string name="no_app_to_open_link">이 링크를 열 수 있는 앱이 없어요</string>
 </resources>

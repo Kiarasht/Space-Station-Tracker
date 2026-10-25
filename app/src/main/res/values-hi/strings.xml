@@ -117,4 +117,5 @@
     <string name="notification_channel_live_events_description">NASA के स्पेसवॉक, लॉन्च और डॉकिंग प्रसारण से पहले अलर्ट</string>
     <string name="notification_live_event_title">NASA लाइव इवेंट 10 मिनट में</string>
     <string name="notification_live_event_text_format">%1$s %2$s बजे शुरू होगा। देखने के लिए टैप करें।</string>
+    <string name="no_app_to_open_link">यह लिंक खोलने के लिए कोई ऐप नहीं है</string>
 </resources>

@@ -41,6 +41,14 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <!--
+            Google's fix for phones with an outdated Google Play services: its older Maps renderer still uses
+            Apache HTTP, which Android dropped from apps in Android 9, and crashes without it
+            (NoClassDefFoundError: org.apache.http.ProtocolVersion).
+        -->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
 
         <meta-data
             android:name="com.google.android.gms.version"
