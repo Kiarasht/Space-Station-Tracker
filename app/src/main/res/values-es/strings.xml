@@ -45,13 +45,6 @@
     <string name="schedule_notification_message_format">Programa una notificación para el paso de la EEI el %1$s.</string>
     <string name="notification_scheduled">¡Notificación programada!</string>
     <string name="schedule">Programar</string>
-    <string name="sky_path_info_intro">El gráfico visualiza el paso de la EEI por el cielo desde tu perspectiva:</string>
-    <string name="sky_path_info_horizon">La línea recta es el horizonte</string>
-    <string name="sky_path_info_arc">El arco representa el cielo</string>
-    <string name="sky_path_info_iss_icon">El ícono de la EEI muestra el punto más alto que alcanzará la estación</string>
-    <string name="sky_path_info_overhead">Si el ícono está en la parte superior del arco, significa que la EEI pasará casi directamente sobre tu cabeza.</string>
-    <string name="sky_path_info_lower">Si el ícono está más abajo en el arco, cerca de la línea del horizonte, la EEI aparecerá más baja en el cielo y no subirá tanto durante su paso.</string>
-    <string name="sky_path_info_labels">Las etiquetas, como NW y SE, muestran las direcciones de inicio y fin del paso</string>
     <string name="you">Tú</string>
     <string name="iss_pass_share_chooser">Compartir paso de la EEI</string>
     <string name="iss_pass_share_text_format">¡Mira este paso de la EEI!\nFecha: %1$s\nDuración: %2$d min %3$d s\nVisibilidad: %4$s</string>

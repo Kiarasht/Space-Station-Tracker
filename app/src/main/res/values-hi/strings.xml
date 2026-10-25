@@ -45,13 +45,6 @@
     <string name="schedule_notification_message_format">%1$s पर ISS पास के लिए सूचना शेड्यूल करें।</string>
     <string name="notification_scheduled">सूचना शेड्यूल हो गई!</string>
     <string name="schedule">शेड्यूल करें</string>
-    <string name="sky_path_info_intro">चार्ट आपके नज़रिए से आकाश में ISS पास दिखाता है:</string>
-    <string name="sky_path_info_horizon">सीधी रेखा क्षितिज है</string>
-    <string name="sky_path_info_arc">चाप आकाश को दर्शाता है</string>
-    <string name="sky_path_info_iss_icon">ISS आइकन वह सबसे ऊँचा बिंदु दिखाता है जहाँ स्टेशन पहुँचेगा</string>
-    <string name="sky_path_info_overhead">अगर आइकन चाप के सबसे ऊपर है, तो ISS लगभग सीधे आपके ऊपर से गुज़रेगा।</string>
-    <string name="sky_path_info_lower">अगर आइकन चाप पर नीचे, क्षितिज रेखा के पास है, तो ISS आकाश में नीचे दिखाई देगा और पास के दौरान उतना ऊपर नहीं चढ़ेगा।</string>
-    <string name="sky_path_info_labels">NW और SE जैसे लेबल पास की शुरुआत और अंत की दिशाएँ दिखाते हैं</string>
     <string name="you">आप</string>
     <string name="iss_pass_share_chooser">ISS पास शेयर करें</string>
     <string name="iss_pass_share_text_format">यह ISS पास देखें!\nतारीख: %1$s\nअवधि: %2$d मिनट %3$d सेकंड\nदृश्यता: %4$s</string>

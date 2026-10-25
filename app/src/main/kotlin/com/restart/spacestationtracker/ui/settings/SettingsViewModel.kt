@@ -38,12 +38,6 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun onShowOrbitChanged(showOrbit: Boolean) {
-        viewModelScope.launch {
-            settingsRepository.setShowOrbit(showOrbit)
-        }
-    }
-
     fun onUnitsChanged(units: String) {
         viewModelScope.launch {
             settingsRepository.setUnits(units)

@@ -44,7 +44,6 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Speed
-import androidx.compose.material.icons.filled.Videocam
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.Button
@@ -78,6 +77,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.setSingletonImageLoaderFactory
@@ -92,6 +92,7 @@ import com.restart.spacestationtracker.shared.passes.PassVisibility
 import com.restart.spacestationtracker.shared.resources.Res
 import com.restart.spacestationtracker.shared.resources.*
 import com.restart.spacestationtracker.shared.ui.platform.IssMapPoint
+import com.restart.spacestationtracker.shared.ui.platform.MapFocusRequest
 import com.restart.spacestationtracker.shared.ui.platform.PlatformIssMap
 import com.restart.spacestationtracker.shared.ui.platform.SatelliteMapTrack
 import com.restart.spacestationtracker.shared.satellites.SatelliteSnapshot
@@ -138,7 +139,6 @@ object SharedAppActions {
     const val RATE_APP = "rate_app"
     const val SHARE_APP = "share_app"
     const val MAP_TYPE_CHANGED = "map_type_changed"
-    const val SHOW_ORBIT_CHANGED = "show_orbit_changed"
     const val THEME_CHANGED = "theme_changed"
     const val RETRY_CREW = "retry_crew"
 }
@@ -208,7 +208,6 @@ fun SharedAppRoot(
                     futureLocations = state.futureIssLocations,
                     mapType = state.settings.mapType,
                     units = state.settings.units,
-                    showOrbit = state.settings.showOrbit,
                     isLoading = state.isMapLoading,
                     error = state.mapError,
                     liveStreams = state.liveStreams,
@@ -332,10 +331,6 @@ fun SharedAppRoot(
                     onMapTypeChanged = { value ->
                         controller.setMapType(value)
                         onAction(SharedAppActions.MAP_TYPE_CHANGED, value)
-                    },
-                    onShowOrbitChanged = { value ->
-                        controller.setShowOrbit(value)
-                        onAction(SharedAppActions.SHOW_ORBIT_CHANGED, value.toString())
                     },
                     onThemeChanged = { value ->
                         controller.setTheme(value)
@@ -511,7 +506,6 @@ fun SharedIssMapScreen(
     futureLocations: List<IssLocation>,
     mapType: String,
     units: String,
-    showOrbit: Boolean,
     isLoading: Boolean,
     error: String?,
     liveStreams: List<LiveStream>,
@@ -521,15 +515,17 @@ fun SharedIssMapScreen(
     satellites: List<SatelliteSnapshot> = emptyList()
 ) {
     var showStreamPicker by remember { mutableStateOf(false) }
-    var selectedSatelliteId by rememberSaveable { mutableStateOf<String?>(null) }
+    // The ISS is selected from the start, so its marker, card border and switcher pill agree.
+    var selectedSatelliteId by rememberSaveable { mutableStateOf<String?>(TrackedSatellite.ISS.id) }
+    var focusRequest by remember { mutableStateOf<MapFocusRequest?>(null) }
     val selectedSatellite = TrackedSatellite.fromId(selectedSatelliteId)
     val selectedSnapshot = satellites.firstOrNull { it.satellite == selectedSatellite }
-    // One path at a time: the ISS's by default (following the orbit setting), or the selected spacecraft's.
+    // One path at a time: the ISS's by default, or the selected spacecraft's.
     // Every path is passed with a visible flag so the map can fade between them.
     val issOrbitVisible = selectedSatellite == null || selectedSatellite == TrackedSatellite.ISS
     val tracks = satellites
-        // The ISS's own orbit line stands in for its computed path unless the orbit setting is off.
-        .filter { it.satellite != TrackedSatellite.ISS || !showOrbit }
+        // The ISS's own orbit line stands in for its computed path.
+        .filter { it.satellite != TrackedSatellite.ISS }
         .map { snapshot ->
             SatelliteMapTrack(
                 id = snapshot.satellite.id,
@@ -570,16 +566,12 @@ fun SharedIssMapScreen(
         PlatformIssMap(
             currentLocation = currentLocation,
             // Lead with the current position so the orbit line starts at the station icon.
-            orbit = if (showOrbit) {
-                (listOfNotNull(currentLocation) + futureLocations).map {
-                    IssMapPoint(
-                        latitude = it.latitude,
-                        longitude = it.longitude,
-                        timestamp = it.timestamp
-                    )
-                }
-            } else {
-                emptyList()
+            orbit = (listOfNotNull(currentLocation) + futureLocations).map {
+                IssMapPoint(
+                    latitude = it.latitude,
+                    longitude = it.longitude,
+                    timestamp = it.timestamp
+                )
             },
             mapType = mapType,
             modifier = Modifier.fillMaxSize(),
@@ -587,7 +579,9 @@ fun SharedIssMapScreen(
             satellites = satelliteMarkers(satellites, currentLocation, selectedSatellite),
             tracks = tracks,
             orbitVisible = issOrbitVisible,
-            onSatelliteClick = { id -> selectedSatelliteId = id }
+            focus = focusRequest,
+            // Tapping empty map goes back to the ISS, the default selection.
+            onSatelliteClick = { id -> selectedSatelliteId = id ?: TrackedSatellite.ISS.id }
         )
 
         // The map runs edge to edge under the status bar and the floating bar; overlays stay clear of both.
@@ -625,11 +619,38 @@ fun SharedIssMapScreen(
             )
             else -> null
         }
+        // Jumps to a spacecraft without hunting for it on the map; tapping a marker updates it too.
+        val switchable = TrackedSatellite.entries.filter { satellite ->
+            if (satellite == TrackedSatellite.ISS) currentLocation != null
+            else satellites.any { it.satellite == satellite }
+        }
+        if (switchable.size > 1) {
+            SatelliteSwitcher(
+                available = switchable,
+                selected = selectedSatellite ?: TrackedSatellite.ISS,
+                onSelect = { satellite ->
+                    selectedSatelliteId = satellite.id
+                    val position = if (satellite == TrackedSatellite.ISS) {
+                        currentLocation?.let { it.latitude to it.longitude }
+                    } else {
+                        satellites.firstOrNull { it.satellite == satellite }?.let { it.latitude to it.longitude }
+                    }
+                    position?.let { (latitude, longitude) ->
+                        focusRequest = MapFocusRequest(latitude, longitude, (focusRequest?.serial ?: 0) + 1)
+                    }
+                },
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp)
+            )
+        }
+
         telemetry?.let {
             TelemetryCard(
                 telemetry = it,
                 units = units,
-                accent = selectedSatellite?.takeIf { satellite -> satellite != TrackedSatellite.ISS }?.accent,
+                // Bordered in the selected spacecraft's map color, the ISS's red included.
+                accent = selectedSatellite?.let { satellite -> Color(satellite.trackColorArgb()) },
                 modifier = Modifier
                     .align(Alignment.TopStart)
                     .padding(16.dp)
@@ -675,13 +696,13 @@ fun SharedIssMapScreen(
                             Alignment.CenterHorizontally
                         )
                     ) {
+                        // The pulsing dot is the "live" cue, beside the label like Remove ads' icon.
                         Box(
                             Modifier
                                 .size(9.dp)
                                 .clip(RoundedCornerShape(percent = 50))
                                 .background(Color.White.copy(alpha = pulse))
                         )
-                        Icon(Icons.Default.Videocam, contentDescription = null, modifier = Modifier.size(20.dp))
                         Text(stringResource(Res.string.live_stream), fontWeight = FontWeight.Bold)
                     }
                 }
@@ -700,7 +721,7 @@ private class SatelliteTelemetry(
     val isIss: Boolean
 )
 
-/** Position, altitude, speed and sunlight for one satellite; [accent] marks a satellite other than the ISS. */
+/** Position, altitude, speed and sunlight for one satellite; [accent] borders the card of the selected one. */
 @Composable
 private fun TelemetryCard(
     telemetry: SatelliteTelemetry,
@@ -797,7 +818,7 @@ private fun SharedPassesScreen(
     }
 
     if (showInfoDialog) {
-        SharedSkyPathInfoDialog(onDismiss = { showInfoDialog = false })
+        SkyPathInfoDialog(onDismiss = { showInfoDialog = false })
     }
 
     passForNotification?.let { pass ->
@@ -1055,36 +1076,6 @@ private fun SharedSkyPathHeader(
 }
 
 @Composable
-private fun SharedSkyPathInfoDialog(onDismiss: () -> Unit) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text(stringResource(Res.string.nav_sky_path)) },
-        text = {
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                item {
-                    Text(stringResource(Res.string.sky_path_info_intro))
-                    Spacer(modifier = Modifier.height(16.dp))
-                    SkyPathVisualGuide(
-                        youLabel = stringResource(Res.string.you),
-                        horizonLabel = stringResource(Res.string.sky_path_info_horizon),
-                        skyArcLabel = stringResource(Res.string.sky_path_info_arc),
-                        highestPointLabel = stringResource(Res.string.sky_path_info_iss_icon),
-                        directionsLabel = stringResource(Res.string.sky_path_info_labels),
-                        overheadExplanation = stringResource(Res.string.sky_path_info_overhead),
-                        lowerExplanation = stringResource(Res.string.sky_path_info_lower)
-                    )
-                }
-            }
-        },
-        confirmButton = {
-            TextButton(onClick = onDismiss) {
-                Text(stringResource(Res.string.got_it))
-            }
-        }
-    )
-}
-
-@Composable
 private fun SkyPathStateMessage(
     padding: PaddingValues,
     icon: ImageVector,
@@ -1108,9 +1099,10 @@ private fun SkyPathStateMessage(
             Text(
                 title,
                 style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
             )
-            Text(message)
+            Text(message, textAlign = TextAlign.Center)
             Button(onClick = onAction) {
                 Text(actionLabel)
             }

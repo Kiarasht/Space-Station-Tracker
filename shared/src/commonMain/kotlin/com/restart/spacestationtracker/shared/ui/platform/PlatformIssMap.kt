@@ -29,6 +29,16 @@ data class SatelliteMapMarker(
 )
 
 /**
+ * Asks the map to glide to a spot at its current zoom. A new [serial] means a new request, so choosing the
+ * same spacecraft twice still recenters on it.
+ */
+data class MapFocusRequest(
+    val latitude: Double,
+    val longitude: Double,
+    val serial: Int
+)
+
+/**
  * A satellite's predicted path, with direction arrows and +30m to +120m labels along it. Hidden paths are
  * still passed so the map can fade them out (and back in) when [visible] changes.
  */
@@ -57,6 +67,8 @@ expect fun PlatformIssMap(
     tracks: List<SatelliteMapTrack> = emptyList(),
     /** Whether the ISS's [orbit] line shows; it fades out while another spacecraft is selected. */
     orbitVisible: Boolean = true,
+    /** Moves the map to a spacecraft chosen outside the map, such as from the switcher. */
+    focus: MapFocusRequest? = null,
     onSatelliteClick: (String?) -> Unit = {}
 )
 

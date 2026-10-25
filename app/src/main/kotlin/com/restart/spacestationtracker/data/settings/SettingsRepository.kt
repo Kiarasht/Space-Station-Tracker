@@ -43,7 +43,6 @@ class SettingsRepository @Inject constructor(@ApplicationContext context: Contex
         val MIN_ALTITUDE = intPreferencesKey(AppSettingsKeys.MIN_ALTITUDE)
         val MIN_MAGNITUDE = intPreferencesKey(AppSettingsKeys.MIN_MAGNITUDE)
         val SHOW_EVENTS = booleanPreferencesKey(AppSettingsKeys.SHOW_EVENTS)
-        val SHOW_ORBIT = booleanPreferencesKey(AppSettingsKeys.SHOW_ORBIT)
         val MAP_TYPE = stringPreferencesKey(AppSettingsKeys.MAP_TYPE)
         val UNITS = stringPreferencesKey(AppSettingsKeys.UNITS)
         val THEME = stringPreferencesKey(AppSettingsKeys.THEME)
@@ -106,7 +105,6 @@ class SettingsRepository @Inject constructor(@ApplicationContext context: Contex
         val minAltitude = preferences[Keys.MIN_ALTITUDE] ?: defaultAppSettings.minAltitude
         val minMagnitude = preferences[Keys.MIN_MAGNITUDE] ?: defaultAppSettings.minMagnitude
         val showEvents = preferences[Keys.SHOW_EVENTS] ?: defaultAppSettings.showEvents
-        val showOrbit = preferences[Keys.SHOW_ORBIT] ?: defaultAppSettings.showOrbit
         val mapType = preferences[Keys.MAP_TYPE] ?: defaultAppSettings.mapType
         val units = preferences[Keys.UNITS] ?: defaultAppSettings.units
         val theme = preferences[Keys.THEME] ?: defaultAppSettings.theme
@@ -133,7 +131,6 @@ class SettingsRepository @Inject constructor(@ApplicationContext context: Contex
             minAltitude = minAltitude,
             minMagnitude = minMagnitude,
             showEvents = showEvents,
-            showOrbit = showOrbit,
             mapType = mapType,
             units = units,
             theme = theme,
@@ -158,12 +155,6 @@ class SettingsRepository @Inject constructor(@ApplicationContext context: Contex
     suspend fun setMapType(value: String) {
         dataStore.edit { preferences ->
             preferences[Keys.MAP_TYPE] = value
-        }
-    }
-
-    suspend fun setShowOrbit(value: Boolean) {
-        dataStore.edit { preferences ->
-            preferences[Keys.SHOW_ORBIT] = value
         }
     }
 

@@ -45,13 +45,6 @@
     <string name="schedule_notification_message_format">Lên lịch thông báo cho lần ISS bay qua vào %1$s.</string>
     <string name="notification_scheduled">Đã lên lịch thông báo!</string>
     <string name="schedule">Lên lịch</string>
-    <string name="sky_path_info_intro">Biểu đồ hiển thị đường ISS đi qua bầu trời theo góc nhìn của bạn:</string>
-    <string name="sky_path_info_horizon">Đường thẳng là đường chân trời</string>
-    <string name="sky_path_info_arc">Cung tròn đại diện cho bầu trời</string>
-    <string name="sky_path_info_iss_icon">Biểu tượng ISS cho biết điểm cao nhất mà trạm sẽ đạt tới</string>
-    <string name="sky_path_info_overhead">Nếu biểu tượng ở đỉnh cung, ISS sẽ bay gần như ngay trên đầu bạn.</string>
-    <string name="sky_path_info_lower">Nếu biểu tượng nằm thấp hơn trên cung, gần đường chân trời, ISS sẽ xuất hiện thấp hơn trên bầu trời và không lên quá cao trong lần bay qua.</string>
-    <string name="sky_path_info_labels">Các nhãn như NW và SE cho biết hướng bắt đầu và kết thúc của lần bay qua</string>
     <string name="you">Bạn</string>
     <string name="iss_pass_share_chooser">Chia sẻ lần ISS bay qua</string>
     <string name="iss_pass_share_text_format">Xem lần ISS bay qua này!\nNgày: %1$s\nThời lượng: %2$d phút %3$d giây\nĐộ sáng: %4$s</string>

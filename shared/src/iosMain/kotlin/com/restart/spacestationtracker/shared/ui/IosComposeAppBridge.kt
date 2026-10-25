@@ -10,6 +10,7 @@ import com.restart.spacestationtracker.shared.presentation.SharedAppController
 import com.restart.spacestationtracker.shared.preferences.NSUserDefaultsPreferenceStore
 import com.restart.spacestationtracker.shared.settings.SharedSettingsRepository
 import com.restart.spacestationtracker.shared.ui.platform.IosIssMapRegistry
+import com.restart.spacestationtracker.shared.ui.platform.MapFocusRequest
 import com.restart.spacestationtracker.shared.ui.platform.IosBannerAdRegistry
 import com.restart.spacestationtracker.shared.ui.platform.IosNativeAdRegistry
 import com.restart.spacestationtracker.shared.ui.platform.IssMapPoint
@@ -69,6 +70,10 @@ class IosComposeAppBridge(
 
     fun registerMapInsetUpdater(updater: (UIView, Double) -> Unit) {
         IosIssMapRegistry.registerInsetUpdater(updater)
+    }
+
+    fun registerMapFocusUpdater(updater: (UIView, MapFocusRequest) -> Unit) {
+        IosIssMapRegistry.registerFocusUpdater(updater)
     }
 
     fun registerNativeAdViewFactory(factory: (String) -> UIView) {

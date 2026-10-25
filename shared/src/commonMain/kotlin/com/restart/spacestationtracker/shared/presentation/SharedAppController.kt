@@ -79,16 +79,6 @@ class SharedAppController(
         }
     }
 
-    fun setShowOrbit(showOrbit: Boolean) {
-        settingsRepository?.setShowOrbit(showOrbit)
-        _state.update {
-            it.copy(settings = it.settings.copy(showOrbit = showOrbit))
-        }
-        if (!showOrbit) {
-            _state.update { it.copy(futureIssLocations = emptyList()) }
-        }
-    }
-
     fun requestTab(tabName: String) {
         _requestedTab.value = tabName
     }
@@ -259,11 +249,16 @@ class SharedAppController(
         trackingJob = scope.launch {
             while (isActive) {
                 val nowSeconds = kotlin.time.Clock.System.now().epochSeconds
-                val futureTimestamps = OrbitTrack.nextTimestamps(
-                    future = _state.value.futureIssLocations,
-                    nowSeconds = nowSeconds,
-                    showOrbit = _state.value.settings.showOrbit
-                )
+                val satellites = satelliteLayer.snapshots(nowSeconds * 1_000L)
+                val prediction = OrbitTrack.prediction(satellites)
+                val futureTimestamps = if (prediction != null) {
+                    emptyList()
+                } else {
+                    OrbitTrack.nextTimestamps(
+                        future = _state.value.futureIssLocations,
+                        nowSeconds = nowSeconds
+                    )
+                }
 
                 repository.getIssFutureLocations(listOf(nowSeconds) + futureTimestamps)
                     .onSuccess { locations ->
@@ -272,11 +267,12 @@ class SharedAppController(
                         _state.update { old ->
                             old.copy(
                                 currentIssLocation = current ?: old.currentIssLocation,
-                                futureIssLocations = if (old.settings.showOrbit) {
-                                    OrbitTrack.merge(old.futureIssLocations, future, nowSeconds)
-                                } else {
-                                    emptyList()
-                                },
+                                futureIssLocations = OrbitTrack.ahead(
+                                    prediction = prediction,
+                                    existing = old.futureIssLocations,
+                                    incoming = future,
+                                    nowSeconds = nowSeconds
+                                ),
                                 isMapLoading = false,
                                 mapError = null
                             )
@@ -290,7 +286,6 @@ class SharedAppController(
                             )
                         }
                     }
-                val satellites = satelliteLayer.snapshots(nowSeconds * 1_000L)
                 _state.update { it.copy(satellites = satellites) }
                 delay(5_000)
             }

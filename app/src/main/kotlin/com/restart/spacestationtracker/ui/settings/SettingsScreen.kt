@@ -369,10 +369,6 @@ fun SettingsScreen(
             AppAnalytics.trackSetting("map_type", value)
             viewModel.onMapTypeChanged(value)
         },
-        onShowOrbitChanged = { value ->
-            AppAnalytics.trackSetting("show_orbit", value.toString())
-            viewModel.onShowOrbitChanged(value)
-        },
         onThemeChanged = { value ->
             AppAnalytics.trackSetting("theme", value)
             viewModel.onThemeChanged(value)

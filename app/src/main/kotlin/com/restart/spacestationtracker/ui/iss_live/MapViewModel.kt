@@ -10,6 +10,7 @@ import com.restart.spacestationtracker.domain.youtube.use_case.GetNasaLiveStream
 import com.restart.spacestationtracker.shared.presentation.OrbitTrack
 import com.restart.spacestationtracker.shared.satellites.SatelliteElementsSource
 import com.restart.spacestationtracker.shared.satellites.SatelliteLayer
+import com.restart.spacestationtracker.shared.satellites.SatelliteSnapshot
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -53,13 +54,7 @@ class MapViewModel @Inject constructor(
                 _uiState.value = _uiState.value.copy(
                     mapType = settings.mapType,
                     units = settings.units,
-                    isAdFree = isAdFree,
-                    showOrbit = settings.showOrbit,
-                    futureIssLocations = if (settings.showOrbit) {
-                        _uiState.value.futureIssLocations
-                    } else {
-                        emptyList()
-                    }
+                    isAdFree = isAdFree
                 )
             }.launchIn(viewModelScope)
     }
@@ -72,8 +67,10 @@ class MapViewModel @Inject constructor(
                 _uiState.value = _uiState.value.copy(isLoading = true)
             }
             while (isActive) {
-                fetchIssLocations()
-                updateSatellites()
+                val nowMillis = System.currentTimeMillis()
+                val satellites = withContext(Dispatchers.Default) { satelliteLayer.snapshots(nowMillis) }
+                _uiState.update { it.copy(satellites = satellites) }
+                fetchIssLocations(nowMillis / 1000, OrbitTrack.prediction(satellites))
                 delay(5000)
             }
         }
@@ -84,13 +81,16 @@ class MapViewModel @Inject constructor(
         issTrackingJob = null
     }
 
-    private suspend fun fetchIssLocations() {
-        val currentTime = System.currentTimeMillis() / 1000
-        val timestamps = OrbitTrack.nextTimestamps(
-            future = _uiState.value.futureIssLocations,
-            nowSeconds = currentTime,
-            showOrbit = _uiState.value.showOrbit
-        )
+    /** The current position from the API; the line ahead comes from [prediction] once it's available. */
+    private suspend fun fetchIssLocations(currentTime: Long, prediction: SatelliteSnapshot?) {
+        val timestamps = if (prediction != null) {
+            emptyList()
+        } else {
+            OrbitTrack.nextTimestamps(
+                future = _uiState.value.futureIssLocations,
+                nowSeconds = currentTime
+            )
+        }
 
         getFutureIssLocationsUseCase(listOf(currentTime) + timestamps)
             .onSuccess { newLocations ->
@@ -105,15 +105,12 @@ class MapViewModel @Inject constructor(
 
                 _uiState.value = _uiState.value.copy(
                     issLocation = currentLocation,
-                    futureIssLocations = if (_uiState.value.showOrbit) {
-                        OrbitTrack.merge(
-                            existing = _uiState.value.futureIssLocations,
-                            incoming = newLocations.drop(1),
-                            nowSeconds = currentTime
-                        )
-                    } else {
-                        emptyList()
-                    },
+                    futureIssLocations = OrbitTrack.ahead(
+                        prediction = prediction,
+                        existing = _uiState.value.futureIssLocations,
+                        incoming = newLocations.drop(1),
+                        nowSeconds = currentTime
+                    ),
                     isLoading = false,
                     error = null
                 )
@@ -123,13 +120,6 @@ class MapViewModel @Inject constructor(
                     error = application.getString(R.string.unknown_error)
                 )
             }
-    }
-
-    private suspend fun updateSatellites() {
-        val satellites = withContext(Dispatchers.Default) {
-            satelliteLayer.snapshots(System.currentTimeMillis())
-        }
-        _uiState.update { it.copy(satellites = satellites) }
     }
 
     private fun checkNasaLiveStatus() {

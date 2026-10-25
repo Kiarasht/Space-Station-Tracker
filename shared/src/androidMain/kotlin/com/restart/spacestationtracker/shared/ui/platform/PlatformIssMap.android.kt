@@ -52,6 +52,7 @@ actual fun PlatformIssMap(
     satellites: List<SatelliteMapMarker>,
     tracks: List<SatelliteMapTrack>,
     orbitVisible: Boolean,
+    focus: MapFocusRequest?,
     onSatelliteClick: (String?) -> Unit
 ) {
     val context = LocalContext.current
@@ -83,6 +84,10 @@ actual fun PlatformIssMap(
             hasCentered = true
         }
     }
+    LaunchedEffect(focus?.serial) {
+        val target = focus ?: return@LaunchedEffect
+        cameraState.animate(CameraUpdateFactory.newLatLng(LatLng(target.latitude, target.longitude)))
+    }
     GoogleMap(
         modifier = modifier,
         cameraPositionState = cameraState,
@@ -95,7 +100,8 @@ actual fun PlatformIssMap(
                 else -> MapType.NORMAL
             }
         ),
-        uiSettings = MapUiSettings(zoomControlsEnabled = false),
+        // No map toolbar: it would appear bottom right, where the spacecraft switcher sits.
+        uiSettings = MapUiSettings(zoomControlsEnabled = false, mapToolbarEnabled = false),
         onMapClick = { onSatelliteClick(null) }
     ) {
         val directionMarker = remember { createDirectionMarker() }

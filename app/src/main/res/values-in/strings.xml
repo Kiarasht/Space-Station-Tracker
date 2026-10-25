@@ -45,13 +45,6 @@
     <string name="schedule_notification_message_format">Jadwalkan notifikasi untuk lintasan ISS pada %1$s.</string>
     <string name="notification_scheduled">Notifikasi dijadwalkan!</string>
     <string name="schedule">Jadwalkan</string>
-    <string name="sky_path_info_intro">Bagan memvisualisasikan lintasan ISS melintasi langit dari perspektif Anda:</string>
-    <string name="sky_path_info_horizon">Garis lurus adalah horizon</string>
-    <string name="sky_path_info_arc">Busur mewakili langit</string>
-    <string name="sky_path_info_iss_icon">Ikon ISS menunjukkan titik tertinggi yang akan dicapai stasiun</string>
-    <string name="sky_path_info_overhead">Jika ikon berada di puncak busur, ISS akan lewat hampir tepat di atas Anda.</string>
-    <string name="sky_path_info_lower">Jika ikon lebih rendah pada busur, dekat garis horizon, ISS akan tampak lebih rendah di langit dan tidak naik terlalu tinggi selama lintasan.</string>
-    <string name="sky_path_info_labels">Label seperti NW dan SE menunjukkan arah awal dan akhir lintasan</string>
     <string name="you">Anda</string>
     <string name="iss_pass_share_chooser">Bagikan lintasan ISS</string>
     <string name="iss_pass_share_text_format">Lihat lintasan ISS ini!\nTanggal: %1$s\nDurasi: %2$d mnt %3$d dtk\nVisibilitas: %4$s</string>

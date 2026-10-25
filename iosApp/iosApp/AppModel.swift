@@ -229,6 +229,9 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         composeBridge.registerMapInsetUpdater { view, bottomInset in
             (view as? NativeIssMapView)?.setBottomInset(CGFloat(bottomInset))
         }
+        composeBridge.registerMapFocusUpdater { view, focus in
+            (view as? NativeIssMapView)?.focus(on: focus)
+        }
         composeBridge.registerMapSatelliteUpdater { [weak self] view, satellites, tracks, orbitVisible, onSelect in
             guard let mapView = view as? NativeIssMapView else { return }
             let markers: [SatelliteMapMarker] = self?.cast(satellites) ?? []
@@ -264,7 +267,6 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
             return
         }
         if actionId == "map_type_changed" ||
-            actionId == "show_orbit_changed" ||
             actionId == "theme_changed" {
             analytics.trackSetting(actionId, value: parameter ?? "unknown")
         } else {
@@ -330,6 +332,8 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         case "enable_live_event_alerts":
             Task {
                 if await requestNotificationAuthorization() {
+                    // Settings' alert health shows the permission just granted.
+                    refreshSettingsPlatformState()
                     refreshLiveEventAlerts()
                     PassBackgroundRefreshCoordinator.shared.schedule()
                 } else {
@@ -839,6 +843,19 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecogn
         configure()
     }
 
+    private var lastFocusSerial: Int32?
+
+    /// Glides to a spacecraft chosen from the switcher, keeping the zoom. Compose calls this on every
+    /// update, so only a new serial moves the map.
+    func focus(on request: MapFocusRequest) {
+        guard request.serial != lastFocusSerial else { return }
+        lastFocusSerial = request.serial
+        mapView.setCenter(
+            CLLocationCoordinate2D(latitude: request.latitude, longitude: request.longitude),
+            animated: true
+        )
+    }
+
     /** Keeps MapKit's logo and legal link above the floating navigation bar. */
     func setBottomInset(_ inset: CGFloat) {
         guard mapView.layoutMargins.bottom != inset + 4 else { return }
@@ -1203,11 +1220,16 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecogn
         }
 
         if let satellite = annotation as? SatelliteAnnotation {
-            let identifier = "satellite"
+            // One reusable view per spacecraft: a view recycled from another one would cross-fade from its
+            // badge (Hubble's violet briefly showing as Tiangong's) when the markers come back.
+            let identifier = "satellite-\(satellite.id)"
             let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
                 ?? MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view.annotation = annotation
-            configureSatelliteView(view, for: satellite)
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+            UIView.performWithoutAnimation { configureSatelliteView(view, for: satellite) }
+            CATransaction.commit()
             return view
         }
 
