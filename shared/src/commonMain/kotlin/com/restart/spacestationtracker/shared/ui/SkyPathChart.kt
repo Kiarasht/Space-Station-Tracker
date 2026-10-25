@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -45,8 +46,9 @@ private val NightBottom = Color(0xFF243B8F)
 
 /** The night-sky gradient behind sky-path charts; also used for the whole next-pass hero card. */
 internal val SkyNightBrush = Brush.verticalGradient(listOf(NightTop, NightMiddle, NightBottom))
-private val PathStart = Color(0xFF2DD4BF)
-private val PathEnd = Color(0xFFFFD84D)
+/** Where the ISS appears (teal) and where it disappears (gold); the path fades between them. */
+internal val SkyPathStart = Color(0xFF2DD4BF)
+internal val SkyPathEnd = Color(0xFFFFD84D)
 
 /**
  * Side view of a pass on a night-sky panel: the curve follows the pass's real elevation over time,
@@ -97,7 +99,7 @@ internal fun SkyPathChart(
         fontFamily = labelFont
     )
     val peakStyle = TextStyle(
-        color = PathEnd,
+        color = SkyPathEnd,
         fontSize = 13.sp,
         fontWeight = FontWeight.Bold,
         fontFamily = labelFont
@@ -148,17 +150,6 @@ internal fun SkyPathChart(
                     pathEffect = PathEffect.dashPathEffect(floatArrayOf(4.dp.toPx(), 6.dp.toPx()))
                 )
             )
-            // Name the dome's top, unless a near-overhead pass puts its own peak label there.
-            if (maxElevation < 70.0) {
-                val overhead = textMeasurer.measure(overheadText, overheadStyle)
-                drawText(
-                    overhead,
-                    topLeft = Offset(
-                        center.x - overhead.size.width / 2f,
-                        baselineY - skyHeight - overhead.size.height - 3.dp.toPx()
-                    )
-                )
-            }
             drawLine(
                 color = Color.White.copy(alpha = 0.35f),
                 start = Offset(0f, baselineY),
@@ -187,7 +178,7 @@ internal fun SkyPathChart(
                 }
             }
             val pathBrush = Brush.horizontalGradient(
-                colors = listOf(PathStart, PathEnd),
+                colors = listOf(SkyPathStart, SkyPathEnd),
                 startX = left,
                 endX = left + span
             )
@@ -197,24 +188,37 @@ internal fun SkyPathChart(
 
             val start = pointAt(0)
             val end = pointAt(track.size - 1)
-            drawCircle(PathStart, radius = 5.dp.toPx(), center = start)
+            drawCircle(SkyPathStart, radius = 5.dp.toPx(), center = start)
             drawCircle(Color.White, radius = 2.dp.toPx(), center = start)
-            drawCircle(PathEnd, radius = 4.dp.toPx(), center = end)
+            drawCircle(SkyPathEnd, radius = 4.dp.toPx(), center = end)
 
             val peakIndex = track.indices.maxBy { track[it] }
             val peak = pointAt(peakIndex)
-            drawCircle(PathEnd.copy(alpha = 0.22f), radius = 18.dp.toPx(), center = peak)
-            drawIssSatellite(center = peak, bodyColor = PathEnd, panelColor = Color(0xFF9FB4FF))
+            drawCircle(SkyPathEnd.copy(alpha = 0.22f), radius = 18.dp.toPx(), center = peak)
+            drawIssSatellite(center = peak, bodyColor = SkyPathEnd, panelColor = Color(0xFF9FB4FF))
 
             val peakText = textMeasurer.measure("${maxElevation.roundToInt()}°", peakStyle)
-            val peakLabelY = (peak.y - 24.dp.toPx() - peakText.size.height).coerceAtLeast(0f)
-            drawText(
-                peakText,
-                topLeft = Offset(
+            val peakLabel = Rect(
+                offset = Offset(
                     (peak.x - peakText.size.width / 2f).coerceIn(0f, size.width - peakText.size.width),
-                    peakLabelY
-                )
+                    (peak.y - 24.dp.toPx() - peakText.size.height).coerceAtLeast(0f)
+                ),
+                size = Size(peakText.size.width.toFloat(), peakText.size.height.toFloat())
             )
+            drawText(peakText, topLeft = peakLabel.topLeft)
+
+            // Name the dome's top, unless the peak's own label is in the way (a high pass near the middle).
+            val overhead = textMeasurer.measure(overheadText, overheadStyle)
+            val overheadLabel = Rect(
+                offset = Offset(
+                    center.x - overhead.size.width / 2f,
+                    baselineY - skyHeight - overhead.size.height - 3.dp.toPx()
+                ),
+                size = Size(overhead.size.width.toFloat(), overhead.size.height.toFloat())
+            )
+            if (!overheadLabel.inflate(4.dp.toPx()).overlaps(peakLabel)) {
+                drawText(overhead, topLeft = overheadLabel.topLeft)
+            }
 
             val startText = textMeasurer.measure(startLabel, compassStyle)
             val endText = textMeasurer.measure(endLabel, compassStyle)

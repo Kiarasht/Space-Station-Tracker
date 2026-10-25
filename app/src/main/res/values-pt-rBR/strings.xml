@@ -45,13 +45,6 @@
     <string name="schedule_notification_message_format">Agende uma notificação para o passe da ISS em %1$s.</string>
     <string name="notification_scheduled">Notificação agendada!</string>
     <string name="schedule">Agendar</string>
-    <string name="sky_path_info_intro">O gráfico mostra o passe da ISS pelo céu a partir da sua perspectiva:</string>
-    <string name="sky_path_info_horizon">A linha reta é o horizonte</string>
-    <string name="sky_path_info_arc">O arco representa o céu</string>
-    <string name="sky_path_info_iss_icon">O ícone da ISS mostra o ponto mais alto que a estação alcançará</string>
-    <string name="sky_path_info_overhead">Se o ícone estiver no topo do arco, significa que a ISS passará quase diretamente sobre você.</string>
-    <string name="sky_path_info_lower">Se o ícone estiver mais baixo no arco, perto da linha do horizonte, a ISS aparecerá mais baixa no céu e não subirá tanto durante o passe.</string>
-    <string name="sky_path_info_labels">Os rótulos, como NW e SE, mostram as direções de início e fim do passe</string>
     <string name="you">Você</string>
     <string name="iss_pass_share_chooser">Compartilhar passe da ISS</string>
     <string name="iss_pass_share_text_format">Confira este passe da ISS!\nData: %1$s\nDuração: %2$d min %3$d s\nVisibilidade: %4$s</string>

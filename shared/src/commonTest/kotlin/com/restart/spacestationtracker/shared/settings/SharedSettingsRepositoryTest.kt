@@ -3,7 +3,6 @@ package com.restart.spacestationtracker.shared.settings
 import com.restart.spacestationtracker.shared.preferences.PreferenceStore
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class SharedSettingsRepositoryTest {
@@ -11,7 +10,6 @@ class SharedSettingsRepositoryTest {
     @Test
     fun readsLegacyAndroidKeyNamesWithoutMigration() {
         val store = MemoryStore().apply {
-            putBoolean("show_orbit", false)
             putString("map_type", "Satellite")
             putString("units", "Imperial")
             putBoolean("auto_pass_alerts_enabled", true)
@@ -20,7 +18,6 @@ class SharedSettingsRepositoryTest {
 
         val settings = SharedSettingsRepository(store).settings.value
 
-        assertFalse(settings.showOrbit)
         assertEquals("Satellite", settings.mapType)
         assertEquals("Imperial", settings.units)
         assertTrue(settings.automaticPassAlertsEnabled)
@@ -32,11 +29,9 @@ class SharedSettingsRepositoryTest {
         val store = MemoryStore()
         val repository = SharedSettingsRepository(store)
 
-        repository.setShowOrbit(false)
         repository.setMapType("Hybrid")
         repository.setAutomaticPassAlertNotificationTimes(setOf("1 hour before"))
 
-        assertEquals(false, store.getBoolean("show_orbit"))
         assertEquals("Hybrid", store.getString("map_type"))
         assertEquals(
             setOf("1 hour before"),

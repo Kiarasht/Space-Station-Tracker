@@ -1,7 +1,30 @@
 package com.restart.spacestationtracker.shared.ui
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import com.restart.spacestationtracker.domain.iss_live.model.IssLocation
 import com.restart.spacestationtracker.shared.resources.Res
 import com.restart.spacestationtracker.shared.resources.satellite_iss_short
@@ -24,8 +47,6 @@ private val TrackedSatellite.accentArgb: Long
         TrackedSatellite.HUBBLE -> HUBBLE_ARGB
     }
 
-/** Marker and card-border color for each satellite. */
-internal val TrackedSatellite.accent: Color get() = Color(accentArgb)
 
 internal fun TrackedSatellite.trackColorArgb(): Long = if (this == TrackedSatellite.ISS) ISS_TRACK_ARGB else accentArgb
 
@@ -68,4 +89,66 @@ internal fun satelliteMarkers(
         )
     }
     return listOfNotNull(iss) + others
+}
+
+/** The switcher's short name for each spacecraft, the same as its map label. */
+@Composable
+private fun TrackedSatellite.shortName(): String = stringResource(
+    when (this) {
+        TrackedSatellite.ISS -> Res.string.satellite_iss_short
+        TrackedSatellite.TIANGONG -> Res.string.satellite_tiangong_short
+        TrackedSatellite.HUBBLE -> Res.string.satellite_hubble_short
+    }
+)
+
+/**
+ * A stack of pills for jumping between the spacecraft on the map, each with a dot in its path's color. The
+ * selected one is filled with that color, matching its marker, card and line.
+ */
+@Composable
+internal fun SatelliteSwitcher(
+    available: List<TrackedSatellite>,
+    selected: TrackedSatellite,
+    onSelect: (TrackedSatellite) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val colors = MaterialTheme.spaceColors
+    Column(
+        modifier = modifier.width(IntrinsicSize.Max),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        available.forEach { satellite ->
+            val isSelected = satellite == selected
+            val accent = Color(satellite.markerArgb)
+            Surface(
+                onClick = { onSelect(satellite) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .semantics { this.selected = isSelected },
+                shape = RoundedCornerShape(percent = 50),
+                color = if (isSelected) accent else colors.navBarContainer,
+                contentColor = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurface,
+                border = if (isSelected) null else BorderStroke(1.dp, colors.navBarBorder),
+                shadowElevation = 6.dp
+            ) {
+                Row(
+                    modifier = Modifier.padding(horizontal = 14.dp, vertical = 9.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Box(
+                        Modifier
+                            .size(9.dp)
+                            .clip(CircleShape)
+                            .background(if (isSelected) Color.White else accent)
+                    )
+                    Text(
+                        satellite.shortName(),
+                        style = MaterialTheme.typography.labelLarge,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+        }
+    }
 }

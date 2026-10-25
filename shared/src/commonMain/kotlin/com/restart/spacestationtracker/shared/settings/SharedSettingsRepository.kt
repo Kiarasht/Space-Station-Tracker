@@ -12,11 +12,6 @@ class SharedSettingsRepository(
     private val _settings = MutableStateFlow(readSettings())
     val settings: StateFlow<AppSettings> = _settings.asStateFlow()
 
-    fun setShowOrbit(value: Boolean) = update(
-        write = { store.putBoolean(AppSettingsKeys.SHOW_ORBIT, value) },
-        transform = { it.copy(showOrbit = value) }
-    )
-
     fun setMapType(value: String) = update(
         write = { store.putString(AppSettingsKeys.MAP_TYPE, value) },
         transform = { it.copy(mapType = value) }
@@ -102,8 +97,6 @@ class SharedSettingsRepository(
                 ?: defaultAppSettings.minMagnitude,
             showEvents = store.getBoolean(AppSettingsKeys.SHOW_EVENTS)
                 ?: defaultAppSettings.showEvents,
-            showOrbit = store.getBoolean(AppSettingsKeys.SHOW_ORBIT)
-                ?: defaultAppSettings.showOrbit,
             mapType = store.getString(AppSettingsKeys.MAP_TYPE)
                 ?: defaultAppSettings.mapType,
             units = store.getString(AppSettingsKeys.UNITS)

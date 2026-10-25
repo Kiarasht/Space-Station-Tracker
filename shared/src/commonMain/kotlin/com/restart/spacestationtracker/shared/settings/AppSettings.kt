@@ -4,7 +4,6 @@ data class AppSettings(
     val minAltitude: Int = 10,
     val minMagnitude: Int = 4,
     val showEvents: Boolean = true,
-    val showOrbit: Boolean = true,
     val mapType: String = MAP_TYPE_NORMAL,
     val units: String = UNITS_METRIC,
     val theme: String = THEME_FOLLOW_SYSTEM,
@@ -40,7 +39,6 @@ object AppSettingsKeys {
     const val MIN_ALTITUDE = "min_altitude"
     const val MIN_MAGNITUDE = "min_magnitude"
     const val SHOW_EVENTS = "show_events"
-    const val SHOW_ORBIT = "show_orbit"
     const val MAP_TYPE = "map_type"
     const val UNITS = "units"
     const val THEME = "theme"

@@ -45,13 +45,6 @@
     <string name="schedule_notification_message_format">为 %1$s 的国际空间站过境安排通知。</string>
     <string name="notification_scheduled">通知已安排！</string>
     <string name="schedule">安排</string>
-    <string name="sky_path_info_intro">图表从你的视角显示国际空间站穿过天空的路径：</string>
-    <string name="sky_path_info_horizon">直线表示地平线</string>
-    <string name="sky_path_info_arc">弧线表示天空</string>
-    <string name="sky_path_info_iss_icon">国际空间站图标表示空间站将达到的最高点</string>
-    <string name="sky_path_info_overhead">如果图标位于弧线最顶部，表示国际空间站几乎会从你的正上方经过。</string>
-    <string name="sky_path_info_lower">如果图标在弧线较低处、靠近地平线，表示国际空间站会在天空中较低的位置出现，过境时不会升得很高。</string>
-    <string name="sky_path_info_labels">NW、SE 等标签表示过境开始和结束的方向</string>
     <string name="you">你</string>
     <string name="iss_pass_share_chooser">分享国际空间站过境</string>
     <string name="iss_pass_share_text_format">看看这次国际空间站过境！\n日期：%1$s\n时长：%2$d 分 %3$d 秒\n可见度：%4$s</string>

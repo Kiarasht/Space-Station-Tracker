@@ -37,7 +37,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilledTonalButton
-import androidx.compose.material.icons.filled.Timeline
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Info
@@ -680,7 +679,6 @@ fun SharedFullSettingsScreen(
     onUpdateLocation: () -> Unit,
     onOpenBackgroundSettings: () -> Unit,
     onMapTypeChanged: (String) -> Unit,
-    onShowOrbitChanged: (Boolean) -> Unit,
     onThemeChanged: (String) -> Unit,
     onPrivacyChoices: () -> Unit
 ) {
@@ -773,17 +771,8 @@ fun SharedFullSettingsScreen(
                         onCheckedChange = onAutomaticAlertsChanged
                     )
                 }
-                // Alert health and the alert options only matter while automatic alerts are on.
+                // The alert options only matter while automatic alerts are on.
                 if (settings.automaticPassAlertsEnabled) {
-                    SettingsDivider()
-                    AlertHealth(
-                        lines = listOf(
-                            platformState.hasNotificationPermission to stringResource(if (platformState.hasNotificationPermission) Res.string.notifications_allowed else Res.string.notifications_need_permission),
-                            platformState.hasLocationPermission to stringResource(if (platformState.hasLocationPermission) Res.string.location_permission_allowed else Res.string.location_permission_needed),
-                            hasLocation to stringResource(if (hasLocation) Res.string.alert_location_saved else Res.string.alert_location_needs_update),
-                            platformState.isBackgroundUnrestricted to stringResource(if (platformState.isBackgroundUnrestricted) Res.string.battery_unrestricted else Res.string.battery_may_pause_alerts)
-                        )
-                    )
                     SettingsDivider()
                     SettingsChoiceRow(
                         icon = Icons.Default.Visibility,
@@ -809,17 +798,6 @@ fun SharedFullSettingsScreen(
                     ) {
                         FilledTonalButton(onClick = onUpdateLocation) { Text(stringResource(Res.string.update)) }
                     }
-                    SettingsDivider()
-                    SettingsRow(
-                        icon = if (platformState.isBackgroundUnrestricted) Icons.Default.CheckCircle else Icons.Default.Warning,
-                        tint = if (platformState.isBackgroundUnrestricted) colors.success else colors.warning,
-                        title = stringResource(Res.string.notification_reliability),
-                        subtitle = stringResource(if (platformState.isBackgroundUnrestricted) Res.string.battery_optimization_off else Res.string.battery_may_pause_alerts_description)
-                    ) {
-                        if (!platformState.isBackgroundUnrestricted) {
-                            FilledTonalButton(onClick = onOpenBackgroundSettings) { Text(stringResource(Res.string.open)) }
-                        }
-                    }
                 }
             }
         }
@@ -833,9 +811,44 @@ fun SharedFullSettingsScreen(
                 ) {
                     Switch(settings.liveEventAlertsEnabled, onLiveEventAlertsChanged)
                 }
-                if (settings.liveEventAlertsEnabled && !platformState.hasNotificationPermission) {
-                    SettingsDivider()
-                    AlertHealth(lines = listOf(false to stringResource(Res.string.notifications_need_permission)))
+            }
+        }
+        // One place to check that alerts can reach you, for whichever kinds are on.
+        if (settings.automaticPassAlertsEnabled || settings.liveEventAlertsEnabled) {
+            item {
+                SpaceSectionCard(stringResource(Res.string.alert_health)) {
+                    AlertHealth(
+                        buildList {
+                            add(
+                                HealthLine(
+                                    platformState.hasNotificationPermission,
+                                    stringResource(if (platformState.hasNotificationPermission) Res.string.notifications_allowed else Res.string.notifications_need_permission)
+                                )
+                            )
+                            // Location only matters for pass alerts, which are predicted for a place.
+                            if (settings.automaticPassAlertsEnabled) {
+                                add(
+                                    HealthLine(
+                                        platformState.hasLocationPermission,
+                                        stringResource(if (platformState.hasLocationPermission) Res.string.location_permission_allowed else Res.string.location_permission_needed)
+                                    )
+                                )
+                                add(
+                                    HealthLine(
+                                        hasLocation,
+                                        stringResource(if (hasLocation) Res.string.alert_location_saved else Res.string.alert_location_needs_update)
+                                    )
+                                )
+                            }
+                            add(
+                                HealthLine(
+                                    platformState.isBackgroundUnrestricted,
+                                    stringResource(if (platformState.isBackgroundUnrestricted) Res.string.battery_unrestricted else Res.string.battery_may_pause_alerts),
+                                    onFix = onOpenBackgroundSettings
+                                )
+                            )
+                        }
+                    )
                 }
             }
         }
@@ -848,15 +861,6 @@ fun SharedFullSettingsScreen(
                     value = mapTypeOptions.labelFor(settings.mapType),
                     onClick = { openChoice = CHOICE_MAP_TYPE }
                 )
-                SettingsDivider()
-                SettingsRow(
-                    icon = Icons.Default.Timeline,
-                    tint = colors.live,
-                    title = stringResource(Res.string.show_orbit_path),
-                    subtitle = stringResource(Res.string.show_orbit_path_description)
-                ) {
-                    Switch(settings.showOrbit, onShowOrbitChanged)
-                }
             }
         }
         item {
@@ -1066,29 +1070,30 @@ private fun ChoiceDialogRow(label: String, onClick: () -> Unit, control: @Compos
     }
 }
 
-/** Green check or amber warning for each requirement automatic alerts depend on. */
+/** One check in Alert health; [onFix] adds an Open button while the check fails. */
+private class HealthLine(val healthy: Boolean, val label: String, val onFix: (() -> Unit)? = null)
+
+/** Green check or amber warning for each requirement the enabled alerts depend on. */
 @Composable
-private fun AlertHealth(lines: List<Pair<Boolean, String>>) {
+private fun AlertHealth(lines: List<HealthLine>) {
     val colors = MaterialTheme.spaceColors
     Column(
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 14.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Text(
-            stringResource(Res.string.alert_health),
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.SemiBold
-        )
-        lines.forEach { (healthy, label) ->
+        lines.forEach { line ->
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
-                    if (healthy) Icons.Default.CheckCircle else Icons.Default.Warning,
+                    if (line.healthy) Icons.Default.CheckCircle else Icons.Default.Warning,
                     contentDescription = null,
-                    tint = if (healthy) colors.success else colors.warning,
+                    tint = if (line.healthy) colors.success else colors.warning,
                     modifier = Modifier.size(20.dp)
                 )
                 Spacer(Modifier.width(10.dp))
-                Text(label, style = MaterialTheme.typography.bodyMedium)
+                Text(line.label, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
+                if (!line.healthy && line.onFix != null) {
+                    FilledTonalButton(onClick = line.onFix) { Text(stringResource(Res.string.open)) }
+                }
             }
         }
     }

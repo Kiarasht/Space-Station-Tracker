@@ -37,7 +37,6 @@ fun SharedMapRoute(
         futureLocations = state.futureIssLocations,
         mapType = state.mapType,
         units = state.units,
-        showOrbit = state.showOrbit,
         isLoading = state.isLoading,
         error = state.error,
         liveStreams = state.liveStreams,

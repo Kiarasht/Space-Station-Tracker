@@ -58,13 +58,6 @@
     <string name="schedule_notification_message_format">Schedule a notification for the ISS pass on %1$s.</string>
     <string name="notification_scheduled">Notification scheduled!</string>
     <string name="schedule">Schedule</string>
-    <string name="sky_path_info_intro">The chart visualizes the ISS pass across the sky from your perspective:</string>
-    <string name="sky_path_info_horizon">The straight line is the horizon</string>
-    <string name="sky_path_info_arc">The arc represents the sky</string>
-    <string name="sky_path_info_iss_icon">The ISS icon shows the highest point the station will reach</string>
-    <string name="sky_path_info_overhead">If the icon is at the very top of the arc, it means the ISS will pass almost directly overhead.</string>
-    <string name="sky_path_info_lower">If the icon is lower on the arc, closer to the horizon line, it means the ISS will appear lower in the sky and will not climb as high during its pass.</string>
-    <string name="sky_path_info_labels">The labels, such as NW and SE, show the start and end directions of the pass</string>
     <string name="you">You</string>
     <string name="iss_pass_share_chooser">Share ISS Pass</string>
     <string name="iss_pass_share_text_format">Check out this ISS pass!\nDate: %1$s\nDuration: %2$d min %3$d sec\nVisibility: %4$s</string>

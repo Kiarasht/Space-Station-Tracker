@@ -45,13 +45,6 @@
     <string name="schedule_notification_message_format">Plane eine Benachrichtigung für den ISS-Überflug am %1$s.</string>
     <string name="notification_scheduled">Benachrichtigung geplant!</string>
     <string name="schedule">Planen</string>
-    <string name="sky_path_info_intro">Das Diagramm zeigt den ISS-Überflug aus deiner Perspektive:</string>
-    <string name="sky_path_info_horizon">Die gerade Linie ist der Horizont</string>
-    <string name="sky_path_info_arc">Der Bogen stellt den Himmel dar</string>
-    <string name="sky_path_info_iss_icon">Das ISS-Symbol zeigt den höchsten Punkt, den die Station erreichen wird</string>
-    <string name="sky_path_info_overhead">Wenn das Symbol ganz oben im Bogen ist, fliegt die ISS fast direkt über dich hinweg.</string>
-    <string name="sky_path_info_lower">Wenn das Symbol tiefer im Bogen und näher an der Horizontlinie ist, erscheint die ISS niedriger am Himmel und steigt während des Überflugs nicht so hoch.</string>
-    <string name="sky_path_info_labels">Die Beschriftungen wie NW und SE zeigen Start- und Endrichtung des Überflugs</string>
     <string name="you">Du</string>
     <string name="iss_pass_share_chooser">ISS-Überflug teilen</string>
     <string name="iss_pass_share_text_format">Sieh dir diesen ISS-Überflug an!\nDatum: %1$s\nDauer: %2$d Min. %3$d Sek.\nSichtbarkeit: %4$s</string>

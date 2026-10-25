@@ -55,7 +55,7 @@ import com.restart.spacestationtracker.shared.passes.PassAlertPolicy
 import com.restart.spacestationtracker.shared.ui.SharedIssPassCard
 import com.restart.spacestationtracker.shared.ui.SharedNextPassHero
 import com.restart.spacestationtracker.shared.ui.SkyPathSectionTitle
-import com.restart.spacestationtracker.shared.ui.SkyPathVisualGuide
+import com.restart.spacestationtracker.shared.ui.SkyPathInfoDialog
 import com.restart.spacestationtracker.shared.ui.hasEnded
 import com.restart.spacestationtracker.shared.ui.rememberPassClock
 import com.restart.spacestationtracker.util.IssPassVisibility
@@ -617,32 +617,7 @@ fun NotificationSchedulerDialog(pass: IssPass, onDismiss: () -> Unit) {
 
 @Composable
 fun InfoDialog(onDismiss: () -> Unit) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text(stringResource(id = R.string.nav_sky_path)) },
-        text = {
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                item {
-                    Text(stringResource(id = R.string.sky_path_info_intro))
-                    Spacer(modifier = Modifier.height(16.dp))
-                    SkyPathVisualGuide(
-                        youLabel = stringResource(id = R.string.you),
-                        horizonLabel = stringResource(id = R.string.sky_path_info_horizon),
-                        skyArcLabel = stringResource(id = R.string.sky_path_info_arc),
-                        highestPointLabel = stringResource(id = R.string.sky_path_info_iss_icon),
-                        directionsLabel = stringResource(id = R.string.sky_path_info_labels),
-                        overheadExplanation = stringResource(id = R.string.sky_path_info_overhead),
-                        lowerExplanation = stringResource(id = R.string.sky_path_info_lower)
-                    )
-                }
-            }
-        },
-        confirmButton = {
-            TextButton(onClick = onDismiss) {
-                Text(stringResource(id = R.string.got_it))
-            }
-        }
-    )
+    SkyPathInfoDialog(onDismiss = onDismiss)
 }
 
 private fun sharePassDetails(context: Context, pass: IssPass) {

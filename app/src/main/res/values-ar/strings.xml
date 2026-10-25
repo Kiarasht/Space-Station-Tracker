@@ -45,13 +45,6 @@
     <string name="schedule_notification_message_format">جدولة إشعار لمرور محطة الفضاء الدولية في %1$s.</string>
     <string name="notification_scheduled">تمت جدولة الإشعار!</string>
     <string name="schedule">جدولة</string>
-    <string name="sky_path_info_intro">يوضح المخطط مرور محطة الفضاء الدولية عبر السماء من منظورك:</string>
-    <string name="sky_path_info_horizon">الخط المستقيم هو الأفق</string>
-    <string name="sky_path_info_arc">القوس يمثل السماء</string>
-    <string name="sky_path_info_iss_icon">أيقونة محطة الفضاء الدولية توضح أعلى نقطة ستصل إليها المحطة</string>
-    <string name="sky_path_info_overhead">إذا كانت الأيقونة في أعلى القوس، فهذا يعني أن المحطة ستمر تقريبًا فوقك مباشرة.</string>
-    <string name="sky_path_info_lower">إذا كانت الأيقونة في موضع أدنى على القوس بالقرب من خط الأفق، فستظهر المحطة منخفضة في السماء ولن ترتفع كثيرًا أثناء المرور.</string>
-    <string name="sky_path_info_labels">التسميات مثل NW وSE توضح اتجاهي بداية المرور ونهايته</string>
     <string name="you">أنت</string>
     <string name="iss_pass_share_chooser">مشاركة مرور محطة الفضاء الدولية</string>
     <string name="iss_pass_share_text_format">شاهد هذا المرور لمحطة الفضاء الدولية!\nالتاريخ: %1$s\nالمدة: %2$d د %3$d ث\nالرؤية: %4$s</string>

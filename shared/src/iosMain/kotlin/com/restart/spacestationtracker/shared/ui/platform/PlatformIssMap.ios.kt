@@ -56,6 +56,17 @@ object IosIssMapRegistry {
         satelliteUpdater = updater
     }
 
+    private var focusUpdater: ((UIView, MapFocusRequest) -> Unit)? = null
+
+    /** Receives requests to move the map to a spacecraft; each new serial is a new request. */
+    fun registerFocusUpdater(updater: (UIView, MapFocusRequest) -> Unit) {
+        focusUpdater = updater
+    }
+
+    fun updateFocus(view: UIView, focus: MapFocusRequest) {
+        focusUpdater?.invoke(view, focus)
+    }
+
     fun updateSatellites(
         view: UIView,
         satellites: List<SatelliteMapMarker>,
@@ -98,6 +109,7 @@ actual fun PlatformIssMap(
     satellites: List<SatelliteMapMarker>,
     tracks: List<SatelliteMapTrack>,
     orbitVisible: Boolean,
+    focus: MapFocusRequest?,
     onSatelliteClick: (String?) -> Unit
 ) {
     val currentOnSatelliteClick by rememberUpdatedState(onSatelliteClick)
@@ -130,6 +142,7 @@ actual fun PlatformIssMap(
                     orbitVisible = orbitVisible,
                     onSatelliteClick = { id -> currentOnSatelliteClick(id) }
                 )
+                focus?.let { IosIssMapRegistry.updateFocus(view, it) }
             },
             modifier = Modifier.fillMaxSize()
         )
