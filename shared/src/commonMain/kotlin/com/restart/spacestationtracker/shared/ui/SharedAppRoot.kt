@@ -3,6 +3,7 @@ package com.restart.spacestationtracker.shared.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -76,6 +77,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -580,8 +583,9 @@ fun SharedIssMapScreen(
             tracks = tracks,
             orbitVisible = issOrbitVisible,
             focus = focusRequest,
-            // Tapping empty map goes back to the ISS, the default selection.
-            onSatelliteClick = { id -> selectedSatelliteId = id ?: TrackedSatellite.ISS.id }
+            // Only a marker tap (or the switcher) changes the selection; taps, zooms and other gestures on
+            // empty map leave it alone.
+            onSatelliteClick = { id -> if (id != null) selectedSatelliteId = id }
         )
 
         // The map runs edge to edge under the status bar and the floating bar; overlays stay clear of both.
@@ -740,34 +744,42 @@ private fun TelemetryCard(
         "${telemetry.speedKmh.roundToInt()} km/h"
     }
     val colors = MaterialTheme.spaceColors
+    // Switching spacecraft blends the border into the new color rather than swapping it.
+    val borderColor by animateColorAsState(
+        targetValue = accent ?: MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.7f),
+        animationSpec = tween(300)
+    )
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(20.dp),
         color = MaterialTheme.colorScheme.surface.copy(alpha = 0.92f),
-        border = BorderStroke(
-            if (accent != null) 1.5.dp else 1.dp,
-            accent ?: MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.7f)
-        ),
+        border = BorderStroke(if (accent != null) 1.5.dp else 1.dp, borderColor),
         shadowElevation = 8.dp
     ) {
         Column(
             modifier = Modifier.padding(12.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+            // Each row reserves room for its widest possible value, so the card keeps one size as the
+            // numbers change and when switching spacecraft.
+            val imperial = units == "Imperial"
             IssTelemetryRow(
                 icon = Icons.Default.LocationOn,
                 tint = accent ?: MaterialTheme.colorScheme.primary,
-                value = "${telemetry.latitude.format(2)}°, ${telemetry.longitude.format(2)}°"
+                value = "${telemetry.latitude.format(2)}°, ${telemetry.longitude.format(2)}°",
+                widest = listOf("-88.88°, -188.88°", "-00.00°, -000.00°")
             )
             IssTelemetryRow(
                 icon = Icons.Default.Height,
                 tint = MaterialTheme.colorScheme.tertiary,
-                value = altitude
+                value = altitude,
+                widest = listOf(if (imperial) "888 mi" else "888 km", if (imperial) "000 mi" else "000 km")
             )
             IssTelemetryRow(
                 icon = Icons.Default.Speed,
                 tint = colors.live,
-                value = velocity
+                value = velocity,
+                widest = listOf(if (imperial) "88888 mph" else "88888 km/h", if (imperial) "00000 mph" else "00000 km/h")
             )
             IssTelemetryRow(
                 icon = if (telemetry.inShadow) Icons.Default.DarkMode else Icons.Default.WbSunny,
@@ -778,6 +790,11 @@ private fun TelemetryCard(
                         telemetry.isIss -> Res.string.iss_is_sunlit
                         else -> Res.string.satellite_sunlit
                     }
+                ),
+                widest = listOf(
+                    stringResource(Res.string.iss_in_earth_shadow),
+                    stringResource(Res.string.iss_is_sunlit),
+                    stringResource(Res.string.satellite_sunlit)
                 )
             )
         }
@@ -788,19 +805,33 @@ private fun TelemetryCard(
 private fun IssTelemetryRow(
     icon: ImageVector,
     tint: Color,
-    value: String
+    value: String,
+    /** Values this row could show; it's as wide as the widest of them. */
+    widest: List<String> = emptyList()
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         SpaceIconTile(icon = icon, tint = tint, size = 28.dp)
-        Text(
-            text = value,
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.SemiBold,
-            maxLines = 1
-        )
+        Box {
+            // Invisible copies hold the width; the real value draws over them.
+            widest.forEach { placeholder ->
+                Text(
+                    text = placeholder,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    modifier = Modifier.alpha(0f).clearAndSetSemantics {}
+                )
+            }
+            Text(
+                text = value,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.SemiBold,
+                maxLines = 1
+            )
+        }
     }
 }
 
