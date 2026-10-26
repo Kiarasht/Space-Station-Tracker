@@ -53,6 +53,7 @@ actual fun PlatformIssMap(
     tracks: List<SatelliteMapTrack>,
     orbitVisible: Boolean,
     focus: MapFocusRequest?,
+    initialCenter: IssMapPoint?,
     onSatelliteClick: (String?) -> Unit
 ) {
     val context = LocalContext.current
@@ -73,13 +74,10 @@ actual fun PlatformIssMap(
         buildOrbitCues(currentLocation?.timestamp ?: 0L, orderedOrbit)
     }
     val exoTypeface = remember(context) { loadExoTypeface(context) }
-    LaunchedEffect(currentLocation) {
-        if (!hasCentered && currentLocation != null) {
+    LaunchedEffect(initialCenter) {
+        if (!hasCentered && initialCenter != null) {
             cameraState.animate(
-                CameraUpdateFactory.newLatLngZoom(
-                    LatLng(currentLocation.latitude, currentLocation.longitude),
-                    2f
-                )
+                CameraUpdateFactory.newLatLngZoom(LatLng(initialCenter.latitude, initialCenter.longitude), 2f)
             )
             hasCentered = true
         }

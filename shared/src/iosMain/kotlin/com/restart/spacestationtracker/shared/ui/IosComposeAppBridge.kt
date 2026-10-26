@@ -76,6 +76,10 @@ class IosComposeAppBridge(
         IosIssMapRegistry.registerFocusUpdater(updater)
     }
 
+    fun registerMapInitialCenterUpdater(updater: (UIView, IssMapPoint) -> Unit) {
+        IosIssMapRegistry.registerInitialCenterUpdater(updater)
+    }
+
     fun registerNativeAdViewFactory(factory: (String) -> UIView) {
         IosNativeAdRegistry.register(factory)
     }

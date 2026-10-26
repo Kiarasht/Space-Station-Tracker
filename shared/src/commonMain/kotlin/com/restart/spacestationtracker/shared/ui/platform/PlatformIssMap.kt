@@ -69,6 +69,8 @@ expect fun PlatformIssMap(
     orbitVisible: Boolean = true,
     /** Moves the map to a spacecraft chosen outside the map, such as from the switcher. */
     focus: MapFocusRequest? = null,
+    /** Where the map opens, used once when it first appears: the selected spacecraft. */
+    initialCenter: IssMapPoint? = null,
     onSatelliteClick: (String?) -> Unit = {}
 )
 

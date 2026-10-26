@@ -68,6 +68,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -157,6 +158,7 @@ fun SharedAppRoot(
     val state by controller.state.collectAsState()
     val requestedTab by controller.requestedTab.collectAsState()
     var selectedTab by remember { mutableStateOf(SharedTab.MAP) }
+    val tabStates = rememberSaveableStateHolder()
     var chromeHeight by remember { mutableStateOf(0.dp) }
     val density = LocalDensity.current
 
@@ -205,6 +207,8 @@ fun SharedAppRoot(
                 bottom = chromeHeight
             )
             Box(Modifier.fillMaxSize()) {
+            // Each tab keeps its saved state (the map's selection, list scroll positions) while hidden.
+            tabStates.SaveableStateProvider(selectedTab.name) {
             when (selectedTab) {
                 SharedTab.MAP -> SharedIssMapScreen(
                     currentLocation = state.currentIssLocation,
@@ -344,6 +348,7 @@ fun SharedAppRoot(
                     }
                 )
             }
+            }
             SpaceBottomChrome(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
@@ -388,6 +393,16 @@ fun SharedRemoveAdsButton(
     onRestore: () -> Unit
 ) {
     var showDialog by remember { mutableStateOf(false) }
+    // A completed purchase or restore closes the dialog right away (the button itself goes once the app
+    // is ad-free).
+    LaunchedEffect(purchaseStatusCode) {
+        if (purchaseStatusCode == SharedPurchaseStatus.REMOVED ||
+            purchaseStatusCode == SharedPurchaseStatus.RESTORED ||
+            purchaseStatusCode == SharedPurchaseStatus.ALREADY_REMOVED
+        ) {
+            showDialog = false
+        }
+    }
 
     if (showDialog) {
         AlertDialog(
@@ -583,6 +598,12 @@ fun SharedIssMapScreen(
             tracks = tracks,
             orbitVisible = issOrbitVisible,
             focus = focusRequest,
+            // Coming back to the map opens it on the selected spacecraft, not always on the ISS.
+            initialCenter = if (selectedSatellite == null || selectedSatellite == TrackedSatellite.ISS) {
+                currentLocation?.let { IssMapPoint(latitude = it.latitude, longitude = it.longitude) }
+            } else {
+                selectedSnapshot?.let { IssMapPoint(latitude = it.latitude, longitude = it.longitude) }
+            },
             // Only a marker tap (or the switcher) changes the selection; taps, zooms and other gestures on
             // empty map leave it alone.
             onSatelliteClick = { id -> if (id != null) selectedSatelliteId = id }
