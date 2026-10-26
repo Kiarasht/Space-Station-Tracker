@@ -232,6 +232,9 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         composeBridge.registerMapFocusUpdater { view, focus in
             (view as? NativeIssMapView)?.focus(on: focus)
         }
+        composeBridge.registerMapInitialCenterUpdater { view, center in
+            (view as? NativeIssMapView)?.centerInitially(on: center)
+        }
         composeBridge.registerMapSatelliteUpdater { [weak self] view, satellites, tracks, orbitVisible, onSelect in
             guard let mapView = view as? NativeIssMapView else { return }
             let markers: [SatelliteMapMarker] = self?.cast(satellites) ?? []
@@ -651,15 +654,17 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
     }
 
     private func refreshSettingsPlatformState() {
-        let backgroundRefreshAvailable =
-            UIApplication.shared.backgroundRefreshStatus == .available
-        let locationLookupInProgress = isLocationLookupInProgress
-        let privacyOptionsRequired = isPrivacyOptionsRequired
-        let adsAvailable = canRequestAds && !isAdFree
-        let adFree = isAdFree
-        let purchaseState = adRemovalPurchase.state
         Task { @MainActor in
             let settings = await UNUserNotificationCenter.current().notificationSettings()
+            // Read the app's state after the wait: several refreshes run during a purchase or restore, and
+            // one that copied it earlier could finish last and bring back "not ad-free" (and the button).
+            let backgroundRefreshAvailable =
+                UIApplication.shared.backgroundRefreshStatus == .available
+            let locationLookupInProgress = self.isLocationLookupInProgress
+            let privacyOptionsRequired = self.isPrivacyOptionsRequired
+            let adsAvailable = self.canRequestAds && !self.isAdFree
+            let adFree = self.isAdFree
+            let purchaseState = self.adRemovalPurchase.state
             let notificationsAllowed: Bool
             switch settings.authorizationStatus {
             case .authorized, .provisional, .ephemeral:
@@ -843,6 +848,21 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecogn
         configure()
     }
 
+    /// Opens the map on the selected spacecraft (the ISS at launch). Compose sends it on every update; only
+    /// the first one moves the map.
+    func centerInitially(on point: IssMapPoint) {
+        guard !hasSetInitialRegion else { return }
+        hasSetInitialRegion = true
+        mapView.setRegion(
+            MKCoordinateRegion(
+                center: CLLocationCoordinate2D(latitude: point.latitude, longitude: point.longitude),
+                latitudinalMeters: Self.initialMapSpanMeters,
+                longitudinalMeters: Self.initialMapSpanMeters
+            ),
+            animated: true
+        )
+    }
+
     private var lastFocusSerial: Int32?
 
     /// Glides to a spacecraft chosen from the switcher, keeping the zoom. Compose calls this on every
@@ -905,18 +925,6 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecogn
 
         // The ISS's orbit line; its marker comes with the other spacecraft below.
         if let current {
-            let coordinate = CLLocationCoordinate2D(latitude: current.latitude, longitude: current.longitude)
-            if !hasSetInitialRegion {
-                hasSetInitialRegion = true
-                mapView.setRegion(
-                    MKCoordinateRegion(
-                        center: coordinate,
-                        latitudinalMeters: Self.initialMapSpanMeters,
-                        longitudinalMeters: Self.initialMapSpanMeters
-                    ),
-                    animated: true
-                )
-            }
             let orderedOrbit = Self.orderedOrbit(orbit)
             let path = Self.issOrbitPath
             setPath(id: path, points: orderedOrbit, color: .systemRed, visible: orbitVisible)

@@ -67,6 +67,17 @@ object IosIssMapRegistry {
         focusUpdater?.invoke(view, focus)
     }
 
+    private var initialCenterUpdater: ((UIView, IssMapPoint) -> Unit)? = null
+
+    /** Receives where the map should open; the map uses only the first one. */
+    fun registerInitialCenterUpdater(updater: (UIView, IssMapPoint) -> Unit) {
+        initialCenterUpdater = updater
+    }
+
+    fun updateInitialCenter(view: UIView, center: IssMapPoint) {
+        initialCenterUpdater?.invoke(view, center)
+    }
+
     fun updateSatellites(
         view: UIView,
         satellites: List<SatelliteMapMarker>,
@@ -110,6 +121,7 @@ actual fun PlatformIssMap(
     tracks: List<SatelliteMapTrack>,
     orbitVisible: Boolean,
     focus: MapFocusRequest?,
+    initialCenter: IssMapPoint?,
     onSatelliteClick: (String?) -> Unit
 ) {
     val currentOnSatelliteClick by rememberUpdatedState(onSatelliteClick)
@@ -142,6 +154,7 @@ actual fun PlatformIssMap(
                     orbitVisible = orbitVisible,
                     onSatelliteClick = { id -> currentOnSatelliteClick(id) }
                 )
+                initialCenter?.let { IosIssMapRegistry.updateInitialCenter(view, it) }
                 focus?.let { IosIssMapRegistry.updateFocus(view, it) }
             },
             modifier = Modifier.fillMaxSize()
