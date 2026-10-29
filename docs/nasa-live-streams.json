@@ -1,18 +1,14 @@
 {
   "status": "ok",
-  "updatedAt": "2026-10-29T16:00:03.809Z",
-  "updatedAtMillis": 1793289603809,
-  "lastSuccessAtMillis": 1793289603809,
-  "lastFullSearchAtMillis": 1793289603809,
+  "updatedAt": "2026-10-29T20:59:58.750Z",
+  "updatedAtMillis": 1793307598750,
+  "lastSuccessAtMillis": 1793307598750,
+  "lastFullSearchAtMillis": 1793307598750,
   "source": "github-actions",
   "streams": [
     {
       "videoId": "ROboUHfPUrU",
       "title": "Live High-Definition Views from the International Space Station (Official NASA Stream)"
-    },
-    {
-      "videoId": "hv867HnY4j4",
-      "title": "U.S. Spacewalk 100"
     },
     {
       "videoId": "M3HKLzjvKPc",
