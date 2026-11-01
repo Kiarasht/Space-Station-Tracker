@@ -33,6 +33,8 @@ plugins {
 android {
     namespace = "com.restart.spacestationtracker"
     compileSdk = 36
+    // The NDK installed on the CI Mac; used only to extract native debug symbols for release bundles.
+    ndkVersion = "29.0.14206865"
 
     val versionProperties = Properties()
     val versionPropertiesFile = rootProject.file("version.properties")
@@ -105,6 +107,12 @@ android {
                 "proguard-rules.pro"
             )
             signingConfig = signingConfigs.getByName("release")
+            // The app has no native code of its own, but AndroidX ships some (Compose's graphics path,
+            // DataStore). Packing their symbol tables into the bundle lets Play symbolicate native crashes
+            // and ANRs, and clears its "no debug symbols" warning.
+            ndk {
+                debugSymbolLevel = "SYMBOL_TABLE"
+            }
         }
         debug {
             isMinifyEnabled = false
