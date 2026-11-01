@@ -74,18 +74,6 @@ actual fun PlatformIssMap(
         buildOrbitCues(currentLocation?.timestamp ?: 0L, orderedOrbit)
     }
     val exoTypeface = remember(context) { loadExoTypeface(context) }
-    LaunchedEffect(initialCenter) {
-        if (!hasCentered && initialCenter != null) {
-            cameraState.animate(
-                CameraUpdateFactory.newLatLngZoom(LatLng(initialCenter.latitude, initialCenter.longitude), 2f)
-            )
-            hasCentered = true
-        }
-    }
-    LaunchedEffect(focus?.serial) {
-        val target = focus ?: return@LaunchedEffect
-        cameraState.animate(CameraUpdateFactory.newLatLng(LatLng(target.latitude, target.longitude)))
-    }
     GoogleMap(
         modifier = modifier,
         cameraPositionState = cameraState,
@@ -102,6 +90,20 @@ actual fun PlatformIssMap(
         uiSettings = MapUiSettings(zoomControlsEnabled = false, mapToolbarEnabled = false),
         onMapClick = { onSatelliteClick(null) }
     ) {
+        // Camera calls live in the map's content, which only runs once the map exists: CameraUpdateFactory
+        // throws before Maps has started, and on a device where Maps never starts this simply never runs.
+        LaunchedEffect(initialCenter) {
+            if (!hasCentered && initialCenter != null) {
+                cameraState.animate(
+                    CameraUpdateFactory.newLatLngZoom(LatLng(initialCenter.latitude, initialCenter.longitude), 2f)
+                )
+                hasCentered = true
+            }
+        }
+        LaunchedEffect(focus?.serial) {
+            val target = focus ?: return@LaunchedEffect
+            cameraState.animate(CameraUpdateFactory.newLatLng(LatLng(target.latitude, target.longitude)))
+        }
         val directionMarker = remember { createDirectionMarker() }
         val timeMarkers = remember(exoTypeface) {
             (30..120 step 30).associateWith { minute ->
