@@ -23,9 +23,9 @@ The sources live in `marketing/google-play/sources/`; the HTML is in `marketing/
 See `marketing/google-play/README.md` for the simulators, the London location and the debug-only launch arguments. For the iPad:
 ```sh
 xcrun simctl launch <ipad-udid> com.restart.spacestationtracker.ios.dev --hide-ads --disable-analytics --start-tab CREW
-marketing/google-play/sources/capture.sh ipad-crew <ipad-udid>
+marketing/google-play/sources/capture.sh ios tablet crew <ipad-udid>
 ```
-Other tabs: `MAP` (default) and `PASSES`. Then run `marketing/google-play/sources/redact.sh` to copy the captures into `sources/screenshots/`.
+Other tabs: `MAP` (default) and `PASSES`.
 
 ## Gaps
 - Captured 2026-10-22/23; pass times, crew and satellite positions date from then.

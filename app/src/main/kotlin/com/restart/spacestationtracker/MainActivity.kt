@@ -108,12 +108,19 @@ class MainActivity : ComponentActivity() {
     private var consentAllowsAdRequests = false
     private var purchaseEntitlementChecked = false
     private var pendingRoute by mutableStateOf<String?>(null)
+    private var isMarketingCapture = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         if (savedInstanceState == null) {
             pendingRoute = intent.consumeOpenRoute()
+        }
+        // Store screenshots: keeps test ads out of captures and captures out of analytics.
+        isMarketingCapture = BuildConfig.DEBUG && intent.getBooleanExtra(EXTRA_MARKETING_CAPTURE, false)
+        if (isMarketingCapture) {
+            AppAnalytics.disableCollection()
+            settingsRepository.setLifetimeAdRemoval(true)
         }
         adRemovalBillingController = AndroidAdRemovalBillingController(
             context = this,
@@ -182,7 +189,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
-        adRemovalBillingController.refreshPurchases()
+        if (!isMarketingCapture) adRemovalBillingController.refreshPurchases()
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -203,6 +210,7 @@ class MainActivity : ComponentActivity() {
 
     companion object {
         const val EXTRA_OPEN_ROUTE = "extra_open_route"
+        private const val EXTRA_MARKETING_CAPTURE = "marketing_capture"
     }
 
     private fun maybeInitializeMobileAds() {

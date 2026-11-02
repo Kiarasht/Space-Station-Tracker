@@ -7,6 +7,13 @@
   .phone{position:absolute;background:linear-gradient(145deg,#2a3150,#04061a 40%,#161c3a);
     box-shadow:0 60px 120px rgba(0,0,12,.7),0 0 0 2px rgba(255,255,255,.10),inset 0 0 0 1px rgba(255,255,255,.06)}
   .phone img{display:block}
+  .phone.device{background:linear-gradient(145deg,#8A8E98,#3A3D45 22%,#191A1F 55%,#2E3037 80%,#6E727C);
+    box-shadow:0 60px 120px rgba(0,0,12,.7),0 0 0 1px rgba(0,0,0,.6)}
+  .device .glass{width:100%;height:100%;background:#000}
+  .side-button{position:absolute;z-index:-1;border-radius:0 3px 3px 0;
+    background:linear-gradient(180deg,#70747E,#2A2C33 12%,#3F424A 50%,#2A2C33 88%,#70747E)}
+  .camera-hole{position:absolute;left:50%;transform:translateX(-50%);border-radius:50%;
+    background:radial-gradient(circle at 38% 36%,#39405A 0%,#10131F 28%,#000 62%);box-shadow:0 0 0 1px rgba(255,255,255,.07)}
   .crop{position:absolute;background-repeat:no-repeat;box-shadow:0 34px 70px rgba(0,0,16,.6),0 0 0 1.5px rgba(255,255,255,.14)}
   .copy{position:absolute;width:920px;z-index:10}
   h1{color:#F7F8FF;font-size:94px;line-height:1.02;font-weight:800;letter-spacing:-3px}
@@ -40,65 +47,101 @@
   </svg>
   <div class="copy ipadcopy" style="left:150px;top:170px">
     <h1>See the ISS<br><span style="color:#FFD84D">right now.</span></h1><p>Live position, speed and orbit path on the map.</p></div>
-  <div class="phone" style="left:111.3599999999999px;top:1322px;width:1902.9248000000002px;height:2515.191466666667px;
-    transform:rotate(0deg);z-index:2;border-radius:115.7184px;padding:33.062400000000004px">
-    <img src="../sources/screenshots/ipad-map.png" style="width:1836.8000000000002px;height:2449.066666666667px;border-radius:82.656px"></div>
-  <div class="crop" style="left:44.159999999999854px;top:1232.4px;width:828.8000000000001px;height:738.2588235294119px;border-radius:71.96862745098039px;
-    transform:rotate(-3deg);z-index:4;background-image:url(../sources/screenshots/ipad-map.png);
-    background-size:4791.717647058824px 6388.956862745099px;background-position:-76.61176470588236px -225.19215686274512px;
+  <div class="phone device" style="left:111.3599999999999px;top:1322px;width:1917.6192px;height:3019.6992000000005px;
+    transform:rotate(0deg);z-index:2;border-radius:91.84px;padding:7.347200000000001px">
+    <span class="side-button" style="top:304.90880000000004px;height:202.04800000000003px;
+    width:9.184000000000001px;left:calc(100% - 2.2960000000000003px)"></span><span class="side-button" style="top:128.57600000000002px;height:110.20800000000001px;
+    width:9.184000000000001px;left:calc(100% - 2.2960000000000003px)"></span>
+    <div class="glass" style="padding:33.062400000000004px;border-radius:84.49280000000002px">
+      <img src="../../captures/android/tablet/map.png" style="width:1836.8000000000002px;height:2938.8800000000006px;border-radius:51.430400000000006px">
+    </div>
+    <span class="camera-hole" style="top:15.612800000000002px;width:16.531200000000002px;height:16.531200000000002px"></span></div>
+  <div class="crop" style="left:44.159999999999854px;top:1232.4px;width:828.8000000000001px;height:761.339534883721px;border-radius:74.68837209302326px;
+    transform:rotate(-3deg);z-index:4;background-image:url(../../captures/android/tablet/map.png);
+    background-size:3854.883720930233px 6167.813953488372px;background-position:-79.50697674418605px -195.15348837209302px;
     box-shadow:0 50px 100px rgba(0,0,16,.6),0 0 0 2px #FF3B30,0 0 90px #FF3B3066;"></div>
-  <div class="crop" style="left:1444.16px;top:1389.2px;width:560px;height:96.74418604651163px;border-radius:48.372093023255815px;
-    transform:rotate(3deg);z-index:4;background-image:url(../sources/screenshots/ipad-map.png);
-    background-size:3840px 5120px;background-position:-3209.3023255813955px -219.53488372093022px;
+  <div class="crop" style="left:1444.16px;top:1389.2px;width:560px;height:174.72000000000003px;border-radius:87.36000000000001px;
+    transform:rotate(3deg);z-index:4;background-image:url(../../captures/android/tablet/map.png);
+    background-size:3584.0000000000005px 5734.400000000001px;background-position:-2952.32px -199.36px;
     box-shadow:0 50px 100px rgba(0,0,16,.6),0 0 0 2px #FF6B6B,0 0 90px #FF6B6B66;"></div>
 
   <div class="copy ipadcopy" style="left:2214px;top:170px">
     <h1>Know when to<br><span style="color:#5EEAD4">look up.</span></h1><p>Every visible pass from where you are, with a countdown.</p></div>
-  <div class="phone" style="left:2231.3599999999997px;top:1299.6px;width:1856.5120000000002px;height:2453.845333333334px;
-    transform:rotate(-3deg);z-index:2;border-radius:112.896px;padding:32.256px">
-    <img src="../sources/screenshots/ipad-passes.png" style="width:1792.0000000000002px;height:2389.333333333334px;border-radius:80.64px"></div>
-  <div class="crop" style="left:3496.96px;top:1243.6px;width:560px;height:165.53459119496856px;border-radius:81.00628930817611px;
-    transform:rotate(4deg);z-index:4;background-image:url(../sources/screenshots/ipad-passes.png);
-    background-size:7269.433962264151px 9692.5786163522px;background-position:-6452.327044025157px -933.3333333333334px;
+  <div class="phone device" style="left:2231.3599999999997px;top:1299.6px;width:1870.8480000000002px;height:2946.0480000000007px;
+    transform:rotate(-3deg);z-index:2;border-radius:89.60000000000001px;padding:7.168000000000001px">
+    <span class="side-button" style="top:297.47200000000004px;height:197.12000000000003px;
+    width:8.96px;left:calc(100% - 2.24px)"></span><span class="side-button" style="top:125.44000000000003px;height:107.52000000000001px;
+    width:8.96px;left:calc(100% - 2.24px)"></span>
+    <div class="glass" style="padding:32.256px;border-radius:82.43200000000002px">
+      <img src="../../captures/android/tablet/passes.png" style="width:1792.0000000000002px;height:2867.2000000000007px;border-radius:50.17600000000001px">
+    </div>
+    <span class="camera-hole" style="top:15.232000000000001px;width:16.128px;height:16.128px"></span></div>
+  <div class="crop" style="left:3496.96px;top:1243.6px;width:560px;height:217.5206611570248px;border-radius:106.44628099173553px;
+    transform:rotate(4deg);z-index:4;background-image:url(../../captures/android/tablet/passes.png);
+    background-size:7404.95867768595px 11847.93388429752px;background-position:-6507.107438016528px -1152.3966942148759px;
     box-shadow:0 50px 100px rgba(0,0,16,.6),0 0 0 2px #FFD84D,0 0 90px #FFD84D66;"></div>
-  <div class="crop" style="left:2231.3599999999997px;top:2722px;width:1747.2000000000003px;height:150.62068965517244px;border-radius:70px;
-    transform:rotate(2deg);z-index:4;background-image:url(../sources/screenshots/ipad-passes.png);
-    background-size:4441.158620689655px 5921.544827586208px;background-position:-137.71034482758623px -3369.6000000000004px;
+  <div class="crop" style="left:2231.3599999999997px;top:2722px;width:1747.2000000000003px;height:148.60206185567014px;border-radius:70px;
+    transform:rotate(2deg);z-index:4;background-image:url(../../captures/android/tablet/passes.png);
+    background-size:3602.4742268041246px 5763.958762886599px;background-position:-164.36288659793817px -2976.5443298969076px;
     box-shadow:0 50px 100px rgba(0,0,16,.6),0 0 0 2px #2DD4BF,0 0 90px #2DD4BF66;"></div>
 
   <div class="copy ipadcopy" style="left:4278px;top:170px">
     <h1>Find it in<br><span style="color:#FFB38A">your sky.</span></h1><p>Where it rises, how high it climbs and where it sets.</p></div>
-  <div class="phone" style="left:4720.96px;top:1277.2px;width:1856.5120000000002px;height:2453.845333333334px;
-    transform:rotate(7deg);z-index:3;border-radius:112.896px;padding:32.256px">
-    <img src="../sources/screenshots/ipad-skypath-list.png" style="width:1792.0000000000002px;height:2389.333333333334px;border-radius:80.64px"></div>
+  <div class="phone device" style="left:4720.96px;top:1277.2px;width:1870.8480000000002px;height:2946.0480000000007px;
+    transform:rotate(7deg);z-index:3;border-radius:89.60000000000001px;padding:7.168000000000001px">
+    <span class="side-button" style="top:297.47200000000004px;height:197.12000000000003px;
+    width:8.96px;left:calc(100% - 2.24px)"></span><span class="side-button" style="top:125.44000000000003px;height:107.52000000000001px;
+    width:8.96px;left:calc(100% - 2.24px)"></span>
+    <div class="glass" style="padding:32.256px;border-radius:82.43200000000002px">
+      <img src="../../captures/android/tablet/skypath-list.png" style="width:1792.0000000000002px;height:2867.2000000000007px;border-radius:50.17600000000001px">
+    </div>
+    <span class="camera-hole" style="top:15.232000000000001px;width:16.128px;height:16.128px"></span></div>
 
   <div class="copy ipadcopy" style="left:6342px;top:170px">
     <h1>Never miss<br><span style="color:#FCD34D">a bright pass.</span></h1><p>Automatic alerts for good passes, or a reminder for any pass.</p></div>
-  <div class="phone" style="left:6560.96px;top:1366.8px;width:1740.4800000000002px;height:2300.4800000000005px;
-    transform:rotate(-5deg);z-index:2;border-radius:105.84px;padding:30.240000000000002px">
-    <img src="../sources/screenshots/ipad-pass-reminder.png" style="width:1680.0000000000002px;height:2240.0000000000005px;border-radius:75.60000000000001px"></div>
-  <div class="crop" style="left:6704.32px;top:2123.92px;width:1456.0000000000002px;height:804.8372093023256px;border-radius:71.62790697674419px;
-    transform:rotate(-5deg);z-index:5;background-image:url(../sources/screenshots/ipad-pass-reminder.png);
-    background-size:2688px 3584.0000000000005px;background-position:-616px -1405.2093023255816px;
+  <div class="phone device" style="left:6560.96px;top:1366.8px;width:1753.9200000000003px;height:2761.9200000000005px;
+    transform:rotate(-5deg);z-index:2;border-radius:84px;padding:6.720000000000001px">
+    <span class="side-button" style="top:278.88000000000005px;height:184.80000000000004px;
+    width:8.400000000000002px;left:calc(100% - 2.1000000000000005px)"></span><span class="side-button" style="top:117.60000000000002px;height:100.80000000000001px;
+    width:8.400000000000002px;left:calc(100% - 2.1000000000000005px)"></span>
+    <div class="glass" style="padding:30.240000000000002px;border-radius:77.28px">
+      <img src="../../captures/android/tablet/pass-reminder.png" style="width:1680.0000000000002px;height:2688.0000000000005px;border-radius:47.040000000000006px">
+    </div>
+    <span class="camera-hole" style="top:14.280000000000001px;width:15.120000000000001px;height:15.120000000000001px"></span></div>
+  <div class="crop" style="left:6704.32px;top:2123.92px;width:1456.0000000000002px;height:1018.4186046511628px;border-radius:71.62790697674419px;
+    transform:rotate(-5deg);z-index:5;background-image:url(../../captures/android/tablet/pass-reminder.png);
+    background-size:2083.720930232558px 3333.9534883720935px;background-position:-313.8604651162791px -1147.3488372093025px;
     box-shadow:0 50px 100px rgba(0,0,16,.6),0 0 0 2px #FBBF24,0 0 90px #FBBF2466;"></div>
 
   <div class="copy ipadcopy" style="left:8406px;top:170px">
     <h1>Meet the crew<br><span style="color:#FF9A9A">in orbit.</span></h1><p>Everyone in space right now, grouped by spacecraft.</p></div>
-  <div class="phone" style="left:8468.16px;top:1299.6px;width:1856.5120000000002px;height:2453.845333333334px;
-    transform:rotate(3deg);z-index:3;border-radius:112.896px;padding:32.256px">
-    <img src="../sources/screenshots/ipad-crew.png" style="width:1792.0000000000002px;height:2389.333333333334px;border-radius:80.64px"></div>
-  <div class="crop" style="left:8300.16px;top:1210px;width:1209.6000000000001px;height:269.2335483870968px;border-radius:44px;
-    transform:rotate(-2deg);z-index:4;background-image:url(../sources/screenshots/ipad-crew.png);
-    background-size:4026.797419354839px 5369.0632258064525px;background-position:-42.921290322580646px -167.78322580645164px;
+  <div class="phone device" style="left:8468.16px;top:1299.6px;width:1870.8480000000002px;height:2946.0480000000007px;
+    transform:rotate(3deg);z-index:3;border-radius:89.60000000000001px;padding:7.168000000000001px">
+    <span class="side-button" style="top:297.47200000000004px;height:197.12000000000003px;
+    width:8.96px;left:calc(100% - 2.24px)"></span><span class="side-button" style="top:125.44000000000003px;height:107.52000000000001px;
+    width:8.96px;left:calc(100% - 2.24px)"></span>
+    <div class="glass" style="padding:32.256px;border-radius:82.43200000000002px">
+      <img src="../../captures/android/tablet/crew.png" style="width:1792.0000000000002px;height:2867.2000000000007px;border-radius:50.17600000000001px">
+    </div>
+    <span class="camera-hole" style="top:15.232000000000001px;width:16.128px;height:16.128px"></span></div>
+  <div class="crop" style="left:8300.16px;top:1210px;width:1209.6000000000001px;height:246.1642105263158px;border-radius:44px;
+    transform:rotate(-2deg);z-index:4;background-image:url(../../captures/android/tablet/crew.png);
+    background-size:3395.3684210526317px 5432.589473684211px;background-position:-63.66315789473685px -152.79157894736844px;
     box-shadow:0 50px 100px rgba(0,0,16,.6),0 0 0 2px #FF7A7A,0 0 90px #FF7A7A66;"></div>
 
   <div class="copy ipadcopy" style="left:10470px;top:170px">
     <h1>Track Hubble<br><span style="color:#C4B5FD">and Tiangong too.</span></h1><p>Each with its own live position and orbit path.</p></div>
-  <div class="phone" style="left:10453.76px;top:1299.6px;width:1856.5120000000002px;height:2453.845333333334px;
-    transform:rotate(3deg);z-index:2;border-radius:112.896px;padding:32.256px">
-    <img src="../sources/screenshots/ipad-map-hubble.png" style="width:1792.0000000000002px;height:2389.333333333334px;border-radius:80.64px"></div>
-  <div class="crop" style="left:10364.16px;top:1344.4px;width:716.8000000000001px;height:737.7454545454547px;border-radius:72.14545454545456px;
-    transform:rotate(-5deg);z-index:5;background-image:url(../sources/screenshots/ipad-map-hubble.png);
-    background-size:4803.49090909091px 6404.654545454547px;background-position:-76.80000000000001px -225.74545454545458px;
+  <div class="phone device" style="left:10453.76px;top:1299.6px;width:1870.8480000000002px;height:2946.0480000000007px;
+    transform:rotate(3deg);z-index:2;border-radius:89.60000000000001px;padding:7.168000000000001px">
+    <span class="side-button" style="top:297.47200000000004px;height:197.12000000000003px;
+    width:8.96px;left:calc(100% - 2.24px)"></span><span class="side-button" style="top:125.44000000000003px;height:107.52000000000001px;
+    width:8.96px;left:calc(100% - 2.24px)"></span>
+    <div class="glass" style="padding:32.256px;border-radius:82.43200000000002px">
+      <img src="../../captures/android/tablet/map-hubble.png" style="width:1792.0000000000002px;height:2867.2000000000007px;border-radius:50.17600000000001px">
+    </div>
+    <span class="camera-hole" style="top:15.232000000000001px;width:16.128px;height:16.128px"></span></div>
+  <div class="crop" style="left:10364.16px;top:1344.4px;width:716.8000000000001px;height:658.4558139534885px;border-radius:64.59534883720931px;
+    transform:rotate(-5deg);z-index:5;background-image:url(../../captures/android/tablet/map-hubble.png);
+    background-size:3333.9534883720935px 5334.32558139535px;background-position:-68.76279069767443px -168.78139534883724px;
     box-shadow:0 50px 100px rgba(0,0,16,.6),0 0 90px #8B5CF666;"></div>
 </div></div>

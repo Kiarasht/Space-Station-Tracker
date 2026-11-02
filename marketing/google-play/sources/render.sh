@@ -19,13 +19,15 @@ mkdir -p "$here/artwork"
 flat "$tmp/icon.png" "$here/artwork/icon-512.png"
 cp "$here/artwork/icon-512.png" "$out/icon-512.png"
 
+# Google Play phone set (1080 x 1920), written to phone/.
+phone="$out/phone"
+mkdir -p "$phone"
 shoot gallery.html 6480 1920 "$tmp/gallery.png"
 i=0
 for name in 01-hero 02-feature 03-immersive-start 04-immersive-continuation 05-feature-spotlight 06-finale; do
-  flat "$tmp/gallery.png" "$out/$name.png" $((i * 1080)) 0 1080 1920
+  flat "$tmp/gallery.png" "$phone/$name.png" $((i * 1080)) 0 1080 1920
   i=$((i + 1))
 done
-flat "$tmp/gallery.png" "$here/panorama-full.png"
 
 # App Store iPhone 6.9" set (1320 x 2868), written to marketing/app-store/iphone/.
 store="$out/../app-store/iphone"

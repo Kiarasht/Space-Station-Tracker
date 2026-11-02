@@ -48,7 +48,7 @@ The six slides are one continuous 6480 × 1920 canvas (7920 × 2868 for the App 
 **Icon (512 × 512):** the app's own icon, rendered from `iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-AppStore-1024.png`. The icon is a raster illustration (the ISS over a sunrise Earth); there is no vector source, so it is resampled, not redrawn.
 
 ## Accuracy guardrails
-- Every interface pixel comes from the debug build running on a dedicated iOS simulator. Floating cards are magnified crops of those same captures; nothing is redrawn.
+- Every interface pixel comes from the debug build running on a dedicated device: an Android emulator for the Google Play and Galaxy Store sets, an iOS simulator for the App Store sets. Floating cards are magnified crops of those same captures; nothing is redrawn.
 - Demo data: a London location (public place), the live ISS, Hubble and Tiangong positions, and the public crew feed the app shows to everyone. Astronauts appear with their public names, photos and Wikipedia bios, as in the app.
 - Copy describes shipped features only. No ratings, download counts, awards or testimonials.
-- The Android app shares the same Compose screens, so iOS captures show what Android users see. The status bar is iOS-styled.
+- Android sets use an unbranded Galaxy-style device frame (centred camera hole, tight corners, side buttons) and never show an iPhone, Apple Maps or other iOS details, because Galaxy Store rejects them.
