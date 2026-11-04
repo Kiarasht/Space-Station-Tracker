@@ -1,9 +1,9 @@
 {
   "status": "ok",
-  "updatedAt": "2026-11-04T09:25:54.722Z",
-  "updatedAtMillis": 1793784354722,
-  "lastSuccessAtMillis": 1793784354722,
-  "lastFullSearchAtMillis": 1793784354722,
+  "updatedAt": "2026-11-04T17:27:18.348Z",
+  "updatedAtMillis": 1793813238348,
+  "lastSuccessAtMillis": 1793813238348,
+  "lastFullSearchAtMillis": 1793813238348,
   "source": "github-actions",
   "streams": [
     {
@@ -16,11 +16,6 @@
     }
   ],
   "upcoming": [
-    {
-      "videoId": "IhpBgLB8JUQ",
-      "title": "Astronaut Anil Menon Speaks With Mark Rober From the International Space Station",
-      "scheduledStartMillis": 1793808000000
-    },
     {
       "videoId": "25JEQqgv5I4",
       "title": "U.S. Spacewalk 101",
