@@ -1,15 +1,11 @@
 {
   "status": "ok",
-  "updatedAt": "2026-11-05T18:19:14.093Z",
-  "updatedAtMillis": 1793902754093,
-  "lastSuccessAtMillis": 1793902754093,
-  "lastFullSearchAtMillis": 1793902754093,
+  "updatedAt": "2026-11-05T23:42:59.732Z",
+  "updatedAtMillis": 1793922179732,
+  "lastSuccessAtMillis": 1793922179732,
+  "lastFullSearchAtMillis": 1793922179732,
   "source": "github-actions",
   "streams": [
-    {
-      "videoId": "25JEQqgv5I4",
-      "title": "U.S. Spacewalk 101"
-    },
     {
       "videoId": "M3HKLzjvKPc",
       "title": "Live Video from the International Space Station (Official NASA Stream)"
