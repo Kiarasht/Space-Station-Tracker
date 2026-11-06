@@ -7,8 +7,8 @@ out="$here/.."
 tmp="$(mktemp -d)"
 chrome="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
 
-shoot() { # html width height output
-  "$chrome" --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=1 \
+shoot() { # html width height output; headless Chrome occasionally hangs, so each shot gets two minutes
+  perl -e 'alarm 120; exec @ARGV' "$chrome" --headless=new --user-data-dir="$tmp/profile" --disable-gpu --hide-scrollbars --force-device-scale-factor=1 \
     --default-background-color=00000000 --virtual-time-budget=4000 \
     --window-size="$2,$3" --screenshot="$4" "file://$(printf %s "$out/editable/$1" | sed "s/ /%20/g")" >/dev/null 2>&1
 }

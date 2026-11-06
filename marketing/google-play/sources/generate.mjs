@@ -1,8 +1,8 @@
 // Generates the editable HTML compositions for the Google Play and App Store listings.
 // Run: node marketing/google-play/sources/generate.mjs && marketing/google-play/sources/render.sh
 //
-// The six phone screenshots are one continuous 6480×1920 canvas (6 × 1080), sliced after rendering,
-// so the background, the ground-track curve and the phone that crosses from slide 3 into 4 line up exactly.
+// The six phone screenshots are one continuous 6480×1920 canvas (6 × 1080), sliced after rendering, so the background
+// and the ground-track curve line up exactly. Every device stays whole inside its own slide; only its bottom may bleed off.
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -13,27 +13,27 @@ fs.mkdirSync(editable, { recursive: true });
 
 // Real captures from marketing/captures/. Google Play and Galaxy Store use Android captures; the App Store uses iOS ones.
 // Card bounds are exact capture pixels, inset 1 px; cr is the card's own corner radius, so nothing around it shows.
+// Small pills (the countdown badge) include some of the card around them, so the magnified copy has room to breathe.
 const CAPTURES = {
   ios: {
     phone: { // iPhone 17 Pro Max at 3×
       w: 1320, h: 2868,
-      telemetry: { sx: 49, sy: 235, sw: 536, sh: 478, cr: 47 },
-      hubbleCard: { sx: 49, sy: 235, sw: 443, sh: 478, cr: 47 },
-      live: { sx: 804, sy: 247, sw: 466, sh: 109, cr: 54, y: 805 },
-      badge: { sx: 968, sy: 475, sw: 243, sh: 71, cr: 35 },
-      chips: { sx: 100, sy: 1546, sw: 880, sh: 192 },
-      reminder: { sx: 181, sy: 982, sw: 958, sh: 988, cr: 83, y: 1250, w: 580 },
+      telemetry: { sx: 49, sy: 235, sw: 536, sh: 478, cr: 59 },
+      hubbleCard: { sx: 49, sy: 235, sw: 536, sh: 478, cr: 59 },
+      live: { sx: 887, sy: 247, sw: 384, sh: 118, cr: 58 },
+      badge: { sx: 992, sy: 446, sw: 248, sh: 129, cr: 50 },
+      chips: { sx: 92, sy: 1540, sw: 1150, sh: 102 },
+      reminder: { sx: 181, sy: 982, sw: 958, sh: 988, cr: 83 },
       crewHeader: { sx: 40, sy: 240, sw: 940, sh: 170 },
-      expedition: { sx: 49, sy: 590, sw: 1222, sh: 1399, cr: 83 },
-      astronaut: { sx: 49, sy: 931, sw: 1222, sh: 768, cr: 83 },
+      astronaut: { sx: 49, sy: 518, sw: 1222, sh: 768, cr: 83 },
     },
     tablet: { // iPad Pro 13"
       w: 2064, h: 2752,
-      telemetry: { sx: 33, sy: 97, sw: 357, sh: 318, cr: 31 },
-      hubbleCard: { sx: 33, sy: 97, sw: 308, sh: 317, cr: 31 },
-      live: { sx: 1725, sy: 118, sw: 301, sh: 52, cr: 26 },
-      badge: { sx: 1832, sy: 265, sw: 159, sh: 47, cr: 23 },
-      chips: { sx: 64, sy: 1566, sw: 812, sh: 70 },
+      telemetry: { sx: 33, sy: 97, sw: 357, sh: 318, cr: 39 },
+      hubbleCard: { sx: 33, sy: 97, sw: 357, sh: 318, cr: 39 },
+      live: { sx: 1776, sy: 105, sw: 248, sh: 78, cr: 38 },
+      badge: { sx: 1844, sy: 244, sw: 168, sh: 89, cr: 38 },
+      chips: { sx: 64, sy: 1569, sw: 784, sh: 64 },
       reminder: { sx: 473, sy: 1079, sw: 1118, sh: 618, cr: 55 },
       crewHeader: { sx: 22, sy: 86, sw: 620, sh: 138 },
     },
@@ -41,22 +41,21 @@ const CAPTURES = {
   android: {
     phone: { // Pixel 9 Pro XL profile
       w: 1344, h: 2992,
-      telemetry: { sx: 49, sy: 208, sw: 522, sh: 478, cr: 47 },
-      hubbleCard: { sx: 49, sy: 208, sw: 522, sh: 478, cr: 47 },
-      live: { sx: 921, sy: 228, sw: 374, sh: 103, cr: 51, y: 770 },
-      badge: { sx: 1053, sy: 460, sw: 183, sh: 71, cr: 35 },
-      chips: { sx: 100, sy: 1546, sw: 952, sh: 190 },
-      reminder: { sx: 193, sy: 894, sw: 958, sh: 1286, cr: 83, y: 1170, w: 530 },
+      telemetry: { sx: 49, sy: 208, sw: 521, sh: 478, cr: 59 },
+      hubbleCard: { sx: 49, sy: 208, sw: 521, sh: 478, cr: 59 },
+      live: { sx: 921, sy: 220, sw: 374, sh: 118, cr: 58 },
+      badge: { sx: 1020, sy: 431, sw: 244, sh: 129, cr: 50 },
+      chips: { sx: 92, sy: 1537, sw: 1140, sh: 108 },
+      reminder: { sx: 193, sy: 894, sw: 958, sh: 1286, cr: 83 },
       crewHeader: { sx: 40, sy: 200, sw: 860, sh: 170 },
-      expedition: { sx: 49, sy: 563, sw: 1246, sh: 1410, cr: 83 },
       astronaut: { sx: 49, sy: 468, sw: 1246, sh: 660, cr: 83 },
     },
     tablet: { // Pixel Tablet profile, portrait
       w: 1600, h: 2560,
-      telemetry: { sx: 33, sy: 81, sw: 344, sh: 316, cr: 31 },
-      hubbleCard: { sx: 33, sy: 81, sw: 344, sh: 316, cr: 31 },
-      live: { sx: 1318, sy: 89, sw: 250, sh: 78, cr: 39 },
-      badge: { sx: 1406, sy: 249, sw: 121, sh: 47, cr: 23 },
+      telemetry: { sx: 33, sy: 81, sw: 346, sh: 318, cr: 39 },
+      hubbleCard: { sx: 33, sy: 81, sw: 346, sh: 318, cr: 39 },
+      live: { sx: 1318, sy: 89, sw: 249, sh: 78, cr: 38 },
+      badge: { sx: 1383, sy: 228, sw: 165, sh: 89, cr: 38 },
       chips: { sx: 73, sy: 1322, sw: 776, sh: 66 },
       reminder: { sx: 241, sy: 881, sw: 1118, sh: 782, cr: 55 },
       crewHeader: { sx: 30, sy: 72, sw: 570, sh: 116 },
@@ -83,7 +82,17 @@ const fontFaces = `
 
 // Taller store formats keep the same design: everything below the copy is scaled by GROW about each slide's
 // centre (so magnified cards stay exactly over their originals) and lowered by DY.
-let DY = 0, GROW = 1, TALL = false, UNIT = 1080, ANCHOR = 600;
+let DY = 0, GROW = 1, UNIT = 1080, ANCHOR = 600;
+const edgeProblems = [];
+/** Records any device or card whose rotated bounds cross the edge of its slide. */
+function checkInsideSlide(name, x, y, w, h, rotate) {
+  const a = Math.abs(rotate) * Math.PI / 180;
+  const half = (w * Math.cos(a) + h * Math.sin(a)) / 2, cx = x + w / 2;
+  const left = Math.floor(cx / UNIT) * UNIT;
+  if (cx - half < left || cx + half > left + UNIT) {
+    edgeProblems.push(`${PLATFORM} ${UNIT}-unit slide ${Math.floor(cx / UNIT) + 1}: ${name} spans ${Math.round(cx - half - left)} to ${Math.round(cx + half - left)}`);
+  }
+}
 function place(x, y, w) {
   const cx = Math.floor(x / UNIT) * UNIT + UNIT / 2;
   return { x: cx + (x - cx) * GROW, y: ANCHOR + (y - ANCHOR) * GROW + DY, w: w * GROW };
@@ -96,6 +105,7 @@ function place(x, y, w) {
  */
 function androidDevice(src, { x, y, w, rotate, z }, ratio, f) {
   const h = w * ratio, rim = w * f.rim, bezel = w * f.bezel, radius = w * f.radius, pad = rim + bezel;
+  checkInsideSlide(src.split("/").pop(), x, y, w + pad * 2, h + pad * 2, rotate);
   const hole = w * f.camera, holeTop = f.cameraInBezel ? rim + (bezel - hole) / 2 : pad + w * f.cameraY - hole / 2;
   const button = (top, length) => `<span class="side-button" style="top:${pad + h * top}px;height:${w * length}px;
     width:${w * f.buttonWidth}px;left:calc(100% - ${w * f.buttonWidth * 0.25}px)"></span>`;
@@ -131,11 +141,34 @@ function phone(src, { x, y, w, rotate = 0, z = 2 }) {
 function crop(src, { sx, sy, sw, sh, x, y, w, rotate = 0, z = 3, radius = 28, cr, glow = "", ring = true, capW = PHONE.w, capH = PHONE.h }) {
   ({ x, y, w } = place(x, y, w));
   const scale = w / sw, h = sh * scale;
+  checkInsideSlide(`card from ${src.split("/").pop()}`, x, y, w, h, rotate);
   if (cr !== undefined) radius = cr * scale;
   return `<div class="crop" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;border-radius:${radius}px;
     transform:rotate(${rotate}deg);z-index:${z};background-image:url(${src});
     background-size:${capW * scale}px ${capH * scale}px;background-position:${-sx * scale}px ${-sy * scale}px;
     ${glow ? `box-shadow:0 34px 70px rgba(0,0,16,.6),${ring ? `0 0 0 2px ${glow},` : ""}0 0 64px ${glow}66;` : ""}"></div>`;
+}
+
+// Each device frame's border on each side, as a fraction of the screen width.
+const FRAME = { android: { phone: 0.018, tablet: 0.022 }, ios: { phone: 0.022, tablet: 0.018 } };
+
+/**
+ * A device on the canvas plus magnified cards lifted out of its screen. Each card is centred over where it sits on
+ * the device (allowing for the device's tilt), then nudged by dx/dy, so recaptures never need cards repositioned.
+ */
+function device(kind, src, { x, y, w, rotate = 0, z = 2 }) {
+  const cap = kind === "phone" ? PHONE : TABLET, f = FRAME[PLATFORM][kind];
+  const html = (kind === "phone" ? phone : ipad)(src, { x, y, w, rotate, z });
+  const width = w * (1 + 2 * f), height = w * cap.h / cap.w + 2 * f * w, s = w / cap.w;
+  const card = (box, { from = src, w: cw, dx = 0, dy = 0, ...rest }) => {
+    const a = rotate * Math.PI / 180, cx = x + width / 2, cy = y + height / 2;
+    const px = x + f * w + (box.sx + box.sw / 2) * s - cx, py = y + f * w + (box.sy + box.sh / 2) * s - cy;
+    const ox = cx + px * Math.cos(a) - py * Math.sin(a), oy = cy + px * Math.sin(a) + py * Math.cos(a);
+    const ch = cw * box.sh / box.sw;
+    const o = { ...box, x: ox - cw / 2 + dx, y: oy - ch / 2 + dy, w: cw, ...rest };
+    return kind === "phone" ? crop(from, { z: 4, ...o }) : ipadCrop(from, o);
+  };
+  return { html, card };
 }
 
 function copy(slide, { color = C.gold, lines, accent, sub, top = 118, width = 1080, left = 84, cls = "" }) {
@@ -215,48 +248,56 @@ const background = (H) => `
     <use href="#trk" stroke="url(#track)" stroke-width="5" fill="none"/>
   </svg>`;
 
-const slides = () => `
+// The six phone slides. Every phone sits whole inside its own slide, close under the copy; only its bottom bleeds off.
+function phoneSlides() {
+  const map = device("phone", shot("map-iss"), { x: 150, y: 490, w: 780 });
+  const passes = device("phone", shot("skypath-hero"), { x: 1080 + 150, y: 520, w: 620, rotate: -6 });
+  const list = device("phone", shot("skypath-list"), { x: 2160 + 200, y: 520, w: 660, rotate: 6, z: 3 });
+  const alerts = device("phone", shot("settings-alerts"), { x: 3240 + 250, y: 520, w: 620, rotate: -4 });
+  const crew = device("phone", shot("crew-top"), { x: 4320 + 250, y: 520, w: 620, rotate: 3, z: 3 });
+  const hubble = device("phone", shot("map-hubble"), { x: 5400 + 250, y: 520, w: 660, rotate: 4, z: 3 });
+  return `
   ${copy(0, { lines: ["See the ISS", "right now."], accent: "right now.",
     sub: "Live position, speed and orbit path on the map." })}
-  ${phone(shot("map-iss"), { x: 150, y: 650, w: 780 })}
-  ${crop(shot("map-iss"), { ...PHONE.telemetry, x: 62, y: 684, w: 470, rotate: -3, z: 4, glow: C.issRed })}
-  ${crop(shot("map-iss"), { ...PHONE.live, x: 630, w: 370, rotate: 3, z: 4, glow: "#FF6B6B" })}
+  ${map.html}
+  ${map.card(PHONE.telemetry, { w: 480, dx: -40, rotate: -3, glow: C.issRed, ring: false })}
+  ${map.card(PHONE.live, { w: 400, dx: 10, rotate: 3, glow: "#FF6B6B" })}
 
   ${copy(1, { color: "#5EEAD4", lines: ["Know when to", "look up."], accent: "look up.",
     sub: "Every visible pass from where you are, with a countdown." })}
-  ${phone(shot("skypath-hero"), { x: 1080 + 46, y: 640, w: 640, rotate: -6 })}
-  ${crop(shot("skypath-hero"), { ...PHONE.badge, x: 1080 + 660, y: 770, w: 320, rotate: 4, z: 4, glow: C.gold })}
-  ${crop(shot("skypath-hero"), { ...PHONE.chips, x: 1080 + 290, y: 1390, w: 700, rotate: 2, z: 4, radius: 30, glow: C.teal })}
+  ${passes.html}
+  ${passes.card(PHONE.badge, { w: 420, dx: 130, dy: 10, rotate: 4, glow: C.gold })}
+  ${passes.card(PHONE.chips, { w: 820, dx: 40, dy: 40, rotate: 2, radius: 30, glow: C.teal })}
 
   ${copy(2, { color: "#FFB38A", lines: ["Find it in", "your sky."], accent: "your sky.",
     sub: "Where it rises, how high it climbs and where it sets." })}
-  ${phone(shot("skypath-list"), { x: 2160 + 420, y: 640, w: 720, rotate: 7, z: 3 })}
+  ${list.html}
 
   ${copy(3, { color: "#FCD34D", lines: ["Never miss", "a bright pass."], accent: "a bright pass.",
     sub: "Automatic alerts for good passes, or a reminder for any pass." })}
-  ${phone(shot("settings-alerts"), { x: 3240 + 330, y: 700, w: 650, rotate: -5 })}
-  ${crop(shot("pass-reminder"), { ...PHONE.reminder, x: 3240 + 210, rotate: 3, z: 5, glow: C.amber })}
+  ${alerts.html}
+  ${alerts.card(PHONE.reminder, { from: shot("pass-reminder"), w: 560, dx: -60, dy: 140, rotate: 3, z: 5, glow: C.amber })}
 
   ${copy(4, { color: "#FF9A9A", lines: ["Meet the crew", "in orbit."], accent: "in orbit.",
     sub: "Everyone in space right now, grouped by spacecraft." })}
-  ${crop(shot("crew-top"), { ...PHONE.crewHeader, x: 4320 + 84, y: 590, w: 640, rotate: -2, z: 5, radius: 26 })}
-  ${crop(shot("crew-top"), { ...PHONE.expedition, x: 4320 + 70, y: 760, w: 590, rotate: -3, z: 3, glow: C.coral })}
-  ${crop(shot("crew-astronauts"), { ...PHONE.astronaut, x: 4320 + 360, y: 1250, w: 620, rotate: 2.5, z: 4, glow: C.issBlue })}
-  ${TALL ? crop(shot("crew-astronauts"), { sx: 49, sy: 1749, sw: 1222, sh: 765, cr: 83, x: 4320 + 110, y: 1960, w: 640, rotate: -2, z: 5 }) : ""}
+  ${crew.html}
+  ${crew.card(PHONE.crewHeader, { w: 600, dx: -40, rotate: -2, z: 5, radius: 26 })}
+  ${crew.card(PHONE.astronaut, { from: shot("crew-astronauts"), w: 680, dx: 60, dy: 700, rotate: 2.5, glow: C.issBlue })}
 
   ${copy(5, { color: "#C4B5FD", lines: ["Track Hubble", "and Tiangong too."], accent: "and Tiangong too.",
     sub: "Each with its own live position and orbit path." })}
-  ${phone(shot("map-hubble"), { x: 5400 + 330, y: 760, w: 680, rotate: 4, z: 3 })}
-  ${crop(shot("map-hubble"), { ...PHONE.hubbleCard, x: 5400 + 220, y: 840, w: 460, rotate: -6, z: 5, glow: C.violet, ring: false })}
+  ${hubble.html}
+  ${hubble.card(PHONE.hubbleCard, { w: 470, dx: -50, rotate: -5, z: 5, glow: C.violet, ring: false })}
 `;
+}
 
 /** One 6-slide canvas in 1080-unit-wide slides, H units tall, drawn at `scale` output pixels per unit. */
 function gallery(platform, H, dy, scale = 1, grow = 1) {
   usePlatform(platform);
-  DY = dy; GROW = grow; TALL = H > 2000; UNIT = 1080; ANCHOR = 600;
+  DY = dy; GROW = grow; UNIT = 1080; ANCHOR = 600;
   return `<!doctype html><meta charset="utf-8"><title>ISS Tracker gallery</title><style>${css}</style>
 <div style="width:${6480 * scale}px;height:${Math.round(H * scale)}px;overflow:hidden">
-<div class="canvas" style="width:6480px;height:${H}px;transform:scale(${scale});transform-origin:0 0">${background(H)}${slides()}</div></div>`;
+<div class="canvas" style="width:6480px;height:${H}px;transform:scale(${scale});transform-origin:0 0">${background(H)}${phoneSlides()}</div></div>`;
 }
 // Google Play: 1080 × 1920 per slide.
 fs.writeFileSync(path.join(editable, "gallery.html"), gallery("android", 1920, 0));
@@ -303,8 +344,8 @@ fs.writeFileSync(path.join(editable, "gallery-preview.html"), `<!doctype html><m
 console.log(`Wrote HTML sources to ${editable}`);
 
 // ---- Tablets: App Store iPad 13" (2064 × 2752) and Google Play tablet (1440 × 2560) ------------------
-// Six slides on one 12384-unit-wide canvas, 2064 units per slide; the Play tablet set is the same design on a
-// taller canvas (Play wants 9:16), with the devices lower and larger.
+// Six slides on one 12384-unit-wide canvas, 2064 units per slide; both tablet sets use the same design, scaled up
+// about each slide's centre, on canvases of their store's shape.
 const IPAD_W = 2064;
 const ipadShot = (name) => `../../captures/${PLATFORM}/tablet/${name}.png`;
 function ipad(src, { x, y, w, rotate = 0, z = 2 }) {
@@ -349,48 +390,64 @@ const ipadBackground = (H) => `
       stroke-linecap="round" filter="url(#isoft)" opacity=".5"/>
     <use href="#itrk" stroke="url(#itrack)" stroke-width="8" fill="none"/>
   </svg>`;
-// The tablet story mirrors the phone slide for slide: same headlines, same order, the same immersive pair on 3–4.
-const ipadSlides = () => `
+// The six tablet slides, mirroring the phone set. Each tablet is whole and centred in its own slide, its top at `top`.
+function tabletSlides(top) {
+  const at = (slide, o) => {
+    const w = 1340, x = slide * IPAD_W + IPAD_W / 2 - w * (1 + 2 * FRAME[PLATFORM].tablet) / 2;
+    return { x, y: top, w, ...o };
+  };
+  const map = device("tablet", ipadShot("map"), at(0, {}));
+  const passes = device("tablet", ipadShot("passes"), at(1, { rotate: -3 }));
+  const list = device("tablet", ipadShot("skypath-list"), at(2, { rotate: 4, z: 3 }));
+  const reminder = device("tablet", ipadShot("pass-reminder"), at(3, { rotate: -4 }));
+  const crew = device("tablet", ipadShot("crew"), at(4, { rotate: 3, z: 3 }));
+  const hubble = device("tablet", ipadShot("map-hubble"), at(5, { rotate: 3 }));
+  return `
   ${ipadCopy(0, { lines: ["See the ISS", "right now."], accent: "right now.",
     sub: "Live position, speed and orbit path on the map." })}
-  ${ipad(ipadShot("map"), { x: 210, y: 980, w: 1640 })}
-  ${ipadCrop(ipadShot("map"), { ...TABLET.telemetry, x: 150, y: 900, w: 740, rotate: -3, glow: C.issRed })}
-  ${ipadCrop(ipadShot("map"), { ...TABLET.live, x: 1400, y: 1040, w: 500, rotate: 3, glow: "#FF6B6B" })}
+  ${map.html}
+  ${map.card(TABLET.telemetry, { w: 600, dx: 60, dy: 20, rotate: -3, glow: C.issRed, ring: false })}
+  ${map.card(TABLET.live, { w: 400, dx: -60, dy: 20, rotate: 3, glow: "#FF6B6B" })}
 
   ${ipadCopy(1, { color: "#5EEAD4", lines: ["Know when to", "look up."], accent: "look up.",
     sub: "Every visible pass from where you are, with a countdown." })}
-  ${ipad(ipadShot("passes"), { x: IPAD_W + 260, y: 960, w: 1600, rotate: -3 })}
-  ${ipadCrop(ipadShot("passes"), { ...TABLET.badge, x: IPAD_W + 1390, y: 910, w: 500, rotate: 4, glow: C.gold })}
-  ${ipadCrop(ipadShot("passes"), { ...TABLET.chips, x: IPAD_W + 260, y: 2230, w: 1560, rotate: 2, radius: 70, glow: C.teal })}
+  ${passes.html}
+  ${passes.card(TABLET.badge, { w: 540, dx: -130, dy: 30, rotate: 4, glow: C.gold })}
+  ${passes.card(TABLET.chips, { w: 1400, dx: 150, dy: 60, rotate: 2, radius: 70, glow: C.teal })}
 
   ${ipadCopy(2, { color: "#FFB38A", lines: ["Find it in", "your sky."], accent: "your sky.",
     sub: "Where it rises, how high it climbs and where it sets." })}
-  ${ipad(ipadShot("skypath-list"), { x: 2 * IPAD_W + 640, y: 940, w: 1600, rotate: 7, z: 3 })}
+  ${list.html}
 
   ${ipadCopy(3, { color: "#FCD34D", lines: ["Never miss", "a bright pass."], accent: "a bright pass.",
     sub: "Automatic alerts for good passes, or a reminder for any pass." })}
-  ${ipad(ipadShot("pass-reminder"), { x: 3 * IPAD_W + 440, y: 1020, w: 1500, rotate: -5 })}
-  ${ipadCrop(ipadShot("pass-reminder"), { ...TABLET.reminder, x: 3 * IPAD_W + 568, y: 1696, w: 1300, rotate: -5, z: 5, glow: C.amber })}
+  ${reminder.html}
+  ${reminder.card(TABLET.reminder, { w: 1300, dy: 160, rotate: -3, z: 5, glow: C.amber })}
 
   ${ipadCopy(4, { color: "#FF9A9A", lines: ["Meet the crew", "in orbit."], accent: "in orbit.",
     sub: "Everyone in space right now, grouped by spacecraft." })}
-  ${ipad(ipadShot("crew"), { x: 4 * IPAD_W + 300, y: 960, w: 1600, rotate: 3, z: 3 })}
-  ${ipadCrop(ipadShot("crew"), { ...TABLET.crewHeader, x: 4 * IPAD_W + 150, y: 880, w: 1080, rotate: -2, radius: 44, glow: C.coral })}
+  ${crew.html}
+  ${crew.card(TABLET.crewHeader, { w: 640, dx: 60, dy: 10, rotate: -2, radius: 44, glow: C.coral })}
 
   ${ipadCopy(5, { color: "#C4B5FD", lines: ["Track Hubble", "and Tiangong too."], accent: "and Tiangong too.",
     sub: "Each with its own live position and orbit path." })}
-  ${ipad(ipadShot("map-hubble"), { x: 5 * IPAD_W + 230, y: 960, w: 1600, rotate: 3 })}
-  ${ipadCrop(ipadShot("map-hubble"), { ...TABLET.hubbleCard, x: 5 * IPAD_W + 150, y: 1000, w: 640, rotate: -5, z: 5, glow: C.violet, ring: false })}
+  ${hubble.html}
+  ${hubble.card(TABLET.hubbleCard, { w: 600, dx: 60, dy: 20, rotate: -5, z: 5, glow: C.violet, ring: false })}
 `;
+}
 /** The six tablet slides in 2064-unit-wide slides, H units tall, drawn at `scale` output pixels per unit. */
-function ipadGallery(platform, H, dy, scale = 1, grow = 1) {
+function ipadGallery(platform, H, top, scale = 1, grow = 1) {
   usePlatform(platform);
-  DY = dy; GROW = grow; UNIT = IPAD_W; ANCHOR = 880;
+  DY = 0; GROW = grow; UNIT = IPAD_W; ANCHOR = 880;
   return `<!doctype html><meta charset="utf-8"><title>ISS Tracker tablet gallery</title><style>${ipadCss}</style>
 <div style="width:${Math.round(12384 * scale)}px;height:${Math.round(H * scale)}px;overflow:hidden">
-<div class="canvas" style="width:12384px;height:${H}px;transform:scale(${scale});transform-origin:0 0">${ipadBackground(H)}${ipadSlides()}</div></div>`;
+<div class="canvas" style="width:12384px;height:${H}px;transform:scale(${scale});transform-origin:0 0">${ipadBackground(H)}${tabletSlides(top)}</div></div>`;
 }
-// App Store iPad 13": 2064 × 2752 per slide.
-fs.writeFileSync(path.join(editable, "gallery-appstore-ipad.html"), ipadGallery("ios", 2752, 0));
+// App Store iPad 13": 2064 × 2752 per slide. The 4:3 iPad sits higher and slightly smaller so it fits whole.
+fs.writeFileSync(path.join(editable, "gallery-appstore-ipad.html"), ipadGallery("ios", 2752, 720, 1, 1.06));
 // Google Play tablet (7" and 10" slots): 1440 × 2560 per slide, 9:16.
-fs.writeFileSync(path.join(editable, "gallery-play-tablet.html"), ipadGallery("android", 2560 * IPAD_W / 1440, 330, 1440 / IPAD_W, 1.12));
+fs.writeFileSync(path.join(editable, "gallery-play-tablet.html"), ipadGallery("android", 2560 * IPAD_W / 1440, 900, 1440 / IPAD_W, 1.12));
+if (edgeProblems.length) {
+  console.error(`Layout crosses slide edges:\n  ${edgeProblems.join("\n  ")}`);
+  process.exit(1);
+}
