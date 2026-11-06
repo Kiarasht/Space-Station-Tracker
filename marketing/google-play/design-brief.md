@@ -32,15 +32,15 @@ The app doesn't use the Restart Apps / Pgnify tokens; these come from `SpaceStat
 Type: the app's own fonts. **Exo** (800, −3 px tracking) for headlines and subtitles; **Orbitron** for the "ISS Tracker" wordmark on the feature graphic, as on the About screen. Slides carry no eyebrow line and no brand mark (owner's choice, 2026-10-23); each headline's accent phrase takes the slide's colour.
 
 ## Narrative and layouts
-The six slides are one continuous 6480 × 1920 canvas (7920 × 2868 for the App Store iPhone set). The tablet sets (App Store iPad 13″ and Google Play tablet) follow the same story with real iPad captures. An orbit-style ground track, a gold → teal → violet sine curve, runs through all six. The background moves from deep space (map) through teal (Sky Path) into a sunrise horizon (where to look, alerts) and ends in violet (other spacecraft).
+The six slides are one continuous 6480 × 1920 canvas (7920 × 2868 for the App Store iPhone set). The tablet sets (App Store iPad 13″ and Google Play tablet) follow the same story with real tablet captures. Every device sits whole inside its own slide, close under the copy; only its bottom may bleed off. An orbit-style ground track, a gold → teal → violet sine curve, runs through all six. The background moves from deep space (map) through teal (Sky Path) into a sunrise horizon (where to look, alerts) and ends in violet (other spacecraft).
 
 | # | Headline | Layout | Real screens |
 |---|---|---|---|
 | 1 Hero | See the ISS **right now.** | Large upright phone; the telemetry card is magnified with a red glow and breaks out of the frame | Map, ISS over Europe with its orbit path |
-| 2 Dynamic | Know when to **look up.** | Phone tilted −6°; the countdown badge and the pass facts row lift out as floating cards | Sky Path, next visible pass from London |
-| 3 Immersive A | Find it in **your sky.** | Phone tilted +7°, bleeding off the right edge into slide 4; a glowing sunrise horizon and sky dome begin | Later passes, sky charts |
-| 4 Immersive B | Never miss **a bright pass.** | Continues slide 3's phone on the left edge; second phone at −5°; the reminder dialog enlarged in front | Settings › Automatic pass alerts; Schedule notification dialog |
-| 5 Spotlight | Meet the crew **in orbit.** | No phone: stacked, rotated real cards (people-in-space header, expedition card, astronaut card) | On Duty |
+| 2 Dynamic | Know when to **look up.** | Phone tilted −6°; the countdown badge and the pass facts row lift out as floating cards | Sky Path, next visible pass from Boston |
+| 3 Immersive A | Find it in **your sky.** | Phone tilted +6°; a glowing sunrise horizon and sky dome begin and carry into slide 4 | Later passes, sky charts |
+| 4 Immersive B | Never miss **a bright pass.** | Settings phone at −4°; the reminder dialog enlarged in front | Settings › Automatic pass alerts; Schedule notification dialog |
+| 5 Spotlight | Meet the crew **in orbit.** | On Duty phone at +3°; the people-in-space header and an astronaut card lift out | On Duty |
 | 6 Finale | Track Hubble **and Tiangong too.** | Map phone with Hubble selected and Tiangong in view, plus Hubble's floating telemetry card | Map, Hubble selected |
 
 **Feature graphic (1024 × 500):** no device. The icon, the Orbitron wordmark, "LIVE ISS TRACKER & PASS ALERTS" and "See it live. Know when to look up." sit centre-left, over the real sky chart from slide 2, tilted and fading into deep space.
@@ -48,7 +48,7 @@ The six slides are one continuous 6480 × 1920 canvas (7920 × 2868 for the App 
 **Icon (512 × 512):** the app's own icon, rendered from `iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-AppStore-1024.png`. The icon is a raster illustration (the ISS over a sunrise Earth); there is no vector source, so it is resampled, not redrawn.
 
 ## Accuracy guardrails
-- Every interface pixel comes from the debug build running on a dedicated iOS simulator. Floating cards are magnified crops of those same captures; nothing is redrawn.
-- Demo data: a London location (public place), the live ISS, Hubble and Tiangong positions, and the public crew feed the app shows to everyone. Astronauts appear with their public names, photos and Wikipedia bios, as in the app.
+- Every interface pixel comes from the debug build running on a dedicated device: an Android emulator for the Google Play and Galaxy Store sets, an iOS simulator for the App Store sets. Floating cards are magnified crops of those same captures; nothing is redrawn.
+- Demo data: a Boston location (public place) with five upcoming visible passes, so the tablet grid fills in full rows, the live ISS, Hubble and Tiangong positions, and the public crew feed the app shows to everyone. Astronauts appear with their public names, photos and Wikipedia bios, as in the app.
 - Copy describes shipped features only. No ratings, download counts, awards or testimonials.
-- The Android app shares the same Compose screens, so iOS captures show what Android users see. The status bar is iOS-styled.
+- Android sets use an unbranded Galaxy-style device frame (centred camera hole, tight corners, side buttons) and never show an iPhone, Apple Maps or other iOS details, because Galaxy Store rejects them.

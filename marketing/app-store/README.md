@@ -20,13 +20,13 @@ marketing/google-play/sources/render.sh
 The sources live in `marketing/google-play/sources/`; the HTML is in `marketing/google-play/editable/` (`gallery-appstore-iphone.html`, `gallery-appstore-ipad.html`).
 
 ## Recapturing screens
-See `marketing/google-play/README.md` for the simulators, the London location and the debug-only launch arguments. For the iPad:
+See `marketing/google-play/README.md` for the simulators, the Boston location and the debug-only launch arguments. For the iPad:
 ```sh
 xcrun simctl launch <ipad-udid> com.restart.spacestationtracker.ios.dev --hide-ads --disable-analytics --start-tab CREW
-marketing/google-play/sources/capture.sh ipad-crew <ipad-udid>
+marketing/google-play/sources/capture.sh ios tablet crew <ipad-udid>
 ```
-Other tabs: `MAP` (default) and `PASSES`. Then run `marketing/google-play/sources/redact.sh` to copy the captures into `sources/screenshots/`.
+Other tabs: `MAP` (default) and `PASSES`.
 
 ## Gaps
-- Captured 2026-10-22/23; pass times, crew and satellite positions date from then.
+- Captured 2026-11-06 in Boston; pass times, crew and satellite positions date from then.
 - A fresh install waits for CelesTrak before Sky Path loads. If CelesTrak is slow or rate-limiting, the screen can sit on its spinner for about a minute before the app falls back to another source.

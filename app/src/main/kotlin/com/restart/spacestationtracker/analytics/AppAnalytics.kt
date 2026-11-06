@@ -20,6 +20,10 @@ object AppAnalytics {
         }
     }
 
+    fun disableCollection() {
+        firebaseAnalytics?.setAnalyticsCollectionEnabled(false)
+    }
+
     fun trackScreen(route: String?) {
         val screenName = screenNameForRoute(route)
         currentScreen = screenName

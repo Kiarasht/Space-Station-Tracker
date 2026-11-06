@@ -34,6 +34,7 @@ proguard/
 
 # Android Studio captures folder
 captures/
+!/marketing/captures/
 
 # IntelliJ
 *.iml

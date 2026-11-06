@@ -35,6 +35,9 @@ import androidx.compose.ui.Modifier
 import com.restart.spacestationtracker.shared.ui.SpaceNavItem
 import com.restart.spacestationtracker.shared.ui.SpaceFloatingNavBar
 import com.restart.spacestationtracker.shared.ui.SpaceBottomChrome
+import com.restart.spacestationtracker.shared.ui.rememberReduceMotion
+import com.restart.spacestationtracker.shared.ui.tabEnterTransition
+import com.restart.spacestationtracker.shared.ui.tabExitTransition
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.PaddingValues
@@ -105,12 +108,19 @@ class MainActivity : ComponentActivity() {
     private var consentAllowsAdRequests = false
     private var purchaseEntitlementChecked = false
     private var pendingRoute by mutableStateOf<String?>(null)
+    private var isMarketingCapture = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         if (savedInstanceState == null) {
             pendingRoute = intent.consumeOpenRoute()
+        }
+        // Store screenshots: keeps test ads out of captures and captures out of analytics.
+        isMarketingCapture = BuildConfig.DEBUG && intent.getBooleanExtra(EXTRA_MARKETING_CAPTURE, false)
+        if (isMarketingCapture) {
+            AppAnalytics.disableCollection()
+            settingsRepository.setLifetimeAdRemoval(true)
         }
         adRemovalBillingController = AndroidAdRemovalBillingController(
             context = this,
@@ -179,7 +189,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
-        adRemovalBillingController.refreshPurchases()
+        if (!isMarketingCapture) adRemovalBillingController.refreshPurchases()
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -200,6 +210,7 @@ class MainActivity : ComponentActivity() {
 
     companion object {
         const val EXTRA_OPEN_ROUTE = "extra_open_route"
+        private const val EXTRA_MARKETING_CAPTURE = "marketing_capture"
     }
 
     private fun maybeInitializeMobileAds() {
@@ -253,6 +264,7 @@ fun MainScreen(
     val currentDestination = navBackStackEntry?.destination
     val currentRoute = currentDestination?.route
     var chromeHeightPx by remember { mutableIntStateOf(0) }
+    val reduceMotion = rememberReduceMotion()
     val chromeHeight = with(LocalDensity.current) { chromeHeightPx.toDp() }
 
     LaunchedEffect(currentRoute) {
@@ -305,9 +317,30 @@ fun MainScreen(
             bottom = if (isBottomBarVisible) chromeHeight else innerPadding.calculateBottomPadding()
         )
         Box(Modifier.fillMaxSize()) {
+            // Switching tabs slides toward the tapped tab's side of the bar, with a fade; legal pages come in
+            // from the right, after the last tab, and go back the way they came.
+            val tabOrder: (String?) -> Int = { route ->
+                bottomNavItems.indexOfFirst { it.route == route }.takeIf { it >= 0 } ?: bottomNavItems.size
+            }
             NavHost(
                 navController,
                 startDestination = Screen.Map.route,
+                enterTransition = {
+                    val forward = tabOrder(targetState.destination.route) >= tabOrder(initialState.destination.route)
+                    tabEnterTransition(forward, reduceMotion)
+                },
+                exitTransition = {
+                    val forward = tabOrder(targetState.destination.route) >= tabOrder(initialState.destination.route)
+                    tabExitTransition(forward, reduceMotion)
+                },
+                popEnterTransition = {
+                    val forward = tabOrder(targetState.destination.route) >= tabOrder(initialState.destination.route)
+                    tabEnterTransition(forward, reduceMotion)
+                },
+                popExitTransition = {
+                    val forward = tabOrder(targetState.destination.route) >= tabOrder(initialState.destination.route)
+                    tabExitTransition(forward, reduceMotion)
+                },
             ) {
                 composable(Screen.Map.route) {
                     SharedMapRoute(

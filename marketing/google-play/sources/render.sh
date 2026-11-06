@@ -7,8 +7,8 @@ out="$here/.."
 tmp="$(mktemp -d)"
 chrome="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
 
-shoot() { # html width height output
-  "$chrome" --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=1 \
+shoot() { # html width height output; headless Chrome occasionally hangs, so each shot gets two minutes
+  perl -e 'alarm 120; exec @ARGV' "$chrome" --headless=new --user-data-dir="$tmp/profile" --disable-gpu --hide-scrollbars --force-device-scale-factor=1 \
     --default-background-color=00000000 --virtual-time-budget=4000 \
     --window-size="$2,$3" --screenshot="$4" "file://$(printf %s "$out/editable/$1" | sed "s/ /%20/g")" >/dev/null 2>&1
 }
@@ -19,13 +19,15 @@ mkdir -p "$here/artwork"
 flat "$tmp/icon.png" "$here/artwork/icon-512.png"
 cp "$here/artwork/icon-512.png" "$out/icon-512.png"
 
+# Google Play phone set (1080 x 1920), written to phone/.
+phone="$out/phone"
+mkdir -p "$phone"
 shoot gallery.html 6480 1920 "$tmp/gallery.png"
 i=0
 for name in 01-hero 02-feature 03-immersive-start 04-immersive-continuation 05-feature-spotlight 06-finale; do
-  flat "$tmp/gallery.png" "$out/$name.png" $((i * 1080)) 0 1080 1920
+  flat "$tmp/gallery.png" "$phone/$name.png" $((i * 1080)) 0 1080 1920
   i=$((i + 1))
 done
-flat "$tmp/gallery.png" "$here/panorama-full.png"
 
 # App Store iPhone 6.9" set (1320 x 2868), written to marketing/app-store/iphone/.
 store="$out/../app-store/iphone"

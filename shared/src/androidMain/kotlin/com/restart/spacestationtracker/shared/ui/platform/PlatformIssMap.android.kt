@@ -11,6 +11,10 @@ import android.graphics.Typeface
 import android.os.Build
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -19,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.graphics.Color
@@ -41,6 +46,7 @@ import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
+import kotlinx.coroutines.delay
 
 @Composable
 actual fun PlatformIssMap(
@@ -60,10 +66,26 @@ actual fun PlatformIssMap(
     // Lines (with their arrows and labels) fade in and out when the selection changes.
     val orbitAlpha by animateFloatAsState(if (orbitVisible) 1f else 0f, tween(LINE_FADE_MILLIS))
     val density = context.resources.displayMetrics.density
+    // Open straight on the spacecraft when its position is already known, instead of gliding from 0,0.
     val cameraState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(LatLng(0.0, 0.0), 2f)
+        position = CameraPosition.fromLatLngZoom(
+            LatLng(initialCenter?.latitude ?: 0.0, initialCenter?.longitude ?: 0.0),
+            2f
+        )
     }
-    var hasCentered by remember { mutableStateOf(false) }
+    var hasCentered by remember { mutableStateOf(initialCenter != null) }
+    // The map stays covered until its tiles are drawn where it opens, then fades in.
+    var tilesLoaded by remember { mutableStateOf(false) }
+    var revealed by remember { mutableStateOf(false) }
+    LaunchedEffect(tilesLoaded, hasCentered) {
+        if (tilesLoaded && hasCentered) revealed = true
+    }
+    // Shows the map anyway if its tiles are slow or can't load.
+    LaunchedEffect(Unit) {
+        delay(MAP_REVEAL_TIMEOUT_MILLIS)
+        revealed = true
+    }
+    val coverAlpha by animateFloatAsState(if (revealed) 0f else 1f, tween(MAP_REVEAL_MILLIS))
     val orderedOrbit = remember(orbit) {
         orbit
             .filter { it.timestamp > 0L }
@@ -74,73 +96,128 @@ actual fun PlatformIssMap(
         buildOrbitCues(currentLocation?.timestamp ?: 0L, orderedOrbit)
     }
     val exoTypeface = remember(context) { loadExoTypeface(context) }
-    GoogleMap(
-        modifier = modifier,
-        cameraPositionState = cameraState,
-        contentPadding = PaddingValues(bottom = bottomInset),
-        properties = MapProperties(
-            mapType = when (mapType) {
-                "Satellite" -> MapType.SATELLITE
-                "Hybrid" -> MapType.HYBRID
-                "Terrain" -> MapType.TERRAIN
-                else -> MapType.NORMAL
+    Box(modifier = modifier) {
+        GoogleMap(
+            modifier = Modifier.fillMaxSize(),
+            cameraPositionState = cameraState,
+            contentPadding = PaddingValues(bottom = bottomInset),
+            properties = MapProperties(
+                mapType = when (mapType) {
+                    "Satellite" -> MapType.SATELLITE
+                    "Hybrid" -> MapType.HYBRID
+                    "Terrain" -> MapType.TERRAIN
+                    else -> MapType.NORMAL
+                }
+            ),
+            // No map toolbar: it would appear bottom right, where the spacecraft switcher sits.
+            uiSettings = MapUiSettings(zoomControlsEnabled = false, mapToolbarEnabled = false),
+            onMapLoaded = { tilesLoaded = true },
+            onMapClick = { onSatelliteClick(null) }
+        ) {
+            // Camera calls live in the map's content, which only runs once the map exists: CameraUpdateFactory
+            // throws before Maps has started, and on a device where Maps never starts this simply never runs.
+            LaunchedEffect(initialCenter) {
+                if (!hasCentered && initialCenter != null) {
+                    val update = CameraUpdateFactory.newLatLngZoom(LatLng(initialCenter.latitude, initialCenter.longitude), 2f)
+                    // While the map is still covered, jump there; once it shows, glide.
+                    if (revealed) cameraState.animate(update) else cameraState.move(update)
+                    hasCentered = true
+                }
             }
-        ),
-        // No map toolbar: it would appear bottom right, where the spacecraft switcher sits.
-        uiSettings = MapUiSettings(zoomControlsEnabled = false, mapToolbarEnabled = false),
-        onMapClick = { onSatelliteClick(null) }
-    ) {
-        // Camera calls live in the map's content, which only runs once the map exists: CameraUpdateFactory
-        // throws before Maps has started, and on a device where Maps never starts this simply never runs.
-        LaunchedEffect(initialCenter) {
-            if (!hasCentered && initialCenter != null) {
-                cameraState.animate(
-                    CameraUpdateFactory.newLatLngZoom(LatLng(initialCenter.latitude, initialCenter.longitude), 2f)
-                )
-                hasCentered = true
+            LaunchedEffect(focus?.serial) {
+                val target = focus ?: return@LaunchedEffect
+                cameraState.animate(CameraUpdateFactory.newLatLng(LatLng(target.latitude, target.longitude)))
             }
-        }
-        LaunchedEffect(focus?.serial) {
-            val target = focus ?: return@LaunchedEffect
-            cameraState.animate(CameraUpdateFactory.newLatLng(LatLng(target.latitude, target.longitude)))
-        }
-        val directionMarker = remember { createDirectionMarker() }
-        val timeMarkers = remember(exoTypeface) {
-            (30..120 step 30).associateWith { minute ->
-                createTimeMarker("+${minute}m", exoTypeface)
+            val directionMarker = remember { createDirectionMarker() }
+            val timeMarkers = remember(exoTypeface) {
+                (30..120 step 30).associateWith { minute ->
+                    createTimeMarker("+${minute}m", exoTypeface)
+                }
             }
-        }
-        tracks.forEach { track ->
-            key(track.id) {
-                val alpha by animateFloatAsState(if (track.visible) 1f else 0f, tween(LINE_FADE_MILLIS))
-                if (track.points.size > 1 && alpha > 0f) {
-                    val trackColor = track.colorArgb.toInt()
-                    Polyline(
-                        points = track.points.map { LatLng(it.latitude, it.longitude) },
-                        color = Color(trackColor).copy(alpha = alpha),
-                        width = 5f,
-                        geodesic = true,
-                        zIndex = 1f
-                    )
-                    // The same arrows and +30m to +120m labels as the ISS line, in the satellite's color.
-                    val cues = remember(track.points) {
-                        buildOrbitCues(track.points.first().timestamp, track.points)
-                    }
-                    val trackDirectionMarker = remember(trackColor) { createDirectionMarker(trackColor) }
-                    val trackTimeMarkers = remember(trackColor, exoTypeface) {
-                        (30..120 step 30).associateWith { minute ->
-                            createTimeMarker("+${minute}m", exoTypeface, trackColor)
+            tracks.forEach { track ->
+                key(track.id) {
+                    val alpha by animateFloatAsState(if (track.visible) 1f else 0f, tween(LINE_FADE_MILLIS))
+                    if (track.points.size > 1 && alpha > 0f) {
+                        val trackColor = track.colorArgb.toInt()
+                        Polyline(
+                            points = track.points.map { LatLng(it.latitude, it.longitude) },
+                            color = Color(trackColor).copy(alpha = alpha),
+                            width = 5f,
+                            geodesic = true,
+                            zIndex = 1f
+                        )
+                        // The same arrows and +30m to +120m labels as the ISS line, in the satellite's color.
+                        val cues = remember(track.points) {
+                            buildOrbitCues(track.points.first().timestamp, track.points)
+                        }
+                        val trackDirectionMarker = remember(trackColor) { createDirectionMarker(trackColor) }
+                        val trackTimeMarkers = remember(trackColor, exoTypeface) {
+                            (30..120 step 30).associateWith { minute ->
+                                createTimeMarker("+${minute}m", exoTypeface, trackColor)
+                            }
+                        }
+                        cues.forEach { cue ->
+                            key(cue.minuteOffset) {
+                                Marker(
+                                    state = rememberUpdatedMarkerState(LatLng(cue.point.latitude, cue.point.longitude)),
+                                    icon = if (cue.minuteOffset % 30 == 0) trackTimeMarkers[cue.minuteOffset] else trackDirectionMarker,
+                                    anchor = androidx.compose.ui.geometry.Offset(0.5f, 0.5f),
+                                    flat = cue.minuteOffset % 30 != 0,
+                                    rotation = if (cue.minuteOffset % 30 == 0) 0f else cue.bearing,
+                                    alpha = alpha,
+                                    zIndex = 4f
+                                )
+                            }
                         }
                     }
-                    cues.forEach { cue ->
-                        key(cue.minuteOffset) {
+                }
+            }
+            satellites.forEach { satellite -> key(satellite.id) {
+                val icon = remember(satellite.label, satellite.colorArgb, satellite.isStation, satellite.isSelected, exoTypeface) {
+                    createSatelliteMarker(satellite, density, exoTypeface)
+                }
+                Marker(
+                    state = rememberUpdatedMarkerState(LatLng(satellite.latitude, satellite.longitude)),
+                    icon = icon.descriptor,
+                    anchor = androidx.compose.ui.geometry.Offset(0.5f, icon.anchorY),
+                    title = satellite.label,
+                    zIndex = if (satellite.isSelected) 5f else 2.5f,
+                    onClick = {
+                        onSatelliteClick(satellite.id)
+                        true
+                    }
+                )
+            } }
+            if (orderedOrbit.size > 1 && orbitAlpha > 0f) {
+                Polyline(
+                    points = orderedOrbit.map { LatLng(it.latitude, it.longitude) },
+                    color = Color.Red.copy(alpha = orbitAlpha),
+                    width = 5f,
+                    geodesic = true,
+                    zIndex = 1f
+                )
+                orbitCues.forEach { cue ->
+                    key(cue.minuteOffset) {
+                        if (cue.minuteOffset % 30 == 0) {
                             Marker(
-                                state = rememberUpdatedMarkerState(LatLng(cue.point.latitude, cue.point.longitude)),
-                                icon = if (cue.minuteOffset % 30 == 0) trackTimeMarkers[cue.minuteOffset] else trackDirectionMarker,
+                                state = rememberUpdatedMarkerState(
+                                    LatLng(cue.point.latitude, cue.point.longitude)
+                                ),
+                                icon = timeMarkers[cue.minuteOffset],
                                 anchor = androidx.compose.ui.geometry.Offset(0.5f, 0.5f),
-                                flat = cue.minuteOffset % 30 != 0,
-                                rotation = if (cue.minuteOffset % 30 == 0) 0f else cue.bearing,
-                                alpha = alpha,
+                                alpha = orbitAlpha,
+                                zIndex = 4f
+                            )
+                        } else {
+                            Marker(
+                                state = rememberUpdatedMarkerState(
+                                    LatLng(cue.point.latitude, cue.point.longitude)
+                                ),
+                                icon = directionMarker,
+                                anchor = androidx.compose.ui.geometry.Offset(0.5f, 0.5f),
+                                flat = true,
+                                rotation = cue.bearing,
+                                alpha = orbitAlpha,
                                 zIndex = 4f
                             )
                         }
@@ -148,57 +225,13 @@ actual fun PlatformIssMap(
                 }
             }
         }
-        satellites.forEach { satellite -> key(satellite.id) {
-            val icon = remember(satellite.label, satellite.colorArgb, satellite.isStation, satellite.isSelected, exoTypeface) {
-                createSatelliteMarker(satellite, density, exoTypeface)
-            }
-            Marker(
-                state = rememberUpdatedMarkerState(LatLng(satellite.latitude, satellite.longitude)),
-                icon = icon.descriptor,
-                anchor = androidx.compose.ui.geometry.Offset(0.5f, icon.anchorY),
-                title = satellite.label,
-                zIndex = if (satellite.isSelected) 5f else 2.5f,
-                onClick = {
-                    onSatelliteClick(satellite.id)
-                    true
-                }
+        if (coverAlpha > 0f) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .graphicsLayer { alpha = coverAlpha }
+                    .background(MaterialTheme.colorScheme.background)
             )
-        } }
-        if (orderedOrbit.size > 1 && orbitAlpha > 0f) {
-            Polyline(
-                points = orderedOrbit.map { LatLng(it.latitude, it.longitude) },
-                color = Color.Red.copy(alpha = orbitAlpha),
-                width = 5f,
-                geodesic = true,
-                zIndex = 1f
-            )
-            orbitCues.forEach { cue ->
-                key(cue.minuteOffset) {
-                    if (cue.minuteOffset % 30 == 0) {
-                        Marker(
-                            state = rememberUpdatedMarkerState(
-                                LatLng(cue.point.latitude, cue.point.longitude)
-                            ),
-                            icon = timeMarkers[cue.minuteOffset],
-                            anchor = androidx.compose.ui.geometry.Offset(0.5f, 0.5f),
-                            alpha = orbitAlpha,
-                            zIndex = 4f
-                        )
-                    } else {
-                        Marker(
-                            state = rememberUpdatedMarkerState(
-                                LatLng(cue.point.latitude, cue.point.longitude)
-                            ),
-                            icon = directionMarker,
-                            anchor = androidx.compose.ui.geometry.Offset(0.5f, 0.5f),
-                            flat = true,
-                            rotation = cue.bearing,
-                            alpha = orbitAlpha,
-                            zIndex = 4f
-                        )
-                    }
-                }
-            }
         }
     }
 }
@@ -215,6 +248,8 @@ actual fun PlatformBannerAd(
 ) = Unit
 
 private const val LINE_FADE_MILLIS = 300
+private const val MAP_REVEAL_MILLIS = 350
+private const val MAP_REVEAL_TIMEOUT_MILLIS = 2_000L
 
 private class SatelliteMarkerIcon(val descriptor: BitmapDescriptor, val anchorY: Float)
 

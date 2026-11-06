@@ -829,6 +829,13 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecogn
     private var pathTarget: [String: CGFloat] = [:]
     private var fadeLink: CADisplayLink?
     private var lastFadeTime: CFTimeInterval = 0
+    /** MapKit doesn't redraw a line's opacity while the camera glides, so fades wait until it settles. */
+    private var isCameraGliding = false
+    /** The map stays hidden until its first tiles are drawn where it opens, then fades in. */
+    private var isRevealed = false
+    private static let revealSeconds: TimeInterval = 0.35
+    /** Shows the map anyway if its tiles are slow or can't load. */
+    private static let revealTimeoutSeconds: TimeInterval = 2
     private static let lineFadeSeconds: CGFloat = 0.3
     /** The ISS orbit line's path id; the ISS's computed track uses "iss". */
     private static let issOrbitPath = "iss-orbit"
@@ -859,8 +866,21 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecogn
                 latitudinalMeters: Self.initialMapSpanMeters,
                 longitudinalMeters: Self.initialMapSpanMeters
             ),
-            animated: true
+            // While the map is still hidden, open straight on the spot instead of gliding there.
+            animated: isRevealed
         )
+    }
+
+    private func reveal() {
+        guard !isRevealed else { return }
+        isRevealed = true
+        UIView.animate(
+            withDuration: Self.revealSeconds,
+            delay: 0,
+            options: [.curveEaseOut, .allowUserInteraction]
+        ) {
+            self.mapView.alpha = 1
+        }
     }
 
     private var lastFocusSerial: Int32?
@@ -1010,6 +1030,11 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecogn
     /** Moves each path's opacity toward its target; a path that finished fading out loses its labels. */
     @objc private func stepFade() {
         let now = CACurrentMediaTime()
+        // Choosing a spacecraft from the switcher glides the map there; the lines fade once it arrives.
+        guard !isCameraGliding else {
+            lastFadeTime = now
+            return
+        }
         let step = CGFloat(now - lastFadeTime) / Self.lineFadeSeconds
         lastFadeTime = now
         var animating = false
@@ -1110,6 +1135,22 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecogn
             mapView.removeAnnotation(annotation)
             cueAnnotations[key] = nil
         }
+    }
+
+    func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
+        // Tiles drawn before the map knows where to open are the wrong place; wait for the next render.
+        if hasSetInitialRegion { reveal() }
+    }
+
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        if animated { isCameraGliding = true }
+    }
+
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        guard isCameraGliding else { return }
+        isCameraGliding = false
+        lastFadeTime = CACurrentMediaTime()
+        startFadeIfNeeded()
     }
 
     /** Taps are handled in handleMapTap; selection lives in the shared screen, so MapKit's is just cleared. */
@@ -1358,6 +1399,10 @@ private final class NativeIssMapView: UIView, MKMapViewDelegate, UIGestureRecogn
         mapView.delegate = self
         mapView.isRotateEnabled = false
         mapView.pointOfInterestFilter = .excludingAll
+        mapView.alpha = 0
+        DispatchQueue.main.asyncAfter(deadline: .now() + Self.revealTimeoutSeconds) { [weak self] in
+            self?.reveal()
+        }
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleMapTap(_:)))
         tap.delegate = self
         tap.cancelsTouchesInView = false
