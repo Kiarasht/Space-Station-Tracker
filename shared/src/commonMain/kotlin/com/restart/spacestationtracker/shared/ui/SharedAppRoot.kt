@@ -3,6 +3,7 @@ package com.restart.spacestationtracker.shared.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -159,6 +160,7 @@ fun SharedAppRoot(
     val requestedTab by controller.requestedTab.collectAsState()
     var selectedTab by remember { mutableStateOf(SharedTab.MAP) }
     val tabStates = rememberSaveableStateHolder()
+    val reduceMotion = rememberReduceMotion()
     var chromeHeight by remember { mutableStateOf(0.dp) }
     val density = LocalDensity.current
 
@@ -207,9 +209,16 @@ fun SharedAppRoot(
                 bottom = chromeHeight
             )
             Box(Modifier.fillMaxSize()) {
-            // Each tab keeps its saved state (the map's selection, list scroll positions) while hidden.
-            tabStates.SaveableStateProvider(selectedTab.name) {
-            when (selectedTab) {
+            // Switching tabs slides toward the tapped tab's side of the bar, with a fade. Each tab keeps its
+            // saved state (the map's selection, list scroll positions) while hidden.
+            AnimatedContent(
+                targetState = selectedTab,
+                modifier = Modifier.fillMaxSize(),
+                transitionSpec = directionalTabTransition(reduceMotion) { tab -> tab.ordinal },
+                label = "tab"
+            ) { tab ->
+            tabStates.SaveableStateProvider(tab.name) {
+            when (tab) {
                 SharedTab.MAP -> SharedIssMapScreen(
                     currentLocation = state.currentIssLocation,
                     futureLocations = state.futureIssLocations,
@@ -347,6 +356,7 @@ fun SharedAppRoot(
                         onAction(SharedAppActions.PRIVACY_CHOICES, null)
                     }
                 )
+            }
             }
             }
             SpaceBottomChrome(

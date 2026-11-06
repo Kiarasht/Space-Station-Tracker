@@ -35,6 +35,9 @@ import androidx.compose.ui.Modifier
 import com.restart.spacestationtracker.shared.ui.SpaceNavItem
 import com.restart.spacestationtracker.shared.ui.SpaceFloatingNavBar
 import com.restart.spacestationtracker.shared.ui.SpaceBottomChrome
+import com.restart.spacestationtracker.shared.ui.rememberReduceMotion
+import com.restart.spacestationtracker.shared.ui.tabEnterTransition
+import com.restart.spacestationtracker.shared.ui.tabExitTransition
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.PaddingValues
@@ -253,6 +256,7 @@ fun MainScreen(
     val currentDestination = navBackStackEntry?.destination
     val currentRoute = currentDestination?.route
     var chromeHeightPx by remember { mutableIntStateOf(0) }
+    val reduceMotion = rememberReduceMotion()
     val chromeHeight = with(LocalDensity.current) { chromeHeightPx.toDp() }
 
     LaunchedEffect(currentRoute) {
@@ -305,9 +309,30 @@ fun MainScreen(
             bottom = if (isBottomBarVisible) chromeHeight else innerPadding.calculateBottomPadding()
         )
         Box(Modifier.fillMaxSize()) {
+            // Switching tabs slides toward the tapped tab's side of the bar, with a fade; legal pages come in
+            // from the right, after the last tab, and go back the way they came.
+            val tabOrder: (String?) -> Int = { route ->
+                bottomNavItems.indexOfFirst { it.route == route }.takeIf { it >= 0 } ?: bottomNavItems.size
+            }
             NavHost(
                 navController,
                 startDestination = Screen.Map.route,
+                enterTransition = {
+                    val forward = tabOrder(targetState.destination.route) >= tabOrder(initialState.destination.route)
+                    tabEnterTransition(forward, reduceMotion)
+                },
+                exitTransition = {
+                    val forward = tabOrder(targetState.destination.route) >= tabOrder(initialState.destination.route)
+                    tabExitTransition(forward, reduceMotion)
+                },
+                popEnterTransition = {
+                    val forward = tabOrder(targetState.destination.route) >= tabOrder(initialState.destination.route)
+                    tabEnterTransition(forward, reduceMotion)
+                },
+                popExitTransition = {
+                    val forward = tabOrder(targetState.destination.route) >= tabOrder(initialState.destination.route)
+                    tabExitTransition(forward, reduceMotion)
+                },
             ) {
                 composable(Screen.Map.route) {
                     SharedMapRoute(
