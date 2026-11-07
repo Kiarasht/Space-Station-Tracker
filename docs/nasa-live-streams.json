@@ -1,9 +1,9 @@
 {
   "status": "ok",
-  "updatedAt": "2026-11-07T20:17:25.183Z",
-  "updatedAtMillis": 1794082645183,
-  "lastSuccessAtMillis": 1794082645183,
-  "lastFullSearchAtMillis": 1794082645183,
+  "updatedAt": "2026-11-07T23:40:16.043Z",
+  "updatedAtMillis": 1794094816043,
+  "lastSuccessAtMillis": 1794094816043,
+  "lastFullSearchAtMillis": 1794094816043,
   "source": "github-actions",
   "streams": [
     {
@@ -15,12 +15,6 @@
       "title": "Live Video from the International Space Station (Official NASA Stream)"
     }
   ],
-  "upcoming": [
-    {
-      "videoId": "MRg4uIpJ3xE",
-      "title": "NASA Moon Base: November 2026 Update (Nov. 7, 2026)",
-      "scheduledStartMillis": 1794088800000
-    }
-  ],
+  "upcoming": [],
   "error": null
 }
