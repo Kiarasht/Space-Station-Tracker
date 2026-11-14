@@ -247,6 +247,8 @@ final class AdsService: ObservableObject {
         pendingAppOpenCount = appOpenCount
         pendingRootViewController = rootViewController
         guard canRequestAds, !isAdFree else { return }
+        // Handled once: closing the privacy form restarts ads and must not replay this app open.
+        pendingAppOpenCount = 0
 
         if appOpenCount < appOpenStartThreshold {
             loadAppOpenAdIfNeeded()
@@ -257,7 +259,8 @@ final class AdsService: ObservableObject {
             appOpenAd = nil
             appOpenLoadDate = nil
             shouldShowAppOpenWhenLoaded = false
-            ad.present(from: rootViewController)
+            // Presented from the topmost screen, so an open sheet doesn't stop the ad.
+            ad.present(from: Self.topmostPresented(from: rootViewController ?? AppModel.topViewController()))
             loadAppOpenAdIfNeeded()
         } else {
             shouldShowAppOpenWhenLoaded = true
@@ -334,6 +337,14 @@ final class AdsService: ObservableObject {
         )
     }
 
+    private static func topmostPresented(from root: UIViewController?) -> UIViewController? {
+        var top = root
+        while let presented = top?.presentedViewController, !presented.isBeingDismissed {
+            top = presented
+        }
+        return top
+    }
+
     private var isAppOpenAdExpired: Bool {
         guard let appOpenLoadDate else { return true }
         return Date().timeIntervalSince(appOpenLoadDate) > appOpenExpiration
@@ -360,12 +371,17 @@ final class AdsService: ObservableObject {
                 }
                 self.appOpenAd = ad
                 self.appOpenLoadDate = ad == nil ? nil : Date()
+                // A counted app open is waiting for this ad: show it now, however long the load took, as long
+                // as the app is still in front.
                 if let ad, self.shouldShowAppOpenWhenLoaded {
                     self.shouldShowAppOpenWhenLoaded = false
+                    guard UIApplication.shared.applicationState == .active else { return }
                     self.appOpenAd = nil
                     self.appOpenLoadDate = nil
                     ad.present(
-                        from: self.pendingRootViewController ?? AppModel.topViewController()
+                        from: Self.topmostPresented(
+                            from: self.pendingRootViewController ?? AppModel.topViewController()
+                        )
                     )
                     self.loadAppOpenAdIfNeeded()
                 }
