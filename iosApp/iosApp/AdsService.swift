@@ -151,6 +151,12 @@ final class AdsService: ObservableObject {
     private var isLoadingAppOpenAd = false
     private var pendingAppOpenCount = 0
     private var shouldShowAppOpenWhenLoaded = false
+    /// An app-open ad is on screen, from when it's presented until it's dismissed or fails to show.
+    private var isShowingAppOpenAd = false
+    /// The ad holds its delegate weakly, so the service keeps this one.
+    private lazy var appOpenAdPresentation = AppOpenAdPresentationDelegate { [weak self] in
+        self?.isShowingAppOpenAd = false
+    }
     private weak var pendingRootViewController: UIViewController?
     private var isPreparingAds = false
     private var hasCompletedAdsPreparation = false
@@ -247,6 +253,10 @@ final class AdsService: ObservableObject {
         pendingAppOpenCount = appOpenCount
         pendingRootViewController = rootViewController
         guard canRequestAds, !isAdFree else { return }
+        // Handled once: closing the privacy form restarts ads and must not replay this app open.
+        pendingAppOpenCount = 0
+        // Leaving the app with an app-open ad up and coming back counts as an open; one ad at a time.
+        guard !isShowingAppOpenAd else { return }
 
         if appOpenCount < appOpenStartThreshold {
             loadAppOpenAdIfNeeded()
@@ -257,7 +267,8 @@ final class AdsService: ObservableObject {
             appOpenAd = nil
             appOpenLoadDate = nil
             shouldShowAppOpenWhenLoaded = false
-            ad.present(from: rootViewController)
+            // Presented from the topmost screen, so an open sheet doesn't stop the ad.
+            presentAppOpenAd(ad, from: Self.topmostPresented(from: rootViewController ?? AppModel.topViewController()))
             loadAppOpenAdIfNeeded()
         } else {
             shouldShowAppOpenWhenLoaded = true
@@ -334,6 +345,20 @@ final class AdsService: ObservableObject {
         )
     }
 
+    private func presentAppOpenAd(_ ad: AppOpenAd, from presenter: UIViewController?) {
+        isShowingAppOpenAd = true
+        ad.fullScreenContentDelegate = appOpenAdPresentation
+        ad.present(from: presenter)
+    }
+
+    private static func topmostPresented(from root: UIViewController?) -> UIViewController? {
+        var top = root
+        while let presented = top?.presentedViewController, !presented.isBeingDismissed {
+            top = presented
+        }
+        return top
+    }
+
     private var isAppOpenAdExpired: Bool {
         guard let appOpenLoadDate else { return true }
         return Date().timeIntervalSince(appOpenLoadDate) > appOpenExpiration
@@ -360,12 +385,18 @@ final class AdsService: ObservableObject {
                 }
                 self.appOpenAd = ad
                 self.appOpenLoadDate = ad == nil ? nil : Date()
-                if let ad, self.shouldShowAppOpenWhenLoaded {
+                // A counted app open is waiting for this ad: show it now, however long the load took, as long
+                // as the app is still in front.
+                if let ad, self.shouldShowAppOpenWhenLoaded, !self.isShowingAppOpenAd {
                     self.shouldShowAppOpenWhenLoaded = false
+                    guard UIApplication.shared.applicationState == .active else { return }
                     self.appOpenAd = nil
                     self.appOpenLoadDate = nil
-                    ad.present(
-                        from: self.pendingRootViewController ?? AppModel.topViewController()
+                    self.presentAppOpenAd(
+                        ad,
+                        from: Self.topmostPresented(
+                            from: self.pendingRootViewController ?? AppModel.topViewController()
+                        )
                     )
                     self.loadAppOpenAdIfNeeded()
                 }
@@ -479,6 +510,23 @@ final class ResponsiveBannerContainerView: UIView, BannerViewDelegate {
         didFailToReceiveAdWithError error: Error
     ) {
         bannerView.isHidden = true
+    }
+}
+
+/// Reports when a presented app-open ad has left the screen: dismissed, or it couldn't be shown.
+private final class AppOpenAdPresentationDelegate: NSObject, FullScreenContentDelegate {
+    private let onFinished: () -> Void
+
+    init(onFinished: @escaping () -> Void) {
+        self.onFinished = onFinished
+    }
+
+    func adDidDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
+        onFinished()
+    }
+
+    func ad(_ ad: FullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+        onFinished()
     }
 }
 
