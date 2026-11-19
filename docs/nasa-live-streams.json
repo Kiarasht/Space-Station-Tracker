@@ -1,15 +1,11 @@
 {
   "status": "ok",
-  "updatedAt": "2026-11-19T17:16:05.937Z",
-  "updatedAtMillis": 1795108565937,
-  "lastSuccessAtMillis": 1795108565937,
-  "lastFullSearchAtMillis": 1795108565937,
+  "updatedAt": "2026-11-19T23:37:09.759Z",
+  "updatedAtMillis": 1795131429759,
+  "lastSuccessAtMillis": 1795131429759,
+  "lastFullSearchAtMillis": 1795131429759,
   "source": "github-actions",
   "streams": [
-    {
-      "videoId": "oPgE-ECuJEs",
-      "title": "Voyager 1 Light-Day Mission Update and Conversation"
-    },
     {
       "videoId": "M3HKLzjvKPc",
       "title": "Live Video from the International Space Station (Official NASA Stream)"
