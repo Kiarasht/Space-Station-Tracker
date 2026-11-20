@@ -1,9 +1,9 @@
 {
   "status": "ok",
-  "updatedAt": "2026-11-20T13:02:29.938Z",
-  "updatedAtMillis": 1795179749938,
-  "lastSuccessAtMillis": 1795179749938,
-  "lastFullSearchAtMillis": 1795179749938,
+  "updatedAt": "2026-11-20T20:59:43.760Z",
+  "updatedAtMillis": 1795208383760,
+  "lastSuccessAtMillis": 1795208383760,
+  "lastFullSearchAtMillis": 1795208383760,
   "source": "github-actions",
   "streams": [
     {
@@ -15,12 +15,6 @@
       "title": "Live High-Definition Views from the International Space Station (Official NASA Stream)"
     }
   ],
-  "upcoming": [
-    {
-      "videoId": "fTDvp9CBXoQ",
-      "title": "NASA's SpaceX 35th Commercial Resupply Services Undocking",
-      "scheduledStartMillis": 1795193100000
-    }
-  ],
+  "upcoming": [],
   "error": null
 }
