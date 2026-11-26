@@ -92,7 +92,7 @@
     <string name="about_description">تتبّع محطة الفضاء الدولية في الوقت الفعلي، واعرض مرات المرور المرئية القادمة ومسارات السماء لموقعك، وتابع الطاقم الحالي، وشاهد البث المباشر، وفعّل التنبيهات لأفضل فرص المشاهدة.</string>
     <string name="support_title">الدعم</string>
     <string name="contact_support">الاتصال بالدعم</string>
-    <string name="contact_support_description">أبلغ عن توقعات مرور غير صحيحة أو مشكلات في الإشعارات أو الإعلانات أو غيرها</string>
+    <string name="contact_support_description">هل لديك أسئلة أو ملاحظات؟ إليك طريقة التواصل معنا.</string>
     <string name="rate_app">تقييم ISS Tracker</string>
     <string name="rate_app_description">افتح صفحة هذا التطبيق في المتجر</string>
     <string name="share_app">مشاركة ISS Tracker</string>

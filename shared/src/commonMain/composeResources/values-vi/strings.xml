@@ -92,7 +92,7 @@
     <string name="about_description">Theo dõi Trạm Vũ trụ Quốc tế theo thời gian thực, xem các lần bay qua nhìn thấy được và đường đi trên bầu trời cho vị trí của bạn, theo dõi phi hành đoàn hiện tại, xem phát trực tiếp và bật cảnh báo cho những cơ hội quan sát tốt nhất.</string>
     <string name="support_title">Hỗ trợ</string>
     <string name="contact_support">Liên hệ hỗ trợ</string>
-    <string name="contact_support_description">Báo cáo dự đoán lần bay qua sai, sự cố thông báo, quảng cáo hoặc vấn đề khác</string>
+    <string name="contact_support_description">Có câu hỏi hoặc góp ý? Đây là cách liên hệ với chúng tôi.</string>
     <string name="rate_app">Đánh giá ISS Tracker</string>
     <string name="rate_app_description">Mở trang cửa hàng của ứng dụng này</string>
     <string name="share_app">Chia sẻ ISS Tracker</string>

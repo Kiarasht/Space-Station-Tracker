@@ -5,9 +5,7 @@
     <string name="privacy_policy">隐私政策</string>
     <string name="terms_of_use">使用条款</string>
     <string name="cancel">取消</string>
-    <string name="support_email_subject">ISS Tracker 支持</string>
-    <string name="support_email_body">你好，\n\n我需要 ISS Tracker 的帮助。\n\n应用版本：%1$s\n\n</string>
-    <string name="no_email_app_available">没有可用的邮件应用</string>
+    <string name="no_browser_available">没有可用的浏览器</string>
     <string name="share_app">分享 ISS Tracker</string>
     <string name="share_app_text">使用 ISS Tracker 跟踪国际空间站：%1$s</string>
     <string name="no_share_app_available">没有可用的分享应用</string>

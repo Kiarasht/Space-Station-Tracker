@@ -5,9 +5,7 @@
     <string name="privacy_policy">개인정보 처리방침</string>
     <string name="terms_of_use">이용 약관</string>
     <string name="cancel">취소</string>
-    <string name="support_email_subject">ISS Tracker 지원</string>
-    <string name="support_email_body">안녕하세요,\n\nISS Tracker와 관련해 도움이 필요합니다.\n\n앱 버전: %1$s\n\n</string>
-    <string name="no_email_app_available">사용 가능한 이메일 앱이 없습니다</string>
+    <string name="no_browser_available">사용 가능한 브라우저가 없습니다</string>
     <string name="share_app">ISS Tracker 공유</string>
     <string name="share_app_text">ISS Tracker로 국제우주정거장을 추적하세요: %1$s</string>
     <string name="no_share_app_available">사용 가능한 공유 앱이 없습니다</string>

@@ -21,7 +21,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.Article
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
@@ -36,9 +35,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -67,34 +63,9 @@ fun SharedAboutScreen(
     onContactSupport: () -> Unit,
     onRateApp: () -> Unit,
     onShareApp: () -> Unit,
-    onPrivacyPolicy: (() -> Unit)?,
-    onTermsOfUse: (() -> Unit)?,
-    onLegalPageViewed: ((String) -> Unit)? = null
+    onPrivacyPolicy: () -> Unit,
+    onTermsOfUse: () -> Unit
 ) {
-    var legalPage by remember { mutableStateOf<LegalPage?>(null) }
-    legalPage?.let { page ->
-        SharedLegalScreen(
-            contentPadding = contentPadding,
-            title = stringResource(
-                if (page == LegalPage.PRIVACY) {
-                    Res.string.privacy_policy
-                } else {
-                    Res.string.terms_of_use
-                }
-            ),
-            content = if (page == LegalPage.PRIVACY) {
-                SharedLegalContent.privacyPolicy
-            } else {
-                SharedLegalContent.termsOfUse
-            },
-            onBack = {
-                legalPage = null
-                onLegalPageViewed?.invoke("ABOUT")
-            }
-        )
-        return
-    }
-
     val colors = MaterialTheme.spaceColors
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -148,12 +119,8 @@ fun SharedAboutScreen(
                         tint = colors.visibilityModerate,
                         title = stringResource(Res.string.privacy_policy),
                         subtitle = null,
-                        onClick = onPrivacyPolicy ?: {
-                            legalPage = LegalPage.PRIVACY
-                            onLegalPageViewed?.invoke("PRIVACY_POLICY")
-                            Unit
-                        },
-                        trailing = { RowArrow(opensExternally = onPrivacyPolicy != null) }
+                        onClick = onPrivacyPolicy,
+                        trailing = { RowArrow(opensExternally = true) }
                     )
                     SettingsDivider()
                     SettingsRow(
@@ -161,20 +128,14 @@ fun SharedAboutScreen(
                         tint = colors.visibilityVeryFaint,
                         title = stringResource(Res.string.terms_of_use),
                         subtitle = null,
-                        onClick = onTermsOfUse ?: {
-                            legalPage = LegalPage.TERMS
-                            onLegalPageViewed?.invoke("TERMS_OF_USE")
-                            Unit
-                        },
-                        trailing = { RowArrow(opensExternally = onTermsOfUse != null) }
+                        onClick = onTermsOfUse,
+                        trailing = { RowArrow(opensExternally = true) }
                     )
                 }
             }
         }
     }
 }
-
-private enum class LegalPage { PRIVACY, TERMS }
 
 /** App name, version and description on the night sky, above a small animated orbit. */
 @Composable
@@ -335,50 +296,3 @@ private fun RowArrow(opensExternally: Boolean) {
     )
 }
 
-@Composable
-private fun SharedLegalScreen(
-    contentPadding: PaddingValues,
-    title: String,
-    content: String,
-    onBack: () -> Unit
-) {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
-    ) {
-        LazyColumn(
-            contentPadding = PaddingValues(
-                start = 16.dp,
-                top = contentPadding.calculateTopPadding() + 12.dp,
-                end = 16.dp,
-                bottom = contentPadding.calculateBottomPadding() + 24.dp
-            ),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            item {
-                FilledTonalButton(onClick = onBack, contentPadding = PaddingValues(horizontal = 14.dp)) {
-                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, modifier = Modifier.size(18.dp))
-                    Spacer(Modifier.size(6.dp))
-                    Text(stringResource(Res.string.back))
-                }
-            }
-            item {
-                Text(
-                    title,
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(horizontal = 4.dp)
-                )
-            }
-            item {
-                SpaceSectionCard(title = null) {
-                    Text(
-                        content,
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(18.dp)
-                    )
-                }
-            }
-        }
-    }
-}

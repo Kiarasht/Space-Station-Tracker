@@ -5,9 +5,7 @@
     <string name="privacy_policy">سياسة الخصوصية</string>
     <string name="terms_of_use">شروط الاستخدام</string>
     <string name="cancel">إلغاء</string>
-    <string name="support_email_subject">دعم ISS Tracker</string>
-    <string name="support_email_body">مرحبًا،\n\nأحتاج إلى مساعدة في ISS Tracker.\n\nإصدار التطبيق: %1$s\n\n</string>
-    <string name="no_email_app_available">لا يوجد تطبيق بريد إلكتروني متاح</string>
+    <string name="no_browser_available">لا يتوفر متصفح</string>
     <string name="share_app">مشاركة ISS Tracker</string>
     <string name="share_app_text">تتبّع محطة الفضاء الدولية باستخدام ISS Tracker: %1$s</string>
     <string name="no_share_app_available">لا يوجد تطبيق مشاركة متاح</string>

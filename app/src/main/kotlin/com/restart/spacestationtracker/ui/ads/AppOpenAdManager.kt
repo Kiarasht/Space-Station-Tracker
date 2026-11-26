@@ -61,6 +61,9 @@ class AppOpenAdManager @Inject constructor(
 
     override fun onActivityStarted(activity: Activity) {
         if (activity.isAdMobActivity()) {
+            // Coming back to an app-open ad that is still up resumes the ad's screen, not the app's: that is an
+            // app open too. Count it; the ad on screen stays the only one.
+            if (isShowingAd && startedActivityCount == 0) incrementForegroundOpenCount(activity.application)
             return
         }
 
@@ -117,6 +120,11 @@ class AppOpenAdManager @Inject constructor(
 
     private fun onAppForegrounded(activity: Activity) {
         if (handledCurrentForeground) {
+            return
+        }
+        // One app-open ad at a time: while one is up, nothing is shown or queued behind it.
+        if (isShowingAd) {
+            handledCurrentForeground = true
             return
         }
         if (settingsRepository.isAdFreeNow()) {

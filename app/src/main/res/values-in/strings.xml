@@ -5,9 +5,7 @@
     <string name="privacy_policy">Kebijakan Privasi</string>
     <string name="terms_of_use">Ketentuan Penggunaan</string>
     <string name="cancel">Batal</string>
-    <string name="support_email_subject">Dukungan ISS Tracker</string>
-    <string name="support_email_body">Halo,\n\nSaya butuh bantuan dengan ISS Tracker.\n\nVersi app: %1$s\n\n</string>
-    <string name="no_email_app_available">Tidak ada app email yang tersedia</string>
+    <string name="no_browser_available">Tidak ada browser yang tersedia</string>
     <string name="share_app">Bagikan ISS Tracker</string>
     <string name="share_app_text">Lacak Stasiun Luar Angkasa Internasional dengan ISS Tracker: %1$s</string>
     <string name="no_share_app_available">Tidak ada app berbagi yang tersedia</string>

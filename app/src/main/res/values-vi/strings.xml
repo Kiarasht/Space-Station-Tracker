@@ -5,9 +5,7 @@
     <string name="privacy_policy">Chính sách bảo mật</string>
     <string name="terms_of_use">Điều khoản sử dụng</string>
     <string name="cancel">Hủy</string>
-    <string name="support_email_subject">Hỗ trợ ISS Tracker</string>
-    <string name="support_email_body">Xin chào,\n\nTôi cần trợ giúp với ISS Tracker.\n\nPhiên bản ứng dụng: %1$s\n\n</string>
-    <string name="no_email_app_available">Không có ứng dụng email nào</string>
+    <string name="no_browser_available">Không có trình duyệt nào</string>
     <string name="share_app">Chia sẻ ISS Tracker</string>
     <string name="share_app_text">Theo dõi Trạm Vũ trụ Quốc tế với ISS Tracker: %1$s</string>
     <string name="no_share_app_available">Không có ứng dụng chia sẻ nào</string>
