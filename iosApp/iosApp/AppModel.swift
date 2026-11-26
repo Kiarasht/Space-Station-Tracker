@@ -4,6 +4,7 @@ import EventKitUI
 import Foundation
 import ISSTrackerShared
 import MapKit
+import SafariServices
 import StoreKit
 import SwiftUI
 import UIKit
@@ -361,8 +362,8 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
             adRemovalPurchase.purchase()
         case "restore_ad_removal":
             adRemovalPurchase.restore()
-        case "contact_support":
-            contactSupport(versionText: parameter)
+        case "open_hosted_page":
+            openHostedPage(parameter)
         case "rate_app":
             rateApp()
         case "share_app":
@@ -550,20 +551,10 @@ final class AppModel: NSObject, ObservableObject, @preconcurrency CLLocationMana
         Self.topViewController()?.present(controller, animated: true)
     }
 
-    private func contactSupport(versionText: String?) {
-        var components = URLComponents()
-        components.scheme = "mailto"
-        components.path = "restartapplication@gmail.com"
-        components.queryItems = [
-            URLQueryItem(name: "subject", value: "ISS Tracker support"),
-            URLQueryItem(
-                name: "body",
-                value: "Hi,\n\nI need help with ISS Tracker.\n\nApp version: \(versionText ?? appVersionName)\n\n"
-            )
-        ]
-        if let url = components.url {
-            UIApplication.shared.open(url)
-        }
+    /// Our hosted pages (Terms, Privacy, Support) open in an in-app browser over the app (Blueprint §14.9).
+    private func openHostedPage(_ value: String?) {
+        guard let value, let url = URL(string: value), url.scheme == "https" else { return }
+        Self.topViewController()?.present(SFSafariViewController(url: url), animated: true)
     }
 
     private func shareApp() {

@@ -92,7 +92,7 @@
     <string name="about_description">实时跟踪国际空间站，查看你所在位置即将出现的可见过境和天空轨迹，关注当前机组人员，观看直播，并为最佳观测机会启用提醒。</string>
     <string name="support_title">支持</string>
     <string name="contact_support">联系支持</string>
-    <string name="contact_support_description">报告过境预测、通知、广告或其他问题</string>
+    <string name="contact_support_description">有问题或反馈？这里是联系我们的方式。</string>
     <string name="rate_app">评价 ISS Tracker</string>
     <string name="rate_app_description">打开此应用的商店页面</string>
     <string name="share_app">分享 ISS Tracker</string>

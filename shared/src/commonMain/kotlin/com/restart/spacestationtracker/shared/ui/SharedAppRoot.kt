@@ -122,8 +122,20 @@ private enum class SharedTab {
     ABOUT
 }
 
+/**
+ * Our hosted pages on restartapps.com, opened in an in-app browser (SFSafariViewController on iOS, a Custom Tab on
+ * Android) through [SharedAppActions.OPEN_HOSTED_PAGE] (Blueprint §14.9). A wording change then reaches every
+ * installed version without a release.
+ */
+object HostedPages {
+    const val PrivacyPolicy = "https://restartapps.com/apps/iss-tracker/privacy/"
+    const val TermsOfUse = "https://restartapps.com/apps/iss-tracker/terms/"
+    const val Support = "https://restartapps.com/support/"
+}
+
 object SharedAppActions {
     const val SCREEN_VIEW = "screen_view"
+    const val OPEN_HOSTED_PAGE = "open_hosted_page"
     const val OPEN_URL = "open_url"
     const val REQUEST_LOCATION = "request_location"
     const val MEANINGFUL_INTERACTION = "meaningful_interaction"
@@ -140,7 +152,6 @@ object SharedAppActions {
     const val PURCHASE_AD_REMOVAL = "purchase_ad_removal"
     const val RESTORE_AD_REMOVAL = "restore_ad_removal"
     const val OPEN_AD_REMOVAL = "open_ad_removal"
-    const val CONTACT_SUPPORT = "contact_support"
     const val RATE_APP = "rate_app"
     const val SHARE_APP = "share_app"
     const val MAP_TYPE_CHANGED = "map_type_changed"
@@ -303,14 +314,11 @@ fun SharedAppRoot(
                 SharedTab.ABOUT -> SharedAboutScreen(
                     contentPadding = padding,
                     versionText = versionText,
-                    onContactSupport = { onAction(SharedAppActions.CONTACT_SUPPORT, versionText) },
+                    onContactSupport = { onAction(SharedAppActions.OPEN_HOSTED_PAGE, HostedPages.Support) },
                     onRateApp = { onAction(SharedAppActions.RATE_APP, null) },
                     onShareApp = { onAction(SharedAppActions.SHARE_APP, null) },
-                    onPrivacyPolicy = null,
-                    onTermsOfUse = null,
-                    onLegalPageViewed = { page ->
-                        onAction(SharedAppActions.SCREEN_VIEW, page)
-                    }
+                    onPrivacyPolicy = { onAction(SharedAppActions.OPEN_HOSTED_PAGE, HostedPages.PrivacyPolicy) },
+                    onTermsOfUse = { onAction(SharedAppActions.OPEN_HOSTED_PAGE, HostedPages.TermsOfUse) }
                 )
                 SharedTab.SETTINGS -> SharedFullSettingsScreen(
                     settings = state.settings,

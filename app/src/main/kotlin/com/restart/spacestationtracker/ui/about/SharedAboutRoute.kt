@@ -8,18 +8,17 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
 import com.restart.spacestationtracker.BuildConfig
 import com.restart.spacestationtracker.R
 import com.restart.spacestationtracker.analytics.AppAnalytics
+import com.restart.spacestationtracker.shared.ui.HostedPages
 import com.restart.spacestationtracker.shared.ui.SharedAboutScreen
 import com.restart.spacestationtracker.util.AppRatingManager
 
 @Composable
-fun SharedAboutRoute(
-    contentPadding: PaddingValues,
-    onNavigateToLegal: (titleResId: Int, contentResId: Int) -> Unit
-) {
+fun SharedAboutRoute(contentPadding: PaddingValues) {
     val context = LocalContext.current
     val versionText = stringResource(
         R.string.version_details_format,
@@ -31,7 +30,7 @@ fun SharedAboutRoute(
         versionText = versionText,
         onContactSupport = {
             AppAnalytics.trackInteraction("contact_support", "about")
-            contactSupport(context, versionText)
+            openHostedPage(context, HostedPages.Support)
         },
         onRateApp = {
             AppAnalytics.trackInteraction("rate_app", "about")
@@ -43,27 +42,27 @@ fun SharedAboutRoute(
         },
         onPrivacyPolicy = {
             AppAnalytics.trackInteraction("open_privacy_policy", "about")
-            onNavigateToLegal(R.string.privacy_policy, R.string.privacy_policy_content)
+            openHostedPage(context, HostedPages.PrivacyPolicy)
         },
         onTermsOfUse = {
             AppAnalytics.trackInteraction("open_terms_of_use", "about")
-            onNavigateToLegal(R.string.terms_of_use, R.string.terms_of_use_content)
+            openHostedPage(context, HostedPages.TermsOfUse)
         }
     )
 }
 
-private fun contactSupport(context: Context, versionText: String) {
-    val intent = Intent(
-        Intent.ACTION_SENDTO,
-        "mailto:${context.getString(R.string.support_email)}".toUri()
-    ).apply {
-        putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.support_email_subject))
-        putExtra(Intent.EXTRA_TEXT, context.getString(R.string.support_email_body, versionText))
-    }
+/** Our hosted pages (Terms, Privacy, Support) open in a Custom Tab over the app (Blueprint §14.9). */
+private fun openHostedPage(context: Context, url: String) {
+    val uri = url.toUri()
+    val customTab = CustomTabsIntent.Builder().setShowTitle(true).build().intent.apply { data = uri }
     try {
-        context.startActivity(intent)
+        context.startActivity(customTab)
     } catch (_: ActivityNotFoundException) {
-        Toast.makeText(context, R.string.no_email_app_available, Toast.LENGTH_SHORT).show()
+        try {
+            context.startActivity(Intent(Intent.ACTION_VIEW, uri))
+        } catch (_: ActivityNotFoundException) {
+            Toast.makeText(context, R.string.no_browser_available, Toast.LENGTH_SHORT).show()
+        }
     }
 }
 

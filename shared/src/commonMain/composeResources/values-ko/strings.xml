@@ -92,7 +92,7 @@
     <string name="about_description">국제우주정거장을 실시간으로 추적하고, 현재 위치에서 볼 수 있는 다음 통과와 하늘 경로를 확인하며, 현재 승무원과 라이브 스트림을 보고 최고의 관측 기회를 위한 알림을 켤 수 있습니다.</string>
     <string name="support_title">지원</string>
     <string name="contact_support">지원 문의</string>
-    <string name="contact_support_description">잘못된 통과 예측, 알림 문제, 광고 또는 기타 문제를 신고하세요</string>
+    <string name="contact_support_description">문의나 의견이 있으신가요? 연락 방법을 안내해 드립니다.</string>
     <string name="rate_app">ISS Tracker 평가하기</string>
     <string name="rate_app_description">이 앱의 스토어 페이지 열기</string>
     <string name="share_app">ISS Tracker 공유</string>

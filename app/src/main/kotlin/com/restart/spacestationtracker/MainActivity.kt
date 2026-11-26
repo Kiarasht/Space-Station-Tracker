@@ -53,12 +53,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
@@ -66,7 +64,6 @@ import com.google.android.gms.ads.MobileAds
 import com.restart.spacestationtracker.analytics.AppAnalytics
 import com.restart.spacestationtracker.data.settings.SettingsRepository
 import com.restart.spacestationtracker.data.settings.defaultAppSettings
-import com.restart.spacestationtracker.ui.about.LegalScreen
 import com.restart.spacestationtracker.ui.about.SharedAboutRoute
 import com.restart.spacestationtracker.ui.ads.AdMobIds
 import com.restart.spacestationtracker.ui.ads.AdsConsentManager
@@ -293,8 +290,6 @@ fun MainScreen(
         onPendingRouteHandled()
     }
 
-    // Legal pages are full screen.
-    val isBottomBarVisible = currentRoute?.startsWith("legal") != true
     val selectedRoute = bottomNavItems.firstOrNull { screen ->
         currentDestination?.hierarchy?.any { it.route == screen.route } == true
     }?.route ?: Screen.Map.route
@@ -314,11 +309,10 @@ fun MainScreen(
         // Screens draw under the floating bar; its measured height becomes their bottom padding.
         val contentPadding = PaddingValues(
             top = innerPadding.calculateTopPadding(),
-            bottom = if (isBottomBarVisible) chromeHeight else innerPadding.calculateBottomPadding()
+            bottom = chromeHeight
         )
         Box(Modifier.fillMaxSize()) {
-            // Switching tabs slides toward the tapped tab's side of the bar, with a fade; legal pages come in
-            // from the right, after the last tab, and go back the way they came.
+            // Switching tabs slides toward the tapped tab's side of the bar, with a fade.
             val tabOrder: (String?) -> Int = { route ->
                 bottomNavItems.indexOfFirst { it.route == route }.takeIf { it >= 0 } ?: bottomNavItems.size
             }
@@ -365,56 +359,34 @@ fun MainScreen(
                     )
                 }
                 composable(Screen.About.route) {
-                    SharedAboutRoute(
-                        contentPadding = contentPadding,
-                        onNavigateToLegal = { titleResId, contentResId ->
-                            navController.navigate("legal/$titleResId/$contentResId")
-                        }
-                    )
-                }
-                composable(
-                    route = Screen.Legal.route,
-                    arguments = listOf(
-                        navArgument("titleResId") { type = NavType.IntType },
-                        navArgument("contentResId") { type = NavType.IntType }
-                    )
-                ) { backStackEntry ->
-                    val title = backStackEntry.arguments?.getInt("titleResId") ?: 0
-                    val content = backStackEntry.arguments?.getInt("contentResId") ?: 0
-                    LegalScreen(
-                        titleResId = title,
-                        contentResId = content,
-                        onNavigateUp = { navController.popBackStack() }
-                    )
+                    SharedAboutRoute(contentPadding = contentPadding)
                 }
             }
 
-            if (isBottomBarVisible) {
-                SpaceBottomChrome(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .onSizeChanged { chromeHeightPx = it.height },
-                    banner = if (!isAdFree && canRequestAds) {
-                        { AdmobBanner(modifier = Modifier.fillMaxWidth()) }
-                    } else {
-                        null
-                    }
-                ) {
-                    SpaceFloatingNavBar(
-                        items = navItems,
-                        selectedKey = selectedRoute,
-                        onSelect = { route ->
-                            AppAnalytics.trackInteraction("navigate_$route")
-                            navController.navigate(route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
-                                }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        }
-                    )
+            SpaceBottomChrome(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .onSizeChanged { chromeHeightPx = it.height },
+                banner = if (!isAdFree && canRequestAds) {
+                    { AdmobBanner(modifier = Modifier.fillMaxWidth()) }
+                } else {
+                    null
                 }
+            ) {
+                SpaceFloatingNavBar(
+                    items = navItems,
+                    selectedKey = selectedRoute,
+                    onSelect = { route ->
+                        AppAnalytics.trackInteraction("navigate_$route")
+                        navController.navigate(route) {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                )
             }
         }
     }
@@ -471,5 +443,4 @@ sealed class Screen(val route: String, val labelResId: Int, val icon: ImageVecto
     object PeopleInSpace : Screen("On Duty", R.string.nav_on_duty, Icons.Filled.People)
     object Settings : Screen("Settings", R.string.nav_settings, Icons.Filled.Settings)
     object About : Screen("About", R.string.nav_about, Icons.Filled.Info)
-    object Legal : Screen("legal/{titleResId}/{contentResId}", R.string.nav_about)
 }

@@ -92,7 +92,7 @@
     <string name="about_description">Отслеживайте Международную космическую станцию в реальном времени, смотрите ближайшие видимые пролеты и путь по небу для вашего местоположения, следите за текущим экипажем, смотрите прямые трансляции и включайте оповещения для лучших возможностей наблюдения.</string>
     <string name="support_title">Поддержка</string>
     <string name="contact_support">Связаться с поддержкой</string>
-    <string name="contact_support_description">Сообщите о неверных прогнозах пролетов, проблемах с уведомлениями, рекламой или других ошибках</string>
+    <string name="contact_support_description">Вопросы или отзывы? Вот как с нами связаться.</string>
     <string name="rate_app">Оценить ISS Tracker</string>
     <string name="rate_app_description">Открыть страницу приложения в магазине</string>
     <string name="share_app">Поделиться ISS Tracker</string>
