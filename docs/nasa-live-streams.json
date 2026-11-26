@@ -1,9 +1,9 @@
 {
   "status": "ok",
-  "updatedAt": "2026-11-26T04:29:24.726Z",
-  "updatedAtMillis": 1795667364726,
-  "lastSuccessAtMillis": 1795667364726,
-  "lastFullSearchAtMillis": 1795667364726,
+  "updatedAt": "2026-11-26T14:18:15.884Z",
+  "updatedAtMillis": 1795702695884,
+  "lastSuccessAtMillis": 1795702695884,
+  "lastFullSearchAtMillis": 1795702695884,
   "source": "github-actions",
   "streams": [
     {
@@ -16,11 +16,6 @@
     }
   ],
   "upcoming": [
-    {
-      "videoId": "nCJQZHBkSsU",
-      "title": "Progress 97 Cargo Ship Docking",
-      "scheduledStartMillis": 1795692600000
-    },
     {
       "videoId": "YLrybIli73I",
       "title": "NASA's Northrop Grumman Commercial Resupply Services 25 Launch",
